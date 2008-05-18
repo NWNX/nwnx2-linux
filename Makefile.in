@@ -1,0 +1,37 @@
+CXX = @CXX@
+LIBS = @LIBS@ -ldl
+FLAGS = -w -fPIC -shared -W -Wall @LDFLAGS@
+DEFS = @DEFS@
+CPPFLAGS = @CPPFLAGS@
+
+# Add your own plugins to the compilation with this configure option:
+# ./configure --with-extraplugins="plugin1 plugin2 ..."
+SUBDIRS = db mnx functions hashset @EXTRAPLUGINDIRS@
+
+all: nwnx2.so subdirs
+
+nwnx2.so: nwnx2lib.o NWNXBase.o gline.o
+	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS)
+
+# always execute regardless of existance or timestamp
+.PHONY: clean subdirs $(SUBDIRS)
+
+subdirs: $(SUBDIRS)
+
+$(SUBDIRS):
+	$(MAKE) -C $@
+
+clean:
+	for i in $(SUBDIRS); do $(MAKE) -C $$i $@; done
+	/bin/rm -f *.o *.so *~
+
+install: all
+	for i in $(SUBDIRS); do $(MAKE) -C $$i $@; done
+	mkdir -p @prefix@/
+	install nwnx2.so @prefix@/
+	if [ ! -f @prefix@/nwnx2.ini ]; then install nwnx2.ini @prefix@/; fi
+
+distclean:
+	for i in $(SUBDIRS); do $(MAKE) -C $$i $@; done
+	/bin/rm -f Makefile config.h config.status config.cache config.log *.o *.so *~
+

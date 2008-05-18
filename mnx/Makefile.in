@@ -1,0 +1,34 @@
+CXX = @CXX@
+LIBS = @LIBS@
+FLAGS = -w -fPIC -shared -W -Wall @LDFLAGS@
+DEFS = @DEFS@
+
+# TODO: snarf from configure somehow
+# the user should be able to specify NWNXDIR
+# if NWNXDIR is not specified, configure should
+# probe (.. ../linnwnx2) and die if not found.
+# NWNXDIR = @NWNXDIR@
+NWNXDIR = ..
+
+# CFLAGS = @CFLAGS@ -I$(NWNXDIR)
+# CXXFLAGS= @CXXFLAGS@ $(CFLAGS)
+CPPFLAGS = @CPPFLAGS@ -I$(NWNXDIR)
+
+NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o 
+
+all: nwnx_mnx.so
+
+nwnx_mnx.so: NWNXmnx.o plugin-mnx.o
+	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS)
+
+plugin-t: plugin-t.o $(NWNXBASE)
+	$(CXX) -o $@ $(CXXFLAGS) $^ -ldl
+
+clean:
+	/bin/rm -f *.o *.so *~ plugin-t
+
+distclean: clean
+	/bin/rm -f Makefile
+
+install: all
+	mkdir -p @prefix@/ ; install nwnx_mnx.so @prefix@/

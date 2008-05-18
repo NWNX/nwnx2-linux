@@ -1,0 +1,28 @@
+MINIMAL NETWORK EXTENSION (MNX) Plugin
+-----------------------------------------------------------------------
+
+nwnx_mnx.so: minimal network extention.  Plugin that sends UDP
+messages to UDP listening servers.
+
+Request= NWNX!MNX!OPEN!SERVICENAME!  Parameters= hostname:port
+Request= NWNX!MNX!CLOSE!SERVICENAME!  Parameters= n/a
+Request= NWNX!MNX!SEND!SERVICENAME!  Parameters= message
+
+Optionally, you may add a section to nwnx2.ini:
+[MNX]
+service=MYSERVICENAME			# your service name
+hostname=localhost:1234			# the host to throw UDP packets at
+
+mnx.pl: UDP listening server in perl.  Listens to 2182 and returns the
+output from the date command.  Port and Cmdline are adjustible in the
+source.
+
+plugin-t: standalone test application.  Scans the CWD for any files
+that match 'nwnx_*.so' (case sensitive) and tries to load, query and
+initialize the CNWNXBase object contained within.
+
+nwnxtest.mod: module that opens a connection to localhost:2182 (click
+on the book).  Click on the book to exercise the MNX plugin.  The
+spirit to your left is my admin console work-in-progress (talk to him
+to see what happens to non admins :)
+
