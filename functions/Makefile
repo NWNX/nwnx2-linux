@@ -1,7 +1,7 @@
-CXX = @CXX@
-LIBS = @LIBS@
-FLAGS = -w -fPIC -shared -W -Wall @LDFLAGS@
-DEFS = @DEFS@
+CXX = g++
+LIBS = 
+FLAGS = -w -fPIC -shared -W -Wall 
+DEFS = -DHAVE_CONFIG_H
 
 # TODO: snarf from configure somehow
 # the user should be able to specify NWNXDIR
@@ -10,15 +10,15 @@ DEFS = @DEFS@
 # NWNXDIR = @NWNXDIR@
 NWNXDIR = ..
 
-# CFLAGS = @CFLAGS@ -I$(NWNXDIR)
-# CXXFLAGS= @CXXFLAGS@ $(CFLAGS)
-CPPFLAGS = @CPPFLAGS@ -I$(NWNXDIR)
+# CFLAGS = -g -O2 -I$(NWNXDIR)
+# CXXFLAGS= -g -O2 $(CFLAGS)
+CPPFLAGS = -mcpu=i386  -I$(NWNXDIR)
 
 NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o 
 
 all: nwnx_functions.so
 
-nwnx_functions.so: C2DA.o CNWSScriptVarTable.o FunctionHooks.o NWNXFunction.o plugin-functions.o
+nwnx_functions.so: C2DA.o CNWSScriptVarTable.o CExoLinkedList.o CItemRepository.o FunctionHooks.o NWNXFunction.o plugin-functions.o
 	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS)
 
 plugin-t: plugin-t.o $(NWNXBASE)
@@ -31,4 +31,4 @@ distclean: clean
 	/bin/rm -f Makefile
 
 install: all
-	mkdir -p @prefix@/ ; install nwnx_functions.so @prefix@/
+	mkdir -p /home/nwn/ ; install nwnx_functions.so /home/nwn/

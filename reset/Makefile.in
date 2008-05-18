@@ -16,9 +16,9 @@ CPPFLAGS = @CPPFLAGS@ -I$(NWNXDIR)
 
 NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o 
 
-all: nwnx_functions.so
+all: nwnx_resetplugin.so
 
-nwnx_functions.so: C2DA.o CNWSScriptVarTable.o FunctionHooks.o NWNXFunction.o plugin-functions.o
+nwnx_resetplugin.so: NWNXReset.o plugin-reset.o
 	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS)
 
 plugin-t: plugin-t.o $(NWNXBASE)
@@ -31,4 +31,4 @@ distclean: clean
 	/bin/rm -f Makefile
 
 install: all
-	mkdir -p @prefix@/ ; install nwnx_functions.so @prefix@/
+	mkdir -p @prefix@/ ; install nwnx_resetplugin.so @prefix@/

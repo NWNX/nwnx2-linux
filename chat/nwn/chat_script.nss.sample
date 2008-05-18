@@ -1,0 +1,132 @@
+//::///////////////////////////////////////////////
+//:: chat_script
+//:: FileName
+//:: Copyright (c) 2005 dumbo (dumbo@nm.ru)
+//:://////////////////////////////////////////////
+/*
+  ### ! for use with Chat plugin for NWNX ! ###
+  some debug information, some emotes and log
+*/
+//:://////////////////////////////////////////////
+//:: Created By: dumbo
+//:: Created On: 2005-09-08
+//:://////////////////////////////////////////////
+
+#include "dmb_chat"
+void main()
+{
+  // speaking object
+  object oPC = OBJECT_SELF;
+  object oPCn;
+
+  string sMsg = "speaker name="+GetName(oPC);
+  // debug string
+  SendMessageToPC(oPC, sMsg);
+
+  // get text
+  SetLocalString(oPC, "NWNX!CHAT!TEXT", dmb_GetSpacer());
+  string sText = GetLocalString(oPC, "NWNX!CHAT!TEXT");
+
+  int nMode = StringToInt(GetStringLeft(sText,2));
+  int nTo = StringToInt(GetSubString(sText,2,10));
+  SendMessageToPC(oPC, sText);
+  sText = dmb_GetStringFrom(sText, 12);
+
+  // debug string
+  string sMsgT = "mode="+IntToString(nMode)+", to="+IntToHexString(nTo)+", str="+sText;
+  SendMessageToPC(oPC, sMsgT);
+
+  // sample of suppress message
+  if (GetSubString(sText, 0, 1)=="*")
+  {
+    sText = dmb_GetStringFrom(sText);
+    //                        0   4    9
+    int nPos = FindSubString("sit pray hi", sText);
+    switch (nPos)
+    {
+      case 0: ActionPlayAnimation(ANIMATION_LOOPING_SIT_CROSS, 1.0, 10000.0); break;
+      case 4: ActionPlayAnimation(ANIMATION_LOOPING_MEDITATE, 1.0, 10000.0); break;
+      case 9: ActionPlayAnimation(ANIMATION_FIREFORGET_SALUTE); SpeakString("Hello!"); break;
+    }
+    SetLocalString(oPC, "NWNX!CHAT!SUPRESS", "1");
+  }
+  else if (GetSubString(sText, 0, 1)=="!")
+  {
+    sText = dmb_GetStringFrom(sText);
+    //                        0   4    9
+    int nPos = FindSubString("gfp pray hi", sText);
+    switch (nPos)
+    {
+      case 0:
+      {
+        oPCn = GetFirstPC();
+        while (GetIsObjectValid(oPCn))
+        {
+          SendMessageToPC(oPC, "["+GetPCPlayerName(oPCn)+"] "+GetName(oPCn));
+          oPCn = GetNextPC();
+        }
+      }
+      case 4: ActionPlayAnimation(ANIMATION_LOOPING_MEDITATE, 1.0, 10000.0); break;
+      case 9: ActionPlayAnimation(ANIMATION_FIREFORGET_SALUTE); SpeakString("Hello!"); break;
+    }
+    SetLocalString(oPC, "NWNX!CHAT!SUPRESS", "1");
+  }
+  else
+  {
+    sMsg = "["+GetPCPlayerName(OBJECT_SELF)+"] "+GetName(OBJECT_SELF);
+    if (nMode==1 || nMode==3)
+    {
+      int nIdx = 1;
+      float fDst = 3.0;
+      if (nMode==1)
+      {
+        fDst = 10.0;
+        sMsg += " >talk> ";
+      }
+      else
+        sMsg += " >whisper> ";
+
+      while (GetIsObjectValid(oPCn=GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR,
+                                                     PLAYER_CHAR_IS_PC,
+                                                     OBJECT_SELF, nIdx++)))
+        if (GetDistanceToObject(oPCn) < fDst &&
+            oPCn != oPC)
+          sMsg += GetName(oPCn)+":";
+        else break;
+    }
+    else if (nMode==2)
+      sMsg += " >shout> All";
+    else if (nMode==6)
+    {
+      sMsg += " >party> ";
+      oPCn = GetFirstFactionMember(OBJECT_SELF, TRUE);
+      while (GetIsObjectValid(oPCn))
+      {
+        sMsg += GetName(oPCn)+":";
+        oPCn = GetNextFactionMember(OBJECT_SELF, TRUE);
+      }
+    }
+    else if (nMode==4)
+    {
+      oPCn = dmb_getPC(nTo);
+      sMsg += " >private> " + "["+GetPCPlayerName(oPCn)+"] "+GetName(oPCn);
+    }
+    else
+    {
+      sMsg += " >DM> ";
+      oPCn = GetFirstPC();
+      while (GetIsObjectValid(oPCn))
+      {
+        if (GetIsDM(oPCn))
+          sMsg += " ["+GetPCPlayerName(oPCn)+"] "+GetName(oPCn)+":";
+        oPCn = GetNextPC();
+      }
+    }
+    SetLocalString(oPC, "NWNX!CHAT!LOG", sMsg+"\n");
+    SetLocalString(oPC, "NWNX!CHAT!LOG", " *** "+sText+"\n");
+  }
+  // remove garbage
+  DeleteLocalString(oPC, "NWNX!CHAT!TEXT");
+  DeleteLocalString(oPC, "NWNX!CHAT!SUPRESS");
+}
+

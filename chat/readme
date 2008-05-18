@@ -1,0 +1,56 @@
+NWNX Chat 0.3
+Changes:
+- Fixed some bugs
+- SendMessage now returns 0 or 1 indicating that the message was sent or not
+- Released the sources
+
+virusman
+15.02.2007
+----------
+
+Chat plugin 0.2
+.
+.
+this plugin hooks player inputs and executes nwn-script
+.
+.
+NWNX2.ini additions:
+--/-/---
+[CHAT]
+chat_script=some_script # default = chat_script ;)
+server_script=some_srv_script # without extension!
+processnpc=[0 or 1] # switch NPC speech processing on/off
+ignore_silent=[0 or 1] # disable processing of silent talk/shout messages
+--/-/---
+.
+.
+OnModuleLoad script additions:
+--/-/---
+#include "dmb_chat"
+void main()
+{
+  dmb_ChatInit();
+--/-/---
+.
+.
+OnClientEnter script additions:
+--/-/---
+#include "dmb_chat"
+void main()
+{
+  object oPC = GetEnteringObject();
+  dmb_PCin(oPC);
+--/-/---
+.
+.
+OnClientLeave script additions:
+--/-/---
+#include "dmb_chat"
+void main()
+{
+  object oPC = GetExitingObject();
+  dmb_PCout(oPC);
+--/-/---
+.
+.
+[x] dumbo (dumbo@nm.ru)

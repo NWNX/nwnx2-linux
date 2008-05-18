@@ -1,0 +1,26 @@
+0.3.2 - 23.01.2008
+----
+* Added optional PostgreSQL support
+
+0.3.1 - 08.02.2007
+----
+* Fixed GCC 4.* compiling issue.
+* Added optional SQLite support
+* Fixed possible memory leak
+* Added 'charset' ini option
+
+
+0.3 - 10.08.2006
+----
+* The plugin now uses "pass" or "pwd" config key for password
+* RCO uses its own result set, so you can do something like that:
+SQLExec("SELECT id, stackable, stacksize FROM ax_bank_items WHERE cid="+IntToString(nID));
+while(SQLFetch())
+{
+	sItemID = SQLGet(1);
+	bStackable = StringToInt(SQLGet(2));
+	SQLSCORCOExec("SELECT data FROM ax_bank_items WHERE id="+sItemID);
+	oTmp = SQLRetrieveObject(lLoc, OBJECT_SELF);
+	...
+}
+without breaking the main loop.
