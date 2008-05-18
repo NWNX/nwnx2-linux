@@ -60,35 +60,52 @@ map<string, CNWNXBase*> Libraries;
 
 unsigned char jmp_code[] = "\x68\x60\x70\x80\x90"	/* push dword 0x90807060 */
     "\xc3\x90\x90";		/* ret , nop , nop       */
+unsigned char ret_code_ss[0x20];
+unsigned char ret_code_go[0x20];
+bool ObjRet = 0;
+unsigned long oRes;
 
 unsigned long o_esp;
 unsigned long o_SetString, m_SetString;
+unsigned long o_GetObject;
 void (*o_SetStringFunc) (char **, char **);
 gline nwnxConfig;
 
 // FIXME!!! hack
 char *gameObject = NULL;
 char *returnAddr = NULL;
+char *ObjReturnAddr = NULL;
 char gObjDummy[4096] = {};
 
 // helper function prototype
 void Log(int priority, const char *pcMsg, ...);
 
 void
-setaddr (unsigned char *buf, long addy)
+d_enable_write (unsigned long location)
 {
-    *(buf) = addy;
-    *(buf + 1) = addy >> 8;
-    *(buf + 2) = addy >> 16;
-    *(buf + 3) = addy >> 24;
+    char *page;
+    page = (char *) location;
+    page = (char *) (((int) page + PAGESIZE - 1) & ~(PAGESIZE - 1));
+    page -= PAGESIZE;
+
+    if (mprotect (page, PAGESIZE, PROT_WRITE | PROT_READ | PROT_EXEC))
+	perror ("mprotect");
 }
 
 void
-redirect (long from, long to)
+d_redirect (long from, long to, unsigned char *ret_code, long len=0)
 {
-    setaddr (jmp_code + 1, to);
-    memcpy ((void *) from, (const void *) jmp_code, sizeof (jmp_code));
-    o_SetString += 10;
+    // enable write to code pages
+    d_enable_write (from);
+    // copy orig code stub to our "ret_code"
+    len = len ? len : sizeof(jmp_code)-1; // - trailing 0x00
+    memcpy ((void *) ret_code, (const void *) from, len);
+    // make ret code
+    *(long *)(jmp_code + 1) = from + len;
+    memcpy ((char *) ret_code + len, (const void *) jmp_code, 6);
+    // make hook code
+    *(long *)(jmp_code + 1) = to;
+    memcpy ((void *) from, (const void *) jmp_code, 6);
 }
 
 void
@@ -124,16 +141,16 @@ PayLoad(const char **ppname, const char **ppvalue)
 			if(returnAddr == NULL) {
 				// This is the return address that ExecCmdSetVar set
 				returnAddr= thisRetAddr;
-				Log(0,"INIT: valid ret=0x%08x\n",returnAddr);
+				Log(0,"INIT(S): valid ret=0x%08x\n",returnAddr);
 			} else {
-				Log(0,"INIT: reset ignored ret=0x%08x\n",
+				Log(0,"INIT(S): reset ignored ret=0x%08x\n",
 					thisRetAddr);
 			}
 			// Protect us from getting called during saves
 			value[0]='0';
 
 		} else {
-			Log(1,"INIT: value!=1. No change to ret.\n");
+			Log(1,"INIT(S): value!=1. No change to ret.\n");
 		}
 		return;
 	}
@@ -156,7 +173,7 @@ PayLoad(const char **ppname, const char **ppvalue)
 		if(!returnAddr)
 			Log(0,"FAILED: NWNX!INIT has not been initialized.\n");
 		else
-			Log(2,"REJECTED: ret=0x%08x but we wanted ret=0x%08x!\n", 
+			Log(2,"REJECTED: (S) ret=0x%08x but we wanted ret=0x%08x!\n", 
 				*(char **)(o_esp+0x04), returnAddr);
 		return;
 	}
@@ -180,24 +197,138 @@ PayLoad(const char **ppname, const char **ppvalue)
 
 	if (pBase != NULL)
 	{
+		Log(3, "* Library %s found: %08lX\n", library, pBase);
+		Log(4, "* OnRequest address: %08lX\n", &CNWNXBase::OnRequest);
 		// library found, handle the request
 		iValueLength = strlen(value);
-		const char* pRes = pBase->OnRequest(gameObject, function + 1, value);
-		if (pRes != NULL)
+		char* pRes = pBase->OnRequest(gameObject, function + 1, value);
+		if (pRes != NULL && pRes != value && pRes[0]!=0)
 		{
-			// copy result into nwn variable value while respecting the maximum size
-			iResultLength = strlen(pRes);
-			if (iValueLength < iResultLength)
+			if(strncmp(library,"LETO",4) != 0 &&
+			   strncmp(library,"HASHSET",7) != 0)
 			{
-				strncpy(value, pRes, iValueLength);
-				*(value+iValueLength) = 0x0;
+				// copy result into nwn variable value while respecting the maximum size
+				// new plugins
+				iResultLength = strlen(pRes);
+				if (iValueLength < iResultLength)
+				{
+					free(value);
+					*ppvalue = pRes;
+					*((unsigned long *)ppvalue+1) = strlen(pRes);
+				}
+				else
+				{
+					strncpy(value, pRes, iResultLength);
+					*(value+iResultLength) = 0x0;
+					free(pRes);
+				}
 			}
 			else
 			{
-				strncpy(value, pRes, iResultLength);
-				*(value+iResultLength) = 0x0;
+				// copy result into nwn variable value while respecting the maximum size
+				// legacy plugins
+				iResultLength = strlen(pRes);
+				if (iValueLength < iResultLength)
+				{
+					strncpy(value, pRes, iValueLength);
+					*(value+iValueLength) = 0x0;
+				}
+				else
+				{
+					strncpy(value, pRes, iResultLength);
+					*(value+iResultLength) = 0x0;
+				}
+
 			}
 		}
+	}
+	else {
+		Log(0, "* Library %s does not exist.\n", library);
+	}
+}
+
+void
+ObjectPayLoad(const char **ppname)
+{
+	char *name= (char*)*ppname;
+	char *thisObjRetAddr= *(char **)(o_esp+0x04);
+
+	if (!name)	// || !gameObject
+		return;
+
+	Log(5,"ret=0x%08x\n",thisObjRetAddr);
+	Log(3,"name='%s'\n",name);
+	if (strncmp(name, "NWNX!", 5) != 0) 	// not for us
+		return;
+
+	char* library = &name[5];
+	if (!library)
+	{
+		Log(0, "* Library not specified.\n");
+		return;
+	}
+
+	if(strncmp(library,"INIT",4)==0) {
+		// make sure this is only called _once_
+		if(ObjReturnAddr == NULL) {
+			// This is the return address that ExecCmdSetVar set
+			ObjReturnAddr= thisObjRetAddr;
+			Log(0,"INIT(O): valid ret=0x%08x\n",ObjReturnAddr);
+		} else {
+			Log(0,"INIT(O): reset ignored ret=0x%08x\n",
+				thisObjRetAddr);
+		}
+		return;
+	}
+
+	// if we're not enforcing NWNX!INIT usage, grab the context
+	if(ObjReturnAddr == NULL && nwnxinitdisabled) {
+		Log(0,"NWNX!INIT enforcement disabled, using 0x%08x\n",thisObjRetAddr);
+		// This is the return address that (hopefully) ExecCmdSetVar set
+		ObjReturnAddr = thisObjRetAddr;
+	}
+
+	// Make sure we're called by ExecCmdSetVar
+	if(ObjReturnAddr == thisObjRetAddr) {
+		// get the game object
+		// * This is where CNWVirtualMachineCommands::ExecuteCommandSetVar()
+		//   has left it.
+		gameObject= *(char **)(o_esp+0x20);
+	} else {
+		gameObject= gObjDummy;
+		if(!ObjReturnAddr)
+			Log(0,"FAILED: NWNX!INIT(O) has not been initialized.\n");
+		else
+			Log(2,"REJECTED: (O) ret=0x%08x but we wanted ret=0x%08x!\n", 
+				*(char **)(o_esp+0x04), ObjReturnAddr);
+		return;
+	}
+
+	Log(5,"gobj=0x%08x\n", gameObject);
+
+	char* function = strchr(library, '!');
+	if (!function)
+	{
+		Log(0,"* Function not specified. library=%s\n",library);
+		return;
+	}
+
+	// see if the library is already loaded
+	*function = 0x0;
+	CNWNXBase* pBase = NULL;
+	if(Libraries.find(library)!=Libraries.end()) {
+		pBase= Libraries[library];
+	}
+	*function = '!';
+
+	if (pBase != NULL)
+	{
+		Log(3, "* Library %s found: %08lX\n", library, pBase);
+		Log(4, "* OnRequest address: %08lX\n", &CNWNXBase::OnRequestObject);
+		// library found, handle the request
+		oRes = pBase->OnRequestObject(gameObject, function + 1);
+		ObjRet = 1;
+		return;
 	}
 	else {
 		Log(0, "* Library %s does not exist.\n", library);
@@ -290,6 +421,7 @@ LoadLibraries() {
 		Libraries[key] = pBase;
 
 		Log(0, "%s plugin Registerred.\n",key);
+		Log(3, "Address: %08lX\n", pBase);
 	}
 
 	closedir(dp);
@@ -320,34 +452,48 @@ my_SetString (const char **s1, const char **s2, const char **s3)
     // 4. ret
 
     // prolog of my_SetString
-    asm ("sub $0x8,%esp");
-    asm ("mov 0xffffffe8(%ebp),%ebx");
-    asm ("leave");
-
-    // execute head of original function
-    asm ("push %ebp");
-    asm ("mov %esp, %ebp");
-    asm ("push %ebx");
-    asm ("push %ebx");
-    asm ("mov 0x10(%ebp), %ebx");
-    asm ("push $0x1");
+    //asm ("sub $0x8,%esp");
+    //asm ("mov 0xffffffe8(%ebp),%ebx");
+    //asm ("leave");
 
     // jmp back to original function
-    asm ("mov o_SetString, %eax");
-    asm ("push %eax");
-    asm ("ret");
+	asm ("leave");
+	asm ("mov $ret_code_ss, %eax");
+	asm ("jmp %eax");
 }
 
 void
-enable_write (unsigned long location)
+my_GetObject (const char **s1, const char **s2)
 {
-    char *page;
-    page = (char *) location;
-    page = (char *) (((int) page + PAGESIZE - 1) & ~(PAGESIZE - 1));
-    page -= PAGESIZE;
+	// NOTES:
+	// * The function hooked is:
+	//		CNWSScriptVarTable::SetString(CExoString&,CExoString&)
+	// * Since it's a class memeber function, s1 is the pointer to the
+	//   class instance.
+	// * Relative to the windows version the data fields seem to be
+	//   shifted up 1 DWORD
+	// * The server binary is VERY touchy about the stack, just don't
+	//   touch it.
 
-    if (mprotect (page, PAGESIZE, PROT_WRITE | PROT_READ | PROT_EXEC))
-	perror ("mprotect");
+	// get the stack pointer
+	asm ("movl %ebp, o_esp");
+	
+    // Execute payload
+    ObjectPayLoad(s2);
+
+    // 1. correct frame pointer
+    // 2. push s1 and s2 on stack
+    // 3. push old_String + n bytes on stack
+    // 4. ret
+	asm ("leave");
+	if(ObjRet)
+	{
+		ObjRet = 0;
+		asm("mov oRes, %eax");
+		asm("ret");
+	}
+	asm ("mov $ret_code_go, %eax");
+	asm ("jmp %eax");
 }
 
 void Configure() {
@@ -428,6 +574,32 @@ FindHook ()
     return 0;
 }
 
+// finds the address of the CNWSScriptVarTable::GetObject function
+unsigned long
+FindObjectHook ()
+{
+    unsigned long start_addr = 0x08048000, end_addr = 0x08300000;
+    char *ptr = (char *) start_addr;
+
+    while (ptr < (char *) end_addr)
+    {
+	if ((ptr[0] == (char) 0x55) &&
+	    (ptr[1] == (char) 0x89) &&
+	    (ptr[2] == (char) 0xe5) &&
+	    (ptr[3] == (char) 0x53) &&
+// Removed the comparison for ptr[4]
+// The 1.64 patch compilation chose a different register to save
+	    (ptr[5] == (char) 0x6a) &&
+	    (ptr[6] == (char) 0x00) &&
+	    (ptr[7] == (char) 0x6a) &&
+	    (ptr[8] == (char) 0x04))
+	    return (unsigned long) ptr;
+	else
+	    ptr++;
+    }
+    return 0;
+}
+
 // 
 void Log(int priority, const char *pcMsg, ...)
 {
@@ -469,23 +641,27 @@ startstop::startstop()
     printf ("\n");
     printf ("NWNX2lib: Init\n");
     o_SetString = FindHook ();
+	o_GetObject = FindObjectHook ();
 
     m_SetString = (unsigned long) my_SetString;
     o_SetStringFunc = (void (*)(char **, char **)) o_SetString;
 
     printf ("NWNX2lib: org SetString() at %p, new SetString() at %p\n",
 	    o_SetString, m_SetString);
+    printf ("NWNX2lib: org GetObj() at %p, new GetObj() at %p\n",
+	    o_GetObject, (unsigned long) my_GetObject);
 
-    enable_write (o_SetString);
-    redirect (o_SetString, m_SetString);
+    d_redirect (o_SetString, m_SetString, ret_code_ss, 10);
+	d_redirect (o_GetObject, (unsigned long) my_GetObject, ret_code_go, 9);
 
 	printf("* Parsing configuration...\n");
 	Configure();
 
 	// banner
-	Log(0,"NWN Extender v2.5.3-rc1\n");
+	Log(0,"NWN Extender v2.7-beta4\n");
 	Log(1,"--------------------------------\n");
 	printf("(c) 2004 by the APS/NWNX Linux Conversion Group\n");
+	printf("(c) 2007-2008 by virusman\n");
 	printf("Based on the Win32 version (c) 2003 by Ingmar Stieger (Papillon)\n");
 	printf("and Jeroen Broekhuizen\n");
 	printf("visit us at http://www.avlis.org\n\n");

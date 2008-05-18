@@ -24,6 +24,8 @@
 #include <stdio.h>
 #include "gline.h"
 
+#define OBJECT_INVALID 0x7F000000
+
 class CNWNXBase
 {
 public:
@@ -49,6 +51,14 @@ public:
 	//	Request		: the job that must be performed
 	//  Parameters	: optional parameters
 	virtual char* OnRequest (char *gameObject, char* Request, char* Parameters) = 0;
+
+	///////////////////////////////////////////////////////////////////////////
+	// Function: OnRequestObject (char* Request)
+	// Description
+	//	Called when a request is pending from a NWScript.
+	//	This function must be overloaded by the module.
+	//	Request		: the job that must be performed
+	virtual unsigned long OnRequestObject (char *gameObject, char* Request);
 
 	///////////////////////////////////////////////////////////////////////////
 	// Function: OnRelease

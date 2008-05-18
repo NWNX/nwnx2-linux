@@ -70,7 +70,8 @@ gline::parse(const char *fname) {
 				if((pos=line.find('='))!=line.npos) {
 					key = line.substr(0,pos);
 					value = line.substr(pos+1);
-
+					delete_spaces(key);
+					delete_spaces(value);
 					config[sect][key]=value;
 				}
 
@@ -106,4 +107,32 @@ gline::operator[](const char *section) {
 int
 gline::open(const char *fname) {
 	return parse(fname);
+}
+
+void gline::delete_spaces(string &str)
+{
+	bool inv_commas = 0;
+	string::iterator i;
+	for(i=str.begin(); i < str.end(); i++)
+	{
+		if ((*i == ' ' || *i== '\t') && !inv_commas)
+		{
+			//whitespace
+			str.erase(i);
+			i--;
+		}
+		else if ((*i == '#' || *i== ';') && !inv_commas)
+		{
+			//comments
+			str.erase(i, str.end());
+			i = str.end()-1;
+		}
+		else if (*i == '"')
+		{
+			//inverted commas
+			str.erase(i);
+			i--;
+			inv_commas = !inv_commas;
+		}
+	}
 }

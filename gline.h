@@ -53,6 +53,8 @@ public:
 	StringMap &operator[](const char *key);
 
 	// StringMap &operator[](string key);
+private:
+	void delete_spaces(string &str);
 };
 
 #endif

@@ -62,6 +62,11 @@ bool CNWNXBase::OnRelease()
 	return (ret == 0);
 }
 
+unsigned long CNWNXBase::OnRequestObject (char *gameObject, char* Request)
+{
+	return 0x7F000000;
+}
+
 void CNWNXBase::Log(int priority, const char *pcMsg, ...)
 {
 	va_list argList;
@@ -76,7 +81,7 @@ void CNWNXBase::Log(int priority, const char *pcMsg, ...)
 		va_end(argList);
 
 		// log string in file
-		fprintf (m_fFile, acBuffer);
+		fputs (acBuffer, m_fFile);
 		fflush (m_fFile);
 	}
 }
@@ -99,8 +104,8 @@ int CNWNXBase::ParamLog(int priority, const char *msg, char *Parameters) {
 int CNWNXBase::SetDebugLevel(int level) {
 	int temp = debuglevel;
 
-	printf("[%s] SetDebugLevel(%d) called.  Current value=%d\n",
-		   confKey,level,temp);
+	//printf("[%s] SetDebugLevel(%d) called.  Current value=%d\n",
+	//	   confKey,level,temp);
 
 	if(level != debuglevel) {
 		debuglevel = level;
