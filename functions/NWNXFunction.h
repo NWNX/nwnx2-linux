@@ -47,7 +47,7 @@ protected:
 	void GetArmorAC(char* value);
 	void SetRacialType(char* value);
 	void GetDescriptionLength(char* value);
-	void GetDescription(char* value);
+	char *GetDescription(char* value);
 	void SetDescription(char* value);
 	void GetConversation(char *value);
 	void GetUndroppable(char* value);

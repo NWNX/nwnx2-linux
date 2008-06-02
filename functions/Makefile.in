@@ -18,7 +18,7 @@ NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o
 
 all: nwnx_functions.so
 
-nwnx_functions.so: C2DA.o CNWSScriptVarTable.o FunctionHooks.o NWNXFunction.o plugin-functions.o
+nwnx_functions.so: C2DA.o CNWSScriptVarTable.o CExoLinkedList.o CItemRepository.o FunctionHooks.o NWNXFunction.o plugin-functions.o
 	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS)
 
 plugin-t: plugin-t.o $(NWNXBASE)

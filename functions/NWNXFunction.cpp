@@ -131,7 +131,7 @@ void CNWNXFunction::GetDescriptionLength(char* value)
 }
 
 
-void CNWNXFunction::GetDescription(char* value)
+char *CNWNXFunction::GetDescription(char* value)
 {
 	int length = strlen(value);
 	char* desc;
@@ -143,16 +143,16 @@ void CNWNXFunction::GetDescription(char* value)
 	else if(*(pGameObject+0x4) == 0x9) desc = (char*)(*(int*)(pGameObject+0x1D8)); //object type placeable
 	else if(*(pGameObject+0x4) == 0x5) desc = (char*)(*(*(int**)(pGameObject+0xC60) + 0x16)); //object type creature
 	else if(*(pGameObject+0x4) == 0xA) desc = (char*)(*(int*)(pGameObject+0x314)); //object type door
-	else return;
+	else return NULL;
 
 	if (*(desc+4) == 0)
-		return;
+		return NULL;
 	desc = (char*)(*(int*)(desc));
 	desc = (char*)(*(int*)(desc));
 	desc = (char*)(*(int*)(desc+0x8));
 	desc = (char*)(*(int*)(desc+0x4));
 
-	int iDescLength = strlen(desc);
+	/*int iDescLength = strlen(desc);
 	if (iDescLength < length)
 	{
 		strncpy(value, desc, iDescLength);
@@ -162,7 +162,13 @@ void CNWNXFunction::GetDescription(char* value)
 	{
 		strncpy(value, desc, length);
 		*(value+length) = 0x0;
-	}
+	}*/
+
+	//Dynamic allocation
+	//This requires NWNX Core >=2.7
+	char *newDesc = (char *) malloc(strlen(desc)+1);
+	strcpy(newDesc, desc);
+	return newDesc;
 }
 
 void CNWNXFunction::SetDescription(char* value)
@@ -653,7 +659,7 @@ bool CNWNXFunction::OnCreate(gline *config, const char *LogDir)
 	Log(0,"NWNX Functions V.1.8.7\n");
 	Log(0,"(c) 2004 by the APS/NWNX Linux Conversion Group\n");
 	Log(0,"Based on the Win32 version (c) 2003 by Ingmar Stieger (Papillon)\n");
-	Log(0,"(c) by virusman, 2006-2007\n");
+	Log(0,"(c) by virusman, 2006-2008\n");
 	Log(0,"visit us at http://www.nwnx.org\n\n");
 	if (FindFunctions())
 	{
@@ -710,8 +716,7 @@ char* CNWNXFunction::OnRequest (char *gameObject, char* Request, char* Parameter
 	}
 	else if (strncmp(Request, "GETDESCRIPTION", 14) == 0) 	
 	{
-		GetDescription(Parameters);
-		return NULL;
+		return GetDescription(Parameters);
 	}
 	else if (strncmp(Request, "SETDESCRIPTION", 14) == 0) 	
 	{

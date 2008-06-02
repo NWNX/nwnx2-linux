@@ -6,10 +6,11 @@ New functions:
 
 Fixed a crash in GetNextVariable function
 Fixed a crash in GetConversation function
+Added dynamic allocation support to GetDescription (spacer is not required anymore)
 ---
 
 virusman
-31.01.2008
+02.06.2008
 
 ------------------------------------------
 Complete function list:
