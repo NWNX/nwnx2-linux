@@ -141,25 +141,7 @@ void *GetCommandsPtr()
 
 void VM_ExecuteCommand(dword nCommandID)
 {
-	int nCurrYear;
-	CNWVirtualMachineCommands_ExecuteCommand(GetCommandsPtr(), 0x7, 0); //GetCalendarYear
-	CVirtualMachine_StackPopInteger(*g_pVirtualMachine, &nCurrYear);
-	ruby.Log(0, "GetCalendarYear: %d\n", nCurrYear);
-
 	CNWVirtualMachineCommands_ExecuteCommand(GetCommandsPtr(), nCommandID, 0);
-	dword nObjID;
-	int nRetVal;
-	if(nCommandID == 0xD)
-	{
-		CVirtualMachine_StackPopInteger(*g_pVirtualMachine, &nRetVal);
-		ruby.Log(0, "Command %d executed: %d\n", nCommandID, nRetVal);
-
-	}
-	else
-	{
-		CVirtualMachine_StackPopObject(*g_pVirtualMachine, &nObjID);
-		ruby.Log(0, "Command %d executed: %d\n", nCommandID, nObjID);
-	}
 }
 
 int HookFunctions()

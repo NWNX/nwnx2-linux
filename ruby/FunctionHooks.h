@@ -24,6 +24,11 @@
 
 int HookFunctions();
 void InitConstants();
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void VM_ExecuteCommand(dword nCommandID);
 
 int StackPopInteger(int *buf);
@@ -34,6 +39,10 @@ int StackPushInteger(int value);
 int StackPushFloat(float value);
 int StackPushString(char *value);
 int StackPushObject(dword value);
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif

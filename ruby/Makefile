@@ -1,5 +1,5 @@
 CXX = g++
-LIBS = -lruby-static
+LIBS = -lruby-static -lcrypt
 FLAGS = -w -fPIC -shared -W -Wall 
 DEFS = -DHAVE_CONFIG_H
 

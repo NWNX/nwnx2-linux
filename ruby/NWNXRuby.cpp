@@ -53,6 +53,7 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 		return false;
 
 	ruby_init();
+	ruby_script("embedded");
 	RubyInt_InitNWScript();
 
 	Log(0,"NWNX Ruby V.1.0.0\n");
@@ -75,8 +76,8 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 
 void CNWNXRuby::ExecuteCommand(char *value)
 {
-	VM_ExecuteCommand(0xF2);
-	VM_ExecuteCommand(0xD);
+	rb_eval_string("nss = NWScript.new()\nputs \"Initialized\"\n");
+	rb_eval_string("nss.PrintInteger(123)");
 }
 char* CNWNXRuby::OnRequest (char *gameObject, char* Request, char* Parameters)
 {
