@@ -22,6 +22,7 @@
 #include <string>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <signal.h>
 
 #include "NWNXRuby.h"
 #include "FunctionHooks.h"
@@ -41,11 +42,6 @@ CNWNXRuby::~CNWNXRuby()
 {
 }
 
-static VALUE RubyErrorHandler()
-{
-	return Qnil;
-}
-
 bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 {
 	char log[128];
@@ -59,7 +55,6 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 
 	ruby_init();
 	ruby_script("embedded");
-	rb_protect(RubyErrorHandler, Qnil, &this->nException);
 	cNWScript = RubyInt_InitNWScript();
 	rb_eval_string("nss = NWScript.new()\nputs \"NWNX Ruby Initialized\"\n");
 
@@ -83,20 +78,38 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 
 void CNWNXRuby::ExecuteCommand(char *value)
 {
-	rb_eval_string("nss.PrintInteger(123)");
+	//This was for testing purposes
+	/*rb_eval_string("nss.PrintInteger(123)");
 	rb_eval_string("nss.PrintString(\"123\")");
 	rb_eval_string("oModule = nss.GetModule()");
 	rb_eval_string("nss.SetLocalInt(oModule, 'ruby', 999)");
-	rb_eval_string("puts nss.GetLocalInt(oModule, 'ruby')");
+	rb_eval_string("puts nss.GetLocalInt(oModule, 'ruby')");*/
 }
 
 char *CNWNXRuby::Eval(char *value)
 {
-	VALUE retval = rb_eval_string(value);
-	if(RSTRING(retval)->ptr)
-		return RSTRING(retval)->ptr;
-	else
-		return RSTRING(rb_cvar_get(cNWScript, "retval"))->ptr;
+	//Evaluate Ruby expression (protected)
+	try
+	{
+		VALUE retval;
+		rb_eval_string_protect(value, &nError);
+		retval = rb_gv_get("$_");
+		if(nError)
+		{
+			Log(0, "Error %d while evaluating a Ruby expression: %s\n", nError, value);
+			return NULL;
+		}
+		if(retval!=Qnil && RSTRING(retval)->ptr)
+			return RSTRING(retval)->ptr;
+		return NULL;
+	}
+	catch(...)
+	{
+		Log(0, "Caught a C++ exception while evaluating a Ruby expression: %s\n", value);
+		return NULL;
+	}
+	/*else
+		return RSTRING(rb_cvar_get(cNWScript, rb_intern(RUBY_RETVAL)))->ptr;*/
 }
 
 char* CNWNXRuby::OnRequest (char *gameObject, char* Request, char* Parameters)

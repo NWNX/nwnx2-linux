@@ -29,10 +29,10 @@ void InitConstants();
 extern "C" {
 #endif
 
-void VM_ExecuteCommand(dword nCommandID);
+void VM_ExecuteCommand(dword nCommandID, int nArgsCount);
 
 int StackPopInteger(int *buf);
-int StackPopString(char *buf);
+int StackPopString(char **buf);
 int StackPopObject(dword *buf);
 int StackPopFloat(float *buf);
 int StackPushInteger(int value);

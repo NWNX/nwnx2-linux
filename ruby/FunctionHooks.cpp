@@ -98,9 +98,15 @@ int StackPopInteger(int *buf)
 	return CVirtualMachine_StackPopInteger(*g_pVirtualMachine, buf);
 }
 
-int StackPopString(char *buf)
+int StackPopString(char **buf)
 {
-	return CVirtualMachine_StackPopString(*g_pVirtualMachine, (CExoString *) &buf);
+	CExoString *str = (CExoString *) malloc(sizeof(CExoString));
+	str->Text = NULL;
+	str->Length = 0;
+	int retval = CVirtualMachine_StackPopString(*g_pVirtualMachine, str);
+	*buf = str->Text;
+	free(str);
+	return retval;
 }
 
 int StackPopObject(dword *buf)
@@ -139,9 +145,9 @@ void *GetCommandsPtr()
 	return *(void **)(*(dword *)(g_pVirtualMachine) + 0x398);
 }
 
-void VM_ExecuteCommand(dword nCommandID)
+void VM_ExecuteCommand(dword nCommandID, int nArgsCount)
 {
-	CNWVirtualMachineCommands_ExecuteCommand(GetCommandsPtr(), nCommandID, 0);
+	CNWVirtualMachineCommands_ExecuteCommand(GetCommandsPtr(), nCommandID, nArgsCount);
 }
 
 int HookFunctions()

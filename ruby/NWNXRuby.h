@@ -41,7 +41,7 @@ public:
 
 	bool bHooked;
 	VALUE cNWScript;
-	int nException;
+	int nError;
 
 private:
 
