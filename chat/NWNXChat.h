@@ -40,7 +40,7 @@ public:
   int ignore_silent;
   char chatScript[17];
   char servScript[17];
-  int CNWNXChat::Chat(const int mode, const int id, const char **msg, const int to);
+  int Chat(const int mode, const int id, const char **msg, const int to);
 protected:
   char *SendMessage(char* Parameters);
 };
