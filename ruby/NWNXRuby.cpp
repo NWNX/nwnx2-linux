@@ -41,6 +41,11 @@ CNWNXRuby::~CNWNXRuby()
 {
 }
 
+static VALUE RubyErrorHandler()
+{
+	return Qnil;
+}
+
 bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 {
 	char log[128];
@@ -54,7 +59,9 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 
 	ruby_init();
 	ruby_script("embedded");
-	RubyInt_InitNWScript();
+	rb_protect(RubyErrorHandler, Qnil, &this->nException);
+	cNWScript = RubyInt_InitNWScript();
+	rb_eval_string("nss = NWScript.new()\nputs \"NWNX Ruby Initialized\"\n");
 
 	Log(0,"NWNX Ruby V.1.0.0\n");
 	Log(0,"(c) by virusman, 2008\n");
@@ -76,9 +83,22 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 
 void CNWNXRuby::ExecuteCommand(char *value)
 {
-	rb_eval_string("nss = NWScript.new()\nputs \"Initialized\"\n");
 	rb_eval_string("nss.PrintInteger(123)");
+	rb_eval_string("nss.PrintString(\"123\")");
+	rb_eval_string("oModule = nss.GetModule()");
+	rb_eval_string("nss.SetLocalInt(oModule, 'ruby', 999)");
+	rb_eval_string("puts nss.GetLocalInt(oModule, 'ruby')");
 }
+
+char *CNWNXRuby::Eval(char *value)
+{
+	VALUE retval = rb_eval_string(value);
+	if(RSTRING(retval)->ptr)
+		return RSTRING(retval)->ptr;
+	else
+		return RSTRING(rb_cvar_get(cNWScript, "retval"))->ptr;
+}
+
 char* CNWNXRuby::OnRequest (char *gameObject, char* Request, char* Parameters)
 {
 	Log(2,"(S) Request: \"%s\"\n",Request);
@@ -89,7 +109,10 @@ char* CNWNXRuby::OnRequest (char *gameObject, char* Request, char* Parameters)
 		ExecuteCommand(Parameters);
 		return NULL;
 	}
-
+	else if(strncmp(Request, "EVAL", 4) == 0)
+	{
+		return Eval(Parameters);
+	}
 	return NULL;
 }
 /*

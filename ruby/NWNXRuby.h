@@ -36,11 +36,12 @@ public:
 	char* OnRequest (char* gameObject, char* Request, char* Parameters);
 //	unsigned long OnRequestObject (char *gameObject, char* Request);
 	void ExecuteCommand(char *value);
-
-
+	char *Eval(char *value);
 
 
 	bool bHooked;
+	VALUE cNWScript;
+	int nException;
 
 private:
 

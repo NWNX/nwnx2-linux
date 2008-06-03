@@ -7189,10 +7189,6 @@ static VALUE NWScript_ItemPropertyAdditional(VALUE self, VALUE nAdditionalProper
 //ERROR: Undefined variable type: itemproperty
 }
 
-
-
-
-
 VALUE RubyInt_InitNWScript()
 {
 	VALUE cNWScript = rb_define_class("NWScript", rb_cObject);
@@ -8044,6 +8040,8 @@ VALUE RubyInt_InitNWScript()
 	rb_define_method(cNWScript, "ItemPropertyMaterial", NWScript_ItemPropertyMaterial, 1);
 	rb_define_method(cNWScript, "ItemPropertyQuality", NWScript_ItemPropertyQuality, 1);
 	rb_define_method(cNWScript, "ItemPropertyAdditional", NWScript_ItemPropertyAdditional, 1);
+
+	rb_define_class_variable(cNWScript, "retval", INT2NUM(0));
 	return cNWScript;
 }
 
