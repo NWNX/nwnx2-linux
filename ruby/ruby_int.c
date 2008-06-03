@@ -16175,6 +16175,8 @@ void RubyInt_DefineConstants(VALUE cNWScript)
 	rb_define_const(cNWScript, "NAME_FIRST_HUMAN_MALE", INT2NUM(20));
 	rb_define_const(cNWScript, "NAME_FIRST_HUMAN_FEMALE", INT2NUM(21));
 	rb_define_const(cNWScript, "NAME_LAST_HUMAN", INT2NUM(22));
+	
+	rb_define_const(cNWScript, "OBJECT_INVALID", INT2NUM(OBJECT_INVALID));
 
 }
 
