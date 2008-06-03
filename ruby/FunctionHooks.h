@@ -1,6 +1,6 @@
 /***************************************************************************
-    Functions plugin for NWNX - hooks interface
-    (c) 2005 virusman (virusman@virusman.ru)
+    Ruby plugin for NWNX - hooks interface
+    (c) 2008 virusman (virusman@virusman.ru)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
