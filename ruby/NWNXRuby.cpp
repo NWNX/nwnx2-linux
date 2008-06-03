@@ -55,7 +55,7 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 	ruby_init();
 	ruby_script("embedded");
 	cNWScript = RubyInt_InitNWScript();
-	rb_eval_string("nss = NWScript.new()\nputs \"NWNX Ruby Initialized\"\n");
+	rb_eval_string("puts \"NWNX Ruby Initialized\"\n");
 
 	Log(0,"NWNX Ruby V.1.0.0\n");
 	Log(0,"(c) by virusman, 2008\n");
