@@ -52,13 +52,22 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 	if (!CNWNXBase::OnCreate(config,log))
 		return false;
 
+	Log(0,"NWNX Ruby V.1.0.0\n");
+	Log(0,"(c) by virusman, 2008\n");
+
 	ruby_init();
 	ruby_script("embedded");
+
 	cNWScript = RubyInt_InitNWScript();
 	rb_eval_string("puts \"NWNX Ruby Initialized\"\n");
 
-	Log(0,"NWNX Ruby V.1.0.0\n");
-	Log(0,"(c) by virusman, 2008\n");
+	char *preload = (char*)((*nwnxConfig)[confKey]["preload"].c_str());
+	if (strlen(preload) > 0)
+	{
+		Log(0, "Preloading: %s\n", preload);
+		rb_require(preload);
+	}
+
 	if (HookFunctions())
 	{
 		bHooked=1;
