@@ -10696,7 +10696,6 @@ VALUE RubyInt_InitNWScript()
 	rb_define_module_function(cNWScript, "ItemPropertyMaterial", NWScript_ItemPropertyMaterial, 1);
 	rb_define_module_function(cNWScript, "ItemPropertyQuality", NWScript_ItemPropertyQuality, 1);
 	rb_define_module_function(cNWScript, "ItemPropertyAdditional", NWScript_ItemPropertyAdditional, 1);
-	RubyInt_DefineConstants(cNWScript);
 
 	rb_define_class_variable(cNWScript, "@@retval", INT2NUM(0));
 	return cNWScript;
