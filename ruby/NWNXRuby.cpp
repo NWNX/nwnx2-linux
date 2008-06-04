@@ -101,8 +101,10 @@ char *CNWNXRuby::Eval(char *value)
 	try
 	{
 		VALUE retval;
+		rb_eval_string("Thread.current[:nwnx_context] = true");
 		rb_eval_string_protect(value, &nError);
 		retval = rb_gv_get("$_");
+		rb_eval_string("Thread.current[:nwnx_context] = false");
 		if(nError)
 		{
 			Log(0, "Error %d while evaluating a Ruby expression: %s\n", nError, value);
