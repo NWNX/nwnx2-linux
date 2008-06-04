@@ -59,7 +59,6 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 	ruby_script("embedded");
 	ruby_init_loadpath();
 
-	cNWScript = RubyInt_InitNWScript();
 	rb_eval_string("puts \"NWNX Ruby Initialized\"\n");
 
 	char *preload = (char*)((*nwnxConfig)[confKey]["preload"].c_str());
@@ -68,6 +67,8 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 		Log(0, "Preloading: %s\n", preload);
 		rb_require(preload);
 	}
+	
+	cNWScript = RubyInt_InitNWScript();
 
 	if (HookFunctions())
 	{
