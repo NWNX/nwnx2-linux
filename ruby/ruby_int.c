@@ -10701,8 +10701,9 @@ VALUE RubyInt_InitNWScript()
 	return cNWScript;
 }
 
-void RubyInt_DefineConstants(VALUE cNWScript)
+void RubyInt_DefineConstants()
 {
+	VALUE cNWScript = rb_define_module("NWScript");
 	rb_define_const(cNWScript, "NUM_INVENTORY_SLOTS", INT2NUM(18));
 	rb_define_const(cNWScript, "TRUE", INT2NUM(1));
 	rb_define_const(cNWScript, "FALSE", INT2NUM(0));

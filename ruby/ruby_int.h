@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 VALUE RubyInt_InitNWScript();
-void RubyInt_DefineConstants(VALUE cNWScript);
+void RubyInt_DefineConstants();
 
 
 #ifdef __cplusplus
