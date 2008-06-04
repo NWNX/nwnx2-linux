@@ -1,8 +1,11 @@
-NWNX Chat Plugin V.0.3.4
+NWNX Chat Plugin V.0.3.5
 (c) 2005-2006 by dumbo (dumbo@nm.ru)
 (c) 2006-2008 by virusman (virusman@virusman.ru)
 
 Changelog:
+0.3.5 (04.06.2008)
+- Updated RunScript signature for compatibility with 1.69 beta 10
+
 0.3.4 (12.05.2008)
 - Updated RunScript signature for compatibility with 1.69
 - Changed RunScript calling method

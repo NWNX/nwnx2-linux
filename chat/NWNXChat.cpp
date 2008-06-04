@@ -55,7 +55,7 @@ bool CNWNXChat::OnCreate (gline *config, const char* LogDir)
     return false;
 
   // write copy information to the log file
-  Log (0, "NWNX Chat version 0.3.4 for Linux.\n");
+  Log (0, "NWNX Chat version 0.3.5 for Linux.\n");
   Log (0, "(c) 2005-2006 by dumbo (dumbo@nm.ru)\n");
   Log (0, "(c) 2006-2008 virusman (virusman@virusman.ru)\n");
 
