@@ -566,9 +566,9 @@ FindHookRunScript()
  			(ptr[13] == (char) 0x7D) &&
  			(ptr[14] == (char) 0x10) &&
  			(ptr[15] == (char) 0xE8) &&
- 			(ptr[0x3B] == (char) 0x8B) &&
- 			(ptr[0x3C] == (char) 0x98) &&
- 			(ptr[0x3D] == (char) 0xD8)
+ 			(ptr[0x38] == (char) 0x8B) &&
+ 			(ptr[0x39] == (char) 0x45) &&
+ 			(ptr[0x3A] == (char) 0x08)
 			)
             return (unsigned long) ptr;
 	else

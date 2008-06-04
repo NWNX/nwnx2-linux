@@ -51,7 +51,7 @@ bool CNWNXEvents::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX Events version 1.2.1 for Linux.\n");
+	Log (0, "NWNX Events version 1.2.2 for Linux.\n");
 	Log (0, "(c) 2006-2008 by virusman (virusman@virusman.ru)\n");
 
 	if(nwnxConfig->exists(confKey)) {

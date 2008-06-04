@@ -1,4 +1,4 @@
-NWNX Events plugin (version 1.2.1)
+NWNX Events plugin (version 1.2.2)
 (requires NWNX Core version 2.7-beta2 or higher)
 
 Provides hooks for the following events:
@@ -54,11 +54,14 @@ event_script=<your script name>
 Example script and demo module are included.
 
 ---
-virusman, 12.05.2008
+virusman, 04.06.2008
 
 
 -----------------
 CHANGELOG:
+
+1.2.2 (04.06.2008)
+- Updated RunScript signature for compatibility with 1.69 beta 10
 
 1.2.1 (12.05.2008)
 - Updated RunScript signature for compatibility with 1.69
