@@ -889,7 +889,7 @@ static VALUE NWScript_EffectHeal(VALUE self, VALUE nDamageToHeal)
 	VM_ExecuteCommand(78, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDamage(int argc, VALUE *argv, VALUE self)
@@ -911,7 +911,7 @@ static VALUE NWScript_EffectDamage(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(79, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectAbilityIncrease(VALUE self, VALUE nAbilityToIncrease, VALUE nModifyBy)
@@ -921,7 +921,7 @@ static VALUE NWScript_EffectAbilityIncrease(VALUE self, VALUE nAbilityToIncrease
 	VM_ExecuteCommand(80, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDamageResistance(int argc, VALUE *argv, VALUE self)
@@ -942,7 +942,7 @@ static VALUE NWScript_EffectDamageResistance(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(81, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectResurrection(VALUE self)
@@ -950,7 +950,7 @@ static VALUE NWScript_EffectResurrection(VALUE self)
 	VM_ExecuteCommand(82, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSummonCreature(int argc, VALUE *argv, VALUE self)
@@ -975,7 +975,7 @@ static VALUE NWScript_EffectSummonCreature(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(83, 4);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetCasterLevel(VALUE self, VALUE oCreature)
@@ -993,7 +993,7 @@ static VALUE NWScript_GetFirstEffect(VALUE self, VALUE oCreature)
 	VM_ExecuteCommand(85, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetNextEffect(VALUE self, VALUE oCreature)
@@ -1002,7 +1002,7 @@ static VALUE NWScript_GetNextEffect(VALUE self, VALUE oCreature)
 	VM_ExecuteCommand(86, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_RemoveEffect(VALUE self, VALUE oCreature, VALUE eEffect)
@@ -1378,7 +1378,7 @@ static VALUE NWScript_MagicalEffect(VALUE self, VALUE eEffect)
 	VM_ExecuteCommand(112, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_SupernaturalEffect(VALUE self, VALUE eEffect)
@@ -1389,7 +1389,7 @@ static VALUE NWScript_SupernaturalEffect(VALUE self, VALUE eEffect)
 	VM_ExecuteCommand(113, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ExtraordinaryEffect(VALUE self, VALUE eEffect)
@@ -1400,7 +1400,7 @@ static VALUE NWScript_ExtraordinaryEffect(VALUE self, VALUE eEffect)
 	VM_ExecuteCommand(114, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectACIncrease(int argc, VALUE *argv, VALUE self)
@@ -1422,7 +1422,7 @@ static VALUE NWScript_EffectACIncrease(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(115, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetAC(int argc, VALUE *argv, VALUE self)
@@ -1462,7 +1462,7 @@ static VALUE NWScript_EffectSavingThrowIncrease(int argc, VALUE *argv, VALUE sel
 	VM_ExecuteCommand(117, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectAttackIncrease(int argc, VALUE *argv, VALUE self)
@@ -1481,7 +1481,7 @@ static VALUE NWScript_EffectAttackIncrease(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(118, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDamageReduction(int argc, VALUE *argv, VALUE self)
@@ -1502,7 +1502,7 @@ static VALUE NWScript_EffectDamageReduction(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(119, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDamageIncrease(int argc, VALUE *argv, VALUE self)
@@ -1521,7 +1521,7 @@ static VALUE NWScript_EffectDamageIncrease(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(120, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_RoundsToSeconds(VALUE self, VALUE nRounds)
@@ -1592,7 +1592,7 @@ static VALUE NWScript_EffectEntangle(VALUE self)
 	VM_ExecuteCommand(130, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_SignalEvent(VALUE self, VALUE oObject, VALUE evToRun)
@@ -1627,7 +1627,7 @@ static VALUE NWScript_EffectDeath(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(133, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectKnockdown(VALUE self)
@@ -1635,7 +1635,7 @@ static VALUE NWScript_EffectKnockdown(VALUE self)
 	VM_ExecuteCommand(134, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ActionGiveItem(VALUE self, VALUE oItem, VALUE oGiveTo)
@@ -1690,7 +1690,7 @@ static VALUE NWScript_EffectCurse(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(138, 6);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetAbilityScore(int argc, VALUE *argv, VALUE self)
@@ -1818,7 +1818,7 @@ static VALUE NWScript_EffectParalyze(VALUE self)
 	VM_ExecuteCommand(148, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSpellImmunity(int argc, VALUE *argv, VALUE self)
@@ -1835,7 +1835,7 @@ static VALUE NWScript_EffectSpellImmunity(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(149, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDeaf(VALUE self)
@@ -1843,7 +1843,7 @@ static VALUE NWScript_EffectDeaf(VALUE self)
 	VM_ExecuteCommand(150, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetDistanceBetween(VALUE self, VALUE oObjectA, VALUE oObjectB)
@@ -1874,7 +1874,7 @@ static VALUE NWScript_GetLocalLocation(VALUE self, VALUE oObject, VALUE sVarName
 	VM_ExecuteCommand(153, 2);
 	CGameEffect *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cLocationClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSleep(VALUE self)
@@ -1882,7 +1882,7 @@ static VALUE NWScript_EffectSleep(VALUE self)
 	VM_ExecuteCommand(154, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetItemInSlot(int argc, VALUE *argv, VALUE self)
@@ -1909,7 +1909,7 @@ static VALUE NWScript_EffectCharmed(VALUE self)
 	VM_ExecuteCommand(156, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectConfused(VALUE self)
@@ -1917,7 +1917,7 @@ static VALUE NWScript_EffectConfused(VALUE self)
 	VM_ExecuteCommand(157, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectFrightened(VALUE self)
@@ -1925,7 +1925,7 @@ static VALUE NWScript_EffectFrightened(VALUE self)
 	VM_ExecuteCommand(158, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDominated(VALUE self)
@@ -1933,7 +1933,7 @@ static VALUE NWScript_EffectDominated(VALUE self)
 	VM_ExecuteCommand(159, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDazed(VALUE self)
@@ -1941,7 +1941,7 @@ static VALUE NWScript_EffectDazed(VALUE self)
 	VM_ExecuteCommand(160, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectStunned(VALUE self)
@@ -1949,7 +1949,7 @@ static VALUE NWScript_EffectStunned(VALUE self)
 	VM_ExecuteCommand(161, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_SetCommandable(int argc, VALUE *argv, VALUE self)
@@ -1993,7 +1993,7 @@ static VALUE NWScript_EffectRegenerate(VALUE self, VALUE nAmount, VALUE fInterva
 	VM_ExecuteCommand(164, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectMovementSpeedIncrease(VALUE self, VALUE nPercentChange)
@@ -2002,7 +2002,7 @@ static VALUE NWScript_EffectMovementSpeedIncrease(VALUE self, VALUE nPercentChan
 	VM_ExecuteCommand(165, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetHitDice(VALUE self, VALUE oCreature)
@@ -2083,7 +2083,7 @@ static VALUE NWScript_EffectAreaOfEffect(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(171, 4);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetFactionEqual(int argc, VALUE *argv, VALUE self)
@@ -2192,7 +2192,7 @@ static VALUE NWScript_EffectVisualEffect(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(180, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetFactionWeakestMember(int argc, VALUE *argv, VALUE self)
@@ -2440,7 +2440,7 @@ static VALUE NWScript_EffectLinkEffects(VALUE self, VALUE eChildEffect, VALUE eP
 	VM_ExecuteCommand(199, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetObjectByTag(int argc, VALUE *argv, VALUE self)
@@ -2562,7 +2562,7 @@ static VALUE NWScript_EffectBeam(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(207, 4);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetReputation(VALUE self, VALUE oSource, VALUE oTarget)
@@ -2608,7 +2608,7 @@ static VALUE NWScript_EffectSpellResistanceIncrease(VALUE self, VALUE nValue)
 	VM_ExecuteCommand(212, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetLocation(VALUE self, VALUE oObject)
@@ -2617,7 +2617,7 @@ static VALUE NWScript_GetLocation(VALUE self, VALUE oObject)
 	VM_ExecuteCommand(213, 1);
 	CGameEffect *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cLocationClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ActionJumpToLocation(VALUE self, VALUE lLocation)
@@ -2637,7 +2637,7 @@ static VALUE NWScript_Location(VALUE self, VALUE oArea, VALUE vPosition, VALUE f
 	VM_ExecuteCommand(215, 3);
 	CGameEffect *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cLocationClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ApplyEffectAtLocation(int argc, VALUE *argv, VALUE self)
@@ -2737,7 +2737,7 @@ static VALUE NWScript_GetSpellTargetLocation(VALUE self)
 	VM_ExecuteCommand(222, 0);
 	CGameEffect *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cLocationClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetPositionFromLocation(VALUE self, VALUE lLocation)
@@ -3170,7 +3170,7 @@ static VALUE NWScript_EffectPoison(VALUE self, VALUE nPoisonType)
 	VM_ExecuteCommand(250, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDisease(VALUE self, VALUE nDiseaseType)
@@ -3179,7 +3179,7 @@ static VALUE NWScript_EffectDisease(VALUE self, VALUE nDiseaseType)
 	VM_ExecuteCommand(251, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSilence(VALUE self)
@@ -3187,7 +3187,7 @@ static VALUE NWScript_EffectSilence(VALUE self)
 	VM_ExecuteCommand(252, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetName(int argc, VALUE *argv, VALUE self)
@@ -3393,7 +3393,7 @@ static VALUE NWScript_EffectHaste(VALUE self)
 	VM_ExecuteCommand(270, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSlow(VALUE self)
@@ -3401,7 +3401,7 @@ static VALUE NWScript_EffectSlow(VALUE self)
 	VM_ExecuteCommand(271, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ObjectToString(VALUE self, VALUE oObject)
@@ -3419,7 +3419,7 @@ static VALUE NWScript_EffectImmunity(VALUE self, VALUE nImmunityType)
 	VM_ExecuteCommand(273, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetIsImmune(int argc, VALUE *argv, VALUE self)
@@ -3450,7 +3450,7 @@ static VALUE NWScript_EffectDamageImmunityIncrease(VALUE self, VALUE nDamageType
 	VM_ExecuteCommand(275, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetEncounterActive(int argc, VALUE *argv, VALUE self)
@@ -3973,7 +3973,7 @@ static VALUE NWScript_EffectTemporaryHitpoints(VALUE self, VALUE nHitPoints)
 	VM_ExecuteCommand(314, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetSkillRank(int argc, VALUE *argv, VALUE self)
@@ -4448,7 +4448,7 @@ static VALUE NWScript_EffectSkillIncrease(VALUE self, VALUE nSkill, VALUE nValue
 	VM_ExecuteCommand(351, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetInventoryDisturbType(VALUE self)
@@ -4508,7 +4508,7 @@ static VALUE NWScript_VersusAlignmentEffect(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(355, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_VersusRacialTypeEffect(VALUE self, VALUE eEffect, VALUE nRacialType)
@@ -4520,7 +4520,7 @@ static VALUE NWScript_VersusRacialTypeEffect(VALUE self, VALUE eEffect, VALUE nR
 	VM_ExecuteCommand(356, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_VersusTrapEffect(VALUE self, VALUE eEffect)
@@ -4531,7 +4531,7 @@ static VALUE NWScript_VersusTrapEffect(VALUE self, VALUE eEffect)
 	VM_ExecuteCommand(357, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetGender(VALUE self, VALUE oCreature)
@@ -4828,7 +4828,7 @@ static VALUE NWScript_EffectTurned(VALUE self)
 	VM_ExecuteCommand(379, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetFirstFactionMember(int argc, VALUE *argv, VALUE self)
@@ -4954,7 +4954,7 @@ static VALUE NWScript_EffectHitPointChangeWhenDying(VALUE self, VALUE fHitPointC
 	VM_ExecuteCommand(387, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_PopUpGUIPanel(VALUE self, VALUE oPC, VALUE nGUIPanel)
@@ -5248,7 +5248,7 @@ static VALUE NWScript_GetStartingLocation(VALUE self)
 	VM_ExecuteCommand(411, 0);
 	CGameEffect *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cLocationClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ChangeToStandardFaction(VALUE self, VALUE oCreatureToChange, VALUE nStandardFaction)
@@ -5534,7 +5534,7 @@ static VALUE NWScript_GetItemActivatedTargetLocation(VALUE self)
 	VM_ExecuteCommand(441, 0);
 	CGameEffect *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cLocationClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetItemActivatedTarget(VALUE self)
@@ -5589,7 +5589,7 @@ static VALUE NWScript_EffectAbilityDecrease(VALUE self, VALUE nAbility, VALUE nM
 	VM_ExecuteCommand(446, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectAttackDecrease(int argc, VALUE *argv, VALUE self)
@@ -5608,7 +5608,7 @@ static VALUE NWScript_EffectAttackDecrease(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(447, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDamageDecrease(int argc, VALUE *argv, VALUE self)
@@ -5627,7 +5627,7 @@ static VALUE NWScript_EffectDamageDecrease(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(448, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDamageImmunityDecrease(VALUE self, VALUE nDamageType, VALUE nPercentImmunity)
@@ -5637,7 +5637,7 @@ static VALUE NWScript_EffectDamageImmunityDecrease(VALUE self, VALUE nDamageType
 	VM_ExecuteCommand(449, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectACDecrease(int argc, VALUE *argv, VALUE self)
@@ -5659,7 +5659,7 @@ static VALUE NWScript_EffectACDecrease(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(450, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectMovementSpeedDecrease(VALUE self, VALUE nPercentChange)
@@ -5668,7 +5668,7 @@ static VALUE NWScript_EffectMovementSpeedDecrease(VALUE self, VALUE nPercentChan
 	VM_ExecuteCommand(451, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSavingThrowDecrease(int argc, VALUE *argv, VALUE self)
@@ -5689,7 +5689,7 @@ static VALUE NWScript_EffectSavingThrowDecrease(int argc, VALUE *argv, VALUE sel
 	VM_ExecuteCommand(452, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSkillDecrease(VALUE self, VALUE nSkill, VALUE nValue)
@@ -5699,7 +5699,7 @@ static VALUE NWScript_EffectSkillDecrease(VALUE self, VALUE nSkill, VALUE nValue
 	VM_ExecuteCommand(453, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSpellResistanceDecrease(VALUE self, VALUE nValue)
@@ -5708,7 +5708,7 @@ static VALUE NWScript_EffectSpellResistanceDecrease(VALUE self, VALUE nValue)
 	VM_ExecuteCommand(454, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetPlotFlag(int argc, VALUE *argv, VALUE self)
@@ -5742,7 +5742,7 @@ static VALUE NWScript_EffectInvisibility(VALUE self, VALUE nInvisibilityType)
 	VM_ExecuteCommand(457, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectConcealment(int argc, VALUE *argv, VALUE self)
@@ -5761,7 +5761,7 @@ static VALUE NWScript_EffectConcealment(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(458, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDarkness(VALUE self)
@@ -5769,7 +5769,7 @@ static VALUE NWScript_EffectDarkness(VALUE self)
 	VM_ExecuteCommand(459, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDispelMagicAll(int argc, VALUE *argv, VALUE self)
@@ -5786,7 +5786,7 @@ static VALUE NWScript_EffectDispelMagicAll(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(460, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectUltravision(VALUE self)
@@ -5794,7 +5794,7 @@ static VALUE NWScript_EffectUltravision(VALUE self)
 	VM_ExecuteCommand(461, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectNegativeLevel(int argc, VALUE *argv, VALUE self)
@@ -5813,7 +5813,7 @@ static VALUE NWScript_EffectNegativeLevel(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(462, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectPolymorph(int argc, VALUE *argv, VALUE self)
@@ -5832,7 +5832,7 @@ static VALUE NWScript_EffectPolymorph(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(463, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSanctuary(VALUE self, VALUE nDifficultyClass)
@@ -5841,7 +5841,7 @@ static VALUE NWScript_EffectSanctuary(VALUE self, VALUE nDifficultyClass)
 	VM_ExecuteCommand(464, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectTrueSeeing(VALUE self)
@@ -5849,7 +5849,7 @@ static VALUE NWScript_EffectTrueSeeing(VALUE self)
 	VM_ExecuteCommand(465, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSeeInvisible(VALUE self)
@@ -5857,7 +5857,7 @@ static VALUE NWScript_EffectSeeInvisible(VALUE self)
 	VM_ExecuteCommand(466, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectTimeStop(VALUE self)
@@ -5865,7 +5865,7 @@ static VALUE NWScript_EffectTimeStop(VALUE self)
 	VM_ExecuteCommand(467, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectBlindness(VALUE self)
@@ -5873,7 +5873,7 @@ static VALUE NWScript_EffectBlindness(VALUE self)
 	VM_ExecuteCommand(468, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetIsReactionTypeFriendly(int argc, VALUE *argv, VALUE self)
@@ -5952,7 +5952,7 @@ static VALUE NWScript_EffectSpellLevelAbsorption(int argc, VALUE *argv, VALUE se
 	VM_ExecuteCommand(472, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDispelMagicBest(int argc, VALUE *argv, VALUE self)
@@ -5969,7 +5969,7 @@ static VALUE NWScript_EffectDispelMagicBest(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(473, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ActivatePortal(int argc, VALUE *argv, VALUE self)
@@ -6029,7 +6029,7 @@ static VALUE NWScript_EffectMissChance(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(477, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetTurnResistanceHD(int argc, VALUE *argv, VALUE self)
@@ -6076,7 +6076,7 @@ static VALUE NWScript_EffectDisappearAppear(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(480, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDisappear(int argc, VALUE *argv, VALUE self)
@@ -6093,7 +6093,7 @@ static VALUE NWScript_EffectDisappear(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(481, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectAppear(int argc, VALUE *argv, VALUE self)
@@ -6110,7 +6110,7 @@ static VALUE NWScript_EffectAppear(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(482, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ActionUnlockObject(VALUE self, VALUE oTarget)
@@ -6133,7 +6133,7 @@ static VALUE NWScript_EffectModifyAttacks(VALUE self, VALUE nAttacks)
 	VM_ExecuteCommand(485, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetLastTrapDetected(int argc, VALUE *argv, VALUE self)
@@ -6161,7 +6161,7 @@ static VALUE NWScript_EffectDamageShield(VALUE self, VALUE nDamageAmount, VALUE 
 	VM_ExecuteCommand(487, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetNearestTrapToObject(int argc, VALUE *argv, VALUE self)
@@ -6429,7 +6429,7 @@ static VALUE NWScript_EffectSwarm(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(510, 5);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetWeaponRanged(VALUE self, VALUE oItem)
@@ -6898,7 +6898,7 @@ static VALUE NWScript_EffectTurnResistanceDecrease(VALUE self, VALUE nHitDice)
 	VM_ExecuteCommand(552, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectTurnResistanceIncrease(VALUE self, VALUE nHitDice)
@@ -6907,7 +6907,7 @@ static VALUE NWScript_EffectTurnResistanceIncrease(VALUE self, VALUE nHitDice)
 	VM_ExecuteCommand(553, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_PopUpDeathGUIPanel(int argc, VALUE *argv, VALUE self)
@@ -7174,7 +7174,7 @@ static VALUE NWScript_EffectPetrify(VALUE self)
 	VM_ExecuteCommand(583, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_CopyItem(int argc, VALUE *argv, VALUE self)
@@ -7204,7 +7204,7 @@ static VALUE NWScript_EffectCutsceneParalyze(VALUE self)
 	VM_ExecuteCommand(585, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetDroppableFlag(VALUE self, VALUE oItem)
@@ -7435,7 +7435,7 @@ static VALUE NWScript_GetCampaignLocation(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(598, 3);
 	CGameEffect *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cLocationClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetCampaignString(int argc, VALUE *argv, VALUE self)
@@ -7560,7 +7560,7 @@ static VALUE NWScript_EffectCutsceneDominated(VALUE self)
 	VM_ExecuteCommand(604, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetItemStackSize(VALUE self, VALUE oItem)
@@ -7647,7 +7647,7 @@ static VALUE NWScript_GetFirstItemProperty(VALUE self, VALUE oItem)
 	VM_ExecuteCommand(612, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetNextItemProperty(VALUE self, VALUE oItem)
@@ -7656,7 +7656,7 @@ static VALUE NWScript_GetNextItemProperty(VALUE self, VALUE oItem)
 	VM_ExecuteCommand(613, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetItemPropertyType(VALUE self, VALUE ip)
@@ -7688,7 +7688,7 @@ static VALUE NWScript_ItemPropertyAbilityBonus(VALUE self, VALUE nAbility, VALUE
 	VM_ExecuteCommand(616, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyACBonus(VALUE self, VALUE nBonus)
@@ -7697,7 +7697,7 @@ static VALUE NWScript_ItemPropertyACBonus(VALUE self, VALUE nBonus)
 	VM_ExecuteCommand(617, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyACBonusVsAlign(VALUE self, VALUE nAlignGroup, VALUE nACBonus)
@@ -7707,7 +7707,7 @@ static VALUE NWScript_ItemPropertyACBonusVsAlign(VALUE self, VALUE nAlignGroup, 
 	VM_ExecuteCommand(618, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyACBonusVsDmgType(VALUE self, VALUE nDamageType, VALUE nACBonus)
@@ -7717,7 +7717,7 @@ static VALUE NWScript_ItemPropertyACBonusVsDmgType(VALUE self, VALUE nDamageType
 	VM_ExecuteCommand(619, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyACBonusVsRace(VALUE self, VALUE nRace, VALUE nACBonus)
@@ -7727,7 +7727,7 @@ static VALUE NWScript_ItemPropertyACBonusVsRace(VALUE self, VALUE nRace, VALUE n
 	VM_ExecuteCommand(620, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyACBonusVsSAlign(VALUE self, VALUE nAlign, VALUE nACBonus)
@@ -7737,7 +7737,7 @@ static VALUE NWScript_ItemPropertyACBonusVsSAlign(VALUE self, VALUE nAlign, VALU
 	VM_ExecuteCommand(621, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyEnhancementBonus(VALUE self, VALUE nEnhancementBonus)
@@ -7746,7 +7746,7 @@ static VALUE NWScript_ItemPropertyEnhancementBonus(VALUE self, VALUE nEnhancemen
 	VM_ExecuteCommand(622, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyEnhancementBonusVsAlign(VALUE self, VALUE nAlignGroup, VALUE nBonus)
@@ -7756,7 +7756,7 @@ static VALUE NWScript_ItemPropertyEnhancementBonusVsAlign(VALUE self, VALUE nAli
 	VM_ExecuteCommand(623, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyEnhancementBonusVsRace(VALUE self, VALUE nRace, VALUE nBonus)
@@ -7766,7 +7766,7 @@ static VALUE NWScript_ItemPropertyEnhancementBonusVsRace(VALUE self, VALUE nRace
 	VM_ExecuteCommand(624, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyEnhancementBonusVsSAlign(VALUE self, VALUE nAlign, VALUE nBonus)
@@ -7776,7 +7776,7 @@ static VALUE NWScript_ItemPropertyEnhancementBonusVsSAlign(VALUE self, VALUE nAl
 	VM_ExecuteCommand(625, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyEnhancementPenalty(VALUE self, VALUE nPenalty)
@@ -7785,7 +7785,7 @@ static VALUE NWScript_ItemPropertyEnhancementPenalty(VALUE self, VALUE nPenalty)
 	VM_ExecuteCommand(626, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyWeightReduction(VALUE self, VALUE nReduction)
@@ -7794,7 +7794,7 @@ static VALUE NWScript_ItemPropertyWeightReduction(VALUE self, VALUE nReduction)
 	VM_ExecuteCommand(627, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyBonusFeat(VALUE self, VALUE nFeat)
@@ -7803,7 +7803,7 @@ static VALUE NWScript_ItemPropertyBonusFeat(VALUE self, VALUE nFeat)
 	VM_ExecuteCommand(628, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyBonusLevelSpell(VALUE self, VALUE nClass, VALUE nSpellLevel)
@@ -7813,7 +7813,7 @@ static VALUE NWScript_ItemPropertyBonusLevelSpell(VALUE self, VALUE nClass, VALU
 	VM_ExecuteCommand(629, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyCastSpell(VALUE self, VALUE nSpell, VALUE nNumUses)
@@ -7823,7 +7823,7 @@ static VALUE NWScript_ItemPropertyCastSpell(VALUE self, VALUE nSpell, VALUE nNum
 	VM_ExecuteCommand(630, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageBonus(VALUE self, VALUE nDamageType, VALUE nDamage)
@@ -7833,7 +7833,7 @@ static VALUE NWScript_ItemPropertyDamageBonus(VALUE self, VALUE nDamageType, VAL
 	VM_ExecuteCommand(631, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageBonusVsAlign(VALUE self, VALUE nAlignGroup, VALUE nDamageType, VALUE nDamage)
@@ -7844,7 +7844,7 @@ static VALUE NWScript_ItemPropertyDamageBonusVsAlign(VALUE self, VALUE nAlignGro
 	VM_ExecuteCommand(632, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageBonusVsRace(VALUE self, VALUE nRace, VALUE nDamageType, VALUE nDamage)
@@ -7855,7 +7855,7 @@ static VALUE NWScript_ItemPropertyDamageBonusVsRace(VALUE self, VALUE nRace, VAL
 	VM_ExecuteCommand(633, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageBonusVsSAlign(VALUE self, VALUE nAlign, VALUE nDamageType, VALUE nDamage)
@@ -7866,7 +7866,7 @@ static VALUE NWScript_ItemPropertyDamageBonusVsSAlign(VALUE self, VALUE nAlign, 
 	VM_ExecuteCommand(634, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageImmunity(VALUE self, VALUE nDamageType, VALUE nImmuneBonus)
@@ -7876,7 +7876,7 @@ static VALUE NWScript_ItemPropertyDamageImmunity(VALUE self, VALUE nDamageType, 
 	VM_ExecuteCommand(635, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamagePenalty(VALUE self, VALUE nPenalty)
@@ -7885,7 +7885,7 @@ static VALUE NWScript_ItemPropertyDamagePenalty(VALUE self, VALUE nPenalty)
 	VM_ExecuteCommand(636, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageReduction(VALUE self, VALUE nEnhancement, VALUE nHPSoak)
@@ -7895,7 +7895,7 @@ static VALUE NWScript_ItemPropertyDamageReduction(VALUE self, VALUE nEnhancement
 	VM_ExecuteCommand(637, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageResistance(VALUE self, VALUE nDamageType, VALUE nHPResist)
@@ -7905,7 +7905,7 @@ static VALUE NWScript_ItemPropertyDamageResistance(VALUE self, VALUE nDamageType
 	VM_ExecuteCommand(638, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageVulnerability(VALUE self, VALUE nDamageType, VALUE nVulnerability)
@@ -7915,7 +7915,7 @@ static VALUE NWScript_ItemPropertyDamageVulnerability(VALUE self, VALUE nDamageT
 	VM_ExecuteCommand(639, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDarkvision(VALUE self)
@@ -7923,7 +7923,7 @@ static VALUE NWScript_ItemPropertyDarkvision(VALUE self)
 	VM_ExecuteCommand(640, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDecreaseAbility(VALUE self, VALUE nAbility, VALUE nModifier)
@@ -7933,7 +7933,7 @@ static VALUE NWScript_ItemPropertyDecreaseAbility(VALUE self, VALUE nAbility, VA
 	VM_ExecuteCommand(641, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDecreaseAC(VALUE self, VALUE nModifierType, VALUE nPenalty)
@@ -7943,7 +7943,7 @@ static VALUE NWScript_ItemPropertyDecreaseAC(VALUE self, VALUE nModifierType, VA
 	VM_ExecuteCommand(642, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDecreaseSkill(VALUE self, VALUE nSkill, VALUE nPenalty)
@@ -7953,7 +7953,7 @@ static VALUE NWScript_ItemPropertyDecreaseSkill(VALUE self, VALUE nSkill, VALUE 
 	VM_ExecuteCommand(643, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyContainerReducedWeight(VALUE self, VALUE nContainerType)
@@ -7962,7 +7962,7 @@ static VALUE NWScript_ItemPropertyContainerReducedWeight(VALUE self, VALUE nCont
 	VM_ExecuteCommand(644, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyExtraMeleeDamageType(VALUE self, VALUE nDamageType)
@@ -7971,7 +7971,7 @@ static VALUE NWScript_ItemPropertyExtraMeleeDamageType(VALUE self, VALUE nDamage
 	VM_ExecuteCommand(645, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyExtraRangeDamageType(VALUE self, VALUE nDamageType)
@@ -7980,7 +7980,7 @@ static VALUE NWScript_ItemPropertyExtraRangeDamageType(VALUE self, VALUE nDamage
 	VM_ExecuteCommand(646, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyHaste(VALUE self)
@@ -7988,7 +7988,7 @@ static VALUE NWScript_ItemPropertyHaste(VALUE self)
 	VM_ExecuteCommand(647, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyHolyAvenger(VALUE self)
@@ -7996,7 +7996,7 @@ static VALUE NWScript_ItemPropertyHolyAvenger(VALUE self)
 	VM_ExecuteCommand(648, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyImmunityMisc(VALUE self, VALUE nImmunityType)
@@ -8005,7 +8005,7 @@ static VALUE NWScript_ItemPropertyImmunityMisc(VALUE self, VALUE nImmunityType)
 	VM_ExecuteCommand(649, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyImprovedEvasion(VALUE self)
@@ -8013,7 +8013,7 @@ static VALUE NWScript_ItemPropertyImprovedEvasion(VALUE self)
 	VM_ExecuteCommand(650, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyBonusSpellResistance(VALUE self, VALUE nBonus)
@@ -8022,7 +8022,7 @@ static VALUE NWScript_ItemPropertyBonusSpellResistance(VALUE self, VALUE nBonus)
 	VM_ExecuteCommand(651, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyBonusSavingThrowVsX(VALUE self, VALUE nBonusType, VALUE nBonus)
@@ -8032,7 +8032,7 @@ static VALUE NWScript_ItemPropertyBonusSavingThrowVsX(VALUE self, VALUE nBonusTy
 	VM_ExecuteCommand(652, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyBonusSavingThrow(VALUE self, VALUE nBaseSaveType, VALUE nBonus)
@@ -8042,7 +8042,7 @@ static VALUE NWScript_ItemPropertyBonusSavingThrow(VALUE self, VALUE nBaseSaveTy
 	VM_ExecuteCommand(653, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyKeen(VALUE self)
@@ -8050,7 +8050,7 @@ static VALUE NWScript_ItemPropertyKeen(VALUE self)
 	VM_ExecuteCommand(654, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyLight(VALUE self, VALUE nBrightness, VALUE nColor)
@@ -8060,7 +8060,7 @@ static VALUE NWScript_ItemPropertyLight(VALUE self, VALUE nBrightness, VALUE nCo
 	VM_ExecuteCommand(655, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyMaxRangeStrengthMod(VALUE self, VALUE nModifier)
@@ -8069,7 +8069,7 @@ static VALUE NWScript_ItemPropertyMaxRangeStrengthMod(VALUE self, VALUE nModifie
 	VM_ExecuteCommand(656, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyNoDamage(VALUE self)
@@ -8077,7 +8077,7 @@ static VALUE NWScript_ItemPropertyNoDamage(VALUE self)
 	VM_ExecuteCommand(657, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyOnHitProps(int argc, VALUE *argv, VALUE self)
@@ -8098,7 +8098,7 @@ static VALUE NWScript_ItemPropertyOnHitProps(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(658, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyReducedSavingThrowVsX(VALUE self, VALUE nBaseSaveType, VALUE nPenalty)
@@ -8108,7 +8108,7 @@ static VALUE NWScript_ItemPropertyReducedSavingThrowVsX(VALUE self, VALUE nBaseS
 	VM_ExecuteCommand(659, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyReducedSavingThrow(VALUE self, VALUE nBonusType, VALUE nPenalty)
@@ -8118,7 +8118,7 @@ static VALUE NWScript_ItemPropertyReducedSavingThrow(VALUE self, VALUE nBonusTyp
 	VM_ExecuteCommand(660, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyRegeneration(VALUE self, VALUE nRegenAmount)
@@ -8127,7 +8127,7 @@ static VALUE NWScript_ItemPropertyRegeneration(VALUE self, VALUE nRegenAmount)
 	VM_ExecuteCommand(661, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertySkillBonus(VALUE self, VALUE nSkill, VALUE nBonus)
@@ -8137,7 +8137,7 @@ static VALUE NWScript_ItemPropertySkillBonus(VALUE self, VALUE nSkill, VALUE nBo
 	VM_ExecuteCommand(662, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertySpellImmunitySpecific(VALUE self, VALUE nSpell)
@@ -8146,7 +8146,7 @@ static VALUE NWScript_ItemPropertySpellImmunitySpecific(VALUE self, VALUE nSpell
 	VM_ExecuteCommand(663, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertySpellImmunitySchool(VALUE self, VALUE nSchool)
@@ -8155,7 +8155,7 @@ static VALUE NWScript_ItemPropertySpellImmunitySchool(VALUE self, VALUE nSchool)
 	VM_ExecuteCommand(664, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyThievesTools(VALUE self, VALUE nModifier)
@@ -8164,7 +8164,7 @@ static VALUE NWScript_ItemPropertyThievesTools(VALUE self, VALUE nModifier)
 	VM_ExecuteCommand(665, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyAttackBonus(VALUE self, VALUE nBonus)
@@ -8173,7 +8173,7 @@ static VALUE NWScript_ItemPropertyAttackBonus(VALUE self, VALUE nBonus)
 	VM_ExecuteCommand(666, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyAttackBonusVsAlign(VALUE self, VALUE nAlignGroup, VALUE nBonus)
@@ -8183,7 +8183,7 @@ static VALUE NWScript_ItemPropertyAttackBonusVsAlign(VALUE self, VALUE nAlignGro
 	VM_ExecuteCommand(667, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyAttackBonusVsRace(VALUE self, VALUE nRace, VALUE nBonus)
@@ -8193,7 +8193,7 @@ static VALUE NWScript_ItemPropertyAttackBonusVsRace(VALUE self, VALUE nRace, VAL
 	VM_ExecuteCommand(668, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyAttackBonusVsSAlign(VALUE self, VALUE nAlignment, VALUE nBonus)
@@ -8203,7 +8203,7 @@ static VALUE NWScript_ItemPropertyAttackBonusVsSAlign(VALUE self, VALUE nAlignme
 	VM_ExecuteCommand(669, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyAttackPenalty(VALUE self, VALUE nPenalty)
@@ -8212,7 +8212,7 @@ static VALUE NWScript_ItemPropertyAttackPenalty(VALUE self, VALUE nPenalty)
 	VM_ExecuteCommand(670, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyUnlimitedAmmo(int argc, VALUE *argv, VALUE self)
@@ -8229,7 +8229,7 @@ static VALUE NWScript_ItemPropertyUnlimitedAmmo(int argc, VALUE *argv, VALUE sel
 	VM_ExecuteCommand(671, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyLimitUseByAlign(VALUE self, VALUE nAlignGroup)
@@ -8238,7 +8238,7 @@ static VALUE NWScript_ItemPropertyLimitUseByAlign(VALUE self, VALUE nAlignGroup)
 	VM_ExecuteCommand(672, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyLimitUseByClass(VALUE self, VALUE nClass)
@@ -8247,7 +8247,7 @@ static VALUE NWScript_ItemPropertyLimitUseByClass(VALUE self, VALUE nClass)
 	VM_ExecuteCommand(673, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyLimitUseByRace(VALUE self, VALUE nRace)
@@ -8256,7 +8256,7 @@ static VALUE NWScript_ItemPropertyLimitUseByRace(VALUE self, VALUE nRace)
 	VM_ExecuteCommand(674, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyLimitUseBySAlign(VALUE self, VALUE nAlignment)
@@ -8265,7 +8265,7 @@ static VALUE NWScript_ItemPropertyLimitUseBySAlign(VALUE self, VALUE nAlignment)
 	VM_ExecuteCommand(675, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_BadBadReplaceMeThisDoesNothing(VALUE self)
@@ -8273,7 +8273,7 @@ static VALUE NWScript_BadBadReplaceMeThisDoesNothing(VALUE self)
 	VM_ExecuteCommand(676, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyVampiricRegeneration(VALUE self, VALUE nRegenAmount)
@@ -8282,7 +8282,7 @@ static VALUE NWScript_ItemPropertyVampiricRegeneration(VALUE self, VALUE nRegenA
 	VM_ExecuteCommand(677, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyTrap(VALUE self, VALUE nTrapLevel, VALUE nTrapType)
@@ -8292,7 +8292,7 @@ static VALUE NWScript_ItemPropertyTrap(VALUE self, VALUE nTrapLevel, VALUE nTrap
 	VM_ExecuteCommand(678, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyTrueSeeing(VALUE self)
@@ -8300,7 +8300,7 @@ static VALUE NWScript_ItemPropertyTrueSeeing(VALUE self)
 	VM_ExecuteCommand(679, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyOnMonsterHitProperties(int argc, VALUE *argv, VALUE self)
@@ -8319,7 +8319,7 @@ static VALUE NWScript_ItemPropertyOnMonsterHitProperties(int argc, VALUE *argv, 
 	VM_ExecuteCommand(680, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyTurnResistance(VALUE self, VALUE nModifier)
@@ -8328,7 +8328,7 @@ static VALUE NWScript_ItemPropertyTurnResistance(VALUE self, VALUE nModifier)
 	VM_ExecuteCommand(681, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyMassiveCritical(VALUE self, VALUE nDamage)
@@ -8337,7 +8337,7 @@ static VALUE NWScript_ItemPropertyMassiveCritical(VALUE self, VALUE nDamage)
 	VM_ExecuteCommand(682, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyFreeAction(VALUE self)
@@ -8345,7 +8345,7 @@ static VALUE NWScript_ItemPropertyFreeAction(VALUE self)
 	VM_ExecuteCommand(683, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyMonsterDamage(VALUE self, VALUE nDamage)
@@ -8354,7 +8354,7 @@ static VALUE NWScript_ItemPropertyMonsterDamage(VALUE self, VALUE nDamage)
 	VM_ExecuteCommand(684, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyImmunityToSpellLevel(VALUE self, VALUE nLevel)
@@ -8363,7 +8363,7 @@ static VALUE NWScript_ItemPropertyImmunityToSpellLevel(VALUE self, VALUE nLevel)
 	VM_ExecuteCommand(685, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertySpecialWalk(int argc, VALUE *argv, VALUE self)
@@ -8380,7 +8380,7 @@ static VALUE NWScript_ItemPropertySpecialWalk(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(686, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyHealersKit(VALUE self, VALUE nModifier)
@@ -8389,7 +8389,7 @@ static VALUE NWScript_ItemPropertyHealersKit(VALUE self, VALUE nModifier)
 	VM_ExecuteCommand(687, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyWeightIncrease(VALUE self, VALUE nWeight)
@@ -8398,7 +8398,7 @@ static VALUE NWScript_ItemPropertyWeightIncrease(VALUE self, VALUE nWeight)
 	VM_ExecuteCommand(688, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetIsSkillSuccessful(VALUE self, VALUE oTarget, VALUE nSkill, VALUE nDifficulty)
@@ -8429,7 +8429,7 @@ static VALUE NWScript_EffectSpellFailure(int argc, VALUE *argv, VALUE self)
 	VM_ExecuteCommand(690, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_SpeakStringByStrRef(int argc, VALUE *argv, VALUE self)
@@ -8680,7 +8680,7 @@ static VALUE NWScript_EffectEthereal(VALUE self)
 	VM_ExecuteCommand(711, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetAILevel(int argc, VALUE *argv, VALUE self)
@@ -8908,7 +8908,7 @@ static VALUE NWScript_ItemPropertyOnHitCastSpell(VALUE self, VALUE nSpell, VALUE
 	VM_ExecuteCommand(733, 2);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetItemPropertySubType(VALUE self, VALUE iProperty)
@@ -8963,7 +8963,7 @@ static VALUE NWScript_ItemPropertyVisualEffect(VALUE self, VALUE nEffect)
 	VM_ExecuteCommand(739, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_SetLootable(VALUE self, VALUE oCreature, VALUE bLootable)
@@ -9149,7 +9149,7 @@ static VALUE NWScript_EffectCutsceneGhost(VALUE self)
 	VM_ExecuteCommand(757, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyArcaneSpellFailure(VALUE self, VALUE nModLevel)
@@ -9158,7 +9158,7 @@ static VALUE NWScript_ItemPropertyArcaneSpellFailure(VALUE self, VALUE nModLevel
 	VM_ExecuteCommand(758, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetStoreGold(VALUE self, VALUE oidStore)
@@ -9234,7 +9234,7 @@ static VALUE NWScript_EffectCutsceneImmobilize(VALUE self)
 	VM_ExecuteCommand(767, 0);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cEffectClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetIsInSubArea(int argc, VALUE *argv, VALUE self)
@@ -10295,7 +10295,7 @@ static VALUE NWScript_ItemPropertyMaterial(VALUE self, VALUE nMaterialType)
 	VM_ExecuteCommand(845, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyQuality(VALUE self, VALUE nQuality)
@@ -10304,7 +10304,7 @@ static VALUE NWScript_ItemPropertyQuality(VALUE self, VALUE nQuality)
 	VM_ExecuteCommand(846, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyAdditional(VALUE self, VALUE nAdditionalProperty)
@@ -10313,8 +10313,9 @@ static VALUE NWScript_ItemPropertyAdditional(VALUE self, VALUE nAdditionalProper
 	VM_ExecuteCommand(847, 1);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
-	return Data_Wrap_Struct(self, 0, free, pRetVal);
+	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
+
 
 
 
@@ -11177,6 +11178,9 @@ VALUE RubyInt_InitNWScript()
 void RubyInt_DefineConstants()
 {
 	VALUE cNWScript = rb_define_module("NWScript");
+	g_cEffectClass = rb_define_class_under(cNWScript, "Effect", rb_cObject); /* ::NWScript::Effect */
+	g_cItemPropertyClass = rb_define_class_under(cNWScript, "ItemProperty", rb_cObject); /* ::NWScript::ItemProperty */
+	g_cLocationClass = rb_define_class_under(cNWScript, "Location", rb_cObject); /* ::NWScript::Location */
 	rb_define_const(cNWScript, "NUM_INVENTORY_SLOTS", INT2NUM(18));
 	rb_define_const(cNWScript, "TRUE", INT2NUM(1));
 	rb_define_const(cNWScript, "FALSE", INT2NUM(0));

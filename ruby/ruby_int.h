@@ -13,6 +13,10 @@
 extern "C" {
 #endif
 
+VALUE g_cLocationClass;
+VALUE g_cEffectClass;
+VALUE g_cItemPropertyClass;
+
 VALUE RubyInt_InitNWScript();
 void RubyInt_DefineConstants();
 
