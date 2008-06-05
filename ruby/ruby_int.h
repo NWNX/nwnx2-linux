@@ -1,3 +1,4 @@
+#include "NWNStructures.h"
 #include "FunctionHooks.h"
 #include "ruby/ruby.h"
 #include "nwscript.h"

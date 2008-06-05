@@ -1,4 +1,5 @@
 #include "FunctionHooks.h"
+#include "NWNStructures.h"
 #include "ruby_int.h"
 #include "ruby/ruby.h"
 
@@ -139,7 +140,7 @@ static VALUE NWScript_SetTime(VALUE self, VALUE nHour, VALUE nMinute, VALUE nSec
 	return Qnil;
 }
 
-static VALUE NWScript_GetCalendarYear()
+static VALUE NWScript_GetCalendarYear(VALUE self)
 {
 	VM_ExecuteCommand(13, 0);
 	int nRetVal;
@@ -147,7 +148,7 @@ static VALUE NWScript_GetCalendarYear()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetCalendarMonth()
+static VALUE NWScript_GetCalendarMonth(VALUE self)
 {
 	VM_ExecuteCommand(14, 0);
 	int nRetVal;
@@ -155,7 +156,7 @@ static VALUE NWScript_GetCalendarMonth()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetCalendarDay()
+static VALUE NWScript_GetCalendarDay(VALUE self)
 {
 	VM_ExecuteCommand(15, 0);
 	int nRetVal;
@@ -163,7 +164,7 @@ static VALUE NWScript_GetCalendarDay()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetTimeHour()
+static VALUE NWScript_GetTimeHour(VALUE self)
 {
 	VM_ExecuteCommand(16, 0);
 	int nRetVal;
@@ -171,7 +172,7 @@ static VALUE NWScript_GetTimeHour()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetTimeMinute()
+static VALUE NWScript_GetTimeMinute(VALUE self)
 {
 	VM_ExecuteCommand(17, 0);
 	int nRetVal;
@@ -179,7 +180,7 @@ static VALUE NWScript_GetTimeMinute()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetTimeSecond()
+static VALUE NWScript_GetTimeSecond(VALUE self)
 {
 	VM_ExecuteCommand(18, 0);
 	int nRetVal;
@@ -187,7 +188,7 @@ static VALUE NWScript_GetTimeSecond()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetTimeMillisecond()
+static VALUE NWScript_GetTimeMillisecond(VALUE self)
 {
 	VM_ExecuteCommand(19, 0);
 	int nRetVal;
@@ -195,7 +196,7 @@ static VALUE NWScript_GetTimeMillisecond()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_ActionRandomWalk()
+static VALUE NWScript_ActionRandomWalk(VALUE self)
 {
 	VM_ExecuteCommand(20, 0);
 	return Qnil;
@@ -213,7 +214,9 @@ static VALUE NWScript_ActionMoveToLocation(int argc, VALUE *argv, VALUE self)
 	if(argc>1) bRun = argv[1];
 	else bRun = INT2NUM(FALSE);
 	StackPushInteger(NUM2INT(bRun));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lDestination_ptr;
+	Data_Get_Struct(lDestination, CScriptLocation, lDestination_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lDestination_ptr);
 	VM_ExecuteCommand(21, 2);
 	return Qnil;
 }
@@ -267,7 +270,7 @@ static VALUE NWScript_GetArea(VALUE self, VALUE oTarget)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetEnteringObject()
+static VALUE NWScript_GetEnteringObject(VALUE self)
 {
 	VM_ExecuteCommand(25, 0);
 	dword nRetVal;
@@ -275,7 +278,7 @@ static VALUE NWScript_GetEnteringObject()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetExitingObject()
+static VALUE NWScript_GetExitingObject(VALUE self)
 {
 	VM_ExecuteCommand(26, 0);
 	dword nRetVal;
@@ -541,7 +544,7 @@ static VALUE NWScript_PlaySound(VALUE self, VALUE sSoundName)
 	return Qnil;
 }
 
-static VALUE NWScript_GetSpellTargetObject()
+static VALUE NWScript_GetSpellTargetObject(VALUE self)
 {
 	VM_ExecuteCommand(47, 0);
 	dword nRetVal;
@@ -884,7 +887,9 @@ static VALUE NWScript_EffectHeal(VALUE self, VALUE nDamageToHeal)
 {
 	StackPushInteger(NUM2INT(nDamageToHeal));
 	VM_ExecuteCommand(78, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDamage(int argc, VALUE *argv, VALUE self)
@@ -904,7 +909,9 @@ static VALUE NWScript_EffectDamage(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nDamageType));
 	StackPushInteger(NUM2INT(nDamageAmount));
 	VM_ExecuteCommand(79, 3);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectAbilityIncrease(VALUE self, VALUE nAbilityToIncrease, VALUE nModifyBy)
@@ -912,7 +919,9 @@ static VALUE NWScript_EffectAbilityIncrease(VALUE self, VALUE nAbilityToIncrease
 	StackPushInteger(NUM2INT(nModifyBy));
 	StackPushInteger(NUM2INT(nAbilityToIncrease));
 	VM_ExecuteCommand(80, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDamageResistance(int argc, VALUE *argv, VALUE self)
@@ -931,13 +940,17 @@ static VALUE NWScript_EffectDamageResistance(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nAmount));
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(81, 3);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectResurrection()
+static VALUE NWScript_EffectResurrection(VALUE self)
 {
 	VM_ExecuteCommand(82, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSummonCreature(int argc, VALUE *argv, VALUE self)
@@ -960,7 +973,9 @@ static VALUE NWScript_EffectSummonCreature(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nVisualEffectId));
 	StackPushString(rb_str2cstr(sCreatureResref, NULL));
 	VM_ExecuteCommand(83, 4);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetCasterLevel(VALUE self, VALUE oCreature)
@@ -976,19 +991,25 @@ static VALUE NWScript_GetFirstEffect(VALUE self, VALUE oCreature)
 {
 	StackPushObject(NUM2UINT(oCreature));
 	VM_ExecuteCommand(85, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetNextEffect(VALUE self, VALUE oCreature)
 {
 	StackPushObject(NUM2UINT(oCreature));
 	VM_ExecuteCommand(86, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_RemoveEffect(VALUE self, VALUE oCreature, VALUE eEffect)
 {
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	StackPushObject(NUM2UINT(oCreature));
 	VM_ExecuteCommand(87, 2);
 	return Qnil;
@@ -996,7 +1017,9 @@ static VALUE NWScript_RemoveEffect(VALUE self, VALUE oCreature, VALUE eEffect)
 
 static VALUE NWScript_GetIsEffectValid(VALUE self, VALUE eEffect)
 {
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	VM_ExecuteCommand(88, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -1005,7 +1028,9 @@ static VALUE NWScript_GetIsEffectValid(VALUE self, VALUE eEffect)
 
 static VALUE NWScript_GetEffectDurationType(VALUE self, VALUE eEffect)
 {
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	VM_ExecuteCommand(89, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -1014,7 +1039,9 @@ static VALUE NWScript_GetEffectDurationType(VALUE self, VALUE eEffect)
 
 static VALUE NWScript_GetEffectSubType(VALUE self, VALUE eEffect)
 {
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	VM_ExecuteCommand(90, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -1023,7 +1050,9 @@ static VALUE NWScript_GetEffectSubType(VALUE self, VALUE eEffect)
 
 static VALUE NWScript_GetEffectCreator(VALUE self, VALUE eEffect)
 {
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	VM_ExecuteCommand(91, 1);
 	dword nRetVal;
 	StackPopObject(&nRetVal);
@@ -1235,7 +1264,7 @@ static VALUE NWScript_VectorMagnitude(VALUE self, VALUE vVector)
 	return rb_float_new(fRetVal);
 }
 
-static VALUE NWScript_GetMetaMagicFeat()
+static VALUE NWScript_GetMetaMagicFeat(VALUE self)
 {
 	VM_ExecuteCommand(105, 0);
 	int nRetVal;
@@ -1333,7 +1362,7 @@ static VALUE NWScript_WillSave(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetSpellSaveDC()
+static VALUE NWScript_GetSpellSaveDC(VALUE self)
 {
 	VM_ExecuteCommand(111, 0);
 	int nRetVal;
@@ -1343,23 +1372,35 @@ static VALUE NWScript_GetSpellSaveDC()
 
 static VALUE NWScript_MagicalEffect(VALUE self, VALUE eEffect)
 {
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	VM_ExecuteCommand(112, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_SupernaturalEffect(VALUE self, VALUE eEffect)
 {
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	VM_ExecuteCommand(113, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ExtraordinaryEffect(VALUE self, VALUE eEffect)
 {
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	VM_ExecuteCommand(114, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectACIncrease(int argc, VALUE *argv, VALUE self)
@@ -1379,7 +1420,9 @@ static VALUE NWScript_EffectACIncrease(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nModifyType));
 	StackPushInteger(NUM2INT(nValue));
 	VM_ExecuteCommand(115, 3);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetAC(int argc, VALUE *argv, VALUE self)
@@ -1417,7 +1460,9 @@ static VALUE NWScript_EffectSavingThrowIncrease(int argc, VALUE *argv, VALUE sel
 	StackPushInteger(NUM2INT(nValue));
 	StackPushInteger(NUM2INT(nSave));
 	VM_ExecuteCommand(117, 3);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectAttackIncrease(int argc, VALUE *argv, VALUE self)
@@ -1434,7 +1479,9 @@ static VALUE NWScript_EffectAttackIncrease(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nModifierType));
 	StackPushInteger(NUM2INT(nBonus));
 	VM_ExecuteCommand(118, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDamageReduction(int argc, VALUE *argv, VALUE self)
@@ -1453,7 +1500,9 @@ static VALUE NWScript_EffectDamageReduction(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nDamagePower));
 	StackPushInteger(NUM2INT(nAmount));
 	VM_ExecuteCommand(119, 3);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDamageIncrease(int argc, VALUE *argv, VALUE self)
@@ -1470,7 +1519,9 @@ static VALUE NWScript_EffectDamageIncrease(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nDamageType));
 	StackPushInteger(NUM2INT(nBonus));
 	VM_ExecuteCommand(120, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_RoundsToSeconds(VALUE self, VALUE nRounds)
@@ -1536,10 +1587,12 @@ static VALUE NWScript_GetAlignmentGoodEvil(VALUE self, VALUE oCreature)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_EffectEntangle()
+static VALUE NWScript_EffectEntangle(VALUE self)
 {
 	VM_ExecuteCommand(130, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_SignalEvent(VALUE self, VALUE oObject, VALUE evToRun)
@@ -1572,13 +1625,17 @@ static VALUE NWScript_EffectDeath(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nDisplayFeedback));
 	StackPushInteger(NUM2INT(nSpectacularDeath));
 	VM_ExecuteCommand(133, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectKnockdown()
+static VALUE NWScript_EffectKnockdown(VALUE self)
 {
 	VM_ExecuteCommand(134, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ActionGiveItem(VALUE self, VALUE oItem, VALUE oGiveTo)
@@ -1631,7 +1688,9 @@ static VALUE NWScript_EffectCurse(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nDexMod));
 	StackPushInteger(NUM2INT(nStrMod));
 	VM_ExecuteCommand(138, 6);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetAbilityScore(int argc, VALUE *argv, VALUE self)
@@ -1754,10 +1813,12 @@ static VALUE NWScript_TouchAttackRanged(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_EffectParalyze()
+static VALUE NWScript_EffectParalyze(VALUE self)
 {
 	VM_ExecuteCommand(148, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSpellImmunity(int argc, VALUE *argv, VALUE self)
@@ -1772,13 +1833,17 @@ static VALUE NWScript_EffectSpellImmunity(int argc, VALUE *argv, VALUE self)
 	else nImmunityToSpell = INT2NUM(SPELL_ALL_SPELLS);
 	StackPushInteger(NUM2INT(nImmunityToSpell));
 	VM_ExecuteCommand(149, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectDeaf()
+static VALUE NWScript_EffectDeaf(VALUE self)
 {
 	VM_ExecuteCommand(150, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetDistanceBetween(VALUE self, VALUE oObjectA, VALUE oObjectB)
@@ -1793,7 +1858,9 @@ static VALUE NWScript_GetDistanceBetween(VALUE self, VALUE oObjectA, VALUE oObje
 
 static VALUE NWScript_SetLocalLocation(VALUE self, VALUE oObject, VALUE sVarName, VALUE lValue)
 {
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lValue_ptr;
+	Data_Get_Struct(lValue, CScriptLocation, lValue_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lValue_ptr);
 	StackPushString(rb_str2cstr(sVarName, NULL));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(152, 3);
@@ -1805,13 +1872,17 @@ static VALUE NWScript_GetLocalLocation(VALUE self, VALUE oObject, VALUE sVarName
 	StackPushString(rb_str2cstr(sVarName, NULL));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(153, 2);
-//ERROR: Undefined variable type: location
+	CGameEffect *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectSleep()
+static VALUE NWScript_EffectSleep(VALUE self)
 {
 	VM_ExecuteCommand(154, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetItemInSlot(int argc, VALUE *argv, VALUE self)
@@ -1833,40 +1904,52 @@ static VALUE NWScript_GetItemInSlot(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_EffectCharmed()
+static VALUE NWScript_EffectCharmed(VALUE self)
 {
 	VM_ExecuteCommand(156, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectConfused()
+static VALUE NWScript_EffectConfused(VALUE self)
 {
 	VM_ExecuteCommand(157, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectFrightened()
+static VALUE NWScript_EffectFrightened(VALUE self)
 {
 	VM_ExecuteCommand(158, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectDominated()
+static VALUE NWScript_EffectDominated(VALUE self)
 {
 	VM_ExecuteCommand(159, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectDazed()
+static VALUE NWScript_EffectDazed(VALUE self)
 {
 	VM_ExecuteCommand(160, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectStunned()
+static VALUE NWScript_EffectStunned(VALUE self)
 {
 	VM_ExecuteCommand(161, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_SetCommandable(int argc, VALUE *argv, VALUE self)
@@ -1908,14 +1991,18 @@ static VALUE NWScript_EffectRegenerate(VALUE self, VALUE nAmount, VALUE fInterva
 	StackPushFloat(NUM2DBL(fIntervalSeconds));
 	StackPushInteger(NUM2INT(nAmount));
 	VM_ExecuteCommand(164, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectMovementSpeedIncrease(VALUE self, VALUE nPercentChange)
 {
 	StackPushInteger(NUM2INT(nPercentChange));
 	VM_ExecuteCommand(165, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetHitDice(VALUE self, VALUE oCreature)
@@ -1965,7 +2052,9 @@ static VALUE NWScript_ResistSpell(VALUE self, VALUE oCaster, VALUE oTarget)
 
 static VALUE NWScript_GetEffectType(VALUE self, VALUE eEffect)
 {
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	VM_ExecuteCommand(170, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -1992,7 +2081,9 @@ static VALUE NWScript_EffectAreaOfEffect(int argc, VALUE *argv, VALUE self)
 	StackPushString(rb_str2cstr(sOnEnterScript, NULL));
 	StackPushInteger(NUM2INT(nAreaEffectId));
 	VM_ExecuteCommand(171, 4);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetFactionEqual(int argc, VALUE *argv, VALUE self)
@@ -2077,7 +2168,7 @@ static VALUE NWScript_GetMatchedSubstring(VALUE self, VALUE nString)
 	return rb_str_new2(sRetVal);
 }
 
-static VALUE NWScript_GetMatchedSubstringsCount()
+static VALUE NWScript_GetMatchedSubstringsCount(VALUE self)
 {
 	VM_ExecuteCommand(179, 0);
 	int nRetVal;
@@ -2099,7 +2190,9 @@ static VALUE NWScript_EffectVisualEffect(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nMissEffect));
 	StackPushInteger(NUM2INT(nVisualEffectId));
 	VM_ExecuteCommand(180, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetFactionWeakestMember(int argc, VALUE *argv, VALUE self)
@@ -2293,7 +2386,7 @@ static VALUE NWScript_ActionSit(VALUE self, VALUE oChair)
 	return Qnil;
 }
 
-static VALUE NWScript_GetListenPatternNumber()
+static VALUE NWScript_GetListenPatternNumber(VALUE self)
 {
 	VM_ExecuteCommand(195, 0);
 	int nRetVal;
@@ -2338,10 +2431,16 @@ static VALUE NWScript_GetTransitionTarget(VALUE self, VALUE oTransition)
 
 static VALUE NWScript_EffectLinkEffects(VALUE self, VALUE eChildEffect, VALUE eParentEffect)
 {
-	//ERROR: Undefined variable type: effect
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eParentEffect_ptr;
+	Data_Get_Struct(eParentEffect, CGameEffect, eParentEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eParentEffect_ptr);
+	CGameEffect *eChildEffect_ptr;
+	Data_Get_Struct(eChildEffect, CGameEffect, eChildEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eChildEffect_ptr);
 	VM_ExecuteCommand(199, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetObjectByTag(int argc, VALUE *argv, VALUE self)
@@ -2431,13 +2530,13 @@ static VALUE NWScript_ActionStartConversation(int argc, VALUE *argv, VALUE self)
 	return Qnil;
 }
 
-static VALUE NWScript_ActionPauseConversation()
+static VALUE NWScript_ActionPauseConversation(VALUE self)
 {
 	VM_ExecuteCommand(205, 0);
 	return Qnil;
 }
 
-static VALUE NWScript_ActionResumeConversation()
+static VALUE NWScript_ActionResumeConversation(VALUE self)
 {
 	VM_ExecuteCommand(206, 0);
 	return Qnil;
@@ -2461,7 +2560,9 @@ static VALUE NWScript_EffectBeam(int argc, VALUE *argv, VALUE self)
 	StackPushObject(NUM2UINT(oEffector));
 	StackPushInteger(NUM2INT(nBeamVisualEffect));
 	VM_ExecuteCommand(207, 4);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetReputation(VALUE self, VALUE oSource, VALUE oTarget)
@@ -2505,19 +2606,25 @@ static VALUE NWScript_EffectSpellResistanceIncrease(VALUE self, VALUE nValue)
 {
 	StackPushInteger(NUM2INT(nValue));
 	VM_ExecuteCommand(212, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetLocation(VALUE self, VALUE oObject)
 {
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(213, 1);
-//ERROR: Undefined variable type: location
+	CGameEffect *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ActionJumpToLocation(VALUE self, VALUE lLocation)
 {
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lLocation_ptr;
+	Data_Get_Struct(lLocation, CScriptLocation, lLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocation_ptr);
 	VM_ExecuteCommand(214, 1);
 	return Qnil;
 }
@@ -2528,7 +2635,9 @@ static VALUE NWScript_Location(VALUE self, VALUE oArea, VALUE vPosition, VALUE f
 	//ERROR: Undefined variable type: vector
 	StackPushObject(NUM2UINT(oArea));
 	VM_ExecuteCommand(215, 3);
-//ERROR: Undefined variable type: location
+	CGameEffect *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ApplyEffectAtLocation(int argc, VALUE *argv, VALUE self)
@@ -2545,8 +2654,12 @@ static VALUE NWScript_ApplyEffectAtLocation(int argc, VALUE *argv, VALUE self)
 	if(argc>3) fDuration = argv[3];
 	else fDuration = rb_float_new(0.0f);
 	StackPushFloat(NUM2DBL(fDuration));
-	//ERROR: Undefined variable type: location
-	//ERROR: Undefined variable type: effect
+	CScriptLocation *lLocation_ptr;
+	Data_Get_Struct(lLocation, CScriptLocation, lLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocation_ptr);
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	StackPushInteger(NUM2INT(nDurationType));
 	VM_ExecuteCommand(216, 4);
 	return Qnil;
@@ -2594,7 +2707,9 @@ static VALUE NWScript_ApplyEffectToObject(int argc, VALUE *argv, VALUE self)
 	else fDuration = rb_float_new(0.0f);
 	StackPushFloat(NUM2DBL(fDuration));
 	StackPushObject(NUM2UINT(oTarget));
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	StackPushInteger(NUM2INT(nDurationType));
 	VM_ExecuteCommand(220, 4);
 	return Qnil;
@@ -2617,22 +2732,28 @@ static VALUE NWScript_SpeakString(int argc, VALUE *argv, VALUE self)
 	return Qnil;
 }
 
-static VALUE NWScript_GetSpellTargetLocation()
+static VALUE NWScript_GetSpellTargetLocation(VALUE self)
 {
 	VM_ExecuteCommand(222, 0);
-//ERROR: Undefined variable type: location
+	CGameEffect *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetPositionFromLocation(VALUE self, VALUE lLocation)
 {
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lLocation_ptr;
+	Data_Get_Struct(lLocation, CScriptLocation, lLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocation_ptr);
 	VM_ExecuteCommand(223, 1);
 //ERROR: Undefined variable type: vector
 }
 
 static VALUE NWScript_GetAreaFromLocation(VALUE self, VALUE lLocation)
 {
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lLocation_ptr;
+	Data_Get_Struct(lLocation, CScriptLocation, lLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocation_ptr);
 	VM_ExecuteCommand(224, 1);
 	dword nRetVal;
 	StackPopObject(&nRetVal);
@@ -2641,7 +2762,9 @@ static VALUE NWScript_GetAreaFromLocation(VALUE self, VALUE lLocation)
 
 static VALUE NWScript_GetFacingFromLocation(VALUE self, VALUE lLocation)
 {
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lLocation_ptr;
+	Data_Get_Struct(lLocation, CScriptLocation, lLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocation_ptr);
 	VM_ExecuteCommand(225, 1);
 	float fRetVal;
 	StackPopFloat(&fRetVal);
@@ -2674,7 +2797,9 @@ static VALUE NWScript_GetNearestCreatureToLocation(int argc, VALUE *argv, VALUE 
 	StackPushInteger(NUM2INT(nSecondCriteriaValue));
 	StackPushInteger(NUM2INT(nSecondCriteriaType));
 	StackPushInteger(NUM2INT(nNth));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lLocation_ptr;
+	Data_Get_Struct(lLocation, CScriptLocation, lLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocation_ptr);
 	StackPushInteger(NUM2INT(nFirstCriteriaValue));
 	StackPushInteger(NUM2INT(nFirstCriteriaType));
 	VM_ExecuteCommand(226, 8);
@@ -2719,7 +2844,9 @@ static VALUE NWScript_GetNearestObjectToLocation(int argc, VALUE *argv, VALUE se
 	if(argc>2) nNth = argv[2];
 	else nNth = INT2NUM(1);
 	StackPushInteger(NUM2INT(nNth));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lLocation_ptr;
+	Data_Get_Struct(lLocation, CScriptLocation, lLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocation_ptr);
 	StackPushInteger(NUM2INT(nObjectType));
 	VM_ExecuteCommand(228, 3);
 	dword nRetVal;
@@ -2807,7 +2934,9 @@ static VALUE NWScript_ActionCastSpellAtLocation(int argc, VALUE *argv, VALUE sel
 	StackPushInteger(NUM2INT(nProjectilePathType));
 	StackPushInteger(NUM2INT(bCheat));
 	StackPushInteger(NUM2INT(nMetaMagic));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lTargetLocation_ptr;
+	Data_Get_Struct(lTargetLocation, CScriptLocation, lTargetLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lTargetLocation_ptr);
 	StackPushInteger(NUM2INT(nSpell));
 	VM_ExecuteCommand(234, 6);
 	return Qnil;
@@ -2870,7 +2999,7 @@ static VALUE NWScript_GetIsNeutral(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetPCSpeaker()
+static VALUE NWScript_GetPCSpeaker(VALUE self)
 {
 	VM_ExecuteCommand(238, 0);
 	dword nRetVal;
@@ -2931,7 +3060,7 @@ static VALUE NWScript_DestroyObject(int argc, VALUE *argv, VALUE self)
 	return Qnil;
 }
 
-static VALUE NWScript_GetModule()
+static VALUE NWScript_GetModule(VALUE self)
 {
 	VM_ExecuteCommand(242, 0);
 	dword nRetVal;
@@ -2956,7 +3085,9 @@ static VALUE NWScript_CreateObject(int argc, VALUE *argv, VALUE self)
 	else sNewTag = rb_str_new2("");
 	StackPushString(rb_str2cstr(sNewTag, NULL));
 	StackPushInteger(NUM2INT(bUseAppearAnimation));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lLocation_ptr;
+	Data_Get_Struct(lLocation, CScriptLocation, lLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocation_ptr);
 	StackPushString(rb_str2cstr(sTemplate, NULL));
 	StackPushInteger(NUM2INT(nObjectType));
 	VM_ExecuteCommand(243, 5);
@@ -2984,7 +3115,7 @@ static VALUE NWScript_EventSpellCastAt(int argc, VALUE *argv, VALUE self)
 //ERROR: Undefined variable type: event
 }
 
-static VALUE NWScript_GetLastSpellCaster()
+static VALUE NWScript_GetLastSpellCaster(VALUE self)
 {
 	VM_ExecuteCommand(245, 0);
 	dword nRetVal;
@@ -2992,7 +3123,7 @@ static VALUE NWScript_GetLastSpellCaster()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastSpell()
+static VALUE NWScript_GetLastSpell(VALUE self)
 {
 	VM_ExecuteCommand(246, 0);
 	int nRetVal;
@@ -3000,7 +3131,7 @@ static VALUE NWScript_GetLastSpell()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetUserDefinedEventNumber()
+static VALUE NWScript_GetUserDefinedEventNumber(VALUE self)
 {
 	VM_ExecuteCommand(247, 0);
 	int nRetVal;
@@ -3008,7 +3139,7 @@ static VALUE NWScript_GetUserDefinedEventNumber()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetSpellId()
+static VALUE NWScript_GetSpellId(VALUE self)
 {
 	VM_ExecuteCommand(248, 0);
 	int nRetVal;
@@ -3037,20 +3168,26 @@ static VALUE NWScript_EffectPoison(VALUE self, VALUE nPoisonType)
 {
 	StackPushInteger(NUM2INT(nPoisonType));
 	VM_ExecuteCommand(250, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDisease(VALUE self, VALUE nDiseaseType)
 {
 	StackPushInteger(NUM2INT(nDiseaseType));
 	VM_ExecuteCommand(251, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectSilence()
+static VALUE NWScript_EffectSilence(VALUE self)
 {
 	VM_ExecuteCommand(252, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetName(int argc, VALUE *argv, VALUE self)
@@ -3072,7 +3209,7 @@ static VALUE NWScript_GetName(int argc, VALUE *argv, VALUE self)
 	return rb_str_new2(sRetVal);
 }
 
-static VALUE NWScript_GetLastSpeaker()
+static VALUE NWScript_GetLastSpeaker(VALUE self)
 {
 	VM_ExecuteCommand(254, 0);
 	dword nRetVal;
@@ -3100,7 +3237,7 @@ static VALUE NWScript_BeginConversation(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastPerceived()
+static VALUE NWScript_GetLastPerceived(VALUE self)
 {
 	VM_ExecuteCommand(256, 0);
 	dword nRetVal;
@@ -3108,7 +3245,7 @@ static VALUE NWScript_GetLastPerceived()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastPerceptionHeard()
+static VALUE NWScript_GetLastPerceptionHeard(VALUE self)
 {
 	VM_ExecuteCommand(257, 0);
 	int nRetVal;
@@ -3116,7 +3253,7 @@ static VALUE NWScript_GetLastPerceptionHeard()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastPerceptionInaudible()
+static VALUE NWScript_GetLastPerceptionInaudible(VALUE self)
 {
 	VM_ExecuteCommand(258, 0);
 	int nRetVal;
@@ -3124,7 +3261,7 @@ static VALUE NWScript_GetLastPerceptionInaudible()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastPerceptionSeen()
+static VALUE NWScript_GetLastPerceptionSeen(VALUE self)
 {
 	VM_ExecuteCommand(259, 0);
 	int nRetVal;
@@ -3132,7 +3269,7 @@ static VALUE NWScript_GetLastPerceptionSeen()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastClosedBy()
+static VALUE NWScript_GetLastClosedBy(VALUE self)
 {
 	VM_ExecuteCommand(260, 0);
 	dword nRetVal;
@@ -3140,7 +3277,7 @@ static VALUE NWScript_GetLastClosedBy()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastPerceptionVanished()
+static VALUE NWScript_GetLastPerceptionVanished(VALUE self)
 {
 	VM_ExecuteCommand(261, 0);
 	int nRetVal;
@@ -3251,16 +3388,20 @@ static VALUE NWScript_DeleteLocalLocation(VALUE self, VALUE oObject, VALUE sVarN
 	return Qnil;
 }
 
-static VALUE NWScript_EffectHaste()
+static VALUE NWScript_EffectHaste(VALUE self)
 {
 	VM_ExecuteCommand(270, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectSlow()
+static VALUE NWScript_EffectSlow(VALUE self)
 {
 	VM_ExecuteCommand(271, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ObjectToString(VALUE self, VALUE oObject)
@@ -3276,7 +3417,9 @@ static VALUE NWScript_EffectImmunity(VALUE self, VALUE nImmunityType)
 {
 	StackPushInteger(NUM2INT(nImmunityType));
 	VM_ExecuteCommand(273, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetIsImmune(int argc, VALUE *argv, VALUE self)
@@ -3305,7 +3448,9 @@ static VALUE NWScript_EffectDamageImmunityIncrease(VALUE self, VALUE nDamageType
 	StackPushInteger(NUM2INT(nPercentImmunity));
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(275, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetEncounterActive(int argc, VALUE *argv, VALUE self)
@@ -3410,7 +3555,7 @@ static VALUE NWScript_SetEncounterSpawnsCurrent(int argc, VALUE *argv, VALUE sel
 	return Qnil;
 }
 
-static VALUE NWScript_GetModuleItemAcquired()
+static VALUE NWScript_GetModuleItemAcquired(VALUE self)
 {
 	VM_ExecuteCommand(282, 0);
 	dword nRetVal;
@@ -3418,7 +3563,7 @@ static VALUE NWScript_GetModuleItemAcquired()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetModuleItemAcquiredFrom()
+static VALUE NWScript_GetModuleItemAcquiredFrom(VALUE self)
 {
 	VM_ExecuteCommand(283, 0);
 	dword nRetVal;
@@ -3540,7 +3685,7 @@ static VALUE NWScript_GetObjectHeard(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastPlayerDied()
+static VALUE NWScript_GetLastPlayerDied(VALUE self)
 {
 	VM_ExecuteCommand(291, 0);
 	dword nRetVal;
@@ -3548,7 +3693,7 @@ static VALUE NWScript_GetLastPlayerDied()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetModuleItemLost()
+static VALUE NWScript_GetModuleItemLost(VALUE self)
 {
 	VM_ExecuteCommand(292, 0);
 	dword nRetVal;
@@ -3556,7 +3701,7 @@ static VALUE NWScript_GetModuleItemLost()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetModuleItemLostBy()
+static VALUE NWScript_GetModuleItemLostBy(VALUE self)
 {
 	VM_ExecuteCommand(293, 0);
 	dword nRetVal;
@@ -3571,7 +3716,7 @@ static VALUE NWScript_ActionDoCommand(VALUE self, VALUE aActionToDo)
 	return Qnil;
 }
 
-static VALUE NWScript_EventConversation()
+static VALUE NWScript_EventConversation(VALUE self)
 {
 	VM_ExecuteCommand(295, 0);
 //ERROR: Undefined variable type: event
@@ -3613,8 +3758,12 @@ static VALUE NWScript_GetEncounterDifficulty(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_GetDistanceBetweenLocations(VALUE self, VALUE lLocationA, VALUE lLocationB)
 {
-	//ERROR: Undefined variable type: location
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lLocationB_ptr;
+	Data_Get_Struct(lLocationB, CScriptLocation, lLocationB_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocationB_ptr);
+	CScriptLocation *lLocationA_ptr;
+	Data_Get_Struct(lLocationA, CScriptLocation, lLocationA_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocationA_ptr);
 	VM_ExecuteCommand(298, 2);
 	float fRetVal;
 	StackPopFloat(&fRetVal);
@@ -3709,7 +3858,9 @@ static VALUE NWScript_GetHasSpellEffect(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_GetEffectSpellId(VALUE self, VALUE eSpellEffect)
 {
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eSpellEffect_ptr;
+	Data_Get_Struct(eSpellEffect, CGameEffect, eSpellEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eSpellEffect_ptr);
 	VM_ExecuteCommand(305, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -3781,7 +3932,9 @@ static VALUE NWScript_ActionUseTalentOnObject(VALUE self, VALUE tChosenTalent, V
 
 static VALUE NWScript_ActionUseTalentAtLocation(VALUE self, VALUE tChosenTalent, VALUE lTargetLocation)
 {
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lTargetLocation_ptr;
+	Data_Get_Struct(lTargetLocation, CScriptLocation, lTargetLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lTargetLocation_ptr);
 	//ERROR: Undefined variable type: talent
 	VM_ExecuteCommand(310, 2);
 	return Qnil;
@@ -3807,7 +3960,9 @@ static VALUE NWScript_GetIsPlayableRacialType(VALUE self, VALUE oCreature)
 
 static VALUE NWScript_JumpToLocation(VALUE self, VALUE lDestination)
 {
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lDestination_ptr;
+	Data_Get_Struct(lDestination, CScriptLocation, lDestination_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lDestination_ptr);
 	VM_ExecuteCommand(313, 1);
 	return Qnil;
 }
@@ -3816,7 +3971,9 @@ static VALUE NWScript_EffectTemporaryHitpoints(VALUE self, VALUE nHitPoints)
 {
 	StackPushInteger(NUM2INT(nHitPoints));
 	VM_ExecuteCommand(314, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetSkillRank(int argc, VALUE *argv, VALUE self)
@@ -3988,7 +4145,7 @@ static VALUE NWScript_GetLocked(VALUE self, VALUE oTarget)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetClickingObject()
+static VALUE NWScript_GetClickingObject(VALUE self)
 {
 	VM_ExecuteCommand(326, 0);
 	dword nRetVal;
@@ -4027,7 +4184,7 @@ static VALUE NWScript_ActionInteractObject(VALUE self, VALUE oPlaceable)
 	return Qnil;
 }
 
-static VALUE NWScript_GetLastUsedBy()
+static VALUE NWScript_GetLastUsedBy(VALUE self)
 {
 	VM_ExecuteCommand(330, 0);
 	dword nRetVal;
@@ -4101,7 +4258,7 @@ static VALUE NWScript_SummonFamiliar(int argc, VALUE *argv, VALUE self)
 	return Qnil;
 }
 
-static VALUE NWScript_GetBlockingDoor()
+static VALUE NWScript_GetBlockingDoor(VALUE self)
 {
 	VM_ExecuteCommand(336, 0);
 	dword nRetVal;
@@ -4227,7 +4384,7 @@ static VALUE NWScript_GetDamageDealtByType(VALUE self, VALUE nDamageType)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetTotalDamageDealt()
+static VALUE NWScript_GetTotalDamageDealt(VALUE self)
 {
 	VM_ExecuteCommand(345, 0);
 	int nRetVal;
@@ -4252,7 +4409,7 @@ static VALUE NWScript_GetLastDamager(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastDisarmed()
+static VALUE NWScript_GetLastDisarmed(VALUE self)
 {
 	VM_ExecuteCommand(347, 0);
 	dword nRetVal;
@@ -4260,7 +4417,7 @@ static VALUE NWScript_GetLastDisarmed()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastDisturbed()
+static VALUE NWScript_GetLastDisturbed(VALUE self)
 {
 	VM_ExecuteCommand(348, 0);
 	dword nRetVal;
@@ -4268,7 +4425,7 @@ static VALUE NWScript_GetLastDisturbed()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastLocked()
+static VALUE NWScript_GetLastLocked(VALUE self)
 {
 	VM_ExecuteCommand(349, 0);
 	dword nRetVal;
@@ -4276,7 +4433,7 @@ static VALUE NWScript_GetLastLocked()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastUnlocked()
+static VALUE NWScript_GetLastUnlocked(VALUE self)
 {
 	VM_ExecuteCommand(350, 0);
 	dword nRetVal;
@@ -4289,10 +4446,12 @@ static VALUE NWScript_EffectSkillIncrease(VALUE self, VALUE nSkill, VALUE nValue
 	StackPushInteger(NUM2INT(nValue));
 	StackPushInteger(NUM2INT(nSkill));
 	VM_ExecuteCommand(351, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_GetInventoryDisturbType()
+static VALUE NWScript_GetInventoryDisturbType(VALUE self)
 {
 	VM_ExecuteCommand(352, 0);
 	int nRetVal;
@@ -4300,7 +4459,7 @@ static VALUE NWScript_GetInventoryDisturbType()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetInventoryDisturbItem()
+static VALUE NWScript_GetInventoryDisturbItem(VALUE self)
 {
 	VM_ExecuteCommand(353, 0);
 	dword nRetVal;
@@ -4343,24 +4502,36 @@ static VALUE NWScript_VersusAlignmentEffect(int argc, VALUE *argv, VALUE self)
 	else nGoodEvil = INT2NUM(ALIGNMENT_ALL);
 	StackPushInteger(NUM2INT(nGoodEvil));
 	StackPushInteger(NUM2INT(nLawChaos));
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	VM_ExecuteCommand(355, 3);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_VersusRacialTypeEffect(VALUE self, VALUE eEffect, VALUE nRacialType)
 {
 	StackPushInteger(NUM2INT(nRacialType));
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	VM_ExecuteCommand(356, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_VersusTrapEffect(VALUE self, VALUE eEffect)
 {
-	//ERROR: Undefined variable type: effect
+	CGameEffect *eEffect_ptr;
+	Data_Get_Struct(eEffect, CGameEffect, eEffect_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, eEffect_ptr);
 	VM_ExecuteCommand(357, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetGender(VALUE self, VALUE oCreature)
@@ -4396,12 +4567,14 @@ static VALUE NWScript_ActionMoveAwayFromLocation(int argc, VALUE *argv, VALUE se
 	else fMoveAwayRange = rb_float_new(40.0f);
 	StackPushFloat(NUM2DBL(fMoveAwayRange));
 	StackPushInteger(NUM2INT(bRun));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lMoveAwayFrom_ptr;
+	Data_Get_Struct(lMoveAwayFrom, CScriptLocation, lMoveAwayFrom_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lMoveAwayFrom_ptr);
 	VM_ExecuteCommand(360, 3);
 	return Qnil;
 }
 
-static VALUE NWScript_GetAttemptedAttackTarget()
+static VALUE NWScript_GetAttemptedAttackTarget(VALUE self)
 {
 	VM_ExecuteCommand(361, 0);
 	dword nRetVal;
@@ -4593,7 +4766,7 @@ static VALUE NWScript_SendMessageToPC(VALUE self, VALUE oPlayer, VALUE szMessage
 	return Qnil;
 }
 
-static VALUE NWScript_GetAttemptedSpellTarget()
+static VALUE NWScript_GetAttemptedSpellTarget(VALUE self)
 {
 	VM_ExecuteCommand(375, 0);
 	dword nRetVal;
@@ -4601,7 +4774,7 @@ static VALUE NWScript_GetAttemptedSpellTarget()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastOpenedBy()
+static VALUE NWScript_GetLastOpenedBy(VALUE self)
 {
 	VM_ExecuteCommand(376, 0);
 	dword nRetVal;
@@ -4650,10 +4823,12 @@ static VALUE NWScript_OpenStore(int argc, VALUE *argv, VALUE self)
 	return Qnil;
 }
 
-static VALUE NWScript_EffectTurned()
+static VALUE NWScript_EffectTurned(VALUE self)
 {
 	VM_ExecuteCommand(379, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetFirstFactionMember(int argc, VALUE *argv, VALUE self)
@@ -4709,7 +4884,9 @@ static VALUE NWScript_ActionForceMoveToLocation(int argc, VALUE *argv, VALUE sel
 	else fTimeout = rb_float_new(30.0f);
 	StackPushFloat(NUM2DBL(fTimeout));
 	StackPushInteger(NUM2INT(bRun));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lDestination_ptr;
+	Data_Get_Struct(lDestination, CScriptLocation, lDestination_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lDestination_ptr);
 	VM_ExecuteCommand(382, 3);
 	return Qnil;
 }
@@ -4775,7 +4952,9 @@ static VALUE NWScript_EffectHitPointChangeWhenDying(VALUE self, VALUE fHitPointC
 {
 	StackPushFloat(NUM2DBL(fHitPointChangePerRound));
 	VM_ExecuteCommand(387, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_PopUpGUIPanel(VALUE self, VALUE oPC, VALUE nGUIPanel)
@@ -5001,13 +5180,13 @@ static VALUE NWScript_ExploreAreaForPlayer(int argc, VALUE *argv, VALUE self)
 	return Qnil;
 }
 
-static VALUE NWScript_ActionEquipMostEffectiveArmor()
+static VALUE NWScript_ActionEquipMostEffectiveArmor(VALUE self)
 {
 	VM_ExecuteCommand(404, 0);
 	return Qnil;
 }
 
-static VALUE NWScript_GetIsDay()
+static VALUE NWScript_GetIsDay(VALUE self)
 {
 	VM_ExecuteCommand(405, 0);
 	int nRetVal;
@@ -5015,7 +5194,7 @@ static VALUE NWScript_GetIsDay()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetIsNight()
+static VALUE NWScript_GetIsNight(VALUE self)
 {
 	VM_ExecuteCommand(406, 0);
 	int nRetVal;
@@ -5023,7 +5202,7 @@ static VALUE NWScript_GetIsNight()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetIsDawn()
+static VALUE NWScript_GetIsDawn(VALUE self)
 {
 	VM_ExecuteCommand(407, 0);
 	int nRetVal;
@@ -5031,7 +5210,7 @@ static VALUE NWScript_GetIsDawn()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetIsDusk()
+static VALUE NWScript_GetIsDusk(VALUE self)
 {
 	VM_ExecuteCommand(408, 0);
 	int nRetVal;
@@ -5056,7 +5235,7 @@ static VALUE NWScript_GetIsEncounterCreature(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastPlayerDying()
+static VALUE NWScript_GetLastPlayerDying(VALUE self)
 {
 	VM_ExecuteCommand(410, 0);
 	dword nRetVal;
@@ -5064,10 +5243,12 @@ static VALUE NWScript_GetLastPlayerDying()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetStartingLocation()
+static VALUE NWScript_GetStartingLocation(VALUE self)
 {
 	VM_ExecuteCommand(411, 0);
-//ERROR: Undefined variable type: location
+	CGameEffect *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ChangeToStandardFaction(VALUE self, VALUE oCreatureToChange, VALUE nStandardFaction)
@@ -5143,7 +5324,7 @@ static VALUE NWScript_GetGold(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastRespawnButtonPresser()
+static VALUE NWScript_GetLastRespawnButtonPresser(VALUE self)
 {
 	VM_ExecuteCommand(419, 0);
 	dword nRetVal;
@@ -5197,7 +5378,7 @@ static VALUE NWScript_GetIsWeaponEffective(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastSpellHarmful()
+static VALUE NWScript_GetLastSpellHarmful(VALUE self)
 {
 	VM_ExecuteCommand(423, 0);
 	int nRetVal;
@@ -5218,7 +5399,9 @@ static VALUE NWScript_EventActivateItem(int argc, VALUE *argv, VALUE self)
 	if(argc>2) oTarget = argv[2];
 	else oTarget = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oTarget));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lTarget_ptr;
+	Data_Get_Struct(lTarget, CScriptLocation, lTarget_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lTarget_ptr);
 	StackPushObject(NUM2UINT(oItem));
 	VM_ExecuteCommand(424, 3);
 //ERROR: Undefined variable type: event
@@ -5314,7 +5497,7 @@ static VALUE NWScript_AmbientSoundChangeNight(VALUE self, VALUE oArea, VALUE nTr
 	return Qnil;
 }
 
-static VALUE NWScript_GetLastKiller()
+static VALUE NWScript_GetLastKiller(VALUE self)
 {
 	VM_ExecuteCommand(437, 0);
 	dword nRetVal;
@@ -5322,7 +5505,7 @@ static VALUE NWScript_GetLastKiller()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetSpellCastItem()
+static VALUE NWScript_GetSpellCastItem(VALUE self)
 {
 	VM_ExecuteCommand(438, 0);
 	dword nRetVal;
@@ -5330,7 +5513,7 @@ static VALUE NWScript_GetSpellCastItem()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetItemActivated()
+static VALUE NWScript_GetItemActivated(VALUE self)
 {
 	VM_ExecuteCommand(439, 0);
 	dword nRetVal;
@@ -5338,7 +5521,7 @@ static VALUE NWScript_GetItemActivated()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetItemActivator()
+static VALUE NWScript_GetItemActivator(VALUE self)
 {
 	VM_ExecuteCommand(440, 0);
 	dword nRetVal;
@@ -5346,13 +5529,15 @@ static VALUE NWScript_GetItemActivator()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetItemActivatedTargetLocation()
+static VALUE NWScript_GetItemActivatedTargetLocation(VALUE self)
 {
 	VM_ExecuteCommand(441, 0);
-//ERROR: Undefined variable type: location
+	CGameEffect *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_GetItemActivatedTarget()
+static VALUE NWScript_GetItemActivatedTarget(VALUE self)
 {
 	VM_ExecuteCommand(442, 0);
 	dword nRetVal;
@@ -5402,7 +5587,9 @@ static VALUE NWScript_EffectAbilityDecrease(VALUE self, VALUE nAbility, VALUE nM
 	StackPushInteger(NUM2INT(nModifyBy));
 	StackPushInteger(NUM2INT(nAbility));
 	VM_ExecuteCommand(446, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectAttackDecrease(int argc, VALUE *argv, VALUE self)
@@ -5419,7 +5606,9 @@ static VALUE NWScript_EffectAttackDecrease(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nModifierType));
 	StackPushInteger(NUM2INT(nPenalty));
 	VM_ExecuteCommand(447, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDamageDecrease(int argc, VALUE *argv, VALUE self)
@@ -5436,7 +5625,9 @@ static VALUE NWScript_EffectDamageDecrease(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nDamageType));
 	StackPushInteger(NUM2INT(nPenalty));
 	VM_ExecuteCommand(448, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDamageImmunityDecrease(VALUE self, VALUE nDamageType, VALUE nPercentImmunity)
@@ -5444,7 +5635,9 @@ static VALUE NWScript_EffectDamageImmunityDecrease(VALUE self, VALUE nDamageType
 	StackPushInteger(NUM2INT(nPercentImmunity));
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(449, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectACDecrease(int argc, VALUE *argv, VALUE self)
@@ -5464,14 +5657,18 @@ static VALUE NWScript_EffectACDecrease(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nModifyType));
 	StackPushInteger(NUM2INT(nValue));
 	VM_ExecuteCommand(450, 3);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectMovementSpeedDecrease(VALUE self, VALUE nPercentChange)
 {
 	StackPushInteger(NUM2INT(nPercentChange));
 	VM_ExecuteCommand(451, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSavingThrowDecrease(int argc, VALUE *argv, VALUE self)
@@ -5490,7 +5687,9 @@ static VALUE NWScript_EffectSavingThrowDecrease(int argc, VALUE *argv, VALUE sel
 	StackPushInteger(NUM2INT(nValue));
 	StackPushInteger(NUM2INT(nSave));
 	VM_ExecuteCommand(452, 3);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSkillDecrease(VALUE self, VALUE nSkill, VALUE nValue)
@@ -5498,14 +5697,18 @@ static VALUE NWScript_EffectSkillDecrease(VALUE self, VALUE nSkill, VALUE nValue
 	StackPushInteger(NUM2INT(nValue));
 	StackPushInteger(NUM2INT(nSkill));
 	VM_ExecuteCommand(453, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSpellResistanceDecrease(VALUE self, VALUE nValue)
 {
 	StackPushInteger(NUM2INT(nValue));
 	VM_ExecuteCommand(454, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetPlotFlag(int argc, VALUE *argv, VALUE self)
@@ -5537,7 +5740,9 @@ static VALUE NWScript_EffectInvisibility(VALUE self, VALUE nInvisibilityType)
 {
 	StackPushInteger(NUM2INT(nInvisibilityType));
 	VM_ExecuteCommand(457, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectConcealment(int argc, VALUE *argv, VALUE self)
@@ -5554,13 +5759,17 @@ static VALUE NWScript_EffectConcealment(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nMissType));
 	StackPushInteger(NUM2INT(nPercentage));
 	VM_ExecuteCommand(458, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectDarkness()
+static VALUE NWScript_EffectDarkness(VALUE self)
 {
 	VM_ExecuteCommand(459, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDispelMagicAll(int argc, VALUE *argv, VALUE self)
@@ -5575,13 +5784,17 @@ static VALUE NWScript_EffectDispelMagicAll(int argc, VALUE *argv, VALUE self)
 	else nCasterLevel = INT2NUM(USE_CREATURE_LEVEL);
 	StackPushInteger(NUM2INT(nCasterLevel));
 	VM_ExecuteCommand(460, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectUltravision()
+static VALUE NWScript_EffectUltravision(VALUE self)
 {
 	VM_ExecuteCommand(461, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectNegativeLevel(int argc, VALUE *argv, VALUE self)
@@ -5598,7 +5811,9 @@ static VALUE NWScript_EffectNegativeLevel(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(bHPBonus));
 	StackPushInteger(NUM2INT(nNumLevels));
 	VM_ExecuteCommand(462, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectPolymorph(int argc, VALUE *argv, VALUE self)
@@ -5615,38 +5830,50 @@ static VALUE NWScript_EffectPolymorph(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nLocked));
 	StackPushInteger(NUM2INT(nPolymorphSelection));
 	VM_ExecuteCommand(463, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectSanctuary(VALUE self, VALUE nDifficultyClass)
 {
 	StackPushInteger(NUM2INT(nDifficultyClass));
 	VM_ExecuteCommand(464, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectTrueSeeing()
+static VALUE NWScript_EffectTrueSeeing(VALUE self)
 {
 	VM_ExecuteCommand(465, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectSeeInvisible()
+static VALUE NWScript_EffectSeeInvisible(VALUE self)
 {
 	VM_ExecuteCommand(466, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectTimeStop()
+static VALUE NWScript_EffectTimeStop(VALUE self)
 {
 	VM_ExecuteCommand(467, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_EffectBlindness()
+static VALUE NWScript_EffectBlindness(VALUE self)
 {
 	VM_ExecuteCommand(468, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetIsReactionTypeFriendly(int argc, VALUE *argv, VALUE self)
@@ -5723,7 +5950,9 @@ static VALUE NWScript_EffectSpellLevelAbsorption(int argc, VALUE *argv, VALUE se
 	StackPushInteger(NUM2INT(nTotalSpellLevelsAbsorbed));
 	StackPushInteger(NUM2INT(nMaxSpellLevelAbsorbed));
 	VM_ExecuteCommand(472, 3);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDispelMagicBest(int argc, VALUE *argv, VALUE self)
@@ -5738,7 +5967,9 @@ static VALUE NWScript_EffectDispelMagicBest(int argc, VALUE *argv, VALUE self)
 	else nCasterLevel = INT2NUM(USE_CREATURE_LEVEL);
 	StackPushInteger(NUM2INT(nCasterLevel));
 	VM_ExecuteCommand(473, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ActivatePortal(int argc, VALUE *argv, VALUE self)
@@ -5776,7 +6007,7 @@ static VALUE NWScript_GetNumStackedItems(VALUE self, VALUE oItem)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_SurrenderToEnemies()
+static VALUE NWScript_SurrenderToEnemies(VALUE self)
 {
 	VM_ExecuteCommand(476, 0);
 	return Qnil;
@@ -5796,7 +6027,9 @@ static VALUE NWScript_EffectMissChance(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nMissChanceType));
 	StackPushInteger(NUM2INT(nPercentage));
 	VM_ExecuteCommand(477, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetTurnResistanceHD(int argc, VALUE *argv, VALUE self)
@@ -5837,9 +6070,13 @@ static VALUE NWScript_EffectDisappearAppear(int argc, VALUE *argv, VALUE self)
 	if(argc>1) nAnimation = argv[1];
 	else nAnimation = INT2NUM(1);
 	StackPushInteger(NUM2INT(nAnimation));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lLocation_ptr;
+	Data_Get_Struct(lLocation, CScriptLocation, lLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocation_ptr);
 	VM_ExecuteCommand(480, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectDisappear(int argc, VALUE *argv, VALUE self)
@@ -5854,7 +6091,9 @@ static VALUE NWScript_EffectDisappear(int argc, VALUE *argv, VALUE self)
 	else nAnimation = INT2NUM(1);
 	StackPushInteger(NUM2INT(nAnimation));
 	VM_ExecuteCommand(481, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectAppear(int argc, VALUE *argv, VALUE self)
@@ -5869,7 +6108,9 @@ static VALUE NWScript_EffectAppear(int argc, VALUE *argv, VALUE self)
 	else nAnimation = INT2NUM(1);
 	StackPushInteger(NUM2INT(nAnimation));
 	VM_ExecuteCommand(482, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ActionUnlockObject(VALUE self, VALUE oTarget)
@@ -5890,7 +6131,9 @@ static VALUE NWScript_EffectModifyAttacks(VALUE self, VALUE nAttacks)
 {
 	StackPushInteger(NUM2INT(nAttacks));
 	VM_ExecuteCommand(485, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetLastTrapDetected(int argc, VALUE *argv, VALUE self)
@@ -5916,7 +6159,9 @@ static VALUE NWScript_EffectDamageShield(VALUE self, VALUE nDamageAmount, VALUE 
 	StackPushInteger(NUM2INT(nRandomAmount));
 	StackPushInteger(NUM2INT(nDamageAmount));
 	VM_ExecuteCommand(487, 3);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetNearestTrapToObject(int argc, VALUE *argv, VALUE self)
@@ -6079,7 +6324,9 @@ static VALUE NWScript_ActionCastFakeSpellAtLocation(int argc, VALUE *argv, VALUE
 	if(argc>2) nProjectilePathType = argv[2];
 	else nProjectilePathType = INT2NUM(PROJECTILE_PATH_TYPE_DEFAULT);
 	StackPushInteger(NUM2INT(nProjectilePathType));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lTarget_ptr;
+	Data_Get_Struct(lTarget, CScriptLocation, lTarget_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lTarget_ptr);
 	StackPushInteger(NUM2INT(nSpell));
 	VM_ExecuteCommand(502, 3);
 	return Qnil;
@@ -6127,7 +6374,7 @@ static VALUE NWScript_GetIsResting(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastPCRested()
+static VALUE NWScript_GetLastPCRested(VALUE self)
 {
 	VM_ExecuteCommand(506, 0);
 	dword nRetVal;
@@ -6143,7 +6390,7 @@ static VALUE NWScript_SetWeather(VALUE self, VALUE oTarget, VALUE nWeather)
 	return Qnil;
 }
 
-static VALUE NWScript_GetLastRestEventType()
+static VALUE NWScript_GetLastRestEventType(VALUE self)
 {
 	VM_ExecuteCommand(508, 0);
 	int nRetVal;
@@ -6180,7 +6427,9 @@ static VALUE NWScript_EffectSwarm(int argc, VALUE *argv, VALUE self)
 	StackPushString(rb_str2cstr(sCreatureTemplate1, NULL));
 	StackPushInteger(NUM2INT(nLooping));
 	VM_ExecuteCommand(510, 5);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetWeaponRanged(VALUE self, VALUE oItem)
@@ -6192,13 +6441,13 @@ static VALUE NWScript_GetWeaponRanged(VALUE self, VALUE oItem)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_DoSinglePlayerAutoSave()
+static VALUE NWScript_DoSinglePlayerAutoSave(VALUE self)
 {
 	VM_ExecuteCommand(512, 0);
 	return Qnil;
 }
 
-static VALUE NWScript_GetGameDifficulty()
+static VALUE NWScript_GetGameDifficulty(VALUE self)
 {
 	VM_ExecuteCommand(513, 0);
 	int nRetVal;
@@ -6210,7 +6459,9 @@ static VALUE NWScript_SetTileMainLightColor(VALUE self, VALUE lTileLocation, VAL
 {
 	StackPushInteger(NUM2INT(nMainLight2Color));
 	StackPushInteger(NUM2INT(nMainLight1Color));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lTileLocation_ptr;
+	Data_Get_Struct(lTileLocation, CScriptLocation, lTileLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lTileLocation_ptr);
 	VM_ExecuteCommand(514, 3);
 	return Qnil;
 }
@@ -6219,7 +6470,9 @@ static VALUE NWScript_SetTileSourceLightColor(VALUE self, VALUE lTileLocation, V
 {
 	StackPushInteger(NUM2INT(nSourceLight2Color));
 	StackPushInteger(NUM2INT(nSourceLight1Color));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lTileLocation_ptr;
+	Data_Get_Struct(lTileLocation, CScriptLocation, lTileLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lTileLocation_ptr);
 	VM_ExecuteCommand(515, 3);
 	return Qnil;
 }
@@ -6233,7 +6486,9 @@ static VALUE NWScript_RecomputeStaticLighting(VALUE self, VALUE oArea)
 
 static VALUE NWScript_GetTileMainLight1Color(VALUE self, VALUE lTile)
 {
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lTile_ptr;
+	Data_Get_Struct(lTile, CScriptLocation, lTile_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lTile_ptr);
 	VM_ExecuteCommand(517, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -6242,7 +6497,9 @@ static VALUE NWScript_GetTileMainLight1Color(VALUE self, VALUE lTile)
 
 static VALUE NWScript_GetTileMainLight2Color(VALUE self, VALUE lTile)
 {
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lTile_ptr;
+	Data_Get_Struct(lTile, CScriptLocation, lTile_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lTile_ptr);
 	VM_ExecuteCommand(518, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -6251,7 +6508,9 @@ static VALUE NWScript_GetTileMainLight2Color(VALUE self, VALUE lTile)
 
 static VALUE NWScript_GetTileSourceLight1Color(VALUE self, VALUE lTile)
 {
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lTile_ptr;
+	Data_Get_Struct(lTile, CScriptLocation, lTile_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lTile_ptr);
 	VM_ExecuteCommand(519, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -6260,7 +6519,9 @@ static VALUE NWScript_GetTileSourceLight1Color(VALUE self, VALUE lTile)
 
 static VALUE NWScript_GetTileSourceLight2Color(VALUE self, VALUE lTile)
 {
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lTile_ptr;
+	Data_Get_Struct(lTile, CScriptLocation, lTile_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lTile_ptr);
 	VM_ExecuteCommand(520, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -6505,7 +6766,7 @@ static VALUE NWScript_GetLockLockDC(VALUE self, VALUE oObject)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetPCLevellingUp()
+static VALUE NWScript_GetPCLevellingUp(VALUE self)
 {
 	VM_ExecuteCommand(542, 0);
 	dword nRetVal;
@@ -6585,7 +6846,7 @@ static VALUE NWScript_DoPlaceableObjectAction(VALUE self, VALUE oPlaceable, VALU
 	return Qnil;
 }
 
-static VALUE NWScript_GetFirstPC()
+static VALUE NWScript_GetFirstPC(VALUE self)
 {
 	VM_ExecuteCommand(548, 0);
 	dword nRetVal;
@@ -6593,7 +6854,7 @@ static VALUE NWScript_GetFirstPC()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetNextPC()
+static VALUE NWScript_GetNextPC(VALUE self)
 {
 	VM_ExecuteCommand(549, 0);
 	dword nRetVal;
@@ -6635,14 +6896,18 @@ static VALUE NWScript_EffectTurnResistanceDecrease(VALUE self, VALUE nHitDice)
 {
 	StackPushInteger(NUM2INT(nHitDice));
 	VM_ExecuteCommand(552, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_EffectTurnResistanceIncrease(VALUE self, VALUE nHitDice)
 {
 	StackPushInteger(NUM2INT(nHitDice));
 	VM_ExecuteCommand(553, 1);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_PopUpDeathGUIPanel(int argc, VALUE *argv, VALUE self)
@@ -6695,7 +6960,7 @@ static VALUE NWScript_GetLastHostileActor(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_ExportAllCharacters()
+static VALUE NWScript_ExportAllCharacters(VALUE self)
 {
 	VM_ExecuteCommand(557, 0);
 	return Qnil;
@@ -6726,7 +6991,7 @@ static VALUE NWScript_WriteTimestampedLogEntry(VALUE self, VALUE sLogEntry)
 	return Qnil;
 }
 
-static VALUE NWScript_GetModuleName()
+static VALUE NWScript_GetModuleName(VALUE self)
 {
 	VM_ExecuteCommand(561, 0);
 	char *sRetVal;
@@ -6865,13 +7130,13 @@ static VALUE NWScript_GetAppearanceType(VALUE self, VALUE oCreature)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_SpawnScriptDebugger()
+static VALUE NWScript_SpawnScriptDebugger(VALUE self)
 {
 	VM_ExecuteCommand(578, 0);
 	return Qnil;
 }
 
-static VALUE NWScript_GetModuleItemAcquiredStackSize()
+static VALUE NWScript_GetModuleItemAcquiredStackSize(VALUE self)
 {
 	VM_ExecuteCommand(579, 0);
 	int nRetVal;
@@ -6904,10 +7169,12 @@ static VALUE NWScript_GetResRef(VALUE self, VALUE oObject)
 	return rb_str_new2(sRetVal);
 }
 
-static VALUE NWScript_EffectPetrify()
+static VALUE NWScript_EffectPetrify(VALUE self)
 {
 	VM_ExecuteCommand(583, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_CopyItem(int argc, VALUE *argv, VALUE self)
@@ -6932,10 +7199,12 @@ static VALUE NWScript_CopyItem(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_EffectCutsceneParalyze()
+static VALUE NWScript_EffectCutsceneParalyze(VALUE self)
 {
 	VM_ExecuteCommand(585, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetDroppableFlag(VALUE self, VALUE oItem)
@@ -7050,7 +7319,9 @@ static VALUE NWScript_SetCampaignLocation(int argc, VALUE *argv, VALUE self)
 	if(argc>3) oPlayer = argv[3];
 	else oPlayer = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oPlayer));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *locLocation_ptr;
+	Data_Get_Struct(locLocation, CScriptLocation, locLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, locLocation_ptr);
 	StackPushString(rb_str2cstr(sVarName, NULL));
 	StackPushString(rb_str2cstr(sCampaignName, NULL));
 	VM_ExecuteCommand(592, 4);
@@ -7162,7 +7433,9 @@ static VALUE NWScript_GetCampaignLocation(int argc, VALUE *argv, VALUE self)
 	StackPushString(rb_str2cstr(sVarName, NULL));
 	StackPushString(rb_str2cstr(sCampaignName, NULL));
 	VM_ExecuteCommand(598, 3);
-//ERROR: Undefined variable type: location
+	CGameEffect *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetCampaignString(int argc, VALUE *argv, VALUE self)
@@ -7202,7 +7475,9 @@ static VALUE NWScript_CopyObject(int argc, VALUE *argv, VALUE self)
 	else sNewTag  = rb_str_new2( "");
 	StackPushString(rb_str2cstr(sNewTag , NULL));
 	StackPushObject(NUM2UINT(oOwner ));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *locLocation_ptr;
+	Data_Get_Struct(locLocation, CScriptLocation, locLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, locLocation_ptr);
 	StackPushObject(NUM2UINT(oSource));
 	VM_ExecuteCommand(600, 4);
 	dword nRetVal;
@@ -7269,7 +7544,9 @@ static VALUE NWScript_RetrieveCampaignObject(int argc, VALUE *argv, VALUE self)
 	else oPlayer = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oPlayer));
 	StackPushObject(NUM2UINT(oOwner ));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *locLocation_ptr;
+	Data_Get_Struct(locLocation, CScriptLocation, locLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, locLocation_ptr);
 	StackPushString(rb_str2cstr(sVarName, NULL));
 	StackPushString(rb_str2cstr(sCampaignName, NULL));
 	VM_ExecuteCommand(603, 5);
@@ -7278,10 +7555,12 @@ static VALUE NWScript_RetrieveCampaignObject(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_EffectCutsceneDominated()
+static VALUE NWScript_EffectCutsceneDominated(VALUE self)
 {
 	VM_ExecuteCommand(604, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetItemStackSize(VALUE self, VALUE oItem)
@@ -7333,7 +7612,9 @@ static VALUE NWScript_AddItemProperty(int argc, VALUE *argv, VALUE self)
 	else fDuration = rb_float_new(0.0f);
 	StackPushFloat(NUM2DBL(fDuration));
 	StackPushObject(NUM2UINT(oItem));
-	//ERROR: Undefined variable type: itemproperty
+	CGameEffect *ipProperty_ptr;
+	Data_Get_Struct(ipProperty, CGameEffect, ipProperty_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, ipProperty_ptr);
 	StackPushInteger(NUM2INT(nDurationType));
 	VM_ExecuteCommand(609, 4);
 	return Qnil;
@@ -7341,7 +7622,9 @@ static VALUE NWScript_AddItemProperty(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_RemoveItemProperty(VALUE self, VALUE oItem, VALUE ipProperty)
 {
-	//ERROR: Undefined variable type: itemproperty
+	CGameEffect *ipProperty_ptr;
+	Data_Get_Struct(ipProperty, CGameEffect, ipProperty_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, ipProperty_ptr);
 	StackPushObject(NUM2UINT(oItem));
 	VM_ExecuteCommand(610, 2);
 	return Qnil;
@@ -7349,7 +7632,9 @@ static VALUE NWScript_RemoveItemProperty(VALUE self, VALUE oItem, VALUE ipProper
 
 static VALUE NWScript_GetIsItemPropertyValid(VALUE self, VALUE ipProperty)
 {
-	//ERROR: Undefined variable type: itemproperty
+	CGameEffect *ipProperty_ptr;
+	Data_Get_Struct(ipProperty, CGameEffect, ipProperty_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, ipProperty_ptr);
 	VM_ExecuteCommand(611, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -7360,19 +7645,25 @@ static VALUE NWScript_GetFirstItemProperty(VALUE self, VALUE oItem)
 {
 	StackPushObject(NUM2UINT(oItem));
 	VM_ExecuteCommand(612, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetNextItemProperty(VALUE self, VALUE oItem)
 {
 	StackPushObject(NUM2UINT(oItem));
 	VM_ExecuteCommand(613, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetItemPropertyType(VALUE self, VALUE ip)
 {
-	//ERROR: Undefined variable type: itemproperty
+	CGameEffect *ip_ptr;
+	Data_Get_Struct(ip, CGameEffect, ip_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, ip_ptr);
 	VM_ExecuteCommand(614, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -7381,7 +7672,9 @@ static VALUE NWScript_GetItemPropertyType(VALUE self, VALUE ip)
 
 static VALUE NWScript_GetItemPropertyDurationType(VALUE self, VALUE ip)
 {
-	//ERROR: Undefined variable type: itemproperty
+	CGameEffect *ip_ptr;
+	Data_Get_Struct(ip, CGameEffect, ip_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, ip_ptr);
 	VM_ExecuteCommand(615, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -7393,14 +7686,18 @@ static VALUE NWScript_ItemPropertyAbilityBonus(VALUE self, VALUE nAbility, VALUE
 	StackPushInteger(NUM2INT(nBonus));
 	StackPushInteger(NUM2INT(nAbility));
 	VM_ExecuteCommand(616, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyACBonus(VALUE self, VALUE nBonus)
 {
 	StackPushInteger(NUM2INT(nBonus));
 	VM_ExecuteCommand(617, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyACBonusVsAlign(VALUE self, VALUE nAlignGroup, VALUE nACBonus)
@@ -7408,7 +7705,9 @@ static VALUE NWScript_ItemPropertyACBonusVsAlign(VALUE self, VALUE nAlignGroup, 
 	StackPushInteger(NUM2INT(nACBonus));
 	StackPushInteger(NUM2INT(nAlignGroup));
 	VM_ExecuteCommand(618, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyACBonusVsDmgType(VALUE self, VALUE nDamageType, VALUE nACBonus)
@@ -7416,7 +7715,9 @@ static VALUE NWScript_ItemPropertyACBonusVsDmgType(VALUE self, VALUE nDamageType
 	StackPushInteger(NUM2INT(nACBonus));
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(619, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyACBonusVsRace(VALUE self, VALUE nRace, VALUE nACBonus)
@@ -7424,7 +7725,9 @@ static VALUE NWScript_ItemPropertyACBonusVsRace(VALUE self, VALUE nRace, VALUE n
 	StackPushInteger(NUM2INT(nACBonus));
 	StackPushInteger(NUM2INT(nRace));
 	VM_ExecuteCommand(620, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyACBonusVsSAlign(VALUE self, VALUE nAlign, VALUE nACBonus)
@@ -7432,14 +7735,18 @@ static VALUE NWScript_ItemPropertyACBonusVsSAlign(VALUE self, VALUE nAlign, VALU
 	StackPushInteger(NUM2INT(nACBonus));
 	StackPushInteger(NUM2INT(nAlign));
 	VM_ExecuteCommand(621, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyEnhancementBonus(VALUE self, VALUE nEnhancementBonus)
 {
 	StackPushInteger(NUM2INT(nEnhancementBonus));
 	VM_ExecuteCommand(622, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyEnhancementBonusVsAlign(VALUE self, VALUE nAlignGroup, VALUE nBonus)
@@ -7447,7 +7754,9 @@ static VALUE NWScript_ItemPropertyEnhancementBonusVsAlign(VALUE self, VALUE nAli
 	StackPushInteger(NUM2INT(nBonus));
 	StackPushInteger(NUM2INT(nAlignGroup));
 	VM_ExecuteCommand(623, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyEnhancementBonusVsRace(VALUE self, VALUE nRace, VALUE nBonus)
@@ -7455,7 +7764,9 @@ static VALUE NWScript_ItemPropertyEnhancementBonusVsRace(VALUE self, VALUE nRace
 	StackPushInteger(NUM2INT(nBonus));
 	StackPushInteger(NUM2INT(nRace));
 	VM_ExecuteCommand(624, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyEnhancementBonusVsSAlign(VALUE self, VALUE nAlign, VALUE nBonus)
@@ -7463,28 +7774,36 @@ static VALUE NWScript_ItemPropertyEnhancementBonusVsSAlign(VALUE self, VALUE nAl
 	StackPushInteger(NUM2INT(nBonus));
 	StackPushInteger(NUM2INT(nAlign));
 	VM_ExecuteCommand(625, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyEnhancementPenalty(VALUE self, VALUE nPenalty)
 {
 	StackPushInteger(NUM2INT(nPenalty));
 	VM_ExecuteCommand(626, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyWeightReduction(VALUE self, VALUE nReduction)
 {
 	StackPushInteger(NUM2INT(nReduction));
 	VM_ExecuteCommand(627, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyBonusFeat(VALUE self, VALUE nFeat)
 {
 	StackPushInteger(NUM2INT(nFeat));
 	VM_ExecuteCommand(628, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyBonusLevelSpell(VALUE self, VALUE nClass, VALUE nSpellLevel)
@@ -7492,7 +7811,9 @@ static VALUE NWScript_ItemPropertyBonusLevelSpell(VALUE self, VALUE nClass, VALU
 	StackPushInteger(NUM2INT(nSpellLevel));
 	StackPushInteger(NUM2INT(nClass));
 	VM_ExecuteCommand(629, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyCastSpell(VALUE self, VALUE nSpell, VALUE nNumUses)
@@ -7500,7 +7821,9 @@ static VALUE NWScript_ItemPropertyCastSpell(VALUE self, VALUE nSpell, VALUE nNum
 	StackPushInteger(NUM2INT(nNumUses));
 	StackPushInteger(NUM2INT(nSpell));
 	VM_ExecuteCommand(630, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageBonus(VALUE self, VALUE nDamageType, VALUE nDamage)
@@ -7508,7 +7831,9 @@ static VALUE NWScript_ItemPropertyDamageBonus(VALUE self, VALUE nDamageType, VAL
 	StackPushInteger(NUM2INT(nDamage));
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(631, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageBonusVsAlign(VALUE self, VALUE nAlignGroup, VALUE nDamageType, VALUE nDamage)
@@ -7517,7 +7842,9 @@ static VALUE NWScript_ItemPropertyDamageBonusVsAlign(VALUE self, VALUE nAlignGro
 	StackPushInteger(NUM2INT(nDamageType));
 	StackPushInteger(NUM2INT(nAlignGroup));
 	VM_ExecuteCommand(632, 3);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageBonusVsRace(VALUE self, VALUE nRace, VALUE nDamageType, VALUE nDamage)
@@ -7526,7 +7853,9 @@ static VALUE NWScript_ItemPropertyDamageBonusVsRace(VALUE self, VALUE nRace, VAL
 	StackPushInteger(NUM2INT(nDamageType));
 	StackPushInteger(NUM2INT(nRace));
 	VM_ExecuteCommand(633, 3);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageBonusVsSAlign(VALUE self, VALUE nAlign, VALUE nDamageType, VALUE nDamage)
@@ -7535,7 +7864,9 @@ static VALUE NWScript_ItemPropertyDamageBonusVsSAlign(VALUE self, VALUE nAlign, 
 	StackPushInteger(NUM2INT(nDamageType));
 	StackPushInteger(NUM2INT(nAlign));
 	VM_ExecuteCommand(634, 3);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageImmunity(VALUE self, VALUE nDamageType, VALUE nImmuneBonus)
@@ -7543,14 +7874,18 @@ static VALUE NWScript_ItemPropertyDamageImmunity(VALUE self, VALUE nDamageType, 
 	StackPushInteger(NUM2INT(nImmuneBonus));
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(635, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamagePenalty(VALUE self, VALUE nPenalty)
 {
 	StackPushInteger(NUM2INT(nPenalty));
 	VM_ExecuteCommand(636, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageReduction(VALUE self, VALUE nEnhancement, VALUE nHPSoak)
@@ -7558,7 +7893,9 @@ static VALUE NWScript_ItemPropertyDamageReduction(VALUE self, VALUE nEnhancement
 	StackPushInteger(NUM2INT(nHPSoak));
 	StackPushInteger(NUM2INT(nEnhancement));
 	VM_ExecuteCommand(637, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageResistance(VALUE self, VALUE nDamageType, VALUE nHPResist)
@@ -7566,7 +7903,9 @@ static VALUE NWScript_ItemPropertyDamageResistance(VALUE self, VALUE nDamageType
 	StackPushInteger(NUM2INT(nHPResist));
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(638, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDamageVulnerability(VALUE self, VALUE nDamageType, VALUE nVulnerability)
@@ -7574,13 +7913,17 @@ static VALUE NWScript_ItemPropertyDamageVulnerability(VALUE self, VALUE nDamageT
 	StackPushInteger(NUM2INT(nVulnerability));
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(639, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_ItemPropertyDarkvision()
+static VALUE NWScript_ItemPropertyDarkvision(VALUE self)
 {
 	VM_ExecuteCommand(640, 0);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDecreaseAbility(VALUE self, VALUE nAbility, VALUE nModifier)
@@ -7588,7 +7931,9 @@ static VALUE NWScript_ItemPropertyDecreaseAbility(VALUE self, VALUE nAbility, VA
 	StackPushInteger(NUM2INT(nModifier));
 	StackPushInteger(NUM2INT(nAbility));
 	VM_ExecuteCommand(641, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDecreaseAC(VALUE self, VALUE nModifierType, VALUE nPenalty)
@@ -7596,7 +7941,9 @@ static VALUE NWScript_ItemPropertyDecreaseAC(VALUE self, VALUE nModifierType, VA
 	StackPushInteger(NUM2INT(nPenalty));
 	StackPushInteger(NUM2INT(nModifierType));
 	VM_ExecuteCommand(642, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyDecreaseSkill(VALUE self, VALUE nSkill, VALUE nPenalty)
@@ -7604,60 +7951,78 @@ static VALUE NWScript_ItemPropertyDecreaseSkill(VALUE self, VALUE nSkill, VALUE 
 	StackPushInteger(NUM2INT(nPenalty));
 	StackPushInteger(NUM2INT(nSkill));
 	VM_ExecuteCommand(643, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyContainerReducedWeight(VALUE self, VALUE nContainerType)
 {
 	StackPushInteger(NUM2INT(nContainerType));
 	VM_ExecuteCommand(644, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyExtraMeleeDamageType(VALUE self, VALUE nDamageType)
 {
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(645, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyExtraRangeDamageType(VALUE self, VALUE nDamageType)
 {
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(646, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_ItemPropertyHaste()
+static VALUE NWScript_ItemPropertyHaste(VALUE self)
 {
 	VM_ExecuteCommand(647, 0);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_ItemPropertyHolyAvenger()
+static VALUE NWScript_ItemPropertyHolyAvenger(VALUE self)
 {
 	VM_ExecuteCommand(648, 0);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyImmunityMisc(VALUE self, VALUE nImmunityType)
 {
 	StackPushInteger(NUM2INT(nImmunityType));
 	VM_ExecuteCommand(649, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_ItemPropertyImprovedEvasion()
+static VALUE NWScript_ItemPropertyImprovedEvasion(VALUE self)
 {
 	VM_ExecuteCommand(650, 0);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyBonusSpellResistance(VALUE self, VALUE nBonus)
 {
 	StackPushInteger(NUM2INT(nBonus));
 	VM_ExecuteCommand(651, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyBonusSavingThrowVsX(VALUE self, VALUE nBonusType, VALUE nBonus)
@@ -7665,7 +8030,9 @@ static VALUE NWScript_ItemPropertyBonusSavingThrowVsX(VALUE self, VALUE nBonusTy
 	StackPushInteger(NUM2INT(nBonus));
 	StackPushInteger(NUM2INT(nBonusType));
 	VM_ExecuteCommand(652, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyBonusSavingThrow(VALUE self, VALUE nBaseSaveType, VALUE nBonus)
@@ -7673,13 +8040,17 @@ static VALUE NWScript_ItemPropertyBonusSavingThrow(VALUE self, VALUE nBaseSaveTy
 	StackPushInteger(NUM2INT(nBonus));
 	StackPushInteger(NUM2INT(nBaseSaveType));
 	VM_ExecuteCommand(653, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_ItemPropertyKeen()
+static VALUE NWScript_ItemPropertyKeen(VALUE self)
 {
 	VM_ExecuteCommand(654, 0);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyLight(VALUE self, VALUE nBrightness, VALUE nColor)
@@ -7687,20 +8058,26 @@ static VALUE NWScript_ItemPropertyLight(VALUE self, VALUE nBrightness, VALUE nCo
 	StackPushInteger(NUM2INT(nColor));
 	StackPushInteger(NUM2INT(nBrightness));
 	VM_ExecuteCommand(655, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyMaxRangeStrengthMod(VALUE self, VALUE nModifier)
 {
 	StackPushInteger(NUM2INT(nModifier));
 	VM_ExecuteCommand(656, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_ItemPropertyNoDamage()
+static VALUE NWScript_ItemPropertyNoDamage(VALUE self)
 {
 	VM_ExecuteCommand(657, 0);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyOnHitProps(int argc, VALUE *argv, VALUE self)
@@ -7719,7 +8096,9 @@ static VALUE NWScript_ItemPropertyOnHitProps(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nSaveDC));
 	StackPushInteger(NUM2INT(nProperty));
 	VM_ExecuteCommand(658, 3);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyReducedSavingThrowVsX(VALUE self, VALUE nBaseSaveType, VALUE nPenalty)
@@ -7727,7 +8106,9 @@ static VALUE NWScript_ItemPropertyReducedSavingThrowVsX(VALUE self, VALUE nBaseS
 	StackPushInteger(NUM2INT(nPenalty));
 	StackPushInteger(NUM2INT(nBaseSaveType));
 	VM_ExecuteCommand(659, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyReducedSavingThrow(VALUE self, VALUE nBonusType, VALUE nPenalty)
@@ -7735,14 +8116,18 @@ static VALUE NWScript_ItemPropertyReducedSavingThrow(VALUE self, VALUE nBonusTyp
 	StackPushInteger(NUM2INT(nPenalty));
 	StackPushInteger(NUM2INT(nBonusType));
 	VM_ExecuteCommand(660, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyRegeneration(VALUE self, VALUE nRegenAmount)
 {
 	StackPushInteger(NUM2INT(nRegenAmount));
 	VM_ExecuteCommand(661, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertySkillBonus(VALUE self, VALUE nSkill, VALUE nBonus)
@@ -7750,35 +8135,45 @@ static VALUE NWScript_ItemPropertySkillBonus(VALUE self, VALUE nSkill, VALUE nBo
 	StackPushInteger(NUM2INT(nBonus));
 	StackPushInteger(NUM2INT(nSkill));
 	VM_ExecuteCommand(662, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertySpellImmunitySpecific(VALUE self, VALUE nSpell)
 {
 	StackPushInteger(NUM2INT(nSpell));
 	VM_ExecuteCommand(663, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertySpellImmunitySchool(VALUE self, VALUE nSchool)
 {
 	StackPushInteger(NUM2INT(nSchool));
 	VM_ExecuteCommand(664, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyThievesTools(VALUE self, VALUE nModifier)
 {
 	StackPushInteger(NUM2INT(nModifier));
 	VM_ExecuteCommand(665, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyAttackBonus(VALUE self, VALUE nBonus)
 {
 	StackPushInteger(NUM2INT(nBonus));
 	VM_ExecuteCommand(666, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyAttackBonusVsAlign(VALUE self, VALUE nAlignGroup, VALUE nBonus)
@@ -7786,7 +8181,9 @@ static VALUE NWScript_ItemPropertyAttackBonusVsAlign(VALUE self, VALUE nAlignGro
 	StackPushInteger(NUM2INT(nBonus));
 	StackPushInteger(NUM2INT(nAlignGroup));
 	VM_ExecuteCommand(667, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyAttackBonusVsRace(VALUE self, VALUE nRace, VALUE nBonus)
@@ -7794,7 +8191,9 @@ static VALUE NWScript_ItemPropertyAttackBonusVsRace(VALUE self, VALUE nRace, VAL
 	StackPushInteger(NUM2INT(nBonus));
 	StackPushInteger(NUM2INT(nRace));
 	VM_ExecuteCommand(668, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyAttackBonusVsSAlign(VALUE self, VALUE nAlignment, VALUE nBonus)
@@ -7802,14 +8201,18 @@ static VALUE NWScript_ItemPropertyAttackBonusVsSAlign(VALUE self, VALUE nAlignme
 	StackPushInteger(NUM2INT(nBonus));
 	StackPushInteger(NUM2INT(nAlignment));
 	VM_ExecuteCommand(669, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyAttackPenalty(VALUE self, VALUE nPenalty)
 {
 	StackPushInteger(NUM2INT(nPenalty));
 	VM_ExecuteCommand(670, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyUnlimitedAmmo(int argc, VALUE *argv, VALUE self)
@@ -7824,48 +8227,62 @@ static VALUE NWScript_ItemPropertyUnlimitedAmmo(int argc, VALUE *argv, VALUE sel
 	else nAmmoDamage = INT2NUM(IP_CONST_UNLIMITEDAMMO_BASIC);
 	StackPushInteger(NUM2INT(nAmmoDamage));
 	VM_ExecuteCommand(671, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyLimitUseByAlign(VALUE self, VALUE nAlignGroup)
 {
 	StackPushInteger(NUM2INT(nAlignGroup));
 	VM_ExecuteCommand(672, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyLimitUseByClass(VALUE self, VALUE nClass)
 {
 	StackPushInteger(NUM2INT(nClass));
 	VM_ExecuteCommand(673, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyLimitUseByRace(VALUE self, VALUE nRace)
 {
 	StackPushInteger(NUM2INT(nRace));
 	VM_ExecuteCommand(674, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyLimitUseBySAlign(VALUE self, VALUE nAlignment)
 {
 	StackPushInteger(NUM2INT(nAlignment));
 	VM_ExecuteCommand(675, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_BadBadReplaceMeThisDoesNothing()
+static VALUE NWScript_BadBadReplaceMeThisDoesNothing(VALUE self)
 {
 	VM_ExecuteCommand(676, 0);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyVampiricRegeneration(VALUE self, VALUE nRegenAmount)
 {
 	StackPushInteger(NUM2INT(nRegenAmount));
 	VM_ExecuteCommand(677, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyTrap(VALUE self, VALUE nTrapLevel, VALUE nTrapType)
@@ -7873,13 +8290,17 @@ static VALUE NWScript_ItemPropertyTrap(VALUE self, VALUE nTrapLevel, VALUE nTrap
 	StackPushInteger(NUM2INT(nTrapType));
 	StackPushInteger(NUM2INT(nTrapLevel));
 	VM_ExecuteCommand(678, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_ItemPropertyTrueSeeing()
+static VALUE NWScript_ItemPropertyTrueSeeing(VALUE self)
 {
 	VM_ExecuteCommand(679, 0);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyOnMonsterHitProperties(int argc, VALUE *argv, VALUE self)
@@ -7896,41 +8317,53 @@ static VALUE NWScript_ItemPropertyOnMonsterHitProperties(int argc, VALUE *argv, 
 	StackPushInteger(NUM2INT(nSpecial));
 	StackPushInteger(NUM2INT(nProperty));
 	VM_ExecuteCommand(680, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyTurnResistance(VALUE self, VALUE nModifier)
 {
 	StackPushInteger(NUM2INT(nModifier));
 	VM_ExecuteCommand(681, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyMassiveCritical(VALUE self, VALUE nDamage)
 {
 	StackPushInteger(NUM2INT(nDamage));
 	VM_ExecuteCommand(682, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
-static VALUE NWScript_ItemPropertyFreeAction()
+static VALUE NWScript_ItemPropertyFreeAction(VALUE self)
 {
 	VM_ExecuteCommand(683, 0);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyMonsterDamage(VALUE self, VALUE nDamage)
 {
 	StackPushInteger(NUM2INT(nDamage));
 	VM_ExecuteCommand(684, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyImmunityToSpellLevel(VALUE self, VALUE nLevel)
 {
 	StackPushInteger(NUM2INT(nLevel));
 	VM_ExecuteCommand(685, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertySpecialWalk(int argc, VALUE *argv, VALUE self)
@@ -7945,21 +8378,27 @@ static VALUE NWScript_ItemPropertySpecialWalk(int argc, VALUE *argv, VALUE self)
 	else nWalkType = INT2NUM(0);
 	StackPushInteger(NUM2INT(nWalkType));
 	VM_ExecuteCommand(686, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyHealersKit(VALUE self, VALUE nModifier)
 {
 	StackPushInteger(NUM2INT(nModifier));
 	VM_ExecuteCommand(687, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyWeightIncrease(VALUE self, VALUE nWeight)
 {
 	StackPushInteger(NUM2INT(nWeight));
 	VM_ExecuteCommand(688, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetIsSkillSuccessful(VALUE self, VALUE oTarget, VALUE nSkill, VALUE nDifficulty)
@@ -7988,7 +8427,9 @@ static VALUE NWScript_EffectSpellFailure(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nSpellSchool));
 	StackPushInteger(NUM2INT(nPercent));
 	VM_ExecuteCommand(690, 2);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_SpeakStringByStrRef(int argc, VALUE *argv, VALUE self)
@@ -8028,7 +8469,7 @@ static VALUE NWScript_SetCutsceneMode(int argc, VALUE *argv, VALUE self)
 	return Qnil;
 }
 
-static VALUE NWScript_GetLastPCToCancelCutscene()
+static VALUE NWScript_GetLastPCToCancelCutscene(VALUE self)
 {
 	VM_ExecuteCommand(693, 0);
 	dword nRetVal;
@@ -8118,13 +8559,13 @@ static VALUE NWScript_OpenInventory(VALUE self, VALUE oCreature, VALUE oPlayer)
 	return Qnil;
 }
 
-static VALUE NWScript_StoreCameraFacing()
+static VALUE NWScript_StoreCameraFacing(VALUE self)
 {
 	VM_ExecuteCommand(702, 0);
 	return Qnil;
 }
 
-static VALUE NWScript_RestoreCameraFacing()
+static VALUE NWScript_RestoreCameraFacing(VALUE self)
 {
 	VM_ExecuteCommand(703, 0);
 	return Qnil;
@@ -8180,7 +8621,7 @@ static VALUE NWScript_GetWeight(int argc, VALUE *argv, VALUE self)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetModuleItemAcquiredBy()
+static VALUE NWScript_GetModuleItemAcquiredBy(VALUE self)
 {
 	VM_ExecuteCommand(707, 0);
 	dword nRetVal;
@@ -8234,10 +8675,12 @@ static VALUE NWScript_Get2DAString(VALUE self, VALUE s2DA, VALUE sColumn, VALUE 
 	return rb_str_new2(sRetVal);
 }
 
-static VALUE NWScript_EffectEthereal()
+static VALUE NWScript_EffectEthereal(VALUE self)
 {
 	VM_ExecuteCommand(711, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetAILevel(int argc, VALUE *argv, VALUE self)
@@ -8390,7 +8833,7 @@ static VALUE NWScript_GetIsAreaAboveGround(VALUE self, VALUE oArea)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetPCItemLastEquipped()
+static VALUE NWScript_GetPCItemLastEquipped(VALUE self)
 {
 	VM_ExecuteCommand(727, 0);
 	dword nRetVal;
@@ -8398,7 +8841,7 @@ static VALUE NWScript_GetPCItemLastEquipped()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetPCItemLastEquippedBy()
+static VALUE NWScript_GetPCItemLastEquippedBy(VALUE self)
 {
 	VM_ExecuteCommand(728, 0);
 	dword nRetVal;
@@ -8406,7 +8849,7 @@ static VALUE NWScript_GetPCItemLastEquippedBy()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetPCItemLastUnequipped()
+static VALUE NWScript_GetPCItemLastUnequipped(VALUE self)
 {
 	VM_ExecuteCommand(729, 0);
 	dword nRetVal;
@@ -8414,7 +8857,7 @@ static VALUE NWScript_GetPCItemLastUnequipped()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetPCItemLastUnequippedBy()
+static VALUE NWScript_GetPCItemLastUnequippedBy(VALUE self)
 {
 	VM_ExecuteCommand(730, 0);
 	dword nRetVal;
@@ -8463,12 +8906,16 @@ static VALUE NWScript_ItemPropertyOnHitCastSpell(VALUE self, VALUE nSpell, VALUE
 	StackPushInteger(NUM2INT(nLevel));
 	StackPushInteger(NUM2INT(nSpell));
 	VM_ExecuteCommand(733, 2);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetItemPropertySubType(VALUE self, VALUE iProperty)
 {
-	//ERROR: Undefined variable type: itemproperty
+	CGameEffect *iProperty_ptr;
+	Data_Get_Struct(iProperty, CGameEffect, iProperty_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, iProperty_ptr);
 	VM_ExecuteCommand(734, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -8514,7 +8961,9 @@ static VALUE NWScript_ItemPropertyVisualEffect(VALUE self, VALUE nEffect)
 {
 	StackPushInteger(NUM2INT(nEffect));
 	VM_ExecuteCommand(739, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_SetLootable(VALUE self, VALUE oCreature, VALUE bLootable)
@@ -8575,7 +9024,7 @@ static VALUE NWScript_SetMaxHenchmen(VALUE self, VALUE nNumHenchmen)
 	return Qnil;
 }
 
-static VALUE NWScript_GetMaxHenchmen()
+static VALUE NWScript_GetMaxHenchmen(VALUE self)
 {
 	VM_ExecuteCommand(747, 0);
 	int nRetVal;
@@ -8655,7 +9104,7 @@ static VALUE NWScript_LineOfSightVector(VALUE self, VALUE vSource, VALUE vTarget
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetLastSpellCastClass()
+static VALUE NWScript_GetLastSpellCastClass(VALUE self)
 {
 	VM_ExecuteCommand(754, 0);
 	int nRetVal;
@@ -8695,17 +9144,21 @@ static VALUE NWScript_RestoreBaseAttackBonus(int argc, VALUE *argv, VALUE self)
 	return Qnil;
 }
 
-static VALUE NWScript_EffectCutsceneGhost()
+static VALUE NWScript_EffectCutsceneGhost(VALUE self)
 {
 	VM_ExecuteCommand(757, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyArcaneSpellFailure(VALUE self, VALUE nModLevel)
 {
 	StackPushInteger(NUM2INT(nModLevel));
 	VM_ExecuteCommand(758, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetStoreGold(VALUE self, VALUE oidStore)
@@ -8776,10 +9229,12 @@ static VALUE NWScript_GetCreatureStartingPackage(VALUE self, VALUE oCreature)
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_EffectCutsceneImmobilize()
+static VALUE NWScript_EffectCutsceneImmobilize(VALUE self)
 {
 	VM_ExecuteCommand(767, 0);
-//ERROR: Undefined variable type: effect
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_GetIsInSubArea(int argc, VALUE *argv, VALUE self)
@@ -8803,7 +9258,9 @@ static VALUE NWScript_GetIsInSubArea(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_GetItemPropertyCostTable(VALUE self, VALUE iProp)
 {
-	//ERROR: Undefined variable type: itemproperty
+	CGameEffect *iProp_ptr;
+	Data_Get_Struct(iProp, CGameEffect, iProp_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, iProp_ptr);
 	VM_ExecuteCommand(769, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -8812,7 +9269,9 @@ static VALUE NWScript_GetItemPropertyCostTable(VALUE self, VALUE iProp)
 
 static VALUE NWScript_GetItemPropertyCostTableValue(VALUE self, VALUE iProp)
 {
-	//ERROR: Undefined variable type: itemproperty
+	CGameEffect *iProp_ptr;
+	Data_Get_Struct(iProp, CGameEffect, iProp_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, iProp_ptr);
 	VM_ExecuteCommand(770, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -8821,7 +9280,9 @@ static VALUE NWScript_GetItemPropertyCostTableValue(VALUE self, VALUE iProp)
 
 static VALUE NWScript_GetItemPropertyParam1(VALUE self, VALUE iProp)
 {
-	//ERROR: Undefined variable type: itemproperty
+	CGameEffect *iProp_ptr;
+	Data_Get_Struct(iProp, CGameEffect, iProp_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, iProp_ptr);
 	VM_ExecuteCommand(771, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -8830,7 +9291,9 @@ static VALUE NWScript_GetItemPropertyParam1(VALUE self, VALUE iProp)
 
 static VALUE NWScript_GetItemPropertyParam1Value(VALUE self, VALUE iProp)
 {
-	//ERROR: Undefined variable type: itemproperty
+	CGameEffect *iProp_ptr;
+	Data_Get_Struct(iProp, CGameEffect, iProp_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, iProp_ptr);
 	VM_ExecuteCommand(772, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -9380,7 +9843,9 @@ static VALUE NWScript_CreateTrapAtLocation(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nFaction));
 	StackPushString(rb_str2cstr(sTag, NULL));
 	StackPushFloat(NUM2DBL(fSize));
-	//ERROR: Undefined variable type: location
+	CScriptLocation *lLocation_ptr;
+	Data_Get_Struct(lLocation, CScriptLocation, lLocation_ptr);
+	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocation_ptr);
 	StackPushInteger(NUM2INT(nTrapType));
 	VM_ExecuteCommand(809, 7);
 	dword nRetVal;
@@ -9472,7 +9937,7 @@ static VALUE NWScript_SetTrapRecoverable(int argc, VALUE *argv, VALUE self)
 	return Qnil;
 }
 
-static VALUE NWScript_GetModuleXPScale()
+static VALUE NWScript_GetModuleXPScale(VALUE self)
 {
 	VM_ExecuteCommand(817, 0);
 	int nRetVal;
@@ -9581,7 +10046,7 @@ static VALUE NWScript_LockCameraDirection(int argc, VALUE *argv, VALUE self)
 	return Qnil;
 }
 
-static VALUE NWScript_GetPlaceableLastClickedBy()
+static VALUE NWScript_GetPlaceableLastClickedBy(VALUE self)
 {
 	VM_ExecuteCommand(826, 0);
 	dword nRetVal;
@@ -9751,7 +10216,7 @@ static VALUE NWScript_SetDescription(int argc, VALUE *argv, VALUE self)
 	return Qnil;
 }
 
-static VALUE NWScript_GetPCChatSpeaker()
+static VALUE NWScript_GetPCChatSpeaker(VALUE self)
 {
 	VM_ExecuteCommand(838, 0);
 	dword nRetVal;
@@ -9759,7 +10224,7 @@ static VALUE NWScript_GetPCChatSpeaker()
 	return INT2NUM(nRetVal);
 }
 
-static VALUE NWScript_GetPCChatMessage()
+static VALUE NWScript_GetPCChatMessage(VALUE self)
 {
 	VM_ExecuteCommand(839, 0);
 	char *sRetVal;
@@ -9767,7 +10232,7 @@ static VALUE NWScript_GetPCChatMessage()
 	return rb_str_new2(sRetVal);
 }
 
-static VALUE NWScript_GetPCChatVolume()
+static VALUE NWScript_GetPCChatVolume(VALUE self)
 {
 	VM_ExecuteCommand(840, 0);
 	int nRetVal;
@@ -9828,22 +10293,30 @@ static VALUE NWScript_ItemPropertyMaterial(VALUE self, VALUE nMaterialType)
 {
 	StackPushInteger(NUM2INT(nMaterialType));
 	VM_ExecuteCommand(845, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyQuality(VALUE self, VALUE nQuality)
 {
 	StackPushInteger(NUM2INT(nQuality));
 	VM_ExecuteCommand(846, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
 
 static VALUE NWScript_ItemPropertyAdditional(VALUE self, VALUE nAdditionalProperty)
 {
 	StackPushInteger(NUM2INT(nAdditionalProperty));
 	VM_ExecuteCommand(847, 1);
-//ERROR: Undefined variable type: itemproperty
+	CScriptLocation *pRetVal;
+	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	return Data_Wrap_Struct(self, 0, free, pRetVal);
 }
+
+
 
 
 

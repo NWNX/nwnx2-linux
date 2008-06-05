@@ -53,14 +53,16 @@ dword **g_pVirtualMachine;
 
 int (*CNWVirtualMachineCommands_ExecuteCommand)(void *pCommands, dword nCommandID, int arg_8);
 int (*CVirtualMachine_StackPopInteger)(void *pVM, int *buf);
+int (*CVirtualMachine_StackPopFloat)(void *pVM, float *buf);
 int (*CVirtualMachine_StackPopString)(void *pVM, CExoString *buf);
 int (*CVirtualMachine_StackPopObject)(void *pVM, dword *buf);
-int (*CVirtualMachine_StackPopFloat)(void *pVM, float *buf);
+int (*CVirtualMachine_StackPopEngineStructure)(void *pVM, dword nStructType, void **buf);
 
 int (*CVirtualMachine_StackPushInteger)(void *pVM, int value);
 int (*CVirtualMachine_StackPushFloat)(void *pVM, float value);
 int (*CVirtualMachine_StackPushString)(void *pVM, CExoString *value);
 int (*CVirtualMachine_StackPushObject)(void *pVM, dword value);
+int (*CVirtualMachine_StackPushEngineStructure)(void *pVM, dword nStructType, void *value);
 
 void
 d_enable_write (unsigned long location)
@@ -98,6 +100,11 @@ int StackPopInteger(int *buf)
 	return CVirtualMachine_StackPopInteger(*g_pVirtualMachine, buf);
 }
 
+int StackPopFloat(float *buf)
+{
+	return CVirtualMachine_StackPopFloat(*g_pVirtualMachine, buf);
+}
+
 int StackPopString(char **buf)
 {
 	CExoString *str = (CExoString *) malloc(sizeof(CExoString));
@@ -114,9 +121,9 @@ int StackPopObject(dword *buf)
 	return CVirtualMachine_StackPopObject(*g_pVirtualMachine, buf);
 }
 
-int StackPopFloat(float *buf)
+int StackPopEngineStructure(dword nStructType, void **buf)
 {
-	return CVirtualMachine_StackPopFloat(*g_pVirtualMachine, buf);
+	return CVirtualMachine_StackPopEngineStructure(*g_pVirtualMachine, nStructType, buf);
 }
 
 int StackPushInteger(int value)
@@ -139,6 +146,10 @@ int StackPushObject(dword value)
 	return CVirtualMachine_StackPushObject(*g_pVirtualMachine, value);
 }
 
+int StackPushEngineStructure(dword nStructType, void *value)
+{
+	return CVirtualMachine_StackPushEngineStructure(*g_pVirtualMachine, nStructType, value);
+}
 
 void *GetCommandsPtr()
 {
@@ -161,11 +172,13 @@ int HookFunctions()
 	*(dword*)&CVirtualMachine_StackPopString = 0x08262BA4;
 	*(dword*)&CVirtualMachine_StackPopObject = 0x08262D88;
 	*(dword*)&CVirtualMachine_StackPopFloat = 0x08262A64;
+	*(dword*)&CVirtualMachine_StackPopEngineStructure = 0x08262C88;
 
 	*(dword*)&CVirtualMachine_StackPushInteger = 0x082642D8;
 	*(dword*)&CVirtualMachine_StackPushFloat = 0x08264314;
 	*(dword*)&CVirtualMachine_StackPushString = 0x082643BC;
 	*(dword*)&CVirtualMachine_StackPushObject = 0x082644A0;
+	*(dword*)&CVirtualMachine_StackPushEngineStructure = 0x08264438;
 
 	InitConstants();
 

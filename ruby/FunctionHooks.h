@@ -22,6 +22,12 @@
 
 #include "typedefs.h"
 
+#define ENGINE_STRUCTURE_EFFECT 0
+#define ENGINE_STRUCTURE_EVENT 1
+#define ENGINE_STRUCTURE_LOCATION 2
+#define ENGINE_STRUCTURE_TALENT 3
+#define ENGINE_STRUCTURE_ITEMPROPERTY 4
+
 int HookFunctions();
 void InitConstants();
 
@@ -32,13 +38,16 @@ extern "C" {
 void VM_ExecuteCommand(dword nCommandID, int nArgsCount);
 
 int StackPopInteger(int *buf);
+int StackPopFloat(float *buf);
 int StackPopString(char **buf);
 int StackPopObject(dword *buf);
-int StackPopFloat(float *buf);
+int StackPopEngineStructure(dword nStructType, void **buf);
+
 int StackPushInteger(int value);
 int StackPushFloat(float value);
 int StackPushString(char *value);
 int StackPushObject(dword value);
+int StackPushEngineStructure(dword nStructType, void *value);
 
 #ifdef __cplusplus
 }
