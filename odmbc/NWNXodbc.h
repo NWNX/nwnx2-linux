@@ -50,7 +50,7 @@ public:
 
 protected:
 	BOOL Connect();
-	void Execute(const char* request);
+	void Execute(char* request);
 	void Fetch(char* buffer, unsigned int buffersize);
 	void SetScorcoSQL(char *request);
 	bool LoadConfiguration ();

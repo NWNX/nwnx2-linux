@@ -151,7 +151,7 @@ char* CNWNXODBC::OnRequest (char* gameObject, char* Request, char* Parameters)
 }
 
 //============================================================================================================================
-void CNWNXODBC::Execute(const char *request)
+void CNWNXODBC::Execute(char *request)
 {
   Log (2, "o Got request: %s\n", request);
 	request_counter++;
