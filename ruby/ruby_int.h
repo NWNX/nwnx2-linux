@@ -16,6 +16,7 @@ extern "C" {
 VALUE g_cLocationClass;
 VALUE g_cEffectClass;
 VALUE g_cItemPropertyClass;
+VALUE g_cVectorClass;
 
 VALUE RubyInt_InitNWScript();
 void RubyInt_DefineConstants();

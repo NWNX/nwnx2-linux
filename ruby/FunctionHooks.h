@@ -21,6 +21,7 @@
 #define FunctionHooks_h_
 
 #include "typedefs.h"
+#include "NWNStructures.h"
 
 #define ENGINE_STRUCTURE_EFFECT 0
 #define ENGINE_STRUCTURE_EVENT 1
@@ -40,12 +41,14 @@ void VM_ExecuteCommand(dword nCommandID, int nArgsCount);
 int StackPopInteger(int *buf);
 int StackPopFloat(float *buf);
 int StackPopString(char **buf);
+int StackPopVector(Vector *buf);
 int StackPopObject(dword *buf);
 int StackPopEngineStructure(dword nStructType, void **buf);
 
 int StackPushInteger(int value);
 int StackPushFloat(float value);
 int StackPushString(char *value);
+int StackPushVector(Vector value);
 int StackPushObject(dword value);
 int StackPushEngineStructure(dword nStructType, void *value);
 

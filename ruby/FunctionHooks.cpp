@@ -55,12 +55,14 @@ int (*CNWVirtualMachineCommands_ExecuteCommand)(void *pCommands, dword nCommandI
 int (*CVirtualMachine_StackPopInteger)(void *pVM, int *buf);
 int (*CVirtualMachine_StackPopFloat)(void *pVM, float *buf);
 int (*CVirtualMachine_StackPopString)(void *pVM, CExoString *buf);
+int (*CVirtualMachine_StackPopVector)(void *pVM, Vector *buf);
 int (*CVirtualMachine_StackPopObject)(void *pVM, dword *buf);
 int (*CVirtualMachine_StackPopEngineStructure)(void *pVM, dword nStructType, void **buf);
 
 int (*CVirtualMachine_StackPushInteger)(void *pVM, int value);
 int (*CVirtualMachine_StackPushFloat)(void *pVM, float value);
 int (*CVirtualMachine_StackPushString)(void *pVM, CExoString *value);
+int (*CVirtualMachine_StackPushVector)(void *pVM, Vector value);
 int (*CVirtualMachine_StackPushObject)(void *pVM, dword value);
 int (*CVirtualMachine_StackPushEngineStructure)(void *pVM, dword nStructType, void *value);
 
@@ -116,6 +118,11 @@ int StackPopString(char **buf)
 	return retval;
 }
 
+int StackPopVector(Vector *buf)
+{
+	return CVirtualMachine_StackPopVector(*g_pVirtualMachine, buf);
+}
+
 int StackPopObject(dword *buf)
 {
 	return CVirtualMachine_StackPopObject(*g_pVirtualMachine, buf);
@@ -139,6 +146,11 @@ int StackPushFloat(float value)
 int StackPushString(char *value)
 {
 	return CVirtualMachine_StackPushString(*g_pVirtualMachine, (CExoString *) &value);
+}
+
+int StackPushVector(Vector value)
+{
+	return CVirtualMachine_StackPushVector(*g_pVirtualMachine, value);
 }
 
 int StackPushObject(dword value)
@@ -169,14 +181,16 @@ int HookFunctions()
 	*(dword*)&CNWVirtualMachineCommands_ExecuteCommand = 0x082319C0;
 
 	*(dword*)&CVirtualMachine_StackPopInteger = 0x08262988;
-	*(dword*)&CVirtualMachine_StackPopString = 0x08262BA4;
-	*(dword*)&CVirtualMachine_StackPopObject = 0x08262D88;
 	*(dword*)&CVirtualMachine_StackPopFloat = 0x08262A64;
+	*(dword*)&CVirtualMachine_StackPopString = 0x08262BA4;
+	*(dword*)&CVirtualMachine_StackPopVector = 0x08264354;
+	*(dword*)&CVirtualMachine_StackPopObject = 0x08262D88;
 	*(dword*)&CVirtualMachine_StackPopEngineStructure = 0x08262C88;
 
 	*(dword*)&CVirtualMachine_StackPushInteger = 0x082642D8;
 	*(dword*)&CVirtualMachine_StackPushFloat = 0x08264314;
 	*(dword*)&CVirtualMachine_StackPushString = 0x082643BC;
+	*(dword*)&CVirtualMachine_StackPushVector = 0x08262B24;
 	*(dword*)&CVirtualMachine_StackPushObject = 0x082644A0;
 	*(dword*)&CVirtualMachine_StackPushEngineStructure = 0x08264438;
 

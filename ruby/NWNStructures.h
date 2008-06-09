@@ -54,6 +54,13 @@ struct CNWSAmbientSound
 
 typedef struct
 {
+	float X;
+	float Y;
+	float Z;
+} Vector;
+
+typedef struct
+{
 	dword ID;
 	dword field_4;
 	dword Type;
