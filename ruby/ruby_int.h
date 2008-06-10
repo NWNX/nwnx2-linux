@@ -21,7 +21,15 @@ VALUE g_cVectorClass;
 VALUE RubyInt_InitNWScript();
 void RubyInt_DefineConstants();
 
-
+static VALUE vector_get_x(VALUE self);
+static VALUE vector_get_y(VALUE self);
+static VALUE vector_get_z(VALUE self);
+static VALUE location_get_x(VALUE self);
+static VALUE location_get_y(VALUE self);
+static VALUE location_get_z(VALUE self);
+static VALUE location_get_area_id(VALUE self);
+static VALUE location_get_facing(VALUE self);
+	
 #ifdef __cplusplus
 }
 #endif

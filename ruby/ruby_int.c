@@ -11206,13 +11206,65 @@ VALUE RubyInt_InitNWScript()
 	return cNWScript;
 }
 
+static VALUE vector_get_x(VALUE self) {
+	Vector *ptr;
+	Data_Get_Struct(self, Vector, ptr);
+	return rb_float_new(ptr->X);
+}
+static VALUE vector_get_y(VALUE self) {
+	Vector *ptr;
+	Data_Get_Struct(self, Vector, ptr);
+	return rb_float_new(ptr->Y);
+}
+static VALUE vector_get_z(VALUE self) {
+	Vector *ptr;
+	Data_Get_Struct(self, Vector, ptr);
+	return rb_float_new(ptr->Z);
+}
+
+static VALUE location_get_x(VALUE self) {
+	CScriptLocation *ptr;
+	Data_Get_Struct(self, CScriptLocation, ptr);
+	return rb_float_new(ptr->X);
+}
+static VALUE location_get_y(VALUE self) {
+	CScriptLocation *ptr;
+	Data_Get_Struct(self, CScriptLocation, ptr);
+	return rb_float_new(ptr->Y);
+}
+static VALUE location_get_z(VALUE self) {
+	CScriptLocation *ptr;
+	Data_Get_Struct(self, CScriptLocation, ptr);
+	return rb_float_new(ptr->Z);
+}
+static VALUE location_get_area_id(VALUE self) {
+	CScriptLocation *ptr;
+	Data_Get_Struct(self, CScriptLocation, ptr);
+	return rb_int_new(ptr->AreaID);
+}
+static VALUE location_get_facing(VALUE self) {
+	CScriptLocation *ptr;
+	Data_Get_Struct(self, CScriptLocation, ptr);
+	return rb_float_new(ptr->OrientationX);
+}
+
 void RubyInt_DefineConstants()
 {
 	VALUE cNWScript = rb_define_module("NWScript");
 	g_cEffectClass = rb_define_class_under(cNWScript, "Effect", rb_cObject); /* ::NWScript::Effect */
 	g_cItemPropertyClass = rb_define_class_under(cNWScript, "ItemProperty", rb_cObject); /* ::NWScript::ItemProperty */
 	g_cLocationClass = rb_define_class_under(cNWScript, "Location", rb_cObject); /* ::NWScript::Location */
+	rb_define_method(g_cLocationClass, "x", location_get_x, 0);
+	rb_define_method(g_cLocationClass, "y", location_get_y, 0);
+	rb_define_method(g_cLocationClass, "z", location_get_z, 0);
+	rb_define_method(g_cLocationClass, "area", location_get_area_id, 0);
+	rb_define_method(g_cLocationClass, "facing", location_get_facing, 0);
+
 	g_cVectorClass = rb_define_class_under(cNWScript, "Vector", rb_cObject); /* ::NWScript::Vector */
+	rb_define_method(g_cVectorClass, "x", vector_get_x, 0);
+	rb_define_method(g_cVectorClass, "y", vector_get_y, 0);
+	rb_define_method(g_cVectorClass, "z", vector_get_z, 0);
+
 	rb_define_const(cNWScript, "NUM_INVENTORY_SLOTS", INT2NUM(18));
 	rb_define_const(cNWScript, "TRUE", INT2NUM(1));
 	rb_define_const(cNWScript, "FALSE", INT2NUM(0));
