@@ -106,4 +106,5 @@ typedef struct
 	dword                    VarCount;
 } CNWObjectVarList;
 
+
 #endif

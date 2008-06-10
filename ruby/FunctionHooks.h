@@ -22,6 +22,7 @@
 
 #include "typedefs.h"
 #include "NWNStructures.h"
+#include "CVirtualMachine.h"
 
 #define ENGINE_STRUCTURE_EFFECT 0
 #define ENGINE_STRUCTURE_EVENT 1
@@ -51,6 +52,8 @@ int StackPushString(char *value);
 int StackPushVector(Vector value);
 int StackPushObject(dword value);
 int StackPushEngineStructure(dword nStructType, void *value);
+
+dword GetObjectSelf();
 
 #ifdef __cplusplus
 }

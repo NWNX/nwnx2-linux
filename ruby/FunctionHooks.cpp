@@ -163,6 +163,12 @@ int StackPushEngineStructure(dword nStructType, void *value)
 	return CVirtualMachine_StackPushEngineStructure(*g_pVirtualMachine, nStructType, value);
 }
 
+dword GetObjectSelf()
+{
+	CVirtualMachine *pVM = (CVirtualMachine *) *g_pVirtualMachine;
+	return pVM->ObjectID[pVM->RecursionLevel];
+}
+
 void *GetCommandsPtr()
 {
 	return *(void **)(*(dword *)(g_pVirtualMachine) + 0x398);

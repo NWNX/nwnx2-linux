@@ -11206,6 +11206,11 @@ VALUE RubyInt_InitNWScript()
 	return cNWScript;
 }
 
+static VALUE RubyInt_GetObjectSelf(ID id, VALUE *data)
+{
+	return UINT2NUM(GetObjectSelf());
+}
+
 static VALUE vector_get_x(VALUE self) {
 	Vector *ptr;
 	Data_Get_Struct(self, Vector, ptr);
@@ -11261,6 +11266,7 @@ void RubyInt_DefineConstants()
 	rb_define_method(g_cLocationClass, "facing", location_get_facing, 0);
 
 	g_cVectorClass = rb_define_class_under(cNWScript, "Vector", rb_cObject); /* ::NWScript::Vector */
+	rb_define_virtual_variable("OBJECT_SELF", RubyInt_GetObjectSelf, 0);
 	rb_define_method(g_cVectorClass, "x", vector_get_x, 0);
 	rb_define_method(g_cVectorClass, "y", vector_get_y, 0);
 	rb_define_method(g_cVectorClass, "z", vector_get_z, 0);

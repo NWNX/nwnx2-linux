@@ -18,6 +18,8 @@ VALUE g_cEffectClass;
 VALUE g_cItemPropertyClass;
 VALUE g_cVectorClass;
 
+VALUE g_OBJECT_SELF;
+
 VALUE RubyInt_InitNWScript();
 void RubyInt_DefineConstants();
 
