@@ -14,7 +14,7 @@ struct CExoLinkedListHeader
 {
 	CExoLinkedListElement *FirstElement;
 	CExoLinkedListElement *LastElement;
-	dword                  Count;
+	//dword                  Count;
 };
 
 class CExoLinkedList
@@ -23,9 +23,11 @@ class CExoLinkedList
 	CExoLinkedListHeader *ListHeader;
 	dword                 Count;
 
-	CExoLinkedListElement *GetFirst();
+	CExoLinkedListElement *GetHeadPos();
+	void                  *GetHead();
 	void                  *GetAtPos(CExoLinkedListElement *Position);
 	CExoLinkedListElement *GetNext(CExoLinkedListElement *Position);
+	CExoLinkedListElement *AddTail(void *pData);
 };
 
 #endif

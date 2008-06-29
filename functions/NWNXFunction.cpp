@@ -174,16 +174,20 @@ char *CNWNXFunction::GetDescription(char* value)
 void CNWNXFunction::SetDescription(char* value)
 {
 	int length = strlen(value);
-	char* desc;
-	char* descp;
+	CExoLocString* pDesc;
 	
-	if(*(pGameObject+0x4) == 0x6) desc = (char*)(*(int*)(pGameObject-0x1C+0x258)); //object type item
-	else if(*(pGameObject+0x4) == 0x9) desc = (char*)(*(int*)(pGameObject+0x1D8)); //object type placeable
-	else if(*(pGameObject+0x4) == 0x5) desc = (char*)(*(*(int**)(pGameObject+0xC60) + 0x16)); //object type creature
-	else if(*(pGameObject+0x4) == 0xA) desc = (char*)(*(int*)(pGameObject+0x314)); //object type door
+	if(*(pGameObject+0x4) == 0x6) pDesc = (CExoLocString *)(pGameObject-0x1C+0x258); //object type item
+	else if(*(pGameObject+0x4) == 0x9) pDesc = (CExoLocString *)(pGameObject+0x1D8); //object type placeable
+	else if(*(pGameObject+0x4) == 0x5) pDesc = (CExoLocString *)(*(int*)(pGameObject+0xC60) + 0x16); //object type creature
+	else if(*(pGameObject+0x4) == 0xA) pDesc = (CExoLocString *)(pGameObject+0x314); //object type door
 	else return;
 
-	if (*(desc+4) == 0)
+	char *newstr = new char[length+1];
+	strncpy(newstr, value, length);
+	pDesc->AddString(0, newstr);
+
+
+	/*if (*(desc+4) == 0)
 		return;
 	desc = (char*)(*(int*)(desc));
 	desc = (char*)(*(int*)(desc));
@@ -205,7 +209,7 @@ void CNWNXFunction::SetDescription(char* value)
 	//{
 		//strncpy(value, desc, length);
 		//*(value+length) = 0x0;
-	//}
+	//}*/
 }
 
 void CNWNXFunction::GetConversation(char *value) 
@@ -621,6 +625,11 @@ void CNWNXFunction::GetItemByPosition_SetPos(char* value)
 	nItemPosition = atoi(value);
 }
 
+void CNWNXFunction::IntToObject(char * value)
+{
+	nTempObjectID = atoi(value);
+}
+
 void CNWNXFunction::DebugMe(char* value)
 {	
 	
@@ -656,7 +665,7 @@ bool CNWNXFunction::OnCreate(gline *config, const char *LogDir)
 	// call the base class function
 	if (!CNWNXBase::OnCreate(config,log))
 		return false;
-	Log(0,"NWNX Functions V.1.8.7\n");
+	Log(0,"NWNX Functions V.1.8.8\n");
 	Log(0,"(c) 2004 by the APS/NWNX Linux Conversion Group\n");
 	Log(0,"Based on the Win32 version (c) 2003 by Ingmar Stieger (Papillon)\n");
 	Log(0,"(c) by virusman, 2006-2008\n");
@@ -825,6 +834,11 @@ char* CNWNXFunction::OnRequest (char *gameObject, char* Request, char* Parameter
 		GetItemByPosition_SetPos(Parameters);
 		return NULL;
 	}
+	else if (strncmp(Request, "INT_TO_OBJECT", 13) == 0)
+	{
+		IntToObject(Parameters);
+		return NULL;
+	}
 	else if (strncmp(Request, "DEBUGME", 7) == 0) 	
 	{
 		DebugMe(Parameters);
@@ -879,6 +893,11 @@ unsigned long CNWNXFunction::GetItemByPosition_Ext()
 	return nItemID;
 }
 
+unsigned long CNWNXFunction::IntToObject_ret()
+{
+	return nTempObjectID;
+}
+
 unsigned long CNWNXFunction::OnRequestObject (char *gameObject, char* Request)
 {
 	this->pGameObject = gameObject+4;
@@ -891,6 +910,9 @@ unsigned long CNWNXFunction::OnRequestObject (char *gameObject, char* Request)
 		return GetNextArea();
 	else if (strncmp(Request, "GET_ITEM_BY_POSITION", 20) == 0) 
 		return GetItemByPosition_Ext();
+	else if (strncmp(Request, "INT_TO_OBJECT", 13) == 0) 
+		return IntToObject_ret();
+
 		
 	return OBJECT_INVALID;
 }

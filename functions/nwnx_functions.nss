@@ -2,7 +2,7 @@
 // Purpose  : Various new functions for objects
 // Author   : Ingmar Stieger (Papillon)
 // Author   : virusman
-// Modified : June 02, 2008
+// Modified : June 04, 2008
 
 // This file is licensed under the terms of the
 // GNU GENERAL PUBLIC LICENSE (GPL) Version 2
@@ -121,8 +121,14 @@ struct scriptvar GetFirstLocalVariable(object oObject);
 // Get next local variable on oObject
 struct scriptvar GetNextLocalVariable(object oObject);
 
+// Get total count of items possessed by oTarget
 int GetItemCount(object oTarget);
+
+// Get item from oTarget's inventory at position nPosition
 object GetItemByPosition(object oTarget, int nPosition);
+
+// Convert nObjectID to an object reference
+object IntToObject(int nObjectID);
 
 // Restart the server
 // Works only with NWNX Reset Plugin installed
@@ -386,6 +392,13 @@ object GetItemByPosition(object oTarget, int nPosition)
     SetLocalString(oTarget, "NWNX!FUNCTIONS!GET_ITEM_BY_POSITION", IntToString(nPosition));
     DeleteLocalString(oTarget, "NWNX!FUNCTIONS!GET_ITEM_BY_POSITION");
     return GetLocalObject(oTarget, "NWNX!FUNCTIONS!GET_ITEM_BY_POSITION");
+}
+
+object IntToObject(int nObjectID)
+{
+    SetLocalString(GetModule(), "NWNX!FUNCTIONS!INT_TO_OBJECT", IntToString(nObjectID));
+    DeleteLocalString(GetModule(), "NWNX!FUNCTIONS!INT_TO_OBJECT");
+    return GetLocalObject(GetModule(), "NWNX!FUNCTIONS!INT_TO_OBJECT");
 }
 
 void DebugMe(object oObject)

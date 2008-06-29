@@ -2,8 +2,8 @@
 
 dword CItemRepository::GetItemCount()
 {
-	if(!this->ItemList.ListHeader) return 0;
-	return this->ItemList.ListHeader->Count;
+	//if(!this->ItemList.ListHeader) return 0;
+	return this->ItemList.Count;
 }
 
 dword CItemRepository::GetItemByPosition(dword nPos)

@@ -1,16 +1,13 @@
-NWNX Functions 1.8.7
+NWNX Functions 1.8.8
 ----
-New functions:
-  int GetItemCount(object oTarget);
-  object GetItemByPosition(object oTarget, int nPosition);
+New function:
+  object IntToObject(int nObjectID);
 
-Fixed a crash in GetNextVariable function
-Fixed a crash in GetConversation function
-Added dynamic allocation support to GetDescription (spacer is not required anymore)
+SetDescription now works if an item doesn't have a custom description
 ---
 
 virusman
-02.06.2008
+04.06.2008
 
 ------------------------------------------
 Complete function list:
@@ -48,9 +45,20 @@ struct scriptvar GetFirstLocalVariable(object oObject);
 struct scriptvar GetNextLocalVariable(object oObject);
 int GetItemCount(object oTarget);
 object GetItemByPosition(object oTarget, int nPosition);
+object IntToObject(int nObjectID);
 
 ------------------------------------------
 Previous versions:
+
+NWNX Functions 1.8.7 (02.06.2008)
+----
+New functions:
+  int GetItemCount(object oTarget);
+  object GetItemByPosition(object oTarget, int nPosition);
+
+Fixed a crash in GetNextVariable function
+Fixed a crash in GetConversation function
+Added dynamic allocation support to GetDescription (spacer is not required anymore)
 
 NWNX Functions 1.8.6 (24.11.2007)
 ----

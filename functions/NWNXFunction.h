@@ -26,6 +26,7 @@
 #include "NWNStructures.h"
 #include "C2DA.h"
 #include "CNWSScriptVarTable.h"
+#include "CExoLocString.h"
 
 class CNWNXFunction : public CNWNXBase
 {
@@ -71,6 +72,7 @@ protected:
 	char *GetNextLocalVariable(char* value);
 	void GetItemCount_Ext(char* value);
 	void GetItemByPosition_SetPos(char* value);
+	void IntToObject(char* value);
 	void DebugMe(char* value);
 	void ObjDump(char* value);
 
@@ -78,6 +80,7 @@ protected:
 	unsigned long GetFirstArea();
 	unsigned long GetNextArea();
 	unsigned long GetItemByPosition_Ext();
+	unsigned long IntToObject_ret();
 
 private:
 	char* pGameObject;
@@ -85,6 +88,7 @@ private:
 	dword nTotalAreaCount;
 	int nCurrentVarNum;
 	dword nItemPosition;
+	dword nTempObjectID;
 };
 
 #endif
