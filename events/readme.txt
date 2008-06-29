@@ -3,36 +3,36 @@ NWNX Events plugin (version 1.2.2)
 
 Provides hooks for the following events:
 * PickPocket (can be blocked from script)
-  - oCreature
-  - oTarget
+  - OBJECT_SELF       = Thief
+  - GetActionTarget() = Victim
 * Attack
-  - oCreature
-  - oTarget
+  - OBJECT_SELF       = Attacker
+  - GetActionTarget() = Target
 * UseItem (can be blocked from script)
-  - oCreature
-  - oTarget
-  - oItem
-  - vPosition
+  - OBJECT_SELF        = Item user
+  - GetActionTarget()  = Item target
+  - GetEventItem()     = Item used
+  - GetEventPosition() = Target position (as a vector)
 * QuickChat (can be blocked from script)
-  - oCreature
-  - nQuickChatID (use GetEventSubType() to get this value)
+  - OBJECT_SELF       = Talker
+  - GetEventSubType() = QuickChat ID
 * Examine (can be blocked from script except OnExamineItem)
-  - oCreature
-  - oTarget
+  - OBJECT_SELF       = Examiner
+  - GetActionTarget() = Thing to be examined
 * UseSkill (can be blocked from script)
-  - oCreature
-  - nSkillID (SKILL_*)
-  - oTarget
-  - vPosition
-  - oItem
+  - OBJECT_SELF        = Skill user
+  - GetEventSubType()  = Skill ID (SKILL_*)
+  - GetActionTarget()  = Skill target
+  - GetEventPosition() = Skill target position (as a vector)
+  - GetEventItem()     = Item associated with the skill
 * UseFeat (can be blocked from script)
-  - oCreature
-  - nFeatID (FEAT_*)
-  - oTarget
-  - vPosition
+  - OBJECT_SELF        = Feat user
+  - GetEventSubType()  = Feat ID (FEAT_*)
+  - GetActionTarget()  = Feat target
+  - GetEventPosition() = Feat target position (as a vector)
 * ToggleMode (can be blocked from script)
-  - oCreature
-  - nMode (ACTION_MODE_*)
+  - OBJECT_SELF       = Creature toggling
+  - GetEventSubType() = Action mode toggled (ACTION_MODE_*)
 
 Provides functions for conditional and action scripts:
     int GetCurrentNodeType();
