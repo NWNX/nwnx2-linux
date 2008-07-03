@@ -26,6 +26,9 @@
 #include <dlfcn.h>
 
 #include <limits.h>		/* for PAGESIZE */
+#include <ctime>
+
+#define DATEBUFFERLENGTH 256
 #ifndef PAGESIZE
 #define PAGESIZE 4096
 #endif
@@ -119,6 +122,12 @@ void FlushStatistics(DWORD dwStatisticMsec)
 		profiler.WriteLogHeader();
 		profiler.Log(1, "* Logfile hit maximum size limit, starting again.\n");
 	}*/
+
+	// Get current time
+	time_t now;
+	char strDate[DATEBUFFERLENGTH];
+	time(&now);
+	strftime(strDate, DATEBUFFERLENGTH, "%c", localtime(&now));
 	
 	profiler.Log(1, "\nCurrent statistics\n");
 	profiler.Log(1, "-----------------------------------------------------------------------------------------------\n");
@@ -132,7 +141,8 @@ void FlushStatistics(DWORD dwStatisticMsec)
 	profiler.Log(1, "Elapsed time                : %d msec\n", dwStatisticMsec);
 	profiler.Log(1, "Runtime delta               : %d msec\n", iTotalRuntime - iTotalLast);
 	profiler.Log(1, "Total cumulative runtime    : %d msec\n", iTotalRuntime);
-	profiler.Log(1, "Total number of scriptcalls : %d\n\n", iScriptCounter);
+	profiler.Log(1, "Total number of scriptcalls : %d\n", iScriptCounter);
+	profiler.Log(1, "Current date is             : %s\n\n", strDate);
 	iTotalLast = iTotalRuntime;
 	iTotalRuntime = 0;
 	//fflush(profiler.m_fFile);
