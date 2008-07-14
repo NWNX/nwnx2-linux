@@ -48,7 +48,7 @@ bool CNWNXFixes::OnCreate(gline *config, const char *LogDir)
 	if (!CNWNXBase::OnCreate(config,log))
 		return false;
 	Log(0,"NWNX Fixes 1.0.4\n");
-	Log(0,"(c) by virusman, 2007\n");
+	Log(0,"(c) by virusman, 2007-2008\n");
 	Log(0,"visit us at http://www.nwnx.org\n\n");
 	if (FindHookFunctions())
 	{

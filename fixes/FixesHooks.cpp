@@ -191,10 +191,12 @@ int FindHookFunctions()
 	*(dword*)&pGetPlayer = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B ** 0C 81 FF 00 00 00 7F");
 	fixes.Log(2, "GetPlayer: %08lX\n", pGetPlayer);
 	*(dword*)&pGetObjectFactionEntry = asmhelp.FindFunctionBySignature("55 89 E5 ** ** ** A1 ** ** ** ** 8B 40 04 8B 55 08 8B 48 04 8B 82 64 0C 00 00 FF B0 88 00 00 00");
+	if(!pGetObjectFactionEntry)
+		*(dword*)&pGetObjectFactionEntry = asmhelp.FindFunctionBySignature("55 89 E5 ** ** ** A1 ** ** ** ** 8B 40 04 8B 55 08 8B 48 04 8B 82 68 0C 00 00 FF B0 90 00 00 00");
 	fixes.Log(2, "GetObjectFactionEntry: %08lX\n", pGetObjectFactionEntry);
 	*(dword*)&pGetIsMergeable = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 7D 08 8B 97 E4 01 00 00 85 D2 0F 84 ** ** ** ** 8B 45 0C");
 	fixes.Log(2, "GetIsMergeable: %08lX\n", pGetIsMergeable);
-	char *pSplitItem_Copy = (char *) asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 7D 0C 85 FF 8B 75 08 7E 08 3B BE 84 02 00 00 7C 05");
+	char *pSplitItem_Copy = (char *) asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 7D 0C 85 FF 8B 75 08 7E 08 3B BE ** 02 00 00 7C 05");
 	fixes.Log(2, "SplitItem_Copy: %08lX\n", pSplitItem_Copy);
 	char *pBuyItem = (char *) asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 14 8A 45 14 88 45 EF 8B 45 0C FF 70 08 8B 75 08 56 0F B6 7D 18 E8");
 	fixes.Log(2, "BuyItem: %08lX\n", pBuyItem);

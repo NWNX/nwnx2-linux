@@ -1,6 +1,10 @@
-NWNX Fixes 1.0.3
+NWNX Fixes 1.0.4
 
 This plugin is intended to provide various fixes and patches to NWServer.
+
+1.0.4 (14.07.2007):
+- New tweak: starting conversation now doesn't unhide a creature
+- Updated function signatures for compatibility with 1.69
 
 1.0.3 (22.11.2007):
 - Fixed another bug in string comparison code.
