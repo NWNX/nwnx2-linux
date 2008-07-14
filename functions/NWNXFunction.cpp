@@ -665,7 +665,7 @@ bool CNWNXFunction::OnCreate(gline *config, const char *LogDir)
 	// call the base class function
 	if (!CNWNXBase::OnCreate(config,log))
 		return false;
-	Log(0,"NWNX Functions V.1.8.8\n");
+	Log(0,"NWNX Functions V.1.8.9\n");
 	Log(0,"(c) 2004 by the APS/NWNX Linux Conversion Group\n");
 	Log(0,"Based on the Win32 version (c) 2003 by Ingmar Stieger (Papillon)\n");
 	Log(0,"(c) by virusman, 2006-2008\n");

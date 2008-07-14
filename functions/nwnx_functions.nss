@@ -35,11 +35,11 @@ int GetDescriptionLength(object oObject);
 
 // Get description of oObject
 // Works with items, placeables, doors and creatures
-string GetDescription(object oObject);
+string NWNX_GetDescription(object oObject);
 
 // Set description of oObject
 // Works with items, placeables, doors and creatures
-void SetDescription(object oObject, string sNewDescription);
+void NWNX_SetDescription(object oObject, string sNewDescription);
 
 // Get NPC's conversation resource name
 string GetConversation(object oObject);
@@ -188,7 +188,7 @@ int GetDescriptionLength(object oObject)
     return nDescLength;
 }
 
-string GetDescription(object oObject)
+string NWNX_GetDescription(object oObject)
 {
     string sDesc;
     SetLocalString(oObject, "NWNX!FUNCTIONS!GETDESCRIPTION", "                                                                                                                                                                                                                                                            ");
@@ -197,7 +197,7 @@ string GetDescription(object oObject)
     return sDesc;
 }
 
-void SetDescription(object oObject, string sNewDescription)
+void NWNX_SetDescription(object oObject, string sNewDescription)
 {
     SetLocalString(oObject, "NWNX!FUNCTIONS!SETDESCRIPTION", sNewDescription);
     DeleteLocalString(oObject, "NWNX!FUNCTIONS!SETDESCRIPTION");

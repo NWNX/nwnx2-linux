@@ -351,6 +351,8 @@ int FindFunctions()
 	*(dword*)&pChangeFaction = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 ** ** ** A1 ** ** ** ** 8B 40 04 FF 75 0C 50 89 45 F0");
 	functions.Log(2, "ChangeFaction: %08lX\n", pChangeFaction);
 	*(dword*)&pGetObjectFactionEntry = asmhelp.FindFunctionBySignature("55 89 E5 ** ** ** A1 ** ** ** ** 8B 40 04 8B 55 08 8B 48 04 8B 82 64 0C 00 00 FF B0 88 00 00 00");
+	if(!pGetObjectFactionEntry)
+		*(dword*)&pGetObjectFactionEntry = asmhelp.FindFunctionBySignature("55 89 E5 ** ** ** A1 ** ** ** ** 8B 40 04 8B 55 08 8B 48 04 8B 82 68 0C 00 00 FF B0 90 00 00 00");
 	functions.Log(2, "GetObjectFactionEntry: %08lX\n", pGetObjectFactionEntry);
 	*(dword*)&pGetFactionLeader = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 ** ** ** A1 ** ** ** ** C7 45 F0 00 00 00 7F 8B 40 04 89 45 EC FF 75 08");
 	functions.Log(2, "GetFactionLeader: %08lX\n", pGetFactionLeader);
@@ -365,12 +367,16 @@ int FindFunctions()
 	*(dword*)&pSetMovementRate = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC ** ** ** ** A1 +19 83 FA 07");
 	functions.Log(2, "SetMovementRate: %08lX\n", pSetMovementRate);
 	*(dword*)&pActionUseItem = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC ** 00 00 00 8A 45 10 8A 55 14 88 45 ** 88 55 **");
-	functions.Log(2, "ActionUseSkill: %08lX\n", pActionUseItem);
+	if(!pActionUseItem)
+		*(dword*)&pActionUseItem = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 64 8A 45 10 8A 4D 14 88 45 A7 88 4D A6 FF 75 0C C7 45 A0 00 00 00 00");
+	functions.Log(2, "ActionUseItem: %08lX\n", pActionUseItem);
 	*(dword*)&pDisconnectPlayer = asmhelp.FindFunctionBySignature("55 89 E5 83 EC 14 FF 75 14 6A 01 FF 75 10 FF 75 0C 8B 45 08 FF 30 E8");
 	functions.Log(2, "DisconnectPlayer: %08lX\n", pDisconnectPlayer);
 	*(dword*)&pRemoveObjectFromLocation = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC ** FF 75 08 E8 ** ** ** ** 83 C4 10 85 C0 74 1A");
 	functions.Log(2, "RemoveObjectFromLocation: %08lX\n", pRemoveObjectFromLocation);
 	*(dword*)&pAddObjectToLimboList = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC ** 8B 75 08 8D 86 10 02 00 00 31 DB 89 45 F0 3B 9E 14 02 00 00");
+	if(!pAddObjectToLimboList)
+		*(dword*)&pAddObjectToLimboList = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 75 08 8D 86 18 02 00 00 31 DB 89 45 F0 3B 9E 1C 02 00 00");
 	functions.Log(2, "AddObjectToLimboList: %08lX\n", pAddObjectToLimboList);
 
 	if(!(pGetFaction && pGetFactionEntry && pChangeFaction && pGetObjectFactionEntry &&

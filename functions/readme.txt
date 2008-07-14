@@ -1,13 +1,10 @@
-NWNX Functions 1.8.8
+NWNX Functions 1.8.9
 ----
-New function:
-  object IntToObject(int nObjectID);
-
-SetDescription now works if an item doesn't have a custom description
+Updated function signatures for compatibility with 1.69
 ---
 
 virusman
-04.06.2008
+14.07.2008
 
 ------------------------------------------
 Complete function list:
@@ -49,6 +46,13 @@ object IntToObject(int nObjectID);
 
 ------------------------------------------
 Previous versions:
+
+NWNX Functions 1.8.8 (04.06.2008)
+----
+New function:
+  object IntToObject(int nObjectID);
+
+SetDescription now works if an item doesn't have a custom description
 
 NWNX Functions 1.8.7 (02.06.2008)
 ----
