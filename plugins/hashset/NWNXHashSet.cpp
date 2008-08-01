@@ -130,7 +130,7 @@ bool CNWNXHashSet::ParseParam(char *gameObj, char *Param, string &Name, string *
 {
 	unsigned long iGameObjectId = *(unsigned long*)(gameObj+4);
 	string setname;
-	char *pSep, oid[9];
+	char *pSep, oid[10];
 
 	// assume the worst
 	iLastOperation = false;
