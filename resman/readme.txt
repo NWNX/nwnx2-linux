@@ -14,7 +14,7 @@ external version.
 How to use it:
 
 1) Copy the [RESOURCEMANAGER] section to your nwnx.ini file and set the SourcePath accordingly.
-2) Copy the nwnx.ncs demo script to the directory specified by SourcePath
+2) Copy the nwnx.ncs demo script to the 'ncs' directory under the directory specified by SourcePath.
 3) Check out the ScriptMod.mod module and read the sign in front of you.
 4) The messages you will receive are from the internal and the external script.
 5) Try to modify nwnx.nss and compile it with clcompile.exe, while the mod is running!
