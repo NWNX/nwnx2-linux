@@ -50,6 +50,7 @@ void CNWNXFunction::SetGoldPieceValue(char* value)
 
 void CNWNXFunction::SetTag(char* value)
 {
+#ifdef NWNX_FUNCTIONS_SETTAG_REWRITE
     char* tag = (char*)(*(int*)(pGameObject+0x18));
 
 	int iLength;
@@ -64,6 +65,11 @@ void CNWNXFunction::SetTag(char* value)
 	strncpy(tag, value, iLength);
 
 	*(tag+iLength) = 0x0;
+#else
+    // warning: leaks memory, but allows setting a longer tag than the original, plus
+    // there appear to be some cases where rewriting the tag causes corruption
+    *(char **)(pGameObject + 0x18) = strdup(value);
+#endif
 }
 
 void CNWNXFunction::SetArmorAC(char* value)
@@ -637,24 +643,51 @@ void CNWNXFunction::DebugMe(char* value)
 
 void CNWNXFunction::ObjDump(char *value)
 {
-	if (*(pGameObject+0x4) == 0x6) // object type item
-	{
-		int i,j;
-		char buf[17];
-		char *p= (char*)pGameObject;
+    int i, j;
+    char buf[2048], chbuf[16], prbuf[32], *p;
+    unsigned char *ob = (unsigned char *)pGameObject;
 
-		printf("tag: [%s]\n",*(char**)(&p[0x18]));
+    sprintf(buf, "object: %08p  tag: %s  type: %d", ob,
+            *((char **)(ob + 0x18)), ob[4]);
+    p = buf + strlen(buf);
 
-		for(i=0; i<2048; i+=16) {
-			printf("0x%04x:",i);
-			for(j=0; j<16; j++) {
-				printf(" %02x",(unsigned char)p[i+j]);
-				buf[j]= isprint(p[i+j])?p[i+j]:'.';
-			}
-			buf[j]= 0;
-			printf(" - |%s|\n",buf);
-		}
-	}
+    if (ob[4] == 5) {
+        sprintf(p, "  creature: %08p", (char *)(ob + 0xC60));
+        p = buf + strlen(buf);
+    }
+
+    p = stpcpy(p, "\n");
+
+    for (i = 0; i < 16; i++) {
+        prbuf[0] = 0;
+
+        for (j = (i * 256); j < ((i + 1) * 256); j++) {
+            if (j % 16 == 0) {
+                snprintf(chbuf, sizeof(chbuf), "\n0x%04X:  ", j);
+                strcat(prbuf, chbuf);
+                p = stpcpy(p, prbuf);
+
+                snprintf(prbuf, sizeof(prbuf), "|................|");
+            }
+
+            if (j % 8 == 7)
+                snprintf(chbuf, sizeof(chbuf), "%02x  ", ob[j]);
+            else
+                snprintf(chbuf, sizeof(chbuf), "%02x ", ob[j]);
+
+            p = stpcpy(p, chbuf);
+
+            if (ob[j] >= ' ' && ob[j] < 127)
+                prbuf[(j % 16) + 1] = ob[j];
+        }
+
+        p = stpcpy(p, prbuf);
+        p = stpcpy(p, "\n");
+
+        Log(1, "%s", buf);
+
+        p = buf;
+    }
 }
 
 bool CNWNXFunction::OnCreate(gline *config, const char *LogDir)
@@ -665,7 +698,7 @@ bool CNWNXFunction::OnCreate(gline *config, const char *LogDir)
 	// call the base class function
 	if (!CNWNXBase::OnCreate(config,log))
 		return false;
-	Log(0,"NWNX Functions V.1.8.9\n");
+	Log(0,"NWNX Functions V.1.9.0\n");
 	Log(0,"(c) 2004 by the APS/NWNX Linux Conversion Group\n");
 	Log(0,"Based on the Win32 version (c) 2003 by Ingmar Stieger (Papillon)\n");
 	Log(0,"(c) by virusman, 2006-2008\n");
