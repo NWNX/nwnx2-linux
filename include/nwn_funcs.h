@@ -28,9 +28,6 @@
 extern "C" {
 #endif
 
-void nwn_hook_init (void);
-
-
 CGameObject *nwn_GetObjectByID (nwn_objid_t oid);
 CGameObject *nwn_GetObjectByStringID (const char *oid);
 CNWSPlayer *nwn_GetPlayerByID (nwn_objid_t oid);

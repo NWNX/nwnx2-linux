@@ -35,6 +35,8 @@ int nx_hook_enable_write (const void *addr, size_t len);
 
 void *nx_hook_function (void *addr, void *func, size_t len, uint32_t flags);
 
+void nwn_hook_init (void);
+
 #ifdef __cplusplus
 }
 #endif

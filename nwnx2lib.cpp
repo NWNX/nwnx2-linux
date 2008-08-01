@@ -38,6 +38,7 @@ using namespace std;
 #endif
 
 #include "NWNXBase.h"
+#include "nx_hook.h"
 
 #include <limits.h>		/* for PAGESIZE */
 #ifndef PAGESIZE
@@ -664,6 +665,9 @@ startstop::startstop()
     printf("Based on the Win32 version (c) 2003 by Ingmar Stieger (Papillon)\n");
     printf("and Jeroen Broekhuizen\n");
     printf("visit us at http://www.avlis.org\n\n");
+
+    printf("* Searching for signatures...\n");
+    nwn_hook_init();
 
     printf("* Loading modules...\n");
     LoadLibraries();

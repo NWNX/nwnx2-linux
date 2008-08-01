@@ -13,8 +13,8 @@
 #include <errno.h>
 #include <signal.h>
 
-#include "db/data.h"
-#include "db/dbmysql.h"
+#include "data.h"
+#include "dbmysql.h"
 
 #include "NWNXBase.h"
 

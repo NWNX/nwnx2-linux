@@ -2,7 +2,7 @@ NWNXDIR  = ../..
 CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR)
 LFLAGS   = $(PLUGIN_LFLAGS)
 
-LIBS     = $(LIBS) -L/usr/lib/mysql -lmysqlclient -lz
+LIBS     = -L/usr/lib/mysql -lmysqlclient -lz
 
 all: nwnx_odbc.so
 

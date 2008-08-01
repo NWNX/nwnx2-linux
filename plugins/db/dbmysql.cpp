@@ -28,6 +28,7 @@ DbMySql::DbMySql (ConnParam *p)
 	connValid = ERR_NOTCONNECTED;	
 	debugLevel=DBG_NO;
 	stream=stderr;
+        result=NULL;
 	SetConnParams(p);
 }
 
