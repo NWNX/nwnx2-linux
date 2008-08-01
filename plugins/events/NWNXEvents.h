@@ -20,8 +20,7 @@
 #ifndef _NWNX_EVENTS_H_
 #define _NWNX_EVENTS_H_
 
-#include "../NWNXBase.h"
-#include "../gline.h"
+#include "NWNXBase.h"
 #include "HookFunc.h"
 
 enum eNodeType {StartingNode, EntryNode, ReplyNode};

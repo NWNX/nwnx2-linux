@@ -7,7 +7,7 @@ NWNXDIR = ../..
 
 # CFLAGS = -g -O2 -I$(NWNXDIR)
 # CXXFLAGS= -g -O2 $(CFLAGS)
-CPPFLAGS = -mcpu=i386 -I$(NWNXDIR)
+CPPFLAGS = -mtune=i386 -I$(NWNXDIR)
 
 NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o
 # $(NWNXDIR)/db/data.o $(NWNXDIR)/db/dbmysql.o 

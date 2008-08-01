@@ -6,7 +6,22 @@ CPPFLAGS = @CPPFLAGS@
 
 # Add your own plugins to the compilation with this configure option:
 # ./configure --with-extraplugins="plugin1 plugin2 ..."
-SUBDIRS = db mnx functions hashset @EXTRAPLUGINDIRS@
+SUBDIRS = \
+    plugins/chat       \
+    plugins/db         \
+    plugins/events     \
+    plugins/fixes      \
+    plugins/functions  \
+    plugins/hashset    \
+    plugins/mnx        \
+    plugins/odmbc      \
+    plugins/profiler   \
+    plugins/reset      \
+    plugins/resman     \
+    plugins/ruby       \
+    plugins/structs    \
+    plugins/tmi        \
+    @EXTRAPLUGINDIRS@
 
 all: nwnx2.so subdirs
 

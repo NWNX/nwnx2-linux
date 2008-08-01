@@ -21,8 +21,7 @@
 #ifndef _NWNX_PROFILER_H_
 #define _NWNX_PROFILER_H_
 
-#include "../NWNXBase.h"
-#include "../gline.h"
+#include "NWNXBase.h"
 #include "HookRunScript.h"
 
 #include "hash.h"

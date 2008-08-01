@@ -25,7 +25,6 @@
 using namespace std;
 
 #include "NWNXBase.h"
-#include "gline.h"
 
 // StringMap typedef comes from gline ~ map<string,string>
 struct HashSet {

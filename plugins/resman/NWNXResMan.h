@@ -21,8 +21,7 @@
 #if !defined(_NWNXResMan_H_)
 #define _NWNXResMan_H_
 
-#include "../NWNXBase.h"
-#include "../gline.h" 
+#include "NWNXBase.h"
 
 #include "NwnDefines.h"
 #include "HookDemandRes.h"

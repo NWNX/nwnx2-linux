@@ -13,7 +13,7 @@ NWNXDIR = ../..
 
 # CFLAGS = -g -O2 -I$(NWNXDIR)
 # CXXFLAGS= -g -O2 $(CFLAGS)
-CPPFLAGS = -mcpu=i386 $(DEBUG) -I$(NWNXDIR)
+CPPFLAGS = -mtune=i386 $(DEBUG) -I$(NWNXDIR)
 
 NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o
 

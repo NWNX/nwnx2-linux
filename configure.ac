@@ -4,7 +4,7 @@ AC_INIT(FULL-PACKAGE-NAME, VERSION, BUG-REPORT-ADDRESS)
 AC_CONFIG_HEADER([config.h])
 
 # EXTREMELY IMPORTANT! MUST NOT BE OVERRIDDEN!
-CPPFLAGS="-mcpu=i386 $CPPFLAGS"
+CPPFLAGS="-mtune=i386 $CPPFLAGS"
 
 AC_ARG_ENABLE(debug,
   [  --enable-debug      compile with debugging symbols])

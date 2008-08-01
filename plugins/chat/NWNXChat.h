@@ -21,8 +21,7 @@
 #ifndef _NWNX_CHAT_H_
 #define _NWNX_CHAT_H_
 
-#include "../NWNXBase.h"
-#include "../gline.h"
+#include "NWNXBase.h"
 #include "HookChat.h"
 
 class CNWNXChat : public CNWNXBase

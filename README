@@ -11,7 +11,7 @@ IMPORTANT CHANGES
   if it cannot find it.  If you're compiling software, chances are you
   need it anyway.  RPM based distributions need to install zlib-devel.
 
-- The configure script will add -mcpu=i386 to the compilation instructions.
+- The configure script will add -mtune=i386 to the compilation instructions.
   DO NOT OVERRIDE THIS or use -march=processor!
 
 - The configure script accepts a new option, --enable-debug, to generate

@@ -1324,7 +1324,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 # EXTREMELY IMPORTANT! MUST NOT BE OVERRIDDEN!
-CPPFLAGS="-mcpu=i386 $CPPFLAGS"
+CPPFLAGS="-mtune=i386 $CPPFLAGS"
 
 # Check whether --enable-debug or --disable-debug was given.
 if test "${enable_debug+set}" = set; then

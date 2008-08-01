@@ -23,8 +23,8 @@
 #define SQLITE_SUPPORT 0
 #define PGSQL_SUPPORT 0
 
-#include "../NWNXBase.h"
-#include "../gline.h"
+#include "NWNXBase.h"
+
 #include "db.h"
 #include "mysql.h"
 #if SQLITE_SUPPORT == 1

@@ -14,7 +14,7 @@ Changelog for APS/NWNX
 
 * 19.04.2004: Linux Beta 5.1 pre 3
 - Cleaned up nwstartup.sh
-- Added -mcpu=i386 to CPPFLAGS to avoid optimization corruption
+- Added -mtune=i386 to CPPFLAGS to avoid optimization corruption
 - Added --enable-debug option to configure to generate debug build
 - Added --with-extraplugins="plugin1 plugin2 ..." support
 - Removed -lz from mysql compilation
