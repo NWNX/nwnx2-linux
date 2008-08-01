@@ -4,7 +4,7 @@ LIBS = -L/usr/lib/mysql -lmysqlclient -lz
 FLAGS = -w -fPIC -shared -static -W -Wall -Llib/
 DEFS = -DHAVE_CONFIG_H
 
-NWNXDIR = ..
+NWNXDIR = ../..
 
 # CFLAGS = -g -O2 -I$(NWNXDIR)
 # CXXFLAGS= -g -O2 $(CFLAGS)

@@ -3,7 +3,7 @@ LIBS =
 FLAGS = -w -fPIC -shared -W -Wall -Llib/
 DEFS = -DHAVE_CONFIG_H
 
-NWNXDIR = ..
+NWNXDIR = ../..
 
 # CFLAGS = -g -O2 -I$(NWNXDIR)
 # CXXFLAGS= -g -O2 $(CFLAGS)

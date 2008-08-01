@@ -9,7 +9,7 @@ DEFS = -DHAVE_CONFIG_H
 # if NWNXDIR is not specified, configure should
 # probe (.. ../linnwnx2) and die if not found.
 # NWNXDIR = @NWNXDIR@
-NWNXDIR = ..
+NWNXDIR = ../..
 
 # CFLAGS = -g -O2 -I$(NWNXDIR)
 # CXXFLAGS= -g -O2 $(CFLAGS)

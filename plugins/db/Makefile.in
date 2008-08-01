@@ -13,7 +13,7 @@ LIBS = @LIBS@ -L/usr/lib/mysql -lmysqlclient -lz
 # if NWNXDIR is not specified, configure should
 # probe (.. ../linnwnx2) and die if not found.
 # NWNXDIR = @NWNXDIR@
-NWNXDIR = ..
+NWNXDIR = ../..
 
 # CFLAGS = @CFLAGS@ -I$(NWNXDIR)
 # CXXFLAGS= @CXXFLAGS@ $(CFLAGS)

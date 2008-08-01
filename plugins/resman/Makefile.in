@@ -3,7 +3,7 @@ LIBS = @LIBS@
 FLAGS = -w -fPIC -shared -W -Wall @LDFLAGS@
 DEFS = @DEFS@
 
-NWNXDIR = ..
+NWNXDIR = ../..
 
 # CFLAGS = -g -O2 -I$(NWNXDIR)
 # CXXFLAGS= -g -O2 $(CFLAGS)
