@@ -2,7 +2,7 @@ CXX      = @CXX@
 LIBS     = @LIBS@ -ldl
 DEFS     = @DEFS@
 LFLAGS   = -w -fPIC -shared -W -Wall @LDFLAGS@
-CPPFLAGS = @CPPFLAGS@ $(DEFS)
+CPPFLAGS = @CPPFLAGS@ -Iinclude $(DEFS)
 
 # Add your own plugins to the compilation with this configure option:
 # ./configure --with-extraplugins="plugin1 plugin2 ..."
@@ -23,9 +23,19 @@ SUBDIRS = \
     plugins/tmi        \
     @EXTRAPLUGINDIRS@
 
+LIBRARY = \
+    lib/nwn_data.o     \
+    lib/nwn_funcs.o    \
+    lib/nwn_hooks.o    \
+    lib/nx_hook.o      \
+    lib/nx_log.o       \
+    lib/nx_safe.o      \
+    lib/nx_signature.o
+
+
 all: nwnx2.so subdirs
 
-nwnx2.so: nwnx2lib.o NWNXBase.o gline.o
+nwnx2.so: nwnx2lib.o NWNXBase.o gline.o $(LIBRARY)
 	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 # always execute regardless of existance or timestamp

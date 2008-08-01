@@ -37,7 +37,6 @@ using namespace std;
 #include "config.h"
 #endif
 
-#include "gline.h"
 #include "NWNXBase.h"
 
 #include <limits.h>		/* for PAGESIZE */
@@ -48,39 +47,39 @@ using namespace std;
 typedef CNWNXBase* (*ClassObject)();
 ClassObject GetClassObject;
 
-FILE *logFile = stdout;
-char *logDir = NULL;
-char logFileName[18] = {0};
-int debuglevel = 0;
-int xdbglevel = 1;
-int nwnxinitdisabled = 0;
+static FILE *logFile = stdout;
+static char *logDir = NULL;
+static char logFileName[18] = {0};
+static int debuglevel = 0;
+static int xdbglevel = 1;
+static int nwnxinitdisabled = 0;
 
 // hashtable (ok, ok, a red-black tree)
-map<string, CNWNXBase*> Libraries;
+static map<string, CNWNXBase*> Libraries;
 
-unsigned char jmp_code[] = "\x68\x60\x70\x80\x90"	/* push dword 0x90807060 */
-    "\xc3\x90\x90";		/* ret , nop , nop       */
-unsigned char ret_code_ss[0x20];
-unsigned char ret_code_go[0x20];
-bool ObjRet = 0;
-unsigned long oRes;
+static unsigned char jmp_code[] = "\x68\x60\x70\x80\x90"	/* push dword 0x90807060 */
+                                  "\xc3\x90\x90";		/* ret , nop , nop       */
+static unsigned char ret_code_ss[0x20];
+static unsigned char ret_code_go[0x20];
+static bool ObjRet = 0;
+static unsigned long oRes;
 
-unsigned long o_esp;
-unsigned long o_SetString, m_SetString;
-unsigned long o_GetObject;
-void (*o_SetStringFunc) (char **, char **);
-gline nwnxConfig;
+static unsigned long o_esp;
+static unsigned long o_SetString, m_SetString;
+static unsigned long o_GetObject;
+static void (*o_SetStringFunc) (char **, char **);
+static gline nwnxConfig;
 
 // FIXME!!! hack
-char *gameObject = NULL;
-char *returnAddr = NULL;
-char *ObjReturnAddr = NULL;
-char gObjDummy[4096] = {};
+static char *gameObject = NULL;
+static char *returnAddr = NULL;
+static char *ObjReturnAddr = NULL;
+static char gObjDummy[4096] = {};
 
 // helper function prototype
-void Log(int priority, const char *pcMsg, ...);
+static void Log(int priority, const char *pcMsg, ...);
 
-void
+static void
 d_enable_write (unsigned long location)
 {
     char *page;
@@ -92,7 +91,7 @@ d_enable_write (unsigned long location)
 	perror ("mprotect");
 }
 
-void
+static void
 d_redirect (long from, long to, unsigned char *ret_code, long len=0)
 {
     // enable write to code pages
@@ -108,8 +107,8 @@ d_redirect (long from, long to, unsigned char *ret_code, long len=0)
     memcpy ((void *) from, (const void *) jmp_code, 6);
 }
 
-void
-PayLoad(const char **ppname, const char **ppvalue)
+static void
+StringPayLoad(const char **ppname, const char **ppvalue)
 {
 	int iValueLength;
 	int iResultLength;
@@ -247,7 +246,7 @@ PayLoad(const char **ppname, const char **ppvalue)
 	}
 }
 
-void
+static void
 ObjectPayLoad(const char **ppname)
 {
 	char *name= (char*)*ppname;
@@ -444,7 +443,7 @@ my_SetString (const char **s1, const char **s2, const char **s3)
 	asm ("movl %ebp, o_esp");
 	
     // Execute payload
-    PayLoad(s2,s3);
+    StringPayLoad(s2,s3);
 
     // 1. correct frame pointer
     // 2. push s1 and s2 on stack
@@ -496,7 +495,7 @@ my_GetObject (const char **s1, const char **s2)
 	asm ("jmp %eax");
 }
 
-void Configure() {
+static void Configure() {
 	FILE *logfp;
 	char *logfilename,logfqpn[256];
 
@@ -547,8 +546,8 @@ void Configure() {
 }
 
 // finds the address of the CNWSScriptVarTable::SetString function
-unsigned long
-FindHook ()
+static unsigned long
+FindStringHook ()
 {
     unsigned long start_addr = 0x08048000, end_addr = 0x08300000;
     char *ptr = (char *) start_addr;
@@ -575,7 +574,7 @@ FindHook ()
 }
 
 // finds the address of the CNWSScriptVarTable::GetObject function
-unsigned long
+static unsigned long
 FindObjectHook ()
 {
     unsigned long start_addr = 0x08048000, end_addr = 0x08300000;
@@ -601,7 +600,7 @@ FindObjectHook ()
 }
 
 // 
-void Log(int priority, const char *pcMsg, ...)
+static void Log(int priority, const char *pcMsg, ...)
 {
 	va_list argList;
 	char acBuffer[2048];
@@ -640,37 +639,37 @@ startstop::startstop()
 
     printf ("\n");
     printf ("NWNX2lib: Init\n");
-    o_SetString = FindHook ();
-	o_GetObject = FindObjectHook ();
+    o_SetString = FindStringHook ();
+    o_GetObject = FindObjectHook ();
 
     m_SetString = (unsigned long) my_SetString;
     o_SetStringFunc = (void (*)(char **, char **)) o_SetString;
 
     printf ("NWNX2lib: org SetString() at %p, new SetString() at %p\n",
-	    o_SetString, m_SetString);
+            o_SetString, m_SetString);
     printf ("NWNX2lib: org GetObj() at %p, new GetObj() at %p\n",
-	    o_GetObject, (unsigned long) my_GetObject);
+            o_GetObject, (unsigned long) my_GetObject);
 
     d_redirect (o_SetString, m_SetString, ret_code_ss, 10);
-	d_redirect (o_GetObject, (unsigned long) my_GetObject, ret_code_go, 9);
+    d_redirect (o_GetObject, (unsigned long) my_GetObject, ret_code_go, 9);
 
-	printf("* Parsing configuration...\n");
-	Configure();
+    printf("* Parsing configuration...\n");
+    Configure();
 
-	// banner
-	Log(0,"NWN Extender v2.7-beta4\n");
-	Log(1,"--------------------------------\n");
-	printf("(c) 2004 by the APS/NWNX Linux Conversion Group\n");
-	printf("(c) 2007-2008 by virusman\n");
-	printf("Based on the Win32 version (c) 2003 by Ingmar Stieger (Papillon)\n");
-	printf("and Jeroen Broekhuizen\n");
-	printf("visit us at http://www.avlis.org\n\n");
+    // banner
+    Log(0,"NWN Extender v2.7-beta4\n");
+    Log(1,"--------------------------------\n");
+    printf("(c) 2004 by the APS/NWNX Linux Conversion Group\n");
+    printf("(c) 2007-2008 by virusman\n");
+    printf("Based on the Win32 version (c) 2003 by Ingmar Stieger (Papillon)\n");
+    printf("and Jeroen Broekhuizen\n");
+    printf("visit us at http://www.avlis.org\n\n");
 
-	printf("* Loading modules...\n");
-	LoadLibraries();
+    printf("* Loading modules...\n");
+    LoadLibraries();
 
-	// log & emit
-	Log(0,"* NWNX2 activated.\n");
+    // log & emit
+    Log(0,"* NWNX2 activated.\n");
 }
 
 // extern "C" void

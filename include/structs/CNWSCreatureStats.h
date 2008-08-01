@@ -94,7 +94,7 @@ struct CNWSCreatureStats_s {
     uint8_t                     cs_ac_armour_bonus;     /* 0407 */
     uint8_t                     cs_ac_armour_penalty;   /* 0408 */
     uint8_t                     cs_ac_deflection_bonus; /* 0409 */
-    uint8_t                     cs_ac_deflection_penalty; /040A */
+    uint8_t                     cs_ac_deflection_penalty;
     uint8_t                     cs_ac_shield_bonus;     /* 040B */
     uint8_t                     cs_ac_shield_penalty;   /* 040C */
     uint8_t                     cs_ac_natural_bonus;    /* 040D */
