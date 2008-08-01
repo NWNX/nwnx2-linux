@@ -1,34 +1,17 @@
-CXX = g++
-LIBS = 
-FLAGS = -w -fPIC -shared -W -Wall 
-DEFS = -DHAVE_CONFIG_H
+NWNXDIR  = ../..
+CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR)
+LFLAGS   = $(PLUGIN_LFLAGS)
 
-# TODO: snarf from configure somehow
-# the user should be able to specify NWNXDIR
-# if NWNXDIR is not specified, configure should
-# probe (.. ../linnwnx2) and die if not found.
-# NWNXDIR = @NWNXDIR@
-NWNXDIR = ../..
+all: nwnx_reset.so
 
-# CFLAGS = -g -O2 -I$(NWNXDIR)
-# CXXFLAGS= -g -O2 $(CFLAGS)
-CPPFLAGS = -mtune=i386  -I$(NWNXDIR)
-
-NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o 
-
-all: nwnx_resetplugin.so
-
-nwnx_resetplugin.so: NWNXReset.o plugin-reset.o
-	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS)
-
-plugin-t: plugin-t.o $(NWNXBASE)
-	$(CXX) -o $@ $(CXXFLAGS) $^ -ldl
+nwnx_reset.so: NWNXReset.o plugin-reset.o
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS) $(DEFS)
 
 clean:
-	/bin/rm -f *.o *.so *~ plugin-t
+	/bin/rm -f *.o *.so *~
 
 distclean: clean
 	/bin/rm -f Makefile
 
-install: all
-	mkdir -p /home/nwn/ ; install nwnx_resetplugin.so /home/nwn/
+install: nwnx_reset.so
+	mkdir -p /usr/local/share/nwn/ ; install nwnx_reset.so /usr/local/share/nwn/

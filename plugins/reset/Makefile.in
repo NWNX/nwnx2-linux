@@ -1,34 +1,17 @@
-CXX = @CXX@
-LIBS = @LIBS@
-FLAGS = -w -fPIC -shared -W -Wall @LDFLAGS@
-DEFS = @DEFS@
+NWNXDIR  = ../..
+CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR)
+LFLAGS   = $(PLUGIN_LFLAGS)
 
-# TODO: snarf from configure somehow
-# the user should be able to specify NWNXDIR
-# if NWNXDIR is not specified, configure should
-# probe (.. ../linnwnx2) and die if not found.
-# NWNXDIR = @NWNXDIR@
-NWNXDIR = ../..
+all: nwnx_reset.so
 
-# CFLAGS = @CFLAGS@ -I$(NWNXDIR)
-# CXXFLAGS= @CXXFLAGS@ $(CFLAGS)
-CPPFLAGS = @CPPFLAGS@ -I$(NWNXDIR)
-
-NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o 
-
-all: nwnx_resetplugin.so
-
-nwnx_resetplugin.so: NWNXReset.o plugin-reset.o
-	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS)
-
-plugin-t: plugin-t.o $(NWNXBASE)
-	$(CXX) -o $@ $(CXXFLAGS) $^ -ldl
+nwnx_reset.so: NWNXReset.o plugin-reset.o
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS) $(DEFS)
 
 clean:
-	/bin/rm -f *.o *.so *~ plugin-t
+	/bin/rm -f *.o *.so *~
 
 distclean: clean
 	/bin/rm -f Makefile
 
-install: all
-	mkdir -p @prefix@/ ; install nwnx_resetplugin.so @prefix@/
+install: nwnx_reset.so
+	mkdir -p @prefix@/ ; install nwnx_reset.so @prefix@/

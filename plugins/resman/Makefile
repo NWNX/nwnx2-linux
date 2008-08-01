@@ -1,30 +1,17 @@
-CXX = g++
-LIBS = 
-FLAGS = -w -fPIC -shared -W -Wall -Llib/
-DEFS = -DHAVE_CONFIG_H
-
-NWNXDIR = ../..
-
-# CFLAGS = -g -O2 -I$(NWNXDIR)
-# CXXFLAGS= -g -O2 $(CFLAGS)
-CPPFLAGS = -mtune=i386 -I$(NWNXDIR)
-
-NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o
-# $(NWNXDIR)/db/data.o $(NWNXDIR)/db/dbmysql.o 
+NWNXDIR  = ../..
+CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR)
+LFLAGS   = $(PLUGIN_LFLAGS)
 
 all: nwnx_resman.so
 
-nwnx_resman.so: HookDemandRes.o NwnDefines.o NWNXResMan.o plugin-resman.o $(NWNXBASE)
-	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS) 
-
-#plugin-t: plugin-t.o $(NWNXBASE)
-#	$(CXX) -o $@ $(CXXFLAGS) $^ -ldl
+nwnx_resman.so: HookDemandRes.o NwnDefines.o NWNXResMan.o plugin-resman.o
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	/bin/rm -f *.o *.so
+	/bin/rm -f *.o *.so *~
 
 distclean: clean
 	/bin/rm -f Makefile
 
-install: all
-	mkdir -p /home/dumbo/test/
+install: nwnx_resman.so
+	mkdir -p /usr/local/share/nwn/ ; install nwnx_resman.so /usr/local/share/nwn/

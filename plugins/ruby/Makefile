@@ -1,6 +1,6 @@
 CXX = g++
-LIBS = -lruby
-FLAGS = -w -fPIC -shared -W -Wall 
+LIBS = 
+LFLAGS = -w -fPIC -shared -W -Wall 
 DEFS = -DHAVE_CONFIG_H
 
 # TODO: snarf from configure somehow
@@ -16,10 +16,10 @@ CPPFLAGS = -mtune=i386  -I$(NWNXDIR)
 
 NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o 
 
-all: nwnx_ruby.so
+all: nwnx_functions.so
 
-nwnx_ruby.so: FunctionHooks.o ruby_int.o NWNXRuby.o plugin-ruby.o
-	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS)
+nwnx_functions.so: NWNXFunction.o plugin-functions.o
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS) $(DEFS)
 
 plugin-t: plugin-t.o $(NWNXBASE)
 	$(CXX) -o $@ $(CXXFLAGS) $^ -ldl
@@ -31,4 +31,4 @@ distclean: clean
 	/bin/rm -f Makefile
 
 install: all
-	mkdir -p /home/nwn/ ; install nwnx_ruby.so /home/nwn/
+	mkdir -p /usr/local/share/nwn/ ; install nwnx_functions.so /usr/local/share/nwn/

@@ -1,6 +1,6 @@
 CXX = @CXX@
 LIBS = @LIBS@
-FLAGS = -w -fPIC -shared -W -Wall @LDFLAGS@
+LFLAGS = -w -fPIC -shared -W -Wall @LDFLAGS@
 DEFS = @DEFS@
 
 # TODO: snarf from configure somehow
@@ -19,7 +19,7 @@ NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o
 all: nwnx_functions.so
 
 nwnx_functions.so: NWNXFunction.o plugin-functions.o
-	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS)
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS) $(DEFS)
 
 plugin-t: plugin-t.o $(NWNXBASE)
 	$(CXX) -o $@ $(CXXFLAGS) $^ -ldl

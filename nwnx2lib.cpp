@@ -420,7 +420,7 @@ LoadLibraries() {
 		// Register the plugin
 		Libraries[key] = pBase;
 
-		Log(0, "%s plugin Registerred.\n",key);
+		Log(0, "%s plugin registered.\n",key);
 		Log(3, "Address: %08lX\n", pBase);
 	}
 

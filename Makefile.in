@@ -1,8 +1,8 @@
-CXX = @CXX@
-LIBS = @LIBS@ -ldl
-FLAGS = -w -fPIC -shared -W -Wall @LDFLAGS@
-DEFS = @DEFS@
-CPPFLAGS = @CPPFLAGS@
+CXX      = @CXX@
+LIBS     = @LIBS@ -ldl
+DEFS     = @DEFS@
+LFLAGS   = -w -fPIC -shared -W -Wall @LDFLAGS@
+CPPFLAGS = @CPPFLAGS@ $(DEFS)
 
 # Add your own plugins to the compilation with this configure option:
 # ./configure --with-extraplugins="plugin1 plugin2 ..."
@@ -26,7 +26,7 @@ SUBDIRS = \
 all: nwnx2.so subdirs
 
 nwnx2.so: nwnx2lib.o NWNXBase.o gline.o
-	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS)
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 # always execute regardless of existance or timestamp
 .PHONY: clean subdirs $(SUBDIRS)
@@ -34,7 +34,7 @@ nwnx2.so: nwnx2lib.o NWNXBase.o gline.o
 subdirs: $(SUBDIRS)
 
 $(SUBDIRS):
-	$(MAKE) -C $@
+	$(MAKE) -C $@ PLUGIN_CPPFLAGS="$(CPPFLAGS)" PLUGIN_LFLAGS="$(LFLAGS)"
 
 clean:
 	for i in $(SUBDIRS); do $(MAKE) -C $$i $@; done

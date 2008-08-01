@@ -2,9 +2,9 @@ NWNXDIR  = ../..
 CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR)
 LFLAGS   = $(PLUGIN_LFLAGS)
 
-all: nwnx_fixes.so
+all: nwnx_mnx.so
 
-nwnx_fixes.so: FixesHooks.o NWNXFixes.o plugin-fixes.o
+nwnx_mnx.so: NWNXmnx.o plugin-mnx.o
 	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
@@ -13,5 +13,5 @@ clean:
 distclean: clean
 	/bin/rm -f Makefile
 
-install: nwnx_fixes.so
-	mkdir -p /usr/local/share/nwn/ ; install nwnx_fixes.so /usr/local/share/nwn/
+install: nwnx_mnx.so
+	mkdir -p /usr/local/share/nwn/ ; install nwnx_mnx.so /usr/local/share/nwn/

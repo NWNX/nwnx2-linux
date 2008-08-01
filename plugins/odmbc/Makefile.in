@@ -1,28 +1,19 @@
-CXX = @CXX@
-LIBS = @LIBS@ -L/usr/lib/mysql -lmysqlclient -lz
-#LIBS = -L/usr/lib/mysql -L/usr/local/pgsql/lib -lpq -lmysqlclient -lz
-FLAGS = -w -fPIC -shared -static -W -Wall @LDFLAGS@
-DEFS = @DEFS@
+NWNXDIR  = ../..
+CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR)
+LFLAGS   = $(PLUGIN_LFLAGS)
 
-NWNXDIR = ../..
-
-# CFLAGS = -g -O2 -I$(NWNXDIR)
-# CXXFLAGS= -g -O2 $(CFLAGS)
-CPPFLAGS = @CPPFLAGS@ -I$(NWNXDIR)
-
-NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o
-# $(NWNXDIR)/db/data.o $(NWNXDIR)/db/dbmysql.o 
+LIBS     = $(LIBS) -L/usr/lib/mysql -lmysqlclient -lz
 
 all: nwnx_odbc.so
 
-nwnx_odbc.so: HookSCORCO.o NWNXodbc.o mysql.o plugin-odbc.o $(NWNXBASE)
-	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS) 
+nwnx_odbc.so: HookSCORCO.o NWNXodbc.o mysql.o plugin-odbc.o
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	/bin/rm -f *.o *.so
+	/bin/rm -f *.o *.so *~
 
 distclean: clean
 	/bin/rm -f Makefile
 
-install: all
-	mkdir -p /home/dumbo/test/
+install: nwnx_odmbc.so
+	mkdir -p @prefix@/ ; install nwnx_odmbc.so @prefix@/
