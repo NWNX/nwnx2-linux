@@ -51,7 +51,7 @@ bool CNWNXEvents::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX Events version 1.2.2 for Linux.\n");
+	Log (0, "NWNX Events version 1.3.0 for Linux.\n");
 	Log (0, "(c) 2006-2008 by virusman (virusman@virusman.ru)\n");
 
 	if(nwnxConfig->exists(confKey)) {
@@ -218,11 +218,6 @@ char* CNWNXEvents::OnRequest (char* gameObject, char* Request, char* Parameters)
 		if (strlen(Parameters) > 24)
 			snprintf(Parameters, strlen(Parameters), "%f¬%f¬%f", vPosition.x, vPosition.y, vPosition.z);
 	}
-	else if (strncmp(Request, "GET_ITEM_RADIAL", 18) == 0)
-	{
-		if (strlen(Parameters) > 1)
-			sprintf(Parameters, "%d", nRadial);
-	}
 	else if (strncmp(Request, "BYPASS", 6) == 0)
 	{
 		bBypass = atoi(Parameters);
@@ -261,5 +256,6 @@ int CNWNXEvents::FireEvent(const int pObj, int nEvID)
 	//deinitialize
 	oTarget = OBJECT_INVALID;
 	nEventID = 0;
+        nEventSubID = 0;
 	return bBypass;
 }

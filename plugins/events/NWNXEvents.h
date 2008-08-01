@@ -45,7 +45,6 @@ public:
 	int nEventSubID;
 	dword oTarget;
 	dword oItem;
-	int nRadial;
 	CNWSDialogClass *pConversation;
 	int nSelectedNodeID;
 	int nSelectedAbsoluteNodeID;
@@ -57,15 +56,19 @@ public:
 protected:
 };
 
-#define OBJECT_INVALID 0x7F000000
-#define EVENT_SAVE_CHAR 1
-#define EVENT_PICKPOCKET 2
-#define EVENT_ATTACK 3
-#define EVENT_USE_ITEM 4
-#define EVENT_QUICKCHAT 5
-#define EVENT_EXAMINE 6
-#define EVENT_USE_SKILL 7
-#define EVENT_USE_FEAT 8
-#define EVENT_TOGGLE_MODE 9
+#define OBJECT_INVALID                  0x7F000000
+
+#define EVENT_TYPE_SAVE_CHAR             1
+#define EVENT_TYPE_PICKPOCKET            2
+#define EVENT_TYPE_ATTACK                3
+#define EVENT_TYPE_USE_ITEM              4
+#define EVENT_TYPE_QUICKCHAT             5
+#define EVENT_TYPE_EXAMINE               6
+#define EVENT_TYPE_USE_SKILL             7
+#define EVENT_TYPE_USE_FEAT              8
+#define EVENT_TYPE_CAST_SPELL            9
+#define EVENT_TYPE_TOGGLE_MODE          10
+#define EVENT_TYPE_TOGGLE_PAUSE         11
+#define EVENT_TYPE_POSSESS_FAMILIAR     12
 
 #endif

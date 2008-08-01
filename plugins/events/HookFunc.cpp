@@ -42,7 +42,6 @@ dword pPlayer = 0;
 dword oPC = 0;
 dword oTarget_b = OBJECT_INVALID;
 dword oItem_b = OBJECT_INVALID;
-int nRadial_b = 0;
 int bBypass_b = 0;
 int nEventSubID_b = 0;
 dword buffer;
@@ -70,7 +69,10 @@ unsigned char d_ret_code_ep[0x20];
 unsigned char d_ret_code_ed[0x20];
 unsigned char d_ret_code_us[0x20];
 unsigned char d_ret_code_uf[0x20];
+unsigned char d_ret_code_cz[0x20];
 unsigned char d_ret_code_tm[0x20];
+unsigned char d_ret_code_tp[0x20];
+unsigned char d_ret_code_pf[0x20];
 
 
 unsigned char **pEBP;
@@ -88,7 +90,7 @@ void SaveCharHookProc()
 		//asm ("mov %edi, oPC");
 		//asm ("sub $4, %edi");
 		if(pPlayer)
-			events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_SAVE_CHAR); //+0x30=game obj ID
+			events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_TYPE_SAVE_CHAR); //+0x30=game obj ID
 	}
 	asm ("popa");
 	asm ("leave");
@@ -112,7 +114,7 @@ void PickPocketHookProc()
 		events.oTarget = oTarget_b;
 		//asm ("sub $4, %edi");
 		if(oPC)
-			bBypass_b = events.FireEvent(*((dword *)oPC + 1), EVENT_PICKPOCKET);
+			bBypass_b = events.FireEvent(*((dword *)oPC + 1), EVENT_TYPE_PICKPOCKET);
 	}
 	asm ("popa");
 	asm ("leave");
@@ -139,11 +141,23 @@ void AttackHookProc()
 		asm ("mov %eax, oTarget_b");
 		events.oTarget = oTarget_b;
 		//asm ("sub $4, %edi");
+
+                asm("mov 0x1C(%ebp), %eax");
+                asm("mov %eax, nEventSubID_b");
+                events.nEventSubID = nEventSubID_b;
+
+		events.Log(2,
+                    "Attack: oPC=%08lX, oTarget=%08lX, nSubID=%d\n",
+                    *((dword *)oPC + 1), events.oTarget, events.nEventSubID);
 		if(oPC)
-			events.FireEvent(*((dword *)oPC + 1), EVENT_ATTACK);
+			bBypass_b = events.FireEvent(*((dword *)oPC + 1), EVENT_TYPE_ATTACK);
 	}
 	asm ("popa");
 	asm ("leave");
+        if (bBypass_b) {
+            asm("mov $1, %eax");
+            asm("ret");
+        }
 	asm ("mov $d_ret_code_at, %eax");
 	asm ("jmp %eax");
 }
@@ -176,14 +190,17 @@ void UseItemHookProc()
 		asm ("mov %eax, oItem_b");
 		events.oItem = oItem_b;
 
-		//Get nRadial
+		//Get the radial
 		asm ("mov 0x10(%ebp), %eax");
-		asm ("mov %eax, nRadial_b");
-		events.nRadial = nRadial_b;
+		asm ("mov %eax, nEventSubID_b");
+		events.nEventSubID = nEventSubID_b;
 
-		events.Log(2, "UseItem: oPC=%08lX, oTarget=%08lX, oItem=%08lX, vTarget=%f/%f/%f, nRadial=%d\n", *((dword *)oPC + 1), events.oTarget, events.oItem, pvTarget->x, pvTarget->y, pvTarget->z, nRadial_b);
+		events.Log(2,
+                    "UseItem: oPC=%08lX, oTarget=%08lX, oItem=%08lX, vTarget=%f/%f/%f, nRadial=%d\n",
+                    *((dword *)oPC + 1), events.oTarget, events.oItem, events.vPosition.x,
+                    events.vPosition.y, events.vPosition.z, events.nEventSubID);
 		if(oPC)
-			bBypass_b = events.FireEvent(*((dword *)oPC + 1), EVENT_USE_ITEM);
+			bBypass_b = events.FireEvent(*((dword *)oPC + 1), EVENT_TYPE_USE_ITEM);
 	}
 	asm ("popa");
 	asm ("leave");
@@ -232,7 +249,7 @@ void ConversationNodeSelectHookProc()
 		}
 
 		events.Log(2, "ConversationNodeSelect: oPC=%08lX, oTarget=%08lX, nSelectedNode=%d, nAbsSelectedNode=%d\n", oPC, events.oTarget, events.nSelectedNodeID, events.nSelectedAbsoluteNodeID);
-		//events.FireEvent(oPC, EVENT_CONVERSATION_NODE_SELECT);
+		//events.FireEvent(oPC, EVENT_TYPE_CONVERSATION_NODE_SELECT);
 	}
 	asm ("popa");
 	//asm ("leave");
@@ -363,8 +380,9 @@ void SendServerToPlayerQuickChatMessageHookProc()
 		events.nEventSubID = nEventSubID_b;
 		//asm ("sub $4, %edi");
 		
+		events.Log(2, "QuickChat: oPC=%08lX, nChat=%d\n", oPC, events.nEventSubID);
 		if(oPC)
-			bBypass_b = events.FireEvent(oPC, EVENT_QUICKCHAT);
+			bBypass_b = events.FireEvent(oPC, EVENT_TYPE_QUICKCHAT);
 	}
 	asm ("popa");
 	asm ("leave");
@@ -383,8 +401,9 @@ void ExamineItemHookProc(void *pMessage, void *pPlayer, dword nObjID)
 	{
 		events.oTarget = nObjID;
 		
+		events.Log(2, "ExamineItem: pPlayer=%08lX, oTarget=%08lX\n", *((dword *)pPlayer + 0xC), events.oTarget);
 		if(pPlayer)
-			bBypass_b = events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_EXAMINE);
+			bBypass_b = events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_TYPE_EXAMINE);
 	}
 	asm ("leave");
 	/*if(bBypass_b) //don't bypass this or the client will draw an empty dialog box
@@ -401,8 +420,9 @@ void ExamineCreatureHookProc(void *pMessage, void *pPlayer, dword nObjID)
 	{
 		events.oTarget = nObjID;
 		
+		events.Log(2, "ExamineCreature: pPlayer=%08lX, oTarget=%08lX\n", *((dword *)pPlayer + 0xC), events.oTarget);
 		if(pPlayer)
-			bBypass_b = events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_EXAMINE);
+			bBypass_b = events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_TYPE_EXAMINE);
 	}
 	asm ("leave");
 	if(bBypass_b)
@@ -419,8 +439,9 @@ void ExaminePlaceableHookProc(void *pMessage, void *pPlayer, dword nObjID)
 	{
 		events.oTarget = nObjID;
 		
+		events.Log(2, "ExaminePlaceable: pPlayer=%08lX, oTarget=%08lX\n", *((dword *)pPlayer + 0xC), events.oTarget);
 		if(pPlayer)
-			bBypass_b = events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_EXAMINE);
+			bBypass_b = events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_TYPE_EXAMINE);
 	}
 	asm ("leave");
 	if(bBypass_b)
@@ -437,8 +458,9 @@ void ExamineDoorHookProc(void *pMessage, void *pPlayer, dword nObjID)
 	{
 		events.oTarget = nObjID;
 		
+		events.Log(2, "ExamineDoor: pPlayer=%08lX, oTarget=%08lX\n", *((dword *)pPlayer + 0xC), events.oTarget);
 		if(pPlayer)
-			bBypass_b = events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_EXAMINE);
+			bBypass_b = events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_TYPE_EXAMINE);
 	}
 	asm ("leave");
 	if(bBypass_b)
@@ -461,8 +483,12 @@ void UseSkillHookProc(void *pCreature, byte nSkill, byte nSubSkill, dword nTarge
 		events.vPosition = vTarget;
 		events.oItem = nItemObjID;
 		
+		events.Log(2,
+                    "UseSkill: pCreature=%08lX, oTarget=%08lX, oItem=%08lX, vTarget=%f/%f/%f, nSkill=%d\n",
+                    *((dword *)pCreature + 1), events.oTarget, events.oItem, events.vPosition.x,
+                    events.vPosition.y, events.vPosition.z, events.nEventSubID);
 		if(pCreature)
-			bBypass_b = events.FireEvent(*((dword *)pCreature + 1), EVENT_USE_SKILL);
+			bBypass_b = events.FireEvent(*((dword *)pCreature + 1), EVENT_TYPE_USE_SKILL);
 	}
 	asm ("leave");
 	if(bBypass_b)
@@ -486,8 +512,12 @@ void UseFeatHookProc(void *pCreature, byte nFeat, byte nSubFeat, dword nTargetOb
 			events.vPosition.z = pvTarget->z;
 		}
 		
+		events.Log(2,
+                    "UseFeat: pCreature=%08lX, oTarget=%08lX, oItem=%08lX, vTarget=%f/%f/%f, nSkill=%d\n",
+                    *((dword *)pCreature + 1), events.oTarget, events.oItem, events.vPosition.x,
+                    events.vPosition.y, events.vPosition.z, events.nEventSubID);
 		if(pCreature)
-			bBypass_b = events.FireEvent(*((dword *)pCreature + 1), EVENT_USE_FEAT);
+			bBypass_b = events.FireEvent(*((dword *)pCreature + 1), EVENT_TYPE_USE_FEAT);
 	}
 	asm ("leave");
 	if(bBypass_b)
@@ -504,8 +534,9 @@ void ToggleModeHookProc(void *pCreature, byte nMode)
 	{
 		events.nEventSubID = nMode;
 		
+		events.Log(2, "ToggleMode: pCreature=%08lX, nMode=%d\n", *((dword *)pCreature + 1), events.nEventSubID);
 		if(pCreature)
-			bBypass_b = events.FireEvent(*((dword *)pCreature + 1), EVENT_TOGGLE_MODE);
+			bBypass_b = events.FireEvent(*((dword *)pCreature + 1), EVENT_TYPE_TOGGLE_MODE);
 	}
 	asm ("leave");
 	if(bBypass_b)
@@ -513,6 +544,99 @@ void ToggleModeHookProc(void *pCreature, byte nMode)
 		asm("ret");
 	}
 	asm ("mov $d_ret_code_tm, %eax");
+	asm ("jmp %eax");
+}
+
+void CastSpellHookProc()
+{
+    asm("pusha");
+    if (!scriptRun)
+    {
+        //Get oPC
+        asm("mov 0x8(%ebp), %eax");
+        asm("add $4, %eax");
+        asm("mov %eax, oPC");
+
+        //Get oTarget
+        asm("mov 0x2c(%ebp), %eax");
+        asm("mov %eax, oTarget_b");
+        events.oTarget = oTarget_b;
+
+        //Get vTarget
+        asm("mov %ebp, %eax");
+        asm("add $0x20, %eax");
+        asm("mov %eax, buffer");
+        CNWSVector *pvTarget = (CNWSVector *) buffer;
+
+        events.vPosition.x = pvTarget->x;
+        events.vPosition.y = pvTarget->y;
+        events.vPosition.z = pvTarget->z;
+
+        //Get spell id, metamagic, and class index
+        asm("mov 0xc(%ebp), %eax");
+        asm("mov %eax, nEventSubID_b");
+        events.nEventSubID = nEventSubID_b;
+
+        asm("mov 0x18(%ebp), %eax");
+        asm("mov %eax, nEventSubID_b");
+        events.nEventSubID |= (nEventSubID_b & 0xFF) << 16;
+
+        asm("mov 0x10(%ebp), %eax");
+        asm("mov %eax, nEventSubID_b");
+        events.nEventSubID |= (nEventSubID_b & 0x07) << 24;
+
+        // instant cast flag
+        asm("mov 0x40(%ebp), %eax");
+        asm("mov %eax, nEventSubID_b");
+        events.nEventSubID |= (!!nEventSubID_b) << 27;
+
+        events.Log(2,
+            "CastSpell: oPC=%08lX, oTarget=%08lX, vTarget=%08lX (%f/%f/%f), nSpellId=%d, nMetaMagic=%d, nClassIndex=%d, nFlags=%d\n",
+            *(dword *) oPC, oTarget_b, pvTarget, pvTarget->x, pvTarget->y,
+            pvTarget->z, (events.nEventSubID & 0xFFFF), ((events.nEventSubID >> 16) & 0xFF),
+            ((events.nEventSubID >> 24) & 0x07), ((events.nEventSubID >> 27) & 0x0F)),
+        bBypass_b = events.FireEvent(*(dword *) oPC, EVENT_TYPE_CAST_SPELL);
+    }
+    asm("popa");
+    asm("leave");
+    if (bBypass_b)
+    {
+        asm("mov $1, %eax");
+        asm("ret");
+    }
+    asm("mov $d_ret_code_cz, %eax");
+    asm("jmp %eax");
+}
+
+
+void TogglePauseHookProc(void *pThis, unsigned char unknown, int state)
+{
+	if (!scriptRun)
+	{
+		events.nEventSubID = state;
+		bBypass_b = events.FireEvent(0, EVENT_TYPE_TOGGLE_PAUSE);
+	}
+	asm ("leave");
+	if(bBypass_b)
+	{
+		asm("ret");
+	}
+	asm ("mov $d_ret_code_tp, %eax");
+	asm ("jmp %eax");
+}
+
+
+void PossessFamiliarHookProc(void *pCreature) {
+	if (!scriptRun)
+	{
+		bBypass_b = events.FireEvent(*((dword *)pCreature + 1) , EVENT_TYPE_POSSESS_FAMILIAR);
+	}
+	asm ("leave");
+	if(bBypass_b)
+	{
+		asm("ret");
+	}
+	asm ("mov $d_ret_code_pf, %eax");
 	asm ("jmp %eax");
 }
 
@@ -659,8 +783,16 @@ int HookFunctions()
 		org_ExamineDoor = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 45 0C 8B 38 6A 01 57 68 80 00 00 00 8B 75 08 8B 5D 10 56 +61 FF 52 20");
 	dword org_UseSkill = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC 9C 00 00 00 8A 45 0C 88 85 67 FF FF FF 8A 45 10 8B 5D 08 88 85 66 FF FF FF");
 	dword org_UseFeat = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC C4 00 00 00 8B 45 10 66 89 85 72 FF FF FF 0F B7 45 0C 50 8B 55 08");
+        dword org_CastSpell = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC 1C 01 00 00 8A 45 3C");
 	dword org_ToggleMode = asmhelp.FindFunctionBySignature("55 89 E5 53 83 EC 10 8B 5D 08 8A 45 0C 53 88 45 FB E8 ** ** ** ** 83 C4 10 85 C0 0F 85 63 03 00 00");
 
+#ifdef NWNX_EVENTS_ELVEN
+	dword org_TogglePause = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 4C 8A 45 0C 88 45 D3 8B 75 08 8B 86 18 00 01 00 89 45 CC 8A 96 A0 00 01 00 31 C0 84 55 D3 0F 95 C0 3B 45 10 0F 84 47 03 00 00 83 7D 10 01 75 4C 0A 55 D3 83 EC 0C 88 96 A0 00 01 00 FF B6 68 00 01 00 E8 ** ** ** ** 83 C4 10 F6 86 A0 00 01 00 02 B0 02 75 09 8A 86 A0 00 01 00");
+	dword org_PossessFamiliar = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 20 6A 01 6A 03 FF 75 08 E8 ** ** ** ** 83 C4 10 3D 00 00 00 7F 0F 84 01 03 00 00 83 EC 08 6A 00 FF 75 08 C7 45 F0 00 00 00 00 E8 ** ** ** ** 83 C4 10 85 C0 74 19 83 EC 18 6A 01 FF 75 08 E8 ** ** ** ** 83 C4 14 50 E8 ** ** ** ** 83 C4 10 8B 45 08 81 78 58 00 00 00 7F 74 0C");
+#else
+        dword org_TogglePause = 0;
+        dword org_PossessFamiliar = 0;
+#endif
 	
 	if (org_SaveChar)
 	{
@@ -680,7 +812,10 @@ int HookFunctions()
 	hook_function (org_ExamineDoor, (unsigned long)ExamineDoorHookProc, d_ret_code_ed, 12);
 	hook_function (org_UseSkill, (unsigned long)UseSkillHookProc, d_ret_code_us, 12);
 	hook_function (org_UseFeat, (unsigned long)UseFeatHookProc, d_ret_code_uf, 12);
+        hook_function (org_CastSpell, (unsigned long)CastSpellHookProc, d_ret_code_cz, 12);
 	hook_function (org_ToggleMode, (unsigned long)ToggleModeHookProc, d_ret_code_tm, 10);
+	hook_function (org_TogglePause, (unsigned long)TogglePauseHookProc, d_ret_code_tp, 9);
+	hook_function (org_PossessFamiliar, (unsigned long)PossessFamiliarHookProc, d_ret_code_pf, 9);
 
 	if (org_Run) {
 		*(dword*)&pRunScript = org_Run;
@@ -699,14 +834,21 @@ int HookFunctions()
 	PrintHookInfo(org_ExamineDoor, "ExamineDoor");
 	PrintHookInfo(org_UseSkill, "UseSkill");
 	PrintHookInfo(org_UseFeat, "UseFeat");
+	PrintHookInfo(org_CastSpell, "CastSpell");
 	PrintHookInfo(org_ToggleMode, "ToggleMode");
+	PrintHookInfo(org_TogglePause, "TogglePause");
+	PrintHookInfo(org_PossessFamiliar, "PossessFamiliar");
 	PrintHookInfo(org_Run, "RunProc");
 	
 	return (org_SaveChar && org_PickPocket && org_Attack && org_UseItem &&
 	        org_ConvSelect && org_ConditionalScript &&
 	        org_ExamineItem && org_ExamineCreature && org_ExaminePlaceable &&
-	        org_ExamineDoor && org_UseSkill && org_UseFeat && org_ToggleMode &&
-	        org_SendServerToPlayerQuickChatMessage &&
+	        org_ExamineDoor && org_UseSkill && org_UseFeat &&
+                org_CastSpell && org_ToggleMode &&
+#ifdef NWNX_EVENTS_ELVEN
+                org_TogglePause && org_PossessFamiliar &&
+#endif
+                org_SendServerToPlayerQuickChatMessage &&
 	        org_Run && pServThis && pScriptThis);
 }
 
