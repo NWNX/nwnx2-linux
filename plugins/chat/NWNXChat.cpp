@@ -106,13 +106,15 @@ char *CNWNXChat::SendMessage(char* Parameters)
 	  }
 	strncpy(sMessage, nLastDelimiter+1, nMessageLen-1);
 	int nRecipientID = GetID(oRecipient);
-	if((nChannel==4 || nChannel==20) && oRecipient<=0x7F000000)
+	if((nChannel==4 || nChannel==5 || nChannel==20 || nChannel==21) &&
+            oRecipient<=0x7F000000)
 	  {
 		Log(3, "o oRecipient is not a PC\n");
 		delete[] sMessage;
 		return "0";
 	  }
-	if(nChannel!=4 && nChannel!=20) nRecipientID=-1;
+	if(nChannel!=4 && nChannel!=5 && nChannel!=20 && nChannel!=21)
+          nRecipientID=-1;
 	Log(3, "o SendMsg(%d, %08lX, '%s', %d)\n", nChannel, oSender, sMessage, nRecipientID);
 	int nResult = SendMsg(nChannel, oSender, sMessage, nRecipientID);
 	Log(3, "o Return value: %d\n", nResult); //return value for full message delivery acknowledgement
