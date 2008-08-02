@@ -75,10 +75,9 @@ struct CNWSTrigger_s {
     uint32_t                    field_278;           /* 0278 0278 */
     uint32_t                    field_27C;           /* 027C 027C */
     uint32_t                    field_280;           /* 0280 0280 */
-#if 0
+
     uint32_t                    field_284;           /* 0284 0284 */
     uint32_t                    field_288;           /* 0288 0288 */
-#endif
 
     uint32_t                    tr_creator;          /* 0284 028C */
 };

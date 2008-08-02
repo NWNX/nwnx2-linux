@@ -2,9 +2,9 @@ NWNXDIR  = ../..
 CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR)
 LFLAGS   = $(PLUGIN_LFLAGS)
 
-all: nwnx_reset.so
+all: nwnx_resetplugin.so
 
-nwnx_reset.so: NWNXReset.o plugin-reset.o
+nwnx_resetplugin.so: NWNXReset.o plugin-reset.o
 	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS) $(DEFS)
 
 clean:
@@ -13,5 +13,5 @@ clean:
 distclean: clean
 	/bin/rm -f Makefile
 
-install: nwnx_reset.so
-	mkdir -p @prefix@/ ; install nwnx_reset.so @prefix@/
+install: nwnx_resetplugin.so
+	mkdir -p @prefix@/ ; install nwnx_resetplugin.so @prefix@/
