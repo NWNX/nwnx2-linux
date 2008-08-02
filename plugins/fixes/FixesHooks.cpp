@@ -85,45 +85,90 @@ void *GetPlayer(dword ObjID)
 
 //#################### FUNCTIONS ####################
 
-bool CompareVarLists(CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2)
-{
-	if(pVarList1->VarCount == 0) return 1;
-	for(int i=0; i<pVarList1->VarCount; i++)
-	{
-		bool bFound = false;
-		CNWObjectVarListElement *pVar1 = &pVarList1->VarList[i];
-		for(int j=0; j<pVarList2->VarCount; j++)
-		{
-			CNWObjectVarListElement *pVar2 = &pVarList2->VarList[j];
-			if((strcmp(pVar1->sVarName.Text, pVar2->sVarName.Text) == 0) && (pVar1->nVarType == pVar2->nVarType))
-			{
-				bFound = true;
-				//Compare values
-				switch(pVar1->nVarType)
-				{
-				case 1:  //int
-					if((int)pVar1->nVarValue != (int)pVar2->nVarValue) return 0;
-					break;
-				case 2:  //float
-					if((float)pVar1->nVarValue != (float)pVar2->nVarValue) return 0;
-					break;
-				case 3:  //string
-					if(!(char **)pVar1->nVarValue && !(char **)pVar2->nVarValue) break;
-					if(!(char **)pVar1->nVarValue || !(char **)pVar2->nVarValue) return 0;
-					if(!*(char **)pVar1->nVarValue && !*(char **)pVar2->nVarValue) break;
-					if(!*(char **)pVar1->nVarValue || !*(char **)pVar2->nVarValue) return 0;
-					if(strcmp(*(char **)pVar1->nVarValue, *(char **)pVar2->nVarValue) != 0) return 0;
-					break;
-				case 4:  //object
-					if((dword)pVar1->nVarValue != (dword)pVar2->nVarValue) return 0;
-					break;
-				case 5:  //location
-					break;
-				}
-			}
-		}
-		if(!bFound) return 0;
-	}
+bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) {
+    if (pVarList1->VarCount == 0 && pVarList2->VarCount == 0)
+        return true;
+
+    for (int i = 0; i < pVarList1->VarCount; i++) {
+        bool bFound = false;
+        CNWObjectVarListElement *pVar1 = &pVarList1->VarList[i];
+
+        for (int j = 0; j < pVarList2->VarCount; j++) {
+            CNWObjectVarListElement *pVar2 = &pVarList2->VarList[j];
+
+            if (pVar1->nVarType == pVar2->nVarType &&
+                strcmp(pVar1->sVarName.Text, pVar2->sVarName.Text) == 0) {
+
+                bFound = true;
+
+                // Compare values
+                switch (pVar1->nVarType) {
+                    case 1:		//int
+                        if ((int)(pVar1->nVarValue) != (int)(pVar2->nVarValue)) {
+#ifdef NWNX_FIXES_DEBUG
+                            fixes.Log(3, "blocking merge: int value '%s' %d != %d\n", pVar1->sVarName.Text,
+                                      (int)(pVar1->nVarValue), (int)(pVar2->nVarValue));
+#endif
+                            return false;
+                        }
+                        break;
+
+                    case 2:		//float
+                        if ((float)(pVar1->nVarValue) != (float)(pVar2->nVarValue)) {
+#ifdef NWNX_FIXES_DEBUG
+                            fixes.Log(3, "blocking merge: float value '%s' %.04f != %.04f\n", pVar1->sVarName.Text,
+                                      (float)(pVar1->nVarValue), (float)(pVar2->nVarValue));
+#endif
+                            return false;
+                        }
+                        break;
+
+                    case 3:		//string
+                        if ((char **)(pVar1->nVarValue) == (char **)(pVar2->nVarValue))
+                            break;
+                        if ((char **)(pVar1->nVarValue) == NULL || (char **)(pVar2->nVarValue) == NULL) {
+#ifdef NWNX_FIXES_DEBUG
+                            fixes.Log(3, "blocking merge: string value '%s' does not exist on both objects\n", pVar1->sVarName.Text);
+#endif
+                            return false;
+                        }
+
+                        if (strcmp(*(char **)(pVar1->nVarValue), *(char **)(pVar2->nVarValue)) != 0) {
+#ifdef NWNX_FIXES_DEBUG
+                            fixes.Log(3, "blocking merge: string value '%s' '%s' != '%s'\n", pVar1->sVarName.Text,
+                                      *(char **)(pVar1->nVarValue), *(char **)(pVar2->nVarValue));
+#endif
+                            return false;
+                        }
+                        break;
+
+                    case 4:		//object
+                        if ((dword)(pVar1->nVarValue) != (dword)(pVar2->nVarValue)) {
+#ifdef NWNX_FIXES_DEBUG
+                            fixes.Log(3, "blocking merge: object value '%s' %08X != %08X\n", pVar1->sVarName.Text,
+                                      (dword)(pVar1->nVarValue), (dword)(pVar2->nVarValue));
+#endif
+                            return false;
+                        }
+                        break;
+
+                    case 5:		//location
+                        break;
+                }
+
+                break;
+            }
+        }
+
+        if (!bFound) {
+#ifdef NWNX_FIXES_DEBUG
+            fixes.Log(3, "blocking merge: local variable '%s' not found on both objects", pVar1->sVarName.Text);
+#endif
+            return false;
+        }
+    }
+
+    return true;
 }
 
 //#################### HOOKED FUNCTIONS ####################
@@ -144,7 +189,10 @@ int GetIsMergeableHookProc(void *pItem1, void *pItem2)
 		CNWObjectVarList *pVarList1 = (CNWObjectVarList*)((char*)pItem1+0x10+0x4+0xD8);
 		CNWObjectVarList *pVarList2 = (CNWObjectVarList*)((char*)pItem2+0x10+0x4+0xD8);
 		if(!pVarList1 && !pVarList2) return 1;
-		if(!pVarList1 || !pVarList2) return 0;
+		if(!pVarList1 || !pVarList2) {
+                    fixes.Log(3, "blocking merge: one object has a variable list and the other does not\n");
+                    return 0;
+                }
 		return (CompareVarLists(pVarList1, pVarList2) && CompareVarLists(pVarList2, pVarList1));
 		//return lastRet;
 	}
