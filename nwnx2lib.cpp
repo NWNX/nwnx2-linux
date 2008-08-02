@@ -202,7 +202,7 @@ StringPayLoad(const char **ppname, const char **ppvalue)
 		// library found, handle the request
 		iValueLength = strlen(value);
 		char* pRes = pBase->OnRequest(gameObject, function + 1, value);
-		if (pRes != NULL && pRes != value && pRes[0]!=0)
+		if (pRes != NULL && pRes != value)
 		{
 			if(strncmp(library,"LETO",4) != 0 &&
 			   strncmp(library,"HASHSET",7) != 0)

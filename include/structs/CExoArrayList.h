@@ -25,6 +25,7 @@
 #define _NX_NWN_STRUCT_CEXOARRAYLIST_H_
 
 
+/* XXX: delindex does not work right; do not use it or delvalue */
 #define NX_NWN_CEXOARRAYLIST(N, T) \
     struct CExoArrayList_ ## N ## _s {                                                         \
         T          *data;                                                                      \

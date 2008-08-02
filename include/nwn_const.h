@@ -165,6 +165,10 @@
 #define BASE_ITEM_MISCTHIN                                79    /* BASE_04F */
 #define BASE_ITEM_CLOAK                                   80    /* BASE_050 */
 #define BASE_ITEM_GRENADE                                 81    /* BASE_051 */
+#define BASE_ITEM_ENCAMPMENT                              82    /* BASE_052 */
+#define BASE_ITEM_LANCE                                   92    /* BASE_05C */
+#define BASE_ITEM_TRUMPET                                 92    /* BASE_05D */
+#define BASE_ITEM_MOONONASTICK                            92    /* BASE_05E */
 #define BASE_ITEM_TRIDENT                                 95    /* BASE_05F */
 #define BASE_ITEM_BLANK_POTION                           101    /* BASE_065 */
 #define BASE_ITEM_BLANK_SCROLL                           102    /* BASE_066 */

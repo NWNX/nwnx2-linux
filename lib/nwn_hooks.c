@@ -34,6 +34,8 @@ struct {
     { NULL,                                                             NULL },
     NX_NWN_HOOK(CGameObjectArray__GetGameObject,                        "55 89 E5 8B 45 0C 56 53 89 C2 89 C3 C1 E8 1F 0F B7 C0 C1 E0 0C"),
     NX_NWN_HOOK(CNWBaseItemArray__GetBaseItem,                          "55 89 E5 8B 45 08 8B 48 04 85 C9 8B 55 0C 74 14"),
+    NX_NWN_HOOK(CNWSCreatureClass__AddKnownSpell,                       "55 89 E5 83 EC 08 8A 45 0C 3C 09 8B 4D 08 8B 55 **#14 80"),
+    NX_NWN_HOOK(CNWSCreatureClass__RemoveKnownSpell,                    "55 89 E5 83 EC 08 8A 45 0C 3C 09 8B 4D 08 8B 55 **#14 FC"),
     NX_NWN_HOOK(CNWSCreatureStats__AddFeat,                             "55 89 E5 56 53 8B 5D 08 8B 53 04 3B 53 08 8B 75"),
     NX_NWN_HOOK(CNWSCreatureStats__GetACNaturalBase,                    "55 89 E5 57 56 53 83 EC 28 8B 7D 08 C7 45 EC 00 00 00 00 C7 45 F0 00 00"),
     NX_NWN_HOOK(CNWSCreatureStats__GetArmorClassVersus,                 "55 89 E5 57 56 53 81 EC 8C 02 00 00 8B 7D 0C 85"),

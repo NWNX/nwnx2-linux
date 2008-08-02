@@ -1062,6 +1062,51 @@
 #define FEAT_EPIC_DRUID_INFINITE_ELEMENTAL_SHAPE        1069    /* FEAT_042D */
 #define FEAT_PRESTIGE_POISON_SAVE_EPIC                  1070    /* FEAT_042E */
 #define FEAT_EPIC_SUPERIOR_WEAPON_FOCUS                 1071    /* FEAT_042F */
+#define FEAT_WEAPON_FOCUS_TRIDENT                       1072    /* FEAT_0430 */
+#define FEAT_WEAPON_SPECIALIZATION_TRIDENT              1073    /* FEAT_0431 */
+#define FEAT_IMPROVED_CRITICAL_TRIDENT                  1074    /* FEAT_0432 */
+#define FEAT_EPIC_DEVASTATING_CRITICAL_TRIDENT          1075    /* FEAT_0433 */
+#define FEAT_EPIC_WEAPON_FOCUS_TRIDENT                  1076    /* FEAT_0434 */
+#define FEAT_EPIC_WEAPON_SPECIALIZATION_TRIDENT         1077    /* FEAT_0435 */
+#define FEAT_EPIC_OVERWHELMING_CRITICAL_TRIDENT         1078    /* FEAT_0436 */
+#define FEAT_WEAPON_OF_CHOICE_TRIDENT                   1079    /* FEAT_0437 */
+#define FEAT_PDK_RALLY                                  1080    /* FEAT_0438 */
+#define FEAT_PDK_SHIELD                                 1081    /* FEAT_0439 */
+#define FEAT_PDK_FEAR                                   1082    /* FEAT_043A */
+#define FEAT_PDK_WRATH                                  1083    /* FEAT_043B */
+#define FEAT_PDK_STAND                                  1084    /* FEAT_043C */
+#define FEAT_PDK_INSPIRE_1                              1085    /* FEAT_043D */
+#define FEAT_PDK_INSPIRE_2                              1086    /* FEAT_043E */
+#define FEAT_MOUNTED_COMBAT                             1087    /* FEAT_043F */
+#define FEAT_MOUNTED_ARCHERY                            1088    /* FEAT_0440 */
+#define FEAT_HORSE_MENU                                 1089    /* FEAT_0441 */
+#define FEAT_HORSE_MOUNT                                1090    /* FEAT_0442 */
+#define FEAT_HORSE_DISMOUNT                             1091    /* FEAT_0443 */
+#define FEAT_HORSE_PARTY_MOUNT                          1092    /* FEAT_0444 */
+#define FEAT_HORSE_GATHER_MOUNTS                        1093    /* FEAT_0445 */
+#define FEAT_HORSE_ASSIGN_MOUNT                         1094    /* FEAT_0446 */
+#define FEAT_PALADIN_SUMMON_MOUNT                       1095    /* FEAT_0447 */
+#define FEAT_DM_TOOL_01                                 1096    /* FEAT_0448 */
+#define FEAT_DM_TOOL_02                                 1097    /* FEAT_0449 */
+#define FEAT_DM_TOOL_03                                 1098    /* FEAT_044A */
+#define FEAT_DM_TOOL_04                                 1099    /* FEAT_044B */
+#define FEAT_DM_TOOL_05                                 1100    /* FEAT_044C */
+#define FEAT_DM_TOOL_06                                 1101    /* FEAT_044D */
+#define FEAT_DM_TOOL_07                                 1102    /* FEAT_044E */
+#define FEAT_DM_TOOL_08                                 1103    /* FEAT_044F */
+#define FEAT_DM_TOOL_09                                 1104    /* FEAT_0450 */
+#define FEAT_DM_TOOL_10                                 1105    /* FEAT_0451 */
+#define FEAT_PLAYER_TOOL_01                             1106    /* FEAT_0452 */
+#define FEAT_PLAYER_TOOL_02                             1107    /* FEAT_0453 */
+#define FEAT_PLAYER_TOOL_03                             1108    /* FEAT_0454 */
+#define FEAT_PLAYER_TOOL_04                             1109    /* FEAT_0455 */
+#define FEAT_PLAYER_TOOL_05                             1110    /* FEAT_0456 */
+#define FEAT_PLAYER_TOOL_06                             1111    /* FEAT_0457 */
+#define FEAT_PLAYER_TOOL_07                             1112    /* FEAT_0458 */
+#define FEAT_PLAYER_TOOL_08                             1113    /* FEAT_0459 */
+#define FEAT_PLAYER_TOOL_09                             1114    /* FEAT_045A */
+#define FEAT_PLAYER_TOOL_10                             1115    /* FEAT_045B */
+
 
 #endif /* _NX_NWN_CONST_FEATS_H_ */
 
