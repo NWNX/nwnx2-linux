@@ -266,7 +266,7 @@ int JumpToLimbo(dword nObjectID)
 	void *pCreature = GetObjectByID(nObjectID);
 	if(!pCreature) return 0;
 	dword nCreatureType = *(dword *)((char*)pCreature+0xB3C);
-	void *pCreatureInfoStruct = *(void **)((char*)pCreature+0xC68);
+	void *pCreatureInfoStruct = *(void **)((char*)pCreature+0xC68); 
 	if(!pCreatureInfoStruct) return 0;
 	dword nIsPC = *(dword *)((char*)pCreatureInfoStruct+0x6C);
 	dword nIsDM = *(dword *)((char*)pCreatureInfoStruct+0x70);

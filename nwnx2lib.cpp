@@ -208,7 +208,7 @@ StringPayLoad(const char **ppname, const char **ppvalue)
 			   strncmp(library,"HASHSET",7) != 0)
 			{
 				// copy result into nwn variable value while respecting the maximum size
-				// new plugins
+				// new plugins 
 				iResultLength = strlen(pRes);
 				if (iValueLength < iResultLength)
 				{
