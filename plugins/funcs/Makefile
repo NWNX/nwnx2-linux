@@ -1,0 +1,148 @@
+#
+#    plugin-funcs.cpp - Defines the entry point for the DLL application.
+#    Copyright (C) 2007 Doug Swarin (zac@intertex.net)
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#    
+#    $Id$
+#    $Source$
+#
+
+CC	 = gcc
+CXX      = gcc
+GPERF    = gperf
+RM	 = /bin/rm
+MV	 = /bin/mv
+CP	 = /bin/cp
+SED      = /bin/sed
+INSTALL	 = /usr/bin/install -c
+
+INCS	 = -I. -I../.. -I../../include -I/usr/local/include
+LIBS	 = -L/usr/local/lib -lm -lz
+DEFS	 = -D_REENTRANT -D_THREAD_SAFE
+OPTS	 = -O -pipe -march=i386
+DEBUGS 	 = -g -Wall -Werror
+CPPFLAGS = $(DEBUGS) $(OPTS) $(DEFS) $(INCS)
+LFLAGS   = $(DEBUGS) $(OPTS) -w -fPIC -shared -rdynamic
+
+OFILES  = \
+    funcs/ability/f_GetAbilityIncreaseByLevel.o  \
+    funcs/ability/f_ModifyAbilityScore.o         \
+    funcs/ability/f_SetAbilityScore.o            \
+    funcs/class/f_GetClassByLevel.o              \
+    funcs/class/f_GetClericDomain.o              \
+    funcs/class/f_GetWizardSpecialization.o      \
+    funcs/class/f_SetClericDomain.o              \
+    funcs/class/f_SetWizardSpecialization.o      \
+    funcs/crit/f_GetCriticalHitMultiplier.o      \
+    funcs/crit/f_GetCriticalHitRange.o           \
+    funcs/feat/f_AddKnownFeat.o                  \
+    funcs/feat/f_AddKnownFeatAtLevel.o           \
+    funcs/feat/f_GetAllRemainingFeatUses.o       \
+    funcs/feat/f_GetKnownFeat.o                  \
+    funcs/feat/f_GetKnownFeatByLevel.o           \
+    funcs/feat/f_GetKnowsFeat.o                  \
+    funcs/feat/f_GetRemainingFeatUses.o          \
+    funcs/feat/f_GetTotalFeatUses.o              \
+    funcs/feat/f_GetTotalKnownFeats.o            \
+    funcs/feat/f_GetTotalKnownFeatsByLevel.o     \
+    funcs/feat/f_RemoveKnownFeat.o               \
+    funcs/feat/f_RestoreReadyFeats.o             \
+    funcs/feat/f_SetKnownFeat.o                  \
+    funcs/feat/f_SetKnownFeatByLevel.o           \
+    funcs/hp/f_GetMaxHitPointsByLevel.o          \
+    funcs/hp/f_ModifyCurrentHitPoints.o          \
+    funcs/hp/f_SetCurrentHitPoints.o             \
+    funcs/hp/f_SetMaxHitPointsByLevel.o          \
+    funcs/other/f_GetACNaturalBase.o             \
+    funcs/other/f_GetDamageImmunity.o            \
+    funcs/other/f_GetPCBodyBag.o                 \
+    funcs/other/f_GetPortrait.o                  \
+    funcs/other/f_GetSoundset.o                  \
+    funcs/other/f_IntToObject.o                  \
+    funcs/other/f_SetACNaturalBase.o             \
+    funcs/other/f_SetAlignmentValue.o            \
+    funcs/other/f_SetCreatureSize.o              \
+    funcs/other/f_SetPCBodyBag.o                 \
+    funcs/other/f_SetPCLootable.o                \
+    funcs/other/f_SetPortrait.o                  \
+    funcs/other/f_SetSoundset.o                  \
+    funcs/other/f_SetTrapCreator.o               \
+    funcs/quickbar/f_GetQuickBarSlot.o           \
+    funcs/quickbar/f_SetQuickBarSlot.o           \
+    funcs/sabil/f_AddSpecialAbility.o            \
+    funcs/sabil/f_GetSpecialAbility.o            \
+    funcs/sabil/f_GetTotalSpecialAbilities.o     \
+    funcs/sabil/f_RemoveSpecialAbility.o         \
+    funcs/sabil/f_SetSpecialAbility.o            \
+    funcs/save/f_GetSavingThrowBonus.o           \
+    funcs/save/f_SetSavingThrowBonus.o           \
+    funcs/skill/f_GetPCSkillPoints.o             \
+    funcs/skill/f_GetSkillIncreaseByLevel.o      \
+    funcs/skill/f_ModifySkillRank.o              \
+    funcs/skill/f_SetPCSkillPoints.o             \
+    funcs/skill/f_SetSkillRank.o                 \
+    funcs/spell/f_AddKnownSpell.o                \
+    funcs/spell/f_GetAllMemorizedSpells.o        \
+    funcs/spell/f_GetBonusSpellSlots.o           \
+    funcs/spell/f_GetKnownSpell.o                \
+    funcs/spell/f_GetKnowsSpell.o                \
+    funcs/spell/f_GetMaxSpellSlots.o             \
+    funcs/spell/f_GetMemorizedSpell.o            \
+    funcs/spell/f_GetRemainingSpellSlots.o       \
+    funcs/spell/f_GetTotalKnownSpells.o          \
+    funcs/spell/f_RemoveKnownSpell.o             \
+    funcs/spell/f_ReplaceKnownSpell.o            \
+    funcs/spell/f_RestoreReadySpells.o           \
+    funcs/spell/f_SetKnownSpell.o                \
+    funcs/spell/f_SetMemorizedSpell.o            \
+    funcs/spell/f_SetRemainingSpellSlots.o       \
+    NWNXFuncs.o                                  \
+    plugin-funcs.o
+
+all: nwnx_funcs.so
+
+
+FuncsStrCmds.h: FuncsStrCmds.gperf
+	$(GPERF) -L ANSI-C -tCG -m 10 -K name -H FuncsStrCommandHash \
+	  -N FuncsStrCommandLookup -W FuncsStrCommandList \
+	  "FuncsStrCmds.gperf" --output-file="gperf.out"
+	$(SED) -i 's/\<\(\(MIN\|MAX\)_\(WORD_LENGTH\|HASH_VALUE\)\|TOTAL_KEYWORDS\)\>/NWNX_FUNCS_STRCMD_\1/g' \
+	  "gperf.out" || rm -f "gperf.out"
+	$(SED) -i 's/^const struct/static const struct/' "gperf.out" || rm -f "gperf.out"
+	$(MV) "gperf.out" "FuncsStrCmds.h"
+
+FuncsObjCmds.h: FuncsObjCmds.gperf
+	$(GPERF) -L ANSI-C -tCG -m 10 -K name -H FuncsObjCommandHash \
+	  -N FuncsObjCommandLookup -W FuncsObjCommandList \
+	  "FuncsObjCmds.gperf" --output-file="gperf.out"
+	$(SED) -i 's/\<\(\(MIN\|MAX\)_\(WORD_LENGTH\|HASH_VALUE\)\|TOTAL_KEYWORDS\)\>/NWNX_FUNCS_OBJCMD_\1/g' \
+	  "gperf.out" || rm -f "gperf.out"
+	$(SED) -i 's/^const struct/static const struct/' "gperf.out" || rm -f "gperf.out"
+	$(MV) "gperf.out" "FuncsObjCmds.h"
+
+NWNXFuncs.o: FuncsStrCmds.h FuncsObjCmds.h NWNXFuncs.h
+
+nwnx_funcs.so: $(OFILES)
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
+
+depend:
+	$(CC) -MM $(CFLAGS) *.c > .depend
+
+clean:
+	$(RM) -f *.o *.so funcs/*/*.o
+
+distclean: clean
+	$(RM) -f .depend FuncsStrCmds.h FuncsObjCmds.h
