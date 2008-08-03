@@ -69,7 +69,7 @@ void nx__log_error (uint32_t fac, const char *file, int line, const char *func, 
 
 uint32_t nx__log_init (const char *name, int facility, ...) {
     if (nx_log_file == NULL)
-        nx_log_file = fopen("logs.0/nwnx_exalt.txt", "a");
+        nx_log_file = fopen("logs.0/nwnx_core.txt", "a");
 
     if (nx_log_file != NULL)
         setlinebuf(nx_log_file);

@@ -26,6 +26,7 @@
 
 struct C2DA_s;                            typedef struct C2DA_s                            C2DA;
 struct CAppManager_s;                     typedef struct CAppManager_s                     CAppManager;
+struct CBaseExoApp_s;                     typedef struct CBaseExoApp_s                     CBaseExoApp;
 struct CCombatInformation_s;              typedef struct CCombatInformation_s              CCombatInformation;
 struct CDialogNode_s;                     typedef struct CDialogNode_s                     CDialogNode;
 struct CDialogReply_s;                    typedef struct CDialogReply_s                    CDialogReply;
@@ -201,6 +202,7 @@ struct Vector_s;                          typedef struct Vector_s               
 
 #include "structs/C2DA.h"
 #include "structs/CAppManager.h"
+#include "structs/CBaseExoApp.h"
 #include "structs/CCombatInformation.h"
 #include "structs/CDialogReply.h"
 #include "structs/CDialogSpeak.h"
@@ -218,6 +220,7 @@ struct Vector_s;                          typedef struct Vector_s               
 #include "structs/CItemRepository.h"
 #include "structs/CLastUpdateObject.h"
 #include "structs/CLastUpdatePartyObject.h"
+#include "structs/CNetLayer.h"
 
 #include "structs/CNWAmbientSound.h"
 #include "structs/CNWArea.h"

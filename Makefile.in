@@ -48,7 +48,7 @@ $(SUBDIRS):
 
 clean:
 	for i in $(SUBDIRS); do $(MAKE) -C $$i $@; done
-	/bin/rm -f *.o *.so *~
+	/bin/rm -f *.o *.so lib/*.o *~
 
 install: all
 	for i in $(SUBDIRS); do $(MAKE) -C $$i $@; done
@@ -58,5 +58,5 @@ install: all
 
 distclean:
 	for i in $(SUBDIRS); do $(MAKE) -C $$i $@; done
-	/bin/rm -f Makefile config.h config.status config.cache config.log *.o *.so *~
+	/bin/rm -f Makefile config.h config.status config.cache config.log *.o *.so lib/*.o *~
 
