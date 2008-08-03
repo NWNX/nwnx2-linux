@@ -133,6 +133,15 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
                             return false;
                         }
 
+                        if (*(char **)(pVar1->nVarValue) == *(char **)(pVar2->nVarValue))
+                            break;
+                        if (*(char **)(pVar1->nVarValue) == NULL || *(char **)(pVar2->nVarValue) == NULL) {
+#ifdef NWNX_FIXES_DEBUG
+                            fixes.Log(3, "blocking merge: string value '%s' does not exist on both objects\n", pVar1->sVarName.Text);
+#endif
+                            return false;
+                        }
+
                         if (strcmp(*(char **)(pVar1->nVarValue), *(char **)(pVar2->nVarValue)) != 0) {
 #ifdef NWNX_FIXES_DEBUG
                             fixes.Log(3, "blocking merge: string value '%s' '%s' != '%s'\n", pVar1->sVarName.Text,
@@ -190,7 +199,9 @@ int GetIsMergeableHookProc(void *pItem1, void *pItem2)
 		CNWObjectVarList *pVarList2 = (CNWObjectVarList*)((char*)pItem2+0x10+0x4+0xD8);
 		if(!pVarList1 && !pVarList2) return 1;
 		if(!pVarList1 || !pVarList2) {
+#ifdef NWNX_FIXES_DEBUG
                     fixes.Log(3, "blocking merge: one object has a variable list and the other does not\n");
+#endif
                     return 0;
                 }
 		return (CompareVarLists(pVarList1, pVarList2) && CompareVarLists(pVarList2, pVarList1));
