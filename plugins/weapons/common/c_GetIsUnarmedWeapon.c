@@ -21,11 +21,16 @@
 #include "NWNXWeapons.h"
 
 
-int Hook_GetWeaponFinesse (CNWSCreatureStats *info, CNWSItem *weapon) {
-    if (!CNWSCreatureStats__HasFeat(info, FEAT_WEAPON_FINESSE))
-        return 0;
+bool GetIsUnarmedWeapon (CNWSItem *weapon) {
+    if (weapon == NULL)
+        return true;
 
-    return GetIsWeaponLight(info, weapon, true);
+    return (weapon->it_baseitem == BASE_ITEM_GLOVES       ||
+            weapon->it_baseitem == BASE_ITEM_BRACER       ||
+            weapon->it_baseitem == BASE_ITEM_CSLASHWEAPON ||
+            weapon->it_baseitem == BASE_ITEM_CPIERCWEAPON ||
+            weapon->it_baseitem == BASE_ITEM_CBLUDGWEAPON ||
+            weapon->it_baseitem == BASE_ITEM_CSLSHPRCWEAP);
 }
 
 

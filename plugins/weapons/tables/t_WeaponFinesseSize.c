@@ -1,6 +1,6 @@
 
 /***************************************************************************
-    ExaltReplace.c - Implementation of NWN combat replacement functions
+    CombatTables.h - NWN Combat Tables
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
@@ -20,13 +20,8 @@
 
 #include "NWNXWeapons.h"
 
-
-int Hook_GetWeaponFinesse (CNWSCreatureStats *info, CNWSItem *weapon) {
-    if (!CNWSCreatureStats__HasFeat(info, FEAT_WEAPON_FINESSE))
-        return 0;
-
-    return GetIsWeaponLight(info, weapon, true);
-}
-
+uint16_t Table_WeaponFinesseSize[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE] = {
+    [BASE_ITEM_RAPIER]                  = CREATURE_SIZE_MEDIUM,
+};
 
 /* vim: set sw=4: */

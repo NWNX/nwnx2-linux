@@ -1,5 +1,19 @@
 /* interface functions for nwnx_weapons plugin */
 
+/* TODO:
+ *   Make the _STACK options properly exclude other feats and not only
+ *   Increased Multiplier and Ki Critical.
+ *
+ *   Add support for critical confirmation roll bonuses.
+ *
+ *   Add support for GWF/LWF bonuses.
+ *   Add support for extra Epic Prowess bonus when combined with LWF.
+ *
+ *   Add [GS]etWeaponFinesseSize() to set finesse size (like rapiers).
+ *
+ *   Add [GS]etWeaponAbilityFeat() to set ability modifier feats (like Zen Archery).
+ */
+
 /* Disable Devastating Critical insta-kill for all beings or for PCs only. */
 const int NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_ALL     =  0; 
 const int NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_PC      =  1; 
@@ -7,12 +21,6 @@ const int NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_PC      =  1;
 /* For each of the four critical feat sets (Devastating Critical, Overwhelming
  * Critical, Power Critical, and Superior Critical), set their bonus to
  * critical confirmation rolls, critical multiplier, and critical range.
- *
- * The _STACK option currently only sets whether or not these will stack with
- * Increased Multiplier or Ki Critical, but in the future will properly exclude
- * other feats as well if not set.
- *
- * Support for critical confirmation roll bonuses is not active yet.
  */
 const int NWNX_WEAPONS_OPT_DEVCRIT_CONF_BONUS      =  2; 
 const int NWNX_WEAPONS_OPT_DEVCRIT_MULT_BONUS      =  3; 
@@ -36,7 +44,7 @@ const int NWNX_WEAPONS_OPT_SUPCRIT_RANGE_BONUS     = 20;
 const int NWNX_WEAPONS_OPT_SUPCRIT_RANGE_STACK     = 21;
 
 /* Set the AB bonus for having Greater Weapon Focus or Legendary Weapon Focus
- * in a weapon. Support for these is not active yet.
+ * in a weapon.
  */
 const int NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS       = 22;
 const int NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS       = 23;

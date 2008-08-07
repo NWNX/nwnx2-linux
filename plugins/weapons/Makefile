@@ -37,6 +37,8 @@ CPPFLAGS = $(DEBUGS) $(OPTS) $(DEFS) $(INCS)
 LFLAGS   = $(DEBUGS) $(OPTS) -w -fPIC -shared -rdynamic
 
 OFILES  = \
+    common/c_GetIsUnarmedWeapon.o                \
+    common/c_GetIsWeaponLight.o                  \
     funcs/f_GetWeaponDevastatingCriticalFeat.o   \
     funcs/f_GetWeaponEpicFocusFeat.o             \
     funcs/f_GetWeaponEpicSpecializationFeat.o    \
@@ -80,6 +82,7 @@ OFILES  = \
     tables/t_WeaponDevastatingCritical.o         \
     tables/t_WeaponEpicFocus.o                   \
     tables/t_WeaponEpicSpecialization.o          \
+    tables/t_WeaponFinesseSize.o                 \
     tables/t_WeaponFocus.o                       \
     tables/t_WeaponGreaterFocus.o                \
     tables/t_WeaponImprovedCritical.o            \

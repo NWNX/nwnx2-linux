@@ -56,6 +56,9 @@
 extern "C" {
 #endif
 
+bool GetIsUnarmedWeapon (CNWSItem *weapon);
+bool GetIsWeaponLight (CNWSCreatureStats *info, CNWSItem *weapon, bool finesse);
+
 void Func_GetWeaponOption                    (CGameObject *ob, char *value);
 void Func_SetWeaponOption                    (CGameObject *ob, char *value);
 
@@ -107,6 +110,7 @@ extern uint16_t Table_WeaponOptions[NWNX_WEAPONS_OPTIONS_TABLE_SIZE];
 extern uint16_t Table_WeaponDevastatingCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponEpicFocus[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponEpicSpecialization[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
+extern uint16_t Table_WeaponFinesseSize[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponFocus[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponGreaterFocus[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponImprovedCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
