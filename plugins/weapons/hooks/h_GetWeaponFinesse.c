@@ -47,13 +47,7 @@ static bool GetIsWeaponLight (CNWSCreatureStats *info, CNWSItem *weapon, bool fi
 
     if (finesse                                 &&
         info->cs_original->cre_size >= 3        &&
-        (weapon->it_baseitem == BASE_ITEM_RAPIER ||
-         weapon->it_baseitem == BASE_ITEM_KATANA))
-        return true;
-
-    if ((weapon->it_baseitem == BASE_ITEM_LIGHTCROSSBOW ||
-         weapon->it_baseitem == BASE_ITEM_SLING)        &&
-        info->cs_original->cre_size >= 2)
+        weapon->it_baseitem == BASE_ITEM_RAPIER)
         return true;
 
     rel = CNWSCreature__GetRelativeWeaponSize(info->cs_original, weapon);
