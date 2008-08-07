@@ -1,6 +1,6 @@
-%{
+
 /***************************************************************************
-    NWNXFuncs.h - Interface for the CNWNXFuncs class.
+    ExaltReplace.c - Implementation of NWN combat replacement functions
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
@@ -18,28 +18,29 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-#ifndef NWNX_EXALT_OBJCMDS_H
-#define NWNX_EXALT_OBJCMDS_H
+#include "NWNXWeapons.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
-%}
+int Hook_GetUseMonkAttackTables (CNWSCreatureStats *info, int unarmedonly) {
+    int monk = nwn_GetLevelByClass(info, CLASS_TYPE_MONK);
 
-struct FuncsObjCommand_s {
-    const char          *name;
-    nwn_objid_t        (*func)(CGameObject *);
-};
+    if (monk < 1                    ||
+        info->cs_ac_armour_base > 0 ||
+        info->cs_ac_shield_base > 0)
+        return 0;
 
-%%
-INTTOOBJECT,                            Func_IntToObject
-%%
+    CNWSItem *weapon = CNWSInventory__GetItemInSlot(info->cs_original->cre_equipment,
+        EQUIPMENT_SLOT_RIGHTHAND);
 
-#ifdef __cplusplus
+    if (weapon == NULL)
+        return 1;
+
+    if (unarmedonly                                              ||
+        weapon->it_baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE ||
+        Table_WeaponMonk[weapon->it_baseitem] < 1)
+        return 0;
+
+    return (monk >= Table_WeaponMonk[weapon->it_baseitem]);
 }
-#endif
-
-#endif /* NWNX_EXALT_OBJCMDS_H */
 
 /* vim: set sw=4: */

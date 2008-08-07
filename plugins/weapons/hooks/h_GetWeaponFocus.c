@@ -1,6 +1,6 @@
-%{
+
 /***************************************************************************
-    NWNXFuncs.h - Interface for the CNWNXFuncs class.
+    ExaltReplace.c - Implementation of NWN combat replacement functions
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
@@ -18,28 +18,23 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-#ifndef NWNX_EXALT_OBJCMDS_H
-#define NWNX_EXALT_OBJCMDS_H
+#include "NWNXWeapons.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
-%}
+int Hook_GetWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon) {
+    int feat = 0;
 
-struct FuncsObjCommand_s {
-    const char          *name;
-    nwn_objid_t        (*func)(CGameObject *);
-};
+    if (weapon == NULL)
+        feat = FEAT_WEAPON_FOCUS_UNARMED_STRIKE;
+    else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
+        feat = Table_WeaponFocus[weapon->it_baseitem];
 
-%%
-INTTOOBJECT,                            Func_IntToObject
-%%
+    if (feat == FEAT_WEAPON_FOCUS_CREATURE &&
+        CNWSCreatureStats__HasFeat(info, FEAT_WEAPON_FOCUS_UNARMED_STRIKE))
+        return 1;
 
-#ifdef __cplusplus
+    return (feat ? CNWSCreatureStats__HasFeat(info, feat) : 0);
 }
-#endif
 
-#endif /* NWNX_EXALT_OBJCMDS_H */
 
 /* vim: set sw=4: */

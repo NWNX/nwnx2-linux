@@ -1,6 +1,6 @@
-%{
+
 /***************************************************************************
-    NWNXFuncs.h - Interface for the CNWNXFuncs class.
+    plugin-weapons.cpp - Defines the entry point for the DLL application.
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
@@ -18,28 +18,10 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-#ifndef NWNX_EXALT_OBJCMDS_H
-#define NWNX_EXALT_OBJCMDS_H
+#include "NWNXWeapons.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+CNWNXWeapons weapons;
 
-%}
-
-struct FuncsObjCommand_s {
-    const char          *name;
-    nwn_objid_t        (*func)(CGameObject *);
-};
-
-%%
-INTTOOBJECT,                            Func_IntToObject
-%%
-
-#ifdef __cplusplus
+extern "C" CNWNXBase *GetClassObject() {
+    return &weapons;
 }
-#endif
-
-#endif /* NWNX_EXALT_OBJCMDS_H */
-
-/* vim: set sw=4: */

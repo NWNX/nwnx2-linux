@@ -99,7 +99,7 @@ void Func_SetSpecialAbility (CGameObject *ob, char *value);
 void Func_SetTrapCreator (CGameObject *ob, char *value);
 void Func_SetWizardSpecialization (CGameObject *ob, char *value);
 
-nwn_objid_t Func_IntToObject (CGameObject *ob, char *value);
+nwn_objid_t Func_IntToObject (CGameObject *ob);
 
 #ifdef __cplusplus
 }

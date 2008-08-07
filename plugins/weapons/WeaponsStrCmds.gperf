@@ -1,0 +1,70 @@
+%{
+/***************************************************************************
+    NWNXWeapons.h - Interface for the CNWNXWeapons class.
+    Copyright (C) 2007 Doug Swarin (zac@intertex.net)
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ ***************************************************************************/
+
+#ifndef NWNX_WEAPONS_STRCMDS_H
+#define NWNX_WEAPONS_STRCMDS_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+%}
+
+struct WeaponsStrCommand_s {
+    const char  *name;
+    void       (*func)(CGameObject *, char *);
+};
+
+%%
+GETWEAPONDEVASTATINGCRITICALFEAT,       Func_GetWeaponDevastatingCriticalFeat 
+GETWEAPONEPICFOCUSFEAT,                 Func_GetWeaponEpicFocusFeat           
+GETWEAPONEPICSPECIALIZATIONFEAT,        Func_GetWeaponEpicSpecializationFeat  
+GETWEAPONFOCUSFEAT,                     Func_GetWeaponFocusFeat               
+GETWEAPONGREATERFOCUSFEAT,              Func_GetWeaponGreaterFocusFeat        
+GETWEAPONIMPROVEDCRITICALFEAT,          Func_GetWeaponImprovedCriticalFeat    
+GETWEAPONISMONKWEAPON,                  Func_GetWeaponIsMonkWeapon            
+GETWEAPONLEGENDARYFOCUSFEAT,            Func_GetWeaponLegendaryFocusFeat      
+GETWEAPONOFCHOICEFEAT,                  Func_GetWeaponOfChoiceFeat            
+GETWEAPONOVERWHELMINGCRITICALFEAT,      Func_GetWeaponOverwhelmingCriticalFeat
+GETWEAPONPOWERCRITICALFEAT,             Func_GetWeaponPowerCriticalFeat       
+GETWEAPONSPECIALIZATIONFEAT,            Func_GetWeaponSpecializationFeat      
+GETWEAPONSUPERIORCRITICALFEAT,          Func_GetWeaponSuperiorCriticalFeat    
+SETWEAPONDEVASTATINGCRITICALFEAT,       Func_SetWeaponDevastatingCriticalFeat 
+SETWEAPONEPICFOCUSFEAT,                 Func_SetWeaponEpicFocusFeat           
+SETWEAPONEPICSPECIALIZATIONFEAT,        Func_SetWeaponEpicSpecializationFeat  
+SETWEAPONFOCUSFEAT,                     Func_SetWeaponFocusFeat               
+SETWEAPONGREATERFOCUSFEAT,              Func_SetWeaponGreaterFocusFeat        
+SETWEAPONIMPROVEDCRITICALFEAT,          Func_SetWeaponImprovedCriticalFeat    
+SETWEAPONISMONKWEAPON,                  Func_SetWeaponIsMonkWeapon            
+SETWEAPONLEGENDARYFOCUSFEAT,            Func_SetWeaponLegendaryFocusFeat      
+SETWEAPONOFCHOICEFEAT,                  Func_SetWeaponOfChoiceFeat            
+SETWEAPONOVERWHELMINGCRITICALFEAT,      Func_SetWeaponOverwhelmingCriticalFeat
+SETWEAPONPOWERCRITICALFEAT,             Func_SetWeaponPowerCriticalFeat       
+SETWEAPONSPECIALIZATIONFEAT,            Func_SetWeaponSpecializationFeat      
+SETWEAPONSUPERIORCRITICALFEAT,          Func_SetWeaponSuperiorCriticalFeat    
+%%
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* NWNX_WEAPONS_STRCMDS_H */
+
+/* vim: set sw=4: */
