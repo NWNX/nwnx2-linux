@@ -107,6 +107,44 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
     nx_hook_function((void *)CNWSCreatureStats__GetUseMonkAttackTables,
         (void *)Hook_GetUseMonkAttackTables, 5, NX_HOOK_DIRECT);
 
+
+    /* hook critical hit range */
+    if (CNWSCreatureStats__GetCriticalHitRoll != NULL) {
+        unsigned char *p = (unsigned char *)CNWSCreatureStats__GetCriticalHitRoll;
+        unsigned char *end = p + 0x200;
+
+        while (p++ < end) {
+            if (p[0] == 0x89 && p[1] == 0xF9 && p[2] == 0x8D && p[3] == 0x65)
+                break;
+        }
+
+        if (p < end) {
+            nx_log(NX_LOG_INFO, 0, "found critical range return reference at %p", p);
+
+            nx_hook_function(p, (void *)Hook_GetCriticalRange, 5, NX_HOOK_DIRECT);
+        } else
+            nx_log(NX_LOG_INFO, 0, "critical range return reference not found before %p", p);
+    }
+
+
+    /* hook critical hit multiplier */
+    if (CNWSCreatureStats__GetCriticalHitMultiplier != NULL) {
+        unsigned char *p = (unsigned char *)CNWSCreatureStats__GetCriticalHitMultiplier;
+        unsigned char *end = p + 0x200;
+
+        while (p++ < end) {
+            if (p[0] == 0x8D && p[1] == 0x65 && p[2] == 0xF4 && p[3] == 0x5B)
+                break;
+        }
+
+        if (p < end) {
+            nx_log(NX_LOG_INFO, 0, "found critical multiplier return reference at %p", p);
+
+            nx_hook_function(p, (void *)Hook_GetCriticalMultiplier, 5, NX_HOOK_DIRECT);
+        } else
+            nx_log(NX_LOG_INFO, 0, "critical multiplier return reference not found before %p", p);
+    }
+
     return true;
 }
 

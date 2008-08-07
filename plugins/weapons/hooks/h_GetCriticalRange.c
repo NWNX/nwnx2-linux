@@ -59,7 +59,7 @@ static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *info, CNWSItem *w
         (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_RANGE_STACK])) {
 
         if (weapon == NULL)
-            feat = FEAT_EPIC_OVERWHELMING_CRITICAL_UNARMED;
+            feat = Table_WeaponOverwhelmingCritical[BASE_ITEM_GLOVES];
         else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
             feat = Table_WeaponOverwhelmingCritical[weapon->it_baseitem];
         else
@@ -73,7 +73,7 @@ static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *info, CNWSItem *w
         (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_RANGE_STACK])) {
 
         if (weapon == NULL)
-            feat = FEAT_EPIC_DEVASTATING_CRITICAL_UNARMED;
+            feat = Table_WeaponDevastatingCritical[BASE_ITEM_GLOVES];
         else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
             feat = Table_WeaponDevastatingCritical[weapon->it_baseitem];
         else

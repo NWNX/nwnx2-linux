@@ -18,9 +18,9 @@ SUBDIRS = \
     plugins/profiler   \
     plugins/reset      \
     plugins/resman     \
-    plugins/ruby       \
     plugins/structs    \
     plugins/tmi        \
+    plugins/weapons    \
     @EXTRAPLUGINDIRS@
 
 LIBRARY = \
