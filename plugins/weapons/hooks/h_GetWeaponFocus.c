@@ -25,7 +25,7 @@ int Hook_GetWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon) {
     int feat = 0;
 
     if (weapon == NULL)
-        feat = FEAT_WEAPON_FOCUS_UNARMED_STRIKE;
+        feat = Table_WeaponFocus[BASE_ITEM_GLOVES];
     else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
         feat = Table_WeaponFocus[weapon->it_baseitem];
 

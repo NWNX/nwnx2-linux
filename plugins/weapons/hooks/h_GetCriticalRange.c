@@ -25,17 +25,65 @@ volatile CNWSItem *Hook_GetCriticalRange_Weapon;
 
 
 static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *info, CNWSItem *weapon) {
-    int feat = 0;
+    int feat, bonus = 0, ki = CNWSCreatureStats__HasFeat(info, FEAT_KI_CRITICAL);
 
-    if (CNWSCreatureStats__HasFeat(info, FEAT_KI_CRITICAL))
-        return 0;
+    if (Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_RANGE_BONUS] &&
+        (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_RANGE_STACK])) {
 
-    if (weapon == NULL)
-        feat = FEAT_EPIC_OVERWHELMING_CRITICAL_UNARMED;
-    else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
-        feat = Table_WeaponOverwhelmingCritical[weapon->it_baseitem];
+        if (weapon == NULL)
+            feat = Table_WeaponPowerCritical[BASE_ITEM_GLOVES];
+        else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
+            feat = Table_WeaponPowerCritical[weapon->it_baseitem];
+        else
+            feat = 0;
 
-    return (feat ? !!CNWSCreatureStats__HasFeat(info, feat) : 0);
+        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+            bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_RANGE_BONUS];
+    }
+
+    if (Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_RANGE_BONUS] &&
+        (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_RANGE_STACK])) {
+
+        if (weapon == NULL)
+            feat = Table_WeaponSuperiorCritical[BASE_ITEM_GLOVES];
+        else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
+            feat = Table_WeaponSuperiorCritical[weapon->it_baseitem];
+        else
+            feat = 0;
+
+        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+            bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_RANGE_BONUS];
+    }
+
+    if (Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_RANGE_BONUS] &&
+        (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_RANGE_STACK])) {
+
+        if (weapon == NULL)
+            feat = FEAT_EPIC_OVERWHELMING_CRITICAL_UNARMED;
+        else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
+            feat = Table_WeaponOverwhelmingCritical[weapon->it_baseitem];
+        else
+            feat = 0;
+
+        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+            bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_RANGE_BONUS];
+    }
+
+    if (Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_RANGE_BONUS] &&
+        (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_RANGE_STACK])) {
+
+        if (weapon == NULL)
+            feat = FEAT_EPIC_DEVASTATING_CRITICAL_UNARMED;
+        else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
+            feat = Table_WeaponDevastatingCritical[weapon->it_baseitem];
+        else
+            feat = 0;
+
+        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+            bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_RANGE_BONUS];
+    }
+
+    return bonus;
 }
 
 

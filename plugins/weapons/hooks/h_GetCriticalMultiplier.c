@@ -25,14 +25,65 @@ volatile CNWSItem *Hook_GetCriticalMultiplier_Weapon;
 
 
 static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *info, CNWSItem *weapon) {
-    int feat = 0;
+    int feat, bonus = 0, im = CNWSCreatureStats__HasFeat(info, FEAT_INCREASE_MULTIPLIER);
 
-    if (weapon == NULL)
-        feat = FEAT_EPIC_DEVASTATING_CRITICAL_UNARMED;
-    else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
-        feat = Table_WeaponDevastatingCritical[weapon->it_baseitem];
+    if (Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_MULT_BONUS] &&
+        (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_MULT_STACK])) {
 
-    return (feat ? !!CNWSCreatureStats__HasFeat(info, feat) : 0);
+        if (weapon == NULL)
+            feat = Table_WeaponPowerCritical[BASE_ITEM_GLOVES];
+        else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
+            feat = Table_WeaponPowerCritical[weapon->it_baseitem];
+        else
+            feat = 0;
+
+        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+            bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_MULT_BONUS];
+    }
+
+    if (Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_MULT_BONUS] &&
+        (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_MULT_STACK])) {
+
+        if (weapon == NULL)
+            feat = Table_WeaponSuperiorCritical[BASE_ITEM_GLOVES];
+        else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
+            feat = Table_WeaponSuperiorCritical[weapon->it_baseitem];
+        else
+            feat = 0;
+
+        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+            bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_MULT_BONUS];
+    }
+
+    if (Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_MULT_BONUS] &&
+        (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_MULT_STACK])) {
+
+        if (weapon == NULL)
+            feat = FEAT_EPIC_OVERWHELMING_CRITICAL_UNARMED;
+        else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
+            feat = Table_WeaponOverwhelmingCritical[weapon->it_baseitem];
+        else
+            feat = 0;
+
+        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+            bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_MULT_BONUS];
+    }
+
+    if (Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_MULT_BONUS] &&
+        (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_MULT_STACK])) {
+
+        if (weapon == NULL)
+            feat = FEAT_EPIC_DEVASTATING_CRITICAL_UNARMED;
+        else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
+            feat = Table_WeaponDevastatingCritical[weapon->it_baseitem];
+        else
+            feat = 0;
+
+        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+            bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_MULT_BONUS];
+    }
+
+    return bonus;
 }
 
 

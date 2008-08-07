@@ -25,7 +25,7 @@ int Hook_GetEpicWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon) {
     int feat = 0;
 
     if (weapon == NULL)
-        feat = FEAT_EPIC_WEAPON_FOCUS_UNARMED;
+        feat = Table_WeaponEpicFocus[BASE_ITEM_GLOVES];
     else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
         feat = Table_WeaponEpicFocus[weapon->it_baseitem];
 

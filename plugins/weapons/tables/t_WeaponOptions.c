@@ -21,8 +21,8 @@
 #include "NWNXWeapons.h"
 
 uint16_t Table_WeaponOptions[NWNX_WEAPONS_OPTIONS_TABLE_SIZE] = {
+    [NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_ALL]      = 0,
     [NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_PC]       = 0,
-    [NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_NPC]      = 0,
 };
 
 /* vim: set sw=4: */

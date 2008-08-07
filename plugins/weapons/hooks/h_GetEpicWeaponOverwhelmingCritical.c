@@ -25,7 +25,7 @@ int Hook_GetEpicWeaponOverwhelmingCritical (CNWSCreatureStats *info, CNWSItem *w
     int feat = 0;
 
     if (weapon == NULL)
-        feat = FEAT_EPIC_OVERWHELMING_CRITICAL_UNARMED;
+        feat = Table_WeaponOverwhelmingCritical[BASE_ITEM_GLOVES];
     else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
         feat = Table_WeaponOverwhelmingCritical[weapon->it_baseitem];
 

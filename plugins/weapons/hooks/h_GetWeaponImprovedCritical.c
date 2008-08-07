@@ -25,7 +25,7 @@ int Hook_GetWeaponImprovedCritical (CNWSCreatureStats *info, CNWSItem *weapon) {
     int feat = 0;
 
     if (weapon == NULL)
-        feat = FEAT_IMPROVED_CRITICAL_UNARMED_STRIKE;
+        feat = Table_WeaponImprovedCritical[BASE_ITEM_GLOVES];
     else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
         feat = Table_WeaponImprovedCritical[weapon->it_baseitem];
 

@@ -25,7 +25,7 @@ int Hook_GetEpicWeaponSpecialization (CNWSCreatureStats *info, CNWSItem *weapon)
     int feat = 0;
 
     if (weapon == NULL)
-        feat = FEAT_EPIC_WEAPON_SPECIALIZATION_UNARMED;
+        feat = Table_WeaponEpicSpecialization[BASE_ITEM_GLOVES];
     else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
         feat = Table_WeaponEpicSpecialization[weapon->it_baseitem];
 

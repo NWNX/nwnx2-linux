@@ -24,11 +24,15 @@
 int Hook_GetEpicWeaponDevastatingCritical (CNWSCreatureStats *info, CNWSItem *weapon) {
     int feat = 0;
 
-    if (info->cs_original == NULL || info->cs_original->cre_is_pc)
+    if (Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_ALL])
         return 0;
+    if (Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_PC]) {
+        if (info->cs_original == NULL || info->cs_original->cre_is_pc)
+            return 0;
+    }
 
     if (weapon == NULL)
-        feat = FEAT_EPIC_DEVASTATING_CRITICAL_UNARMED;
+        feat = Table_WeaponDevastatingCritical[BASE_ITEM_GLOVES];
     else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
         feat = Table_WeaponDevastatingCritical[weapon->it_baseitem];
 

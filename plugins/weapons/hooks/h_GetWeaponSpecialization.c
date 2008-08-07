@@ -25,7 +25,7 @@ int Hook_GetWeaponSpecialization (CNWSCreatureStats *info, CNWSItem *weapon) {
     int feat = 0;
 
     if (weapon == NULL)
-        feat = FEAT_WEAPON_SPECIALIZATION_UNARMED_STRIKE;
+        feat = Table_WeaponSpecialization[BASE_ITEM_GLOVES];
     else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
         feat = Table_WeaponSpecialization[weapon->it_baseitem];
 
