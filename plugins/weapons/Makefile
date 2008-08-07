@@ -46,6 +46,7 @@ OFILES  = \
     funcs/f_GetWeaponIsMonkWeapon.o              \
     funcs/f_GetWeaponLegendaryFocusFeat.o        \
     funcs/f_GetWeaponOfChoiceFeat.o              \
+    funcs/f_GetWeaponOption.o                    \
     funcs/f_GetWeaponOverwhelmingCriticalFeat.o  \
     funcs/f_GetWeaponPowerCriticalFeat.o         \
     funcs/f_GetWeaponSpecializationFeat.o        \
@@ -59,10 +60,13 @@ OFILES  = \
     funcs/f_SetWeaponIsMonkWeapon.o              \
     funcs/f_SetWeaponLegendaryFocusFeat.o        \
     funcs/f_SetWeaponOfChoiceFeat.o              \
+    funcs/f_SetWeaponOption.o                    \
     funcs/f_SetWeaponOverwhelmingCriticalFeat.o  \
     funcs/f_SetWeaponPowerCriticalFeat.o         \
     funcs/f_SetWeaponSpecializationFeat.o        \
     funcs/f_SetWeaponSuperiorCriticalFeat.o      \
+    hooks/h_GetCriticalMultiplier.o              \
+    hooks/h_GetCriticalRange.o                   \
     hooks/h_GetEpicWeaponDevastatingCritical.o   \
     hooks/h_GetEpicWeaponFocus.o                 \
     hooks/h_GetEpicWeaponOverwhelmingCritical.o  \
@@ -82,6 +86,7 @@ OFILES  = \
     tables/t_WeaponLegendaryFocus.o              \
     tables/t_WeaponMonk.o                        \
     tables/t_WeaponOfChoice.o                    \
+    tables/t_WeaponOptions.o                     \
     tables/t_WeaponOverwhelmingCritical.o        \
     tables/t_WeaponPowerCritical.o               \
     tables/t_WeaponSpecialization.o              \

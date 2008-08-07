@@ -20,19 +20,43 @@
 
 #include "NWNXWeapons.h"
 
+volatile CNWSCreatureStats *Hook_GetCriticalMultiplier_Creature;
+volatile CNWSItem *Hook_GetCriticalMultiplier_Weapon;
 
-int Hook_GetEpicWeaponDevastatingCritical (CNWSCreatureStats *info, CNWSItem *weapon) {
+
+static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *info, CNWSItem *weapon) {
     int feat = 0;
-
-    if (info->cs_original == NULL || info->cs_original->cre_is_pc)
-        return 0;
 
     if (weapon == NULL)
         feat = FEAT_EPIC_DEVASTATING_CRITICAL_UNARMED;
     else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
         feat = Table_WeaponDevastatingCritical[weapon->it_baseitem];
 
-    return (feat ? CNWSCreatureStats__HasFeat(info, feat) : 0);
+    return (feat ? !!CNWSCreatureStats__HasFeat(info, feat) : 0);
+}
+
+
+void Hook_GetCriticalMultiplier (void) {
+    asm("leave");
+
+    asm("movl %esi, Hook_GetCriticalMultiplier_Creature");
+    asm("movl %ebx, Hook_GetCriticalMultiplier_Weapon");
+
+    Hook_GetCriticalMultiplierAdjustment(
+        (CNWSCreatureStats *)Hook_GetCriticalMultiplier_Creature,
+        (CNWSItem *)Hook_GetCriticalMultiplier_Weapon);
+
+    /* the result of Hook_GetCriticalMultiplierAdjustment() is in %eax */
+    asm("addl %eax, %edi");
+
+    /* duplicate the work originally done */
+    asm("lea 0xfffffff4(%ebp), %esp");
+    asm("pop %ebx");
+    asm("pop %esi");
+    asm("mov %edi, %eax");
+    asm("pop %edi");
+    asm("pop %ebp");
+    asm("ret");
 }
 
 

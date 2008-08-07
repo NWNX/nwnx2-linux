@@ -1,6 +1,6 @@
 
 /***************************************************************************
-    ExaltReplace.c - Implementation of NWN combat replacement functions
+    CombatTables.h - NWN Combat Tables
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
@@ -20,20 +20,9 @@
 
 #include "NWNXWeapons.h"
 
-
-int Hook_GetEpicWeaponDevastatingCritical (CNWSCreatureStats *info, CNWSItem *weapon) {
-    int feat = 0;
-
-    if (info->cs_original == NULL || info->cs_original->cre_is_pc)
-        return 0;
-
-    if (weapon == NULL)
-        feat = FEAT_EPIC_DEVASTATING_CRITICAL_UNARMED;
-    else if (weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
-        feat = Table_WeaponDevastatingCritical[weapon->it_baseitem];
-
-    return (feat ? CNWSCreatureStats__HasFeat(info, feat) : 0);
-}
-
+uint16_t Table_WeaponOptions[NWNX_WEAPONS_OPTIONS_TABLE_SIZE] = {
+    [NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_PC]       = 0,
+    [NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_NPC]      = 0,
+};
 
 /* vim: set sw=4: */

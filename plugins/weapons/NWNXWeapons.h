@@ -24,11 +24,40 @@
 
 #include "NWNXLib.h"
 
-#define NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE    512
+#define NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE       512
+#define NWNX_WEAPONS_OPTIONS_TABLE_SIZE          24
+
+#define NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_PC       0 
+#define NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_NPC      1 
+#define NWNX_WEAPONS_OPT_DEVCRIT_CONF_BONUS       2 
+#define NWNX_WEAPONS_OPT_DEVCRIT_MULT_BONUS       3 
+#define NWNX_WEAPONS_OPT_DEVCRIT_MULT_STACK       4 
+#define NWNX_WEAPONS_OPT_DEVCRIT_RANGE_BONUS      5 
+#define NWNX_WEAPONS_OPT_DEVCRIT_RANGE_STACK      6 
+#define NWNX_WEAPONS_OPT_OVERCRIT_CONF_BONUS      7 
+#define NWNX_WEAPONS_OPT_OVERCRIT_MULT_BONUS      8 
+#define NWNX_WEAPONS_OPT_OVERCRIT_MULT_STACK      9
+#define NWNX_WEAPONS_OPT_OVERCRIT_RANGE_BONUS    10
+#define NWNX_WEAPONS_OPT_OVERCRIT_RANGE_STACK    11
+#define NWNX_WEAPONS_OPT_POWCRIT_CONF_BONUS      12
+#define NWNX_WEAPONS_OPT_POWCRIT_MULT_BONUS      13
+#define NWNX_WEAPONS_OPT_POWCRIT_MULT_STACK      14
+#define NWNX_WEAPONS_OPT_POWCRIT_RANGE_BONUS     15
+#define NWNX_WEAPONS_OPT_POWCRIT_RANGE_STACK     16
+#define NWNX_WEAPONS_OPT_SUPCRIT_CONF_BONUS      17
+#define NWNX_WEAPONS_OPT_SUPCRIT_MULT_BONUS      18
+#define NWNX_WEAPONS_OPT_SUPCRIT_MULT_STACK      19
+#define NWNX_WEAPONS_OPT_SUPCRIT_RANGE_BONUS     20
+#define NWNX_WEAPONS_OPT_SUPCRIT_RANGE_STACK     21
+#define NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS       22
+#define NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS       23
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+void Func_GetWeaponOption                    (CGameObject *ob, char *value);
+void Func_SetWeaponOption                    (CGameObject *ob, char *value);
 
 void Func_GetWeaponFocusFeat                 (CGameObject *ob, char *value);
 void Func_GetWeaponEpicFocusFeat             (CGameObject *ob, char *value);
@@ -60,6 +89,8 @@ void Func_SetWeaponSuperiorCriticalFeat      (CGameObject *ob, char *value);
 
 nwn_objid_t Func_IntToObject (CGameObject *ob);
 
+void Hook_GetCriticalMultiplier (void);
+void Hook_GetCriticalRange (void);
 int Hook_GetEpicWeaponDevastatingCritical (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponOverwhelmingCritical (CNWSCreatureStats *info, CNWSItem *weapon);
@@ -70,6 +101,8 @@ int Hook_GetWeaponFinesse (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetWeaponImprovedCritical (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetWeaponSpecialization (CNWSCreatureStats *info, CNWSItem *weapon);
+
+extern uint16_t Table_WeaponOptions[NWNX_WEAPONS_OPTIONS_TABLE_SIZE];
 
 extern uint16_t Table_WeaponDevastatingCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponEpicFocus[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
