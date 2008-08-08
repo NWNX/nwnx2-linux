@@ -67,18 +67,26 @@ OFILES  = \
     funcs/f_SetWeaponPowerCriticalFeat.o         \
     funcs/f_SetWeaponSpecializationFeat.o        \
     funcs/f_SetWeaponSuperiorCriticalFeat.o      \
+    hooks/h_GetABAbilityModifier.o               \
     hooks/h_GetCriticalMultiplier.o              \
     hooks/h_GetCriticalRange.o                   \
     hooks/h_GetEpicWeaponDevastatingCritical.o   \
     hooks/h_GetEpicWeaponFocus.o                 \
     hooks/h_GetEpicWeaponOverwhelmingCritical.o  \
     hooks/h_GetEpicWeaponSpecialization.o        \
+    hooks/h_GetIsDeathAttackImmune.o             \
+    hooks/h_GetIsSneakAttackImmune.o             \
     hooks/h_GetIsWeaponOfChoice.o                \
     hooks/h_GetUseMonkAttackTables.o             \
     hooks/h_GetWeaponFinesse.o                   \
     hooks/h_GetWeaponFocus.o                     \
     hooks/h_GetWeaponImprovedCritical.o          \
     hooks/h_GetWeaponSpecialization.o            \
+    local/l_GetAttackBonusAdjustment.o           \
+    local/l_GetCriticalMultiplierAdjustment.o    \
+    local/l_GetCriticalRangeAdjustment.o         \
+    local/l_GetIsDeathAttackImmune.o             \
+    local/l_GetIsSneakAttackImmune.o             \
     tables/t_WeaponAbility.o                     \
     tables/t_WeaponDevastatingCritical.o         \
     tables/t_WeaponEpicFocus.o                   \
@@ -93,7 +101,6 @@ OFILES  = \
     tables/t_WeaponOptions.o                     \
     tables/t_WeaponOverwhelmingCritical.o        \
     tables/t_WeaponPowerCritical.o               \
-    tables/t_WeaponRogue.o                       \
     tables/t_WeaponSpecialization.o              \
     tables/t_WeaponSuperiorCritical.o            \
     NWNXWeapons.o                                \

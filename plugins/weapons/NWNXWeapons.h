@@ -54,16 +54,6 @@
 #define NWNX_WEAPONS_OPT_LEGFOCUS_AB_EPBONUS             24
 #define NWNX_WEAPONS_OPT_DEATHATT_IGNORE_CRIT_IMM        25
 #define NWNX_WEAPONS_OPT_SNEAKATT_IGNORE_CRIT_IMM        26
-#define NWNX_WEAPONS_OPT_EXALT_AGE_BONUS_AB              27
-#define NWNX_WEAPONS_OPT_CRAFT_WEAPON_BONUS_AB           28
-#define NWNX_WEAPONS_OPT_ROGUE_ALL_LIGHT_WEAPONS         29
-#define NWNX_WEAPONS_OPT_ROGUE_IGNORE_SNEAK_IMM          30
-#define NWNX_WEAPONS_OPT_ROGUE_OPPORTUNIST_BONUS_AB      31
-#define NWNX_WEAPONS_OPT_ROGUE_CRIPPLING_BONUS_RANGE     32
-#define NWNX_WEAPONS_OPT_ROGUE_CRIPPLING_BONUS_MULT      33
-#define NWNX_WEAPONS_OPT_WEAPONMASTER_BONUS_10           34
-#define NWNX_WEAPONS_OPT_WEAPONMASTER_BONUS_29           35
-#define NWNX_WEAPONS_OPT_WEAPONMASTER_BONUS_30           36
 
 #ifdef __cplusplus
 extern "C" {
@@ -120,6 +110,15 @@ int Hook_GetWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetWeaponImprovedCritical (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetWeaponSpecialization (CNWSCreatureStats *info, CNWSItem *weapon);
 
+
+int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon,
+                                    int ranged, int ab_abil, int ab_feats);
+int Local_GetCriticalMultiplierAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj);
+int Local_GetCriticalRangeAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj);
+int Local_GetIsDeathAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker);
+int Local_GetIsSneakAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker);
+
+
 extern uint16_t Table_WeaponOptions[NWNX_WEAPONS_OPTIONS_TABLE_SIZE];
 
 extern uint16_t Table_WeaponAbility[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE][6];
@@ -135,7 +134,6 @@ extern uint16_t Table_WeaponMonk[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponOfChoice[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponOverwhelmingCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponPowerCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
-extern uint16_t Table_WeaponRogue[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponSpecialization[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponSuperiorCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 

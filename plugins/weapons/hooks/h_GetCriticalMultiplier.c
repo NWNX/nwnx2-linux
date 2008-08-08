@@ -20,12 +20,12 @@
 
 #include "NWNXWeapons.h"
 
-volatile CNWSCreatureStats *Hook_GetCriticalMultiplier_Creature;
+volatile CNWSCreatureStats *Hook_GetCriticalMultiplier_Attacker;
 volatile CNWSItem *Hook_GetCriticalMultiplier_Weapon;
 
 
-static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *info, CNWSItem *weapon) {
-    int feat, bonus = 0, im = CNWSCreatureStats__HasFeat(info, FEAT_INCREASE_MULTIPLIER);
+static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon) {
+    int feat, bonus = 0, im = CNWSCreatureStats__HasFeat(attacker, FEAT_INCREASE_MULTIPLIER);
 
     if (Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_MULT_BONUS] &&
         (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_MULT_STACK])) {
@@ -37,7 +37,7 @@ static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *info, CNWSIt
         else
             feat = 0;
 
-        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+        if (feat > 0 && CNWSCreatureStats__HasFeat(attacker, feat))
             bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_MULT_BONUS];
     }
 
@@ -51,7 +51,7 @@ static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *info, CNWSIt
         else
             feat = 0;
 
-        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+        if (feat > 0 && CNWSCreatureStats__HasFeat(attacker, feat))
             bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_MULT_BONUS];
     }
 
@@ -65,7 +65,7 @@ static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *info, CNWSIt
         else
             feat = 0;
 
-        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+        if (feat > 0 && CNWSCreatureStats__HasFeat(attacker, feat))
             bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_MULT_BONUS];
     }
 
@@ -79,22 +79,22 @@ static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *info, CNWSIt
         else
             feat = 0;
 
-        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+        if (feat > 0 && CNWSCreatureStats__HasFeat(attacker, feat))
             bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_MULT_BONUS];
     }
 
-    return bonus;
+    return Local_GetCriticalMultiplierAdjustment(attacker, weapon, bonus);
 }
 
 
 void Hook_GetCriticalMultiplier (void) {
     asm("leave");
 
-    asm("movl %esi, Hook_GetCriticalMultiplier_Creature");
+    asm("movl %esi, Hook_GetCriticalMultiplier_Attacker");
     asm("movl %ebx, Hook_GetCriticalMultiplier_Weapon");
 
     Hook_GetCriticalMultiplierAdjustment(
-        (CNWSCreatureStats *)Hook_GetCriticalMultiplier_Creature,
+        (CNWSCreatureStats *)Hook_GetCriticalMultiplier_Attacker,
         (CNWSItem *)Hook_GetCriticalMultiplier_Weapon);
 
     /* the result of Hook_GetCriticalMultiplierAdjustment() is in %eax */

@@ -1,6 +1,6 @@
 
 /***************************************************************************
-    CombatTables.h - NWN Combat Tables
+    NWNXFuncs.cpp - Implementation of the CNWNXFuncs class.
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
@@ -20,8 +20,10 @@
 
 #include "NWNXWeapons.h"
 
-uint16_t Table_WeaponRogue[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE] = {
-    [BASE_ITEM_MORNINGSTAR]             = 0,
-};
+
+int Local_GetIsDeathAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker) {
+    return -1;
+}
+
 
 /* vim: set sw=4: */

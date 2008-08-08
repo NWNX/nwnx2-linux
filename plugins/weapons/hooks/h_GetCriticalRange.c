@@ -20,12 +20,12 @@
 
 #include "NWNXWeapons.h"
 
-volatile CNWSCreatureStats *Hook_GetCriticalRange_Creature;
+volatile CNWSCreatureStats *Hook_GetCriticalRange_Attacker;
 volatile CNWSItem *Hook_GetCriticalRange_Weapon;
 
 
-static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *info, CNWSItem *weapon) {
-    int feat, bonus = 0, ki = CNWSCreatureStats__HasFeat(info, FEAT_KI_CRITICAL);
+static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon) {
+    int feat, bonus = 0, ki = CNWSCreatureStats__HasFeat(attacker, FEAT_KI_CRITICAL);
 
     if (Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_RANGE_BONUS] &&
         (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_RANGE_STACK])) {
@@ -37,7 +37,7 @@ static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *info, CNWSItem *w
         else
             feat = 0;
 
-        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+        if (feat > 0 && CNWSCreatureStats__HasFeat(attacker, feat))
             bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_RANGE_BONUS];
     }
 
@@ -51,7 +51,7 @@ static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *info, CNWSItem *w
         else
             feat = 0;
 
-        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+        if (feat > 0 && CNWSCreatureStats__HasFeat(attacker, feat))
             bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_RANGE_BONUS];
     }
 
@@ -65,7 +65,7 @@ static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *info, CNWSItem *w
         else
             feat = 0;
 
-        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+        if (feat > 0 && CNWSCreatureStats__HasFeat(attacker, feat))
             bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_RANGE_BONUS];
     }
 
@@ -79,11 +79,11 @@ static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *info, CNWSItem *w
         else
             feat = 0;
 
-        if (feat > 0 && CNWSCreatureStats__HasFeat(info, feat))
+        if (feat > 0 && CNWSCreatureStats__HasFeat(attacker, feat))
             bonus += Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_RANGE_BONUS];
     }
 
-    return bonus;
+    return Local_GetCriticalRangeAdjustment(attacker, weapon, bonus);
 }
 
 
@@ -91,12 +91,12 @@ void Hook_GetCriticalRange (void) {
     asm("leave");
 
     asm("pushl 0x8(%ebp)");
-    asm("popl Hook_GetCriticalRange_Creature");
+    asm("popl Hook_GetCriticalRange_Attacker");
 
     asm("movl %ebx, Hook_GetCriticalRange_Weapon");
 
     Hook_GetCriticalRangeAdjustment(
-        (CNWSCreatureStats *)Hook_GetCriticalRange_Creature,
+        (CNWSCreatureStats *)Hook_GetCriticalRange_Attacker,
         (CNWSItem *)Hook_GetCriticalRange_Weapon);
 
     /* the result of Hook_GetCriticalRangeAdjustment() is in %eax */
