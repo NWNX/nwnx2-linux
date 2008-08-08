@@ -24,33 +24,46 @@
 
 #include "NWNXLib.h"
 
-#define NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE       512
-#define NWNX_WEAPONS_OPTIONS_TABLE_SIZE          24
+#define NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE               512
+#define NWNX_WEAPONS_OPTIONS_TABLE_SIZE                  64
 
-#define NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_ALL      0 
-#define NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_PC       1 
-#define NWNX_WEAPONS_OPT_DEVCRIT_CONF_BONUS       2 
-#define NWNX_WEAPONS_OPT_DEVCRIT_MULT_BONUS       3 
-#define NWNX_WEAPONS_OPT_DEVCRIT_MULT_STACK       4 
-#define NWNX_WEAPONS_OPT_DEVCRIT_RANGE_BONUS      5 
-#define NWNX_WEAPONS_OPT_DEVCRIT_RANGE_STACK      6 
-#define NWNX_WEAPONS_OPT_OVERCRIT_CONF_BONUS      7 
-#define NWNX_WEAPONS_OPT_OVERCRIT_MULT_BONUS      8 
-#define NWNX_WEAPONS_OPT_OVERCRIT_MULT_STACK      9
-#define NWNX_WEAPONS_OPT_OVERCRIT_RANGE_BONUS    10
-#define NWNX_WEAPONS_OPT_OVERCRIT_RANGE_STACK    11
-#define NWNX_WEAPONS_OPT_POWCRIT_CONF_BONUS      12
-#define NWNX_WEAPONS_OPT_POWCRIT_MULT_BONUS      13
-#define NWNX_WEAPONS_OPT_POWCRIT_MULT_STACK      14
-#define NWNX_WEAPONS_OPT_POWCRIT_RANGE_BONUS     15
-#define NWNX_WEAPONS_OPT_POWCRIT_RANGE_STACK     16
-#define NWNX_WEAPONS_OPT_SUPCRIT_CONF_BONUS      17
-#define NWNX_WEAPONS_OPT_SUPCRIT_MULT_BONUS      18
-#define NWNX_WEAPONS_OPT_SUPCRIT_MULT_STACK      19
-#define NWNX_WEAPONS_OPT_SUPCRIT_RANGE_BONUS     20
-#define NWNX_WEAPONS_OPT_SUPCRIT_RANGE_STACK     21
-#define NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS       22
-#define NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS       23
+#define NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_ALL              0 
+#define NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_PC               1 
+#define NWNX_WEAPONS_OPT_DEVCRIT_CONF_BONUS               2 
+#define NWNX_WEAPONS_OPT_DEVCRIT_MULT_BONUS               3 
+#define NWNX_WEAPONS_OPT_DEVCRIT_MULT_STACK               4 
+#define NWNX_WEAPONS_OPT_DEVCRIT_RANGE_BONUS              5 
+#define NWNX_WEAPONS_OPT_DEVCRIT_RANGE_STACK              6 
+#define NWNX_WEAPONS_OPT_OVERCRIT_CONF_BONUS              7 
+#define NWNX_WEAPONS_OPT_OVERCRIT_MULT_BONUS              8 
+#define NWNX_WEAPONS_OPT_OVERCRIT_MULT_STACK              9
+#define NWNX_WEAPONS_OPT_OVERCRIT_RANGE_BONUS            10
+#define NWNX_WEAPONS_OPT_OVERCRIT_RANGE_STACK            11
+#define NWNX_WEAPONS_OPT_POWCRIT_CONF_BONUS              12
+#define NWNX_WEAPONS_OPT_POWCRIT_MULT_BONUS              13
+#define NWNX_WEAPONS_OPT_POWCRIT_MULT_STACK              14
+#define NWNX_WEAPONS_OPT_POWCRIT_RANGE_BONUS             15
+#define NWNX_WEAPONS_OPT_POWCRIT_RANGE_STACK             16
+#define NWNX_WEAPONS_OPT_SUPCRIT_CONF_BONUS              17
+#define NWNX_WEAPONS_OPT_SUPCRIT_MULT_BONUS              18
+#define NWNX_WEAPONS_OPT_SUPCRIT_MULT_STACK              19
+#define NWNX_WEAPONS_OPT_SUPCRIT_RANGE_BONUS             20
+#define NWNX_WEAPONS_OPT_SUPCRIT_RANGE_STACK             21
+#define NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS               22
+#define NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS               23
+#define NWNX_WEAPONS_OPT_LEGFOCUS_AB_EPBONUS             24
+#define NWNX_WEAPONS_OPT_DEATHATT_IGNORE_CRIT_IMM        25
+#define NWNX_WEAPONS_OPT_SNEAKATT_IGNORE_CRIT_IMM        26
+#define NWNX_WEAPONS_OPT_EXALT_AGE_BONUS_AB              27
+#define NWNX_WEAPONS_OPT_CRAFT_WEAPON_BONUS_AB           28
+#define NWNX_WEAPONS_OPT_ROGUE_ALL_LIGHT_WEAPONS         29
+#define NWNX_WEAPONS_OPT_ROGUE_IGNORE_SNEAK_IMM          30
+#define NWNX_WEAPONS_OPT_ROGUE_OPPORTUNIST_BONUS_AB      31
+#define NWNX_WEAPONS_OPT_ROGUE_CRIPPLING_BONUS_RANGE     32
+#define NWNX_WEAPONS_OPT_ROGUE_CRIPPLING_BONUS_MULT      33
+#define NWNX_WEAPONS_OPT_WEAPONMASTER_BONUS_10           34
+#define NWNX_WEAPONS_OPT_WEAPONMASTER_BONUS_29           35
+#define NWNX_WEAPONS_OPT_WEAPONMASTER_BONUS_30           36
 
 #ifdef __cplusplus
 extern "C" {
@@ -92,8 +105,10 @@ void Func_SetWeaponSuperiorCriticalFeat      (CGameObject *ob, char *value);
 
 nwn_objid_t Func_IntToObject (CGameObject *ob);
 
+void Hook_GetABAbilityModifier (void);
 void Hook_GetCriticalMultiplier (void);
 void Hook_GetCriticalRange (void);
+void Hook_SneakAttackImmunity (void);
 int Hook_GetEpicWeaponDevastatingCritical (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponOverwhelmingCritical (CNWSCreatureStats *info, CNWSItem *weapon);
@@ -107,6 +122,7 @@ int Hook_GetWeaponSpecialization (CNWSCreatureStats *info, CNWSItem *weapon);
 
 extern uint16_t Table_WeaponOptions[NWNX_WEAPONS_OPTIONS_TABLE_SIZE];
 
+extern uint16_t Table_WeaponAbility[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE][6];
 extern uint16_t Table_WeaponDevastatingCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponEpicFocus[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponEpicSpecialization[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
@@ -119,6 +135,7 @@ extern uint16_t Table_WeaponMonk[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponOfChoice[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponOverwhelmingCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponPowerCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
+extern uint16_t Table_WeaponRogue[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponSpecialization[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponSuperiorCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 

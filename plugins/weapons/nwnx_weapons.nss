@@ -12,6 +12,8 @@
  *   Add [GS]etWeaponFinesseSize() to set finesse size (like rapiers).
  *
  *   Add [GS]etWeaponAbilityFeat() to set ability modifier feats (like Zen Archery).
+ *
+ *   Add [GS]etWeaponIsRogueWeapon() to set rogue weapons.
  */
 
 /* Disable Devastating Critical insta-kill for all beings or for PCs only. */

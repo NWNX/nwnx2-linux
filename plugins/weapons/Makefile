@@ -79,6 +79,7 @@ OFILES  = \
     hooks/h_GetWeaponFocus.o                     \
     hooks/h_GetWeaponImprovedCritical.o          \
     hooks/h_GetWeaponSpecialization.o            \
+    tables/t_WeaponAbility.o                     \
     tables/t_WeaponDevastatingCritical.o         \
     tables/t_WeaponEpicFocus.o                   \
     tables/t_WeaponEpicSpecialization.o          \
@@ -92,6 +93,7 @@ OFILES  = \
     tables/t_WeaponOptions.o                     \
     tables/t_WeaponOverwhelmingCritical.o        \
     tables/t_WeaponPowerCritical.o               \
+    tables/t_WeaponRogue.o                       \
     tables/t_WeaponSpecialization.o              \
     tables/t_WeaponSuperiorCritical.o            \
     NWNXWeapons.o                                \
