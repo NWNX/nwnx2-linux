@@ -1,5 +1,35 @@
 /* interface functions for nwnx_funcs plugin */
 
+/* TODO:
+ *   ActionUseItemAtLocation()
+ *   ActionUseItemOnObject()
+ *   BootPCWithMessage()
+ *   DumpObject()
+ *   GetConversation()
+ *   GetEventHandler()
+ *   GetFactionId()
+ *   GetFirstArea()
+ *   GetFirstLocalVariable()
+ *   GetGroundHeight()
+ *   GetIsVariableValid()
+ *   GetIsWalkable()
+ *   GetItemByPosition()
+ *   GetItemCount()
+ *   GetNextArea()
+ *   GetNextLocalVariable()
+ *   GetPCPort()
+ *   IntToObject()
+ *   JumpToLimbo()
+ *   SetEventHandler()
+ *   SetFactionId()
+ *   SetGoldPieceValue()
+ *   SetItemWeight()
+ *   SetMovementRate()
+ *   SetRacialType()
+ *   SetTag()
+ *
+ */
+
 
 const int QUICKBAR_TYPE_ITEM                    = 1;
 const int QUICKBAR_TYPE_SPELL                   = 2;
