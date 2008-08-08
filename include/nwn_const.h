@@ -206,6 +206,13 @@
 #define BASE_ITEM_CEP_FLOWERS                            325    /* BASE_145 */
 #define BASE_ITEM_CEP_CLOAK                              349    /* BASE_15D */
 
+#define CREATURE_SIZE_INVALID                              0
+#define CREATURE_SIZE_TINY                                 1
+#define CREATURE_SIZE_SMALL                                2
+#define CREATURE_SIZE_MEDIUM                               3
+#define CREATURE_SIZE_LARGE                                4
+#define CREATURE_SIZE_HUGE                                 5
+
 #define CLASS_TYPE_BARBARIAN                               0    /* CLASS_00 */
 #define CLASS_TYPE_BARD                                    1    /* CLASS_01 */
 #define CLASS_TYPE_CLERIC                                  2    /* CLASS_02 */
