@@ -4,6 +4,7 @@
 abort=0
 zlib=$(apt-cache pkgnames | grep zlib1g-dev)
 mysql=$(apt-cache pkgnames | grep libmysqlclient-dev)
+
 if [ $zlib != "zlib1g-dev" ]; then
 	abort=1
 fi
@@ -13,27 +14,17 @@ fi
 
 if [ $abort -eq 0 ] || [ $1 -eq "force" ]; then
 	# Configure with all the extra plugins
-	./configure --with-extraplugins="chat events fixes leto odmbc profiler resman structs tmi"
+	./configure
 
 	# Compile
 	make
 
 	# Put the .so files in a directory
+        mkdir -p ./compiled
 	mv ./nwnx2.so ./compiled/
-	mv ./chat/nwnx_chat.so ./compiled/
-	mv ./events/nwnx_events.so ./compiled/
-	mv ./fixes/nwnx_fixes.so ./compiled/
-	mv ./functions/nwnx_functions.so ./compiled/
-	mv ./hashset/nwnx_hashset.so ./compiled/
-	mv ./leto/nwnx_leto.so ./compiled/
-	mv ./mnx/nwnx_mnx.so ./compiled/
-	mv ./odmbc/nwnx_odbc.so ./compiled/
-	mv ./profiler/nwnx_profiler.so ./compiled/
-	mv ./resman/nwnx_resman.so ./compiled/
-	mv ./structs/nwnx_structs.so ./compiled/
-	mv ./tmi/nwnx_tmi.so ./compiled
 	cp ./nwnstartup.sh ./compiled/
 	cp ./nwnx2.ini ./compiled/
+        mv ./plugins/*/*.so ./compiled/
 
 	# Clean up
 	make clean

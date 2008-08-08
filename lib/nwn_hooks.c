@@ -47,6 +47,7 @@ struct {
     NX_NWN_HOOK(CNWSCreatureStats__GetCriticalHitMultiplier,            "55 89 E5 57 56 53 83 EC 0C 83 7D 0C 01 8B 75 08"),
     NX_NWN_HOOK(CNWSCreatureStats__GetCriticalHitRoll,                  "55 89 E5 57 56 53 83 EC 0C 31 FF 83 7D 0C 01 75"),
     NX_NWN_HOOK(CNWSCreatureStats__GetDEXMod,                           "55 89 E5 57 56 53 83 EC 2C 8B 45 0C 48 C7 45 D4 00 00 00 00"),
+    NX_NWN_HOOK(CNWSCreatureStats__GetEffectImmunity,                   "55 89 E5 57 56 53 83 EC 2C 8A 55 0C 88 55 F3 8B 75 08 8B 5E"),
     NX_NWN_HOOK(CNWSCreatureStats__GetEpicWeaponDevastatingCritical,    "55 89 E5 83 EC 08 8B 45 0C 85 C0 8B 55 08 0F 84 **#30 F0 01 00 00"),
     NX_NWN_HOOK(CNWSCreatureStats__GetEpicWeaponFocus,                  "55 89 E5 83 EC 08 8B 45 0C 85 C0 8B 55 08 0F 84 **#30 6C 02 00 00"),
     NX_NWN_HOOK(CNWSCreatureStats__GetEpicWeaponOverwhelmingCritical,   "55 89 E5 83 EC 08 8B 45 0C 85 C0 8B 55 08 0F 84 **#30 C6 02 00 00"),
