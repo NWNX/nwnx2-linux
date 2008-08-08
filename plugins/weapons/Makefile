@@ -136,7 +136,7 @@ depend:
 	$(CC) -MM $(CFLAGS) *.c > .depend
 
 clean:
-	$(RM) -f *.o *.so funcs/*.o hooks/*.o tables/*.o
+	$(RM) -f *.o */*.o *.so
 
 distclean: clean
 	$(RM) -f .depend WeaponsStrCmds.h WeaponsObjCmds.h

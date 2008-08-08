@@ -27,7 +27,7 @@ int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *t
     int ab = 0;
 
     if ((attacker->cs_age & 0x80000000) &&
-        (ab = NWNX_EXALT_GET_AB(attacker->cs_age)) > 0 && ab < 130)
+        (ab = (attacker->cs_age >> 16) & 0xFF) > 0 && ab < 130)
         ab_abil = ab;
 
     if (weapon != NULL) {
@@ -55,7 +55,7 @@ int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *t
         if (rogue >= 25                                                        &&
             attacker->cs_ac_armour_base <= 3                                   &&
             CNWSCreatureStats__HasFeat(attacker, FEAT_OPPORTUNIST)             &&
-            (ExaltReplace_GetIsWeaponLight(attacker, weapon, 0)                ||
+            (GetIsWeaponLight(attacker, weapon, 0)                             ||
              (weapon != NULL && weapon->it_baseitem == BASE_ITEM_MORNINGSTAR))) {
             int max = (rogue - 20) / 5;
             int intbonus = (attacker->cs_int - 10) / 2;
@@ -70,7 +70,7 @@ int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *t
         }
 
 
-        if (!ExaltReplace_GetIsUnarmedWeapon(weapon))
+        if (!GetIsUnarmedWeapon(weapon))
             ab_feats += CNWSCreatureStats__GetSkillRank(attacker, SKILL_CRAFT_WEAPON, NULL, 0) / 40;
     }
 
