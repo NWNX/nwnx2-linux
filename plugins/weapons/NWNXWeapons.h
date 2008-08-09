@@ -98,11 +98,13 @@ nwn_objid_t Func_IntToObject (CGameObject *ob);
 void Hook_GetABAbilityModifier (void);
 void Hook_GetCriticalMultiplier (void);
 void Hook_GetCriticalRange (void);
-void Hook_SneakAttackImmunity (void);
+
 int Hook_GetEpicWeaponDevastatingCritical (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponOverwhelmingCritical (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponSpecialization (CNWSCreatureStats *info, CNWSItem *weapon);
+int Hook_GetIsDeathAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker);
+int Hook_GetIsSneakAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker);
 int Hook_GetIsWeaponOfChoice (CNWSCreatureStats *info, int baseitem);
 int Hook_GetUseMonkAttackTables (CNWSCreatureStats *info, int unarmedonly);
 int Hook_GetWeaponFinesse (CNWSCreatureStats *info, CNWSItem *weapon);
