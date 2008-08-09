@@ -78,7 +78,7 @@ static void WeaponsSearchSignatures (void) {
 //////////////////////////////////////////////////////////////////////
 
 CNWNXWeapons::CNWNXWeapons() {
-    confKey = "FUNCS";
+    confKey = "WEAPONS";
 }
 
 
@@ -258,9 +258,6 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
         } else
             nx_log(NX_LOG_INFO, 0, "did not find AB ability modifier jump reference before %p", p);
     }
-
-
-
 
     return true;
 }
