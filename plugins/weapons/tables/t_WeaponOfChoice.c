@@ -20,7 +20,7 @@
 
 #include "NWNXWeapons.h"
 
-uint16_t Table_WeaponChoice[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE] = {
+uint16_t Table_WeaponOfChoice[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE] = {
     [BASE_ITEM_BASTARDSWORD]            = FEAT_WEAPON_OF_CHOICE_BASTARDSWORD,
     [BASE_ITEM_BATTLEAXE]               = FEAT_WEAPON_OF_CHOICE_BATTLEAXE,
     [BASE_ITEM_BRACER]                  = 0,
