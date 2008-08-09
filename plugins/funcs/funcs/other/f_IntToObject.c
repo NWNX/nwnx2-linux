@@ -21,7 +21,7 @@
 #include "NWNXFuncs.h"
 
 
-nwn_objid_t Func_IntToObject (CGameObject *ob, char *value) {
+nwn_objid_t Func_IntToObject (CGameObject *ob) {
     return OBJECT_INVALID;
 }
 
