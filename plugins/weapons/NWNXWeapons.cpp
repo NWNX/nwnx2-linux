@@ -230,16 +230,15 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
 
     /* AB ability modifier hook */
     if (Ref_ABAbilityModifier != NULL) {
-#if 0
         int found = 0;
         unsigned char *p = Ref_ABAbilityModifier;
         unsigned char *end = p + 0x200;
+        extern volatile uintptr_t Hook_ABAM_Return;
 
         while (p++ < end) {
             if (*p == 0x74) {
                 found++;
-                nx_hook_function(p, (void *)ExaltHook_ABAbilityModifier,
-                    NX_HOOK_DIRECT, 5);
+                nx_hook_function(p, (void *)Hook_GetABAbilityModifier, NX_HOOK_DIRECT, 5);
 
                 break;
             } 
@@ -255,10 +254,9 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
         if (found == 2) {
             nx_log(NX_LOG_INFO, 0, "found AB ability modifier jump reference at %p", p);
 
-            ExaltHook_ABAM_Return = (uintptr_t)p;
+            Hook_ABAM_Return = (uintptr_t)p;
         } else
             nx_log(NX_LOG_INFO, 0, "did not find AB ability modifier jump reference before %p", p);
-#endif
     }
 
 
