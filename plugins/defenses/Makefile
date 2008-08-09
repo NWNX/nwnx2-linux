@@ -1,0 +1,80 @@
+#
+#    Copyright (C) 2007 Doug Swarin (zac@intertex.net)
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#    
+#    $Id$
+#    $Source$
+#
+
+CC	 = gcc
+CXX      = gcc
+GPERF    = gperf
+RM	 = /bin/rm
+MV	 = /bin/mv
+CP	 = /bin/cp
+SED      = /bin/sed
+INSTALL	 = /usr/bin/install -c
+
+INCS	 = -I. -I.. -I../.. -I ../../include -I/usr/local/include
+LIBS	 = -L/usr/local/lib -lm -lz
+DEFS	 = -D_REENTRANT -D_THREAD_SAFE
+OPTS	 = -O -pipe -march=i386
+DEBUGS 	 = -g -Wall -Werror
+CPPFLAGS = $(DEBUGS) $(OPTS) $(DEFS) $(INCS)
+LFLAGS   = $(DEBUGS) $(OPTS) -w -fPIC -shared -rdynamic
+
+OFILES  = \
+    funcs/f_GetDefenseOption.o                   \
+    funcs/f_IntToObject.o      			 \
+    funcs/f_SetDefenseOption.o                   \
+    tables/t_DefenseOptions.o                    \
+    NWNXDefenses.o                               \
+    plugin-defenses.o
+
+all: nwnx_defenses.so
+
+
+DefensesStrCmds.h: DefensesStrCmds.gperf
+	$(GPERF) -L ANSI-C -tCG -m 10 -K name -H DefensesStrCommandHash \
+	  -N DefensesStrCommandLookup -W DefensesStrCommandList \
+	  "DefensesStrCmds.gperf" --output-file="gperf.out"
+	$(SED) -i 's/\<\(\(MIN\|MAX\)_\(WORD_LENGTH\|HASH_VALUE\)\|TOTAL_KEYWORDS\)\>/NWNX_DEFENSES_STRCMD_\1/g' \
+	  "gperf.out" || rm -f "gperf.out"
+	$(SED) -i 's/^const struct/static const struct/' "gperf.out" || rm -f "gperf.out"
+	$(MV) "gperf.out" "DefensesStrCmds.h"
+
+DefensesObjCmds.h: DefensesObjCmds.gperf
+	$(GPERF) -L ANSI-C -tCG -m 10 -K name -H DefensesObjCommandHash \
+	  -N DefensesObjCommandLookup -W DefensesObjCommandList \
+	  "DefensesObjCmds.gperf" --output-file="gperf.out"
+	$(SED) -i 's/\<\(\(MIN\|MAX\)_\(WORD_LENGTH\|HASH_VALUE\)\|TOTAL_KEYWORDS\)\>/NWNX_DEFENSES_OBJCMD_\1/g' \
+	  "gperf.out" || rm -f "gperf.out"
+	$(SED) -i 's/^const struct/static const struct/' "gperf.out" || rm -f "gperf.out"
+	$(MV) "gperf.out" "DefensesObjCmds.h"
+
+NWNXDefenses.o: DefensesStrCmds.h DefensesObjCmds.h NWNXDefenses.h
+
+nwnx_defenses.so: $(OFILES)
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
+
+depend:
+	$(CC) -MM $(CFLAGS) *.c > .depend
+
+clean:
+	$(RM) -f *.o */*.o *.so
+
+distclean: clean
+	$(RM) -f .depend DefensesStrCmds.h DefensesObjCmds.h
