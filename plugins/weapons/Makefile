@@ -53,6 +53,7 @@ OFILES  = \
     funcs/f_GetWeaponPowerCriticalFeat.o         \
     funcs/f_GetWeaponSpecializationFeat.o        \
     funcs/f_GetWeaponSuperiorCriticalFeat.o      \
+    funcs/f_IntToObject.o      			 \
     funcs/f_SetWeaponDevastatingCriticalFeat.o   \
     funcs/f_SetWeaponEpicFocusFeat.o             \
     funcs/f_SetWeaponEpicSpecializationFeat.o    \
