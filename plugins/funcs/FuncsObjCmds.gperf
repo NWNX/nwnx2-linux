@@ -33,6 +33,9 @@ struct FuncsObjCommand_s {
 };
 
 %%
+GETFIRSTAREA,                           Func_GetFirstArea
+GETITEMBYPOSITION,                      Func_GetItemByPosition
+GETNEXTAREA,                            Func_GetNextArea
 INTTOOBJECT,                            Func_IntToObject
 %%
 

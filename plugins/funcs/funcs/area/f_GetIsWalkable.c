@@ -22,7 +22,33 @@
 
 
 void Func_GetIsWalkable (CGameObject *ob, char *value) {
-    /* TODO */
+    Vector vec;
+    CNWSArea *area;
+    CPathfindInformation *pfi;
+    nwn_objid_t areaid;
+
+    if (sscanf(value, "%x¬%f¬%f¬%f", &areaid, &(vec.x), &(vec.y), &(vec.z)) != 4) {
+        snprintf(value, strlen(value), "-1");
+        return;
+    }
+
+
+    area = CServerExoAppInternal__GetAreaByGameObjectID((*NWN_AppManager)->app_server->srv_internal, areaid);
+    if (area == NULL) {
+        snprintf(value, strlen(value), "-1");
+        return;
+    }
+
+
+    /* TODO: update CNWSArea to properly have the pathfind information in there */
+    pfi = *(CPathfindInformation **)((char*)area+0x198);
+    if (pfi == NULL) {
+        snprintf(value, strlen(value), "-1");
+        return;
+    }
+
+
+    snprintf(value, strlen(value), "%d", CNWSArea__TestSafeLocationPoint(area, vec, pfi));
 }
 
 

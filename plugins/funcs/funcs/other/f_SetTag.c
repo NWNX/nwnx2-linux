@@ -22,7 +22,13 @@
 
 
 void Func_SetTag (CGameObject *ob, char *value) {
-    /* TODO */
+    /* warning: leaks memory, but allows setting a longer tag than the original, plus
+     * there appear to be some cases where rewriting the tag causes corruption
+     */
+    if (ob != NULL)
+        ob->tag = strdup(value);
+    else
+        *value = 0;
 }
 
 

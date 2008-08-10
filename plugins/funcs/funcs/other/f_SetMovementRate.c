@@ -22,7 +22,19 @@
 
 
 void Func_SetMovementRate (CGameObject *ob, char *value) {
-    /* TODO */
+    int rate;
+    CNWSCreature *cre;
+
+    if (ob == NULL                                    ||
+        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+        cre->cre_stats == NULL                        ||
+        ((rate = atoi(value)) < 0) || rate > 255) {
+
+        snprintf(value, strlen(value), "-1");
+        return;
+    }
+
+    CNWSCreatureStats__SetMovementRate(cre->cre_stats, rate);
 }
 
 

@@ -21,8 +21,14 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetItemByPosition (CGameObject *ob, char *value) {
+void Func_GetItemByPositionRequest (CGameObject *ob, char *value) {
     /* TODO */
+}
+
+
+nwn_objid_t Func_GetItemByPosition (CGameObject *ob) {
+    /* TODO */
+    return OBJECT_INVALID;
 }
 
 

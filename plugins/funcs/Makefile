@@ -41,13 +41,23 @@ OFILES  = \
     funcs/ability/f_GetAbilityIncreaseByLevel.o  \
     funcs/ability/f_ModifyAbilityScore.o         \
     funcs/ability/f_SetAbilityScore.o            \
+    funcs/action/f_ActionUseItem.o               \
+    funcs/area/f_GetFirstNextArea.o              \
+    funcs/area/f_GetGroundHeight.o               \
+    funcs/area/f_GetIsWalkable.o                 \
     funcs/class/f_GetClassByLevel.o              \
     funcs/class/f_GetClericDomain.o              \
     funcs/class/f_GetWizardSpecialization.o      \
     funcs/class/f_SetClericDomain.o              \
     funcs/class/f_SetWizardSpecialization.o      \
+    funcs/conv/f_GetConversation.o               \
+    funcs/conv/f_SetConversation.o               \
     funcs/crit/f_GetCriticalHitMultiplier.o      \
     funcs/crit/f_GetCriticalHitRange.o           \
+    funcs/event/f_GetEventHandler.o              \
+    funcs/event/f_SetEventHandler.o              \
+    funcs/faction/f_GetFactionId.o               \
+    funcs/faction/f_SetFactionId.o               \
     funcs/feat/f_AddKnownFeat.o                  \
     funcs/feat/f_AddKnownFeatAtLevel.o           \
     funcs/feat/f_GetAllRemainingFeatUses.o       \
@@ -66,19 +76,30 @@ OFILES  = \
     funcs/hp/f_ModifyCurrentHitPoints.o          \
     funcs/hp/f_SetCurrentHitPoints.o             \
     funcs/hp/f_SetMaxHitPointsByLevel.o          \
+    funcs/item/f_GetItemByPosition.o             \
+    funcs/item/f_GetItemCount.o                  \
+    funcs/item/f_SetGoldPieceValue.o             \
+    funcs/item/f_SetItemWeight.o                 \
+    funcs/net/f_BootPCWithMessage.o              \
+    funcs/net/f_GetPCPort.o                      \
+    funcs/other/f_DumpObject.o                   \
     funcs/other/f_GetACNaturalBase.o             \
     funcs/other/f_GetDamageImmunity.o            \
     funcs/other/f_GetPCBodyBag.o                 \
     funcs/other/f_GetPortrait.o                  \
     funcs/other/f_GetSoundset.o                  \
     funcs/other/f_IntToObject.o                  \
+    funcs/other/f_JumpToLimbo.o                  \
     funcs/other/f_SetACNaturalBase.o             \
     funcs/other/f_SetAlignmentValue.o            \
     funcs/other/f_SetCreatureSize.o              \
+    funcs/other/f_SetMovementRate.o              \
     funcs/other/f_SetPCBodyBag.o                 \
     funcs/other/f_SetPCLootable.o                \
     funcs/other/f_SetPortrait.o                  \
+    funcs/other/f_SetRacialType.o                \
     funcs/other/f_SetSoundset.o                  \
+    funcs/other/f_SetTag.o                       \
     funcs/other/f_SetTrapCreator.o               \
     funcs/quickbar/f_GetQuickBarSlot.o           \
     funcs/quickbar/f_SetQuickBarSlot.o           \
@@ -109,6 +130,7 @@ OFILES  = \
     funcs/spell/f_SetKnownSpell.o                \
     funcs/spell/f_SetMemorizedSpell.o            \
     funcs/spell/f_SetRemainingSpellSlots.o       \
+    funcs/var/f_GetFirstNextLocalVariable.o      \
     NWNXFuncs.o                                  \
     plugin-funcs.o
 

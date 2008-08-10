@@ -23,7 +23,7 @@
 
 void Func_SetWizardSpecialization (CGameObject *ob, char *value) {
     int i, spec;
-    const CNWSCreature *cre;
+    CNWSCreature *cre;
 
     if (ob == NULL                                    ||
         (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||

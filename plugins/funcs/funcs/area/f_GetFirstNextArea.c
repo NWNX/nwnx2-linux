@@ -21,8 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetFirstArea (CGameObject *ob, char *value) {
+nwn_objid_t Func_GetFirstArea (CGameObject *ob) {
     /* TODO */
+    return OBJECT_INVALID;
+}
+
+
+nwn_objid_t Func_GetNextArea (CGameObject *ob) {
+    /* TODO */
+    return OBJECT_INVALID;
 }
 
 

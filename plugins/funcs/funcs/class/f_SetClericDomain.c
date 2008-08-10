@@ -23,7 +23,7 @@
 
 void Func_SetClericDomain (CGameObject *ob, char *value) {
     int i, dom_idx, dom_val;
-    const CNWSCreature *cre;
+    CNWSCreature *cre;
 
     if (ob == NULL                                      ||
         (cre = ob->vtable->AsNWSCreature(ob)) == NULL   ||
