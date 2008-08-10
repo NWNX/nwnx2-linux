@@ -33,14 +33,14 @@ extern "C" {
 #line 30 "FuncsObjCmds.gperf"
 struct FuncsObjCommand_s {
     const char          *name;
-    unsigned long       (*func)(CGameObject *);
+    nwn_objid_t        (*func)(CGameObject *);
 };
 
 #define NWNX_FUNCS_OBJCMD_TOTAL_KEYWORDS 1
-#define NWNX_FUNCS_OBJCMD_MIN_WORD_LENGTH 56
-#define NWNX_FUNCS_OBJCMD_MAX_WORD_LENGTH 56
-#define NWNX_FUNCS_OBJCMD_MIN_HASH_VALUE 56
-#define NWNX_FUNCS_OBJCMD_MAX_HASH_VALUE 56
+#define NWNX_FUNCS_OBJCMD_MIN_WORD_LENGTH 11
+#define NWNX_FUNCS_OBJCMD_MAX_WORD_LENGTH 11
+#define NWNX_FUNCS_OBJCMD_MIN_HASH_VALUE 11
+#define NWNX_FUNCS_OBJCMD_MAX_HASH_VALUE 11
 /* maximum key range = 1, duplicates = 0 */
 
 #ifdef __GNUC__
@@ -60,14 +60,9 @@ FuncsObjCommandHash (register const char *str, register unsigned int len)
 static const struct FuncsObjCommand_s FuncsObjCommandList[] =
   {
     {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
     {""}, {""},
 #line 36 "FuncsObjCmds.gperf"
-    {"INTTOOBJECT                             Func_IntToObject"}
+    {"INTTOOBJECT",                            Func_IntToObject}
   };
 
 #ifdef __GNUC__
