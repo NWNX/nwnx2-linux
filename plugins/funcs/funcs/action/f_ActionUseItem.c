@@ -29,14 +29,11 @@ void Func_ActionUseItem (CGameObject *ob, char *value) {
 
     if (ob == NULL                                    ||
         (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        sscanf(value, "%x¬%x¬%f¬%f¬%f¬%d", &item, &target, &(vec.x), &(vec.y), &(vec.z), &prop) != 6) {
+        sscanf(value, "%x¬%x¬%x¬%f¬%f¬%f¬%d", &item, &target, &area, &(vec.x), &(vec.y), &(vec.z), &prop) != 7) {
 
         snprintf(value, strlen(value), "-1");
         return;
     }
-
-    /* TODO: set area */
-    area = OBJECT_INVALID;
 
     CNWSCreature__UseItem(cre, item, prop, 0, target, vec, area);
 }

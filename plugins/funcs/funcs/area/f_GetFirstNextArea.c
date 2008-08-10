@@ -21,15 +21,28 @@
 #include "NWNXFuncs.h"
 
 
+static int Area_Current = 0;
+static CNWSModule *Area_Module = NULL;
+
+
 nwn_objid_t Func_GetFirstArea (CGameObject *ob) {
-    /* TODO */
-    return OBJECT_INVALID;
+    if (Area_Module == NULL) {
+        CNWSModule *Area_Module = CServerExoAppInternal__GetModule((*NWN_AppManager)->app_server->srv_internal);
+
+        if (Area_Module == NULL)
+            return OBJECT_INVALID;
+    }
+
+    Area_Current = 0;
+    return Func_GetNextArea(ob);
 }
 
 
 nwn_objid_t Func_GetNextArea (CGameObject *ob) {
-    /* TODO */
-    return OBJECT_INVALID;
+    if (Area_Current >= Area_Module->mod_areas.len)
+        return OBJECT_INVALID;
+
+    return Area_Module->mod_areas.data[Area_Current++];
 }
 
 

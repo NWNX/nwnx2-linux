@@ -25,7 +25,24 @@
 #define _NX_NWN_STRUCT_CNWSMODULE_
 
 struct CNWSModule_s {
-    void               *unknown;
+    uint32_t                    field_00;
+    uint32_t                    field_04;
+    uint32_t                    field_08;
+    uint32_t                    field_0c;
+    uint32_t                    field_10;
+    uint32_t                    field_14;
+    uint32_t                    field_18;
+    uint32_t                    field_1c;
+    uint32_t                    field_20;
+    uint32_t                    field_24;
+    uint32_t                    field_28;
+    uint32_t                    field_2c;
+    uint32_t                    field_30;
+    uint32_t                    field_34;
+
+    CExoArrayList_uint32        mod_areas;
+
+    void                       *unknown;
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSMODULE_ */
