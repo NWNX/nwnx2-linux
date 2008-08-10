@@ -22,6 +22,7 @@
 
 
 void Func_DumpObject (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

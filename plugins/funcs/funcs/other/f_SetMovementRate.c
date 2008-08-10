@@ -22,6 +22,7 @@
 
 
 void Func_SetMovementRate (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

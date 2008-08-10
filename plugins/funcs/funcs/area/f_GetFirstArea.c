@@ -22,6 +22,7 @@
 
 
 void Func_GetFirstArea (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

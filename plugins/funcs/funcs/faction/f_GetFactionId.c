@@ -22,6 +22,7 @@
 
 
 void Func_GetFactionId (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

@@ -22,6 +22,7 @@
 
 
 void Func_SetTag (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

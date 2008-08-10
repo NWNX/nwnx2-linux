@@ -22,6 +22,7 @@
 
 
 void Func_GetGroundHeight (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

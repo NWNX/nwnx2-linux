@@ -22,6 +22,7 @@
 
 
 void Func_SetRacialType (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

@@ -22,6 +22,7 @@
 
 
 void Func_GetConversation (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

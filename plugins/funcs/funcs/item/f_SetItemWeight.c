@@ -22,6 +22,7 @@
 
 
 void Func_SetItemWeight (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

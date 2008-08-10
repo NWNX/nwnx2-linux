@@ -22,6 +22,7 @@
 
 
 void Func_GetPCPort (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

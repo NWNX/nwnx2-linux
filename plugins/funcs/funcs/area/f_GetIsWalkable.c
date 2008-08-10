@@ -22,6 +22,7 @@
 
 
 void Func_GetIsWalkable (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

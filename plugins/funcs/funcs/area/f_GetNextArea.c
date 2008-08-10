@@ -22,6 +22,7 @@
 
 
 void Func_GetNextArea (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

@@ -22,6 +22,7 @@
 
 
 void Func_BootPCWithMessage (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

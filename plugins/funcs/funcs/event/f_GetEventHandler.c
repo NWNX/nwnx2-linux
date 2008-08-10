@@ -22,6 +22,7 @@
 
 
 void Func_GetEventHandler (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

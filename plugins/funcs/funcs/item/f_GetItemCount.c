@@ -22,6 +22,7 @@
 
 
 void Func_GetItemCount (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

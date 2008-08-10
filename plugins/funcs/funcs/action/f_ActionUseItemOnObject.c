@@ -22,6 +22,7 @@
 
 
 void Func_ActionUseItemOnObject (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

@@ -22,6 +22,7 @@
 
 
 void Func_SetConversation (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

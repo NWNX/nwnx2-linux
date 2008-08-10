@@ -22,6 +22,7 @@
 
 
 void Func_GetItemByPosition (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

@@ -22,6 +22,7 @@
 
 
 void Func_GetFirstLocalVariable (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

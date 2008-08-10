@@ -22,6 +22,7 @@
 
 
 void Func_ActionUseItemAtLocation (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 

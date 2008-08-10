@@ -22,6 +22,7 @@
 
 
 void Func_SetGoldPieceValue (CGameObject *ob, char *value) {
+    /* TODO */
 }
 
 
