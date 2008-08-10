@@ -17,39 +17,46 @@
  */
 
 /* Disable Devastating Critical insta-kill for all beings or for PCs only. */
-const int NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_ALL     =  0; 
-const int NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_PC      =  1; 
+const int NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_ALL       =  0; 
+const int NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_PC        =  1; 
 
 /* For each of the four critical feat sets (Devastating Critical, Overwhelming
  * Critical, Power Critical, and Superior Critical), set their bonus to
  * critical confirmation rolls, critical multiplier, and critical range.
  */
-const int NWNX_WEAPONS_OPT_DEVCRIT_CONF_BONUS      =  2; 
-const int NWNX_WEAPONS_OPT_DEVCRIT_MULT_BONUS      =  3; 
-const int NWNX_WEAPONS_OPT_DEVCRIT_MULT_STACK      =  4; 
-const int NWNX_WEAPONS_OPT_DEVCRIT_RANGE_BONUS     =  5; 
-const int NWNX_WEAPONS_OPT_DEVCRIT_RANGE_STACK     =  6; 
-const int NWNX_WEAPONS_OPT_OVERCRIT_CONF_BONUS     =  7; 
-const int NWNX_WEAPONS_OPT_OVERCRIT_MULT_BONUS     =  8; 
-const int NWNX_WEAPONS_OPT_OVERCRIT_MULT_STACK     =  9;
-const int NWNX_WEAPONS_OPT_OVERCRIT_RANGE_BONUS    = 10;
-const int NWNX_WEAPONS_OPT_OVERCRIT_RANGE_STACK    = 11;
-const int NWNX_WEAPONS_OPT_POWCRIT_CONF_BONUS      = 12;
-const int NWNX_WEAPONS_OPT_POWCRIT_MULT_BONUS      = 13;
-const int NWNX_WEAPONS_OPT_POWCRIT_MULT_STACK      = 14;
-const int NWNX_WEAPONS_OPT_POWCRIT_RANGE_BONUS     = 15;
-const int NWNX_WEAPONS_OPT_POWCRIT_RANGE_STACK     = 16;
-const int NWNX_WEAPONS_OPT_SUPCRIT_CONF_BONUS      = 17;
-const int NWNX_WEAPONS_OPT_SUPCRIT_MULT_BONUS      = 18;
-const int NWNX_WEAPONS_OPT_SUPCRIT_MULT_STACK      = 19;
-const int NWNX_WEAPONS_OPT_SUPCRIT_RANGE_BONUS     = 20;
-const int NWNX_WEAPONS_OPT_SUPCRIT_RANGE_STACK     = 21;
+const int NWNX_WEAPONS_OPT_DEVCRIT_CONF_BONUS        =  2; 
+const int NWNX_WEAPONS_OPT_DEVCRIT_MULT_BONUS        =  3; 
+const int NWNX_WEAPONS_OPT_DEVCRIT_MULT_STACK        =  4; 
+const int NWNX_WEAPONS_OPT_DEVCRIT_RANGE_BONUS       =  5; 
+const int NWNX_WEAPONS_OPT_DEVCRIT_RANGE_STACK       =  6; 
+const int NWNX_WEAPONS_OPT_OVERCRIT_CONF_BONUS       =  7; 
+const int NWNX_WEAPONS_OPT_OVERCRIT_MULT_BONUS       =  8; 
+const int NWNX_WEAPONS_OPT_OVERCRIT_MULT_STACK       =  9;
+const int NWNX_WEAPONS_OPT_OVERCRIT_RANGE_BONUS      = 10;
+const int NWNX_WEAPONS_OPT_OVERCRIT_RANGE_STACK      = 11;
+const int NWNX_WEAPONS_OPT_POWCRIT_CONF_BONUS        = 12;
+const int NWNX_WEAPONS_OPT_POWCRIT_MULT_BONUS        = 13;
+const int NWNX_WEAPONS_OPT_POWCRIT_MULT_STACK        = 14;
+const int NWNX_WEAPONS_OPT_POWCRIT_RANGE_BONUS       = 15;
+const int NWNX_WEAPONS_OPT_POWCRIT_RANGE_STACK       = 16;
+const int NWNX_WEAPONS_OPT_SUPCRIT_CONF_BONUS        = 17;
+const int NWNX_WEAPONS_OPT_SUPCRIT_MULT_BONUS        = 18;
+const int NWNX_WEAPONS_OPT_SUPCRIT_MULT_STACK        = 19;
+const int NWNX_WEAPONS_OPT_SUPCRIT_RANGE_BONUS       = 20;
+const int NWNX_WEAPONS_OPT_SUPCRIT_RANGE_STACK       = 21;
 
 /* Set the AB bonus for having Greater Weapon Focus or Legendary Weapon Focus
- * in a weapon.
+ * in a weapon. Also set the AB bonus for having LWF and Epic Prowess.
  */
-const int NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS       = 22;
-const int NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS       = 23;
+const int NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS         = 22;
+const int NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS         = 23;
+const int NWNX_WEAPONS_OPT_LEGFOCUS_AB_EPBONUS       = 24;
+
+/* Set whether or not Death Attack and Sneak Attack should ignore immunity to
+ * critical hits.
+ */
+const int NWNX_WEAPONS_OPT_DEATHATT_IGNORE_CRIT_IMM  = 25;
+const int NWNX_WEAPONS_OPT_SNEAKATT_IGNORE_CRIT_IMM  = 26;
 
 
 /* Get and set NWNX_WEAPONS_OPT_* options. */
@@ -114,7 +121,7 @@ int GetWeaponOption (int nOption) {
 }
 
 int SetWeaponOption (int nOption, int nValue) {
-    return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONOPTION", nOption, nValue); 
+    return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONOPTION", nOption, nValue); 
 }
 
 
@@ -123,7 +130,7 @@ int GetWeaponIsMonkWeapon (int nBaseItem) {
 }
 
 int SetWeaponIsMonkWeapon (int nBaseItem, int nMonkLevelsRequired) {
-    return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONISMONKWEAPON", nBaseItem, nMonkLevelsRequired); 
+    return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONISMONKWEAPON", nBaseItem, nMonkLevelsRequired); 
 }
 
 
