@@ -42,7 +42,7 @@ GETWEAPONIMPROVEDCRITICALFEAT,          Func_GetWeaponImprovedCriticalFeat
 GETWEAPONISMONKWEAPON,                  Func_GetWeaponIsMonkWeapon            
 GETWEAPONLEGENDARYFOCUSFEAT,            Func_GetWeaponLegendaryFocusFeat      
 GETWEAPONOFCHOICEFEAT,                  Func_GetWeaponOfChoiceFeat            
-GETWEAPONOPTION                         Func_GetWeaponOption
+GETWEAPONOPTION,                        Func_GetWeaponOption
 GETWEAPONOVERWHELMINGCRITICALFEAT,      Func_GetWeaponOverwhelmingCriticalFeat
 GETWEAPONPOWERCRITICALFEAT,             Func_GetWeaponPowerCriticalFeat       
 GETWEAPONSPECIALIZATIONFEAT,            Func_GetWeaponSpecializationFeat      
@@ -56,7 +56,7 @@ SETWEAPONIMPROVEDCRITICALFEAT,          Func_SetWeaponImprovedCriticalFeat
 SETWEAPONISMONKWEAPON,                  Func_SetWeaponIsMonkWeapon            
 SETWEAPONLEGENDARYFOCUSFEAT,            Func_SetWeaponLegendaryFocusFeat      
 SETWEAPONOFCHOICEFEAT,                  Func_SetWeaponOfChoiceFeat            
-SETWEAPONOPTION                         Func_SetWeaponOption
+SETWEAPONOPTION,                        Func_SetWeaponOption
 SETWEAPONOVERWHELMINGCRITICALFEAT,      Func_SetWeaponOverwhelmingCriticalFeat
 SETWEAPONPOWERCRITICALFEAT,             Func_SetWeaponPowerCriticalFeat       
 SETWEAPONSPECIALIZATIONFEAT,            Func_SetWeaponSpecializationFeat      
