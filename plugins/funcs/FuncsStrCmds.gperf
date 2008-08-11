@@ -89,8 +89,10 @@ MODIFYABILITYSCORE,                    Func_ModifyAbilityScore
 MODIFYCURRENTHITPOINTS,                Func_ModifyCurrentHitPoints
 MODIFYSKILLRANK,                       Func_ModifySkillRank
 REMOVEKNOWNFEAT,                       Func_RemoveKnownFeat
+REMOVEKNOWNFEATBYLEVEL,                Func_RemoveKnownFeatByLevel
 REMOVEKNOWNSPELL,                      Func_RemoveKnownSpell
 REMOVESPECIALABILITY,                  Func_RemoveSpecialAbility
+REPLACEKNOWNFEAT,                      Func_ReplaceKnownFeat
 REPLACEKNOWNSPELL,                     Func_ReplaceKnownSpell
 RESTOREREADYFEATS,                     Func_RestoreReadyFeats
 RESTOREREADYSPELLS,                    Func_RestoreReadySpells

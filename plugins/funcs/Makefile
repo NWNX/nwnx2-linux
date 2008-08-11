@@ -69,6 +69,8 @@ OFILES  = \
     funcs/feat/f_GetTotalKnownFeats.o            \
     funcs/feat/f_GetTotalKnownFeatsByLevel.o     \
     funcs/feat/f_RemoveKnownFeat.o               \
+    funcs/feat/f_RemoveKnownFeatByLevel.o        \
+    funcs/feat/f_ReplaceKnownFeat.o              \
     funcs/feat/f_RestoreReadyFeats.o             \
     funcs/feat/f_SetKnownFeat.o                  \
     funcs/feat/f_SetKnownFeatByLevel.o           \
