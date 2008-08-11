@@ -30,11 +30,11 @@ void Func_GetAbilityIncreaseByLevel (CGameObject *ob, char *value) {
         cre->cre_stats == NULL                        ||
         (ls = nwn_GetLevelStats(cre->cre_stats, atoi(value))) == NULL) {
 
-        snprintf(value, sizeof(value), "-1");
+        snprintf(value, strlen(value), "-1");
         return;
     }
 
-    snprintf(value, sizeof(value), "%d", ls->ls_ability);
+    snprintf(value, strlen(value), "%d", ls->ls_ability);
 }
 
 

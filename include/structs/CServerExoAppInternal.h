@@ -68,7 +68,8 @@ struct CServerExoAppInternal_s {
     CWorldTimer                *srv_time_timestop;      /* 1006C */
     CWorldTimer                *srv_time_pause;         /* 10070 */
 
-    u_int32_t                   field_10074;            /* 10074 */
+    CFactionManager            *srv_factions;           /* 10074 */
+
     u_int32_t                   field_10078;            /* 10078 */
     u_int32_t                   field_1007C;            /* 1007C */
 

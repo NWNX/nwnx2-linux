@@ -22,7 +22,14 @@
 
 
 void Func_BootPCWithMessage (CGameObject *ob, char *value) {
-    /* TODO */
+    CNWSPlayer *pl;
+
+    pl = CServerExoApp__GetClientObjectByObjectId((*NWN_AppManager)->app_server, ob->id);
+    if (pl != NULL) {
+        CNetLayer__DisconnectPlayer(
+            (*NWN_AppManager)->app_server->srv_internal->srv_network,
+            pl->pl_id, atoi(value), 1);
+    }
 }
 
 

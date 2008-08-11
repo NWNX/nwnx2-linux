@@ -25,6 +25,14 @@
 #define _NX_NWN_STRUCT_CITEMREPOSITORY_
 
 struct CItemRepository_s {
+    uint32_t            field_00;
+    uint32_t            field_04;
+    uint32_t            field_08;
+
+    nwn_objid_t         ir_object;
+
+    CExoLinkedList      ir_list;
+
     void               *unknown;
 };
 

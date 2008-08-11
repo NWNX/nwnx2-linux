@@ -25,6 +25,7 @@
 #define _NX_NWN_STRUCT_CNWSPLAYER_
 
 struct CNWSPlayer_s {
+    uint32_t            pl_id;
     void               *unknown;
 };
 

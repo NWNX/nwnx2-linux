@@ -33,11 +33,11 @@ void Func_GetSkillIncreaseByLevel (CGameObject *ob, char *value) {
         skill < 0 || skill > SKILL_LAST               ||
         (ls = nwn_GetLevelStats(cre->cre_stats, level)) == NULL) {
 
-        snprintf(value, sizeof(value), "-1");
+        snprintf(value, strlen(value), "-1");
         return;
     }
 
-    snprintf(value, sizeof(value), "%d", ls->ls_skilllist[skill]);
+    snprintf(value, strlen(value), "%d", ls->ls_skilllist[skill]);
 }
 
 

@@ -48,6 +48,20 @@
 #define QUICKBAR_TYPE_MODE                                10
 #define QUICKBAR_TYPE_MACRO                               18
 
+#define CREATURE_EVENT_HEARTBEAT                           0
+#define CREATURE_EVENT_PERCEPTION                          1
+#define CREATURE_EVENT_SPELLCAST                           2
+#define CREATURE_EVENT_ATTACKED                            3
+#define CREATURE_EVENT_DAMAGED                             4
+#define CREATURE_EVENT_DISTURBED                           5
+#define CREATURE_EVENT_ENDCOMBAT                           6
+#define CREATURE_EVENT_CONVERSATION                        7
+#define CREATURE_EVENT_SPAWN                               8
+#define CREATURE_EVENT_RESTED                              9
+#define CREATURE_EVENT_DEATH                              10
+#define CREATURE_EVENT_USERDEF                            11
+#define CREATURE_EVENT_BLOCKED                            12
+
 #define EQUIPMENT_SLOT_HEAD                        (1 <<  0)    /* ESLOT_0001 */
 #define EQUIPMENT_SLOT_CHEST                       (1 <<  1)    /* ESLOT_0002 */
 #define EQUIPMENT_SLOT_BOOTS                       (1 <<  2)    /* ESLOT_0004 */

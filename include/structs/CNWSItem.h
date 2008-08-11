@@ -64,10 +64,10 @@ struct CNWSItem_s {
     uint8_t                     field_206;
     uint8_t                     field_207;
 
-    uint32_t                    field_208;              /* 0208 */
-    uint32_t                    field_20C;              /* 020C */
+    uint32_t                    it_cost_ided;           /* 0208 */
+    uint32_t                    it_cost_unided;         /* 020C */
 
-    uint32_t                    it_addcost;             /* 0210 */
+    uint32_t                    it_cost_add;            /* 0210 */
 
     uint32_t                    field_214;              /* 0214 */
 
@@ -138,6 +138,8 @@ struct CNWSItem_s {
     uint8_t                     field_299;
     uint8_t                     field_29A;
     uint8_t                     field_29B;
+
+    uint32_t                    it_weight;              /* 029C */
 
 };
 

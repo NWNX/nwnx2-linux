@@ -22,7 +22,10 @@
 
 
 void Func_GetFactionId (CGameObject *ob, char *value) {
-    /* TODO */
+    int32_t fac;
+
+    CServerExoAppInternal__GetFactionOfObject((*NWN_AppManager)->app_server->srv_internal, ob->id, &fac);
+    snprintf(value, strlen(value), "%d", fac);
 }
 
 

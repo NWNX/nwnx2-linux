@@ -43,19 +43,7 @@ struct CNWSCreature_s {
     uint32_t                    field_1EC;
     uint32_t                    field_1F0;
 
-    CExoString                  cre_script_heartbeat;   /* 01F8 */
-    CExoString                  cre_script_perceive;    /* 0200 */
-    CExoString                  cre_script_spellcastat; /* 0208 */
-    CExoString                  cre_script_attacked;    /* 0210 */
-    CExoString                  cre_script_damaged;     /* 0218 */
-    CExoString                  cre_script_disturbed;   /* 0220 */
-    CExoString                  cre_script_endround;    /* 0228 */
-    CExoString                  cre_script_converse;    /* 0230 */
-    CExoString                  cre_script_spawn;       /* 0238 */
-    CExoString                  cre_script_rest;        /* 0240 */
-    CExoString                  cre_script_death;       /* 0248 */
-    CExoString                  cre_script_userdef;     /* 0250 */
-    CExoString                  cre_script_blocked;     /* 0258 */
+    CExoString                  cre_eventhandlers[13];  /* 01F8 */
 
     uint32_t                    field_25C;
     uint32_t                    field_260;

@@ -22,7 +22,15 @@
 
 
 void Func_SetFactionId (CGameObject *ob, char *value) {
-    /* TODO */
+    CNWSFaction *fac;
+
+    fac = CFactionManager__GetFaction((*NWN_AppManager)->app_server->srv_internal->srv_factions, atoi(value));
+    if (fac == NULL) {
+        snprintf(value, strlen(value), "-1");
+        return;
+    }
+
+    CNWSFaction__AddMember(fac, ob->id, 0);
 }
 
 
