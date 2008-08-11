@@ -30,8 +30,27 @@ void Func_GetItemByPositionRequest (CGameObject *ob, char *value) {
 
 
 nwn_objid_t Func_GetItemByPosition (CGameObject *ob) {
-    /* TODO */
-    return OBJECT_INVALID;
+    int i;
+    CNWSCreature *cre;
+    CExoLinkedListNode *node;
+
+    if (ob == NULL                                    ||
+        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+        cre->cre_inventory == NULL                    ||
+        Item_Position < 0                             ||
+        Item_Position >= cre->cre_inventory->ir_list.len) {
+
+        return OBJECT_INVALID;
+    }
+
+    node = cre->cre_inventory->ir_list.header->first;
+    for (i = 0; i < Item_Position && node != NULL; i++)
+        node = node->next;
+
+    if (node == NULL)
+        return OBJECT_INVALID;
+
+    return (uintptr_t)(node->data);
 }
 
 
