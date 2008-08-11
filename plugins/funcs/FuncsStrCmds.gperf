@@ -53,7 +53,6 @@ GETCRITICALHITRANGE,                   Func_GetCriticalHitRange
 GETDAMAGEIMMUNITY,                     Func_GetDamageImmunity
 GETEVENTHANDLER,                       Func_GetEventHandler
 GETFACTIONID,                          Func_GetFactionId
-GETFIRSTLOCALVARIABLE,                 Func_GetFirstLocalVariable
 GETGROUNDHEIGHT,                       Func_GetGroundHeight
 GETISWALKABLE,                         Func_GetIsWalkable
 GETITEMBYPOSITIONREQUEST,              Func_GetItemByPositionRequest
@@ -63,6 +62,8 @@ GETKNOWNFEATBYLEVEL,                   Func_GetKnownFeatByLevel
 GETKNOWNSPELL,                         Func_GetKnownSpell
 GETKNOWSFEAT,                          Func_GetKnowsFeat
 GETKNOWSSPELL,                         Func_GetKnowsSpell
+GETLOCALVARIABLEBYPOSITION,            Func_GetLocalVariableByPosition
+GETLOCALVARIABLECOUNT,                 Func_GetLocalVariableCount
 GETMAXHITPOINTSBYLEVEL,                Func_GetMaxHitPointsByLevel
 GETMAXSPELLSLOTS,                      Func_GetMaxSpellSlots
 GETMEMORIZEDSPELL,                     Func_GetMemorizedSpell

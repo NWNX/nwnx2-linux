@@ -21,8 +21,19 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetFirstLocalVariable (CGameObject *ob, char *value) {
-    /* TODO */
+void Func_GetLocalVariableCount (CGameObject *ob, char *value) {
+    int ret = 0;
+
+    if (ob != NULL) {
+        if (ob->type == OBJECT_TYPE_MODULE)
+            ret = ((CNWSModule *)ob)->mod_vartable->vt_len;
+        else if (ob->type == OBJECT_TYPE_AREA)
+            ret = ((CNWSArea *)ob)->area_vartable->vt_len;
+        else
+            ret = ((CNWSObject *)ob)->obj_vartable->vt_len;
+    }
+
+    snprintf(value, strlen(value), "%d", ret);
 }
 
 

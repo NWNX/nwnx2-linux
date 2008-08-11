@@ -162,6 +162,7 @@ struct CResource_s;                       typedef struct CResource_s            
 struct CScriptCompiler_s;                 typedef struct CScriptCompiler_s                 CScriptCompiler;
 struct CScriptEvent_s;                    typedef struct CScriptEvent_s                    CScriptEvent;
 struct CScriptLocation_s;                 typedef struct CScriptLocation_s                 CScriptLocation;
+struct CScriptVariable_s;                 typedef struct CScriptVariable_s                 CScriptVariable;
 struct CServerAIMaster_s;                 typedef struct CServerAIMaster_s                 CServerAIMaster;
 struct CServerExoAppInternal_s;           typedef struct CServerExoAppInternal_s           CServerExoAppInternal;
 struct CServerExoApp_s;                   typedef struct CServerExoApp_s                   CServerExoApp;
@@ -318,6 +319,7 @@ struct Vector_s;                          typedef struct Vector_s               
 #include "structs/CScriptCompiler.h"
 #include "structs/CScriptEvent.h"
 #include "structs/CScriptLocation.h"
+#include "structs/CScriptVariable.h"
 #include "structs/CServerAIMaster.h"
 #include "structs/CServerExoApp.h"
 #include "structs/CServerExoAppInternal.h"

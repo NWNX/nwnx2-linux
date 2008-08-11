@@ -21,24 +21,28 @@
 #include "NWNXFuncs.h"
 
 
-void Func_JumpToLimbo (CGameObject *ob, char *value) {
-    CNWSCreature *cre;
-    CNWSModule *mod = CServerExoAppInternal__GetModule((*NWN_AppManager)->app_server->srv_internal);
+void Func_GetLocalVariableByPosition (CGameObject *ob, char *value) {
+    int idx = atoi(value);
+    CNWSScriptVarTable *vt;
 
-    if (ob == NULL                                    ||
-        mod == NULL                                   ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        cre->cre_is_pc                                ||
-        cre->cre_stats->cs_is_pc                      ||
-        cre->cre_stats->cs_is_dm) {
-
-        snprintf(value, strlen(value), "-1");
+    if (ob == NULL || idx < 0) {
+        *value = 0;
         return;
     }
 
-    CNWSCreature__RemoveFromArea(cre, 0);
-    CNWSModule__AddObjectToLimbo(mod, ob->id);
+    if (ob->type == OBJECT_TYPE_MODULE)
+        vt = ((CNWSModule *)ob)->mod_vartable;
+    else if (ob->type == OBJECT_TYPE_AREA)
+        vt = ((CNWSArea *)ob)->area_vartable;
+    else
+        vt = ((CNWSObject *)ob)->obj_vartable;
+
+    if (idx >= vt->vt_len) {
+        *value = 0;
+        return;
+    }
+
+    snprintf(value, strlen(value), "%d¬%s", vt->vt_list[idx].var_type, vt->vt_list[idx].var_name.text);
 }
 
 

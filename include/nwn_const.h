@@ -26,6 +26,7 @@
 
 #define OBJECT_INVALID                            0x7F000000
 
+#define OBJECT_TYPE_MODULE                                 3
 #define OBJECT_TYPE_AREA                                   4
 #define OBJECT_TYPE_CREATURE                               5
 #define OBJECT_TYPE_ITEM                                   6

@@ -21,14 +21,15 @@
  *
  */
 
-#ifndef _NX_NWN_STRUCT_CNWSSCRIPTVARTABLE_
-#define _NX_NWN_STRUCT_CNWSSCRIPTVARTABLE_
+#ifndef _NX_NWN_STRUCT_CSCRIPTVARIABLE_
+#define _NX_NWN_STRUCT_CSCRIPTVARIABLE_
 
-struct CNWSScriptVarTable_s {
-    CScriptVariable    *vt_list;
-    uint32_t            vt_len;
+struct CScriptVariable_s {
+    CExoString          var_name;
+    uint32_t            var_type;
+    uint32_t            var_value;
 };
 
-#endif /* _NX_NWN_STRUCT_CNWSSCRIPTVARTABLE_ */
+#endif /* _NX_NWN_STRUCT_CSCRIPTVARIABLE_ */
 
 /* vim: set sw=4: */

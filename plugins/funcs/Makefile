@@ -132,7 +132,8 @@ OFILES  = \
     funcs/spell/f_SetKnownSpell.o                \
     funcs/spell/f_SetMemorizedSpell.o            \
     funcs/spell/f_SetRemainingSpellSlots.o       \
-    funcs/var/f_GetFirstNextLocalVariable.o      \
+    funcs/var/f_GetLocalVariableByPosition.o     \
+    funcs/var/f_GetLocalVariableCount.o          \
     NWNXFuncs.o                                  \
     plugin-funcs.o
 
