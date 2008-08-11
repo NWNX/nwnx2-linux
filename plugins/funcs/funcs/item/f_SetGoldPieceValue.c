@@ -22,7 +22,14 @@
 
 
 void Func_SetGoldPieceValue (CGameObject *ob, char *value) {
-    /* TODO */
+    CNWSItem *item;
+
+    if (ob == NULL || (item = ob->vtable->AsNWSItem(ob)) == NULL) {
+        snprintf(value, strlen(value), "-1");
+        return;
+    }
+
+    item->it_cost_ided = atoi(value);
 }
 
 

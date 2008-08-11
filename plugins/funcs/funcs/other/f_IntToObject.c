@@ -21,13 +21,16 @@
 #include "NWNXFuncs.h"
 
 
+static nwn_objid_t Object_Request = OBJECT_INVALID;
+
+
 void Func_IntToObjectRequest (CGameObject *ob, char *value) {
-    /* TODO */
+    Object_Request = atoi(value);
 }
 
 
 nwn_objid_t Func_IntToObject (CGameObject *ob) {
-    return OBJECT_INVALID;
+    return Object_Request;
 }
 
 

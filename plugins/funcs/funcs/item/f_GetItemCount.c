@@ -22,7 +22,17 @@
 
 
 void Func_GetItemCount (CGameObject *ob, char *value) {
-    /* TODO */
+    int ret = 0;
+    CNWSCreature *cre;
+
+    if (ob != NULL                                    &&
+        (cre = ob->vtable->AsNWSCreature(ob)) != NULL &&
+        cre->cre_inventory != NULL) {
+
+        ret = cre->cre_inventory->ir_list.len;
+    }
+
+    snprintf(value, strlen(value), "%d", ret);
 }
 
 

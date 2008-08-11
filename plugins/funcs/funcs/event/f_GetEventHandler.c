@@ -22,7 +22,18 @@
 
 
 void Func_GetEventHandler (CGameObject *ob, char *value) {
-    /* TODO */
+    int ev;
+    CNWSCreature *cre;
+
+    if (ob == NULL                                    ||
+        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+        (ev = atoi(value)) < 0 || ev > 12) {
+
+        *value = 0;
+        return;
+    }
+
+    snprintf(value, strlen(value), "%s", cre->cre_eventhandlers[ev].text);
 }
 
 

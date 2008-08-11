@@ -21,8 +21,11 @@
 #include "NWNXFuncs.h"
 
 
+static int Item_Position = -1;
+
+
 void Func_GetItemByPositionRequest (CGameObject *ob, char *value) {
-    /* TODO */
+    Item_Position = atoi(value);
 }
 
 
