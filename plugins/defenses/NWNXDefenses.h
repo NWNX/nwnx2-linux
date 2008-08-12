@@ -24,6 +24,16 @@
 
 #include "NWNXLib.h"
 
+#define NWNX_DEFENSES_BASE_ITEM_TABLE_SIZE              512
+#define NWNX_DEFENSES_OPTIONS_TABLE_SIZE                 64
+
+#define NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_GE      0 
+#define NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_LC      1 
+#define NWNX_DEFENSES_OPT_BLACKGUARD_SAVES_MAX_ALIGN_GE   2 
+#define NWNX_DEFENSES_OPT_BLACKGUARD_SAVES_MAX_ALIGN_LC   3 
+#define NWNX_DEFENSES_OPT_DEATHATT_IGNORE_CRIT_IMM        4
+#define NWNX_DEFENSES_OPT_SNEAKATT_IGNORE_CRIT_IMM        5
+
 #define AC_STRENGTH_BONUS                               -15
 #define AC_DEXTERITY_BONUS                              -14
 #define AC_CONSTITUTION_BONUS                           -13
@@ -40,15 +50,6 @@
 #define AC_ARMOUR_BASE                                   -2
 #define AC_NATURAL_BASE                                  -1
 
-#define NWNX_DEFENSES_BASE_ITEM_TABLE_SIZE              512
-#define NWNX_DEFENSES_OPTIONS_TABLE_SIZE                 64
-
-#define NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_GE      0 
-#define NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_LC      1 
-#define NWNX_DEFENSES_OPT_BLACKGUARD_SAVES_MAX_ALIGN_GE   2 
-#define NWNX_DEFENSES_OPT_BLACKGUARD_SAVES_MAX_ALIGN_LC   3 
-#define NWNX_DEFENSES_OPT_DEATHATT_IGNORE_CRIT_IMM        4
-#define NWNX_DEFENSES_OPT_SNEAKATT_IGNORE_CRIT_IMM        5
 
 #ifdef __cplusplus
 extern "C" {
