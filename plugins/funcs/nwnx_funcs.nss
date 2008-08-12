@@ -1,34 +1,6 @@
 /* interface functions for nwnx_funcs plugin */
 
 /* TODO:
- *   GetConversation()
- *   SetConversation()
- *   GetIsVariableValid()
- *   GetPCPort() - not working
- *
- *   ActionUseItemAtLocation() - working
- *   ActionUseItemOnObject() - working
- *   BootPCWithMessage() - working
- *   DumpObject() - working
- *   GetCreatureEventHandler() - not working
- *   GetFactionId() - working
- *   GetFirstArea() - working
- *   GetGroundHeight() - working
- *   GetIsWalkable() - working
- *   GetItemByPosition() - not working
- *   GetItemCount() - not working
- *   GetLocalVariableByPosition() - working
- *   GetLocalVariableCount() - working
- *   GetNextArea() - working
- *   IntToObject() - working
- *   JumpToLimbo() - working
- *   SetCreatureEventHandler() - not working
- *   SetFactionId() - working
- *   SetGoldPieceValue() - working
- *   SetItemWeight() - working
- *   SetMovementRate() - working
- *   SetRacialType() - working
- *   SetTag() - working
  *
  */
 
@@ -81,6 +53,11 @@ struct QuickBarSlot {
     int slot;
     int type, class;
     int id, meta;
+};
+
+struct LocalVariable {
+    int type;
+    string name;
 };
 
 
@@ -199,6 +176,9 @@ int ModifyCurrentHitPoints (object oCreature, int nHP);
 /* Set oCreature's current hit points */
 int SetCurrentHitPoints (object oCreature, int nHP);
 
+/* Set oCreature's maximum hit points; will not work on PCs. */
+int SetMaxHitPoints (object oCreature, int nHP);
+
 /* Check if oCreature knows the specified spell (this will only work for arcane casters) */
 int GetKnowsSpell (int nSpellId, object oCreature, int nClass=CLASS_TYPE_INVALID);
 
@@ -290,6 +270,89 @@ int SetSoundset (object oCreature, int nSoundset);
 
 /* Set the creature who created oTrap to oCreator. */
 int SetTrapCreator (object oTrap, object oCreator);
+
+/* Get oCreature's conversation file name. */
+string GetConversation (object oCreature);
+
+/* Set oCreature's conversation file name. */
+string SetConversation (object oCreature, string sConv);
+
+/* Get if a local variable structure is valid. */
+int GetIsVariableValid (struct LocalVariable lv);
+
+/* Get the number of local variables on oObject. */
+int GetLocalVariableCount (object oObject);
+
+/* Get the nPos local variable from oObject. */
+struct LocalVariable GetLocalVariableByPosition (object oObject, int nPos);
+
+/* Get the first area in the module. */
+object GetFirstArea();
+
+/* Get the next area in the module. */
+object GetNextArea();
+
+/* Set oItem's value in gold pieces. Will not persist through zoning or saving. */
+int SetGoldPieceValue (object oItem, int nValue);
+
+/* Set oItem's weight. Will not persist through zoning or saving. */
+int SetItemWeight (object oItem, int nTenthLbs);
+
+/* Get the ground height from a position or location. */
+float GetGroundHeight (object oArea, vector vPos);
+float GetGroundHeightFromLocation (location lLoc);
+
+/* Get whether or not a position or location is walkable. */
+int GetIsWalkable (object oArea, vector vPos);
+int GetIsWalkableLocation (location lLoc);
+
+/* Use the specified item on the specified location. */
+void ActionUseItemAtLocation (object oItem, location lLoc, int nProp=0);
+
+/* Use the specified item on the specified object. */
+void ActionUseItemOnObject (object oItem, object oTarget, int nProp=0);
+
+/* Get oPC's local connection port. */
+int GetPCPort (object oPC);
+
+/* Boot oPC, displaying the specified strref on their computer. */
+void BootPCWithMessage (object oPC, int nStrRef);
+
+/* Get oCreature's event handler for nEvent. */
+string GetCreatureEventHandler (object oCreature, int nEvent);
+
+/* Set oCreature's event handler for nEvent. */
+string SetCreatureEventHandler (object oCreature, int nEvent, string sScript);
+
+/* Get oObject's faction ID. */
+int GetFactionId (object oObject);
+
+/* Set oObject's faction ID. */
+int SetFactionId (object oObject, int nFaction);
+
+/* Get the item at nPosition in oCreature's inventory. */
+object GetItemByPosition (object oCreature, int nPosition);
+
+/* Get the total number of items carried by oCreature. */
+int GetItemCount (object oCreature);
+
+/* Set oCreature's movement rate. */
+int SetMovementRate (object oCreature, int nRate);
+
+/* Set oCreature's racial type. Do not use on PCs. */
+int SetRacialType (object oCreature, int nRacialType);
+
+/* Set oObject's tag. */
+string SetTag (object oObject, string sTag);
+
+/* Jump oCreature to Limbo. */
+void JumpToLimbo (object oCreature);
+
+/* Convert an object ID to an object. */
+object IntToObject (int nObjectId);
+
+/* Dump oObject to the NWNX log. */
+void DumpObject (object oObject);
 
 
 int NWNXFuncsZero (object oObject, string sFunc) {
@@ -476,24 +539,6 @@ int SetPCBodyBag (object oPC, int nBodyBag) {
 }
 
 
-int GetABAgainst (object oTarget, object oAttacker=OBJECT_SELF) {
-    if (!GetIsObjectValid(oAttacker) || !GetIsObjectValid(oTarget))
-        return 0;
-
-    SetLocalString(oAttacker, "NWNX!FUNCS!GETABAGAINST",
-        ObjectToString(oTarget) + "          ");
-    return StringToInt(GetLocalString(oAttacker, "NWNX!FUNCS!GETABAGAINST"));
-}
-
-int GetAbilityAB (object oCreature) {
-    return NWNXFuncsZero(oCreature, "NWNX!FUNCS!GETABILITYAB");
-}
-
-int SetAbilityAB (object oCreature, int nAB) {
-    return NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETABILITYAB", nAB);
-}
-
-
 int GetDamageImmunity (object oCreature, int nDamType) {
     return NWNXFuncsOne(oCreature, "NWNX!FUNCS!GETDAMAGEIMMUNITY", nDamType);
 }
@@ -514,6 +559,10 @@ int ModifyCurrentHitPoints (object oCreature, int nHP) {
 
 int SetCurrentHitPoints (object oCreature, int nHP) {
     return NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETCURRENTHITPOINTS", nHP);
+}
+
+int SetMaxHitPoints (object oCreature, int nHP) {
+    return NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETMAXHITPOINTS", nHP);
 }
 
 
@@ -706,3 +755,114 @@ int SetTrapCreator (object oTrap, object oCreator) {
 }
 
 
+string GetConversation (object oCreature) {
+    return "";
+}
+
+string SetConversation (object oCreature, string sConv) {
+    return "";
+}
+
+int GetIsVariableValid (struct LocalVariable lv) {
+    return 0;
+}
+
+int GetLocalVariableCount (object oObject) {
+    return 0;
+}
+
+struct LocalVariable GetLocalVariableByPosition (object oObject, int nPos) {
+    struct LocalVariable lv;
+    return lv;
+}
+
+object GetFirstArea() {
+    return OBJECT_INVALID;
+}
+
+object GetNextArea() {
+    return OBJECT_INVALID;
+}
+
+int SetGoldPieceValue (object oItem, int nValue) {
+    return 0;
+}
+
+int SetItemWeight (object oItem, int nTenthLbs) {
+    return 0;
+}
+
+float GetGroundHeight (object oArea, vector vPos) {
+    return 0.0;
+}
+
+float GetGroundHeightFromLocation (location lLoc) {
+    return GetGroundHeight(GetAreaFromLocation(lLoc), GetPositionFromLocation(lLoc));
+}
+
+int GetIsWalkable (object oArea, vector vPos) {
+    return 0;
+}
+
+int GetIsWalkableLocation (location lLoc) {
+    return GetIsWalkable(GetAreaFromLocation(lLoc), GetPositionFromLocation(lLoc));
+}
+
+void ActionUseItemAtLocation (object oItem, location lLoc, int nProp=0) {
+}
+
+void ActionUseItemOnObject (object oItem, object oTarget, int nProp=0) {
+}
+
+int GetPCPort (object oPC) {
+    return -6;
+}
+
+void BootPCWithMessage (object oPC, int nStrRef) {
+}
+
+string GetCreatureEventHandler (object oCreature, int nEvent) {
+    return "";
+}
+
+string SetCreatureEventHandler (object oCreature, int nEvent, string sScript) {
+    return "";
+}
+
+int GetFactionId (object oObject) {
+    return -1;
+}
+
+int SetFactionId (object oObject, int nFaction) {
+    return -1;
+}
+
+object GetItemByPosition (object oCreature, int nPosition) {
+    return OBJECT_INVALID;
+}
+
+int GetItemCount (object oCreature) {
+    return 0;
+}
+
+int SetMovementRate (object oCreature, int nRate) {
+    return -1;
+}
+
+int SetRacialType (object oCreature, int nRacialType) {
+    return -1;
+}
+
+string SetTag (object oObject, string sTag) {
+    return "";
+}
+
+void JumpToLimbo (object oCreature) {
+}
+
+object IntToObject (int nObjectId) {
+    return OBJECT_INVALID;
+}
+
+void DumpObject (object oObject) {
+}

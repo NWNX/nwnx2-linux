@@ -57,7 +57,6 @@ extern "C" {
 
 void Func_GetACByType                        (CGameObject *ob, char *value);
 void Func_GetACVersus                        (CGameObject *ob, char *value);
-void Func_GetDamageImmunity                  (CGameObject *ob, char *value);
 void Func_GetDefenseOption                   (CGameObject *ob, char *value);
 void Func_GetTrueDamageImmunity              (CGameObject *ob, char *value);
 void Func_SetDefenseOption                   (CGameObject *ob, char *value);
