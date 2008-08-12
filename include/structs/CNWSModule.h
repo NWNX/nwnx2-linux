@@ -70,7 +70,7 @@ struct CNWSModule_s {
     uint32_t                    field_A0;
     uint32_t                    field_A4;
 
-    CNWSScriptVarTable         *mod_vartable;
+    CNWSScriptVarTable          mod_vartable;
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSMODULE_ */

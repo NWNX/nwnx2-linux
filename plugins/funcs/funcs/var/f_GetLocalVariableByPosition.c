@@ -31,11 +31,11 @@ void Func_GetLocalVariableByPosition (CGameObject *ob, char *value) {
     }
 
     if (ob->type == OBJECT_TYPE_MODULE)
-        vt = ((CNWSModule *)ob)->mod_vartable;
+        vt = &(((CNWSModule *)ob)->mod_vartable);
     else if (ob->type == OBJECT_TYPE_AREA)
-        vt = ((CNWSArea *)ob)->area_vartable;
+        vt = &(((CNWSArea *)ob)->area_vartable);
     else
-        vt = ((CNWSObject *)ob)->obj_vartable;
+        vt = &(((CNWSObject *)ob)->obj_vartable);
 
     if (idx >= vt->vt_len) {
         *value = 0;

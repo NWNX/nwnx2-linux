@@ -525,9 +525,6 @@ struct CNWSCreature_s {
     uint32_t                    field_C64;
 
     CNWSCreatureStats          *cre_stats;              /* 0C68 */
-
-    uint32_t                    field_C68;
-    uint32_t                    field_C6C;
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSCREATURE_ */

@@ -108,9 +108,8 @@ struct CNWSObject_s {
 
     void               *obj_actions;                    /* 00D8 */
 
-    CNWSScriptVarTable *obj_vartable;                   /* 00DC */
+    CNWSScriptVarTable  obj_vartable;                   /* 00DC */
 
-    uint32_t            field_E0;
     uint32_t            field_E4;
     uint32_t            field_E8;
 

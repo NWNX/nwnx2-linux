@@ -144,9 +144,8 @@ struct CNWSArea_s {
     uint32_t                    field_1D0;
     uint32_t                    field_1D4;
 
-    CNWSScriptVarTable         *area_vartable;
+    CNWSScriptVarTable          area_vartable;
 
-    uint32_t                    field_1DC;
     uint32_t                    field_1E0;
 };
 

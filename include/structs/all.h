@@ -250,6 +250,7 @@ struct Vector_s;                          typedef struct Vector_s               
 #include "structs/CNWSStats_Level.h"
 #include "structs/CNWSStats_SpecAbil.h"
 #include "structs/CNWSStats_Spell.h"
+#include "structs/CNWSScriptVarTable.h"
 
 #include "structs/CNWSObject.h"
 #include "structs/CNWSAction.h"
@@ -287,7 +288,6 @@ struct Vector_s;                          typedef struct Vector_s               
 #include "structs/CNWSPlayerLastUpdateObject.h"
 #include "structs/CNWSPlayerTURD.h"
 #include "structs/CNWSQuickbarButton.h"
-#include "structs/CNWSScriptVarTable.h"
 #include "structs/CNWSSoundObject.h"
 #include "structs/CNWSSoundObjectTimeOfDay.h"
 #include "structs/CNWSStore.h"
