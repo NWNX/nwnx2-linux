@@ -21,11 +21,32 @@
 #include "NWNXDefenses.h"
 
 
-int Hook_GetTumbleACBonus (CNWSCreatureStats *stats) {
-    if (stats == NULL || stats->cs_skills[SKILL_TUMBLE] < 5)
-        return 0;
+int Local_GetACTumbleAdjustment (CNWSCreatureStats *stats, int adj) {
+#ifdef NWNX_DEFENSES_HG
+    int other = 0;
 
-    return Local_GetACTumbleAdjustment(stats, stats->cs_skills[SKILL_TUMBLE] / 5);
+    if (CNWSCreatureStats__HasFeat(stats, FEAT_DRAGON_ARMOR))
+        other += nwn_GetLevelByClass(stats, CLASS_TYPE_DRAGONDISCIPLE) / 3;
+
+    if (CNWSCreatureStats__HasFeat(stats, FEAT_BONE_SKIN_2)) {
+        if (stats->cs_str >= 25 || stats->cs_dex >= 25)
+            other += nwn_GetLevelByClass(stats, CLASS_TYPE_PALEMASTER) / 4;
+        else
+            other += (nwn_GetLevelByClass(stats, CLASS_TYPE_PALEMASTER) / 4) * 2;
+    }
+
+    if (other > 0) {
+        int max = 12 - other;
+
+        if (max < 6)
+            max = 6;
+
+        if (adj > max)
+            adj = max;
+    }
+#endif
+
+    return adj;
 }
 
 

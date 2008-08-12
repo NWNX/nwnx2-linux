@@ -88,11 +88,15 @@ int Local_GetACFeatAdjustment (CNWSCreatureStats *stats, int touch, int adj);
 int Local_GetACIntAdjustment (CNWSCreatureStats *stats, int touch, int adj);
 int Local_GetACSkillAdjustment (CNWSCreatureStats *stats, int touch, int adj);
 int Local_GetACStrAdjustment (CNWSCreatureStats *stats, int touch, int adj);
+int Local_GetACTumbleAdjustment (CNWSCreatureStats *stats, int adj);
 int Local_GetACTouchBase (CNWSCreatureStats *stats);
 int Local_GetACWisAdjustment (CNWSCreatureStats *stats, int touch, int adj);
+int Local_GetConcealmentCheckResult (CNWSCreature *attacker, CNWSCreature *target, int concealment, int misschance);
 int Local_GetDamageImmunity (CNWSCreature *cre, int damtypeindex, int imm);
+int Local_GetHasSlipperyMind (CNWSCreatureStats *stats, uint32_t savedata);
 int Local_GetIsDeathAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker);
 int Local_GetIsSneakAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker);
+int Local_GetPickPocketDCAdjustment (CNWSCreature *thief, CNWSCreature *victim);
 
 
 extern uint16_t Table_DefenseOptions[NWNX_DEFENSES_OPTIONS_TABLE_SIZE];

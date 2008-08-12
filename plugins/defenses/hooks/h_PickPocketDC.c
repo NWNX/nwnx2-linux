@@ -26,17 +26,7 @@ static volatile CNWSCreature *Hook_PPDC_Thief, *Hook_PPDC_Victim;
 
 
 static int Hook_GetPickPocketDCAdjustment (CNWSCreature *thief, CNWSCreature *victim) {
-    if (victim == NULL             ||
-        victim->cre_stats == NULL  ||
-        victim->obj.obj_type != OBJECT_TYPE_CREATURE)
-        return 0;
-
-    int spot = CNWSCreatureStats__GetSkillRank(victim->cre_stats, SKILL_SPOT, NULL, 0);
-
-    if (spot > 0)
-        return spot;
-
-    return 0;
+    return Local_GetPickPocketDCAdjustment(thief, victim);
 }
 
 

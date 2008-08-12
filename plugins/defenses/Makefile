@@ -63,10 +63,14 @@ OFILES  = \
     local/l_GetACSkillAdjustment.o               \
     local/l_GetACStrAdjustment.o                 \
     local/l_GetACTouchBase.o                     \
+    local/l_GetACTumbleAdjustment.o              \
     local/l_GetACWisAdjustment.o                 \
+    local/l_GetConcealmentCheckResult.o          \
     local/l_GetDamageImmunity.o                  \
+    local/l_GetHasSlipperyMind.o                 \
     local/l_GetIsDeathAttackImmune.o             \
     local/l_GetIsSneakAttackImmune.o             \
+    local/l_GetPickPocketDCAdjustment.o          \
     tables/t_DefenseOptions.o                    \
     NWNXDefenses.o                               \
     plugin-defenses.o

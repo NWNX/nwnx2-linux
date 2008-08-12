@@ -22,14 +22,12 @@
 
 
 int Hook_GetHasSlipperyMind (CNWSCreatureStats *stats, uint32_t savedata) {
-    int16_t save    = (savedata >> 16) & 0xFFFF;
-    int8_t savetype = savedata & 0xFF;
+    int ret = Local_GetHasSlipperyMind(stats, savedata);
 
-    if (stats == NULL || save != SAVING_THROW_WILL)
-        return 0;
+    if (ret >= 0)
+        return ret;
 
-    if (savetype != 1 &&
-        nwn_GetLevelByClass(stats, CLASS_TYPE_ROGUE) < 31)
+    if ((savedata & 0xFF) != 1)
         return 0;
 
     return CNWSCreatureStats__HasFeat(stats, FEAT_SLIPPERY_MIND);

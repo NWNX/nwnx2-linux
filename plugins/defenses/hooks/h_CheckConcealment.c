@@ -29,133 +29,38 @@ static volatile int Hook_CCONC_MissChance;
 
 
 static int Hook_GetConcealmentCheckResult (CNWSCreature *attacker, CNWSCreature *target, int concealment, int misschance) {
-    double conc, lis = 0.0;
+    int ret;
 
-    if (attacker == NULL            ||
-        target == NULL              ||
-        attacker->cre_stats == NULL ||
-        target->cre_stats == NULL)
-        return 0;
+    if ((ret = Local_GetConcealmentCheckResult(attacker, target, concealment, misschance)) >= 0)
+        return ret;
 
-    if (concealment < 1 && misschance < 1)
-        return 0;
+    if (misschance > 0) {
+        if (random() % 100 < misschance) {
+            if (attacker != NULL                               &&
+                attacker->obj.obj_type == OBJECT_TYPE_CREATURE && 
+                attacker->cre_stats != NULL                    &&
+                CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_BLIND_FIGHT)) {
 
-
-    if (target->obj.obj_type == OBJECT_TYPE_CREATURE) {
-        int sc = 0;
-
-        if (target->cre_is_pc && nwn_GetLevelByClass(target->cre_stats, CLASS_TYPE_FIGHTER) > 20) {
-            int parry = CNWSCreatureStats__GetSkillRank(target->cre_stats, SKILL_PARRY, NULL, 0) / 4;
-
-            if (random() % 100 < parry)
-                return 100;
+                if (random() % 100 < misschance)
+                    return misschance;
+            } else
+                return misschance;
         }
-
-        int rogue = nwn_GetLevelByClass(target->cre_stats, CLASS_TYPE_ROGUE);
-
-        if (rogue >= 30) {
-            if (nwn_GetKnowsFeat(target->cre_stats, FEAT_EPIC_SELF_CONCEALMENT_50))
-                sc = 5;
-            else if (nwn_GetKnowsFeat(target->cre_stats, FEAT_EPIC_SELF_CONCEALMENT_40))
-                sc = 4;
-            else if (nwn_GetKnowsFeat(target->cre_stats, FEAT_EPIC_SELF_CONCEALMENT_30))
-                sc = 3;
-            else if (nwn_GetKnowsFeat(target->cre_stats, FEAT_EPIC_SELF_CONCEALMENT_20))
-                sc = 2;
-            else if (nwn_GetKnowsFeat(target->cre_stats, FEAT_EPIC_SELF_CONCEALMENT_10))
-                sc = 1;
-
-            if (sc > 0) {
-                int percent = 0;
-
-                switch (sc) {
-                    case 1:  percent =  5; break;
-                    case 2:  percent =  9; break;
-                    case 3:  percent = 12; break;
-                    case 4:  percent = 14; break;
-                    default: percent = 15; break;
-                }
-
-                if (percent > rogue - 20)
-                    percent = rogue - 20;
-
-                sc = (sc * 10) + ((CNWSCreatureStats__GetSkillRank(target->cre_stats, SKILL_HIDE, NULL, 0) * percent) / 100);
-            }
-        }
-
-        switch (concealment) {
-            case 16:
-            case 21:
-            case 26:
-            case 31:
-            case 36:
-                /* camouflage / mass camouflage */
-                concealment = (concealment - 1) + (CNWSCreatureStats__GetSkillRank(target->cre_stats, SKILL_HIDE, NULL, 0) / 4);
-                break;
-
-            case 56: {
-                /* assassin improved invisibility */
-                int hide = nwn_GetLevelByClass(target->cre_stats, CLASS_TYPE_ASSASSIN) +
-                           CNWSCreatureStats__GetSkillRank(target->cre_stats, SKILL_HIDE, NULL, 0);
-
-                if (hide > 127)
-                    hide = 127;
-
-                concealment = (concealment - 31) + (hide / 3);
-            }
-            break;
-        }
-
-        if (sc > concealment)
-            concealment = sc;
     }
 
+    if (concealment > 0) {
+        if (random() % 100 < concealment) {
+            if (attacker != NULL                               &&
+                attacker->obj.obj_type == OBJECT_TYPE_CREATURE && 
+                attacker->cre_stats != NULL                    &&
+                CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_BLIND_FIGHT)) {
 
-    /* select the greater of miss chance and concealment (they do not stack) */
-    if (misschance > concealment)
-        conc = misschance * 0.01;
-    else
-        conc = concealment * 0.01;
-
-
-    if (attacker->cre_is_pc) {
-        lis = CNWSCreatureStats__GetSkillRank(attacker->cre_stats, SKILL_LISTEN, NULL, 0);
-
-        if (lis < 60.0 && CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_BLIND_FIGHT))
-            lis = 60.0;
-    } else {
-        if (CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_BLIND_FIGHT))
-            lis += 60.0;
-
-        if (CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_SKILL_FOCUS_LISTEN))
-            lis += 15.0;
-
-        if (CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_EPIC_SKILL_FOCUS_LISTEN))
-            lis += 30.0;
+                if (random() % 100 < concealment)
+                    return concealment;
+            } else
+                return concealment;
+        }
     }
-
-
-    if (!target->cre_is_pc) {
-        if (CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_SKILL_FOCUS_MOVE_SILENTLY))
-            lis -= 15.0;
-
-        if (CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_EPIC_SKILL_FOCUS_MOVESILENTLY))
-            lis -= 30.0;
-    }
-
-
-    if (lis > 60.0)
-        lis = 60.0 + ((lis - 60.0) / 2.0);
-    else if (lis < 0.0)
-        lis = 0.0;
-
-    /* ensure there are no rounding errors by adding 0.00005 - this hits
-     * specifically at 85% concealment */
-    concealment = (pow(conc, 1.0 + (lis / 60.0)) + 0.00005) * 1000.0;
-
-
-    if (random() % 1000 < concealment)
-        return concealment / 10;
 
     return 0;
 }

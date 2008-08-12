@@ -20,12 +20,20 @@
 
 #include "NWNXDefenses.h"
 
-
-int Hook_GetTumbleACBonus (CNWSCreatureStats *stats) {
-    if (stats == NULL || stats->cs_skills[SKILL_TUMBLE] < 5)
+int Local_GetPickPocketDCAdjustment (CNWSCreature *thief, CNWSCreature *victim) {
+#ifdef NWNX_DEFENSES_HG
+    if (victim == NULL             ||
+        victim->cre_stats == NULL  ||
+        victim->obj.obj_type != OBJECT_TYPE_CREATURE)
         return 0;
 
-    return Local_GetACTumbleAdjustment(stats, stats->cs_skills[SKILL_TUMBLE] / 5);
+    int spot = CNWSCreatureStats__GetSkillRank(victim->cre_stats, SKILL_SPOT, NULL, 0);
+
+    if (spot > 0)
+        return spot;
+#endif
+
+    return 0;
 }
 
 

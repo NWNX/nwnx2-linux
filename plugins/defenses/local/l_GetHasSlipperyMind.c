@@ -21,11 +21,22 @@
 #include "NWNXDefenses.h"
 
 
-int Hook_GetTumbleACBonus (CNWSCreatureStats *stats) {
-    if (stats == NULL || stats->cs_skills[SKILL_TUMBLE] < 5)
+int Local_GetHasSlipperyMind (CNWSCreatureStats *stats, uint32_t savedata) {
+#ifdef NWNX_DEFENSES_HG
+    int16_t save    = (savedata >> 16) & 0xFFFF;
+    int8_t savetype = savedata & 0xFF;
+
+    if (stats == NULL || save != SAVING_THROW_WILL)
         return 0;
 
-    return Local_GetACTumbleAdjustment(stats, stats->cs_skills[SKILL_TUMBLE] / 5);
+    if (savetype != 1 &&
+        nwn_GetLevelByClass(stats, CLASS_TYPE_ROGUE) < 31)
+        return 0;
+
+    return CNWSCreatureStats__HasFeat(stats, FEAT_SLIPPERY_MIND);
+#endif
+
+    return -1;
 }
 
 
