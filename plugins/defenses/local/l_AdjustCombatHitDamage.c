@@ -20,16 +20,38 @@
 
 #include "NWNXDefenses.h"
 
-
-int Local_GetACTouchBase (CNWSCreatureStats *stats) {
+void Local_AdjustCombatHitDamage (CNWSCreature *target, int16_t *damages) {
 #ifdef NWNX_DEFENSES_HG
-#define NWNX_EXALT_GET_TOUCHAC(P)       ((P >> 24) & 0x7F)
+    int i, parry, reduce;
 
-    if (stats->cs_age & 0x80000000)
-        return NWNX_EXALT_GET_TOUCHAC(stats->cs_age);
+    if (Hook_CHD_Target == NULL            ||
+        Hook_CHD_Target->cre_stats == NULL ||
+        Hook_CHD_Target->obj.obj_type != 5)
+        return;
+
+    if (!Hook_CHD_Crit)
+        return;
+
+    if (CNWSCreatureStats__HasFeat(Hook_CHD_Target->cre_stats, HGFEAT_Y_CRITICAL_REDUCTION) ||
+        CNWSCreatureStats__HasFeat(Hook_CHD_Target->cre_stats, HGFEAT_Z_CRITICAL_REDUCTION)) {
+
+        parry = 50;
+    } else {
+        parry = (CNWSCreatureStats__GetSkillRank(Hook_CHD_Target->cre_stats, SKILL_PARRY, NULL, 0) - 20) / 2;
+
+        if (parry < 1)
+            return;
+        if (parry > 50)
+            parry = 50;
+    }
+
+    for (i = 0; i < 13; i++) {
+        if (damages[11 + i] >= 5) {
+            reduce = (damages[11 + i] * parry) / 100;
+            damages[11 + i] -= reduce;
+        }
+    }
 #endif
-
-    return 0;
 }
 
 

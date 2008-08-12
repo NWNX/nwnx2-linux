@@ -27,37 +27,7 @@ static volatile CNWSCreature *Hook_CHD_Target;
 
 
 static void Hook_AdjustCombatHitDamage (CNWSCreature *target, int16_t *damages) {
-#if 0
-    int i, parry, reduce;
-
-    if (Hook_CHD_Target == NULL            ||
-        Hook_CHD_Target->cre_stats == NULL ||
-        Hook_CHD_Target->obj.obj_type != 5)
-        return;
-
-    if (!Hook_CHD_Crit)
-        return;
-
-    if (CNWSCreatureStats__HasFeat(Hook_CHD_Target->cre_stats, HGFEAT_Y_CRITICAL_REDUCTION) ||
-        CNWSCreatureStats__HasFeat(Hook_CHD_Target->cre_stats, HGFEAT_Z_CRITICAL_REDUCTION)) {
-
-        parry = 50;
-    } else {
-        parry = (CNWSCreatureStats__GetSkillRank(Hook_CHD_Target->cre_stats, SKILL_PARRY, NULL, 0) - 20) / 2;
-
-        if (parry < 1)
-            return;
-        if (parry > 50)
-            parry = 50;
-    }
-
-    for (i = 0; i < 13; i++) {
-        if (damages[11 + i] >= 5) {
-            reduce = (damages[11 + i] * parry) / 100;
-            damages[11 + i] -= reduce;
-        }
-    }
-#endif
+    Local_AdjustCombatHitDamage(target, damages);
 }
 
 void Hook_CombatHitDamage (void) {

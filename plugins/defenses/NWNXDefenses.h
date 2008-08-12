@@ -78,6 +78,7 @@ int Hook_GetTumbleACBonus (CNWSCreatureStats *stats);
 
 int8_t Hook_GetDamageImmunity (CNWSCreature *cre, int damtypeindex);
 
+void Local_AdjustCombatHitDamage(CNWSCreature *target, int16_t *damages);
 int Local_GetACChaAdjustment (CNWSCreatureStats *stats, int touch, int adj);
 int Local_GetACClassAdjustment (CNWSCreatureStats *stats, int touch, int adj);
 int Local_GetACConAdjustment (CNWSCreatureStats *stats, int touch, int adj);
@@ -89,6 +90,7 @@ int Local_GetACSkillAdjustment (CNWSCreatureStats *stats, int touch, int adj);
 int Local_GetACStrAdjustment (CNWSCreatureStats *stats, int touch, int adj);
 int Local_GetACTouchBase (CNWSCreatureStats *stats);
 int Local_GetACWisAdjustment (CNWSCreatureStats *stats, int touch, int adj);
+int Local_GetDamageImmunity (CNWSCreature *cre, int damtypeindex, int imm);
 int Local_GetIsDeathAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker);
 int Local_GetIsSneakAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker);
 

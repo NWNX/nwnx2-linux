@@ -52,6 +52,7 @@ OFILES  = \
     hooks/h_GetTumbleACBonus.o                   \
     hooks/h_PickPocketDC.o                       \
     hooks/h_SetDamageImmunity.o                  \
+    local/l_AdjustCombatHitDamage.o              \
     local/l_GetACChaAdjustment.o                 \
     local/l_GetACClassAdjustment.o               \
     local/l_GetACConAdjustment.o                 \
@@ -63,6 +64,7 @@ OFILES  = \
     local/l_GetACStrAdjustment.o                 \
     local/l_GetACTouchBase.o                     \
     local/l_GetACWisAdjustment.o                 \
+    local/l_GetDamageImmunity.o                  \
     local/l_GetIsDeathAttackImmune.o             \
     local/l_GetIsSneakAttackImmune.o             \
     tables/t_DefenseOptions.o                    \
