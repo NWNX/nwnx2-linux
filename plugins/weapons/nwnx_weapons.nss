@@ -52,12 +52,6 @@ const int NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS         = 22;
 const int NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS         = 23;
 const int NWNX_WEAPONS_OPT_LEGFOCUS_AB_EPBONUS       = 24;
 
-/* Set whether or not Death Attack and Sneak Attack should ignore immunity to
- * critical hits.
- */
-const int NWNX_WEAPONS_OPT_DEATHATT_IGNORE_CRIT_IMM  = 25;
-const int NWNX_WEAPONS_OPT_SNEAKATT_IGNORE_CRIT_IMM  = 26;
-
 
 /* Get and set NWNX_WEAPONS_OPT_* options. */
 int GetWeaponOption (int nOption);

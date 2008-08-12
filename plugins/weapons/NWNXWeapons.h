@@ -52,8 +52,6 @@
 #define NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS               22
 #define NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS               23
 #define NWNX_WEAPONS_OPT_LEGFOCUS_AB_EPBONUS             24
-#define NWNX_WEAPONS_OPT_DEATHATT_IGNORE_CRIT_IMM        25
-#define NWNX_WEAPONS_OPT_SNEAKATT_IGNORE_CRIT_IMM        26
 
 #ifdef __cplusplus
 extern "C" {
@@ -98,13 +96,15 @@ nwn_objid_t Func_IntToObject (CGameObject *ob);
 void Hook_GetABAbilityModifier (void);
 void Hook_GetCriticalMultiplier (void);
 void Hook_GetCriticalRange (void);
+void Hook_OffhandCritMult1 (void);
+void Hook_OffhandCritMult2 (void);
+void Hook_OffhandCritMult3 (void);
+void Hook_OffhandCritMult4 (void);
 
 int Hook_GetEpicWeaponDevastatingCritical (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponOverwhelmingCritical (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponSpecialization (CNWSCreatureStats *info, CNWSItem *weapon);
-int Hook_GetIsDeathAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker);
-int Hook_GetIsSneakAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker);
 int Hook_GetIsWeaponOfChoice (CNWSCreatureStats *info, int baseitem);
 int Hook_GetUseMonkAttackTables (CNWSCreatureStats *info, int unarmedonly);
 int Hook_GetWeaponFinesse (CNWSCreatureStats *info, CNWSItem *weapon);
@@ -117,8 +117,6 @@ int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *t
                                     int ranged, int ab_abil, int ab_feats);
 int Local_GetCriticalMultiplierAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj);
 int Local_GetCriticalRangeAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj);
-int Local_GetIsDeathAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker);
-int Local_GetIsSneakAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker);
 
 
 extern uint16_t Table_WeaponOptions[NWNX_WEAPONS_OPTIONS_TABLE_SIZE];

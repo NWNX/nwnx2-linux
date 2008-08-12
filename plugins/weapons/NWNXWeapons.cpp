@@ -30,8 +30,10 @@
 #define NWNX_WEAPONS_SIG(NAME, SIG) { #NAME, &NAME, SIG }
 
 static unsigned char *Ref_ABAbilityModifier;
-static unsigned char *Ref_SneakAttackImmune;
-static unsigned char *Ref_DeathAttackImmune;
+static unsigned char *Ref_OffhandCritMult1;
+static unsigned char *Ref_OffhandCritMult2;
+static unsigned char *Ref_OffhandCritMult3;
+static unsigned char *Ref_OffhandCritMult4;
 
 static struct WeaponSignatureTable {
     char       *name;
@@ -41,8 +43,10 @@ static struct WeaponSignatureTable {
     { NULL,                                     NULL },
 
     NWNX_WEAPONS_SIG(Ref_ABAbilityModifier,     "8B 9D 3C FA FF FF 31 FF 85 DB C7 85 F8 F9 FF FF 00 00 00 00"),
-    NWNX_WEAPONS_SIG(Ref_SneakAttackImmune,     "50 FF 75 08 0F B6 05 ** ** ** ** 50 8B 45 0C FF B0 64|68 0C **#33 80 03"),
-    NWNX_WEAPONS_SIG(Ref_DeathAttackImmune,     "53 FF 75 08 0F B6 05 ** ** ** ** 50 8B 45 0C FF B0 64|68 0C **#33 80 03"),
+    NWNX_WEAPONS_SIG(Ref_OffhandCritMult1,      "66 01 B5 16 FE FF FF 83 EC 08 6A 00 68 FF 00 00 00 68 FF 00 00 00 6A 00"),
+    NWNX_WEAPONS_SIG(Ref_OffhandCritMult2,      "83 EC 08 6A 00 68 FF 00 00 00 68 FF 00 00 00 6A 00 6A 00 6A 01 6A 01 50"),
+    NWNX_WEAPONS_SIG(Ref_OffhandCritMult3,      "6A 00 68 FF 00 00 00 68 FF 00 00 00 6A 00 6A 00 6A 00 6A 01 50 6A 02 FF 75 08"),
+    NWNX_WEAPONS_SIG(Ref_OffhandCritMult4,      "83 C4 10 85 C0 ** ** ** ** 00 00 83 EC 08 52 FF 75 08 ** ** ** ** ** 8B 7D D4 83 C4 10"),
 
     { NULL,                                     NULL },
 };
@@ -201,34 +205,6 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
     }
 
 
-    /* sneak attack immunity hook */
-    if (Ref_SneakAttackImmune != NULL) {
-        int i;
-
-        nx_hook_enable_write(Ref_SneakAttackImmune, 96);
-
-        *(unsigned long *)(Ref_SneakAttackImmune + 22) =
-            (unsigned long)Hook_GetIsSneakAttackImmune - (unsigned long)(Ref_SneakAttackImmune + 26);
-
-        for (i = 33; i < 94; i++)
-            Ref_SneakAttackImmune[i] = 0x90;        /* NOP */
-    }
-
-
-    /* death attack immunity hook */
-    if (Ref_DeathAttackImmune != NULL) {
-        int i;
-
-        nx_hook_enable_write(Ref_DeathAttackImmune, 96);
-
-        *(unsigned long *)(Ref_DeathAttackImmune + 22) =
-            (unsigned long)Hook_GetIsDeathAttackImmune - (unsigned long)(Ref_DeathAttackImmune + 26);
-
-        for (i = 33; i < 94; i++)
-            Ref_DeathAttackImmune[i] = 0x90;        /* NOP */
-    }
-
-
     /* AB ability modifier hook */
     if (Ref_ABAbilityModifier != NULL) {
         int found = 0;
@@ -258,6 +234,64 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
             Hook_ABAM_Return = (uintptr_t)p;
         } else
             nx_log(NX_LOG_INFO, 0, "did not find AB ability modifier jump reference before %p", p);
+    }
+
+
+    /* fix offhand critical multiplier bug */
+    if (Ref_OffhandCritMult1 != NULL && Ref_OffhandCritMult2 != NULL &&
+        Ref_OffhandCritMult3 != NULL && Ref_OffhandCritMult4 != NULL) {
+
+        extern volatile uintptr_t Hook_OHCM1_Return;
+        extern volatile uintptr_t Hook_OHCM2_Return;
+        extern volatile uintptr_t Hook_OHCM3_Return;
+        extern volatile uintptr_t Hook_OHCM4_Return;
+
+        Hook_OHCM1_Return = (uintptr_t)(Ref_OffhandCritMult1 + 16);
+
+        nx_hook_enable_write(Ref_OffhandCritMult1, 18);
+
+        Ref_OffhandCritMult1[10] = 0x68;
+        Ref_OffhandCritMult1[15] = 0xC3;
+        Ref_OffhandCritMult1[16] = 0x90;
+
+        *((unsigned long *)(Ref_OffhandCritMult1 + 11)) =
+            (unsigned long)Hook_OffhandCritMult1;
+
+
+        Hook_OHCM2_Return = (uintptr_t)(Ref_OffhandCritMult2 + 9);
+
+        nx_hook_enable_write(Ref_OffhandCritMult2, 12);
+
+        Ref_OffhandCritMult2[3] = 0x68;
+        Ref_OffhandCritMult2[8] = 0xC3;
+        Ref_OffhandCritMult2[9] = 0x90;
+
+        *((unsigned long *)(Ref_OffhandCritMult2 + 4)) =
+            (unsigned long)Hook_OffhandCritMult2;
+
+
+        Hook_OHCM3_Return = (uintptr_t)(Ref_OffhandCritMult3 + 6);
+
+        nx_hook_enable_write(Ref_OffhandCritMult3, 12);
+
+        Ref_OffhandCritMult3[0] = 0x68;
+        Ref_OffhandCritMult3[5] = 0xC3;
+        Ref_OffhandCritMult3[6] = 0x90;
+
+        *((unsigned long *)(Ref_OffhandCritMult3 + 1)) =
+            (unsigned long)Hook_OffhandCritMult3;
+
+
+        Hook_OHCM4_Return = (uintptr_t)(Ref_OffhandCritMult4 + 17);
+
+        Ref_OffhandCritMult4[11] = 0x68;
+        Ref_OffhandCritMult4[16] = 0xC3;
+        Ref_OffhandCritMult4[17] = 0x90;
+
+        nx_hook_enable_write(Ref_OffhandCritMult4, 20);
+
+        *((unsigned long *)(Ref_OffhandCritMult4 + 12)) =
+            (unsigned long)Hook_OffhandCritMult4;
     }
 
     return true;

@@ -31,9 +31,8 @@ INSTALL	 = /usr/bin/install -c
 INCS	 = -I. -I.. -I../.. -I ../../include -I/usr/local/include
 LIBS	 = -L/usr/local/lib -lm -lz
 DEFS	 = -D_REENTRANT -D_THREAD_SAFE
-OPTS	 = -O -pipe -march=i386
-DEBUGS 	 = -g -Wall -Werror
-CPPFLAGS = $(DEBUGS) $(OPTS) $(DEFS) $(INCS)
+CFLAGS   = @CFLAGS@ -Wall -Werror $(DEFS) $(INCS)
+CPPFLAGS = @CPPFLAGS@ -Wall -Werror $(DEFS) $(INCS)
 LFLAGS   = $(DEBUGS) $(OPTS) -w -fPIC -shared -rdynamic
 
 OFILES  = \
@@ -75,19 +74,16 @@ OFILES  = \
     hooks/h_GetEpicWeaponFocus.o                 \
     hooks/h_GetEpicWeaponOverwhelmingCritical.o  \
     hooks/h_GetEpicWeaponSpecialization.o        \
-    hooks/h_GetIsDeathAttackImmune.o             \
-    hooks/h_GetIsSneakAttackImmune.o             \
     hooks/h_GetIsWeaponOfChoice.o                \
     hooks/h_GetUseMonkAttackTables.o             \
     hooks/h_GetWeaponFinesse.o                   \
     hooks/h_GetWeaponFocus.o                     \
     hooks/h_GetWeaponImprovedCritical.o          \
     hooks/h_GetWeaponSpecialization.o            \
+    hooks/h_OffhandCritMultiplier.o              \
     local/l_GetAttackBonusAdjustment.o           \
     local/l_GetCriticalMultiplierAdjustment.o    \
     local/l_GetCriticalRangeAdjustment.o         \
-    local/l_GetIsDeathAttackImmune.o             \
-    local/l_GetIsSneakAttackImmune.o             \
     tables/t_WeaponAbility.o                     \
     tables/t_WeaponDevastatingCritical.o         \
     tables/t_WeaponEpicFocus.o                   \

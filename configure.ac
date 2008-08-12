@@ -66,5 +66,25 @@ AC_CHECK_FUNCS([bzero getspnam])
 # zlib, move to db subdir's config
 AC_CHECK_LIB(z, inflateEnd,[true],[echo Unable to find -lz \(zlib\).  Please install a zlib developer\'s package. ; exit 1])
 
-AC_CONFIG_FILES([Makefile plugins/chat/Makefile plugins/db/Makefile plugins/events/Makefile plugins/fixes/Makefile plugins/functions/Makefile plugins/hashset/Makefile plugins/mnx/Makefile plugins/odmbc/Makefile plugins/profiler/Makefile plugins/reset/Makefile plugins/resman/Makefile plugins/ruby/Makefile plugins/structs/Makefile plugins/tmi/Makefile $extraplugins])
+AC_CONFIG_FILES([
+        Makefile
+        plugins/chat/Makefile
+        plugins/db/Makefile
+        plugins/defenses/Makefile
+        plugins/events/Makefile
+        plugins/fixes/Makefile
+        plugins/funcs/Makefile
+        plugins/functions/Makefile
+        plugins/hashset/Makefile
+        plugins/mnx/Makefile
+        plugins/odmbc/Makefile
+        plugins/profiler/Makefile
+        plugins/reset/Makefile
+        plugins/resman/Makefile
+        plugins/ruby/Makefile
+        plugins/structs/Makefile
+        plugins/tmi/Makefile
+        plugins/weapons/Makefile
+        $extraplugins ])
+
 AC_OUTPUT

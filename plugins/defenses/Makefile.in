@@ -31,9 +31,8 @@ INSTALL	 = /usr/bin/install -c
 INCS	 = -I. -I.. -I../.. -I ../../include -I/usr/local/include
 LIBS	 = -L/usr/local/lib -lm -lz
 DEFS	 = -D_REENTRANT -D_THREAD_SAFE
-OPTS	 = -O -pipe -march=i386
-DEBUGS 	 = -g -Wall -Werror
-CPPFLAGS = $(DEBUGS) $(OPTS) $(DEFS) $(INCS)
+CFLAGS   = @CFLAGS@ -Wall -Werror $(DEFS) $(INCS)
+CPPFLAGS = @CPPFLAGS@ -Wall -Werror $(DEFS) $(INCS)
 LFLAGS   = $(DEBUGS) $(OPTS) -w -fPIC -shared -rdynamic
 
 OFILES  = \

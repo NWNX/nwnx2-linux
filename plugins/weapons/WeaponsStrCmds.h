@@ -1,4 +1,4 @@
-/* ANSI-C code produced by gperf version 3.0.1 */
+/* ANSI-C code produced by gperf version 3.0.3 */
 /* Command-line: gperf -L ANSI-C -tCG -m 10 -K name -H WeaponsStrCommandHash -N WeaponsStrCommandLookup -W WeaponsStrCommandList --output-file=gperf.out WeaponsStrCmds.gperf  */
 /* Computed positions: -k'1,10' */
 
@@ -182,6 +182,9 @@ static const struct WeaponsStrCommand_s WeaponsStrCommandList[] =
 
 #ifdef __GNUC__
 __inline
+#ifdef __GNUC_STDC_INLINE__
+__attribute__ ((__gnu_inline__))
+#endif
 #endif
 static const struct WeaponsStrCommand_s *
 WeaponsStrCommandLookup (register const char *str, register unsigned int len)

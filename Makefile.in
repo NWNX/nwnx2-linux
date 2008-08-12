@@ -10,8 +10,10 @@ CPPFLAGS = @CPPFLAGS@ -Iinclude $(DEFS)
 SUBDIRS = \
     plugins/chat       \
     plugins/db         \
+    plugins/defenses   \
     plugins/events     \
     plugins/fixes      \
+    plugins/funcs      \
     plugins/functions  \
     plugins/hashset    \
     plugins/mnx        \

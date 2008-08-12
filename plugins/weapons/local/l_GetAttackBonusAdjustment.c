@@ -24,10 +24,12 @@
 int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon,
                                     int ranged, int ab_abil, int ab_feats) {
 #ifdef NWNX_WEAPONS_HG
+#define NWNX_EXALT_GET_AB(P)            ((P >> 16) & 0xFF)
+
     int ab = 0;
 
     if ((attacker->cs_age & 0x80000000) &&
-        (ab = (attacker->cs_age >> 16) & 0xFF) > 0 && ab < 130)
+        (ab = NWNX_EXALT_GET_AB(attacker->cs_age)) > 0 && ab < 130)
         ab_abil = ab;
 
     if (weapon != NULL) {
