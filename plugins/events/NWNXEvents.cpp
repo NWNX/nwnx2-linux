@@ -32,8 +32,12 @@
 
 CNWNXEvents::CNWNXEvents()
 {
-	confKey = "EVENTS";
-	strcpy(eventScript,"vir_events");
+    int i;
+
+    for (i = 0; i < NUM_EVENT_TYPES; i++)
+        eventScripts[i] = strdup("vir_events");
+
+    confKey = "EVENTS";
 }
 
 CNWNXEvents::~CNWNXEvents()
@@ -51,15 +55,22 @@ bool CNWNXEvents::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX Events version 1.3.0 for Linux.\n");
+	Log (0, "NWNX Events version 1.3.1 for Linux.\n");
 	Log (0, "(c) 2006-2008 by virusman (virusman@virusman.ru)\n");
 
-	if(nwnxConfig->exists(confKey)) {
-		strncpy(eventScript, (*nwnxConfig)[confKey]["event_script"].c_str(), 16);
-		eventScript[16] = 0;
-	}
+        if (nwnxConfig->exists(confKey)) {
+            int i;
 
-	return(HookFunctions());
+            for (i = 0; i < NUM_EVENT_TYPES; i++) {
+                if (eventScripts[i] != NULL)
+                    free(eventScripts[i]);
+
+                eventScripts[i]     = strdup((*nwnxConfig)[confKey]["event_script"].c_str());
+                eventScripts[i][16] = 0;
+            }
+        }
+
+	return (HookFunctions());
 }
 
 char* CNWNXEvents::OnRequest (char* gameObject, char* Request, char* Parameters)
@@ -200,7 +211,41 @@ char* CNWNXEvents::OnRequest (char* gameObject, char* Request, char* Parameters)
 	}
 
 
-	if (!scriptRun) return NULL; //The following functions are accessible only from event script
+	if (!scriptRun) {
+	    if (strncmp(Request, "SET_EVENT_HANDLER_", 18) == 0) {
+                int nHandler = atoi(Request + 18);
+
+                if (nHandler < 0 || nHandler >= NUM_EVENT_TYPES) {
+                    *Parameters = 0;
+                } else if (nHandler == EVENT_TYPE_ALL) {
+                    int i;
+
+                    for (i = 0; i < NUM_EVENT_TYPES; i++) {
+                        if (eventScripts[i] != NULL)
+                            free(eventScripts[i]);
+
+                        if (strlen(Parameters) > 1 && strlen(Parameters) <= 16)
+                            eventScripts[i] = strdup(Parameters);
+                        else
+                            eventScripts[i] = NULL;
+                    }
+                } else {
+                    if (eventScripts[nHandler] != NULL) {
+                        free(eventScripts[nHandler]);
+                        eventScripts[nHandler] = NULL;
+                    }
+
+                    if (strlen(Parameters) > 1 && strlen(Parameters) <= 16)
+                        eventScripts[nHandler] = strdup(Parameters);
+                    else
+                        *Parameters = 0;
+                }
+            }
+
+            return NULL;
+        }
+            
+        //The following functions are accessible only from event script
 	if ((strncmp(Request, "GET_EVENT_ID", 12) && strncmp(Request, "GETEVENTID", 10)) == 0)
 	{
 		if (strlen(Parameters) > 1)
@@ -251,8 +296,12 @@ int CNWNXEvents::FireEvent(const int pObj, int nEvID)
 {
 	bBypass = 0;
 	nEventID = nEvID;
-	Log(3, "o EVENTS: Fired event %d (%08lX). Calling '%s'\n", nEventID, pObj, eventScript);
-	RunScript(eventScript, pObj);
+
+        if (nEventID < 0 || nEventID >= NUM_EVENT_TYPES || eventScripts[nEventID] == NULL)
+            return 0;
+
+	Log(3, "o EVENTS: Fired event %d (%08lX). Calling '%s'\n", nEventID, pObj, eventScripts[nEventID]);
+	RunScript(eventScripts[nEventID], pObj);
 	//deinitialize
 	oTarget = OBJECT_INVALID;
 	nEventID = 0;

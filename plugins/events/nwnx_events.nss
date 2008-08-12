@@ -1,3 +1,4 @@
+const int EVENT_TYPE_ALL               = 0;
 const int EVENT_TYPE_SAVE_CHAR         = 1;
 const int EVENT_TYPE_PICKPOCKET        = 2;
 const int EVENT_TYPE_ATTACK            = 3;
@@ -32,6 +33,7 @@ object GetEventTarget();
 object GetEventItem();
 vector GetEventPosition();
 void BypassEvent();
+void SetGlobalEventHandler(int nEventID, string sHandler);
 
 int GetCurrentNodeType();
 int GetCurrentNodeID();
@@ -95,6 +97,13 @@ vector GetEventPosition()
 void BypassEvent()
 {
     SetLocalString(GetModule(), "NWNX!EVENTS!BYPASS", "1");
+}
+
+void SetGlobalEventHandler(int nEventID, string sHandler)
+{
+    if (sHandler == "")
+        sHandler = "-";
+    SetLocalString(GetModule(), "NWNX!EVENTS!SET_EVENT_HANDLER_" + IntToString(nEventID), sHandler);
 }
 
 int GetCurrentNodeType()
