@@ -54,8 +54,8 @@ OFILES  = \
     funcs/conv/f_SetConversation.o               \
     funcs/crit/f_GetCriticalHitMultiplier.o      \
     funcs/crit/f_GetCriticalHitRange.o           \
-    funcs/event/f_GetEventHandler.o              \
-    funcs/event/f_SetEventHandler.o              \
+    funcs/event/f_GetCreatureEventHandler.o      \
+    funcs/event/f_SetCreatureEventHandler.o      \
     funcs/faction/f_GetFactionId.o               \
     funcs/faction/f_SetFactionId.o               \
     funcs/feat/f_AddKnownFeat.o                  \

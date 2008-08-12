@@ -21,25 +21,22 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetEventHandler (CGameObject *ob, char *value) {
+void Func_GetCreatureEventHandler (CGameObject *ob, char *value) {
     int ev;
-    char *p;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
         (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        (p = strchr(value, ' ')) == NULL              ||
-        (ev = atoi(value)) < 0 || ev > 12             ||
-        strlen(++p) < 1 || strlen(p) > 16             ||
-        strcspn(p, "abcdefghijklmnopqrstuvwxyz012345679_") != strlen(p)) {
+        (ev = atoi(value)) < 0 || ev > 12) {
 
         *value = 0;
         return;
     }
 
-    /* warning: this leaks memory */
-    cre->cre_eventhandlers[ev].text = strdup(p);
-    cre->cre_eventhandlers[ev].len  = strlen(p);
+    if (cre->cre_eventhandlers[ev].text == NULL)
+        *value = 0;
+    else
+        snprintf(value, strlen(value), "%s", cre->cre_eventhandlers[ev].text);
 }
 
 

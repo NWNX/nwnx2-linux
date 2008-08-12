@@ -10,7 +10,7 @@
  *   ActionUseItemOnObject() - working
  *   BootPCWithMessage() - working
  *   DumpObject() - working
- *   GetEventHandler() - not working
+ *   GetCreatureEventHandler() - not working
  *   GetFactionId() - working
  *   GetFirstArea() - working
  *   GetGroundHeight() - working
@@ -22,7 +22,7 @@
  *   GetNextArea() - working
  *   IntToObject() - working
  *   JumpToLimbo() - working
- *   SetEventHandler() - not working
+ *   SetCreatureEventHandler() - not working
  *   SetFactionId() - working
  *   SetGoldPieceValue() - working
  *   SetItemWeight() - working
