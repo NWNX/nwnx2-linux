@@ -111,6 +111,7 @@ SETITEMWEIGHT,                         Func_SetItemWeight
 SETKNOWNFEAT,                          Func_SetKnownFeat
 SETKNOWNFEATBYLEVEL,                   Func_SetKnownFeatByLevel
 SETKNOWNSPELL,                         Func_SetKnownSpell
+SETMAXHITPOINTS,                       Func_SetMaxHitPoints
 SETMAXHITPOINTSBYLEVEL,                Func_SetMaxHitPointsByLevel
 SETMEMORIZEDSPELL,                     Func_SetMemorizedSpell
 SETMOVEMENTRATE,                       Func_SetMovementRate

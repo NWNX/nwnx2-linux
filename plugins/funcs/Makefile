@@ -77,6 +77,7 @@ OFILES  = \
     funcs/hp/f_GetMaxHitPointsByLevel.o          \
     funcs/hp/f_ModifyCurrentHitPoints.o          \
     funcs/hp/f_SetCurrentHitPoints.o             \
+    funcs/hp/f_SetMaxHitPoints.o                 \
     funcs/hp/f_SetMaxHitPointsByLevel.o          \
     funcs/item/f_GetItemByPosition.o             \
     funcs/item/f_GetItemCount.o                  \
