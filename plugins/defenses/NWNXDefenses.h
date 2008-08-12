@@ -83,7 +83,7 @@ int Hook_GetTumbleACBonus (CNWSCreatureStats *stats);
 
 int8_t Hook_GetDamageImmunity (CNWSCreature *cre, int damtypeindex);
 
-void Local_AdjustCombatHitDamage(CNWSCreature *target, int16_t *damages);
+void Local_AdjustCombatHitDamage(CNWSCreature *target, int16_t *damages, int crit);
 int Local_GetACChaAdjustment (CNWSCreatureStats *stats, int touch, int adj);
 int Local_GetACClassAdjustment (CNWSCreatureStats *stats, int touch, int adj);
 int Local_GetACConAdjustment (CNWSCreatureStats *stats, int touch, int adj);

@@ -24,6 +24,8 @@
 int Local_GetACEquipAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
 #ifdef NWNX_DEFENSES_HG
     if (!touch) {
+        int i;
+
         /* Insurmountable Protection feats */
         for (i = 3105; i <= 3109; i++) {
             if (CNWSCreatureStats__HasFeat(stats, i))
@@ -36,10 +38,10 @@ int Local_GetACEquipAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
 
             if (stats->cs_ac_shield_base == 3) {
                 if (dex > (11 - stats->cs_ac_armour_base))
-                    bonus -= dex - (11 - stats->cs_ac_armour_base);
+                    adj -= dex - (11 - stats->cs_ac_armour_base);
             } else if (stats->cs_ac_shield_base == 2) {
                 if (dex > (18 - stats->cs_ac_armour_base))
-                    bonus -= dex - (18 - stats->cs_ac_armour_base);
+                    adj -= dex - (18 - stats->cs_ac_armour_base);
             }
         }
     }

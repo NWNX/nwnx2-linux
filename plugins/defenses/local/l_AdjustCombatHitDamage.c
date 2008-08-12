@@ -20,24 +20,28 @@
 
 #include "NWNXDefenses.h"
 
-void Local_AdjustCombatHitDamage (CNWSCreature *target, int16_t *damages) {
+void Local_AdjustCombatHitDamage (CNWSCreature *target, int16_t *damages, int crit) {
 #ifdef NWNX_DEFENSES_HG
+
+#define HGFEAT_Y_CRITICAL_REDUCTION               3000
+#define HGFEAT_Z_CRITICAL_REDUCTION               3280
+
     int i, parry, reduce;
 
-    if (Hook_CHD_Target == NULL            ||
-        Hook_CHD_Target->cre_stats == NULL ||
-        Hook_CHD_Target->obj.obj_type != 5)
+    if (target == NULL            ||
+        target->cre_stats == NULL ||
+        target->obj.obj_type != 5)
         return;
 
-    if (!Hook_CHD_Crit)
+    if (!crit)
         return;
 
-    if (CNWSCreatureStats__HasFeat(Hook_CHD_Target->cre_stats, HGFEAT_Y_CRITICAL_REDUCTION) ||
-        CNWSCreatureStats__HasFeat(Hook_CHD_Target->cre_stats, HGFEAT_Z_CRITICAL_REDUCTION)) {
+    if (CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Y_CRITICAL_REDUCTION) ||
+        CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Z_CRITICAL_REDUCTION)) {
 
         parry = 50;
     } else {
-        parry = (CNWSCreatureStats__GetSkillRank(Hook_CHD_Target->cre_stats, SKILL_PARRY, NULL, 0) - 20) / 2;
+        parry = (CNWSCreatureStats__GetSkillRank(target->cre_stats, SKILL_PARRY, NULL, 0) - 20) / 2;
 
         if (parry < 1)
             return;
