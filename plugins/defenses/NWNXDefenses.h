@@ -24,6 +24,22 @@
 
 #include "NWNXLib.h"
 
+#define AC_STRENGTH_BONUS                               -15
+#define AC_DEXTERITY_BONUS                              -14
+#define AC_CONSTITUTION_BONUS                           -13
+#define AC_INTELLIGENCE_BONUS                           -12
+#define AC_CHARISMA_BONUS                               -11
+#define AC_EQUIP_BONUS                                  -10
+#define AC_SKILL_BONUS                                   -9
+#define AC_CLASS_BONUS                                   -8
+#define AC_FEAT_BONUS                                    -7
+#define AC_WISDOM_BONUS                                  -6
+#define AC_OTHER_BONUS                                   -5
+#define AC_TOUCH_BASE                                    -4
+#define AC_SHIELD_BASE                                   -3
+#define AC_ARMOUR_BASE                                   -2
+#define AC_NATURAL_BASE                                  -1
+
 #define NWNX_DEFENSES_BASE_ITEM_TABLE_SIZE              512
 #define NWNX_DEFENSES_OPTIONS_TABLE_SIZE                 64
 
