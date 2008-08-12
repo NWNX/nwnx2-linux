@@ -36,6 +36,13 @@ CPPFLAGS = @CPPFLAGS@ -Wall -Werror $(DEFS) $(INCS)
 LFLAGS   = $(DEBUGS) $(OPTS) -w -fPIC -shared -rdynamic
 
 OFILES  = \
+    funcs/f_GetACByType.o                        \
+    funcs/f_GetACVersus.o                        \
+    funcs/f_GetDamageImmunity.o                  \
+    funcs/f_GetDefenseOption.o                   \
+    funcs/f_GetTrueDamageImmunity.o              \
+    funcs/f_IntToObject.o                        \
+    funcs/f_SetDefenseOption.o                   \
     funcs/f_GetDefenseOption.o                   \
     funcs/f_IntToObject.o      			 \
     funcs/f_SetDefenseOption.o                   \

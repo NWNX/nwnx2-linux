@@ -54,7 +54,11 @@
 extern "C" {
 #endif
 
+void Func_GetACByType                        (CGameObject *ob, char *value);
+void Func_GetACVersus                        (CGameObject *ob, char *value);
+void Func_GetDamageImmunity                  (CGameObject *ob, char *value);
 void Func_GetDefenseOption                   (CGameObject *ob, char *value);
+void Func_GetTrueDamageImmunity              (CGameObject *ob, char *value);
 void Func_SetDefenseOption                   (CGameObject *ob, char *value);
 
 nwn_objid_t Func_IntToObject (CGameObject *ob);
@@ -68,6 +72,7 @@ void Hook_GetWillSavingThrow (void);
 void Hook_PickPocketDC (void);
 void Hook_SetDamageImmunity (CNWSCreature *cre, int damtype, int percent);
 
+int Hook_GetACClassAdjustment (CNWSCreatureStats *stats, int touch);
 int Hook_GetACFeatAdjustment (CNWSCreatureStats *stats, int touch);
 int Hook_GetACNaturalBase (CNWSCreatureStats *stats, int touch);
 int Hook_GetACWisAdjustment (CNWSCreatureStats *stats, int touch);

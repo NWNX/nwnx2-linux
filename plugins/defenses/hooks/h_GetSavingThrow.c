@@ -25,14 +25,36 @@ static volatile int8_t Hook_Save_Value;
 
 
 static int8_t Hook_GetSavingThrowAdjustment (CNWSCreatureStats *stats, int save, int8_t value) {
-    if (stats == NULL || stats->cs_cha_mod < 1)
+    if (stats == NULL)
         return value;
 
-    if (CNWSCreatureStats__HasFeat(stats, FEAT_DIVINE_GRACE) && stats->cs_al_goodevil < 70)
-        value -= (stats->cs_cha_mod > 0 ? stats->cs_cha_mod : 0);
+    if (stats->cs_cha_mod > 0) {
+        if (Table_DefenseOptions[NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_GE] > 0 &&
+            stats->cs_al_goodevil < Table_DefenseOptions[NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_GE]) {
 
-    if (CNWSCreatureStats__HasFeat(stats, FEAT_PRESTIGE_DARK_BLESSING) && stats->cs_al_goodevil > 30)
-        value -= (stats->cs_cha_mod > 0 ? stats->cs_cha_mod : 0);
+            if (CNWSCreatureStats__HasFeat(stats, FEAT_DIVINE_GRACE))
+                value -= stats->cs_cha_mod;
+
+        } else if (Table_DefenseOptions[NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_LC] > 0 &&
+                   stats->cs_al_lawchaos < Table_DefenseOptions[NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_LC]) {
+
+            if (CNWSCreatureStats__HasFeat(stats, FEAT_DIVINE_GRACE))
+                value -= stats->cs_cha_mod;
+        }
+
+        if (Table_DefenseOptions[NWNX_DEFENSES_OPT_BLACKGUARD_SAVES_MAX_ALIGN_GE] > 0 &&
+            stats->cs_al_goodevil > Table_DefenseOptions[NWNX_DEFENSES_OPT_BLACKGUARD_SAVES_MAX_ALIGN_GE]) {
+
+            if (CNWSCreatureStats__HasFeat(stats, FEAT_PRESTIGE_DARK_BLESSING))
+                value -= stats->cs_cha_mod;
+
+        } else if (Table_DefenseOptions[NWNX_DEFENSES_OPT_BLACKGUARD_SAVES_MAX_ALIGN_LC] > 0 &&
+                   stats->cs_al_lawchaos > Table_DefenseOptions[NWNX_DEFENSES_OPT_BLACKGUARD_SAVES_MAX_ALIGN_LC]) {
+
+            if (CNWSCreatureStats__HasFeat(stats, FEAT_PRESTIGE_DARK_BLESSING))
+                value -= stats->cs_cha_mod;
+        }
+    }
 
     return value;
 }
