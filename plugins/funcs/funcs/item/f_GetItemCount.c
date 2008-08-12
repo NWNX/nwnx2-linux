@@ -27,9 +27,10 @@ void Func_GetItemCount (CGameObject *ob, char *value) {
 
     if (ob != NULL                                    &&
         (cre = ob->vtable->AsNWSCreature(ob)) != NULL &&
-        cre->cre_inventory != NULL) {
+        cre->cre_inventory != NULL                    &&
+        cre->cre_inventory->ir_list.header != NULL) {
 
-        ret = cre->cre_inventory->ir_list.len;
+        ret = cre->cre_inventory->ir_list.header->len;
     }
 
     snprintf(value, strlen(value), "%d", ret);

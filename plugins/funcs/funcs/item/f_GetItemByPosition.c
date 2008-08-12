@@ -38,7 +38,7 @@ nwn_objid_t Func_GetItemByPosition (CGameObject *ob) {
         (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
         cre->cre_inventory == NULL                    ||
         Item_Position < 0                             ||
-        Item_Position >= cre->cre_inventory->ir_list.len) {
+        Item_Position >= cre->cre_inventory->ir_list.header->len) {
 
         return OBJECT_INVALID;
     }
@@ -47,10 +47,10 @@ nwn_objid_t Func_GetItemByPosition (CGameObject *ob) {
     for (i = 0; i < Item_Position && node != NULL; i++)
         node = node->next;
 
-    if (node == NULL)
+    if (node == NULL || node->data == NULL)
         return OBJECT_INVALID;
 
-    return (uintptr_t)(node->data);
+    return *(nwn_objid_t *)(node->data);
 }
 
 

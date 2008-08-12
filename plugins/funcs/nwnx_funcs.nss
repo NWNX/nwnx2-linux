@@ -2,26 +2,27 @@
 
 /* TODO:
  *   GetConversation()
- *   GetEventHandler() - not working
+ *   SetConversation()
  *   GetIsVariableValid()
- *   GetItemByPosition() - not working
- *   GetItemCount() - not working
- *   GetLocalVariableByPosition() - not working
- *   GetLocalVariableCount() - working
  *   GetPCPort() - not working
- *   SetEventHandler() - not working
  *
  *   ActionUseItemAtLocation() - working
  *   ActionUseItemOnObject() - working
  *   BootPCWithMessage() - working
  *   DumpObject() - working
+ *   GetEventHandler() - not working
  *   GetFactionId() - working
  *   GetFirstArea() - working
  *   GetGroundHeight() - working
  *   GetIsWalkable() - working
+ *   GetItemByPosition() - not working
+ *   GetItemCount() - not working
+ *   GetLocalVariableByPosition() - working
+ *   GetLocalVariableCount() - working
  *   GetNextArea() - working
  *   IntToObject() - working
  *   JumpToLimbo() - working
+ *   SetEventHandler() - not working
  *   SetFactionId() - working
  *   SetGoldPieceValue() - working
  *   SetItemWeight() - working
