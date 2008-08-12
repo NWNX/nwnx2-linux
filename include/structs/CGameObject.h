@@ -39,9 +39,9 @@ struct CGameObject_s {
     uint32_t            field_10;
     uint32_t            field_14;
 
+    char               *template_tag;
     char               *tag;
 
-    uint32_t            field_1C;
     uint32_t            field_20;
 
     char               *resref;

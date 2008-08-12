@@ -32,20 +32,20 @@ static int GetPlayerPort (void *pSomeStruct, uint32_t nPlayerID) {
             if(*(uint32_t *)((char*)pClientStruct+0xC) == nPlayerID) {
                 nNum = *(uint32_t *)((char*)pClientStruct+0x14);
                 pSomeStruct = *(void **)((char*)pSomeStruct+0x4);
-                if(!pSomeStruct) return 0;
+                if(!pSomeStruct) return -1;
                 pSomeStruct = *(void **)pSomeStruct;
-                if(!pSomeStruct) return 0;
+                if(!pSomeStruct) return -2;
 
                 uint8_t *pFlagList = *(uint8_t **)((char*)pSomeStruct+0x34);
-                if(!pFlagList || !pFlagList[nNum]) return 0;
+                if(!pFlagList || !pFlagList[nNum]) return -3;
                 struct sockaddr_in *pIP = *(struct sockaddr_in **)((char*)pSomeStruct+0x3C);
-                if(!pIP) return 0;
+                if(!pIP) return -4;
 
                 return pIP->sin_port;
             }
         }
     }
-    return 0;
+    return -5;
 }
 
 void Func_GetPCPort (CGameObject *ob, char *value) {

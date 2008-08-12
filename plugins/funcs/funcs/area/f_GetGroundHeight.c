@@ -22,7 +22,6 @@
 
 
 void Func_GetGroundHeight (CGameObject *ob, char *value) {
-    float z;
     Vector vec;
     CNWSArea *area;
     nwn_objid_t areaid;
@@ -39,8 +38,7 @@ void Func_GetGroundHeight (CGameObject *ob, char *value) {
         return;
     }
 
-    z = CNWSArea__ComputeHeight(area, vec);
-    snprintf(value, strlen(value), "%f", z);
+    snprintf(value, strlen(value), "%f", CNWSArea__ComputeHeight(area, vec));
 }
 
 

@@ -33,7 +33,10 @@ void Func_GetEventHandler (CGameObject *ob, char *value) {
         return;
     }
 
-    snprintf(value, strlen(value), "%s", cre->cre_eventhandlers[ev].text);
+    if (cre->cre_eventhandlers[ev].text == NULL)
+        *value = 0;
+    else
+        snprintf(value, strlen(value), "%s", cre->cre_eventhandlers[ev].text);
 }
 
 

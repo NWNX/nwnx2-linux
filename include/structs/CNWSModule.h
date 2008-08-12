@@ -40,9 +40,9 @@ struct CNWSModule_s {
     uint32_t                    field_30;
     uint32_t                    field_34;
 
-    CExoArrayList_uint32        mod_areas;
+    nwn_objid_t                *mod_areas;
+    uint32_t                    mod_areas_len;
 
-    uint32_t                    field_3C;
     uint32_t                    field_40;
     uint32_t                    field_44;
     uint32_t                    field_48;

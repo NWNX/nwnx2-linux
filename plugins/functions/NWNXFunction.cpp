@@ -380,7 +380,7 @@ char *CNWNXFunction::GetGroundHeight(char* value)
 		return NULL;
 	}
 	float XRes = GetZCoordinate(pArea, x, y, z);
-	Log(2, "GetGroundHeight(%f,%f,%f) = %f\n", x, y, z, XRes);
+	Log(2, "GetGroundHeight(%x=%p,%f,%f,%f) = %f\n", AreaID, pArea, x, y, z, XRes);
 	char *sOut = new char[20];
 	sprintf(sOut, "%f", XRes);
 	return sOut;

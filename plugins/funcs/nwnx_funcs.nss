@@ -1,32 +1,33 @@
 /* interface functions for nwnx_funcs plugin */
 
 /* TODO:
- *   ActionUseItemAtLocation()
- *   ActionUseItemOnObject()
- *   BootPCWithMessage()
- *   DumpObject()
  *   GetConversation()
- *   GetEventHandler()
- *   GetFactionId()
- *   GetFirstArea()
- *   GetFirstLocalVariable()
- *   GetGroundHeight()
+ *   GetEventHandler() - not working
  *   GetIsVariableValid()
- *   GetIsWalkable()
- *   GetItemByPosition()
- *   GetItemCount()
- *   GetNextArea()
- *   GetNextLocalVariable()
- *   GetPCPort()
- *   IntToObject()
- *   JumpToLimbo()
- *   SetEventHandler()
- *   SetFactionId()
- *   SetGoldPieceValue()
- *   SetItemWeight()
- *   SetMovementRate()
- *   SetRacialType()
- *   SetTag()
+ *   GetItemByPosition() - not working
+ *   GetItemCount() - not working
+ *   GetLocalVariableByPosition() - not working
+ *   GetLocalVariableCount() - working
+ *   GetPCPort() - not working
+ *   SetEventHandler() - not working
+ *
+ *   ActionUseItemAtLocation() - working
+ *   ActionUseItemOnObject() - working
+ *   BootPCWithMessage() - working
+ *   DumpObject() - working
+ *   GetFactionId() - working
+ *   GetFirstArea() - working
+ *   GetGroundHeight() - working
+ *   GetIsWalkable() - working
+ *   GetNextArea() - working
+ *   IntToObject() - working
+ *   JumpToLimbo() - working
+ *   SetFactionId() - working
+ *   SetGoldPieceValue() - working
+ *   SetItemWeight() - working
+ *   SetMovementRate() - working
+ *   SetRacialType() - working
+ *   SetTag() - working
  *
  */
 

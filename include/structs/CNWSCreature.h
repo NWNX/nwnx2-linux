@@ -43,7 +43,7 @@ struct CNWSCreature_s {
     uint32_t                    field_1EC;
     uint32_t                    field_1F0;
 
-    CExoString                  cre_eventhandlers[13];  /* 01F8 */
+    CExoString                  cre_eventhandlers[13];  /* 01F4 */
 
     uint32_t                    field_25C;
     uint32_t                    field_260;

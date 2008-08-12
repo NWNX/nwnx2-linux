@@ -514,7 +514,7 @@ int (*CNWSArea__BudgeCreatures)(CNWSArea *, Vector const *, Vector const *, Vect
 int (*CNWSArea__ClearLineOfSight)(CNWSArea *, Vector, Vector, Vector *, uint32_t *, uint32_t, uint32_t, int32_t) = NULL;
 int (*CNWSArea__ComputeAwayVector)(CNWSArea *, Vector, Vector, float, CPathfindInformation *) = NULL;
 int (*CNWSArea__ComputeBestCorner)(CNWSArea *, float, float, float, float, float, float, float, float, float *, float *, float *, float *) = NULL;
-int (*CNWSArea__ComputeHeight)(CNWSArea *, Vector) = NULL;
+float (*CNWSArea__ComputeHeight)(CNWSArea *, Vector) = NULL;
 int (*CNWSArea__ComputeNonVisibleLocation)(CNWSArea *, Vector, CPathfindInformation *, int32_t, Vector *, float) = NULL;
 int (*CNWSArea__ComputePathDistance)(CNWSArea *, int32_t, float *) = NULL;
 int (*CNWSArea__ComputeSafeLocation)(CNWSArea *, Vector, float, CPathfindInformation *, int32_t, Vector *) = NULL;

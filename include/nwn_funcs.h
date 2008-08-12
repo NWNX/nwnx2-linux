@@ -511,7 +511,7 @@ extern int (*CNWSArea__BudgeCreatures)(CNWSArea *, Vector const *, Vector const 
 extern int (*CNWSArea__ClearLineOfSight)(CNWSArea *, Vector, Vector, Vector *, uint32_t *, uint32_t, uint32_t, int32_t);
 extern int (*CNWSArea__ComputeAwayVector)(CNWSArea *, Vector, Vector, float, CPathfindInformation *);
 extern int (*CNWSArea__ComputeBestCorner)(CNWSArea *, float, float, float, float, float, float, float, float, float *, float *, float *, float *);
-extern int (*CNWSArea__ComputeHeight)(CNWSArea *, Vector);
+extern float (*CNWSArea__ComputeHeight)(CNWSArea *, Vector);
 extern int (*CNWSArea__ComputeNonVisibleLocation)(CNWSArea *, Vector, CPathfindInformation *, int32_t, Vector *, float);
 extern int (*CNWSArea__ComputePathDistance)(CNWSArea *, int32_t, float *);
 extern int (*CNWSArea__ComputeSafeLocation)(CNWSArea *, Vector, float, CPathfindInformation *, int32_t, Vector *);
