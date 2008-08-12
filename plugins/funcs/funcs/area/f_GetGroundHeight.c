@@ -24,17 +24,10 @@
 void Func_GetGroundHeight (CGameObject *ob, char *value) {
     Vector vec;
     CNWSArea *area;
-    nwn_objid_t areaid;
 
-    if (sscanf(value, "%x¬%f¬%f¬%f", &areaid, &(vec.x), &(vec.y), &(vec.z)) != 4) {
+    if ((area = ob->vtable->AsNWSArea(ob)) == NULL ||
+        sscanf(value, "%f¬%f¬%f", &(vec.x), &(vec.y), &(vec.z)) != 3) {
         snprintf(value, strlen(value), "-65535.0");
-        return;
-    }
-
-
-    area = CServerExoAppInternal__GetAreaByGameObjectID((*NWN_AppManager)->app_server->srv_internal, areaid);
-    if (area == NULL) {
-        snprintf(value, strlen(value), "65535.0");
         return;
     }
 
