@@ -316,12 +316,6 @@
 #define ABILITY_CHARISMA                                   5
 
 
-#define AC_WISDOM_BONUS                                   -6
-#define AC_OTHER_BONUS                                    -5
-#define AC_TOUCH_BONUS                                    -4
-#define AC_SHIELD_BASE                                    -3
-#define AC_ARMOUR_BASE                                    -2
-#define AC_NATURAL_BASE                                   -1
 #define AC_DODGE_BONUS                                     0
 #define AC_NATURAL_BONUS                                   1
 #define AC_ARMOUR_ENCHANTMENT_BONUS                        2

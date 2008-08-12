@@ -2,6 +2,7 @@ CXX      = @CXX@
 LIBS     = @LIBS@ -ldl
 DEFS     = @DEFS@
 LFLAGS   = -w -fPIC -shared -W -Wall @LDFLAGS@
+CFLAGS   = @CFLAGS@ -Iinclude $(DEFS)
 CPPFLAGS = @CPPFLAGS@ -Iinclude $(DEFS)
 
 # Add your own plugins to the compilation with this configure option:
@@ -44,7 +45,7 @@ nwnx2.so: nwnx2lib.o NWNXBase.o gline.o $(LIBRARY)
 subdirs: $(SUBDIRS)
 
 $(SUBDIRS):
-	$(MAKE) -C $@ PLUGIN_CPPFLAGS="$(CPPFLAGS)" PLUGIN_LFLAGS="$(LFLAGS)"
+	$(MAKE) -C $@ PLUGIN_CFLAGS="$(CFLAGS)" PLUGIN_CPPFLAGS="$(CPPFLAGS)" PLUGIN_LFLAGS="$(LFLAGS)"
 
 clean:
 	for i in $(SUBDIRS); do $(MAKE) -C $$i $@; done

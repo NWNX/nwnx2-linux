@@ -4,13 +4,23 @@ AC_INIT(FULL-PACKAGE-NAME, VERSION, BUG-REPORT-ADDRESS)
 AC_CONFIG_HEADER([config.h])
 
 # EXTREMELY IMPORTANT! MUST NOT BE OVERRIDDEN!
-CPPFLAGS="-mtune=i386 $CPPFLAGS"
+CFLAGS="-mtune=i386 -pipe $CFLAGS"
+CPPFLAGS="-mtune=i386 -pipe $CPPFLAGS"
 
 AC_ARG_ENABLE(debug,
   [  --enable-debug      compile with debugging symbols])
 if test "$enable_debug" = "yes"; then
+	CFLAGS="-g $CFLAGS"
 	CPPFLAGS="-g $CPPFLAGS"
 	LDFLAGS="-g $LDFLAGS"
+fi
+
+AC_ARG_WITH(glibc24,
+  [  --without-glibc24   disable the stack protector from GLIBC_2.4])
+if test "$with_glibc24" = "no"; then
+	CFLAGS="-fno-stack-protector $CFLAGS"
+	CPPFLAGS="-fno-stack-protector $CPPFLAGS"
+	LDFLAGS="-fno-stack-protector $LDFLAGS"
 fi
 
 AC_ARG_WITH(extraplugins,
