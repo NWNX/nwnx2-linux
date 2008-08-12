@@ -34,6 +34,7 @@ static unsigned char *Ref_CombatHitDamage;
 static unsigned char *Ref_DamageImmunityAlloc;
 static unsigned char *Ref_DamageImmunitySet1;
 static unsigned char *Ref_DamageImmunitySet2;
+static unsigned char *Ref_DeathAttackImmune;
 static unsigned char *Ref_TumbleACBonus;
 static unsigned char *Ref_PickPocketDC;
 static unsigned char *Ref_RDDFireImmunity;
@@ -177,10 +178,12 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         }
 
         if (found) {
-            nx_log(NX_LOG_INFO, 0, "found concealment check jump reference at %p", p);
+            extern volatile uintptr_t Hook_CCONC_ReturnHit, Hook_CCONC_ReturnMiss;
 
             Hook_CCONC_ReturnHit  = (uintptr_t)p;
             Hook_CCONC_ReturnMiss = (uintptr_t)p + 2;
+
+            nx_log(NX_LOG_INFO, 0, "found concealment check jump reference at %p", p);
         } else
             nx_log(NX_LOG_INFO, 0, "did not find concealment check jump reference before %p", p);
     }
@@ -188,7 +191,9 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
 
     /* hook hit damage in combat */
     if (Ref_CombatHitDamage != NULL) {
-        Hook_CHD_Return = (uintptr_t)(Ref_CombatHitDamage + 6);
+        extern volatile uintptr_t Hook_CHD_Return;
+        
+        Hook_CHD_Return = (uintptr_t)(Ref_CombatHitDamage + 5);
 
         nx_hook_function(Ref_CombatHitDamage + 1, (void *)Hook_CombatHitDamage,
             5, NX_HOOK_DIRECT);
@@ -292,6 +297,8 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
 
     /* hook Pick Pocket DC */
     if (Ref_PickPocketDC != NULL) {
+        extern volatile uintptr_t Hook_PPDC_Return;
+        
         Hook_PPDC_Return = (uintptr_t)(Ref_PickPocketDC + 12);
 
         nx_hook_function(Ref_PickPocketDC, (void *)Hook_PickPocketDC, 5, NX_HOOK_DIRECT);

@@ -22,6 +22,7 @@
 
 
 static inline bool Hook_MatchAbsoluteImmunityType (CNWSCreature *cre, int damtypeindex) {
+#if 0
     if (!(cre->cre_stats->cs_age & 0x80000000))
         return false;
 
@@ -45,6 +46,7 @@ static inline bool Hook_MatchAbsoluteImmunityType (CNWSCreature *cre, int damtyp
         case 15: return (!cre->cre_is_pc);
         default: return (damtypeindex == 8);
     }
+#endif
 
     return false;
 }

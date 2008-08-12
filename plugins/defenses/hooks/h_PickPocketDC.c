@@ -20,16 +20,16 @@
 
 #include "NWNXDefenses.h"
 
-volatile uintptr_t ExaltHook_PPDC_Return;
-static volatile int ExaltHook_PPDC_ExtraDC = 0;
-static volatile CNWSCreature *ExaltHook_PPDC_Thief, *ExaltHook_PPDC_Victim;
+volatile uintptr_t Hook_PPDC_Return;
+static volatile int Hook_PPDC_ExtraDC = 0;
+static volatile CNWSCreature *Hook_PPDC_Thief, *Hook_PPDC_Victim;
 
 
 static int Hook_GetPickPocketDCAdjustment (CNWSCreature *thief, CNWSCreature *victim) {
     if (victim == NULL             ||
         victim->cre_stats == NULL  ||
         victim->obj.obj_type != OBJECT_TYPE_CREATURE)
-        return;
+        return 0;
 
     int spot = CNWSCreatureStats__GetSkillRank(victim->cre_stats, SKILL_SPOT, NULL, 0);
 
@@ -40,7 +40,7 @@ static int Hook_GetPickPocketDCAdjustment (CNWSCreature *thief, CNWSCreature *vi
 }
 
 
-void ExaltHook_PickPocketDC (void) {
+void Hook_PickPocketDC (void) {
     asm("leave");
 
     /* duplicate the work originally done */
@@ -52,20 +52,20 @@ void ExaltHook_PickPocketDC (void) {
 
     /* get the thief and victim */
     asm("pushl 0xffffff74(%ebp)");
-    asm("popl ExaltHook_PPDC_Victim");
+    asm("popl Hook_PPDC_Victim");
 
     asm("pushl 0x8(%ebp)");
-    asm("popl ExaltHook_PPDC_Thief");
+    asm("popl Hook_PPDC_Thief");
 
-    ExaltHook_PPDC_ExtraDC = ExaltReplace_CalculatePPDC(
-        (CNWSCreature *)ExaltHook_PPDC_Thief,
-        (CNWSCreature *)ExaltHook_PPDC_Victim);
+    Hook_PPDC_ExtraDC = Hook_GetPickPocketDCAdjustment(
+        (CNWSCreature *)Hook_PPDC_Thief,
+        (CNWSCreature *)Hook_PPDC_Victim);
 
     /* the result of Hook_GetPickPocketDCAdjustment() is in %eax */
     asm("add %eax, %edx");
 
     /* return to the normal pick pocket check */
-    asm("push ExaltHook_PPDC_Return");
+    asm("push Hook_PPDC_Return");
     asm("ret");
 }
 

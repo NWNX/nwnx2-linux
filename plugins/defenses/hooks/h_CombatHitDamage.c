@@ -26,7 +26,8 @@ static volatile int16_t *Hook_CHD_Damages;
 static volatile CNWSCreature *Hook_CHD_Target;
 
 
-static void Hook_AdjustCombatHitDamage (int16_t *damages) {
+static void Hook_AdjustCombatHitDamage (CNWSCreature *target, int16_t *damages) {
+#if 0
     int i, parry, reduce;
 
     if (Hook_CHD_Target == NULL            ||
@@ -56,6 +57,7 @@ static void Hook_AdjustCombatHitDamage (int16_t *damages) {
             damages[11 + i] -= reduce;
         }
     }
+#endif
 }
 
 void Hook_CombatHitDamage (void) {
@@ -85,7 +87,7 @@ void Hook_CombatHitDamage (void) {
     asm("popl Hook_CHD_Crit");
 
     asm("pusha");
-    Hook_AdjustCombatHitDamage((int16_t *)Hook_CHD_Damages);
+    Hook_AdjustCombatHitDamage((CNWSCreature *)Hook_CHD_Target, (int16_t *)Hook_CHD_Damages);
     asm("popa");
 
     /* return to the normal combat hit damage call */

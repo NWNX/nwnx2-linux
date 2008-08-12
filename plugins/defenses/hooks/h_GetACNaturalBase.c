@@ -21,139 +21,87 @@
 #include "NWNXDefenses.h"
 
 
-int ExaltReplace_GetOtherACBonus (CNWSCreatureStats *stats, int touch) {
-    int i, bonus = 0;
+int Hook_GetACClassAdjustment (CNWSCreatureStats *stats, int touch) {
+    int adj = 0;
 
-    if (stats == NULL)
-        return 0;
+#ifndef NWNX_DEFENSES_HG
+    if (CNWSCreatureStats__HasFeat(stats, FEAT_DRAGON_ARMOR)) {
+        int rdd = nwn_GetLevelByClass(stats, CLASS_TYPE_DRAGONDISCIPLE);
 
-    bonus = ExaltReplace_GetWisdomACBonus(stats);
+        switch (rdd) {
+            case  0: adj += 0; break;
+            case  1: adj += 1; break;
+            case  2: adj += 1; break;
+            case  3: adj += 1; break;
+            case  4: adj += 1; break;
+            case  5: adj += 2; break;
+            case  6: adj += 2; break;
+            case  7: adj += 2; break;
+            case  8: adj += 3; break;
+            case  9: adj += 3; break;
 
-
-    /* cap shield AC for large/tower shields */
-    if (stats->cs_ac_shield_base > 1 && stats->cs_ac_armour_base < 6) {
-        int dex = CNWSCreatureStats__GetDEXMod(stats, 1);
-
-        if (stats->cs_ac_shield_base == 3) {
-            if (dex > (11 - stats->cs_ac_armour_base))
-                bonus -= dex - (11 - stats->cs_ac_armour_base);
-        } else if (stats->cs_ac_shield_base == 2) {
-            if (dex > (18 - stats->cs_ac_armour_base))
-                bonus -= dex - (18 - stats->cs_ac_armour_base);
+            default: adj += 4 + ((rdd - 10) / 5); break;
         }
     }
-
-
-    if (touch) {
-        if (stats->cs_age & 0x80000000)
-            bonus += NWNX_EXALT_GET_TOUCHAC(stats->cs_age);
-
-        return bonus;
-    }
-
-
-    /* Insurmountable Protection feats */
-    for (i = 3105; i <= 3109; i++) {
-        if (CNWSCreatureStats__HasFeat(stats, i))
-            bonus += 2;
-    }
-
-
-    bonus += CNWSCreatureStats__GetSkillRank(stats, SKILL_CRAFT_ARMOR, NULL, 0) / 40;
-
-    if (CNWSCreatureStats__HasFeat(stats, FEAT_EPIC_ARMOR_SKIN))
-        bonus += 2;
-
-    if (CNWSCreatureStats__HasFeat(stats, FEAT_DRAGON_ARMOR))
-        bonus += nwn_GetLevelByClass(stats, CLASS_TYPE_DRAGONDISCIPLE) / 3;
 
     if (CNWSCreatureStats__HasFeat(stats, FEAT_BONE_SKIN_2)) {
         int pm = nwn_GetLevelByClass(stats, CLASS_TYPE_PALEMASTER) / 4;
 
-        bonus += 2;
-
-        if (stats->cs_str >= 25 || stats->cs_dex >= 25)
-            bonus += pm;
-        else
-            bonus += pm * 2;
+        adj += 2 + (pm * 2);
     }
+#endif
 
-
-    return (bonus + stats->cs_ac_natural_base);
+    return Local_GetACClassAdjustment(stats, touch, adj);
 }
 
 
-int ExaltReplace_GetWisdomACBonus (CNWSCreatureStats *stats) {
-    int ranger, bonus = 0;
+int Hook_GetACFeatAdjustment (CNWSCreatureStats *stats, int touch) {
+    int adj = 0;
 
-    if (CNWSCreatureStats__HasFeat(stats, FEAT_MONK_AC_BONUS)) {
-        if (stats->cs_ac_armour_base == 0 && stats->cs_ac_shield_base == 0) {
-            int monk = nwn_GetLevelByClass(stats, CLASS_TYPE_MONK);
+    if (CNWSCreatureStats__HasFeat(stats, FEAT_EPIC_ARMOR_SKIN))
+        adj += 2;
 
-            bonus += (stats->cs_wis_mod > 0 ? stats->cs_wis_mod : 0) + (monk / 5);
+    return Local_GetACFeatAdjustment(stats, touch, adj);
+}
 
-        } else if (nwn_GetLevelByClass(stats, CLASS_TYPE_DRUID) > 30 &&
-                   stats->cs_ac_armour_base <= 3                     &&
-                   stats->cs_ac_shield_base <= 2) {
 
-            if (stats->cs_wis_mod > 3)
-                bonus += (stats->cs_wis_mod * 2) / 3;
-        }
-    } else if (stats->cs_ac_armour_base >= 1 &&
-               stats->cs_ac_armour_base <= 3 &&
-               stats->cs_ac_shield_base == 0 &&
-               (ranger = nwn_GetLevelByClass(stats, CLASS_TYPE_RANGER)) > 1) {
+int Hook_GetACWisAdjustment (CNWSCreatureStats *stats, int touch) {
+    int adj = 0;
 
-        if (stats->cs_original != NULL && stats->cs_original->cre_equipment != NULL) {
-            CNWSItem *weapon = CNWSInventory__GetItemInSlot(stats->cs_original->cre_equipment,
-                EQUIPMENT_SLOT_RIGHTHAND);
+    if (stats->cs_ac_armour_base == 0 &&
+        stats->cs_ac_shield_base == 0 &&
+        CNWSCreatureStats__HasFeat(stats, FEAT_MONK_AC_BONUS)) {
 
-            switch (weapon != NULL ? weapon->it_baseitem : -1) {
-                case BASE_ITEM_DIREMACE:
-                case BASE_ITEM_DOUBLEAXE:
-                case BASE_ITEM_DWARVENWARAXE:
-                case BASE_ITEM_GREATAXE:
-                case BASE_ITEM_GREATSWORD:
-                case BASE_ITEM_HALBERD:
-                case BASE_ITEM_HEAVYFLAIL:
-                case BASE_ITEM_KAMA:
-                case BASE_ITEM_QUARTERSTAFF:
-                case BASE_ITEM_SCYTHE:
-                case BASE_ITEM_TWOBLADEDSWORD:
+        int monk = nwn_GetLevelByClass(stats, CLASS_TYPE_MONK);
 
-                case BASE_ITEM_CEP_DOUBLEPICK:
-                case BASE_ITEM_CEP_DOUBLESCIMITAR:
-                case BASE_ITEM_CEP_FALCHION:
-                case BASE_ITEM_CEP_GOAD:
-                case BASE_ITEM_CEP_HEAVYPICK:
-                case BASE_ITEM_CEP_MAUL:
-                case BASE_ITEM_CEP_MERCURIALGREATSWORD:
-                case BASE_ITEM_CEP_MERCURIALLONGSWORD:
-                case BASE_ITEM_CEP_NUNCHAKU:
-                    ranger = 0;
-                    break;
-
-                default: break;
-            }
-        }
-
-        if (stats->cs_wis_mod <= 20) {
-            int wisac = stats->cs_wis_mod * 2, limit = ranger / 2;
-
-            if (wisac > limit)
-                bonus += limit;
-            else if (wisac > 0)
-                bonus += wisac;
-        } else if (ranger > 20)
-            bonus += (stats->cs_wis_mod > ranger ? ranger : stats->cs_wis_mod);
-
-    } else if (nwn_GetLevelByClass(stats, CLASS_TYPE_SHIFTER) > 20 &&
-               stats->cs_ac_armour_base == 0                       &&
-               stats->cs_ac_shield_base == 0) {
-
-        if (stats->cs_wis_mod > 3)
-            bonus += stats->cs_wis_mod - 3;
+        adj = (stats->cs_wis_mod > 0 ? stats->cs_wis_mod : 0) + (monk / 5);
     }
+
+    return Local_GetACWisAdjustment(stats, touch, adj);
+}
+
+
+int Hook_GetACNaturalBase (CNWSCreatureStats *stats, int touch) {
+    int bonus = 0;
+
+    if (stats == NULL)
+        return 0;
+
+    if (touch)
+        bonus = Local_GetACTouchBase(stats);
+    else
+        bonus = stats->cs_ac_natural_base;
+
+    bonus += Hook_GetACClassAdjustment(stats,  touch)    +
+             Hook_GetACFeatAdjustment(stats,   touch)    +
+             Hook_GetACWisAdjustment(stats,    touch)    +
+             Local_GetACSkillAdjustment(stats, touch, 0) +
+             Local_GetACEquipAdjustment(stats, touch, 0) +
+             Local_GetACStrAdjustment(stats,   touch, 0) +
+             Local_GetACDexAdjustment(stats,   touch, 0) +
+             Local_GetACConAdjustment(stats,   touch, 0) +
+             Local_GetACIntAdjustment(stats,   touch, 0) +
+             Local_GetACChaAdjustment(stats,   touch, 0);
 
     return bonus;
 }

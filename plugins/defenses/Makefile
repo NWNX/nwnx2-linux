@@ -40,6 +40,31 @@ OFILES  = \
     funcs/f_GetDefenseOption.o                   \
     funcs/f_IntToObject.o      			 \
     funcs/f_SetDefenseOption.o                   \
+    hooks/h_AddDamageImmunity.o                  \
+    hooks/h_CheckConcealment.o                   \
+    hooks/h_CombatHitDamage.o                    \
+    hooks/h_GetACNaturalBase.o                   \
+    hooks/h_GetDamageImmunity.o                  \
+    hooks/h_GetHasSlipperyMind.o                 \
+    hooks/h_GetIsDeathAttackImmune.o             \
+    hooks/h_GetIsSneakAttackImmune.o             \
+    hooks/h_GetSavingThrow.o                     \
+    hooks/h_GetTumbleACBonus.o                   \
+    hooks/h_PickPocketDC.o                       \
+    hooks/h_SetDamageImmunity.o                  \
+    local/l_GetACChaAdjustment.o                 \
+    local/l_GetACClassAdjustment.o               \
+    local/l_GetACConAdjustment.o                 \
+    local/l_GetACDexAdjustment.o                 \
+    local/l_GetACEquipAdjustment.o               \
+    local/l_GetACFeatAdjustment.o                \
+    local/l_GetACIntAdjustment.o                 \
+    local/l_GetACSkillAdjustment.o               \
+    local/l_GetACStrAdjustment.o                 \
+    local/l_GetACTouchBase.o                     \
+    local/l_GetACWisAdjustment.o                 \
+    local/l_GetIsDeathAttackImmune.o             \
+    local/l_GetIsSneakAttackImmune.o             \
     tables/t_DefenseOptions.o                    \
     NWNXDefenses.o                               \
     plugin-defenses.o
