@@ -56,8 +56,9 @@ struct QuickBarSlot {
 };
 
 struct LocalVariable {
-    int type;
+    int type, pos;
     string name;
+    object obj;
 };
 
 
@@ -285,6 +286,12 @@ int GetLocalVariableCount (object oObject);
 
 /* Get the nPos local variable from oObject. */
 struct LocalVariable GetLocalVariableByPosition (object oObject, int nPos);
+
+/* Get the first local variable from an object. */
+struct LocalVariable GetFirstLocalVariable (object oObject);
+
+/* Get the next local variable from an object. */
+struct LocalVariable GetNextLocalVariable (struct LocalVariable lv);
 
 /* Get the first area in the module. */
 object GetFirstArea ();
@@ -763,6 +770,7 @@ string SetConversation (object oCreature, string sConv) {
     return "";
 }
 
+
 int GetIsVariableValid (struct LocalVariable lv) {
     return (lv.type >= 1 && lv.type <= 5);
 }
@@ -771,10 +779,32 @@ int GetLocalVariableCount (object oObject) {
     return NWNXFuncsZero(oObject, "NWNX!FUNCS!GETLOCALVARIABLECOUNT");
 }
 
+
 struct LocalVariable GetLocalVariableByPosition (object oObject, int nPos) {
+    int nPos;
     struct LocalVariable lv;
+
+    SetLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION", 
+        IntToString(nPos) + "                                                                                                                                ");
+
+    lv.name = GetLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION");
+
+    lv.type = StringToInt(lv.name);
+    lv.name = GetSubString(lv.name, 2, 1000);
+    lv.pos  = nPos;
+    lv.obj  = oObject;
+
     return lv;
 }
+
+struct LocalVariable GetFirstLocalVariable (object oObject) {
+    return GetLocalVariableByPosition(oObject, 0);
+}
+
+struct LocalVariable GetNextLocalVariable (struct LocalVariable lv) {
+    return GetLocalVariableByPosition(lv.obj, lv.pos + 1);
+}
+
 
 object GetFirstArea () {
     return GetLocalObject(GetModule(), "NWNX!FUNCS!GETFIRSTAREA");
@@ -784,6 +814,7 @@ object GetNextArea () {
     return GetLocalObject(GetModule(), "NWNX!FUNCS!GETNEXTAREA");
 }
 
+
 int SetGoldPieceValue (object oItem, int nValue) {
     return NWNXFuncsOne(oItem, "NWNX!FUNCS!SETGOLDPIECEVALUE", nValue);
 }
@@ -791,6 +822,7 @@ int SetGoldPieceValue (object oItem, int nValue) {
 int SetItemWeight (object oItem, int nTenthLbs) {
     return NWNXFuncsOne(oItem, "NWNX!FUNCS!SETITEMWEIGHT", nTenthLbs);
 }
+
 
 float GetGroundHeight (object oArea, vector vPos) {
     SetLocalString(oArea, "NWNX!FUNCS!GETGROUNDHEIGHT",
@@ -814,6 +846,7 @@ int GetIsWalkableLocation (location lLoc) {
     return GetIsWalkable(GetAreaFromLocation(lLoc), GetPositionFromLocation(lLoc));
 }
 
+
 void ActionUseItem (object oItem, object oTarget, location lTarget, int nProp) {
     object oArea = GetAreaFromLocation(lTarget);
     vector vVec = GetPositionFromLocation(lTarget);
@@ -836,13 +869,15 @@ void ActionUseItemOnObject (object oItem, object oTarget, int nProp=0) {
     ActionUseItem(oItem, OBJECT_INVALID, GetLocation(oTarget), nProp);
 }
 
+
 int GetPCPort (object oPC) {
-    return -6;
+    return NWNXFuncsZero(oPC, "NWNX!FUNCS!GETPCPORT");
 }
 
 void BootPCWithMessage (object oPC, int nStrRef) {
     SetLocalString(oPC, "NWNX!FUNCS!BOOTPCWITHMESSAGE", IntToString(nStrRef));
 }
+
 
 string GetCreatureEventHandler (object oCreature, int nEvent) {
     SetLocalString(oCreature, "NWNX!FUNCS!GETCREATUREEVENTHANDLER", IntToString(nEvent) + "                ");
@@ -854,6 +889,7 @@ string SetCreatureEventHandler (object oCreature, int nEvent, string sScript) {
     return GetLocalString(oCreature, "NWNX!FUNCS!SETCREATUREEVENTHANDLER");
 }
 
+
 int GetFactionId (object oObject) {
     return NWNXFuncsZero(oObject, "NWNX!FUNCS!GETFACTIONID");
 }
@@ -861,6 +897,7 @@ int GetFactionId (object oObject) {
 int SetFactionId (object oObject, int nFaction) {
     return NWNXFuncsOne(oObject, "NWNX!FUNCS!SETFACTIONID", nFaction);
 }
+
 
 object GetItemByPosition (object oCreature, int nPos) {
     SetLocalString(oCreature, "NWNX!FUNCS!GETITEMBYPOSITIONREQUEST", IntToString(nPos));
@@ -871,27 +908,33 @@ int GetItemCount (object oCreature) {
     return NWNXFuncsZero(oCreature, "NWNX!FUNCS!GETITEMCOUNT");
 }
 
+
 int SetMovementRate (object oCreature, int nRate) {
     return NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETMOVEMENTRATE", nRate);
 }
 
+
 int SetRacialType (object oCreature, int nRacialType) {
     return NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETRACIALTYPE", nRacialType);
 }
+
 
 string SetTag (object oObject, string sTag) {
     SetLocalString(oObject, "NWNX!FUNCS!SETTAG", sTag);
     return GetLocalString(oObject, "NWNX!FUNCS!SETTAG");
 }
 
+
 void JumpToLimbo (object oCreature) {
     SetLocalString(oCreature, "NWNX!FUNCS!JUMPTOLIMBO", "          ");
 }
+
 
 object IntToObject (int nObjectId) {
     SetLocalString(GetModule(), "NWNX!FUNCS!INTTOOBJECTREQUEST", IntToString(nObjectId));
     return GetLocalObject(GetModule(), "NWNX!FUNCS!INTTOOBJECT");
 }
+
 
 void DumpObject (object oObject) {
     SetLocalString(oObject, "NWNX!FUNCS!DUMPOBJECT", "          ");
