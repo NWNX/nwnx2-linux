@@ -33,8 +33,11 @@ struct DefensesStrCommand_s {
 };
 
 %%
-GETDEFENSEOPTION                        Func_GetDefenseOption
-SETDEFENSEOPTION                        Func_SetDefenseOption
+GETACBYTYPE,                            Func_GetACByType
+GETACVERSUS,                            Func_GetACVersus
+GETDEFENSEOPTION,                       Func_GetDefenseOption
+GETTRUEDAMAGEIMMUNITY,                  Func_GetTrueDamageImmunity
+SETDEFENSEOPTION,                       Func_SetDefenseOption
 %%
 
 #ifdef __cplusplus

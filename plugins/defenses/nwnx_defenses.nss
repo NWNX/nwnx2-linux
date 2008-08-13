@@ -75,7 +75,7 @@ int SetDefenseOption (int nOption, int nValue) {
 }
 
 int GetACByType (object oCreature, int nACType=AC_DODGE_BONUS) {
-    return NWNXDefensesOne(GetModule(), "NWNX!DEFENSES!GETACBYTYPE", nACType); 
+    return NWNXDefensesOne(oCreature, "NWNX!DEFENSES!GETACBYTYPE", nACType); 
 }
 
 int GetACVersus (object oAttacker, object oTarget=OBJECT_SELF) {

@@ -1,6 +1,6 @@
-/* ANSI-C code produced by gperf version 3.0.1 */
+/* ANSI-C code produced by gperf version 3.0.3 */
 /* Command-line: gperf -L ANSI-C -tCG -m 10 -K name -H DefensesStrCommandHash -N DefensesStrCommandLookup -W DefensesStrCommandList --output-file=gperf.out DefensesStrCmds.gperf  */
-/* Computed positions: -k'1' */
+/* Computed positions: -k'1,6' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -63,12 +63,12 @@ struct DefensesStrCommand_s {
     void       (*func)(CGameObject *, char *);
 };
 
-#define NWNX_DEFENSES_STRCMD_TOTAL_KEYWORDS 2
-#define NWNX_DEFENSES_STRCMD_MIN_WORD_LENGTH 61
-#define NWNX_DEFENSES_STRCMD_MAX_WORD_LENGTH 61
-#define NWNX_DEFENSES_STRCMD_MIN_HASH_VALUE 61
-#define NWNX_DEFENSES_STRCMD_MAX_HASH_VALUE 62
-/* maximum key range = 2, duplicates = 0 */
+#define NWNX_DEFENSES_STRCMD_TOTAL_KEYWORDS 5
+#define NWNX_DEFENSES_STRCMD_MIN_WORD_LENGTH 11
+#define NWNX_DEFENSES_STRCMD_MAX_WORD_LENGTH 21
+#define NWNX_DEFENSES_STRCMD_MIN_HASH_VALUE 12
+#define NWNX_DEFENSES_STRCMD_MAX_HASH_VALUE 22
+/* maximum key range = 11, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -82,53 +82,59 @@ DefensesStrCommandHash (register const char *str, register unsigned int len)
 {
   static const unsigned char asso_values[] =
     {
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63,  1, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63,  0, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
-      63, 63, 63, 63, 63, 63
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23,  1, 23, 23, 23,
+       0,  1, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23,  0, 23,  0,  0, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+      23, 23, 23, 23, 23, 23
     };
-  return len + asso_values[(unsigned char)str[0]];
+  return len + asso_values[(unsigned char)str[5]] + asso_values[(unsigned char)str[0]];
 }
 
 static const struct DefensesStrCommand_s DefensesStrCommandList[] =
   {
     {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""},
+    {""}, {""}, {""},
 #line 37 "DefensesStrCmds.gperf"
-    {"SETDEFENSEOPTION                        Func_SetDefenseOption"},
+    {"GETACVERSUS",                            Func_GetACVersus},
 #line 36 "DefensesStrCmds.gperf"
-    {"GETDEFENSEOPTION                        Func_GetDefenseOption"}
+    {"GETACBYTYPE",                            Func_GetACByType},
+    {""}, {""},
+#line 40 "DefensesStrCmds.gperf"
+    {"SETDEFENSEOPTION",                       Func_SetDefenseOption},
+#line 38 "DefensesStrCmds.gperf"
+    {"GETDEFENSEOPTION",                       Func_GetDefenseOption},
+    {""}, {""}, {""}, {""},
+#line 39 "DefensesStrCmds.gperf"
+    {"GETTRUEDAMAGEIMMUNITY",                  Func_GetTrueDamageImmunity}
   };
 
 #ifdef __GNUC__
 __inline
+#ifdef __GNUC_STDC_INLINE__
+__attribute__ ((__gnu_inline__))
+#endif
 #endif
 static const struct DefensesStrCommand_s *
 DefensesStrCommandLookup (register const char *str, register unsigned int len)
@@ -147,7 +153,7 @@ DefensesStrCommandLookup (register const char *str, register unsigned int len)
     }
   return 0;
 }
-#line 38 "DefensesStrCmds.gperf"
+#line 41 "DefensesStrCmds.gperf"
 
 
 #ifdef __cplusplus

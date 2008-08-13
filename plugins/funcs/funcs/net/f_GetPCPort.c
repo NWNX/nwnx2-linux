@@ -25,9 +25,12 @@ static int GetPlayerPort (void *pSomeStruct, uint32_t nPlayerID) {
     uint32_t nNum;
     void *pClientStruct;
 
+    pSomeStruct = *(void **)pSomeStruct;
+
     /* Yes, this is ugly. But I don't want to describe 4 or 5 nested structures. :) */
     for (i = 0; i < 0x60; i++) {
         pClientStruct = (void *)((char *)pSomeStruct + 0xC + i*0x91C);
+
         if(*(uint32_t *)((char*)pClientStruct+0x8) == 1) {
             if(*(uint32_t *)((char*)pClientStruct+0xC) == nPlayerID) {
                 nNum = *(uint32_t *)((char*)pClientStruct+0x14);
