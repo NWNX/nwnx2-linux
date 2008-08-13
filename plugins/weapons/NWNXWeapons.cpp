@@ -284,11 +284,11 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
 
         Hook_OHCM4_Return = (uintptr_t)(Ref_OffhandCritMult4 + 17);
 
+        nx_hook_enable_write(Ref_OffhandCritMult4, 20);
+
         Ref_OffhandCritMult4[11] = 0x68;
         Ref_OffhandCritMult4[16] = 0xC3;
         Ref_OffhandCritMult4[17] = 0x90;
-
-        nx_hook_enable_write(Ref_OffhandCritMult4, 20);
 
         *((unsigned long *)(Ref_OffhandCritMult4 + 12)) =
             (unsigned long)Hook_OffhandCritMult4;

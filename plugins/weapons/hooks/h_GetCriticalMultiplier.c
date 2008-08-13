@@ -24,6 +24,7 @@ volatile CNWSCreatureStats *Hook_GetCriticalMultiplier_Attacker;
 volatile CNWSItem *Hook_GetCriticalMultiplier_Weapon;
 
 
+__attribute__((noinline))
 static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon) {
     int feat, bonus = 0, im = CNWSCreatureStats__HasFeat(attacker, FEAT_INCREASE_MULTIPLIER);
 

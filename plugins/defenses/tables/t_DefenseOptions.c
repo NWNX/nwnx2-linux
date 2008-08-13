@@ -20,7 +20,7 @@
 
 #include "NWNXDefenses.h"
 
-uint16_t Table_WeaponOptions[NWNX_DEFENSES_OPTIONS_TABLE_SIZE] = {
+uint16_t Table_DefenseOptions[NWNX_DEFENSES_OPTIONS_TABLE_SIZE] = {
     [NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_GE]      = 0,
 };
 

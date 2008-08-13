@@ -25,29 +25,31 @@ int Hook_GetACClassAdjustment (CNWSCreatureStats *stats, int touch) {
     int adj = 0;
 
 #ifndef NWNX_DEFENSES_HG
-    if (CNWSCreatureStats__HasFeat(stats, FEAT_DRAGON_ARMOR)) {
-        int rdd = nwn_GetLevelByClass(stats, CLASS_TYPE_DRAGONDISCIPLE);
+    if (!touch) {
+        if (CNWSCreatureStats__HasFeat(stats, FEAT_DRAGON_ARMOR)) {
+            int rdd = nwn_GetLevelByClass(stats, CLASS_TYPE_DRAGONDISCIPLE);
 
-        switch (rdd) {
-            case  0: adj += 0; break;
-            case  1: adj += 1; break;
-            case  2: adj += 1; break;
-            case  3: adj += 1; break;
-            case  4: adj += 1; break;
-            case  5: adj += 2; break;
-            case  6: adj += 2; break;
-            case  7: adj += 2; break;
-            case  8: adj += 3; break;
-            case  9: adj += 3; break;
+            switch (rdd) {
+                case  0: adj += 0; break;
+                case  1: adj += 1; break;
+                case  2: adj += 1; break;
+                case  3: adj += 1; break;
+                case  4: adj += 1; break;
+                case  5: adj += 2; break;
+                case  6: adj += 2; break;
+                case  7: adj += 2; break;
+                case  8: adj += 3; break;
+                case  9: adj += 3; break;
 
-            default: adj += 4 + ((rdd - 10) / 5); break;
+                default: adj += 4 + ((rdd - 10) / 5); break;
+            }
         }
-    }
 
-    if (CNWSCreatureStats__HasFeat(stats, FEAT_BONE_SKIN_2)) {
-        int pm = nwn_GetLevelByClass(stats, CLASS_TYPE_PALEMASTER) / 4;
+        if (CNWSCreatureStats__HasFeat(stats, FEAT_BONE_SKIN_2)) {
+            int pm = nwn_GetLevelByClass(stats, CLASS_TYPE_PALEMASTER) / 4;
 
-        adj += 2 + (pm * 2);
+            adj += 2 + (pm * 2);
+        }
     }
 #endif
 
@@ -58,7 +60,7 @@ int Hook_GetACClassAdjustment (CNWSCreatureStats *stats, int touch) {
 int Hook_GetACFeatAdjustment (CNWSCreatureStats *stats, int touch) {
     int adj = 0;
 
-    if (CNWSCreatureStats__HasFeat(stats, FEAT_EPIC_ARMOR_SKIN))
+    if (!touch && CNWSCreatureStats__HasFeat(stats, FEAT_EPIC_ARMOR_SKIN))
         adj += 2;
 
     return Local_GetACFeatAdjustment(stats, touch, adj);
@@ -68,6 +70,7 @@ int Hook_GetACFeatAdjustment (CNWSCreatureStats *stats, int touch) {
 int Hook_GetACWisAdjustment (CNWSCreatureStats *stats, int touch) {
     int adj = 0;
 
+#ifndef NWNX_DEFENSES_HG
     if (stats->cs_ac_armour_base == 0 &&
         stats->cs_ac_shield_base == 0 &&
         CNWSCreatureStats__HasFeat(stats, FEAT_MONK_AC_BONUS)) {
@@ -76,6 +79,7 @@ int Hook_GetACWisAdjustment (CNWSCreatureStats *stats, int touch) {
 
         adj = (stats->cs_wis_mod > 0 ? stats->cs_wis_mod : 0) + (monk / 5);
     }
+#endif
 
     return Local_GetACWisAdjustment(stats, touch, adj);
 }

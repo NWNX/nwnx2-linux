@@ -24,6 +24,7 @@ volatile CNWSCreatureStats *Hook_GetCriticalRange_Attacker;
 volatile CNWSItem *Hook_GetCriticalRange_Weapon;
 
 
+__attribute__((noinline))
 static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon) {
     int feat, bonus = 0, ki = CNWSCreatureStats__HasFeat(attacker, FEAT_KI_CRITICAL);
 

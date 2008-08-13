@@ -28,6 +28,7 @@ static volatile int Hook_CCONC_Concealment;
 static volatile int Hook_CCONC_MissChance;
 
 
+__attribute__((noinline))
 static int Hook_GetConcealmentCheckResult (CNWSCreature *attacker, CNWSCreature *target, int concealment, int misschance) {
     int ret;
 

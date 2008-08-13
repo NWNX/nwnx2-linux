@@ -26,6 +26,7 @@ static volatile int16_t *Hook_CHD_Damages;
 static volatile CNWSCreature *Hook_CHD_Target;
 
 
+__attribute__((noinline))
 static void Hook_AdjustCombatHitDamage (CNWSCreature *target, int16_t *damages, int crit) {
     Local_AdjustCombatHitDamage(target, damages, crit);
 }

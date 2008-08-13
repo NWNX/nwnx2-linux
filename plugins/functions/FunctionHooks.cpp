@@ -225,10 +225,17 @@ dword GetPlayerPort(dword nObjectID)
 	void *pClientStruct;
 	dword nNum;
 	if(!pSomeStruct) return 0;
-	//pSomeStruct = (void *)((char *)pSomeStruct + 0xC);
+
+        functions.Log(2, "GetPlayerPort: objectid=%x player=%p playerid=%x clientclass=%p somestruct=%p\n", 
+            nObjectID, pPlayer, nPlayerID, pClientClass, pSomeStruct);
+
 	for(int i=0; i<0x60; i++)
 	{
 		pClientStruct = (void *)((char *)pSomeStruct + 0xC + i*0x91C);
+
+                functions.Log(3, "- %02x clientstruct=%p +0x8=%x +0xC=%x\n", i, pClientStruct, 
+                    *(dword *)((char*)pClientStruct+0x8), *(dword *)((char*)pClientStruct+0xC));
+
 		if(*(dword *)((char*)pClientStruct+0x8) == 1)
 		{
 			if(*(dword *)((char*)pClientStruct+0xC) == nPlayerID)

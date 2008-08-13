@@ -43,4 +43,5 @@ int Hook_GetUseMonkAttackTables (CNWSCreatureStats *info, int unarmedonly) {
     return (monk >= Table_WeaponMonk[weapon->it_baseitem]);
 }
 
+
 /* vim: set sw=4: */

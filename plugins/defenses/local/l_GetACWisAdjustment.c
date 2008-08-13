@@ -23,20 +23,20 @@
 
 int Local_GetACWisAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
 #ifdef NWNX_DEFENSES_HG
-    int ranger, bonus = 0;
+    int ranger;
 
     if (CNWSCreatureStats__HasFeat(stats, FEAT_MONK_AC_BONUS)) {
         if (stats->cs_ac_armour_base == 0 && stats->cs_ac_shield_base == 0) {
             int monk = nwn_GetLevelByClass(stats, CLASS_TYPE_MONK);
 
-            bonus += (stats->cs_wis_mod > 0 ? stats->cs_wis_mod : 0) + (monk / 5);
+            adj += (stats->cs_wis_mod > 0 ? stats->cs_wis_mod : 0) + (monk / 5);
 
         } else if (nwn_GetLevelByClass(stats, CLASS_TYPE_DRUID) > 30 &&
                    stats->cs_ac_armour_base <= 3                     &&
                    stats->cs_ac_shield_base <= 2) {
 
             if (stats->cs_wis_mod > 3)
-                bonus += (stats->cs_wis_mod * 2) / 3;
+                adj += (stats->cs_wis_mod * 2) / 3;
         }
     } else if (stats->cs_ac_armour_base >= 1 &&
                stats->cs_ac_armour_base <= 3 &&
@@ -80,21 +80,19 @@ int Local_GetACWisAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
             int wisac = stats->cs_wis_mod * 2, limit = ranger / 2;
 
             if (wisac > limit)
-                bonus += limit;
+                adj += limit;
             else if (wisac > 0)
-                bonus += wisac;
+                adj += wisac;
         } else if (ranger > 20)
-            bonus += (stats->cs_wis_mod > ranger ? ranger : stats->cs_wis_mod);
+            adj += (stats->cs_wis_mod > ranger ? ranger : stats->cs_wis_mod);
 
     } else if (nwn_GetLevelByClass(stats, CLASS_TYPE_SHIFTER) > 20 &&
                stats->cs_ac_armour_base == 0                       &&
                stats->cs_ac_shield_base == 0) {
 
         if (stats->cs_wis_mod > 3)
-            bonus += stats->cs_wis_mod - 3;
+            adj += stats->cs_wis_mod - 3;
     }
-
-    return bonus;
 #endif
 
     return adj;

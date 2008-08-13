@@ -25,6 +25,7 @@ static volatile int Hook_PPDC_ExtraDC = 0;
 static volatile CNWSCreature *Hook_PPDC_Thief, *Hook_PPDC_Victim;
 
 
+__attribute__((noinline))
 static int Hook_GetPickPocketDCAdjustment (CNWSCreature *thief, CNWSCreature *victim) {
     return Local_GetPickPocketDCAdjustment(thief, victim);
 }

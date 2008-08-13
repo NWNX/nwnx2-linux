@@ -24,6 +24,7 @@ static volatile CNWSCreatureStats *Hook_Save_Creature;
 static volatile int8_t Hook_Save_Value;
 
 
+__attribute__((noinline))
 static int8_t Hook_GetSavingThrowAdjustment (CNWSCreatureStats *stats, int save, int8_t value) {
     if (stats == NULL)
         return value;
