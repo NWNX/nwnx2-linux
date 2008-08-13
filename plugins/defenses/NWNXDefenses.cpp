@@ -193,7 +193,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
     if (Ref_CombatHitDamage != NULL) {
         extern volatile uintptr_t Hook_CHD_Return;
         
-        Hook_CHD_Return = (uintptr_t)(Ref_CombatHitDamage + 5);
+        Hook_CHD_Return = (uintptr_t)(Ref_CombatHitDamage + 6);
 
         nx_hook_function(Ref_CombatHitDamage + 1, (void *)Hook_CombatHitDamage,
             5, NX_HOOK_DIRECT);
