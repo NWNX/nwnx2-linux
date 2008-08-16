@@ -107,6 +107,8 @@ SETCREATURESIZE,                       Func_SetCreatureSize
 SETCURRENTHITPOINTS,                   Func_SetCurrentHitPoints
 SETFACTIONID,                          Func_SetFactionId
 SETGOLDPIECEVALUE,                     Func_SetGoldPieceValue
+SETITEMAPPEARANCE,                     Func_SetItemAppearance
+SETITEMCOLOR,                          Func_SetItemColor
 SETITEMWEIGHT,                         Func_SetItemWeight
 SETKNOWNFEAT,                          Func_SetKnownFeat
 SETKNOWNFEATBYLEVEL,                   Func_SetKnownFeatByLevel
