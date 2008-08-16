@@ -4,6 +4,7 @@ AC_INIT(FULL-PACKAGE-NAME, VERSION, BUG-REPORT-ADDRESS)
 AC_CONFIG_HEADER([config.h])
 
 # EXTREMELY IMPORTANT! MUST NOT BE OVERRIDDEN!
+LFLAGS="$LFLAGS"
 CFLAGS="-mtune=i386 -pipe $CFLAGS"
 CPPFLAGS="-mtune=i386 -pipe $CPPFLAGS"
 
@@ -62,6 +63,13 @@ AC_TYPE_SIZE_T
 # Checks for library functions.
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([bzero getspnam])
+
+AC_CHECK_SIZEOF(void *)
+if test "$ac_cv_sizeof_void_p" = "8"; then
+	CFLAGS="-m32 $CFLAGS"
+	CPPFLAGS="-m32 $CPPFLAGS"
+	LDFLAGS="-m32 $LDFLAGS"
+fi
 
 # zlib, move to db subdir's config
 AC_CHECK_LIB(z, inflateEnd,[true],[echo Unable to find -lz \(zlib\).  Please install a zlib developer\'s package. ; exit 1])

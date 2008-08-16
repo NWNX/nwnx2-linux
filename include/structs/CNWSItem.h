@@ -71,29 +71,8 @@ struct CNWSItem_s {
 
     uint32_t                    field_214;              /* 0214 */
 
-    uint8_t                     it_model_part_1;        /* 0218 */
-    uint8_t                     it_model_part_2;        /* 0219 */
-    uint8_t                     it_model_part_3;        /* 021A */
+    uint8_t                     it_model[22];           /* 0218 */
 
-    uint8_t                     it_model_armor_rfoot;   /* 021B */
-    uint8_t                     it_model_armor_lfoot;   /* 021C */
-    uint8_t                     it_model_armor_rshin;   /* 021D */
-    uint8_t                     it_model_armor_lshin;   /* 021E */
-    uint8_t                     it_model_armor_lthigh;  /* 021F */
-    uint8_t                     it_model_armor_rthigh;  /* 0220 */
-    uint8_t                     it_model_armor_pelvis;  /* 0221 */
-    uint8_t                     it_model_armor_torso;   /* 0222 */
-    uint8_t                     it_model_armor_belt;    /* 0223 */
-    uint8_t                     it_model_armor_neck;    /* 0224 */
-    uint8_t                     it_model_armor_rfarm;   /* 0225 */
-    uint8_t                     it_model_armor_lfarm;   /* 0226 */
-    uint8_t                     it_model_armor_rbicep;  /* 0227 */
-    uint8_t                     it_model_armor_lbicep;  /* 0228 */
-    uint8_t                     it_model_armor_rshoul;  /* 0229 */
-    uint8_t                     it_model_armor_lshoul;  /* 022A */
-    uint8_t                     it_model_armor_rhand;   /* 022B */
-    uint8_t                     it_model_armor_lhand;   /* 022C */
-    uint8_t                     it_model_armor_robe;    /* 022D */
     uint8_t                     field_22E;
     uint8_t                     field_22F;
 

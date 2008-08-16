@@ -422,6 +422,30 @@
 #define ITEM_RULE_WEAPON_SIZE                             25
 
 
+#define ITEM_APPR_MODEL_PART_1                            -3
+#define ITEM_APPR_MODEL_PART_2                            -2
+#define ITEM_APPR_MODEL_PART_3                            -1
+#define ITEM_APPR_ARMOR_MODEL_RFOOT                        0
+#define ITEM_APPR_ARMOR_MODEL_LFOOT                        1
+#define ITEM_APPR_ARMOR_MODEL_RSHIN                        2
+#define ITEM_APPR_ARMOR_MODEL_LSHIN                        3
+#define ITEM_APPR_ARMOR_MODEL_LTHIGH                       4
+#define ITEM_APPR_ARMOR_MODEL_RTHIGH                       5
+#define ITEM_APPR_ARMOR_MODEL_PELVIS                       6
+#define ITEM_APPR_ARMOR_MODEL_TORSO                        7
+#define ITEM_APPR_ARMOR_MODEL_BELT                         8
+#define ITEM_APPR_ARMOR_MODEL_NECK                         9
+#define ITEM_APPR_ARMOR_MODEL_RFOREARM                    10
+#define ITEM_APPR_ARMOR_MODEL_LFOREARM                    11
+#define ITEM_APPR_ARMOR_MODEL_RBICEP                      12
+#define ITEM_APPR_ARMOR_MODEL_LBICEP                      13
+#define ITEM_APPR_ARMOR_MODEL_RSHOULDER                   14
+#define ITEM_APPR_ARMOR_MODEL_LSHOULDER                   15
+#define ITEM_APPR_ARMOR_MODEL_RHAND                       16
+#define ITEM_APPR_ARMOR_MODEL_LHAND                       17
+#define ITEM_APPR_ARMOR_MODEL_ROBE                        18
+
+
 #include "nwn_const_feats.h"
 #include "nwn_const_spells.h"
 #include "nwn_const_vfx.h"
