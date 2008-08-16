@@ -14,7 +14,7 @@ fi
 
 if [ $abort -eq 0 ] || [ $1 -eq "force" ]; then
 	# Configure with all the extra plugins
-	./configure
+	sh ./configure
 
 	# Compile
 	make

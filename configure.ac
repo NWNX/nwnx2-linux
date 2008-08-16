@@ -3,6 +3,7 @@ AC_INIT(FULL-PACKAGE-NAME, VERSION, BUG-REPORT-ADDRESS)
 # AC_CONFIG_SRCDIR([linnwnx2])
 AC_CONFIG_HEADER([config.h])
 
+# add -m32 automatically on 64-bit systems
 AC_CHECK_SIZEOF(void *)
 if test "$ac_cv_sizeof_void_p" = "8"; then
 	CFLAGS="-m32 $CFLAGS"
