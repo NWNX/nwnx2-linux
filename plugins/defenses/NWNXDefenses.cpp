@@ -41,6 +41,12 @@ static unsigned char *Ref_RDDFireImmunity;
 static unsigned char *Ref_SlipperyMind;
 static unsigned char *Ref_SneakAttackImmune;
 
+#ifdef NWNX_DEFENSES_HG
+static unsigned char *Ref_DamageImmEffect;
+static unsigned char *Ref_DamageImmItemProp;
+static unsigned char *Ref_DamageVulnEffect;
+#endif
+
 static struct DefenseSignatureTable {
     const char         *name;
     void               *ref;
@@ -59,6 +65,12 @@ static struct DefenseSignatureTable {
     NWNX_DEFENSES_SIG(Ref_RDDFireImmunity,       "55 89 E5 57 56 53 83 EC 18 8B 7D 08 8B 47 0C 57 8B 5D 0C FF 50 38 83 C4 10 85 C0 74 4B 83 EC 0C 8B 47 0C 57"),
     NWNX_DEFENSES_SIG(Ref_SlipperyMind,          "80 7D D3 01 0F 85 B0 00 00 00 83 EC 08 68 03 01 00 00"),
     NWNX_DEFENSES_SIG(Ref_SneakAttackImmune,     "50 FF 75 08 0F B6 05 ** ** ** ** 50 8B 45 0C FF B0 64|68 0C **#33 80 03"),
+
+#ifdef NWNX_DEFENSES_HG
+    NWNX_DEFENSES_SIG(Ref_DamageImmEffect,       "31 C0 89 45 F4 8B 45 F8 85 C0 78 08 3B 05 ** ** ** ** 7E 08 A1 ** ** ** ** 89 45 F8 66 8B 43 0A 25 E7"),
+    NWNX_DEFENSES_SIG(Ref_DamageImmItemProp,     "5B 5F 6A 02 56 E8 ** ** ** ** 0F B7 45 C2 83 C4 10 83 F8 0B 0F"),
+    NWNX_DEFENSES_SIG(Ref_DamageVulnEffect,      "B8 9C FF FF FF 89 45 F4 8B 45 F8 85 C0 78 08 3B 05 ** ** ** ** 7E 08 A1 ** ** ** ** 89 45 F8 66 8B 43 0A 25 E7"),
+#endif
 
     { NULL,                                     NULL },
 };
@@ -396,7 +408,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
             (unsigned long)Hook_GetIsSneakAttackImmune - (unsigned long)(Ref_SneakAttackImmune + 26);
 
         for (i = 33; i < 94; i++)
-            Ref_SneakAttackImmune[i] = 0x90;        /* NOP */
+            Ref_SneakAttackImmune[i] = 0x90;    /* NOP */
     }
 
 
@@ -410,8 +422,68 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
             (unsigned long)Hook_GetIsDeathAttackImmune - (unsigned long)(Ref_DeathAttackImmune + 26);
 
         for (i = 33; i < 94; i++)
-            Ref_DeathAttackImmune[i] = 0x90;        /* NOP */
+            Ref_DeathAttackImmune[i] = 0x90;    /* NOP */
     }
+
+
+#ifdef NWNX_DEFENSES_HG
+    /* damage immunity effect hook */
+    if (Ref_DamageImmEffect != NULL) {
+        nx_hook_enable_write(Ref_DamageImmEffect, 32);
+
+        Ref_DamageImmEffect[12] = 0x3D;         /* CMP EAX, 0x7FFFFFFF */
+        Ref_DamageImmEffect[13] = 0xFF;
+        Ref_DamageImmEffect[14] = 0xFF;
+        Ref_DamageImmEffect[15] = 0xFF;
+        Ref_DamageImmEffect[16] = 0x7F;
+        Ref_DamageImmEffect[17] = 0x90;         /* NOP */
+    }
+
+    /* damage vulnerability effect hook */
+    if (Ref_DamageVulnEffect != NULL) {
+        nx_hook_enable_write(Ref_DamageVulnEffect, 32);
+
+        Ref_DamageVulnEffect[15] = 0x3D;        /* CMP EAX, 0x7FFFFFFF */
+        Ref_DamageVulnEffect[16] = 0xFF;
+        Ref_DamageVulnEffect[17] = 0xFF;
+        Ref_DamageVulnEffect[18] = 0xFF;
+        Ref_DamageVulnEffect[19] = 0x7F;
+        Ref_DamageVulnEffect[20] = 0x90;        /* NOP */
+    }
+
+    /* damage immunity item property hook */
+    if (Ref_DamageImmItemProp != NULL) {
+        nx_hook_enable_write(Ref_DamageImmItemProp, 40);
+
+        Ref_DamageImmItemProp[17] = 0x51;       /* PUSH ECX */
+        Ref_DamageImmItemProp[18] = 0x89;       /* MOV ECX, EAX */
+        Ref_DamageImmItemProp[19] = 0xC1;
+        Ref_DamageImmItemProp[20] = 0xBE;       /* MOV ESI, 0x1 */
+        Ref_DamageImmItemProp[21] = 0x01;
+        Ref_DamageImmItemProp[22] = 0x00;
+        Ref_DamageImmItemProp[23] = 0x00;
+        Ref_DamageImmItemProp[24] = 0x00;
+        Ref_DamageImmItemProp[25] = 0xD3;       /* SHL ESI, CL */
+        Ref_DamageImmItemProp[26] = 0xE6;
+        Ref_DamageImmItemProp[27] = 0x59;       /* POP ECX */
+        Ref_DamageImmItemProp[28] = 0x90;       /* NOP */
+        Ref_DamageImmItemProp[29] = 0x90;       /* NOP */
+        Ref_DamageImmItemProp[30] = 0x90;       /* NOP */
+        Ref_DamageImmItemProp[31] = 0x90;       /* NOP */
+        Ref_DamageImmItemProp[32] = 0x90;       /* NOP */
+        Ref_DamageImmItemProp[33] = 0x90;       /* NOP */
+        Ref_DamageImmItemProp[34] = 0x90;       /* NOP */
+        Ref_DamageImmItemProp[35] = 0x90;       /* NOP */
+        Ref_DamageImmItemProp[36] = 0x90;       /* NOP */
+        Ref_DamageImmItemProp[37] = 0x90;       /* NOP */
+        Ref_DamageImmItemProp[38] = 0x90;       /* NOP */
+        Ref_DamageImmItemProp[39] = 0x90;       /* NOP */
+    }
+
+    /* damage resistance effect hook */
+
+    /* damage resistance item property hook */
+#endif
 
     return true;
 }

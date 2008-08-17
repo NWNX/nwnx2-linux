@@ -24,15 +24,11 @@
 int8_t Hook_GetDamageImmunity (CNWSCreature *cre, int damtypeindex) {
     int imm;
 
-#ifdef NWNX_DEFENSES_HG
-    if (damtypeindex < 0 || damtypeindex > 23)
-        return 0;
-    imm = cre->obj.obj_damage_immunities[damtypeindex];
-#else
-    if (damtypeindex < 0 || damtypeindex > 12)
+    if (cre->obj.obj_damage_immunities == NULL || damtypeindex < 0 || damtypeindex > DAMAGE_TYPE_LAST)
         return 0;
     imm = cre->obj.obj_damage_immunities[damtypeindex];
 
+#ifndef NWNX_DEFENSES_HG
     if (damtypeindex == 8                         &&
         cre->obj.obj_type == OBJECT_TYPE_CREATURE &&
         cre->cre_stats != NULL                    &&

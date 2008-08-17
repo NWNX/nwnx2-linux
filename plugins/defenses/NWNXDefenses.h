@@ -50,6 +50,12 @@
 #define AC_ARMOUR_BASE                                   -2
 #define AC_NATURAL_BASE                                  -1
 
+#ifdef NWNX_DEFENSES_HG
+#define DAMAGE_TYPE_LAST                                 23
+#else
+#define DAMAGE_TYPE_LAST                                 12
+#endif
+
 
 #ifdef __cplusplus
 extern "C" {

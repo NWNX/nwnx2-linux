@@ -40,13 +40,8 @@ void Func_GetTrueDamageImmunity (CGameObject *ob, char *value) {
         damtype >>= 1;
     }
 
-#ifdef NWNX_DEFENSES_HG
-    if (idx <= 23)
+    if (idx <= DAMAGE_TYPE_LAST)
         percent = obj->obj_damage_immunities[idx];
-#else
-    if (idx <= 12)
-        percent = obj->obj_damage_immunities[idx];
-#endif
 
     snprintf(value, strlen(value), "%d", percent);
 }

@@ -24,12 +24,15 @@
 void Hook_SetDamageImmunity (CNWSCreature *cre, int damtype, int percent) {
     int idx = 0;
 
+    if (cre->obj.obj_damage_immunities == NULL)
+        return;
+
     while (damtype && !(damtype & 1)) {
         idx++;
         damtype >>= 1;
     }
 
-    if (idx > 12 || cre->obj.obj_damage_immunities == NULL)
+    if (idx > DAMAGE_TYPE_LAST)
         return;
 
     if (percent < -20000)
