@@ -39,6 +39,8 @@ OFILES  = \
     funcs/f_GetACByType.o                        \
     funcs/f_GetACVersus.o                        \
     funcs/f_GetDefenseOption.o                   \
+    funcs/f_GetEffectDamageReduction.o           \
+    funcs/f_GetEffectDamageResistance.o          \
     funcs/f_GetTrueDamageImmunity.o              \
     funcs/f_IntToObject.o                        \
     funcs/f_SetDefenseOption.o                   \

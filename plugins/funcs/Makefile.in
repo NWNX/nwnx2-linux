@@ -81,6 +81,8 @@ OFILES  = \
     funcs/item/f_GetItemByPosition.o             \
     funcs/item/f_GetItemCount.o                  \
     funcs/item/f_SetGoldPieceValue.o             \
+    funcs/item/f_SetItemAppearance.o             \
+    funcs/item/f_SetItemColor.o                  \
     funcs/item/f_SetItemWeight.o                 \
     funcs/net/f_BootPCWithMessage.o              \
     funcs/net/f_GetPCPort.o                      \
