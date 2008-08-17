@@ -27,7 +27,7 @@
 //////////////////////////////////////////////////////////////////////
 
 CNWNXFuncs::CNWNXFuncs() {
-    confKey = "FUNCS";
+    confKey = strdup("FUNCS");
 }
 
 

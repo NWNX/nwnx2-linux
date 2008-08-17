@@ -83,7 +83,7 @@ static void WeaponsSearchSignatures (void) {
 //////////////////////////////////////////////////////////////////////
 
 CNWNXWeapons::CNWNXWeapons() {
-    confKey = "WEAPONS";
+    confKey = strdup("WEAPONS");
 }
 
 

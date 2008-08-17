@@ -36,6 +36,8 @@ struct DefensesStrCommand_s {
 GETACBYTYPE,                            Func_GetACByType
 GETACVERSUS,                            Func_GetACVersus
 GETDEFENSEOPTION,                       Func_GetDefenseOption
+GETEFFECTDAMAGEREDUCTION,               Func_GetEffectDamageReduction
+GETEFFECTDAMAGERESISTANCE,              Func_GetEffectDamageResistance
 GETTRUEDAMAGEIMMUNITY,                  Func_GetTrueDamageImmunity
 SETDEFENSEOPTION,                       Func_SetDefenseOption
 %%

@@ -113,7 +113,7 @@ struct CNWSObject_s {
     uint32_t            field_E4;
     uint32_t            field_E8;
 
-    void               *obj_effects;                    /* 00EC */
+    CGameEffect       **obj_effects;                    /* 00EC */
     int32_t             obj_effects_len;                /* 00F0 */
 
     uint32_t            field_F4;

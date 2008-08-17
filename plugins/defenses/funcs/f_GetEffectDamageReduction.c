@@ -21,34 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-void Func_GetTrueDamageImmunity (CGameObject *ob, char *value) {
-    int damtype, percent = 0, idx = 0;
-    const CNWSObject *obj;
-
-    if (ob == NULL                                  ||
-        (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
-        obj->obj_damage_immunities == NULL) {
-
-        snprintf(value, strlen(value), "0");
-        return;
-    }
-
-    damtype = atoi(value);
-
-    while (damtype && !(damtype & 1)) {
-        idx++;
-        damtype >>= 1;
-    }
-
-#ifdef NWNX_DEFENSES_HG
-    if (idx <= 23)
-        percent = obj->obj_damage_immunities[idx];
-#else
-    if (idx <= 12)
-        percent = obj->obj_damage_immunities[idx];
-#endif
-
-    snprintf(value, strlen(value), "%d", percent);
+void Func_GetEffectDamageReduction (CGameObject *ob, char *value) {
+    snprintf(value, strlen(value), "0");
 }
 
 

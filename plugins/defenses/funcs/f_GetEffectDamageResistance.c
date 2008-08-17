@@ -21,34 +21,36 @@
 #include "NWNXDefenses.h"
 
 
-void Func_GetTrueDamageImmunity (CGameObject *ob, char *value) {
-    int damtype, percent = 0, idx = 0;
+void Func_GetEffectDamageResistance (CGameObject *ob, char *value) {
+    int i, damtype, durtype, res = 0;
+    const CGameEffect *eff;
     const CNWSObject *obj;
 
     if (ob == NULL                                  ||
         (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
-        obj->obj_damage_immunities == NULL) {
+        sscanf(value, "%d %d", &damtype, &durtype) != 2) {
 
         snprintf(value, strlen(value), "0");
         return;
     }
 
-    damtype = atoi(value);
+    for (i = 0; i < obj->obj_effects_len; i++) {
+        if ((eff = obj->obj_effects[i]) == NULL)
+            continue;
 
-    while (damtype && !(damtype & 1)) {
-        idx++;
-        damtype >>= 1;
+        if (eff->eff_type != EFFECT_TRUETYPE_DAMAGE_RESISTANCE)
+            continue;
+
+        if (durtype >= 0 && (eff->eff_dursubtype & DURATION_TYPE_MASK) != durtype)
+            continue;
+
+        if (eff->eff_integers[0] != damtype || eff->eff_integers[1] <= res)
+            continue;
+
+        res = eff->eff_integers[1];
     }
 
-#ifdef NWNX_DEFENSES_HG
-    if (idx <= 23)
-        percent = obj->obj_damage_immunities[idx];
-#else
-    if (idx <= 12)
-        percent = obj->obj_damage_immunities[idx];
-#endif
-
-    snprintf(value, strlen(value), "%d", percent);
+    snprintf(value, strlen(value), "%d", res);
 }
 
 

@@ -95,7 +95,7 @@ static void DefensesSearchSignatures (void) {
 //////////////////////////////////////////////////////////////////////
 
 CNWNXDefenses::CNWNXDefenses() {
-    confKey = "DEFENSES";
+    confKey = strdup("DEFENSES");
 }
 
 
@@ -212,8 +212,13 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         nx_hook_enable_write(Ref_DamageImmunitySet1, 30);
         nx_hook_enable_write(Ref_DamageImmunitySet2, 30);
 
+#ifdef NWNX_DEFENSES_HG
+        Ref_DamageImmunityAlloc[1]  = 0x30;    /* PUSH 0x30 */
+        Ref_DamageImmunityAlloc[32] = 0x30;    /* CMP EDX, 0x30 */
+#else
         Ref_DamageImmunityAlloc[1]  = 0x1A;    /* PUSH 0x1A */
         Ref_DamageImmunityAlloc[32] = 0x1A;    /* CMP EDX, 0x1A */
+#endif
 
         Ref_DamageImmunitySet1[2] = 0x31;      /* XOR EAX, EAX */
         Ref_DamageImmunitySet1[3] = 0xC0;

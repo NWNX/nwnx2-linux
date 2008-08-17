@@ -25,35 +25,37 @@
 #define _NX_NWN_STRUCT_CGAMEEFFECT_
 
 struct CGameEffect_s {
-    uint32_t            eff_id;
+    uint32_t            eff_id;                 /* 00 */
 
-    uint32_t            field_04;
+    uint32_t            field_04;               /* 04 */
 
-    uint32_t            eff_type;
-    uint32_t            eff_durtype;
+    uint16_t            eff_type;               /* 08 */
+    uint16_t            eff_dursubtype;         /* 0A */
 
-    uint32_t            eff_expire1;
-    uint32_t            eff_expire2;
+    float               eff_duration;           /* 0C */
 
-    nwn_objid_t         eff_creator;
-    uint32_t            eff_spellid;
+    uint32_t            eff_expire_day;         /* 10 */
+    uint32_t            eff_expire_time;        /* 14 */
 
-    uint32_t            eff_is_exposed;
-    uint32_t            eff_is_iconshown;
+    nwn_objid_t         eff_creator;            /* 18 */
+    int32_t             eff_spellid;            /* 1C */
 
-    uint32_t            field_28;
+    uint32_t            eff_is_exposed;         /* 20 */
+    uint32_t            eff_is_iconshown;       /* 24 */
 
-    uint32_t            eff_link_id1;
-    uint32_t            eff_link_id2;
+    uint32_t            field_28;               /* 28 */
 
-    uint32_t            eff_num_integers;
-    int32_t            *eff_integers;
+    uint32_t            eff_link_id1;           /* 2C */
+    uint32_t            eff_link_id2;           /* 30 */
 
-    float               eff_floats[4];
-    CExoString          eff_strings[6];
-    nwn_objid_t         eff_objects[4];
+    uint32_t            eff_num_integers;       /* 34 */
+    int32_t            *eff_integers;           /* 38 */
 
-    uint32_t            eff_skiponload;
+    float               eff_floats[4];          /* 3C */
+    CExoString          eff_strings[6];         /* 40 */
+    nwn_objid_t         eff_objects[4];         /* 44 */
+
+    uint32_t            eff_skiponload;         /* 48 */
 };
 
 #endif /* _NX_NWN_STRUCT_CGAMEEFFECT_ */
