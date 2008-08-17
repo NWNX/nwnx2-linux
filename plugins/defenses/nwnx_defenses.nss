@@ -40,6 +40,12 @@ int GetACByType (object oCreature, int nACType=AC_DODGE_BONUS);
 /* Get oTarget's AC against oAttacker. */
 int GetACVersus (object oAttacker, object oTarget=OBJECT_SELF);
 
+/* Get oCreature's effect-based damage reduction against the specified power. */
+int GetEffectDamageReduction (object oCreature, int nDamPower, int nDurType=-1);
+
+/* Get oCreature's effect-based damage resistance against the specified type. */
+int GetEffectDamageResistance (object oCreature, int nDamType, int nDurType=-1);
+
 /* Get oCreature's true total damage immunity against the specified type. */
 int GetTrueDamageImmunity (object oCreature, int nDamType);
 
@@ -85,6 +91,14 @@ int GetACVersus (object oAttacker, object oTarget=OBJECT_SELF) {
     SetLocalString(oTarget, "NWNX!DEFENSES!GETACVERSUS",
         ObjectToString(oAttacker) + "          ");
     return StringToInt(GetLocalString(oTarget, "NWNX!DEFENSES!GETACVERSUS"));
+}
+
+int GetEffectDamageReduction (object oCreature, int nDamPower, int nDurType=-1) {
+    return NWNXDefensesTwo(oCreature, "NWNX!DEFENSES!GETEFFECTDAMAGEREDUCTION", nDamPower, nDurType);
+}
+
+int GetEffectDamageResistance (object oCreature, int nDamType, int nDurType=-1) {
+    return NWNXDefensesTwo(oCreature, "NWNX!DEFENSES!GETEFFECTDAMAGERESISTANCE", nDamType, nDurType);
 }
 
 int GetTrueDamageImmunity (object oCreature, int nDamType) {

@@ -43,8 +43,9 @@ static unsigned char *Ref_SneakAttackImmune;
 
 #ifdef NWNX_DEFENSES_HG
 static unsigned char *Ref_DamageImmEffect;
-static unsigned char *Ref_DamageImmItemProp;
+static unsigned char *Ref_DamageResEffect;
 static unsigned char *Ref_DamageVulnEffect;
+static unsigned char *Ref_DamageImmItemProp;
 #endif
 
 static struct DefenseSignatureTable {
@@ -68,8 +69,9 @@ static struct DefenseSignatureTable {
 
 #ifdef NWNX_DEFENSES_HG
     NWNX_DEFENSES_SIG(Ref_DamageImmEffect,       "31 C0 89 45 F4 8B 45 F8 85 C0 78 08 3B 05 ** ** ** ** 7E 08 A1 ** ** ** ** 89 45 F8 66 8B 43 0A 25 E7"),
-    NWNX_DEFENSES_SIG(Ref_DamageImmItemProp,     "5B 5F 6A 02 56 E8 ** ** ** ** 0F B7 45 C2 83 C4 10 83 F8 0B 0F"),
+    NWNX_DEFENSES_SIG(Ref_DamageResEffect,       "B8 81 FD FF FF E9 ** ** ** ** 8D 76 00 8B 45 F4 85 C0 78 08 3B 05 ** ** ** ** 7E 08 A1"),
     NWNX_DEFENSES_SIG(Ref_DamageVulnEffect,      "B8 9C FF FF FF 89 45 F4 8B 45 F8 85 C0 78 08 3B 05 ** ** ** ** 7E 08 A1 ** ** ** ** 89 45 F8 66 8B 43 0A 25 E7"),
+    NWNX_DEFENSES_SIG(Ref_DamageImmItemProp,     "5B 5F 6A 02 56 E8 ** ** ** ** 0F B7 45 C2 83 C4 10 83 F8 0B 0F"),
 #endif
 
     { NULL,                                     NULL },
@@ -439,6 +441,17 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         Ref_DamageImmEffect[17] = 0x90;         /* NOP */
     }
 
+    if (Ref_DamageResEffect != NULL) {
+        nx_hook_enable_write(Ref_DamageResEffect, 32);
+
+        Ref_DamageResEffect[20] = 0x3D;         /* CMP EAX, 0x7FFFFFFF */
+        Ref_DamageResEffect[21] = 0xFF;
+        Ref_DamageResEffect[22] = 0xFF;
+        Ref_DamageResEffect[23] = 0xFF;
+        Ref_DamageResEffect[24] = 0x7F;
+        Ref_DamageResEffect[25] = 0x90;         /* NOP */
+    }
+
     /* damage vulnerability effect hook */
     if (Ref_DamageVulnEffect != NULL) {
         nx_hook_enable_write(Ref_DamageVulnEffect, 32);
@@ -482,7 +495,6 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
 
     /* damage resistance effect hook */
 
-    /* damage resistance item property hook */
 #endif
 
     return true;
