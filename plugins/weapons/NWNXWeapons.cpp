@@ -36,9 +36,9 @@ static unsigned char *Ref_OffhandCritMult3;
 static unsigned char *Ref_OffhandCritMult4;
 
 static struct WeaponSignatureTable {
-    char       *name;
-    void       *ref;
-    char       *sig;
+    const char         *name;
+    void               *ref;
+    const char         *sig;
 } Table_WeaponSignatures[] = {
     { NULL,                                     NULL },
 

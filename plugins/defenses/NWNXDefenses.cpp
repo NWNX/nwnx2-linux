@@ -42,9 +42,9 @@ static unsigned char *Ref_SlipperyMind;
 static unsigned char *Ref_SneakAttackImmune;
 
 static struct DefenseSignatureTable {
-    char       *name;
-    void       *ref;
-    char       *sig;
+    const char         *name;
+    void               *ref;
+    const char         *sig;
 } Table_DefenseSignatures[] = {
     { NULL,                                     NULL },
 
