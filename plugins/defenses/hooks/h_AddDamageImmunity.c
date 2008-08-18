@@ -32,7 +32,7 @@ void Hook_AddDamageImmunity (CNWSCreature *cre, int damtype, int percent) {
         damtype >>= 1;
     }
 
-    if (idx > DAMAGE_TYPE_LAST)
+    if (idx >= DAMAGE_TYPE_LAST)
         return;
 
     if (percent < -1000)

@@ -43,6 +43,7 @@ static unsigned char *Ref_SneakAttackImmune;
 
 #ifdef NWNX_DEFENSES_HG
 static unsigned char *Ref_DamageImmEffect;
+static unsigned char *Ref_DamageImmRemove;
 static unsigned char *Ref_DamageResEffect;
 static unsigned char *Ref_DamageVulnEffect;
 static unsigned char *Ref_DamageImmItemProp;
@@ -69,6 +70,7 @@ static struct DefenseSignatureTable {
 
 #ifdef NWNX_DEFENSES_HG
     NWNX_DEFENSES_SIG(Ref_DamageImmEffect,       "31 C0 89 45 F4 8B 45 F8 85 C0 78 08 3B 05 ** ** ** ** 7E 08 A1 ** ** ** ** 89 45 F8 66 8B 43 0A 25 E7"),
+    NWNX_DEFENSES_SIG(Ref_DamageImmRemove,       "47 8B 45 E8 3B 78 04 7C 83 57 2B 75 EC 56 0F B7 45 F0"),
     NWNX_DEFENSES_SIG(Ref_DamageResEffect,       "B8 81 FD FF FF E9 ** ** ** ** 8D 76 00 8B 45 F4 85 C0 78 08 3B 05 ** ** ** ** 7E 08 A1"),
     NWNX_DEFENSES_SIG(Ref_DamageVulnEffect,      "B8 9C FF FF FF 89 45 F4 8B 45 F8 85 C0 78 08 3B 05 ** ** ** ** 7E 08 A1 ** ** ** ** 89 45 F8 66 8B 43 0A 25 E7"),
     NWNX_DEFENSES_SIG(Ref_DamageImmItemProp,     "5B 5F 6A 02 56 E8 ** ** ** ** 0F B7 45 C2 83 C4 10 83 F8 0B 0F"),
@@ -223,12 +225,20 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         unsigned char *p;
 
         nx_hook_enable_write(Ref_DamageImmunityAlloc, 33);
-        nx_hook_enable_write(Ref_DamageImmunitySet1, 30);
-        nx_hook_enable_write(Ref_DamageImmunitySet2, 30);
+        nx_hook_enable_write(Ref_DamageImmunitySet1 - 10, 40);
+        nx_hook_enable_write(Ref_DamageImmunitySet2 - 10, 40);
 
 #ifdef NWNX_DEFENSES_HG
         Ref_DamageImmunityAlloc[1]  = 0x30;    /* PUSH 0x30 */
         Ref_DamageImmunityAlloc[32] = 0x30;    /* CMP EDX, 0x30 */
+
+        Ref_DamageImmunitySet1[-6]  = 0x89;    /* MOV EBX, ESI */
+        Ref_DamageImmunitySet1[-5]  = 0xF3;    
+        Ref_DamageImmunitySet1[-4]  = 0x90;    /* NOP */
+
+        Ref_DamageImmunitySet2[-6]  = 0x89;    /* MOV EBX, ESI */
+        Ref_DamageImmunitySet2[-5]  = 0xF3;    
+        Ref_DamageImmunitySet2[-4]  = 0x90;    /* NOP */
 #else
         Ref_DamageImmunityAlloc[1]  = 0x1A;    /* PUSH 0x1A */
         Ref_DamageImmunityAlloc[32] = 0x1A;    /* CMP EDX, 0x1A */
@@ -439,6 +449,15 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         Ref_DamageImmEffect[15] = 0xFF;
         Ref_DamageImmEffect[16] = 0x7F;
         Ref_DamageImmEffect[17] = 0x90;         /* NOP */
+    }
+
+    if (Ref_DamageImmRemove != NULL) {
+        nx_hook_enable_write(Ref_DamageImmRemove, 32);
+
+        Ref_DamageImmRemove[14] = 0x8B;         /* MOV EAX, DWORD PTR [EBP-16] */
+        Ref_DamageImmRemove[15] = 0x45;
+        Ref_DamageImmRemove[16] = 0xF0;
+        Ref_DamageImmRemove[17] = 0x90;         /* NOP */
     }
 
     if (Ref_DamageResEffect != NULL) {
