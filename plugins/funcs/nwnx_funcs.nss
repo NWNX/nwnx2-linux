@@ -469,7 +469,10 @@ string GetAllRemainingFeatUses (object oCreature) {
     string sFeats = GetLocalString(GetModule(), "NWNX!ODBC!SPACER");
 
     SetLocalString(oCreature, "NWNX!FUNCS!GETALLREMAININGFEATUSES", sFeats + sFeats + sFeats + sFeats);
-    return GetLocalString(oCreature, "NWNX!FUNCS!GETALLREMAININGFEATUSES");
+    sFeats = GetLocalString(oCreature, "NWNX!FUNCS!GETALLREMAININGFEATUSES");
+    DeleteLocalString(oCreature, "NWNX!FUNCS!GETALLREMAININGFEATUSES");
+
+    return sFeats;
 }
 
 int RestoreReadyFeats (object oCreature, string sFeats) {
@@ -659,7 +662,10 @@ string GetAllMemorizedSpells (object oCreature) {
     string sSpells = GetLocalString(GetModule(), "NWNX!ODBC!SPACER");
 
     SetLocalString(oCreature, "NWNX!FUNCS!GETALLMEMORIZEDSPELLS", sSpells + sSpells + sSpells + sSpells);
-    return GetLocalString(oCreature, "NWNX!FUNCS!GETALLMEMORIZEDSPELLS");
+    sSpells = GetLocalString(oCreature, "NWNX!FUNCS!GETALLMEMORIZEDSPELLS");
+    DeleteLocalString(oCreature, "NWNX!FUNCS!GETALLMEMORIZEDSPELLS");
+
+    return sSpells;
 }
 
 int RestoreReadySpells (object oCreature, string sSpells) {

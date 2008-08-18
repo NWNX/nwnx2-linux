@@ -22,7 +22,18 @@
 
 
 void Func_GetConversation (CGameObject *ob, char *value) {
-    /* TODO */
+    size_t len = strlen(value);
+    const CNWSCreature *cre;
+
+    if (ob == NULL || (cre = ob->vtable->AsNWSCreature(ob)) == NULL || cre->cre_stats == NULL) {
+        snprintf(value, len, "0");
+        return;
+    }
+
+    if (len > 16)
+        len = 16;
+
+    memcpy(value, cre->cre_stats->cs_conv, len);
 }
 
 
