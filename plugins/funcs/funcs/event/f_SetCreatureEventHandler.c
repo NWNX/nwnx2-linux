@@ -31,7 +31,7 @@ void Func_SetCreatureEventHandler (CGameObject *ob, char *value) {
         (p = strchr(value, ' ')) == NULL              ||
         (ev = atoi(value)) < 0 || ev > 12             ||
         strlen(++p) < 1 || strlen(p) > 16             ||
-        strcspn(p, "abcdefghijklmnopqrstuvwxyz012345679_") != strlen(p)) {
+        strspn(p, "abcdefghijklmnopqrstuvwxyz012345679_") != strlen(p)) {
 
         *value = 0;
         return;
