@@ -40,11 +40,20 @@ int GetACByType (object oCreature, int nACType=AC_DODGE_BONUS);
 /* Get oTarget's AC against oAttacker. */
 int GetACVersus (object oAttacker, object oTarget=OBJECT_SELF);
 
+/* Get all of oCreature's spell immunities in a packed format.
+ *
+ * TODO: Describe the format.
+ */
+string GetAllSpellImmunities (object oCreature);
+
 /* Get oCreature's effect-based damage reduction against the specified power. */
 int GetEffectDamageReduction (object oCreature, int nDamPower, int nDurType=-1);
 
 /* Get oCreature's effect-based damage resistance against the specified type. */
 int GetEffectDamageResistance (object oCreature, int nDamType, int nDurType=-1);
+
+/* Get if oCreature is immune to nSpellId. */
+int GetHasSpellImmunity (int nSpellId, object oCreature=OBJECT_SELF, int nSpellSchool=-1, int nSpellLevel=-1, int nDurType=-1);
 
 /* Get oCreature's true total damage immunity against the specified type. */
 int GetTrueDamageImmunity (object oCreature, int nDamType);
@@ -71,6 +80,12 @@ int NWNXDefensesThree (object oObject, string sFunc, int nVal1, int nVal2, int n
     return StringToInt(GetLocalString(oObject, sFunc));
 }
 
+int NWNXDefensesFour (object oObject, string sFunc, int nVal1, int nVal2, int nVal3, int nVal4) {
+    SetLocalString(oObject, sFunc, IntToString(nVal1) + " " + IntToString(nVal2) +
+      " " + IntToString(nVal3) + " " + IntToString(nVal4) + "          ");
+    return StringToInt(GetLocalString(oObject, sFunc));
+}
+
 
 int GetDefenseOption (int nOption) {
     return NWNXDefensesOne(GetModule(), "NWNX!DEFENSES!GETDEFENSEOPTION", nOption); 
@@ -93,12 +108,26 @@ int GetACVersus (object oAttacker, object oTarget=OBJECT_SELF) {
     return StringToInt(GetLocalString(oTarget, "NWNX!DEFENSES!GETACVERSUS"));
 }
 
+string GetAllSpellImmunities (object oCreature) {
+    string sImms = GetLocalString(GetModule(), "NWNX!ODBC!SPACER");
+
+    SetLocalString(oCreature, "NWNX!DEFENSES!GETALLSPELLIMMUNITIES", sImms + sImms + sImms + sImms);
+    sImms = GetLocalString(oCreature, "NWNX!DEFENSES!GETALLSPELLIMMUNITIES");
+    DeleteLocalString(oCreature, "NWNX!DEFENSES!GETALLSPELLIMMUNITIES");
+
+    return sImms;
+}
+
 int GetEffectDamageReduction (object oCreature, int nDamPower, int nDurType=-1) {
     return NWNXDefensesTwo(oCreature, "NWNX!DEFENSES!GETEFFECTDAMAGEREDUCTION", nDamPower, nDurType);
 }
 
 int GetEffectDamageResistance (object oCreature, int nDamType, int nDurType=-1) {
     return NWNXDefensesTwo(oCreature, "NWNX!DEFENSES!GETEFFECTDAMAGERESISTANCE", nDamType, nDurType);
+}
+
+int GetHasSpellImmunity (int nSpellId, object oCreature=OBJECT_SELF, int nSpellSchool=-1, int nSpellLevel=-1, int nDurType=-1) {
+    return NWNXDefensesFour(oCreature, "NWNX!DEFENSES!GETHASSPELLIMMUNITY", nSpellId, nSpellSchool, nSpellLevel, nDurType);
 }
 
 int GetTrueDamageImmunity (object oCreature, int nDamType) {
