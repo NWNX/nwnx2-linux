@@ -61,6 +61,10 @@ void Func_GetPCPort (CGameObject *ob, char *value) {
     }
 
     pl = CServerExoApp__GetClientObjectByObjectId((*NWN_AppManager)->app_server, ob->id);
+    if (pl == NULL) {
+        snprintf(value, strlen(value), "0");
+        return;
+    }
 
     snprintf(value, strlen(value), "%d",
         GetPlayerPort((*NWN_AppManager)->app_server->srv_internal->srv_network, pl->pl_id));
