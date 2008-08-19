@@ -877,6 +877,8 @@ void ActionUseItemOnObject (object oItem, object oTarget, int nProp=0) {
 
 
 int GetPCPort (object oPC) {
+    if (!GetIsPC(oPC) || GetIsDMPossessed(oPC))
+        return 0;
     return NWNXFuncsZero(oPC, "NWNX!FUNCS!GETPCPORT");
 }
 
