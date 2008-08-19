@@ -53,6 +53,12 @@ static int GetPlayerPort (void *pSomeStruct, uint32_t nPlayerID) {
 
 void Func_GetPCPort (CGameObject *ob, char *value) {
     CNWSPlayer *pl;
+    CNWSCreature *cre;
+
+    if (ob == NULL || (cre = ob->vtable->AsNWSCreature(ob)) == NULL || !cre->cre_is_pc) {
+        snprintf(value, strlen(value), "0");
+        return;
+    }
 
     pl = CServerExoApp__GetClientObjectByObjectId((*NWN_AppManager)->app_server, ob->id);
 
