@@ -37,7 +37,7 @@ void Func_SetWeaponOfChoiceFeat (CGameObject *ob, char *value) {
         feat = 0;
 
     Table_WeaponOfChoice[baseitem] = feat;
-    snprintf(value, sizeof(value), "%d", feat);
+    snprintf(value, strlen(value), "%d", feat);
 }
 
 

@@ -37,7 +37,7 @@ void Func_SetWeaponGreaterFocusFeat (CGameObject *ob, char *value) {
         feat = 0;
 
     Table_WeaponGreaterFocus[baseitem] = feat;
-    snprintf(value, sizeof(value), "%d", feat);
+    snprintf(value, strlen(value), "%d", feat);
 }
 
 

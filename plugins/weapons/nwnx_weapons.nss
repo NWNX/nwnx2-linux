@@ -8,12 +8,6 @@
  *
  *   Add support for GWF/LWF bonuses.
  *   Add support for extra Epic Prowess bonus when combined with LWF.
- *
- *   Add [GS]etWeaponFinesseSize() to set finesse size (like rapiers).
- *
- *   Add [GS]etWeaponAbilityFeat() to set ability modifier feats (like Zen Archery).
- *
- *   Add [GS]etWeaponIsRogueWeapon() to set rogue weapons.
  */
 
 /* Disable Devastating Critical insta-kill for all beings or for PCs only. */
@@ -60,6 +54,14 @@ int SetWeaponOption (int nOption, int nValue);
 /* Get and set the minimum Monk level required for nBaseItem to be a Monk weapon. */
 int GetWeaponIsMonkWeapon (int nBaseItem);
 int SetWeaponIsMonkWeapon (int nBaseItem, int nMonkLevelsRequired);
+
+/* Get and set weapon ability-substitution feats (e.g. Zen Archery for Wisdom on bows). */
+int GetWeaponAbilityFeat (int nBaseItem, int nAbility);
+int SetWeaponAbilityFeat (int nBaseItem, int nAbility, int nFeat);
+
+/* Get and set finesse size (e.g. Medium for rapiers). */
+int GetWeaponFinesseSize (int nBaseItem);
+int SetWeaponFinesseSize (int nBaseItem, int nSize);
 
 /* Get and set the various weapon feats for individual base item types. */
 int GetWeaponDevastatingCriticalFeat (int nBaseItem);
@@ -125,6 +127,24 @@ int GetWeaponIsMonkWeapon (int nBaseItem) {
 
 int SetWeaponIsMonkWeapon (int nBaseItem, int nMonkLevelsRequired) {
     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONISMONKWEAPON", nBaseItem, nMonkLevelsRequired); 
+}
+
+
+int GetWeaponAbilityFeat (int nBaseItem, int nAbility) {
+    return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!GETWEAPONABILITYFEAT", nBaseItem, nAbility); 
+}
+
+int SetWeaponAbilityFeat (int nBaseItem, int nAbility, int nFeat) {
+    return NWNXWeaponsThree(GetModule(), "NWNX!WEAPONS!SETWEAPONABILITYFEAT", nBaseItem, nAbility, nFeat); 
+}
+
+
+int GetWeaponFinesseSize (int nBaseItem) {
+    return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONFINESSESIZE", nBaseItem); 
+}
+
+int SetWeaponFinesseSize (int nBaseItem, int nSize) {
+    return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONFINESSESIZE", nBaseItem, nSize); 
 }
 
 

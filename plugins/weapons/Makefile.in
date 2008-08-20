@@ -38,11 +38,13 @@ LFLAGS   = @LDFLAGS@ -w -fPIC -shared -rdynamic
 OFILES  = \
     common/c_GetIsUnarmedWeapon.o                \
     common/c_GetIsWeaponLight.o                  \
+    funcs/f_GetWeaponAbilityFeat.o               \
     funcs/f_GetWeaponDevastatingCriticalFeat.o   \
     funcs/f_GetWeaponEpicFocusFeat.o             \
     funcs/f_GetWeaponEpicSpecializationFeat.o    \
     funcs/f_GetWeaponFocusFeat.o                 \
     funcs/f_GetWeaponGreaterFocusFeat.o          \
+    funcs/f_GetWeaponFinesseSize.o               \
     funcs/f_GetWeaponImprovedCriticalFeat.o      \
     funcs/f_GetWeaponIsMonkWeapon.o              \
     funcs/f_GetWeaponLegendaryFocusFeat.o        \
@@ -53,9 +55,11 @@ OFILES  = \
     funcs/f_GetWeaponSpecializationFeat.o        \
     funcs/f_GetWeaponSuperiorCriticalFeat.o      \
     funcs/f_IntToObject.o      			 \
+    funcs/f_SetWeaponAbilityFeat.o               \
     funcs/f_SetWeaponDevastatingCriticalFeat.o   \
     funcs/f_SetWeaponEpicFocusFeat.o             \
     funcs/f_SetWeaponEpicSpecializationFeat.o    \
+    funcs/f_SetWeaponFinesseSize.o               \
     funcs/f_SetWeaponFocusFeat.o                 \
     funcs/f_SetWeaponGreaterFocusFeat.o          \
     funcs/f_SetWeaponImprovedCriticalFeat.o      \

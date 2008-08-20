@@ -28,7 +28,7 @@ void Func_GetWeaponDevastatingCriticalFeat (CGameObject *ob, char *value) {
     if (baseitem >= 0 && baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
         feat = Table_WeaponDevastatingCritical[baseitem];
 
-    snprintf(value, sizeof(value), "%d", (feat == 0 ? -1 : feat));
+    snprintf(value, strlen(value), "%d", (feat == 0 ? -1 : feat));
 }
 
 

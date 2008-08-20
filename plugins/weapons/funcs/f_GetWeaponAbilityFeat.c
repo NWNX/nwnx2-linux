@@ -21,11 +21,11 @@
 #include "NWNXWeapons.h"
 
 
-void Func_SetWeaponSpecializationFeat (CGameObject *ob, char *value) {
-    int baseitem, feat;
+void Func_GetWeaponAbilityFeat (CGameObject *ob, char *value) {
+    int baseitem, abil, feat = -1;
 
-    if (sscanf(value, "%d %d", &baseitem, &feat) != 2 ||
-        feat > UINT16_MAX                             ||
+    if (sscanf(value, "%d %d", &baseitem, &abil) != 2 ||
+        abil < 0 || abil > 5                          ||
         baseitem < 0                                  ||
         baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE) {
 
@@ -33,10 +33,9 @@ void Func_SetWeaponSpecializationFeat (CGameObject *ob, char *value) {
         return;
     }
 
-    if (feat < 0)
-        feat = 0;
+    if (Table_WeaponAbility[baseitem][abil] > 0)
+        feat = Table_WeaponAbility[baseitem][abil];
 
-    Table_WeaponSpecialization[baseitem] = feat;
     snprintf(value, strlen(value), "%d", feat);
 }
 

@@ -37,7 +37,7 @@ void Func_SetWeaponOption (CGameObject *ob, char *value) {
         val = 0;
 
     Table_WeaponOptions[opt] = val;
-    snprintf(value, sizeof(value), "%d", val);
+    snprintf(value, strlen(value), "%d", val);
 }
 
 

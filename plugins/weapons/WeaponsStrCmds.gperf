@@ -33,34 +33,38 @@ struct WeaponsStrCommand_s {
 };
 
 %%
-GETWEAPONDEVASTATINGCRITICALFEAT,       Func_GetWeaponDevastatingCriticalFeat 
-GETWEAPONEPICFOCUSFEAT,                 Func_GetWeaponEpicFocusFeat           
-GETWEAPONEPICSPECIALIZATIONFEAT,        Func_GetWeaponEpicSpecializationFeat  
-GETWEAPONFOCUSFEAT,                     Func_GetWeaponFocusFeat               
-GETWEAPONGREATERFOCUSFEAT,              Func_GetWeaponGreaterFocusFeat        
-GETWEAPONIMPROVEDCRITICALFEAT,          Func_GetWeaponImprovedCriticalFeat    
-GETWEAPONISMONKWEAPON,                  Func_GetWeaponIsMonkWeapon            
-GETWEAPONLEGENDARYFOCUSFEAT,            Func_GetWeaponLegendaryFocusFeat      
-GETWEAPONOFCHOICEFEAT,                  Func_GetWeaponOfChoiceFeat            
+GETWEAPONABILITYFEAT,                   Func_GetWeaponAbilityFeat
+GETWEAPONDEVASTATINGCRITICALFEAT,       Func_GetWeaponDevastatingCriticalFeat
+GETWEAPONEPICFOCUSFEAT,                 Func_GetWeaponEpicFocusFeat
+GETWEAPONEPICSPECIALIZATIONFEAT,        Func_GetWeaponEpicSpecializationFeat
+GETWEAPONFINESSESIZE,                   Func_GetWeaponFinesseSize
+GETWEAPONFOCUSFEAT,                     Func_GetWeaponFocusFeat
+GETWEAPONGREATERFOCUSFEAT,              Func_GetWeaponGreaterFocusFeat
+GETWEAPONIMPROVEDCRITICALFEAT,          Func_GetWeaponImprovedCriticalFeat
+GETWEAPONISMONKWEAPON,                  Func_GetWeaponIsMonkWeapon
+GETWEAPONLEGENDARYFOCUSFEAT,            Func_GetWeaponLegendaryFocusFeat
+GETWEAPONOFCHOICEFEAT,                  Func_GetWeaponOfChoiceFeat
 GETWEAPONOPTION,                        Func_GetWeaponOption
 GETWEAPONOVERWHELMINGCRITICALFEAT,      Func_GetWeaponOverwhelmingCriticalFeat
-GETWEAPONPOWERCRITICALFEAT,             Func_GetWeaponPowerCriticalFeat       
-GETWEAPONSPECIALIZATIONFEAT,            Func_GetWeaponSpecializationFeat      
-GETWEAPONSUPERIORCRITICALFEAT,          Func_GetWeaponSuperiorCriticalFeat    
-SETWEAPONDEVASTATINGCRITICALFEAT,       Func_SetWeaponDevastatingCriticalFeat 
-SETWEAPONEPICFOCUSFEAT,                 Func_SetWeaponEpicFocusFeat           
-SETWEAPONEPICSPECIALIZATIONFEAT,        Func_SetWeaponEpicSpecializationFeat  
-SETWEAPONFOCUSFEAT,                     Func_SetWeaponFocusFeat               
-SETWEAPONGREATERFOCUSFEAT,              Func_SetWeaponGreaterFocusFeat        
-SETWEAPONIMPROVEDCRITICALFEAT,          Func_SetWeaponImprovedCriticalFeat    
-SETWEAPONISMONKWEAPON,                  Func_SetWeaponIsMonkWeapon            
-SETWEAPONLEGENDARYFOCUSFEAT,            Func_SetWeaponLegendaryFocusFeat      
-SETWEAPONOFCHOICEFEAT,                  Func_SetWeaponOfChoiceFeat            
+GETWEAPONPOWERCRITICALFEAT,             Func_GetWeaponPowerCriticalFeat
+GETWEAPONSPECIALIZATIONFEAT,            Func_GetWeaponSpecializationFeat
+GETWEAPONSUPERIORCRITICALFEAT,          Func_GetWeaponSuperiorCriticalFeat
+SETWEAPONABILITYFEAT,                   Func_SetWeaponAbilityFeat
+SETWEAPONDEVASTATINGCRITICALFEAT,       Func_SetWeaponDevastatingCriticalFeat
+SETWEAPONEPICFOCUSFEAT,                 Func_SetWeaponEpicFocusFeat
+SETWEAPONEPICSPECIALIZATIONFEAT,        Func_SetWeaponEpicSpecializationFeat
+SETWEAPONFINESSESIZE,                   Func_SetWeaponFinesseSize
+SETWEAPONFOCUSFEAT,                     Func_SetWeaponFocusFeat
+SETWEAPONGREATERFOCUSFEAT,              Func_SetWeaponGreaterFocusFeat
+SETWEAPONIMPROVEDCRITICALFEAT,          Func_SetWeaponImprovedCriticalFeat
+SETWEAPONISMONKWEAPON,                  Func_SetWeaponIsMonkWeapon
+SETWEAPONLEGENDARYFOCUSFEAT,            Func_SetWeaponLegendaryFocusFeat
+SETWEAPONOFCHOICEFEAT,                  Func_SetWeaponOfChoiceFeat
 SETWEAPONOPTION,                        Func_SetWeaponOption
 SETWEAPONOVERWHELMINGCRITICALFEAT,      Func_SetWeaponOverwhelmingCriticalFeat
-SETWEAPONPOWERCRITICALFEAT,             Func_SetWeaponPowerCriticalFeat       
-SETWEAPONSPECIALIZATIONFEAT,            Func_SetWeaponSpecializationFeat      
-SETWEAPONSUPERIORCRITICALFEAT,          Func_SetWeaponSuperiorCriticalFeat    
+SETWEAPONPOWERCRITICALFEAT,             Func_SetWeaponPowerCriticalFeat
+SETWEAPONSPECIALIZATIONFEAT,            Func_SetWeaponSpecializationFeat
+SETWEAPONSUPERIORCRITICALFEAT,          Func_SetWeaponSuperiorCriticalFeat
 %%
 
 #ifdef __cplusplus

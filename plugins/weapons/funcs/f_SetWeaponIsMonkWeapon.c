@@ -37,7 +37,7 @@ void Func_SetWeaponIsMonkWeapon (CGameObject *ob, char *value) {
         level = 0;
 
     Table_WeaponMonk[baseitem] = level;
-    snprintf(value, sizeof(value), "%d", level);
+    snprintf(value, strlen(value), "%d", level);
 }
 
 

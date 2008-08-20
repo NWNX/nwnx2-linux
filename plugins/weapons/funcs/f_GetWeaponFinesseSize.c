@@ -21,23 +21,14 @@
 #include "NWNXWeapons.h"
 
 
-void Func_SetWeaponSpecializationFeat (CGameObject *ob, char *value) {
-    int baseitem, feat;
+void Func_GetWeaponFinesseSize (CGameObject *ob, char *value) {
+    int baseitem, size = -1;
 
-    if (sscanf(value, "%d %d", &baseitem, &feat) != 2 ||
-        feat > UINT16_MAX                             ||
-        baseitem < 0                                  ||
-        baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE) {
+    baseitem = atoi(value);
+    if (baseitem >= 0 && baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
+        size = Table_WeaponFinesseSize[baseitem];
 
-        snprintf(value, strlen(value), "-1");
-        return;
-    }
-
-    if (feat < 0)
-        feat = 0;
-
-    Table_WeaponSpecialization[baseitem] = feat;
-    snprintf(value, strlen(value), "%d", feat);
+    snprintf(value, strlen(value), "%d", (size == 0 ? -1 : size));
 }
 
 

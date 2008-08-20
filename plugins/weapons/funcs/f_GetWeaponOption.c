@@ -28,7 +28,7 @@ void Func_GetWeaponOption (CGameObject *ob, char *value) {
     if (opt >= 0 && opt < NWNX_WEAPONS_OPTIONS_TABLE_SIZE)
         val = Table_WeaponOptions[opt];
 
-    snprintf(value, sizeof(value), "%d", val);
+    snprintf(value, strlen(value), "%d", val);
 }
 
 

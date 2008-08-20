@@ -28,7 +28,7 @@ void Func_GetWeaponIsMonkWeapon (CGameObject *ob, char *value) {
     if (baseitem >= 0 && baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)
         level = Table_WeaponMonk[baseitem];
 
-    snprintf(value, sizeof(value), "%d", (level == 0 ? -1 : level));
+    snprintf(value, strlen(value), "%d", (level == 0 ? -1 : level));
 }
 
 
