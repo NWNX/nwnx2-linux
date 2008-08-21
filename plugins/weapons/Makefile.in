@@ -72,6 +72,7 @@ OFILES  = \
     funcs/f_SetWeaponSpecializationFeat.o        \
     funcs/f_SetWeaponSuperiorCriticalFeat.o      \
     hooks/h_GetABAbilityModifier.o               \
+    hooks/h_GetCriticalConfirmationRoll.o        \
     hooks/h_GetCriticalMultiplier.o              \
     hooks/h_GetCriticalRange.o                   \
     hooks/h_GetEpicWeaponDevastatingCritical.o   \
@@ -86,6 +87,7 @@ OFILES  = \
     hooks/h_GetWeaponSpecialization.o            \
     hooks/h_OffhandCritMultiplier.o              \
     local/l_GetAttackBonusAdjustment.o           \
+    local/l_GetCriticalConfirmationAdjustment.o  \
     local/l_GetCriticalMultiplierAdjustment.o    \
     local/l_GetCriticalRangeAdjustment.o         \
     tables/t_WeaponAbility.o                     \

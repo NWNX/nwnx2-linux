@@ -47,7 +47,7 @@ void Func_GetAllSpellImmunities (CGameObject *ob, char *value) {
             continue;
 
         if (eff->eff_type == EFFECT_TRUETYPE_SPELL_LEVEL_ABSORPTION) {
-            if (eff->eff_integers[1] == 0) {
+            if (eff->eff_integers[1] <= 0) {
                 if (eff->eff_integers[2] == 0)
                     VALUE_APPEND(p, ret, len, "<%d ", eff->eff_integers[0]);
                 else

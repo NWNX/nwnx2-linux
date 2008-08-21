@@ -98,6 +98,7 @@ void Func_SetWeaponSuperiorCriticalFeat      (CGameObject *ob, char *value);
 nwn_objid_t Func_IntToObject (CGameObject *ob);
 
 void Hook_GetABAbilityModifier (void);
+void Hook_GetCriticalConfirmationRoll (void);
 void Hook_GetCriticalMultiplier (void);
 void Hook_GetCriticalRange (void);
 void Hook_OffhandCritMult1 (void);
@@ -119,6 +120,7 @@ int Hook_GetWeaponSpecialization (CNWSCreatureStats *info, CNWSItem *weapon);
 
 int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon,
                                     int ranged, int ab_abil, int ab_feats);
+int Local_GetCriticalConfirmationAdjustment (CNWSCreature *attacker, CNWSCreature *target, CNWSItem *weapon, int roll, int bonus);
 int Local_GetCriticalMultiplierAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj);
 int Local_GetCriticalRangeAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj);
 

@@ -38,6 +38,7 @@ struct {
     NX_NWN_HOOK(CNWBaseItemArray__GetBaseItem,                          "55 89 E5 8B 45 08 8B 48 04 85 C9 8B 55 0C 74 14"),
     NX_NWN_HOOK(CNWSArea__ComputeHeight,                                "55 89 E5 57 56 53 ** ** ** 31 D2 8B 3D ** ** ** ** BB FF FF FF FF 39 FA 89 DE 7D"),
     NX_NWN_HOOK(CNWSArea__TestSafeLocationPoint,                        "55 89 E5 57 56 53 81 EC ** ** ** ** 8B 55 18 D9 42 04 D9 45 0C 8B 45 08"),
+    NX_NWN_HOOK(CNWSCombatRound__GetCurrentAttackWeapon,                "55 89 E5 56 53 8B 45 0C 85 C0 8B 75 08 75 0C 83 EC 0C 56 E8"),
     NX_NWN_HOOK(CNWSCreatureClass__AddKnownSpell,                       "55 89 E5 83 EC 08 8A 45 0C 3C 09 8B 4D 08 8B 55 **#14 80"),
     NX_NWN_HOOK(CNWSCreatureClass__RemoveKnownSpell,                    "55 89 E5 83 EC 08 8A 45 0C 3C 09 8B 4D 08 8B 55 **#14 FC"),
     NX_NWN_HOOK(CNWSCreatureStats__AddFeat,                             "55 89 E5 56 53 8B 5D 08 8B 53 04 3B 53 08 8B 75"),

@@ -30,6 +30,7 @@
 #define NWNX_WEAPONS_SIG(NAME, SIG) { #NAME, &NAME, SIG }
 
 static unsigned char *Ref_ABAbilityModifier;
+static unsigned char *Ref_CritConfirmationRoll;
 static unsigned char *Ref_OffhandCritMult1;
 static unsigned char *Ref_OffhandCritMult2;
 static unsigned char *Ref_OffhandCritMult3;
@@ -43,6 +44,7 @@ static struct WeaponSignatureTable {
     { NULL,                                     NULL },
 
     NWNX_WEAPONS_SIG(Ref_ABAbilityModifier,     "8B 9D 3C FA FF FF 31 FF 85 DB C7 85 F8 F9 FF FF 00 00 00 00"),
+    NWNX_WEAPONS_SIG(Ref_CritConfirmationRoll,  "0F B7 C0 C7 47 48 01 00 00 00 88 47 0F 03 45 A0 83 C4 10 3B"),
     NWNX_WEAPONS_SIG(Ref_OffhandCritMult1,      "66 01 B5 16 FE FF FF 83 EC 08 6A 00 68 FF 00 00 00 68 FF 00 00 00 6A 00"),
     NWNX_WEAPONS_SIG(Ref_OffhandCritMult2,      "83 EC 08 6A 00 68 FF 00 00 00 68 FF 00 00 00 6A 00 6A 00 6A 01 6A 01 50"),
     NWNX_WEAPONS_SIG(Ref_OffhandCritMult3,      "6A 00 68 FF 00 00 00 68 FF 00 00 00 6A 00 6A 00 6A 00 6A 01 50 6A 02 FF 75 08"),
@@ -234,6 +236,15 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
             Hook_ABAM_Return = (uintptr_t)p;
         } else
             nx_log(NX_LOG_INFO, 0, "did not find AB ability modifier jump reference before %p", p);
+    }
+
+
+    /* critical confirmation roll hook */
+    if (Ref_CritConfirmationRoll != NULL) {
+        extern volatile uintptr_t Hook_CCR_Return;
+        
+        Hook_CCR_Return = (uintptr_t)(Ref_CritConfirmationRoll + 10);
+        nx_hook_function(Ref_CritConfirmationRoll, (void *)Hook_GetCriticalConfirmationRoll, NX_HOOK_DIRECT, 5);
     }
 
 
