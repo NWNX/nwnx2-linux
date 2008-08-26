@@ -3,6 +3,32 @@ AC_INIT(FULL-PACKAGE-NAME, VERSION, BUG-REPORT-ADDRESS)
 # AC_CONFIG_SRCDIR([linnwnx2])
 AC_CONFIG_HEADER([config.h])
 
+AC_DEFUN([AX_C_CHECK_FLAG],[
+          AC_PREREQ([2.61])
+          AC_REQUIRE([AC_PROG_CC])
+          AC_REQUIRE([AC_PROG_SED])
+
+          flag=`echo "$1" | $SED 'y% .=/+-(){}<>:*,%_______________%'`
+
+          AC_CACHE_CHECK([whether the C compiler accepts the $1 flag],
+                [ax_cv_c_check_flag_$flag],[
+                          AC_LANG_PUSH([C])
+
+                          save_CFLAGS="$CFLAGS"
+                          CFLAGS="$CFLAGS $1"
+                          AC_COMPILE_IFELSE([ AC_LANG_PROGRAM([$2],[$3])
+                                ],[ eval "ax_cv_c_check_flag_$flag=yes"
+                                ],[ eval "ax_cv_c_check_flag_$flag=no" ])
+
+                          CFLAGS="$save_CFLAGS"
+                          AC_LANG_POP
+          ])
+
+          AS_IF([eval "test \"`echo '$ax_cv_c_check_flag_'$flag`\" = yes"],
+                [ : $4 ],[ : $5 ])
+])
+
+
 # add -m32 automatically on 64-bit systems
 AC_CHECK_SIZEOF(void *)
 if test "$ac_cv_sizeof_void_p" = "8"; then
@@ -11,9 +37,16 @@ if test "$ac_cv_sizeof_void_p" = "8"; then
 	LDFLAGS="-m32 $LDFLAGS"
 fi
 
+AX_C_CHECK_FLAG(-mtune=i386, [], [], [])
+
 # EXTREMELY IMPORTANT! MUST NOT BE OVERRIDDEN!
-CFLAGS="-mtune=i386 -pipe $CFLAGS"
-CPPFLAGS="-mtune=i386 -pipe $CPPFLAGS"
+if test "$ax_cv_c_check_flag__mtune_i386" = "yes"; then
+        CFLAGS="-mtune=i386 -pipe $CFLAGS"
+        CPPFLAGS="-mtune=i386 -pipe $CPPFLAGS"
+else
+        CFLAGS="-mcpu=i386 -pipe $CFLAGS"
+        CPPFLAGS="-mcpu=i386 -pipe $CPPFLAGS"
+fi
 
 AC_ARG_ENABLE(debug,
   [  --enable-debug      compile with debugging symbols])
