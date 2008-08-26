@@ -658,7 +658,7 @@ startstop::startstop()
     Configure();
 
     // banner
-    Log(0,"NWN Extender v2.8-alpha1\n");
+    Log(0,"NWN Extender v2.7.1-dev\n");
     Log(1,"--------------------------------\n");
     printf("(c) 2004 by the APS/NWNX Linux Conversion Group\n");
     printf("(c) 2007-2008 by virusman and Acaos\n");
