@@ -21,7 +21,9 @@
 #ifndef NWNXBase_h_
 #define NWNXBase_h_
 
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "gline.h"
 
 #define OBJECT_INVALID 0x7F000000
