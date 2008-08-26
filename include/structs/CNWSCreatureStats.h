@@ -51,12 +51,12 @@ struct CNWSCreatureStats_s {
     uint32_t                    cs_is_pc;               /* 0074 */
     uint32_t                    cs_is_dm;               /* 0078 */
 
-    uint32_t                    field_74;
-    uint32_t                    field_78;
+    uint32_t                    field_7C;
+    uint32_t                    field_80;
 
     uint32_t                    cs_ai_disabled;         /* 0084 */
 
-    uint32_t                    field_80;
+    uint32_t                    field_88;
     uint32_t                    cs_mclasslevupin;       /* 008C */
 
     uint32_t                    cs_faction_id;          /* 0090 */

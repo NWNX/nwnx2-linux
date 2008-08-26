@@ -321,24 +321,29 @@ void SetEffectTrueType (effect eEffect, int nTrueType) {
 }
 
 
-int GetHasEffect (object oObject, object oCreator, int nSpellId, int nTrueType, int nInt0) {
+int GetHasMatchingEffect (object oObject, object oCreator, int nSpellId, int nTrueType, int nInt0) {
     SetLocalString(oObject, "NWNX!STRUCTS!GETHASEFFECT", ObjectToString(oCreator) +
         IntToString(nSpellId) + " " + IntToString(nTrueType) + " " + IntToString(nInt0));
     return StringToInt(GetLocalString(oObject, "NWNX!STRUCTS!GETHASEFFECT"));
 }
 
 int GetHasEffectByCreator (object oCreator, object oObject=OBJECT_SELF, int nSpellId=-1) {
-    return GetHasEffect(oObject, oCreator, nSpellId, -1, 0);
+    return GetHasMatchingEffect(oObject, oCreator, nSpellId, -1, 0);
 }
 
 int GetHasEffectOfTrueType (int nTrueType, object oObject=OBJECT_SELF, int nSpellId=-1) {
-    return GetHasEffect(oObject, OBJECT_INVALID, nSpellId, nTrueType, 0);
+    return GetHasMatchingEffect(oObject, OBJECT_INVALID, nSpellId, nTrueType, 0);
 }
 
 int GetHasEffectState (int nState, object oObject=OBJECT_SELF, object oCreator=OBJECT_INVALID, int nSpellId=-1) {
-    return GetHasEffect(oObject, oCreator, nSpellId, EFFECT_TRUETYPE_SETSTATE, nState);
+    return GetHasMatchingEffect(oObject, oCreator, nSpellId, EFFECT_TRUETYPE_SETSTATE, nState);
 }
 
+
+object GetItemPropertyCreator (itemproperty ipProp) {
+    SetLocalString(GetModule(), "NWNX!STRUCTS!GETCREATORREQUEST", " ");
+    return GetLocalObject(GetModule(), "NWNX!STRUCTS!GETCREATOR");
+}
 
 float GetItemPropertyDuration (itemproperty ipProp) {
     SetLocalString(GetModule(), "NWNX!STRUCTS!GETDURATION", "          ");

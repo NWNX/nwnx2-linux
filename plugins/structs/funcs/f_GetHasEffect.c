@@ -21,7 +21,47 @@
 #include "NWNXStructs.h"
 
 
+static int GetHasEffect (const CNWSObject *obj, const nwn_objid_t eff_creator,
+                         const int eff_spellid, const int eff_type, const int eff_int0) {
+    int i;
+    const CGameEffect *eff;
+
+    for (i = 0; i < obj->obj_effects_len; i++) {
+        if ((eff = obj->obj_effects[i]) == NULL)
+            continue;
+
+        if (eff_creator != OBJECT_INVALID && eff->eff_creator != eff_creator)
+            continue;
+
+        if (eff_spellid >= 0 && eff->eff_spellid != eff_spellid)
+            continue;
+
+        if (eff_type >= 0 && eff->eff_type != eff_type)
+            continue;
+
+        if (eff_int0 != 0 && eff->eff_integers[0] != eff_int0)
+            continue;
+
+        return 1;
+    }
+
+    return 0;
+}
+
 void Func_GetHasEffect (CGameObject *ob, char *value) {
+    int eff_spellid, eff_type, eff_int0;
+    nwn_objid_t eff_creator;
+    const CNWSObject *obj;
+
+    if (ob == NULL                                  ||
+        (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
+        sscanf(value, "%x %d %d %d", &eff_creator, &eff_spellid, &eff_type, &eff_int0) != 4) {
+
+        snprintf(value, strlen(value), "0");
+        return;
+    }
+
+    snprintf(value, strlen(value), "%d", GetHasEffect(obj, eff_creator, eff_spellid, eff_type, eff_int0));
 }
 
 

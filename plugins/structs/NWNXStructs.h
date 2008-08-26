@@ -28,6 +28,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+void Func_GetCreatorRequest                  (CGameObject *ob, char *value);
 void Func_GetDuration                        (CGameObject *ob, char *value);
 void Func_GetDurationRemaining               (CGameObject *ob, char *value);
 void Func_GetHasEffect                       (CGameObject *ob, char *value);
@@ -39,7 +40,7 @@ void Func_SetInteger                         (CGameObject *ob, char *value);
 void Func_SetSpellId                         (CGameObject *ob, char *value);
 void Func_SetTrueType                        (CGameObject *ob, char *value);
 
-nwn_objid_t Func_IntToObject (CGameObject *ob);
+nwn_objid_t Func_GetCreator                  (CGameObject *ob);
 
 void Hook_PushStruct (void);
 

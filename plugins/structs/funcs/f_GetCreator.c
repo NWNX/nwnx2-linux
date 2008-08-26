@@ -1,6 +1,6 @@
 
 /***************************************************************************
-    NWNXFuncs.cpp - Implementation of the CNWNXFuncs class.
+    NWNXStructs.cpp - Implementation of the CNWNXStructs class.
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
@@ -20,9 +20,19 @@
 
 #include "NWNXStructs.h"
 
+extern volatile CGameEffect *Hook_Struct_Last;
+static nwn_objid_t Struct_Creator = OBJECT_INVALID;
 
-nwn_objid_t Func_IntToObject (CGameObject *ob) {
-    return OBJECT_INVALID;
+
+void Func_GetCreatorRequest (CGameObject *ob, char *value) {
+    CGameEffect *eff = (CGameEffect *)Hook_Struct_Last;
+
+    Struct_Creator = eff->eff_creator;
+}
+
+
+nwn_objid_t Func_GetCreator (CGameObject *ob) {
+    return Struct_Creator;
 }
 
 

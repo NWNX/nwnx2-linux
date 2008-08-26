@@ -511,7 +511,7 @@
 #define EFFECT_TRUETYPE_DISAPPEAR                         80
 #define EFFECT_TRUETYPE_APPEAR                            81
 #define EFFECT_TRUETYPE_NEGATIVE_LEVEL                    82
-#define EFFECT_TRUETYPE_BONUSFEAAT                        83
+#define EFFECT_TRUETYPE_BONUS_FEAT                        83
 #define EFFECT_TRUETYPE_WOUNDING                          84
 #define EFFECT_TRUETYPE_SWARM                             85
 #define EFFECT_TRUETYPE_VAMPIRIC_REGENERATION             86

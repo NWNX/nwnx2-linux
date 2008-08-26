@@ -33,9 +33,10 @@ struct StructsStrCommand_s {
 };
 
 %%
+GETCREATORREQUEST,                      Func_GetCreatorRequest
 GETDURATION,                            Func_GetDuration
 GETDURATIONREMAINING,                   Func_GetDurationRemaining
-GETHASEFFECT                            Func_GetHasEffect
+GETHASEFFECT,                           Func_GetHasEffect
 GETINTEGER,                             Func_GetInteger
 GETSPELLID,                             Func_GetSpellId
 GETTRUETYPE,                            Func_GetTrueType

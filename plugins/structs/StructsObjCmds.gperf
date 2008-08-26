@@ -33,7 +33,7 @@ struct StructsObjCommand_s {
 };
 
 %%
-INTTOOBJECT,                            Func_IntToObject
+GETCREATOR,                             Func_GetCreator
 %%
 
 #ifdef __cplusplus
