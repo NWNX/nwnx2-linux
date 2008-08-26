@@ -24,6 +24,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <stdint.h>
 #include <string.h>
 #include <dlfcn.h>
 #include <dirent.h>
