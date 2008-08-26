@@ -17,6 +17,9 @@ const int NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_PC        =  1;
 /* For each of the four critical feat sets (Devastating Critical, Overwhelming
  * Critical, Power Critical, and Superior Critical), set their bonus to
  * critical confirmation rolls, critical multiplier, and critical range.
+ *
+ * Note that the maximum critical confirmation roll is 31, so you should never
+ * make a critical confirmation bonus greather than 11.
  */
 const int NWNX_WEAPONS_OPT_DEVCRIT_CONF_BONUS        =  2; 
 const int NWNX_WEAPONS_OPT_DEVCRIT_MULT_BONUS        =  3; 
