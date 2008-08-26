@@ -1,4 +1,3 @@
-const int EVENT_TYPE_ALL               = 0;
 const int EVENT_TYPE_SAVE_CHAR         = 1;
 const int EVENT_TYPE_PICKPOCKET        = 2;
 const int EVENT_TYPE_ATTACK            = 3;
@@ -7,10 +6,22 @@ const int EVENT_TYPE_QUICKCHAT         = 5;
 const int EVENT_TYPE_EXAMINE           = 6;
 const int EVENT_TYPE_USE_SKILL         = 7;
 const int EVENT_TYPE_USE_FEAT          = 8;
-const int EVENT_TYPE_CAST_SPELL        = 9;
-const int EVENT_TYPE_TOGGLE_MODE       = 10;
+const int EVENT_TYPE_TOGGLE_MODE       = 9;
+const int EVENT_TYPE_CAST_SPELL        = 10;
 const int EVENT_TYPE_TOGGLE_PAUSE      = 11;
 const int EVENT_TYPE_POSSESS_FAMILIAR  = 12;
+
+// DEPRECATED
+// For backwards compatibility only - use above constants instead
+const int EVENT_SAVE_CHAR = 1;
+const int EVENT_PICKPOCKET = 2;
+const int EVENT_ATTACK = 3;
+const int EVENT_USE_ITEM = 4;
+const int EVENT_QUICKCHAT = 5;
+const int EVENT_EXAMINE = 6;
+const int EVENT_USE_SKILL = 7;
+const int EVENT_USE_FEAT = 8;
+const int EVENT_TOGGLE_MODE = 9;
 
 const int NODE_TYPE_STARTING_NODE      = 0;
 const int NODE_TYPE_ENTRY_NODE         = 1;
@@ -59,6 +70,13 @@ int GetEventSubType()
 object GetEventTarget()
 {
     return GetLocalObject(GetModule(), "NWNX!EVENTS!TARGET");
+}
+
+// DEPRECATED
+// For backwards compatibility only - use GetEventTarget instead
+object GetActionTarget()
+{
+    return GetEventTarget();
 }
 
 object GetEventItem()

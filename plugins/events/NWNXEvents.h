@@ -34,8 +34,8 @@
 #define EVENT_TYPE_EXAMINE               6
 #define EVENT_TYPE_USE_SKILL             7
 #define EVENT_TYPE_USE_FEAT              8
-#define EVENT_TYPE_CAST_SPELL            9
-#define EVENT_TYPE_TOGGLE_MODE          10
+#define EVENT_TYPE_TOGGLE_MODE           9
+#define EVENT_TYPE_CAST_SPELL           10
 #define EVENT_TYPE_TOGGLE_PAUSE         11
 #define EVENT_TYPE_POSSESS_FAMILIAR     12
 #define NUM_EVENT_TYPES                 13

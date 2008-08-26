@@ -69,8 +69,8 @@ unsigned char d_ret_code_ep[0x20];
 unsigned char d_ret_code_ed[0x20];
 unsigned char d_ret_code_us[0x20];
 unsigned char d_ret_code_uf[0x20];
-unsigned char d_ret_code_cz[0x20];
 unsigned char d_ret_code_tm[0x20];
+unsigned char d_ret_code_cz[0x20];
 unsigned char d_ret_code_tp[0x20];
 unsigned char d_ret_code_pf[0x20];
 
@@ -783,8 +783,8 @@ int HookFunctions()
 		org_ExamineDoor = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 45 0C 8B 38 6A 01 57 68 80 00 00 00 8B 75 08 8B 5D 10 56 +61 FF 52 20");
 	dword org_UseSkill = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC 9C 00 00 00 8A 45 0C 88 85 67 FF FF FF 8A 45 10 8B 5D 08 88 85 66 FF FF FF");
 	dword org_UseFeat = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC C4 00 00 00 8B 45 10 66 89 85 72 FF FF FF 0F B7 45 0C 50 8B 55 08");
-        dword org_CastSpell = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC 1C 01 00 00 8A 45 3C");
 	dword org_ToggleMode = asmhelp.FindFunctionBySignature("55 89 E5 53 83 EC 10 8B 5D 08 8A 45 0C 53 88 45 FB E8 ** ** ** ** 83 C4 10 85 C0 0F 85 63 03 00 00");
+    dword org_CastSpell = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC 1C 01 00 00 8A 45 3C");
 
 #ifdef NWNX_EVENTS_ELVEN
 	dword org_TogglePause = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 4C 8A 45 0C 88 45 D3 8B 75 08 8B 86 18 00 01 00 89 45 CC 8A 96 A0 00 01 00 31 C0 84 55 D3 0F 95 C0 3B 45 10 0F 84 47 03 00 00 83 7D 10 01 75 4C 0A 55 D3 83 EC 0C 88 96 A0 00 01 00 FF B6 68 00 01 00 E8 ** ** ** ** 83 C4 10 F6 86 A0 00 01 00 02 B0 02 75 09 8A 86 A0 00 01 00");
@@ -812,8 +812,8 @@ int HookFunctions()
 	hook_function (org_ExamineDoor, (unsigned long)ExamineDoorHookProc, d_ret_code_ed, 12);
 	hook_function (org_UseSkill, (unsigned long)UseSkillHookProc, d_ret_code_us, 12);
 	hook_function (org_UseFeat, (unsigned long)UseFeatHookProc, d_ret_code_uf, 12);
-        hook_function (org_CastSpell, (unsigned long)CastSpellHookProc, d_ret_code_cz, 12);
 	hook_function (org_ToggleMode, (unsigned long)ToggleModeHookProc, d_ret_code_tm, 10);
+	hook_function (org_CastSpell, (unsigned long)CastSpellHookProc, d_ret_code_cz, 12);
 	hook_function (org_TogglePause, (unsigned long)TogglePauseHookProc, d_ret_code_tp, 9);
 	hook_function (org_PossessFamiliar, (unsigned long)PossessFamiliarHookProc, d_ret_code_pf, 9);
 
@@ -834,8 +834,8 @@ int HookFunctions()
 	PrintHookInfo(org_ExamineDoor, "ExamineDoor");
 	PrintHookInfo(org_UseSkill, "UseSkill");
 	PrintHookInfo(org_UseFeat, "UseFeat");
-	PrintHookInfo(org_CastSpell, "CastSpell");
 	PrintHookInfo(org_ToggleMode, "ToggleMode");
+	PrintHookInfo(org_CastSpell, "CastSpell");
 	PrintHookInfo(org_TogglePause, "TogglePause");
 	PrintHookInfo(org_PossessFamiliar, "PossessFamiliar");
 	PrintHookInfo(org_Run, "RunProc");
@@ -844,7 +844,7 @@ int HookFunctions()
 	        org_ConvSelect && org_ConditionalScript &&
 	        org_ExamineItem && org_ExamineCreature && org_ExaminePlaceable &&
 	        org_ExamineDoor && org_UseSkill && org_UseFeat &&
-                org_CastSpell && org_ToggleMode &&
+                org_ToggleMode && org_CastSpell &&
 #ifdef NWNX_EVENTS_ELVEN
                 org_TogglePause && org_PossessFamiliar &&
 #endif

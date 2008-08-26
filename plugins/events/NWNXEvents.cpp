@@ -213,37 +213,37 @@ char* CNWNXEvents::OnRequest (char* gameObject, char* Request, char* Parameters)
 
 	if (!scriptRun) {
 	    if (strncmp(Request, "SET_EVENT_HANDLER_", 18) == 0) {
-                int nHandler = atoi(Request + 18);
+			int nHandler = atoi(Request + 18);
 
-                if (nHandler < 0 || nHandler >= NUM_EVENT_TYPES) {
-                    *Parameters = 0;
-                } else if (nHandler == EVENT_TYPE_ALL) {
-                    int i;
+			if (nHandler < 0 || nHandler >= NUM_EVENT_TYPES) {
+				*Parameters = 0;
+			} else if (nHandler == EVENT_TYPE_ALL) {
+				int i;
 
-                    for (i = 0; i < NUM_EVENT_TYPES; i++) {
-                        if (eventScripts[i] != NULL)
-                            free(eventScripts[i]);
+				for (i = 0; i < NUM_EVENT_TYPES; i++) {
+					if (eventScripts[i] != NULL)
+						free(eventScripts[i]);
 
-                        if (strlen(Parameters) > 1 && strlen(Parameters) <= 16)
-                            eventScripts[i] = strdup(Parameters);
-                        else
-                            eventScripts[i] = NULL;
-                    }
-                } else {
-                    if (eventScripts[nHandler] != NULL) {
-                        free(eventScripts[nHandler]);
-                        eventScripts[nHandler] = NULL;
-                    }
+					if (strlen(Parameters) > 1 && strlen(Parameters) <= 16)
+						eventScripts[i] = strdup(Parameters);
+					else
+						eventScripts[i] = NULL;
+				}
+			} else {
+				if (eventScripts[nHandler] != NULL) {
+					free(eventScripts[nHandler]);
+					eventScripts[nHandler] = NULL;
+				}
 
-                    if (strlen(Parameters) > 1 && strlen(Parameters) <= 16)
-                        eventScripts[nHandler] = strdup(Parameters);
-                    else
-                        *Parameters = 0;
-                }
-            }
-
-            return NULL;
+				if (strlen(Parameters) > 1 && strlen(Parameters) <= 16)
+					eventScripts[nHandler] = strdup(Parameters);
+				else
+					*Parameters = 0;
+			}
         }
+
+        return NULL;
+    }
             
         //The following functions are accessible only from event script
 	if ((strncmp(Request, "GET_EVENT_ID", 12) && strncmp(Request, "GETEVENTID", 10)) == 0)
