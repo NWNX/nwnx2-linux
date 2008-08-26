@@ -337,6 +337,9 @@ int GetFactionId (object oObject);
 /* Set oObject's faction ID. */
 int SetFactionId (object oObject, int nFaction);
 
+/* Set oObject's last hostile actor. */
+void SetLastHostileActor (object oObject, object oActor);
+
 /* Get the item at nPos in oCreature's inventory. */
 object GetItemByPosition (object oCreature, int nPos);
 
@@ -904,6 +907,10 @@ int GetFactionId (object oObject) {
 
 int SetFactionId (object oObject, int nFaction) {
     return NWNXFuncsOne(oObject, "NWNX!FUNCS!SETFACTIONID", nFaction);
+}
+
+void SetLastHostileActor (object oObject, object oActor) {
+    SetLocalString(oObject, "NWNX!FUNCS!SETLASTHOSTILEACTOR", ObjectToString(oActor));
 }
 
 

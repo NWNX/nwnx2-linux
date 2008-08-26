@@ -1,4 +1,4 @@
-/* ANSI-C code produced by gperf version 3.0.1 */
+/* ANSI-C code produced by gperf version 3.0.3 */
 /* Command-line: gperf -L ANSI-C -tCG -m 10 -K name -H FuncsObjCommandHash -N FuncsObjCommandLookup -W FuncsObjCommandList --output-file=gperf.out FuncsObjCmds.gperf  */
 /* Computed positions: -k'1' */
 
@@ -50,8 +50,8 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-#ifndef NWNX_EXALT_OBJCMDS_H
-#define NWNX_EXALT_OBJCMDS_H
+#ifndef NWNX_FUNCS_OBJCMDS_H
+#define NWNX_FUNCS_OBJCMDS_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -129,6 +129,9 @@ static const struct FuncsObjCommand_s FuncsObjCommandList[] =
 
 #ifdef __GNUC__
 __inline
+#ifdef __GNUC_STDC_INLINE__
+__attribute__ ((__gnu_inline__))
+#endif
 #endif
 static const struct FuncsObjCommand_s *
 FuncsObjCommandLookup (register const char *str, register unsigned int len)
@@ -154,6 +157,6 @@ FuncsObjCommandLookup (register const char *str, register unsigned int len)
 }
 #endif
 
-#endif /* NWNX_EXALT_OBJCMDS_H */
+#endif /* NWNX_FUNCS_OBJCMDS_H */
 
 /* vim: set sw=4: */

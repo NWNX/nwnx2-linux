@@ -36,13 +36,13 @@ CPPFLAGS = @CPPFLAGS@ -Wall -Werror $(DEFS) $(INCS)
 LFLAGS   = @LDFLAGS@ -w -fPIC -shared -rdynamic
 
 OFILES  = \
+    funcs/f_GetCreator.o      			 \
     funcs/f_GetDuration.o                        \
     funcs/f_GetDurationRemaining.o               \
     funcs/f_GetHasEffect.o                       \
     funcs/f_GetInteger.o                         \
     funcs/f_GetSpellId.o                         \
     funcs/f_GetTrueType.o                        \
-    funcs/f_IntToObject.o      			 \
     funcs/f_SetCreator.o                         \
     funcs/f_SetInteger.o                         \
     funcs/f_SetSpellId.o                         \

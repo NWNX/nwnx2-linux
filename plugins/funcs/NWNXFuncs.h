@@ -108,6 +108,7 @@ void Func_SetItemWeight              (CGameObject *ob, char *value);
 void Func_SetKnownFeat               (CGameObject *ob, char *value);
 void Func_SetKnownFeatByLevel        (CGameObject *ob, char *value);
 void Func_SetKnownSpell              (CGameObject *ob, char *value);
+void Func_SetLastHostileActor        (CGameObject *ob, char *value);
 void Func_SetMaxHitPoints            (CGameObject *ob, char *value);
 void Func_SetMaxHitPointsByLevel     (CGameObject *ob, char *value);
 void Func_SetMemorizedSpell          (CGameObject *ob, char *value);

@@ -57,6 +57,7 @@ OFILES  = \
     funcs/event/f_SetCreatureEventHandler.o      \
     funcs/faction/f_GetFactionId.o               \
     funcs/faction/f_SetFactionId.o               \
+    funcs/faction/f_SetLastHostileActor.o        \
     funcs/feat/f_AddKnownFeat.o                  \
     funcs/feat/f_AddKnownFeatAtLevel.o           \
     funcs/feat/f_GetAllRemainingFeatUses.o       \

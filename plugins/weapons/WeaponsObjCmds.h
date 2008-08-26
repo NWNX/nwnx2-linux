@@ -23,8 +23,8 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-#ifndef NWNX_EXALT_OBJCMDS_H
-#define NWNX_EXALT_OBJCMDS_H
+#ifndef NWNX_WEAPONS_OBJCMDS_H
+#define NWNX_WEAPONS_OBJCMDS_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -95,6 +95,6 @@ WeaponsObjCommandLookup (register const char *str, register unsigned int len)
 }
 #endif
 
-#endif /* NWNX_EXALT_OBJCMDS_H */
+#endif /* NWNX_WEAPONS_OBJCMDS_H */
 
 /* vim: set sw=4: */

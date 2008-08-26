@@ -1,4 +1,4 @@
-/* ANSI-C code produced by gperf version 3.0.1 */
+/* ANSI-C code produced by gperf version 3.0.3 */
 /* Command-line: gperf -L ANSI-C -tCG -m 10 -K name -H DefensesObjCommandHash -N DefensesObjCommandLookup -W DefensesObjCommandList --output-file=gperf.out DefensesObjCmds.gperf  */
 /* Computed positions: -k'' */
 
@@ -23,8 +23,8 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-#ifndef NWNX_EXALT_OBJCMDS_H
-#define NWNX_EXALT_OBJCMDS_H
+#ifndef NWNX_DEFENSES_OBJCMDS_H
+#define NWNX_DEFENSES_OBJCMDS_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -67,6 +67,9 @@ static const struct DefensesObjCommand_s DefensesObjCommandList[] =
 
 #ifdef __GNUC__
 __inline
+#ifdef __GNUC_STDC_INLINE__
+__attribute__ ((__gnu_inline__))
+#endif
 #endif
 static const struct DefensesObjCommand_s *
 DefensesObjCommandLookup (register const char *str, register unsigned int len)
@@ -92,6 +95,6 @@ DefensesObjCommandLookup (register const char *str, register unsigned int len)
 }
 #endif
 
-#endif /* NWNX_EXALT_OBJCMDS_H */
+#endif /* NWNX_DEFENSES_OBJCMDS_H */
 
 /* vim: set sw=4: */
