@@ -58,9 +58,7 @@ void *nx_hook_function (void *addr, void *func, size_t len, uint32_t flags) {
     if (flags & NX_HOOK_DIRECT) {
         if (flags & NX_HOOK_RETCODE) {
             /* create a trampoline to hold the displaced code */
-            trampoline = mmap(NULL, PAGE_SIZE * 2, PROT_READ|PROT_WRITE,
-                              MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
-            trampoline += PAGE_SIZE;
+            trampoline = mmap(NULL, PAGE_SIZE, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
 
             /* copy the displaced code to the trampoline */
             memcpy(trampoline, addr, len);
@@ -77,9 +75,7 @@ void *nx_hook_function (void *addr, void *func, size_t len, uint32_t flags) {
         *((uint32_t *)(addr + 1)) = (uint32_t)func - (uint32_t)(addr + 5);
     } else {
         /* create a trampoline containing the displaced code */
-        trampoline = mmap(NULL, PAGE_SIZE * 2, PROT_READ|PROT_WRITE,
-                          MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
-        trampoline += PAGE_SIZE;
+        trampoline = mmap(NULL, PAGE_SIZE, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
 
         /* copy the displaced code to the trampoline */
         memcpy(trampoline + NX_HOOK_TRAMPOLINE_OFFSET, addr, len);
@@ -101,7 +97,7 @@ void *nx_hook_function (void *addr, void *func, size_t len, uint32_t flags) {
     }
 
     /* make the trampoline executable */
-    if (trampoline != NULL && nx_hook_enable_exec(trampoline, PAGE_SIZE) < 0)
+    if (trampoline != NULL && mprotect(trampoline, PAGE_SIZE, PROT_READ|PROT_EXEC) < 0)
         return (void *)-1;
 
     return trampoline;
