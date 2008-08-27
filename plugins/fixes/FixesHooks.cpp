@@ -124,9 +124,8 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
                         break;
 
                     case 3:		//string
-                        if (!(char **)pVar1->nVarValue && !(char **)pVar2->nVarValue)  //both variables are not set
-                            break;
-                        if ((char **)(pVar1->nVarValue) == (char **)(pVar2->nVarValue))  //equal pointers
+                        // both pointers are equal or both are null
+                        if ((char **)(pVar1->nVarValue) == (char **)(pVar2->nVarValue))
                             break;
                         if ((char **)(pVar1->nVarValue) == NULL || (char **)(pVar2->nVarValue) == NULL) {  //the variable is not set on one of the objects
 #ifdef NWNX_FIXES_DEBUG

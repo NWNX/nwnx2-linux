@@ -76,6 +76,7 @@ struct {
     NX_NWN_HOOK(CNWSCreatureStats__SetSTRBase,                          "55 89 E5 56 53 8B 75 08 83 EC 0C 8B 45 0C 88 86 F8 03"),
     NX_NWN_HOOK(CNWSCreatureStats__SetWISBase,                          "55 89 E5 56 53 8B 75 08 83 EC 0C 8B 45 0C 88 86 00 04"),
     NX_NWN_HOOK(CNWSCreatureStats__SetMovementRate,                     "55 89 E5 57 56 53 81 EC ** ** ** ** A1 **#13 83 FA 07"),
+    NX_NWN_HOOK(CNWSCreature__ComputeSpellRange,                        "55 89 E5 53 83 EC 0C 8B 5D 0C D9 EE 68 ** ** ** ** D9"),
     NX_NWN_HOOK(CNWSCreature__GetFaction,                               "55 89 E5 ** ** ** A1 ** ** ** ** 8B 40 04 8B 55 08 8B 48 04 8B 82 ** 0C 00 00 FF B0 ** 00 00 00"),
     NX_NWN_HOOK(CNWSCreature__GetIsCreatureBumpable,                    "55 89 E5 57 56 53 83 EC 0C 8B 7D 08 C7 45 EC 00 00 00 00 8B 87 38 0B 00"),
     NX_NWN_HOOK(CNWSCreature__GetRelativeWeaponSize,                    "55 89 E5 53 83 EC 0C 8B 45 08 8B 55 0C 8B 98 D8"),
