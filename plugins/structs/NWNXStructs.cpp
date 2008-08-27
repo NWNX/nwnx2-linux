@@ -132,7 +132,7 @@ bool CNWNXStructs::OnCreate (gline *config, const char *LogDir) {
         unsigned char *p = Ref_PushStruct;
         extern volatile uintptr_t Hook_Struct_Return;
 
-        nx_hook_function(p, (void *)Hook_PushStruct, NX_HOOK_DIRECT, 5);
+        nx_hook_function(p, (void *)Hook_PushStruct, 5, NX_HOOK_DIRECT);
 
         Hook_Struct_Return = (uintptr_t)(p + 9);
     }

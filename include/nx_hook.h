@@ -25,6 +25,7 @@
 #define _NX_HOOK_H_
 
 #define NX_HOOK_DIRECT          (1 <<  0)
+#define NX_HOOK_RETCODE         (1 <<  1)
 
 #ifdef __cplusplus
 extern "C" {

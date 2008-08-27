@@ -178,8 +178,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         unsigned char *p = Ref_CheckConcealment;
         unsigned char *end = p + 0x200;
 
-        nx_hook_function(p + 7, (void *)Hook_CheckConcealment,
-            NX_HOOK_DIRECT, 5);
+        nx_hook_function(p + 7, (void *)Hook_CheckConcealment, 5, NX_HOOK_DIRECT);
 
         p += 12;
 
@@ -281,8 +280,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         if (p < end) {
             nx_log(NX_LOG_INFO, 0, "found fortitude saving throw return reference at %p", p);
 
-            nx_hook_function(p, (void *)Hook_GetFortitudeSavingThrow,
-                5, NX_HOOK_DIRECT);
+            nx_hook_function(p, (void *)Hook_GetFortitudeSavingThrow, 5, NX_HOOK_DIRECT);
         } else
             nx_log(NX_LOG_INFO, 0, "did not find fortitude saving throw return reference before %p", p);
     }
@@ -299,8 +297,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         if (p < end) {
             nx_log(NX_LOG_INFO, 0, "found reflex saving throw return reference at %p", p);
 
-            nx_hook_function(p, (void *)Hook_GetReflexSavingThrow,
-                5, NX_HOOK_DIRECT);
+            nx_hook_function(p, (void *)Hook_GetReflexSavingThrow, 5, NX_HOOK_DIRECT);
         } else
             nx_log(NX_LOG_INFO, 0, "did not find reflex saving throw return reference before %p", p);
     }
@@ -317,8 +314,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         if (p < end) {
             nx_log(NX_LOG_INFO, 0, "found will saving throw return reference at %p", p);
 
-            nx_hook_function(p, (void *)Hook_GetWillSavingThrow,
-                5, NX_HOOK_DIRECT);
+            nx_hook_function(p, (void *)Hook_GetWillSavingThrow, 5, NX_HOOK_DIRECT);
         } else
             nx_log(NX_LOG_INFO, 0, "did not find will saving throw return reference before %p", p);
     }

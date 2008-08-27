@@ -52,30 +52,57 @@ int nx_hook_enable_write (const void *addr, size_t len) {
 void *nx_hook_function (void *addr, void *func, size_t len, uint32_t flags) {
     unsigned char *trampoline = NULL;
 
-    if (nx_hook_enable_write(addr, len) < 0)
+    if (len < 5 || nx_hook_enable_write(addr, len) < 0)
         return (void *)-1;
 
     if (flags & NX_HOOK_DIRECT) {
+        if (flags & NX_HOOK_RETCODE) {
+            /* create a trampoline to hold the displaced code */
+            trampoline = mmap(NULL, PAGE_SIZE * 2, PROT_READ|PROT_WRITE,
+                              MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
+            trampoline += PAGE_SIZE;
+
+            /* copy the displaced code to the trampoline */
+            memcpy(trampoline, addr, len);
+
+            /* append a jump to after the end of the displaced code to the trampoline */
+            trampoline[len] = 0xE9;  /* JMP */
+
+            *((uint32_t *)(trampoline + len + 1)) = (uint32_t)(addr + len) -
+                                                    (uint32_t)(trampoline + len + 5);
+        }
+
+        /* create a direct jump to the target code */
         memcpy(addr, nx_hook_jump_code, len);
         *((uint32_t *)(addr + 1)) = (uint32_t)func - (uint32_t)(addr + 5);
     } else {
-        trampoline = nx_safe_calloc(1, PAGE_SIZE);
+        /* create a trampoline containing the displaced code */
+        trampoline = mmap(NULL, PAGE_SIZE * 2, PROT_READ|PROT_WRITE,
+                          MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
+        trampoline += PAGE_SIZE;
 
+        /* copy the displaced code to the trampoline */
         memcpy(trampoline + NX_HOOK_TRAMPOLINE_OFFSET, addr, len);
+
+        /* replace the displaced code with a jump to the trampoline */
         memcpy(addr, nx_hook_jump_code, len);
 
         *((uint32_t *)(addr + 1)) = (uint32_t)(trampoline +
-            NX_HOOK_TRAMPOLINE_OFFSET) - (uint32_t)(addr + 5);
+                                               NX_HOOK_TRAMPOLINE_OFFSET) -
+                                    (uint32_t)(addr + 5);
 
+        /* append a jump to the hook code to the end of the displaced code in
+         * the trampoline */
         trampoline[len + NX_HOOK_TRAMPOLINE_OFFSET] = 0xE9;  /* JMP */
 
         *((uint32_t *)(trampoline + len + NX_HOOK_TRAMPOLINE_OFFSET + 1)) =
             (uint32_t)func - (uint32_t)(trampoline + len +
-                                          NX_HOOK_TRAMPOLINE_OFFSET + 5);
-
-        if (nx_hook_enable_exec(trampoline, PAGE_SIZE) < 0)
-            return (void *)-1;
+                                        NX_HOOK_TRAMPOLINE_OFFSET + 5);
     }
+
+    /* make the trampoline executable */
+    if (trampoline != NULL && nx_hook_enable_exec(trampoline, PAGE_SIZE) < 0)
+        return (void *)-1;
 
     return trampoline;
 }

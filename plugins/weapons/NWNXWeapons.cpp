@@ -217,7 +217,7 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
         while (p++ < end) {
             if (*p == 0x74) {
                 found++;
-                nx_hook_function(p, (void *)Hook_GetABAbilityModifier, NX_HOOK_DIRECT, 5);
+                nx_hook_function(p, (void *)Hook_GetABAbilityModifier, 5, NX_HOOK_DIRECT);
 
                 break;
             } 
@@ -244,7 +244,7 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
         extern volatile uintptr_t Hook_CCR_Return;
         
         Hook_CCR_Return = (uintptr_t)(Ref_CritConfirmationRoll + 10);
-        nx_hook_function(Ref_CritConfirmationRoll, (void *)Hook_GetCriticalConfirmationRoll, NX_HOOK_DIRECT, 5);
+        nx_hook_function(Ref_CritConfirmationRoll, (void *)Hook_GetCriticalConfirmationRoll, 5, NX_HOOK_DIRECT);
     }
 
 
