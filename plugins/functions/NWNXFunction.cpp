@@ -97,7 +97,7 @@ void CNWNXFunction::SetRacialType(char* value)
 	if (*(pGameObject+0x4) == 0x5) // object type creature
 	{
 		int iRace = atoi(value);
-		char *nCreatureStruct = *(char **)((char *)pGameObject+0xC60);
+		char *nCreatureStruct = *(char **)((char *)pGameObject+0xC64);
 		char *nCreatureRace = nCreatureStruct+0x3E4;
 		*(int*)nCreatureRace = iRace;
 	}
@@ -113,7 +113,7 @@ void CNWNXFunction::GetDescriptionLength(char* value)
 	
 	if(*(pGameObject+0x4) == 0x6) desc = (char*)(*(int*)(pGameObject-0x1C+0x258)); //object type item
 	else if(*(pGameObject+0x4) == 0x9) desc = (char*)(*(int*)(pGameObject+0x1D8)); //object type placeable
-	else if(*(pGameObject+0x4) == 0x5) desc = (char*)(*(*(int**)(pGameObject+0xC60) + 0x16)); //object type creature
+	else if(*(pGameObject+0x4) == 0x5) desc = (char*)(*(*(int**)(pGameObject+0xC64) + 0x16)); //object type creature
 	else if(*(pGameObject+0x4) == 0xA) desc = (char*)(*(int*)(pGameObject+0x314)); //object type door
 	else return;
 
@@ -147,7 +147,7 @@ char *CNWNXFunction::GetDescription(char* value)
 	
 	if(*(pGameObject+0x4) == 0x6) desc = (char*)(*(int*)(pGameObject-0x1C+0x258)); //object type item
 	else if(*(pGameObject+0x4) == 0x9) desc = (char*)(*(int*)(pGameObject+0x1D8)); //object type placeable
-	else if(*(pGameObject+0x4) == 0x5) desc = (char*)(*(*(int**)(pGameObject+0xC60) + 0x16)); //object type creature
+	else if(*(pGameObject+0x4) == 0x5) desc = (char*)(*(*(int**)(pGameObject+0xC64) + 0x16)); //object type creature
 	else if(*(pGameObject+0x4) == 0xA) desc = (char*)(*(int*)(pGameObject+0x314)); //object type door
 	else return NULL;
 
@@ -184,7 +184,7 @@ void CNWNXFunction::SetDescription(char* value)
 	
 	if(*(pGameObject+0x4) == 0x6) pDesc = (CExoLocString *)(pGameObject-0x1C+0x258); //object type item
 	else if(*(pGameObject+0x4) == 0x9) pDesc = (CExoLocString *)(pGameObject+0x1D8); //object type placeable
-	else if(*(pGameObject+0x4) == 0x5) pDesc = (CExoLocString *)(*(int*)(pGameObject+0xC60) + 0x16); //object type creature
+	else if(*(pGameObject+0x4) == 0x5) pDesc = (CExoLocString *)(*(int*)(pGameObject+0xC64) + 0x16); //object type creature
 	else if(*(pGameObject+0x4) == 0xA) pDesc = (CExoLocString *)(pGameObject+0x314); //object type door
 	else return;
 

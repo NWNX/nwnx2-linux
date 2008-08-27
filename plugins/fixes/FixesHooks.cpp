@@ -124,25 +124,27 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
                         break;
 
                     case 3:		//string
-                        if ((char **)(pVar1->nVarValue) == (char **)(pVar2->nVarValue))
+                        if (!(char **)pVar1->nVarValue && !(char **)pVar2->nVarValue)  //both variables are not set
                             break;
-                        if ((char **)(pVar1->nVarValue) == NULL || (char **)(pVar2->nVarValue) == NULL) {
+                        if ((char **)(pVar1->nVarValue) == (char **)(pVar2->nVarValue))  //equal pointers
+                            break;
+                        if ((char **)(pVar1->nVarValue) == NULL || (char **)(pVar2->nVarValue) == NULL) {  //the variable is not set on one of the objects
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: string value '%s' does not exist on both objects\n", pVar1->sVarName.Text);
+                            fixes.Log(3, "blocking merge: string value '%s' is not set on one of the objects\n", pVar1->sVarName.Text);
 #endif
                             return false;
                         }
 
-                        if (*(char **)(pVar1->nVarValue) == *(char **)(pVar2->nVarValue))
+                        if (*(char **)(pVar1->nVarValue) == *(char **)(pVar2->nVarValue))  //equal pointers
                             break;
-                        if (*(char **)(pVar1->nVarValue) == NULL || *(char **)(pVar2->nVarValue) == NULL) {
+                        if (*(char **)(pVar1->nVarValue) == NULL || *(char **)(pVar2->nVarValue) == NULL) { //one of the variables is empty
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: string value '%s' does not exist on both objects\n", pVar1->sVarName.Text);
+                            fixes.Log(3, "blocking merge: string value '%s' is not set on one of the objects\n", pVar1->sVarName.Text);
 #endif
                             return false;
                         }
 
-                        if (strcmp(*(char **)(pVar1->nVarValue), *(char **)(pVar2->nVarValue)) != 0) {
+                        if (strcmp(*(char **)(pVar1->nVarValue), *(char **)(pVar2->nVarValue)) != 0) {  //string values are not equal
 #ifdef NWNX_FIXES_DEBUG
                             fixes.Log(3, "blocking merge: string value '%s' '%s' != '%s'\n", pVar1->sVarName.Text,
                                       *(char **)(pVar1->nVarValue), *(char **)(pVar2->nVarValue));
@@ -171,7 +173,7 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 
         if (!bFound) {
 #ifdef NWNX_FIXES_DEBUG
-            fixes.Log(3, "blocking merge: local variable '%s' not found on both objects", pVar1->sVarName.Text);
+            fixes.Log(3, "blocking merge: local variable '%s' not found on one of the objects", pVar1->sVarName.Text);
 #endif
             return false;
         }
