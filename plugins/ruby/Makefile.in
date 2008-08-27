@@ -1,5 +1,5 @@
 CXX = @CXX@
-LIBS = @LIBS@
+LIBS = -lruby @LIBS@
 LFLAGS = -w -fPIC -shared -W -Wall @LDFLAGS@
 DEFS = @DEFS@
 
@@ -16,9 +16,9 @@ CPPFLAGS = @CPPFLAGS@ -I$(NWNXDIR)
 
 NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o 
 
-all: nwnx_functions.so
+all: nwnx_ruby.so
 
-nwnx_functions.so: NWNXFunction.o plugin-functions.o
+nwnx_ruby.so: FunctionHooks.o ruby_int.o NWNXRuby.o plugin-ruby.o
 	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS) $(DEFS)
 
 plugin-t: plugin-t.o $(NWNXBASE)
@@ -31,4 +31,4 @@ distclean: clean
 	/bin/rm -f Makefile
 
 install: all
-	mkdir -p @prefix@/ ; install nwnx_functions.so @prefix@/
+	mkdir -p @prefix@/ ; install nwnx_ruby.so @prefix@/
