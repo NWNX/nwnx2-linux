@@ -124,6 +124,7 @@ AC_CONFIG_FILES([
         plugins/resman/Makefile
         plugins/ruby/Makefile
         plugins/structs/Makefile
+        plugins/system/Makefile
         plugins/tmi/Makefile
         plugins/weapons/Makefile
         $extraplugins ])

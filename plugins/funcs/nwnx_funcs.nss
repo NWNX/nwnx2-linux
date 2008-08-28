@@ -141,6 +141,9 @@ int GetSavingThrowBonus (object oCreature, int nSave);
 /* Sets the base saving throw bonus for nSave to nValue for oCreature. */
 int SetSavingThrowBonus (object oCreature, int nSave, int nValue);
 
+/* Modifies oCreature's base saving throw bonus for nSave by nValue. */
+int ModifySavingThrowBonus (object oCreature, int nSave, int nValue);
+
 /* Gets the maximum hit points for oCreature for nLevel. */
 int GetMaxHitPointsByLevel (object oCreature, int nLevel);
 
@@ -506,6 +509,20 @@ int GetSavingThrowBonus (object oCreature, int nSave) {
 
 int SetSavingThrowBonus (object oCreature, int nSave, int nValue) {
     return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!SETSAVINGTHROWBONUS", nSave, nValue);
+}
+
+int ModifySavingThrowBonus (object oCreature, int nSave, int nValue) {
+    if (nSave < 1 || nSave > 3)
+        return -1;
+
+    int nBonus = GetSavingThrowBonus(oCreature, nSave) + nValue;
+
+    if (nBonus < 0)
+        nBonus = 0;
+    else if (nBonus > 127)
+        nBonus = 127;
+
+    return SetSavingThrowBonus(oCreature, nSave, nBonus);
 }
 
 
