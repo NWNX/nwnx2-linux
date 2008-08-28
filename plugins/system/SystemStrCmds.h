@@ -63,12 +63,12 @@ struct SystemStrCommand_s {
     void       (*func)(CGameObject *, char *);
 };
 
-#define NWNX_SYSTEM_STRCMD_TOTAL_KEYWORDS 10
+#define NWNX_SYSTEM_STRCMD_TOTAL_KEYWORDS 12
 #define NWNX_SYSTEM_STRCMD_MIN_WORD_LENGTH 7
 #define NWNX_SYSTEM_STRCMD_MAX_WORD_LENGTH 21
 #define NWNX_SYSTEM_STRCMD_MIN_HASH_VALUE 8
-#define NWNX_SYSTEM_STRCMD_MAX_HASH_VALUE 22
-/* maximum key range = 15, duplicates = 0 */
+#define NWNX_SYSTEM_STRCMD_MAX_HASH_VALUE 21
+/* maximum key range = 14, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -82,32 +82,32 @@ SystemStrCommandHash (register const char *str, register unsigned int len)
 {
   static const unsigned char asso_values[] =
     {
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23,  0,  3, 23,
-       0,  1, 23,  5, 23, 23, 23,  0, 23, 23,
-      23, 23,  0,  0, 23, 23, 23, 23, 23,  0,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
-      23, 23, 23, 23, 23, 23
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22,  9,  1, 22,
+       0,  0, 22,  1, 22, 22,  0,  2, 22, 22,
+      22, 22,  0,  1, 22, 22, 22, 22, 22,  2,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+      22, 22, 22, 22, 22, 22
     };
   return len + asso_values[(unsigned char)str[4]] + asso_values[(unsigned char)str[0]];
 }
@@ -115,29 +115,30 @@ SystemStrCommandHash (register const char *str, register unsigned int len)
 static const struct SystemStrCommand_s SystemStrCommandList[] =
   {
     {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-#line 37 "SystemStrCmds.gperf"
-    {"FILECOPY",                               Func_FileCopy},
-    {""},
 #line 39 "SystemStrCmds.gperf"
-    {"FILERENAME",                             Func_FileRename},
-#line 44 "SystemStrCmds.gperf"
-    {"SETTMILIMIT",                            Func_SetTMILimit},
-#line 43 "SystemStrCmds.gperf"
-    {"GETTMILIMIT",                            Func_GetTMILimit},
-#line 38 "SystemStrCmds.gperf"
-    {"FILEDELETE",                             Func_FileDelete},
-#line 42 "SystemStrCmds.gperf"
-    {"GETSYSTEMTIME",                          Func_GetSystemTime},
+    {"FILELINK",                               Func_FileLink},
 #line 36 "SystemStrCmds.gperf"
     {"DIRLIST",                                Func_DirList},
-    {""},
-#line 45 "SystemStrCmds.gperf"
-    {"SHUTDOWNSERVER",                         Func_ShutdownServer},
-    {""},
 #line 40 "SystemStrCmds.gperf"
+    {"FILERENAME",                             Func_FileRename},
+#line 38 "SystemStrCmds.gperf"
+    {"FILEDELETE",                             Func_FileDelete},
+#line 41 "SystemStrCmds.gperf"
+    {"FILESYMLINK",                            Func_FileSymlink},
+#line 45 "SystemStrCmds.gperf"
+    {"GETTMILIMIT",                            Func_GetTMILimit},
+#line 46 "SystemStrCmds.gperf"
+    {"SETTMILIMIT",                            Func_SetTMILimit},
+#line 44 "SystemStrCmds.gperf"
+    {"GETSYSTEMTIME",                          Func_GetSystemTime},
+#line 47 "SystemStrCmds.gperf"
+    {"SHUTDOWNSERVER",                         Func_ShutdownServer},
+#line 37 "SystemStrCmds.gperf"
+    {"FILECOPY",                               Func_FileCopy},
+#line 42 "SystemStrCmds.gperf"
     {"GETPROCESSCPUUSAGE",                     Func_GetProcessCPUUsage},
     {""}, {""},
-#line 41 "SystemStrCmds.gperf"
+#line 43 "SystemStrCmds.gperf"
     {"GETPROCESSMEMORYUSAGE",                  Func_GetProcessMemoryUsage}
   };
 
@@ -164,7 +165,7 @@ SystemStrCommandLookup (register const char *str, register unsigned int len)
     }
   return 0;
 }
-#line 46 "SystemStrCmds.gperf"
+#line 48 "SystemStrCmds.gperf"
 
 
 #ifdef __cplusplus

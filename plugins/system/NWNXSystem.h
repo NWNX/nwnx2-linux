@@ -31,7 +31,9 @@ extern "C" {
 void Func_DirList                            (CGameObject *ob, char *value);
 void Func_FileCopy                           (CGameObject *ob, char *value);
 void Func_FileDelete                         (CGameObject *ob, char *value);
+void Func_FileLink                           (CGameObject *ob, char *value);
 void Func_FileRename                         (CGameObject *ob, char *value);
+void Func_FileSymlink                        (CGameObject *ob, char *value);
 void Func_GetProcessCPUUsage                 (CGameObject *ob, char *value);
 void Func_GetProcessMemoryUsage              (CGameObject *ob, char *value);
 void Func_GetSystemTime                      (CGameObject *ob, char *value);

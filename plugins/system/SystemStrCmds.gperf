@@ -36,7 +36,9 @@ struct SystemStrCommand_s {
 DIRLIST,                                Func_DirList
 FILECOPY,                               Func_FileCopy
 FILEDELETE,                             Func_FileDelete
+FILELINK,                               Func_FileLink
 FILERENAME,                             Func_FileRename
+FILESYMLINK,                            Func_FileSymlink
 GETPROCESSCPUUSAGE,                     Func_GetProcessCPUUsage
 GETPROCESSMEMORYUSAGE,                  Func_GetProcessMemoryUsage
 GETSYSTEMTIME,                          Func_GetSystemTime

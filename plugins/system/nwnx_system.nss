@@ -14,8 +14,14 @@ int FileCopy (string sFrom, string sTo);
 /* Delete the file sFile. Returns >0 on success. */
 int FileDelete (string sFile);
 
+/* Link the file sFrom to sTo. Returns >0 on success. */
+int FileLink (string sFrom, string sTo);
+
 /* Rename the file sFrom to sTo. Returns >0 on success. */
 int FileRename (string sFrom, string sTo);
+
+/* Symlink the file sFrom to sTo. Returns >0 on success. */
+int FileSymlink (string sFrom, string sTo);
 
 /* Get the CPU usage values for the current process. */
 struct CPUUsage GetProcessCPUUsage ();
@@ -56,6 +62,11 @@ int FileCopy (string sFrom, string sTo) {
     return StringToInt(GetLocalString(GetModule(), "NWNX!SYSTEM!FILECOPY"));
 }
 
+int FileLink (string sFrom, string sTo) {
+    SetLocalString(GetModule(), "NWNX!SYSTEM!FILELINK", sFrom + "\n" + sTo);
+    return StringToInt(GetLocalString(GetModule(), "NWNX!SYSTEM!FILELINK"));
+}
+
 int FileDelete (string sFile) {
     SetLocalString(GetModule(), "NWNX!SYSTEM!FILEDELETE", sFile);
     return StringToInt(GetLocalString(GetModule(), "NWNX!SYSTEM!FILEDELETE"));
@@ -64,6 +75,11 @@ int FileDelete (string sFile) {
 int FileRename (string sFrom, string sTo) {
     SetLocalString(GetModule(), "NWNX!SYSTEM!FILERENAME", sFrom + "\n" + sTo);
     return StringToInt(GetLocalString(GetModule(), "NWNX!SYSTEM!FILERENAME"));
+}
+
+int FileSymlink (string sFrom, string sTo) {
+    SetLocalString(GetModule(), "NWNX!SYSTEM!FILESYMLINK", sFrom + "\n" + sTo);
+    return StringToInt(GetLocalString(GetModule(), "NWNX!SYSTEM!FILESYMLINK"));
 }
 
 
