@@ -355,6 +355,9 @@ int SetRacialType (object oCreature, int nRacialType);
 /* Set oObject's tag. */
 string SetTag (object oObject, string sTag);
 
+/* Get oPC's bic file name */
+string GetPCFileName (object oPC);
+
 /* Jump oCreature to Limbo. */
 void JumpToLimbo (object oCreature);
 
@@ -937,6 +940,15 @@ int SetRacialType (object oCreature, int nRacialType) {
 string SetTag (object oObject, string sTag) {
     SetLocalString(oObject, "NWNX!FUNCS!SETTAG", sTag);
     return GetLocalString(oObject, "NWNX!FUNCS!SETTAG");
+}
+
+
+string GetPCFileName (object oPC) {
+    if (!GetIsPC(oPC))
+        return "";
+
+    SetLocalString(oPC, "NWNX!FUNCS!GETPCFILENAME", "                    ");
+    return GetLocalString(oPC, "NWNX!FUNCS!GETPCFILENAME");
 }
 
 

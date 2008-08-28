@@ -26,7 +26,40 @@
 
 struct CNWSPlayer_s {
     uint32_t            pl_id;
-    void               *unknown;
+
+    uint32_t            field_04;
+    uint32_t            field_08;
+    uint32_t            field_0C;
+    uint32_t            field_10;
+    uint32_t            field_14;
+    uint32_t            field_18;
+    uint32_t            field_1C;
+    uint32_t            field_20;
+    uint32_t            field_24;
+    uint32_t            field_28;
+    uint32_t            field_2C;
+    uint32_t            field_30;
+    uint32_t            field_34;
+    uint32_t            field_38;
+    uint32_t            field_3C;
+    uint32_t            field_40;
+    uint32_t            field_44;
+    uint32_t            field_48;
+    uint32_t            field_4C;
+    uint32_t            field_50;
+    uint32_t            field_54;
+    uint32_t            field_58;
+    uint32_t            field_5C;
+    uint32_t            field_60;
+    uint32_t            field_64;
+    uint32_t            field_68;
+    uint32_t            field_6C;
+    uint32_t            field_70;
+
+    uint8_t             field_74;
+    char                pl_bicfile[19];
+
+    uint32_t            field_88;
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSPLAYER_ */

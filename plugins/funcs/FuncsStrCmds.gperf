@@ -68,6 +68,7 @@ GETMAXHITPOINTSBYLEVEL,                Func_GetMaxHitPointsByLevel
 GETMAXSPELLSLOTS,                      Func_GetMaxSpellSlots
 GETMEMORIZEDSPELL,                     Func_GetMemorizedSpell
 GETPCBODYBAG,                          Func_GetPCBodyBag
+GETPCFILENAME,                         Func_GetPCFileName
 GETPCPORT,                             Func_GetPCPort
 GETPCSKILLPOINTS,                      Func_GetPCSkillPoints
 GETPORTRAIT,                           Func_GetPortrait

@@ -91,6 +91,7 @@ OFILES  = \
     funcs/other/f_GetACNaturalBase.o             \
     funcs/other/f_GetDamageImmunity.o            \
     funcs/other/f_GetPCBodyBag.o                 \
+    funcs/other/f_GetPCFileName.o                \
     funcs/other/f_GetPortrait.o                  \
     funcs/other/f_GetSoundset.o                  \
     funcs/other/f_IntToObject.o                  \

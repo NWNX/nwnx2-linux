@@ -63,6 +63,7 @@ void Func_GetMaxHitPointsByLevel     (CGameObject *ob, char *value);
 void Func_GetMaxSpellSlots           (CGameObject *ob, char *value);
 void Func_GetMemorizedSpell          (CGameObject *ob, char *value);
 void Func_GetPCBodyBag               (CGameObject *ob, char *value);
+void Func_GetPCFileName              (CGameObject *ob, char *value);
 void Func_GetPCPort                  (CGameObject *ob, char *value);
 void Func_GetPCSkillPoints           (CGameObject *ob, char *value);
 void Func_GetPortrait                (CGameObject *ob, char *value);
