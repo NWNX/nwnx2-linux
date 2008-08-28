@@ -128,6 +128,9 @@ bool CNWNXSystem::OnCreate (gline *config, const char *LogDir) {
     /* find hook signatures */
     SystemSearchSignatures();
 
+    if (Ref_TMILimit != NULL)
+        nx_hook_enable_write(Ref_TMILimit, 16);
+
     return true;
 }
 
