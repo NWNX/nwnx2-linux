@@ -41,7 +41,27 @@ void Func_RestoreReadySpells (CGameObject *ob, char *value) {
     if (strlen(p) == 0 || (strlen(p) == 1 && *p == ' ')) {
         for (sp_class = 0; sp_class < cre->cre_stats->cs_classes_len; sp_class++) {
             for (sp_level = 0; sp_level <= 9; sp_level++) {
-                if (sp_pct > 0) {
+                if (sp_pct > 100) {
+                    long max;
+
+                    sp_pct -= 100;
+
+                    val = cre->cre_stats->cs_classes[sp_class].cl_spells_left[sp_level];
+                    max = cre->cre_stats->cs_classes[sp_class].cl_spells_max[sp_level];
+
+                    if ((val += (max * sp_pct) / 100) > max)
+                        val = max;
+
+                    cre->cre_stats->cs_classes[sp_class].cl_spells_left[sp_level] = val;
+
+                    for (sp_idx = 0; sp_idx < cre->cre_stats->cs_classes[sp_class].cl_spells_mem[sp_level].len; sp_idx++) {
+                        if ((random() % 100) >= sp_pct)
+                            continue;
+
+                        if ((sp = CExoArrayList_ptr_get(&(cre->cre_stats->cs_classes[sp_class].cl_spells_mem[sp_level]), sp_idx)) != NULL)
+                            sp->sp_ready = 1;
+                    }
+                } else if (sp_pct > 0) {
                     val = cre->cre_stats->cs_classes[sp_class].cl_spells_left[sp_level];
 
                     if ((val = (val * sp_pct) / 100) > cre->cre_stats->cs_classes[sp_class].cl_spells_max[sp_level])
