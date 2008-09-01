@@ -1,3 +1,4 @@
+const int EVENT_TYPE_ALL               = 0;
 const int EVENT_TYPE_SAVE_CHAR         = 1;
 const int EVENT_TYPE_PICKPOCKET        = 2;
 const int EVENT_TYPE_ATTACK            = 3;
@@ -121,7 +122,10 @@ void SetGlobalEventHandler(int nEventID, string sHandler)
 {
     if (sHandler == "")
         sHandler = "-";
-    SetLocalString(GetModule(), "NWNX!EVENTS!SET_EVENT_HANDLER_" + IntToString(nEventID), sHandler);
+
+    string sKey = "NWNX!EVENTS!SET_EVENT_HANDLER_" + IntToString(nEventID);
+    SetLocalString(GetModule(), sKey, sHandler);
+    DeleteLocalString(GetModule(), sKey);
 }
 
 int GetCurrentNodeType()

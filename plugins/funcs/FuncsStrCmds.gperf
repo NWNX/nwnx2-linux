@@ -122,6 +122,7 @@ SETMOVEMENTRATE,                       Func_SetMovementRate
 SETPCBODYBAG,                          Func_SetPCBodyBag
 SETPCLOOTABLE,                         Func_SetPCLootable
 SETPCSKILLPOINTS,                      Func_SetPCSkillPoints
+SETPLACEABLEAPPEARANCE,                Func_SetPlaceableAppearance
 SETPORTRAIT,                           Func_SetPortrait
 SETQUICKBARSLOT,                       Func_SetQuickBarSlot
 SETRACIALTYPE,                         Func_SetRacialType

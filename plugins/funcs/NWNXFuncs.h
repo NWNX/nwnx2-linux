@@ -117,6 +117,7 @@ void Func_SetMovementRate            (CGameObject *ob, char *value);
 void Func_SetPCBodyBag               (CGameObject *ob, char *value);
 void Func_SetPCLootable              (CGameObject *ob, char *value);
 void Func_SetPCSkillPoints           (CGameObject *ob, char *value);
+void Func_SetPlaceableAppearance     (CGameObject *ob, char *value);
 void Func_SetPortrait                (CGameObject *ob, char *value);
 void Func_SetQuickBarSlot            (CGameObject *ob, char *value);
 void Func_SetRacialType              (CGameObject *ob, char *value);

@@ -308,6 +308,9 @@ int SetGoldPieceValue (object oItem, int nValue);
 /* Set oItem's weight. Will not persist through zoning or saving. */
 int SetItemWeight (object oItem, int nTenthLbs);
 
+/* Set oPlace's appearance. Will not update for PCs until they re-enter the area. */
+int SetPlaceableAppearance (object oPlace, int nApp);
+
 /* Get the ground height from a position or location. */
 float GetGroundHeight (object oArea, vector vPos);
 float GetGroundHeightFromLocation (location lLoc);
@@ -834,6 +837,59 @@ struct LocalVariable GetNextLocalVariable (struct LocalVariable lv) {
     return GetLocalVariableByPosition(lv.obj, lv.pos + 1);
 }
 
+string DumpLocalVariables (object oObject) {
+    int i, nVariables = GetLocalVariableCount(oObject);
+    object oVar;
+    vector vPos;
+    location lLoc;
+    string sDump = "";
+    struct LocalVariable lv;
+
+    for (i = 0; i < nVariables; i++) {
+        lv = GetLocalVariableByPosition(oObject, i);
+
+        switch (lv.type) {
+            case VARIABLE_TYPE_INT:
+                sDump += lv.name + " (int): " + IntToString(GetLocalInt(oObject, lv.name)) + "\n";
+                break;
+
+            case VARIABLE_TYPE_FLOAT:
+                sDump += lv.name + " (float): " + FloatToString(GetLocalFloat(oObject, lv.name), 1, 2) + "\n";
+                break;
+
+            case VARIABLE_TYPE_STRING:
+                sDump += lv.name + " (string): '" + GetLocalString(oObject, lv.name) + "'\n";
+                break;
+
+            case VARIABLE_TYPE_OBJECT:
+                oVar = GetLocalObject(oObject, lv.name);
+                if (GetIsPC(oVar))
+                    sDump += lv.name + " (object): '" + GetName(oVar) + "(player: " +
+                             GetPCPlayerName(oVar) + ") [" + ObjectToString(oVar) + "]\n";
+                else
+                    sDump += lv.name + " (object): '" + GetName(oVar) + "(tag: " + GetTag(oVar) +
+                             " resref: " + GetResRef(oVar) + ") [" + ObjectToString(oVar) + "]\n";
+                break;
+
+            case VARIABLE_TYPE_LOCATION:
+                lLoc = GetLocalLocation(oObject, lv.name);
+                oVar = GetAreaFromLocation(lLoc);
+                vPos = GetPositionFromLocation(lLoc);
+                sDump += lv.name + " (location): " + GetName(oVar) + " (" + GetResRef(oVar) + ") [" +
+                         FloatToString(vPos.x, 1, 2) + ", " + FloatToString(vPos.y, 1, 2) + ", " +
+                         FloatToString(vPos.z, 1, 2) + " | " +
+                         FloatToString(GetFacingFromLocation(lLoc), 1, 2) + "]\n";
+                break;
+
+            default:
+                sDump += lv.name + " (UNKNOWN)\n";
+                break;
+        }
+    }
+
+    return sDump;
+}
+
 
 object GetFirstArea () {
     return GetLocalObject(GetModule(), "NWNX!FUNCS!GETFIRSTAREA");
@@ -850,6 +906,11 @@ int SetGoldPieceValue (object oItem, int nValue) {
 
 int SetItemWeight (object oItem, int nTenthLbs) {
     return NWNXFuncsOne(oItem, "NWNX!FUNCS!SETITEMWEIGHT", nTenthLbs);
+}
+
+
+int SetPlaceableAppearance (object oPlace, int nApp) {
+    return NWNXFuncsOne(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE", nApp);
 }
 
 

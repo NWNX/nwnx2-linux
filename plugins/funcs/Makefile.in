@@ -107,6 +107,7 @@ OFILES  = \
     funcs/other/f_SetSoundset.o                  \
     funcs/other/f_SetTag.o                       \
     funcs/other/f_SetTrapCreator.o               \
+    funcs/placeable/f_SetPlaceableAppearance.o   \
     funcs/quickbar/f_GetQuickBarSlot.o           \
     funcs/quickbar/f_SetQuickBarSlot.o           \
     funcs/sabil/f_AddSpecialAbility.o            \
