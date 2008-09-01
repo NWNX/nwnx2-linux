@@ -62,8 +62,8 @@ bool CNWNXEvents::OnCreate (gline *config, const char* LogDir)
             int i;
 
             for (i = 0; i < NUM_EVENT_TYPES; i++) {
-                if (eventScripts[i] != NULL)
-                    free(eventScripts[i]);
+                //if (eventScripts[i] != NULL)
+                //    free(eventScripts[i]);
 
                 eventScripts[i]     = strdup((*nwnxConfig)[confKey]["event_script"].c_str());
                 eventScripts[i][16] = 0;
