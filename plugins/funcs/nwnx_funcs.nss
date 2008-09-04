@@ -813,7 +813,6 @@ int GetLocalVariableCount (object oObject) {
 
 
 struct LocalVariable GetLocalVariableByPosition (object oObject, int nPos) {
-    int nPos;
     struct LocalVariable lv;
 
     SetLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION", 
@@ -864,10 +863,10 @@ string DumpLocalVariables (object oObject) {
             case VARIABLE_TYPE_OBJECT:
                 oVar = GetLocalObject(oObject, lv.name);
                 if (GetIsPC(oVar))
-                    sDump += lv.name + " (object): '" + GetName(oVar) + "(player: " +
+                    sDump += lv.name + " (object): " + GetName(oVar) + " (player: " +
                              GetPCPlayerName(oVar) + ") [" + ObjectToString(oVar) + "]\n";
                 else
-                    sDump += lv.name + " (object): '" + GetName(oVar) + "(tag: " + GetTag(oVar) +
+                    sDump += lv.name + " (object): " + GetName(oVar) + " (tag: " + GetTag(oVar) +
                              " resref: " + GetResRef(oVar) + ") [" + ObjectToString(oVar) + "]\n";
                 break;
 
