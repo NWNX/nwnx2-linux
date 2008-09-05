@@ -808,17 +808,25 @@ int GetIsVariableValid (struct LocalVariable lv) {
 }
 
 int GetLocalVariableCount (object oObject) {
-    return NWNXFuncsZero(oObject, "NWNX!FUNCS!GETLOCALVARIABLECOUNT");
+    DeleteLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLECOUNT");
+    DeleteLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION");
+
+    int nVariables = NWNXFuncsZero(oObject, "NWNX!FUNCS!GETLOCALVARIABLECOUNT");
+    DeleteLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLECOUNT");
+
+    return nVariables;
 }
 
 
 struct LocalVariable GetLocalVariableByPosition (object oObject, int nPos) {
     struct LocalVariable lv;
 
+    DeleteLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION");
     SetLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION", 
         IntToString(nPos) + "                                                                                                                                ");
 
     lv.name = GetLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION");
+    DeleteLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION");
 
     lv.type = StringToInt(lv.name);
     lv.name = GetSubString(lv.name, 2, 1000);
