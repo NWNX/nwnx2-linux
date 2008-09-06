@@ -26,12 +26,16 @@ int Local_GetCriticalMultiplierAdjustment (CNWSCreatureStats *attacker, CNWSItem
     int rogue;
 
     if (adj == 0                                                        &&
+        weapon != NULL                                                  &&
         attacker->cs_ac_armour_base <= 3                                &&
         (rogue = nwn_GetLevelByClass(attacker, CLASS_TYPE_ROGUE)) >= 35 &&
         CNWSCreatureStats__HasFeat(attacker, FEAT_CRIPPLING_STRIKE)     &&
         !CNWSCreatureStats__HasFeat(attacker, FEAT_INCREASE_MULTIPLIER) &&
         random() % 100 < rogue + 10                                     &&
-        (GetIsWeaponLight(attacker, weapon, false) || weapon->it_baseitem == BASE_ITEM_MORNINGSTAR))
+        (GetIsWeaponLight(attacker, weapon, false)      ||
+         weapon->it_baseitem == BASE_ITEM_LIGHTCROSSBOW ||
+         weapon->it_baseitem == BASE_ITEM_MORNINGSTAR   ||
+         weapon->it_baseitem == BASE_ITEM_SLING))
         return 1;
 #endif
 

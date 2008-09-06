@@ -58,7 +58,9 @@ int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *t
             attacker->cs_ac_armour_base <= 3                                   &&
             CNWSCreatureStats__HasFeat(attacker, FEAT_OPPORTUNIST)             &&
             (GetIsWeaponLight(attacker, weapon, 0)                             ||
-             (weapon != NULL && weapon->it_baseitem == BASE_ITEM_MORNINGSTAR))) {
+             weapon->it_baseitem == BASE_ITEM_LIGHTCROSSBOW                    ||
+             weapon->it_baseitem == BASE_ITEM_MORNINGSTAR                      ||
+             weapon->it_baseitem == BASE_ITEM_SLING)) {
             int max = (rogue - 20) / 5;
             int intbonus = (attacker->cs_int - 10) / 2;
 
