@@ -320,6 +320,10 @@ void SetEffectTrueType (effect eEffect, int nTrueType) {
     SetLocalString(GetModule(), "NWNX!STRUCTS!SETTRUETYPE", IntToString(nTrueType));
 }
 
+void SetEffectCreator (effect eEffect, object oCreator) {
+    SetLocalString(GetModule(), "NWNX!STRUCTS!SETCREATOR", ObjectToString(oCreator));
+}
+
 
 int GetHasMatchingEffect (object oObject, object oCreator, int nSpellId, int nTrueType, int nInt0) {
     SetLocalString(oObject, "NWNX!STRUCTS!GETHASEFFECT", ObjectToString(oCreator) +
@@ -371,6 +375,10 @@ int GetItemPropertySpellId (itemproperty ipProp) {
 
 void SetItemPropertySpellId (itemproperty ipProp, int nSpellId) {
     SetLocalString(GetModule(), "NWNX!STRUCTS!SETSPELLID", IntToString(nSpellId));
+}
+
+void SetItemPropertyCreator (itemproperty ipProp, object oCreator) {
+    SetLocalString(GetModule(), "NWNX!STRUCTS!SETCREATOR", ObjectToString(oCreator));
 }
 
 
