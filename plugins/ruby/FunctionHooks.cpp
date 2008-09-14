@@ -179,28 +179,47 @@ void VM_ExecuteCommand(dword nCommandID, int nArgsCount)
 	CNWVirtualMachineCommands_ExecuteCommand(GetCommandsPtr(), nCommandID, nArgsCount);
 }
 
+void debug_function_addr(dword func, const char *name)
+{
+	ruby.Log(2, "%s: %x\n", name, func);
+}
+
 int HookFunctions()
 {
 	/*dword CExoNetInternal_StoreMessage = 
 	if(CExoNetInternal_StoreMessage) d_redirect (CExoNetInternal_StoreMessage, (unsigned long)StoreMessage, d_ret_code_sm, 9);*/
 	
-	*(dword*)&CNWVirtualMachineCommands_ExecuteCommand = 0x082319C0;
+	*(dword*)&CNWVirtualMachineCommands_ExecuteCommand = asmhelp.FindFunctionBySignature("55 89 E5 8B 4D 0C 56 81 F9 ** ** 00 00 53 8B 75 08 7F 3D 8B 56 0C"); //0x082319C0
 
-	*(dword*)&CVirtualMachine_StackPopInteger = 0x08262988;
-	*(dword*)&CVirtualMachine_StackPopFloat = 0x08262A64;
-	*(dword*)&CVirtualMachine_StackPopString = 0x08262BA4;
-	*(dword*)&CVirtualMachine_StackPopVector = 0x08264354;
-	*(dword*)&CVirtualMachine_StackPopObject = 0x08262D88;
-	*(dword*)&CVirtualMachine_StackPopEngineStructure = 0x08262C88;
+	*(dword*)&CVirtualMachine_StackPopInteger = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 4D 08 8D 81 70 01 00 00 89 45 F0 8B B9 70 01 00 00 85 FF 7E 0D 4F"); //0x08262988
+	*(dword*)&CVirtualMachine_StackPopFloat = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 4D 08 8D 81 70 01 00 00 89 45 F0 8B 99 70 01 00 00 85 DB 89 5D EC"); //0x08262A64
+	*(dword*)&CVirtualMachine_StackPopString = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 5D 08 8D 83 70 01 00 00 89 45 F0 8B BB 70 01 00 00 85 FF 7E 0D 4F"); //0x08262BA4
+	*(dword*)&CVirtualMachine_StackPopVector = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 14 8D 5D F0 53 8B 75 08 56 8B 7D 0C E8 ** ** ** ** 89 C2 83 C4 10 83 FA"); //0x08264354
+	*(dword*)&CVirtualMachine_StackPopObject = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 4D 08 8D 81 70 01 00 00 89 45 F0 8B 99 70 01 00 00 85 DB 89 5D EC"); //0x08262D88
+	*(dword*)&CVirtualMachine_StackPopEngineStructure = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 5D 08 8D 83 70 01 00 00 89 45 F0 8B BB 70 01 00 00 85 FF 8B 4D 0C"); //0x08262C88
 
-	*(dword*)&CVirtualMachine_StackPushInteger = 0x082642D8;
-	*(dword*)&CVirtualMachine_StackPushFloat = 0x08264314;
-	*(dword*)&CVirtualMachine_StackPushString = 0x082643BC;
-	*(dword*)&CVirtualMachine_StackPushVector = 0x08262B24;
-	*(dword*)&CVirtualMachine_StackPushObject = 0x082644A0;
-	*(dword*)&CVirtualMachine_StackPushEngineStructure = 0x08264438;
+	*(dword*)&CVirtualMachine_StackPushInteger = asmhelp.FindFunctionBySignature("55 89 E5 56 53 83 EC 08 8B 5D 08 8D 83 70 01 00 00 6A 03 8B 75 0C 50 E8"); //0x082642D8
+	*(dword*)&CVirtualMachine_StackPushFloat = asmhelp.FindFunctionBySignature("55 89 E5 56 53 83 EC 08 8B 5D 08 8B 75 0C 8D 83 70 01 00 00 6A 04 50 E8"); //0x08264314
+	*(dword*)&CVirtualMachine_StackPushString = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 18 8B 7D 08 8B 5D 0C 6A 08 +24 59 5B 8D 87 70 01 00 00 6A 05 50 E8"); //0x082643BC
+	*(dword*)&CVirtualMachine_StackPushVector = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 14 8B 5D 08 8D B3 70 01 00 00 6A 04 8B 7D 0C 56 E8 ** ** ** ** 58 5A 8B 8B 70 01 00 00"); //0x08262B24
+	*(dword*)&CVirtualMachine_StackPushObject = asmhelp.FindFunctionBySignature("55 89 E5 56 53 83 EC 08 8B 5D 08 8D 83 70 01 00 00 6A 06 8B 75 0C 50 E8"); //0x082644A0
+	*(dword*)&CVirtualMachine_StackPushEngineStructure = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 75 08 8B 86 98 03 00 00 85 C0 8B 7D 0C 75 07 31 C0 EB 40"); //0x08264438
 
 	InitConstants();
+
+	debug_function_addr((dword)CNWVirtualMachineCommands_ExecuteCommand, "CNWVirtualMachineCommands_ExecuteCommand");
+	debug_function_addr((dword)CVirtualMachine_StackPopInteger, "CVirtualMachine_StackPopInteger");
+	debug_function_addr((dword)CVirtualMachine_StackPopFloat, "CVirtualMachine_StackPopFloat");
+	debug_function_addr((dword)CVirtualMachine_StackPopString, "CVirtualMachine_StackPopString");
+	debug_function_addr((dword)CVirtualMachine_StackPopVector, "CVirtualMachine_StackPopVector");
+	debug_function_addr((dword)CVirtualMachine_StackPopObject, "CVirtualMachine_StackPopObject");
+	debug_function_addr((dword)CVirtualMachine_StackPopEngineStructure, "CVirtualMachine_StackPopEngineStructure");
+	debug_function_addr((dword)CVirtualMachine_StackPushInteger, "CVirtualMachine_StackPushInteger");
+	debug_function_addr((dword)CVirtualMachine_StackPushFloat, "CVirtualMachine_StackPushFloat");
+	debug_function_addr((dword)CVirtualMachine_StackPushString, "CVirtualMachine_StackPushString");
+	debug_function_addr((dword)CVirtualMachine_StackPushVector, "CVirtualMachine_StackPushVector");
+	debug_function_addr((dword)CVirtualMachine_StackPushObject, "CVirtualMachine_StackPushObject");
+	debug_function_addr((dword)CVirtualMachine_StackPushEngineStructure, "CVirtualMachine_StackPushEngineStructure");
 
 	ruby.Log(2, "All functions set\n");
 	return true;
@@ -208,6 +227,6 @@ int HookFunctions()
 
 void InitConstants()
 {
-	*(dword*)&g_pVirtualMachine = 0x0832E1CC;
+	*(dword*)&g_pVirtualMachine = 0x0832F1EC;
 }
 
