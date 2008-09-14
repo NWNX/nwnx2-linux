@@ -1,5 +1,5 @@
 CXX = @CXX@
-LIBS = -lruby @LIBS@
+LIBS = -lruby1.8 @LIBS@
 LFLAGS = -w -fPIC -shared -W -Wall @LDFLAGS@
 DEFS = @DEFS@
 
