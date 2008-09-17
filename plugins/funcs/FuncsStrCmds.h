@@ -63,11 +63,11 @@ struct FuncsStrCommand_s {
     void       (*func)(CGameObject *, char *);
 };
 
-#define NWNX_FUNCS_STRCMD_TOTAL_KEYWORDS 101
+#define NWNX_FUNCS_STRCMD_TOTAL_KEYWORDS 103
 #define NWNX_FUNCS_STRCMD_MIN_WORD_LENGTH 6
 #define NWNX_FUNCS_STRCMD_MAX_WORD_LENGTH 26
-#define NWNX_FUNCS_STRCMD_MIN_HASH_VALUE 18
-#define NWNX_FUNCS_STRCMD_MAX_HASH_VALUE 150
+#define NWNX_FUNCS_STRCMD_MIN_HASH_VALUE 29
+#define NWNX_FUNCS_STRCMD_MAX_HASH_VALUE 161
 /* maximum key range = 133, duplicates = 0 */
 
 #ifdef __GNUC__
@@ -82,32 +82,32 @@ FuncsStrCommandHash (register const char *str, register unsigned int len)
 {
   static const unsigned char asso_values[] =
     {
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151,  48,  70,  53,  67,   5,
-       57,   0,   1,  21,   6,  30,  48,  20,   9,  17,
-       11,  69,  37,   2,  13,  33,   1,   4,   6, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151, 151, 151, 151,
-      151, 151, 151, 151, 151, 151, 151
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162,  36,  89,  57,  40, 104,
+       28,   2,  38,  51,   8,  23,  56,   9,   2,  39,
+       20,  76,  19,   4,  32,  38,  13,  25,  13, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162, 162, 162, 162,
+      162, 162, 162, 162, 162, 162, 162
     };
   register int hval = len;
 
@@ -135,223 +135,229 @@ static const struct FuncsStrCommand_s FuncsStrCommandList[] =
   {
     {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
     {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-#line 80 "FuncsStrCmds.gperf"
-    {"GETSOUNDSET",                           Func_GetSoundset},
-    {""},
-#line 132 "FuncsStrCmds.gperf"
-    {"SETSOUNDSET",                           Func_SetSoundset},
-#line 134 "FuncsStrCmds.gperf"
-    {"SETTAG",                                Func_SetTag},
-#line 72 "FuncsStrCmds.gperf"
-    {"GETPCPORT",                             Func_GetPCPort},
-    {""},
-#line 74 "FuncsStrCmds.gperf"
-    {"GETPORTRAIT",                           Func_GetPortrait},
-#line 81 "FuncsStrCmds.gperf"
-    {"GETSPECIALABILITY",                     Func_GetSpecialAbility},
-#line 126 "FuncsStrCmds.gperf"
-    {"SETPORTRAIT",                           Func_SetPortrait},
+    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
+    {""}, {""},
 #line 133 "FuncsStrCmds.gperf"
-    {"SETSPECIALABILITY",                     Func_SetSpecialAbility},
-#line 70 "FuncsStrCmds.gperf"
-    {"GETPCBODYBAG",                          Func_GetPCBodyBag},
-#line 87 "FuncsStrCmds.gperf"
-    {"GETWIZARDSPECIALIZATION",               Func_GetWizardSpecialization},
-#line 122 "FuncsStrCmds.gperf"
-    {"SETPCBODYBAG",                          Func_SetPCBodyBag},
-#line 136 "FuncsStrCmds.gperf"
-    {"SETWIZARDSPECIALIZATION",               Func_SetWizardSpecialization},
-#line 56 "FuncsStrCmds.gperf"
-    {"GETGROUNDHEIGHT",                       Func_GetGroundHeight},
-#line 73 "FuncsStrCmds.gperf"
-    {"GETPCSKILLPOINTS",                      Func_GetPCSkillPoints},
-#line 89 "FuncsStrCmds.gperf"
-    {"JUMPTOLIMBO",                           Func_JumpToLimbo},
-#line 124 "FuncsStrCmds.gperf"
-    {"SETPCSKILLPOINTS",                      Func_SetPCSkillPoints},
-#line 131 "FuncsStrCmds.gperf"
     {"SETSKILLRANK",                          Func_SetSkillRank},
 #line 123 "FuncsStrCmds.gperf"
-    {"SETPCLOOTABLE",                         Func_SetPCLootable},
-#line 78 "FuncsStrCmds.gperf"
-    {"GETSAVINGTHROWBONUS",                   Func_GetSavingThrowBonus},
-#line 69 "FuncsStrCmds.gperf"
-    {"GETMEMORIZEDSPELL",                     Func_GetMemorizedSpell},
-#line 130 "FuncsStrCmds.gperf"
-    {"SETSAVINGTHROWBONUS",                   Func_SetSavingThrowBonus},
-#line 120 "FuncsStrCmds.gperf"
-    {"SETMEMORIZEDSPELL",                     Func_SetMemorizedSpell},
-#line 113 "FuncsStrCmds.gperf"
-    {"SETITEMWEIGHT",                         Func_SetItemWeight},
-#line 118 "FuncsStrCmds.gperf"
-    {"SETMAXHITPOINTS",                       Func_SetMaxHitPoints},
-#line 71 "FuncsStrCmds.gperf"
-    {"GETPCFILENAME",                         Func_GetPCFileName},
-#line 79 "FuncsStrCmds.gperf"
-    {"GETSKILLINCREASEBYLEVEL",               Func_GetSkillIncreaseByLevel},
-#line 121 "FuncsStrCmds.gperf"
     {"SETMOVEMENTRATE",                       Func_SetMovementRate},
-    {""},
-#line 67 "FuncsStrCmds.gperf"
-    {"GETMAXHITPOINTSBYLEVEL",                Func_GetMaxHitPointsByLevel},
 #line 82 "FuncsStrCmds.gperf"
-    {"GETTOTALFEATUSES",                      Func_GetTotalFeatUses},
-#line 119 "FuncsStrCmds.gperf"
+    {"GETSPECIALABILITY",                     Func_GetSpecialAbility},
+#line 70 "FuncsStrCmds.gperf"
+    {"GETMEMORIZEDSPELL",                     Func_GetMemorizedSpell},
+#line 135 "FuncsStrCmds.gperf"
+    {"SETSPECIALABILITY",                     Func_SetSpecialAbility},
+#line 122 "FuncsStrCmds.gperf"
+    {"SETMEMORIZEDSPELL",                     Func_SetMemorizedSpell},
+#line 73 "FuncsStrCmds.gperf"
+    {"GETPCPORT",                             Func_GetPCPort},
+#line 120 "FuncsStrCmds.gperf"
+    {"SETMAXHITPOINTS",                       Func_SetMaxHitPoints},
+#line 75 "FuncsStrCmds.gperf"
+    {"GETPORTRAIT",                           Func_GetPortrait},
+#line 80 "FuncsStrCmds.gperf"
+    {"GETSKILLINCREASEBYLEVEL",               Func_GetSkillIncreaseByLevel},
+#line 128 "FuncsStrCmds.gperf"
+    {"SETPORTRAIT",                           Func_SetPortrait},
+    {""},
+#line 68 "FuncsStrCmds.gperf"
+    {"GETMAXHITPOINTSBYLEVEL",                Func_GetMaxHitPointsByLevel},
+#line 136 "FuncsStrCmds.gperf"
+    {"SETTAG",                                Func_SetTag},
+#line 121 "FuncsStrCmds.gperf"
     {"SETMAXHITPOINTSBYLEVEL",                Func_SetMaxHitPointsByLevel},
-#line 83 "FuncsStrCmds.gperf"
-    {"GETTOTALKNOWNFEATS",                    Func_GetTotalKnownFeats},
-#line 85 "FuncsStrCmds.gperf"
-    {"GETTOTALKNOWNSPELLS",                   Func_GetTotalKnownSpells},
+#line 72 "FuncsStrCmds.gperf"
+    {"GETPCFILENAME",                         Func_GetPCFileName},
     {""},
-#line 57 "FuncsStrCmds.gperf"
-    {"GETISWALKABLE",                         Func_GetIsWalkable},
-#line 63 "FuncsStrCmds.gperf"
-    {"GETKNOWSFEAT",                          Func_GetKnowsFeat},
-#line 64 "FuncsStrCmds.gperf"
-    {"GETKNOWSSPELL",                         Func_GetKnowsSpell},
-#line 86 "FuncsStrCmds.gperf"
-    {"GETTOTALSPECIALABILITIES",              Func_GetTotalSpecialAbilities},
-#line 84 "FuncsStrCmds.gperf"
-    {"GETTOTALKNOWNFEATSBYLEVEL",             Func_GetTotalKnownFeatsByLevel},
-#line 60 "FuncsStrCmds.gperf"
-    {"GETKNOWNFEAT",                          Func_GetKnownFeat},
-#line 62 "FuncsStrCmds.gperf"
-    {"GETKNOWNSPELL",                         Func_GetKnownSpell},
-#line 114 "FuncsStrCmds.gperf"
-    {"SETKNOWNFEAT",                          Func_SetKnownFeat},
-#line 116 "FuncsStrCmds.gperf"
-    {"SETKNOWNSPELL",                         Func_SetKnownSpell},
-#line 76 "FuncsStrCmds.gperf"
-    {"GETREMAININGFEATUSES",                  Func_GetRemainingFeatUses},
-#line 91 "FuncsStrCmds.gperf"
-    {"MODIFYCURRENTHITPOINTS",                Func_ModifyCurrentHitPoints},
+#line 74 "FuncsStrCmds.gperf"
+    {"GETPCSKILLPOINTS",                      Func_GetPCSkillPoints},
+#line 90 "FuncsStrCmds.gperf"
+    {"JUMPTOLIMBO",                           Func_JumpToLimbo},
+#line 126 "FuncsStrCmds.gperf"
+    {"SETPCSKILLPOINTS",                      Func_SetPCSkillPoints},
 #line 77 "FuncsStrCmds.gperf"
+    {"GETREMAININGFEATUSES",                  Func_GetRemainingFeatUses},
+#line 56 "FuncsStrCmds.gperf"
+    {"GETFACTIONID",                          Func_GetFactionId},
+#line 78 "FuncsStrCmds.gperf"
     {"GETREMAININGSPELLSLOTS",                Func_GetRemainingSpellSlots},
-#line 61 "FuncsStrCmds.gperf"
-    {"GETKNOWNFEATBYLEVEL",                   Func_GetKnownFeatByLevel},
-#line 129 "FuncsStrCmds.gperf"
+#line 111 "FuncsStrCmds.gperf"
+    {"SETFACTIONID",                          Func_SetFactionId},
+#line 131 "FuncsStrCmds.gperf"
     {"SETREMAININGSPELLSLOTS",                Func_SetRemainingSpellSlots},
-#line 115 "FuncsStrCmds.gperf"
-    {"SETKNOWNFEATBYLEVEL",                   Func_SetKnownFeatByLevel},
-#line 99 "FuncsStrCmds.gperf"
-    {"RESTOREREADYFEATS",                     Func_RestoreReadyFeats},
-#line 100 "FuncsStrCmds.gperf"
-    {"RESTOREREADYSPELLS",                    Func_RestoreReadySpells},
-#line 101 "FuncsStrCmds.gperf"
-    {"SETABILITYSCORE",                       Func_SetAbilityScore},
+#line 88 "FuncsStrCmds.gperf"
+    {"GETWIZARDSPECIALIZATION",               Func_GetWizardSpecialization},
     {""},
+#line 138 "FuncsStrCmds.gperf"
+    {"SETWIZARDSPECIALIZATION",               Func_SetWizardSpecialization},
+#line 125 "FuncsStrCmds.gperf"
+    {"SETPCLOOTABLE",                         Func_SetPCLootable},
+#line 57 "FuncsStrCmds.gperf"
+    {"GETGROUNDHEIGHT",                       Func_GetGroundHeight},
+#line 83 "FuncsStrCmds.gperf"
+    {"GETTOTALFEATUSES",                      Func_GetTotalFeatUses},
+    {""},
+#line 84 "FuncsStrCmds.gperf"
+    {"GETTOTALKNOWNFEATS",                    Func_GetTotalKnownFeats},
+#line 86 "FuncsStrCmds.gperf"
+    {"GETTOTALKNOWNSPELLS",                   Func_GetTotalKnownSpells},
+#line 103 "FuncsStrCmds.gperf"
+    {"SETABILITYSCORE",                       Func_SetAbilityScore},
+#line 79 "FuncsStrCmds.gperf"
+    {"GETSAVINGTHROWBONUS",                   Func_GetSavingThrowBonus},
 #line 40 "FuncsStrCmds.gperf"
     {"ADDSPECIALABILITY",                     Func_AddSpecialAbility},
-#line 49 "FuncsStrCmds.gperf"
-    {"GETCLERICDOMAIN",                       Func_GetClericDomain},
-#line 55 "FuncsStrCmds.gperf"
-    {"GETFACTIONID",                          Func_GetFactionId},
-#line 104 "FuncsStrCmds.gperf"
-    {"SETCLERICDOMAIN",                       Func_SetClericDomain},
-#line 109 "FuncsStrCmds.gperf"
-    {"SETFACTIONID",                          Func_SetFactionId},
-#line 53 "FuncsStrCmds.gperf"
-    {"GETCRITICALHITRANGE",                   Func_GetCriticalHitRange},
+#line 132 "FuncsStrCmds.gperf"
+    {"SETSAVINGTHROWBONUS",                   Func_SetSavingThrowBonus},
+#line 87 "FuncsStrCmds.gperf"
+    {"GETTOTALSPECIALABILITIES",              Func_GetTotalSpecialAbilities},
+#line 85 "FuncsStrCmds.gperf"
+    {"GETTOTALKNOWNFEATSBYLEVEL",             Func_GetTotalKnownFeatsByLevel},
+#line 64 "FuncsStrCmds.gperf"
+    {"GETKNOWSFEAT",                          Func_GetKnowsFeat},
+#line 65 "FuncsStrCmds.gperf"
+    {"GETKNOWSSPELL",                         Func_GetKnowsSpell},
 #line 43 "FuncsStrCmds.gperf"
     {"GETABILITYINCREASEBYLEVEL",             Func_GetAbilityIncreaseByLevel},
-    {""},
-#line 48 "FuncsStrCmds.gperf"
-    {"GETCLASSBYLEVEL",                       Func_GetClassByLevel},
-#line 88 "FuncsStrCmds.gperf"
-    {"INTTOOBJECTREQUEST",                    Func_IntToObjectRequest},
+#line 101 "FuncsStrCmds.gperf"
+    {"RESTOREREADYFEATS",                     Func_RestoreReadyFeats},
+#line 102 "FuncsStrCmds.gperf"
+    {"RESTOREREADYSPELLS",                    Func_RestoreReadySpells},
+#line 127 "FuncsStrCmds.gperf"
+    {"SETPLACEABLEAPPEARANCE",                Func_SetPlaceableAppearance},
+#line 58 "FuncsStrCmds.gperf"
+    {"GETISWALKABLE",                         Func_GetIsWalkable},
+#line 61 "FuncsStrCmds.gperf"
+    {"GETKNOWNFEAT",                          Func_GetKnownFeat},
+#line 63 "FuncsStrCmds.gperf"
+    {"GETKNOWNSPELL",                         Func_GetKnownSpell},
+#line 116 "FuncsStrCmds.gperf"
+    {"SETKNOWNFEAT",                          Func_SetKnownFeat},
+#line 118 "FuncsStrCmds.gperf"
+    {"SETKNOWNSPELL",                         Func_SetKnownSpell},
+#line 100 "FuncsStrCmds.gperf"
+    {"RESTOREITEMAPPEARANCE",                 Func_RestoreItemAppearance},
+#line 115 "FuncsStrCmds.gperf"
+    {"SETITEMWEIGHT",                         Func_SetItemWeight},
+#line 49 "FuncsStrCmds.gperf"
+    {"GETCLERICDOMAIN",                       Func_GetClericDomain},
+#line 62 "FuncsStrCmds.gperf"
+    {"GETKNOWNFEATBYLEVEL",                   Func_GetKnownFeatByLevel},
+#line 106 "FuncsStrCmds.gperf"
+    {"SETCLERICDOMAIN",                       Func_SetClericDomain},
+#line 117 "FuncsStrCmds.gperf"
+    {"SETKNOWNFEATBYLEVEL",                   Func_SetKnownFeatByLevel},
+#line 53 "FuncsStrCmds.gperf"
+    {"GETCRITICALHITRANGE",                   Func_GetCriticalHitRange},
+#line 45 "FuncsStrCmds.gperf"
+    {"GETALLMEMORIZEDSPELLS",                 Func_GetAllMemorizedSpells},
+#line 67 "FuncsStrCmds.gperf"
+    {"GETLOCALVARIABLECOUNT",                 Func_GetLocalVariableCount},
+#line 46 "FuncsStrCmds.gperf"
+    {"GETALLREMAININGFEATUSES",               Func_GetAllRemainingFeatUses},
+#line 137 "FuncsStrCmds.gperf"
+    {"SETTRAPCREATOR",                        Func_SetTrapCreator},
 #line 52 "FuncsStrCmds.gperf"
     {"GETCRITICALHITMULTIPLIER",              Func_GetCriticalHitMultiplier},
-#line 103 "FuncsStrCmds.gperf"
+#line 44 "FuncsStrCmds.gperf"
+    {"GETACNATURALBASE",                      Func_GetACNaturalBase},
+#line 66 "FuncsStrCmds.gperf"
+    {"GETLOCALVARIABLEBYPOSITION",            Func_GetLocalVariableByPosition},
+#line 104 "FuncsStrCmds.gperf"
+    {"SETACNATURALBASE",                      Func_SetACNaturalBase},
+#line 92 "FuncsStrCmds.gperf"
+    {"MODIFYCURRENTHITPOINTS",                Func_ModifyCurrentHitPoints},
+#line 105 "FuncsStrCmds.gperf"
     {"SETALIGNMENTVALUE",                     Func_SetAlignmentValue},
 #line 54 "FuncsStrCmds.gperf"
     {"GETDAMAGEIMMUNITY",                     Func_GetDamageImmunity},
-#line 93 "FuncsStrCmds.gperf"
-    {"REMOVEKNOWNFEAT",                       Func_RemoveKnownFeat},
-#line 95 "FuncsStrCmds.gperf"
-    {"REMOVEKNOWNSPELL",                      Func_RemoveKnownSpell},
-#line 110 "FuncsStrCmds.gperf"
-    {"SETGOLDPIECEVALUE",                     Func_SetGoldPieceValue},
-#line 66 "FuncsStrCmds.gperf"
-    {"GETLOCALVARIABLECOUNT",                 Func_GetLocalVariableCount},
-#line 117 "FuncsStrCmds.gperf"
-    {"SETLASTHOSTILEACTOR",                   Func_SetLastHostileActor},
-    {""},
-#line 125 "FuncsStrCmds.gperf"
-    {"SETPLACEABLEAPPEARANCE",                Func_SetPlaceableAppearance},
-#line 94 "FuncsStrCmds.gperf"
-    {"REMOVEKNOWNFEATBYLEVEL",                Func_RemoveKnownFeatByLevel},
-#line 65 "FuncsStrCmds.gperf"
-    {"GETLOCALVARIABLEBYPOSITION",            Func_GetLocalVariableByPosition},
-#line 36 "FuncsStrCmds.gperf"
-    {"ACTIONUSEITEM",                         Func_ActionUseItem},
-#line 135 "FuncsStrCmds.gperf"
-    {"SETTRAPCREATOR",                        Func_SetTrapCreator},
-#line 44 "FuncsStrCmds.gperf"
-    {"GETACNATURALBASE",                      Func_GetACNaturalBase},
-#line 58 "FuncsStrCmds.gperf"
-    {"GETITEMBYPOSITIONREQUEST",              Func_GetItemByPositionRequest},
-#line 102 "FuncsStrCmds.gperf"
-    {"SETACNATURALBASE",                      Func_SetACNaturalBase},
-#line 59 "FuncsStrCmds.gperf"
-    {"GETITEMCOUNT",                          Func_GetItemCount},
-#line 47 "FuncsStrCmds.gperf"
-    {"GETBONUSSPELLSLOTS",                    Func_GetBonusSpellSlots},
+#line 42 "FuncsStrCmds.gperf"
+    {"DUMPOBJECT",                            Func_DumpObject},
 #line 112 "FuncsStrCmds.gperf"
-    {"SETITEMCOLOR",                          Func_SetItemColor},
-#line 107 "FuncsStrCmds.gperf"
-    {"SETCREATURESIZE",                       Func_SetCreatureSize},
-#line 92 "FuncsStrCmds.gperf"
-    {"MODIFYSKILLRANK",                       Func_ModifySkillRank},
-#line 68 "FuncsStrCmds.gperf"
+    {"SETGOLDPIECEVALUE",                     Func_SetGoldPieceValue},
+    {""}, {""},
+#line 50 "FuncsStrCmds.gperf"
+    {"GETCONVERSATION",                       Func_GetConversation},
+#line 69 "FuncsStrCmds.gperf"
     {"GETMAXSPELLSLOTS",                      Func_GetMaxSpellSlots},
-#line 41 "FuncsStrCmds.gperf"
-    {"BOOTPCWITHMESSAGE",                     Func_BootPCWithMessage},
+#line 107 "FuncsStrCmds.gperf"
+    {"SETCONVERSATION",                       Func_SetConversation},
+#line 60 "FuncsStrCmds.gperf"
+    {"GETITEMCOUNT",                          Func_GetItemCount},
+#line 48 "FuncsStrCmds.gperf"
+    {"GETCLASSBYLEVEL",                       Func_GetClassByLevel},
+#line 114 "FuncsStrCmds.gperf"
+    {"SETITEMCOLOR",                          Func_SetItemColor},
+#line 110 "FuncsStrCmds.gperf"
+    {"SETCURRENTHITPOINTS",                   Func_SetCurrentHitPoints},
+    {""},
 #line 37 "FuncsStrCmds.gperf"
     {"ADDKNOWNFEAT",                          Func_AddKnownFeat},
 #line 39 "FuncsStrCmds.gperf"
     {"ADDKNOWNSPELL",                         Func_AddKnownSpell},
-#line 51 "FuncsStrCmds.gperf"
-    {"GETCREATUREEVENTHANDLER",               Func_GetCreatureEventHandler},
-#line 111 "FuncsStrCmds.gperf"
-    {"SETITEMAPPEARANCE",                     Func_SetItemAppearance},
-#line 106 "FuncsStrCmds.gperf"
-    {"SETCREATUREEVENTHANDLER",               Func_SetCreatureEventHandler},
-#line 90 "FuncsStrCmds.gperf"
-    {"MODIFYABILITYSCORE",                    Func_ModifyAbilityScore},
-    {""},
+#line 94 "FuncsStrCmds.gperf"
+    {"REMOVEKNOWNFEAT",                       Func_RemoveKnownFeat},
+#line 96 "FuncsStrCmds.gperf"
+    {"REMOVEKNOWNSPELL",                      Func_RemoveKnownSpell},
+#line 109 "FuncsStrCmds.gperf"
+    {"SETCREATURESIZE",                       Func_SetCreatureSize},
+    {""}, {""},
 #line 38 "FuncsStrCmds.gperf"
     {"ADDKNOWNFEATATLEVEL",                   Func_AddKnownFeatAtLevel},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""},
-#line 128 "FuncsStrCmds.gperf"
-    {"SETRACIALTYPE",                         Func_SetRacialType},
-    {""}, {""},
-#line 50 "FuncsStrCmds.gperf"
-    {"GETCONVERSATION",                       Func_GetConversation},
-#line 45 "FuncsStrCmds.gperf"
-    {"GETALLMEMORIZEDSPELLS",                 Func_GetAllMemorizedSpells},
-#line 105 "FuncsStrCmds.gperf"
-    {"SETCONVERSATION",                       Func_SetConversation},
-#line 46 "FuncsStrCmds.gperf"
-    {"GETALLREMAININGFEATUSES",               Func_GetAllRemainingFeatUses},
-    {""}, {""},
+    {""},
+#line 95 "FuncsStrCmds.gperf"
+    {"REMOVEKNOWNFEATBYLEVEL",                Func_RemoveKnownFeatByLevel},
+#line 51 "FuncsStrCmds.gperf"
+    {"GETCREATUREEVENTHANDLER",               Func_GetCreatureEventHandler},
+#line 81 "FuncsStrCmds.gperf"
+    {"GETSOUNDSET",                           Func_GetSoundset},
 #line 108 "FuncsStrCmds.gperf"
-    {"SETCURRENTHITPOINTS",                   Func_SetCurrentHitPoints},
-#line 75 "FuncsStrCmds.gperf"
+    {"SETCREATUREEVENTHANDLER",               Func_SetCreatureEventHandler},
+#line 134 "FuncsStrCmds.gperf"
+    {"SETSOUNDSET",                           Func_SetSoundset},
+#line 89 "FuncsStrCmds.gperf"
+    {"INTTOOBJECTREQUEST",                    Func_IntToObjectRequest},
+#line 130 "FuncsStrCmds.gperf"
+    {"SETRACIALTYPE",                         Func_SetRacialType},
+    {""}, {""}, {""}, {""},
+#line 119 "FuncsStrCmds.gperf"
+    {"SETLASTHOSTILEACTOR",                   Func_SetLastHostileActor},
+#line 93 "FuncsStrCmds.gperf"
+    {"MODIFYSKILLRANK",                       Func_ModifySkillRank},
+#line 36 "FuncsStrCmds.gperf"
+    {"ACTIONUSEITEM",                         Func_ActionUseItem},
+#line 55 "FuncsStrCmds.gperf"
+    {"GETENTIREITEMAPPEARANCE",               Func_GetEntireItemAppearance},
+#line 59 "FuncsStrCmds.gperf"
+    {"GETITEMBYPOSITIONREQUEST",              Func_GetItemByPositionRequest},
+#line 91 "FuncsStrCmds.gperf"
+    {"MODIFYABILITYSCORE",                    Func_ModifyAbilityScore},
+    {""}, {""},
+#line 71 "FuncsStrCmds.gperf"
+    {"GETPCBODYBAG",                          Func_GetPCBodyBag},
+    {""},
+#line 124 "FuncsStrCmds.gperf"
+    {"SETPCBODYBAG",                          Func_SetPCBodyBag},
+#line 47 "FuncsStrCmds.gperf"
+    {"GETBONUSSPELLSLOTS",                    Func_GetBonusSpellSlots},
+    {""}, {""}, {""}, {""},
+#line 41 "FuncsStrCmds.gperf"
+    {"BOOTPCWITHMESSAGE",                     Func_BootPCWithMessage},
+#line 98 "FuncsStrCmds.gperf"
+    {"REPLACEKNOWNFEAT",                      Func_ReplaceKnownFeat},
+#line 99 "FuncsStrCmds.gperf"
+    {"REPLACEKNOWNSPELL",                     Func_ReplaceKnownSpell},
+#line 76 "FuncsStrCmds.gperf"
     {"GETQUICKBARSLOT",                       Func_GetQuickBarSlot},
     {""},
-#line 127 "FuncsStrCmds.gperf"
+#line 129 "FuncsStrCmds.gperf"
     {"SETQUICKBARSLOT",                       Func_SetQuickBarSlot},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-#line 96 "FuncsStrCmds.gperf"
-    {"REMOVESPECIALABILITY",                  Func_RemoveSpecialAbility},
-    {""},
-#line 42 "FuncsStrCmds.gperf"
-    {"DUMPOBJECT",                            Func_DumpObject},
-    {""}, {""}, {""},
+    {""}, {""},
 #line 97 "FuncsStrCmds.gperf"
-    {"REPLACEKNOWNFEAT",                      Func_ReplaceKnownFeat},
-#line 98 "FuncsStrCmds.gperf"
-    {"REPLACEKNOWNSPELL",                     Func_ReplaceKnownSpell}
+    {"REMOVESPECIALABILITY",                  Func_RemoveSpecialAbility},
+    {""}, {""}, {""}, {""}, {""}, {""},
+#line 113 "FuncsStrCmds.gperf"
+    {"SETITEMAPPEARANCE",                     Func_SetItemAppearance}
   };
 
 #ifdef __GNUC__
@@ -377,7 +383,7 @@ FuncsStrCommandLookup (register const char *str, register unsigned int len)
     }
   return 0;
 }
-#line 137 "FuncsStrCmds.gperf"
+#line 139 "FuncsStrCmds.gperf"
 
 
 #ifdef __cplusplus

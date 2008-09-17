@@ -21,25 +21,31 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetItemAppearance (CGameObject *ob, char *value) {
-    int idx, val;
+void Func_RestoreItemAppearance (CGameObject *ob, char *value) {
+    int idx, val, ch;
     CNWSItem *item;
 
     if (ob == NULL                                 ||
         (item = ob->vtable->AsNWSItem(ob)) == NULL ||
-        sscanf(value, "%d %d", &idx, &val) != 2    ||
-        idx < ITEM_APPR_COLOR_LEATHER_1 || idx > ITEM_APPR_ARMOR_MODEL_ROBE || val < 0 || val > 255) {
+        strspn(value, "0123456789ABCDEF") != 56) {
 
         snprintf(value, strlen(value), "-1");
         return;
     }
 
-    if (idx < ITEM_APPR_MODEL_PART_1)
-        item->it_color[idx + 9] = val;
-    else
-        item->it_model[idx + 3] = val;
+    for (idx = 0; idx < 28; idx++) {
+        ch = value[(idx * 2) + 2];
+        value[(idx * 2) + 2] = 0;
+        val = strtol(value + (idx * 2), NULL, 16);
+        value[(idx * 2) + 2] = ch;
 
-    snprintf(value, strlen(value), "%d", val);
+        if (idx < 6)
+            item->it_color[idx] = val;
+        else
+            item->it_model[idx - 6] = val;
+    }
+
+    snprintf(value, strlen(value), "0");
 }
 
 

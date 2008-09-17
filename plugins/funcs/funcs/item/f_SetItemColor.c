@@ -34,15 +34,7 @@ void Func_SetItemColor (CGameObject *ob, char *value) {
         return;
     }
 
-    switch (idx) {
-        case 0: item->it_color_leather1 = val; break;
-        case 1: item->it_color_leather2 = val; break;
-        case 2: item->it_color_cloth1   = val; break;
-        case 3: item->it_color_cloth2   = val; break;
-        case 4: item->it_color_metal1   = val; break;
-        case 5: item->it_color_metal2   = val; break;
-    }
-
+    item->it_color[idx] = val;
     snprintf(value, strlen(value), "%d", val);
 }
 

@@ -25,13 +25,7 @@
 #define _NX_NWN_STRUCT_CNWSITEM_
 
 struct CNWSItem_s {
-    uint8_t                     it_color_leather1;      /* 0000 */
-    uint8_t                     it_color_leather2;      /* 0001 */
-    uint8_t                     it_color_cloth1;        /* 0002 */
-    uint8_t                     it_color_cloth2;        /* 0003 */
-    uint8_t                     it_color_metal1;        /* 0004 */
-    uint8_t                     it_color_metal2;        /* 0005 */
-
+    uint8_t                     it_color[6];            /* 0000 */
     uint8_t                     field_06;
     uint8_t                     field_07;
 

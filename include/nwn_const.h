@@ -529,6 +529,12 @@
 #define ITEM_RULE_WEAPON_SIZE                             25
 
 
+#define ITEM_APPR_COLOR_LEATHER_1                         -9
+#define ITEM_APPR_COLOR_LEATHER_2                         -8
+#define ITEM_APPR_COLOR_CLOTH_1                           -7
+#define ITEM_APPR_COLOR_CLOTH_2                           -6
+#define ITEM_APPR_COLOR_METAL_1                           -5
+#define ITEM_APPR_COLOR_METAL_2                           -4
 #define ITEM_APPR_MODEL_PART_1                            -3
 #define ITEM_APPR_MODEL_PART_2                            -2
 #define ITEM_APPR_MODEL_PART_3                            -1

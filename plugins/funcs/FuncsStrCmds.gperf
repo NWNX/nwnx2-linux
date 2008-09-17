@@ -52,6 +52,7 @@ GETCREATUREEVENTHANDLER,               Func_GetCreatureEventHandler
 GETCRITICALHITMULTIPLIER,              Func_GetCriticalHitMultiplier
 GETCRITICALHITRANGE,                   Func_GetCriticalHitRange
 GETDAMAGEIMMUNITY,                     Func_GetDamageImmunity
+GETENTIREITEMAPPEARANCE,               Func_GetEntireItemAppearance
 GETFACTIONID,                          Func_GetFactionId
 GETGROUNDHEIGHT,                       Func_GetGroundHeight
 GETISWALKABLE,                         Func_GetIsWalkable
@@ -96,6 +97,7 @@ REMOVEKNOWNSPELL,                      Func_RemoveKnownSpell
 REMOVESPECIALABILITY,                  Func_RemoveSpecialAbility
 REPLACEKNOWNFEAT,                      Func_ReplaceKnownFeat
 REPLACEKNOWNSPELL,                     Func_ReplaceKnownSpell
+RESTOREITEMAPPEARANCE,                 Func_RestoreItemAppearance
 RESTOREREADYFEATS,                     Func_RestoreReadyFeats
 RESTOREREADYSPELLS,                    Func_RestoreReadySpells
 SETABILITYSCORE,                       Func_SetAbilityScore

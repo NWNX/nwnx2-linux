@@ -916,6 +916,28 @@ int SetItemWeight (object oItem, int nTenthLbs) {
 }
 
 
+string GetEntireItemAppearance (object oItem) {
+    SetLocalString(oItem, "NWNX!FUNCS!GETENTIREITEMAPPEARANCE", "                                                            ");
+    string sApp = GetLocalString(oItem, "NWNX!FUNCS!GETENTIREITEMAPPEARANCE");
+    DeleteLocalString(oItem, "NWNX!FUNCS!GETENTIREITEMAPPEARANCE");
+
+    return sApp;
+}
+
+void RestoreItemAppearance (object oItem, string sApp) {
+    SetLocalString(oItem, "NWNX!FUNCS!RESTOREITEMAPPEARANCE", sApp);
+    DeleteLocalString(oItem, "NWNX!FUNCS!RESTOREITEMAPPEARANCE");
+}
+
+int SetItemAppearance (object oItem, int nIndex, int nValue) {
+    return NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMAPPEARANCE", nIndex, nValue);
+}
+
+int SetItemColor (object oItem, int nIndex, int nColor) {
+    return NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMCOLOR", nIndex, nColor);
+}
+
+
 int SetPlaceableAppearance (object oPlace, int nApp) {
     return NWNXFuncsOne(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE", nApp);
 }
