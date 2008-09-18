@@ -326,7 +326,7 @@ void SetEffectCreator (effect eEffect, object oCreator) {
 
 
 int GetHasMatchingEffect (object oObject, object oCreator, int nSpellId, int nTrueType, int nInt0) {
-    SetLocalString(oObject, "NWNX!STRUCTS!GETHASEFFECT", ObjectToString(oCreator) +
+    SetLocalString(oObject, "NWNX!STRUCTS!GETHASEFFECT", ObjectToString(oCreator) + " " +
         IntToString(nSpellId) + " " + IntToString(nTrueType) + " " + IntToString(nInt0));
     return StringToInt(GetLocalString(oObject, "NWNX!STRUCTS!GETHASEFFECT"));
 }
