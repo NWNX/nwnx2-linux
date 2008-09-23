@@ -573,6 +573,23 @@ int GetMeetsLevelUpFeatRequirements (object oCreature, int nFeat, int nClass, in
 }
 
 
+int GetIsClassBonusFeat (int nClass, int nFeat) {
+    return NWNXFuncsTwo(GetModule(), "NWNX!FUNCS!GETISCLASSBONUSFEAT", nClass, nFeat);
+}
+
+int GetIsClassGeneralFeat (int nClass, int nFeat) {
+    return NWNXFuncsTwo(GetModule(), "NWNX!FUNCS!GETISCLASSGENERALFEAT", nClass, nFeat);
+}
+
+int GetIsClassGrantedFeat (int nClass, int nFeat) {
+    return NWNXFuncsTwo(GetModule(), "NWNX!FUNCS!GETISCLASSGRANTEDFEAT", nClass, nFeat);
+}
+
+int GetIsClassSkill (int nClass, int nSkill) {
+    return NWNXFuncsTwo(GetModule(), "NWNX!FUNCS!GETISCLASSSKILL", nClass, nSkill);
+}
+
+
 int GetClassByLevel (object oCreature, int nLevel) {
     return NWNXFuncsOne(oCreature, "NWNX!FUNCS!GETCLASSBYLEVEL", nLevel);
 }
