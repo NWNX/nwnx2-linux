@@ -67,6 +67,7 @@ GETLOCALVARIABLEBYPOSITION,            Func_GetLocalVariableByPosition
 GETLOCALVARIABLECOUNT,                 Func_GetLocalVariableCount
 GETMAXHITPOINTSBYLEVEL,                Func_GetMaxHitPointsByLevel
 GETMAXSPELLSLOTS,                      Func_GetMaxSpellSlots
+GETMEETSFEATREQUIREMENTS,              Func_GetMeetsFeatRequirements
 GETMEMORIZEDSPELL,                     Func_GetMemorizedSpell
 GETPCBODYBAG,                          Func_GetPCBodyBag
 GETPCFILENAME,                         Func_GetPCFileName

@@ -61,6 +61,45 @@ struct LocalVariable {
     object obj;
 };
 
+struct CreatureAbilities {
+    int a_str;
+    int a_dex;
+    int a_con;
+    int a_int;
+    int a_wis;
+    int a_cha;
+};
+
+struct CreatureSkills {
+    int sk_aniemp;
+    int sk_conc;
+    int sk_distrap;
+    int sk_disc;
+    int sk_heal;
+    int sk_hide;
+    int sk_listen;
+    int sk_lore;
+    int sk_movesil;
+    int sk_openlock;
+    int sk_parry;
+    int sk_perform;
+    int sk_persuade;
+    int sk_ppocket;
+    int sk_search;
+    int sk_settrap;
+    int sk_spcraft;
+    int sk_spot;
+    int sk_taunt;
+    int sk_umd;
+    int sk_appraise;
+    int sk_tumble;
+    int sk_ctrap;
+    int sk_bluff;
+    int sk_intim;
+    int sk_carmor;
+    int sk_cweapon;
+    int sk_ride;
+};
 
 /* Returns TRUE if the target inherently knows a feat (as opposed to
  * by any equipment they may possess) */
@@ -490,6 +529,47 @@ string GetAllRemainingFeatUses (object oCreature) {
 int RestoreReadyFeats (object oCreature, string sFeats) {
     SetLocalString(oCreature, "NWNX!FUNCS!RESTOREREADYFEATS", sFeats + " ");
     return StringToInt(GetLocalString(oCreature, "NWNX!FUNCS!RESTOREREADYFEATS"));
+}
+
+
+int GetMeetsFeatRequirements (object oCreature, int nFeat) {
+    return NWNXFuncsOne(oCreature, "NWNX!FUNCS!GETMEETSFEATREQUIREMENTS", nFeat);
+}
+
+int GetMeetsLevelUpFeatRequirements (object oCreature, int nFeat, int nClass, int nAbility, struct CreatureSkills sk) {
+    SetLocalString(oCreature, "NWNX!FUNCS!GETMEETSFEATREQUIREMENTS", ">" + 
+        IntToString(nFeat)          + " " +
+        IntToString(nClass)         + " " +
+        IntToString(nAbility)       + " ¬" +
+        IntToString(sk.sk_aniemp)   + "¬" +
+        IntToString(sk.sk_conc)     + "¬" +
+        IntToString(sk.sk_distrap)  + "¬" +
+        IntToString(sk.sk_disc)     + "¬" +
+        IntToString(sk.sk_heal)     + "¬" +
+        IntToString(sk.sk_hide)     + "¬" +
+        IntToString(sk.sk_listen)   + "¬" +
+        IntToString(sk.sk_lore)     + "¬" +
+        IntToString(sk.sk_movesil)  + "¬" +
+        IntToString(sk.sk_openlock) + "¬" +
+        IntToString(sk.sk_parry)    + "¬" +
+        IntToString(sk.sk_perform)  + "¬" +
+        IntToString(sk.sk_persuade) + "¬" +
+        IntToString(sk.sk_ppocket)  + "¬" +
+        IntToString(sk.sk_search)   + "¬" +
+        IntToString(sk.sk_settrap)  + "¬" +
+        IntToString(sk.sk_spcraft)  + "¬" +
+        IntToString(sk.sk_spot)     + "¬" +
+        IntToString(sk.sk_taunt)    + "¬" +
+        IntToString(sk.sk_umd)      + "¬" +
+        IntToString(sk.sk_appraise) + "¬" +
+        IntToString(sk.sk_tumble)   + "¬" +
+        IntToString(sk.sk_ctrap)    + "¬" +
+        IntToString(sk.sk_bluff)    + "¬" +
+        IntToString(sk.sk_intim)    + "¬" +
+        IntToString(sk.sk_carmor)   + "¬" +
+        IntToString(sk.sk_cweapon)  + "¬" +
+        IntToString(sk.sk_ride));
+    return StringToInt(GetLocalString(oCreature, "NWNX!FUNCS!GETMEETSFEATREQUIREMENTS"));
 }
 
 

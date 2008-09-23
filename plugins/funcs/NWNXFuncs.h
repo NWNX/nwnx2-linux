@@ -62,6 +62,7 @@ void Func_GetLocalVariableByPosition (CGameObject *ob, char *value);
 void Func_GetLocalVariableCount      (CGameObject *ob, char *value);
 void Func_GetMaxHitPointsByLevel     (CGameObject *ob, char *value);
 void Func_GetMaxSpellSlots           (CGameObject *ob, char *value);
+void Func_GetMeetsFeatRequirements   (CGameObject *ob, char *value);
 void Func_GetMemorizedSpell          (CGameObject *ob, char *value);
 void Func_GetPCBodyBag               (CGameObject *ob, char *value);
 void Func_GetPCFileName              (CGameObject *ob, char *value);

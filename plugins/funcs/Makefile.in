@@ -64,6 +64,7 @@ OFILES  = \
     funcs/feat/f_GetKnownFeat.o                  \
     funcs/feat/f_GetKnownFeatByLevel.o           \
     funcs/feat/f_GetKnowsFeat.o                  \
+    funcs/feat/f_GetMeetsFeatRequirements.o      \
     funcs/feat/f_GetRemainingFeatUses.o          \
     funcs/feat/f_GetTotalFeatUses.o              \
     funcs/feat/f_GetTotalKnownFeats.o            \

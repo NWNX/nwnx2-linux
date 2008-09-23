@@ -42,6 +42,8 @@ struct {
     NX_NWN_HOOK(CNWSCreatureClass__AddKnownSpell,                       "55 89 E5 83 EC 08 8A 45 0C 3C 09 8B 4D 08 8B 55 **#14 80"),
     NX_NWN_HOOK(CNWSCreatureClass__RemoveKnownSpell,                    "55 89 E5 83 EC 08 8A 45 0C 3C 09 8B 4D 08 8B 55 **#14 FC"),
     NX_NWN_HOOK(CNWSCreatureStats__AddFeat,                             "55 89 E5 56 53 8B 5D 08 8B 53 04 3B 53 08 8B 75"),
+    NX_NWN_HOOK(CNWSCreatureStats__FeatRequirementsMet,                 "55 89 E5 57 56 53 83 EC 24 8B 55 08 8B 42 24 FF 70 04"),
+    NX_NWN_HOOK(CNWSCreatureStats__FeatRequirementsMetAfterLevelUp,     "55 89 E5 57 56 53 83 EC 54 8A 45 14 88 45 F3 0F B7 45"),
     NX_NWN_HOOK(CNWSCreatureStats__GetACNaturalBase,                    "55 89 E5 57 56 53 83 EC 28 8B 7D 08 C7 45 EC 00 00 00 00 C7 45 F0 00 00"),
     NX_NWN_HOOK(CNWSCreatureStats__GetArmorClassVersus,                 "55 89 E5 57 56 53 81 EC 8C 02 00 00 8B 7D 0C 85"),
     NX_NWN_HOOK(CNWSCreatureStats__GetAttackModifierVersus,             "55 89 E5 57 56 53 81 EC 54 06 00 00 8B 55 08 8B"),
