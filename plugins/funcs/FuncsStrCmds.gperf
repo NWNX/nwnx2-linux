@@ -55,6 +55,10 @@ GETDAMAGEIMMUNITY,                     Func_GetDamageImmunity
 GETENTIREITEMAPPEARANCE,               Func_GetEntireItemAppearance
 GETFACTIONID,                          Func_GetFactionId
 GETGROUNDHEIGHT,                       Func_GetGroundHeight
+GETISCLASSBONUSFEAT,                   Func_GetIsClassBonusFeat
+GETISCLASSGENERALFEAT,                 Func_GetIsClassGeneralFeat
+GETISCLASSGRANTEDFEAT,                 Func_GetIsClassGrantedFeat
+GETISCLASSSKILL,                       Func_GetIsClassSkill
 GETISWALKABLE,                         Func_GetIsWalkable
 GETITEMBYPOSITIONREQUEST,              Func_GetItemByPositionRequest
 GETITEMCOUNT,                          Func_GetItemCount

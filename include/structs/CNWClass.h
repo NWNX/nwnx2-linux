@@ -25,7 +25,7 @@
 #define _NX_NWN_STRUCT_CNWCLASS_
 
 struct CNWClass_s {
-    void               *unknown;
+    u_int32_t           unknown[154];
 };
 
 #endif /* _NX_NWN_STRUCT_CNWCLASS_ */

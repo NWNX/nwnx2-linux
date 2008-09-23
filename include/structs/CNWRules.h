@@ -57,10 +57,10 @@ struct CNWRules_s {
     u_int8_t            field_DE;
     u_int8_t            field_DF;
 
-    CNWClass          **ru_classes;             /* 00E0 */
-    CNWRace           **ru_races;               /* 00E4 */
-    CNWSkill          **ru_skills;              /* 00E8 */
-    CNWDomain         **ru_domains;             /* 00EC */
+    CNWClass           *ru_classes;             /* 00E0 */
+    CNWRace            *ru_races;               /* 00E4 */
+    CNWSkill           *ru_skills;              /* 00E8 */
+    CNWDomain          *ru_domains;             /* 00EC */
 
     CTwoDimArrays      *ru_2das;                /* 00F0 */
 

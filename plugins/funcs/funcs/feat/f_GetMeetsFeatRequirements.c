@@ -63,6 +63,11 @@ void Func_GetMeetsFeatRequirements (CGameObject *ob, char *value) {
     } else {
         CExoArrayList_uint16 taken = { .data = NULL, .len = 0, .alloc = 0 };
         ret = CNWSCreatureStats__FeatRequirementsMet(cre->cre_stats, atoi(value), &taken);
+
+        if (taken.data != NULL) {
+            free(taken.data);
+            taken.data = NULL;
+        }
     }
 
     snprintf(value, strlen(value), "%d", !!ret);

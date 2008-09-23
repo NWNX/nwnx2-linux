@@ -61,6 +61,9 @@ OFILES  = \
     funcs/feat/f_AddKnownFeat.o                  \
     funcs/feat/f_AddKnownFeatAtLevel.o           \
     funcs/feat/f_GetAllRemainingFeatUses.o       \
+    funcs/feat/f_GetIsClassBonusFeat.o           \
+    funcs/feat/f_GetIsClassGeneralFeat.o         \
+    funcs/feat/f_GetIsClassGrantedFeat.o         \
     funcs/feat/f_GetKnownFeat.o                  \
     funcs/feat/f_GetKnownFeatByLevel.o           \
     funcs/feat/f_GetKnowsFeat.o                  \
@@ -120,6 +123,7 @@ OFILES  = \
     funcs/sabil/f_SetSpecialAbility.o            \
     funcs/save/f_GetSavingThrowBonus.o           \
     funcs/save/f_SetSavingThrowBonus.o           \
+    funcs/skill/f_GetIsClassSkill.o              \
     funcs/skill/f_GetPCSkillPoints.o             \
     funcs/skill/f_GetSkillIncreaseByLevel.o      \
     funcs/skill/f_ModifySkillRank.o              \
