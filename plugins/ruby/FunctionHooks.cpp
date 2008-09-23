@@ -192,10 +192,10 @@ int HookFunctions()
 	*(dword*)&CNWVirtualMachineCommands_ExecuteCommand = asmhelp.FindFunctionBySignature("55 89 E5 8B 4D 0C 56 81 F9 ** ** 00 00 53 8B 75 08 7F 3D 8B 56 0C"); //0x082319C0
 
 	*(dword*)&CVirtualMachine_StackPopInteger = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 4D 08 8D 81 70 01 00 00 89 45 F0 8B B9 70 01 00 00 85 FF 7E 0D 4F"); //0x08262988
-	*(dword*)&CVirtualMachine_StackPopFloat = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 4D 08 8D 81 70 01 00 00 89 45 F0 8B 99 70 01 00 00 85 DB 89 5D EC"); //0x08262A64
+	*(dword*)&CVirtualMachine_StackPopFloat  = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 4D 08 8D 81 70 01 00 00 89 45 F0 8B 99 70 01 00 00 85 DB 89 5D EC 7E 0D 4B 8B B9 7C 01 00 00 80 3C 3B 04"); //0x08262A64
 	*(dword*)&CVirtualMachine_StackPopString = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 5D 08 8D 83 70 01 00 00 89 45 F0 8B BB 70 01 00 00 85 FF 7E 0D 4F"); //0x08262BA4
 	*(dword*)&CVirtualMachine_StackPopVector = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 14 8D 5D F0 53 8B 75 08 56 8B 7D 0C E8 ** ** ** ** 89 C2 83 C4 10 83 FA"); //0x08264354
-	*(dword*)&CVirtualMachine_StackPopObject = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 4D 08 8D 81 70 01 00 00 89 45 F0 8B 99 70 01 00 00 85 DB 89 5D EC"); //0x08262D88
+	*(dword*)&CVirtualMachine_StackPopObject = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 4D 08 8D 81 70 01 00 00 89 45 F0 8B 99 70 01 00 00 85 DB 89 5D EC 7E 0D 4B 8B B9 7C 01 00 00 80 3C 3B 06"); //0x08262D88
 	*(dword*)&CVirtualMachine_StackPopEngineStructure = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 5D 08 8D 83 70 01 00 00 89 45 F0 8B BB 70 01 00 00 85 FF 8B 4D 0C"); //0x08262C88
 
 	*(dword*)&CVirtualMachine_StackPushInteger = asmhelp.FindFunctionBySignature("55 89 E5 56 53 83 EC 08 8B 5D 08 8D 83 70 01 00 00 6A 03 8B 75 0C 50 E8"); //0x082642D8
