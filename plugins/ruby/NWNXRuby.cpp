@@ -103,17 +103,26 @@ char *CNWNXRuby::Eval(char *value)
 	try
 	{
 		VALUE retval;
+		char *c_retval;
 		rb_eval_string("Thread.current[:nwnx_context] = true");
-		rb_eval_string_protect(value, &nError);
-		retval = rb_gv_get("$_");
+		retval = rb_eval_string_protect(value, &nError);
 		rb_eval_string("Thread.current[:nwnx_context] = false");
 		if(nError)
 		{
 			Log(0, "Error %d while evaluating a Ruby expression: %s\n", nError, value);
 			return NULL;
 		}
-		if(retval!=Qnil && RSTRING(retval)->ptr)
-			return RSTRING(retval)->ptr;
+		if(retval!=Qnil)
+		{
+			retval = rb_funcall(retval, rb_intern("to_s"), 0);
+			c_retval = rb_string_value_ptr(&retval);
+			if(c_retval)
+			{
+				char *buf = (char *) malloc(strlen(c_retval)+1);
+				strcpy(buf, c_retval);
+				return buf;
+			}
+		}
 		return NULL;
 	}
 	catch(...)
