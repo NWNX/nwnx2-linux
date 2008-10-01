@@ -74,6 +74,14 @@ int Local_GetACWisAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
 
                 default: break;
             }
+
+            if (ranger > 0) {
+                weapon = CNWSInventory__GetItemInSlot(stats->cs_original->cre_equipment,
+                    EQUIPMENT_SLOT_LEFTHAND);
+
+                if (weapon != NULL && weapon->it_baseitem == BASE_ITEM_DWARVENWARAXE)
+                    ranger = 0;
+            }
         }
 
         if (stats->cs_wis_mod <= 20) {
