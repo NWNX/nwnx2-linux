@@ -114,6 +114,7 @@ SETCREATUREEVENTHANDLER,               Func_SetCreatureEventHandler
 SETCREATURESIZE,                       Func_SetCreatureSize
 SETCURRENTHITPOINTS,                   Func_SetCurrentHitPoints
 SETFACTIONID,                          Func_SetFactionId
+SETGENDER,                             Func_SetGender
 SETGOLDPIECEVALUE,                     Func_SetGoldPieceValue
 SETITEMAPPEARANCE,                     Func_SetItemAppearance
 SETITEMCOLOR,                          Func_SetItemColor

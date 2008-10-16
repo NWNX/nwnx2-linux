@@ -21,21 +21,20 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetIsClassGrantedFeat (CGameObject *ob, char *value) {
-    uint8_t level = 0;
-    int ret, idx, feat;
+void Func_SetGender (CGameObject *ob, char *value) {
+    int val;
+    CNWSCreature *cre;
 
-    if (sscanf(value, "%d %d", &idx, &feat) != 2 || idx < 0 || idx >= (*NWN_Rules)->ru_classes_len) {
-        snprintf(value, strlen(value), "0");
+    if (ob == NULL                                    ||
+        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+        cre->cre_stats == NULL                        ||
+        (val = atoi(value)) < 0 || val > 127) {
+
+        snprintf(value, strlen(value), "-1");
         return;
     }
 
-    ret = CNWClass__IsGrantedFeat(&((*NWN_Rules)->ru_classes[idx]), feat, &level);
-
-    if (ret)
-        snprintf(value, strlen(value), "%d", level);
-    else
-        snprintf(value, strlen(value), "%d", 0);
+    cre->cre_stats->cs_gender = val;
 }
 
 

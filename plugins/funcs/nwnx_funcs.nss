@@ -165,6 +165,28 @@ string GetAllRemainingFeatUses (object oCreature);
 /* Restore the remaining feat uses for oCreature from the given string. */
 int RestoreReadyFeats (object oCreature, string sFeats);
 
+/* Check if oCreature meets the requirements to take nFeat. */
+int GetMeetsFeatRequirements (object oCreature, int nFeat);
+
+/* Check if oCreature would be able to take nFeat after taking a level in
+ * nClass, raising nAbility by 1 point, and raising the skills given in
+ * sk. If no ability is being raised, nAbility should be passed as -1. */
+int GetMeetsLevelUpFeatRequirements (object oCreature, int nFeat, int nClass, int nAbility, struct CreatureSkills sk);
+
+/* Check if nFeat is a bonus feat for nClass. */
+int GetIsClassBonusFeat (int nClass, int nFeat);
+
+/* Check if nFeat is a general feat for nClass. */
+int GetIsClassGeneralFeat (int nClass, int nFeat);
+
+/* Check if nFeat is a granted feat for nClass. If it is, return the class
+ * level the feat would be granted on. */
+int GetIsClassGrantedFeat (int nClass, int nFeat);
+
+/* Check if nSkill is a class skill for nClass. If the class cannot raise
+ * the skill at all (e.g. Perform for non-bards), returns -1. */
+int GetIsClassSkill (int nClass, int nSkill);
+
 /* Gets the class taken by oCreature at nLevel. */
 int GetClassByLevel (object oCreature, int nLevel);
 
@@ -188,6 +210,9 @@ int GetMaxHitPointsByLevel (object oCreature, int nLevel);
 
 /* Sets the maximum hit points for oCreature for nLevel to nValue. */
 int SetMaxHitPointsByLevel (object oCreature, int nLevel, int nValue);
+
+/* Sets oCreature's gender using a GENDER_* constant. */
+int SetGender (object oCreature, int nGender);
 
 /* Sets oCreature's size using a CREATURE_SIZE_* constant. */
 int SetCreatureSize (object oCreature, int nSize);
@@ -346,6 +371,21 @@ int SetGoldPieceValue (object oItem, int nValue);
 
 /* Set oItem's weight. Will not persist through zoning or saving. */
 int SetItemWeight (object oItem, int nTenthLbs);
+
+/* Return a string containing the entire appearance for oItem which can later be
+ * passed to RestoreItemAppearance(). */
+string GetEntireItemAppearance (object oItem);
+
+/* Restore an item's appearance with the value returned by GetEntireItemAppearance(). */
+void RestoreItemAppearance (object oItem, string sApp);
+
+/* Directly set an appearance value on an item. This will not be visible to PCs until
+ * the item is refreshed for them (e.g. by logging out and back in). */
+int SetItemAppearance (object oItem, int nIndex, int nValue);
+
+/* Directly set a color value on an item. This will not be visible to PCs until the
+ * item is refreshed for them (e.g. by logging out and back in). */
+int SetItemColor (object oItem, int nIndex, int nColor);
 
 /* Set oPlace's appearance. Will not update for PCs until they re-enter the area. */
 int SetPlaceableAppearance (object oPlace, int nApp);
@@ -634,6 +674,10 @@ int SetMaxHitPointsByLevel (object oCreature, int nLevel, int nValue) {
     return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!SETMAXHITPOINTSBYLEVEL", nLevel, nValue);
 }
 
+
+int SetGender (object oCreature, int nSize) {
+    return NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETGENDER", nSize);
+}
 
 int SetCreatureSize (object oCreature, int nSize) {
     return NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETCREATURESIZE", nSize);

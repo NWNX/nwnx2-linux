@@ -109,6 +109,7 @@ void Func_SetCreatureEventHandler    (CGameObject *ob, char *value);
 void Func_SetCreatureSize            (CGameObject *ob, char *value);
 void Func_SetCurrentHitPoints        (CGameObject *ob, char *value);
 void Func_SetFactionId               (CGameObject *ob, char *value);
+void Func_SetGender                  (CGameObject *ob, char *value);
 void Func_SetGoldPieceValue          (CGameObject *ob, char *value);
 void Func_SetItemAppearance          (CGameObject *ob, char *value);
 void Func_SetItemColor               (CGameObject *ob, char *value);
