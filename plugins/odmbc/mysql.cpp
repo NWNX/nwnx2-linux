@@ -36,18 +36,18 @@ CMySQL::~CMySQL()
 BOOL CMySQL::Connect ()
 {
 	// try to establish a default connection
-	return Connect ("localhost", "nwn", "nwnpwd", "nwn", NULL);
+	return Connect ("localhost", "nwn", "nwnpwd", "nwn", 0, NULL, NULL);
 }
 
 
-BOOL CMySQL::Connect (const char *server, const char *user, const char *pass, const char *db, const char *charset)
+BOOL CMySQL::Connect (const char *server, const char *user, const char *pass, const char *db, unsigned int port, const char *unix_socket, const char *charset)
 {
 	// initialize the mysql structure
 	if (mysql_init (&mysql) == NULL) {
 		return false;
 	}
 	// try to connect to the mysql server
-	connection = mysql_real_connect (&mysql, server, user, pass, db, 0, NULL, 0);
+	connection = mysql_real_connect (&mysql, server, user, pass, db, port, unix_socket, 0);
 	if (connection == NULL) {
 		mysql_close (&mysql);
 		return false;

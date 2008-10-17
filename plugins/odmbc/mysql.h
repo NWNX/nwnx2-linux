@@ -32,7 +32,7 @@ public:
 	~CMySQL();
 
 	BOOL Connect ();
-	BOOL Connect (const char *server, const char *user, const char *pass, const char *db, const char *charset);
+	BOOL Connect (const char *server, const char *user, const char *pass, const char *db, unsigned int port, const char *unix_socket, const char *charset);
 	void Disconnect ();
 
 	BOOL Execute (const uchar* query);

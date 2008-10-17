@@ -65,6 +65,8 @@ private:
 		char *user;
 		char *pass;
 		char *db;
+		unsigned int port;
+		char *socket;
 		char *charset;
 	} p;
 

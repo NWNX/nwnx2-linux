@@ -106,7 +106,21 @@ BOOL CNWNXODBC::Connect()
 	{
 		case dbMYSQL:
 			mysql = new CMySQL();
-			connected = mysql->Connect(p.server, p.user, p.pass, p.db, p.charset);
+			if (strcmp(p.server, "localhost") == 0)
+			{
+				if (p.socket)
+                	Log(2, "o Connecting to localhost, socket=%s\n", p.socket);
+				else
+					Log(2, "o Connecting to localhost, default socket\n");
+			}
+			else if (p.server)
+			{
+				if(p.port)
+					Log(2, "o Connecting to %s, port=%d\n", p.server, p.port);
+				else
+					Log(2, "o Connecting to %s, default port\n", p.server);
+			}
+			connected = mysql->Connect(p.server, p.user, p.pass, p.db, p.port, p.socket, p.charset);
 			db = mysql;
 			break;
 #if SQLITE_SUPPORT == 1
@@ -283,6 +297,10 @@ bool CNWNXODBC::LoadConfiguration ()
 		if(!*p.pass)
 		p.pass      = strdup((char*)((*nwnxConfig)[confKey]["pwd"].c_str()));
 		p.db        = strdup((char*)((*nwnxConfig)[confKey]["db"].c_str()));
+		p.port      = atoi((char*)((*nwnxConfig)[confKey]["port"].c_str()));
+		p.socket    = strdup((char*)((*nwnxConfig)[confKey]["socket"].c_str()));
+		if(p.socket && !*p.socket)
+			p.socket = NULL;		//use default socket if it's not specified in the config
 		p.charset   = strdup((char*)((*nwnxConfig)[confKey]["charset"].c_str()));
 		dbType = dbMYSQL;
 	}
