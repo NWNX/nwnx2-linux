@@ -72,7 +72,8 @@ struct CNWSCreatureStats_s {
 
     CNWSCreatureClass           cs_classes[3];          /* 00A4 */
 
-    uint32_t                    cs_race;                /* 03EC */
+    uint16_t                    cs_race;                /* 03EC */
+    uint16_t                    field_3EE;
     CExoString                  cs_subrace;             /* 03F0 */
 
     uint8_t                     cs_str;                 /* 03F8 */

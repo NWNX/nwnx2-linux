@@ -46,9 +46,6 @@ OFILES  = \
     funcs/f_GetTrueDamageImmunity.o              \
     funcs/f_IntToObject.o                        \
     funcs/f_SetDefenseOption.o                   \
-    funcs/f_GetDefenseOption.o                   \
-    funcs/f_IntToObject.o      			 \
-    funcs/f_SetDefenseOption.o                   \
     hooks/h_AddDamageImmunity.o                  \
     hooks/h_CheckConcealment.o                   \
     hooks/h_CombatHitDamage.o                    \

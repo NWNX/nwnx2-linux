@@ -123,6 +123,7 @@ AC_CONFIG_FILES([
         plugins/reset/Makefile
         plugins/resman/Makefile
         plugins/ruby/Makefile
+        plugins/spells/Makefile
         plugins/structs/Makefile
         plugins/system/Makefile
         plugins/tmi/Makefile

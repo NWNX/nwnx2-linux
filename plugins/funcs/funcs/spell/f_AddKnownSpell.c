@@ -41,10 +41,12 @@ void Func_AddKnownSpell (CGameObject *ob, char *value) {
         if (cre->cre_stats->cs_classes[i].cl_class != sp_class)
             continue;
 
-        if (cre->cre_stats->cs_classes[i].cl_spells_known[sp_level].len < 1)
-            break;
+        if (cre->cre_stats->cs_classes[i].cl_spells_known[sp_level].alloc < 1) {
+            cre->cre_stats->cs_classes[i].cl_spells_known[sp_level].len  = 0;
+            cre->cre_stats->cs_classes[i].cl_spells_known[sp_level].data = NULL;
+        }
 
-        CNWSCreatureClass__AddKnownSpell(&(cre->cre_stats->cs_classes[i]), sp_level, sp_id);
+        CExoArrayList_uint32_add(&(cre->cre_stats->cs_classes[i].cl_spells_known[sp_level]), sp_id);
 
         snprintf(value, strlen(value), "%d", cre->cre_stats->cs_classes[i].cl_spells_known[sp_level].len);
         return;
