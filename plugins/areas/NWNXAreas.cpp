@@ -51,7 +51,7 @@ bool CNWNXAreas::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX Areas version 0.2 for Linux.\n");
+	Log (0, "NWNX Areas version 0.2.1 for Linux.\n");
 	Log (0, "(c) 2006-2008 by virusman (virusman@virusman.ru)\n");
 
 	/*if(nwnxConfig->exists(confKey)) {
@@ -61,7 +61,7 @@ bool CNWNXAreas::OnCreate (gline *config, const char* LogDir)
 		int log_dbg = atoi((*nwnxConfig)[confKey]["log_debug"].c_str());
 		if (log_dbg) logDebug = log_dbg;
 	}*/
-	sleep(2);
+	//sleep(2);
 	
 
 	return(HookFunctions());
@@ -97,6 +97,15 @@ char* CNWNXAreas::OnRequest (char* gameObject, char* Request, char* Parameters)
 	}
 	return NULL;
 }
+
+unsigned long CNWNXAreas::OnRequestObject (char *gameObject, char* Request)
+{
+	if (strncmp(Request, "GET_LAST_AREA_ID", 16) == 0) 	
+	{
+		return nLastAreaID;
+	}
+}
+
 
 bool CNWNXAreas::OnRelease ()
 {

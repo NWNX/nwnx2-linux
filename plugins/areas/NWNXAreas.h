@@ -32,9 +32,12 @@ public:
 	~CNWNXAreas();
 	bool OnCreate(gline *config, const char* LogDir);
 	char* OnRequest(char* gameObject, char* Request, char* Parameters);
+	unsigned long OnRequestObject (char *gameObject, char* Request);
 	bool OnRelease();
 	char *pGameObject;
 	dword nGameObjectID;
+
+	dword nLastAreaID;
 
 protected:
 	void CreateArea(char *value);

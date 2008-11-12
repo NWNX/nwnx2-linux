@@ -62,6 +62,7 @@ void NWNXCreateArea(void *pModule, char *sResRef)
 	areas.Log(0, "AreaID=%08lX", nAreaID);
 	void *pArray = ((dword *)pModule+0x7);
 	CExoArrayList__Add(pArray, nAreaID);
+	areas.nLastAreaID = nAreaID;
 }
 
 int HookFunctions()
