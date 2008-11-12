@@ -1,4 +1,4 @@
-NWNX Events plugin (version 1.2.2)
+NWNX Events plugin (version 1.3.1)
 (requires NWNX Core version 2.7-beta2 or higher)
 
 Provides hooks for the following events:
@@ -61,19 +61,21 @@ You can also use the following lines in your nwnx2.ini file:
 Example script and demo module are included.
 
 ---
-virusman, 04.06.2008
+virusman, 12.11.2008
 
 
 -----------------
 CHANGELOG:
 
-1.3.1 (08.10.2008)
-- add SetGlobalEventHandler()
+1.3.1 (12.11.2008)
+- New function:
+    SetGlobalEventHandler()
 
-1.3.0 (08.01.2008)
-- add EVENT_TYPE_CAST_SPELL (Acaos)
-- add EVENT_TYPE_TOGGLE_PAUSE (elven)
-- add EVENT_TYPE_POSSESS_FAMILIAR (elven)
+1.3.0 (01.08.2008)
+- New events:
+    EVENT_TYPE_CAST_SPELL (Acaos)
+    EVENT_TYPE_TOGGLE_PAUSE (elven)
+    EVENT_TYPE_POSSESS_FAMILIAR (elven)
 
 1.2.2 (04.06.2008)
 - Updated RunScript signature for compatibility with 1.69 beta 10

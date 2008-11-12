@@ -547,55 +547,44 @@ void ToggleModeHookProc(void *pCreature, byte nMode)
 	asm ("jmp %eax");
 }
 
-void CastSpellHookProc()
+void CastSpellHookProc(	void *pCreature,
+							int nSpell,
+							signed int nClassIndex,
+							char nDomainLevel,
+							char nMetaMagic,
+							int a6,
+							CNWSVector vTarget,
+							signed int oTarget,
+							int bTargeted,
+							int a12,
+							int a13,
+							char nProjectilePathType,
+							signed int bInstantSpell,
+							int a16,
+							char a17,
+							char a18)
 {
     asm("pusha");
     if (!scriptRun)
     {
-        //Get oPC
-        asm("mov 0x8(%ebp), %eax");
-        asm("add $4, %eax");
-        asm("mov %eax, oPC");
-
-        //Get oTarget
-        asm("mov 0x2c(%ebp), %eax");
-        asm("mov %eax, oTarget_b");
-        events.oTarget = oTarget_b;
-
-        //Get vTarget
-        asm("mov %ebp, %eax");
-        asm("add $0x20, %eax");
-        asm("mov %eax, buffer");
-        CNWSVector *pvTarget = (CNWSVector *) buffer;
-
-        events.vPosition.x = pvTarget->x;
-        events.vPosition.y = pvTarget->y;
-        events.vPosition.z = pvTarget->z;
+        events.oTarget = oTarget;
+        events.vPosition.x = vTarget.x;
+        events.vPosition.y = vTarget.y;
+        events.vPosition.z = vTarget.z;
 
         //Get spell id, metamagic, and class index
-        asm("mov 0xc(%ebp), %eax");
-        asm("mov %eax, nEventSubID_b");
-        events.nEventSubID = nEventSubID_b;
-
-        asm("mov 0x18(%ebp), %eax");
-        asm("mov %eax, nEventSubID_b");
-        events.nEventSubID |= (nEventSubID_b & 0xFF) << 16;
-
-        asm("mov 0x10(%ebp), %eax");
-        asm("mov %eax, nEventSubID_b");
-        events.nEventSubID |= (nEventSubID_b & 0x07) << 24;
-
+        events.nEventSubID = nSpell;
+        events.nEventSubID |= (nMetaMagic & 0xFF) << 16;
+        events.nEventSubID |= (nClassIndex & 0x07) << 24;
         // instant cast flag
-        asm("mov 0x40(%ebp), %eax");
-        asm("mov %eax, nEventSubID_b");
-        events.nEventSubID |= (!!nEventSubID_b) << 27;
+        events.nEventSubID |= (!!bInstantSpell) << 27;
 
         events.Log(2,
-            "CastSpell: oPC=%08lX, oTarget=%08lX, vTarget=%08lX (%f/%f/%f), nSpellId=%d, nMetaMagic=%d, nClassIndex=%d, nFlags=%d\n",
-            *(dword *) oPC, oTarget_b, pvTarget, pvTarget->x, pvTarget->y,
-            pvTarget->z, (events.nEventSubID & 0xFFFF), ((events.nEventSubID >> 16) & 0xFF),
+            "CastSpell: oPC=%08lX, oTarget=%08lX, vTarget=(%f/%f/%f), nSpellId=%d, nMetaMagic=%d, nClassIndex=%d, nFlags=%d\n",
+            *((dword *)pCreature + 1), oTarget, vTarget.x, vTarget.y,
+            vTarget.z, (events.nEventSubID & 0xFFFF), ((events.nEventSubID >> 16) & 0xFF),
             ((events.nEventSubID >> 24) & 0x07), ((events.nEventSubID >> 27) & 0x0F)),
-        bBypass_b = events.FireEvent(*(dword *) oPC, EVENT_TYPE_CAST_SPELL);
+        bBypass_b = events.FireEvent(*((dword *)pCreature + 1), EVENT_TYPE_CAST_SPELL);
     }
     asm("popa");
     asm("leave");
@@ -785,14 +774,8 @@ int HookFunctions()
 	dword org_UseFeat = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC C4 00 00 00 8B 45 10 66 89 85 72 FF FF FF 0F B7 45 0C 50 8B 55 08");
 	dword org_ToggleMode = asmhelp.FindFunctionBySignature("55 89 E5 53 83 EC 10 8B 5D 08 8A 45 0C 53 88 45 FB E8 ** ** ** ** 83 C4 10 85 C0 0F 85 63 03 00 00");
     dword org_CastSpell = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC 1C 01 00 00 8A 45 3C");
-
-#ifdef NWNX_EVENTS_ELVEN
 	dword org_TogglePause = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 4C 8A 45 0C 88 45 D3 8B 75 08 8B 86 18 00 01 00 89 45 CC 8A 96 A0 00 01 00 31 C0 84 55 D3 0F 95 C0 3B 45 10 0F 84 47 03 00 00 83 7D 10 01 75 4C 0A 55 D3 83 EC 0C 88 96 A0 00 01 00 FF B6 68 00 01 00 E8 ** ** ** ** 83 C4 10 F6 86 A0 00 01 00 02 B0 02 75 09 8A 86 A0 00 01 00");
 	dword org_PossessFamiliar = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 20 6A 01 6A 03 FF 75 08 E8 ** ** ** ** 83 C4 10 3D 00 00 00 7F 0F 84 01 03 00 00 83 EC 08 6A 00 FF 75 08 C7 45 F0 00 00 00 00 E8 ** ** ** ** 83 C4 10 85 C0 74 19 83 EC 18 6A 01 FF 75 08 E8 ** ** ** ** 83 C4 14 50 E8 ** ** ** ** 83 C4 10 8B 45 08 81 78 58 00 00 00 7F 74 0C");
-#else
-        dword org_TogglePause = 0;
-        dword org_PossessFamiliar = 0;
-#endif
 	
 	if (org_SaveChar)
 	{
@@ -845,9 +828,7 @@ int HookFunctions()
 	        org_ExamineItem && org_ExamineCreature && org_ExaminePlaceable &&
 	        org_ExamineDoor && org_UseSkill && org_UseFeat &&
                 org_ToggleMode && org_CastSpell &&
-#ifdef NWNX_EVENTS_ELVEN
                 org_TogglePause && org_PossessFamiliar &&
-#endif
                 org_SendServerToPlayerQuickChatMessage &&
 	        org_Run && pServThis && pScriptThis);
 }

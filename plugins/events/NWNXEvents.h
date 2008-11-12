@@ -42,7 +42,8 @@
 
 enum eNodeType {StartingNode, EntryNode, ReplyNode};
 
-class CNWNXEvents : public CNWNXBase {
+class CNWNXEvents : public CNWNXBase
+{
 
 public:
     CNWNXEvents();
