@@ -1,10 +1,10 @@
-NWNX Functions 1.8.9
+NWNX Functions 1.9.0
 ----
-Updated function signatures for compatibility with 1.69
+Updated offsets for compatibility with 1.69
 ---
 
 virusman
-14.07.2008
+12.11.2008
 
 ------------------------------------------
 Complete function list:
@@ -46,6 +46,10 @@ object IntToObject(int nObjectID);
 
 ------------------------------------------
 Previous versions:
+
+NWNX Functions 1.8.9 (14.07.2008)
+----
+Updated function signatures for compatibility with 1.69
 
 NWNX Functions 1.8.8 (04.06.2008)
 ----

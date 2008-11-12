@@ -51,6 +51,11 @@ void CNWNXFunction::SetGoldPieceValue(char* value)
 void CNWNXFunction::SetTag(char* value)
 {
 #ifdef NWNX_FUNCTIONS_SETTAG_REWRITE
+    // warning: leaks memory, but allows setting a longer tag than the original, plus
+    // there appear to be some cases where rewriting the tag causes corruption
+    *(char **)(pGameObject + 0x18) = strdup(value);
+#else
+	// default behavior
     char* tag = (char*)(*(int*)(pGameObject+0x18));
 
 	int iLength;
@@ -65,10 +70,6 @@ void CNWNXFunction::SetTag(char* value)
 	strncpy(tag, value, iLength);
 
 	*(tag+iLength) = 0x0;
-#else
-    // warning: leaks memory, but allows setting a longer tag than the original, plus
-    // there appear to be some cases where rewriting the tag causes corruption
-    *(char **)(pGameObject + 0x18) = strdup(value);
 #endif
 }
 
