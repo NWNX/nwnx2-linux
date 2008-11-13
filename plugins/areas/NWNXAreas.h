@@ -38,9 +38,6 @@ public:
 	dword nGameObjectID;
 
 	dword nLastAreaID;
-
-protected:
-	void CreateArea(char *value);
 };
 
 #endif

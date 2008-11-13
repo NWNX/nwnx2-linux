@@ -43,7 +43,6 @@ CNWNXAreas::~CNWNXAreas()
 bool CNWNXAreas::OnCreate (gline *config, const char* LogDir)
 {
 	char log[128];
-	bool validate = true, startServer = true;
 
 	// call the base class function
 	sprintf (log, "%s/nwnx_areas.txt", LogDir);
@@ -51,48 +50,24 @@ bool CNWNXAreas::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX Areas version 0.2.1 for Linux.\n");
+	Log (0, "NWNX Areas version 0.2.2 for Linux.\n");
 	Log (0, "(c) 2006-2008 by virusman (virusman@virusman.ru)\n");
 
-	/*if(nwnxConfig->exists(confKey)) {
-		strncpy(eventScript, (*nwnxConfig)[confKey]["event_script"].c_str(), 16);
-		eventScript[16] = 0;
-
-		int log_dbg = atoi((*nwnxConfig)[confKey]["log_debug"].c_str());
-		if (log_dbg) logDebug = log_dbg;
-	}*/
-	//sleep(2);
-	
-
 	return(HookFunctions());
-}
-
-void CNWNXAreas::CreateArea(char *value)
-{
-	/*
-	//void *pAreaList = malloc(0x10);
-	void *pModule = RetObjByOID(0);
-	//void *pAreaList = *((void **)pModule+6);
-	void **pAreaList = (void **)pModule+6;
-	CreateAreaListItem(pAreaList, value);
-	void **pAreaListItem = **(void ****)pAreaList;
-	*(pAreaListItem+1) = pAreaListItem;
-	//int nAreaNum = CExoLinkedListInternal__GetSize(*pAreaList);
-	int nAreaNum = *((int *)pAreaList+2);
-	LoadAreaNum((void **)pModule-7, nAreaNum);
-	*((int *)pAreaList+2) = nAreaNum+1;
-	*(pAreaListItem+1) = NULL;
-	CExoLinkedListInternal__RemoveHead(*pAreaList);
-	*/
 }
 
 char* CNWNXAreas::OnRequest (char* gameObject, char* Request, char* Parameters)
 {
 	this->pGameObject = gameObject;
 	this->nGameObjectID = *(dword *)(gameObject+0x4);
-	if (strncmp(Request, "CREATE_AREA", 9) == 0) 	
+	if (strncmp(Request, "CREATE_AREA", 11) == 0) 	
 	{
 		NWNXCreateArea(gameObject, Parameters);
+		return NULL;
+	}
+	else if (strncmp(Request, "DESTROY_AREA", 12) == 0) 	
+	{
+		NWNXDestroyArea(gameObject, strtol(Parameters, (char **)NULL, 16));
 		return NULL;
 	}
 	return NULL;
@@ -100,10 +75,11 @@ char* CNWNXAreas::OnRequest (char* gameObject, char* Request, char* Parameters)
 
 unsigned long CNWNXAreas::OnRequestObject (char *gameObject, char* Request)
 {
-	if (strncmp(Request, "GET_LAST_AREA_ID", 16) == 0) 	
+	if (strncmp(Request, "GET_LAST_AREA_ID", 16) == 0)
 	{
 		return nLastAreaID;
 	}
+	return OBJECT_INVALID;
 }
 
 

@@ -38,9 +38,14 @@ AssemblyHelper asmhelp;
 void (*CNWSArea__CNWSArea)(void *pArea, CResRef res, int a3, dword ObjID);
 void (*CNWSArea__LoadArea)(void *pArea, int flag);
 void (*CExoArrayList__Add)(void *pArray, dword nObjID);
+void (*CExoArrayList__Remove)(void *pArray, dword nObjID);
+void (*CNWSArea__Destructor)(void *pArea, int flag = 3);
+void *(*GetAreaByGameObjectID)(void *pServerExoAppInternal, dword nObjID);
+
 
 dword pServThis = 0;
 dword pScriptThis = 0;
+dword pServInternal = 0;
 
 CResRef *CResRef____as(CResRef *res, char *str)
 {
@@ -54,15 +59,29 @@ void NWNXCreateArea(void *pModule, char *sResRef)
 	CResRef res;
 	CResRef____as(&res, sResRef);
 	void *pArea = malloc(0x210);
-	areas.Log(0, "Creating area '%s'", sResRef);
+	areas.Log(0, "Creating area '%s'\n", sResRef);
 	CNWSArea__CNWSArea(pArea, res, 0, OBJECT_INVALID);
-	areas.Log(0, "Loading area '%s'", sResRef);
+	areas.Log(0, "Loading area '%s'\n", sResRef);
 	CNWSArea__LoadArea(pArea, 0);
 	dword nAreaID = *((dword *)pArea+0x32);
-	areas.Log(0, "AreaID=%08lX", nAreaID);
+	areas.Log(0, "AreaID=%08lX\n", nAreaID);
 	void *pArray = ((dword *)pModule+0x7);
 	CExoArrayList__Add(pArray, nAreaID);
 	areas.nLastAreaID = nAreaID;
+}
+
+void NWNXDestroyArea(void *pModule, dword nAreaID)
+{
+	if(!nAreaID || nAreaID == OBJECT_INVALID)
+		return;
+	if(!pServInternal)
+		InitConstants();
+	areas.Log(0, "Unregistering area %08lX\n", nAreaID);
+	void *pArray = ((dword *)pModule+0x7);
+	CExoArrayList__Remove(pArray, nAreaID);
+	areas.Log(0, "Destroying area %08lX\n", nAreaID);
+	void *pArea = GetAreaByGameObjectID((void *)pServInternal, nAreaID);
+	CNWSArea__Destructor(pArea);
 }
 
 int HookFunctions()
@@ -77,9 +96,15 @@ int HookFunctions()
 	*(dword*)&CNWSArea__CNWSArea = 0x080CBD30;
 	*(dword*)&CNWSArea__LoadArea = 0x080CDFDC;
 	*(dword*)&CExoArrayList__Add = 0x0805EEE0;
-	
+	*(dword*)&CNWSArea__Destructor = 0x080CC244;
+	*(dword*)&GetAreaByGameObjectID = 0x080B0484;
+	*(dword*)&CExoArrayList__Remove = 0x0805EE88;
 
 	return (org_SaveChar && pServThis && pScriptThis);
 }
 
+void InitConstants()
+{
+	pServInternal = *(*(*(dword***)pServThis + 1) + 1);
+}
 

@@ -27,6 +27,9 @@ int HookFunctions();
 void CreateAreaListItem(void *pAreaList, char* sAreaResRef);
 int LoadAreaNum(void *pModule, int nAreaNum);
 void NWNXCreateArea(void *pModule, char *sResRef);
+void NWNXDestroyArea(void *pModule, dword nAreaID);
+
+void InitConstants();
 
 
 struct CExoString
