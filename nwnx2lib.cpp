@@ -61,12 +61,12 @@ static map<string, CNWNXBase*> Libraries;
 
 static unsigned char jmp_code[] = "\x68\x60\x70\x80\x90"	/* push dword 0x90807060 */
                                   "\xc3\x90\x90";		/* ret , nop , nop       */
-static unsigned char ret_code_ss[0x20];
-static unsigned char ret_code_go[0x20];
+static unsigned char ret_code_ss[0x20] asm("ret_code_ss");
+static unsigned char ret_code_go[0x20] asm("ret_code_go");
 static bool ObjRet = 0;
-static unsigned long oRes;
+static unsigned long oRes asm("oRes");
 
-static unsigned long o_esp;
+static unsigned long o_esp asm("o_esp");
 static unsigned long o_SetString, m_SetString;
 static unsigned long o_GetObject;
 static void (*o_SetStringFunc) (char **, char **);
