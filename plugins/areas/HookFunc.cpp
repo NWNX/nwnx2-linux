@@ -43,7 +43,7 @@ void (*CNWSArea__Destructor)(void *pArea, int flag = 3);
 void *(*GetAreaByGameObjectID)(void *pServerExoAppInternal, dword nObjID);
 
 
-dword pServThis = 0;
+dword pServThis = 0; //g_pAppManager
 dword pScriptThis = 0;
 dword pServInternal = 0;
 
@@ -86,12 +86,8 @@ void NWNXDestroyArea(void *pModule, dword nAreaID)
 
 int HookFunctions()
 {
-	dword org_SaveChar = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC B8 00 00 00 FF 75 08 C7 85 74");
-	if (org_SaveChar)
-	{
-		pServThis = *(dword*)(org_SaveChar + 0x3C);
-		pScriptThis = pServThis - 8;
-	}
+	pServThis = 0x0832F1F4;
+	pScriptThis = pServThis - 8;
 
 	*(dword*)&CNWSArea__CNWSArea = 0x080CBD30;
 	*(dword*)&CNWSArea__LoadArea = 0x080CDFDC;
@@ -100,7 +96,9 @@ int HookFunctions()
 	*(dword*)&GetAreaByGameObjectID = 0x080B0484;
 	*(dword*)&CExoArrayList__Remove = 0x0805EE88;
 
-	return (org_SaveChar && pServThis && pScriptThis);
+    areas.Log(0, "pServThis = %08lX\n", pServThis);
+
+	return (pServThis && pScriptThis);
 }
 
 void InitConstants()
