@@ -25,7 +25,9 @@ int Local_GetACWisAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
 #ifdef NWNX_DEFENSES_HG
     int ranger;
 
-    if (CNWSCreatureStats__HasFeat(stats, FEAT_MONK_AC_BONUS)) {
+    if (stats->cs_original != NULL && stats->cs_original->cre_is_poly) {
+        /* do nothing */
+    } else if (CNWSCreatureStats__HasFeat(stats, FEAT_MONK_AC_BONUS)) {
         if (stats->cs_ac_armour_base == 0 && stats->cs_ac_shield_base == 0) {
             int monk = nwn_GetLevelByClass(stats, CLASS_TYPE_MONK);
 
@@ -93,13 +95,6 @@ int Local_GetACWisAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
                 adj += wisac;
         } else if (ranger > 20)
             adj += (stats->cs_wis_mod > ranger ? ranger : stats->cs_wis_mod);
-
-    } else if (nwn_GetLevelByClass(stats, CLASS_TYPE_SHIFTER) > 20 &&
-               stats->cs_ac_armour_base == 0                       &&
-               stats->cs_ac_shield_base == 0) {
-
-        if (stats->cs_wis_mod > 3)
-            adj += stats->cs_wis_mod - 3;
     }
 #endif
 
