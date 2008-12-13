@@ -49,6 +49,7 @@ OFILES  = \
     hooks/h_AddDamageImmunity.o                  \
     hooks/h_CheckConcealment.o                   \
     hooks/h_CombatHitDamage.o                    \
+    hooks/h_ConfirmCritical.o                    \
     hooks/h_GetACNaturalBase.o                   \
     hooks/h_GetDamageImmunity.o                  \
     hooks/h_GetHasSlipperyMind.o                 \
@@ -72,6 +73,7 @@ OFILES  = \
     local/l_GetACTumbleAdjustment.o              \
     local/l_GetACWisAdjustment.o                 \
     local/l_GetConcealmentCheckResult.o          \
+    local/l_GetCritConfirmationResult.o          \
     local/l_GetDamageImmunity.o                  \
     local/l_GetHasSlipperyMind.o                 \
     local/l_GetIsDeathAttackImmune.o             \

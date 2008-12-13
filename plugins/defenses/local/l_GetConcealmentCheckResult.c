@@ -128,6 +128,21 @@ int Local_GetConcealmentCheckResult (CNWSCreature *attacker, CNWSCreature *targe
             lis += 30.0;
     }
 
+    if (lis > 0.0) {
+        int i;
+        const CGameEffect *eff;
+
+        for (i = 0; i < attacker->obj.obj_effects_len; i++) {
+            if ((eff = attacker->obj.obj_effects[i]) == NULL)
+                continue;
+
+            if (eff->eff_type == EFFECT_TRUETYPE_DEAF) {
+                lis *= 0.5;
+                break;
+            }
+        }
+    }
+
 
     if (!target->cre_is_pc) {
         if (CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_SKILL_FOCUS_MOVE_SILENTLY))

@@ -31,6 +31,7 @@
 
 static unsigned char *Ref_CheckConcealment;
 static unsigned char *Ref_CombatHitDamage;
+static unsigned char *Ref_ConfirmCritical;
 static unsigned char *Ref_DamageImmunityAlloc;
 static unsigned char *Ref_DamageImmunitySet1;
 static unsigned char *Ref_DamageImmunitySet2;
@@ -58,6 +59,7 @@ static struct DefenseSignatureTable {
 
     NWNX_DEFENSES_SIG(Ref_CheckConcealment,      "C7 45 BC 0A 00 00 00 8B 5D C0 85 DB 7F ** 8B 4D"),
     NWNX_DEFENSES_SIG(Ref_CombatHitDamage,       "FF 5A 59 6A 01 50 ** ** ** ** ** 83 C4 10 85 C0 78 36 83 EC"),
+    NWNX_DEFENSES_SIG(Ref_ConfirmCritical,       "85 C0 75 ** 83 EC 08 68 80 03 00 00 8B 45 94 FF B0 64|68 0C 00 00 E8"),
     NWNX_DEFENSES_SIG(Ref_DamageImmunityAlloc,   "6A 0D E8 ** ** ** ** 89 83 78 01 00 00 31 D2 83 C4 10 90 8B 83 78 01"),
     NWNX_DEFENSES_SIG(Ref_DamageImmunitySet1,    "53 52 FF 90 BC|C0 00 00 00 0F BE C0 83 C4 0C 8D 04"),
     NWNX_DEFENSES_SIG(Ref_DamageImmunitySet2,    "53 57 FF 90 BC|C0 00 00 00 0F BE C0 83 C4 0C 2B 45"),
@@ -431,6 +433,24 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
 
         for (i = 33; i < 94; i++)
             Ref_DeathAttackImmune[i] = 0x90;    /* NOP */
+    }
+
+
+    /* critical confirmation check */
+    if (Ref_ConfirmCritical != NULL) {
+        unsigned char *p = Ref_ConfirmCritical;
+
+        nx_hook_enable_write(p, 28);
+
+        p[7]  = 0xFF;   /* PUSH DWORD PTR [EBP+8] */
+        p[8]  = 0x75;
+        p[9]  = 0x08;
+
+        p[10] = 0x90;   /* NOP */
+        p[11] = 0x90;   /* NOP */
+
+        *(unsigned long *)(p + 22) = (unsigned long)Hook_ConfirmCritical -
+            (unsigned long)(p + 26);
     }
 
 
