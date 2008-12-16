@@ -1,11 +1,11 @@
 /* ANSI-C code produced by gperf version 3.0.3 */
-/* Command-line: gperf -L ANSI-C -tCG -m 10 -K name -H SpellsObjCommandHash -N SpellsObjCommandLookup -W SpellsObjCommandList --output-file=gperf.out SpellsObjCmds.gperf  */
+/* Command-line: gperf -L ANSI-C -tCG -m 10 -K name -H TweaksObjCommandHash -N TweaksObjCommandLookup -W TweaksObjCommandList --output-file=gperf.out TweaksObjCmds.gperf  */
 /* Computed positions: -k'' */
 
-#line 1 "SpellsObjCmds.gperf"
+#line 1 "TweaksObjCmds.gperf"
 
 /***************************************************************************
-    NWNXSpells.h - Interface for the CNWNXSpells class.
+    NWNXTweaks.h - Interface for the CNWNXTweaks class.
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
@@ -23,24 +23,24 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-#ifndef NWNX_SPELLS_OBJCMDS_H
-#define NWNX_SPELLS_OBJCMDS_H
+#ifndef NWNX_TWEAKS_OBJCMDS_H
+#define NWNX_TWEAKS_OBJCMDS_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#line 30 "SpellsObjCmds.gperf"
-struct SpellsObjCommand_s {
+#line 30 "TweaksObjCmds.gperf"
+struct TweaksObjCommand_s {
     const char          *name;
     nwn_objid_t        (*func)(CGameObject *);
 };
 
-#define NWNX_SPELLS_OBJCMD_TOTAL_KEYWORDS 1
-#define NWNX_SPELLS_OBJCMD_MIN_WORD_LENGTH 11
-#define NWNX_SPELLS_OBJCMD_MAX_WORD_LENGTH 11
-#define NWNX_SPELLS_OBJCMD_MIN_HASH_VALUE 11
-#define NWNX_SPELLS_OBJCMD_MAX_HASH_VALUE 11
+#define NWNX_TWEAKS_OBJCMD_TOTAL_KEYWORDS 1
+#define NWNX_TWEAKS_OBJCMD_MIN_WORD_LENGTH 11
+#define NWNX_TWEAKS_OBJCMD_MAX_WORD_LENGTH 11
+#define NWNX_TWEAKS_OBJCMD_MIN_HASH_VALUE 11
+#define NWNX_TWEAKS_OBJCMD_MAX_HASH_VALUE 11
 /* maximum key range = 1, duplicates = 0 */
 
 #ifdef __GNUC__
@@ -52,16 +52,16 @@ inline
 #endif
 /*ARGSUSED*/
 static unsigned int
-SpellsObjCommandHash (register const char *str, register unsigned int len)
+TweaksObjCommandHash (register const char *str, register unsigned int len)
 {
   return len;
 }
 
-static const struct SpellsObjCommand_s SpellsObjCommandList[] =
+static const struct TweaksObjCommand_s TweaksObjCommandList[] =
   {
     {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
     {""}, {""},
-#line 36 "SpellsObjCmds.gperf"
+#line 36 "TweaksObjCmds.gperf"
     {"INTTOOBJECT",                            Func_IntToObject}
   };
 
@@ -71,30 +71,30 @@ __inline
 __attribute__ ((__gnu_inline__))
 #endif
 #endif
-static const struct SpellsObjCommand_s *
-SpellsObjCommandLookup (register const char *str, register unsigned int len)
+static const struct TweaksObjCommand_s *
+TweaksObjCommandLookup (register const char *str, register unsigned int len)
 {
-  if (len <= NWNX_SPELLS_OBJCMD_MAX_WORD_LENGTH && len >= NWNX_SPELLS_OBJCMD_MIN_WORD_LENGTH)
+  if (len <= NWNX_TWEAKS_OBJCMD_MAX_WORD_LENGTH && len >= NWNX_TWEAKS_OBJCMD_MIN_WORD_LENGTH)
     {
-      register int key = SpellsObjCommandHash (str, len);
+      register int key = TweaksObjCommandHash (str, len);
 
-      if (key <= NWNX_SPELLS_OBJCMD_MAX_HASH_VALUE && key >= 0)
+      if (key <= NWNX_TWEAKS_OBJCMD_MAX_HASH_VALUE && key >= 0)
         {
-          register const char *s = SpellsObjCommandList[key].name;
+          register const char *s = TweaksObjCommandList[key].name;
 
           if (*str == *s && !strcmp (str + 1, s + 1))
-            return &SpellsObjCommandList[key];
+            return &TweaksObjCommandList[key];
         }
     }
   return 0;
 }
-#line 37 "SpellsObjCmds.gperf"
+#line 37 "TweaksObjCmds.gperf"
 
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* NWNX_SPELLS_OBJCMDS_H */
+#endif /* NWNX_TWEAKS_OBJCMDS_H */
 
 /* vim: set sw=4: */

@@ -127,6 +127,7 @@ AC_CONFIG_FILES([
         plugins/structs/Makefile
         plugins/system/Makefile
         plugins/tmi/Makefile
+        plugins/tweaks/Makefile
         plugins/weapons/Makefile
         $extraplugins ])
 

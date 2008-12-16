@@ -96,6 +96,7 @@ struct {
     NX_NWN_HOOK(CNWSCreature__GetIsCreatureBumpable,                    "55 89 E5 57 56 53 83 EC 0C 8B 7D 08 C7 45 EC 00 00 00 00 8B 87 38 0B 00"),
     NX_NWN_HOOK(CNWSCreature__GetRelativeWeaponSize,                    "55 89 E5 53 83 EC 0C 8B 45 08 8B 55 0C 8B 98 D8"),
     NX_NWN_HOOK(CNWSCreature__RemoveFromArea,                           "55 89 E5 57 56 53 83 EC ** FF 75 08 E8 ** ** ** ** 83 C4 10 85 C0 74 1A"),
+    NX_NWN_HOOK(CNWSCreature__SendFeedbackMessage,                      "55 89 E5 57 56 53 83 EC 0C 8B 75 14 85 F6 8B 5D"),
     NX_NWN_HOOK(CNWSCreature__UseItem,                                  "55 89 E5 57 56 53 81 EC ** 00 00 00 8A 45 10 8A 55 14 88 45 ** 88 55 **"),
     NX_NWN_HOOK(CNWSCreature__UseItem,                                  "55 89 E5 57 56 53 83 EC 64 8A 45 10 8A 4D 14 88 45 A7 88 4D A6 FF 75 0C C7 45 A0 00 00 00 00"),
     NX_NWN_HOOK(CNWSFaction__AddMember,                                 "55 89 E5 57 56 53 ** ** ** A1 ** ** ** ** 8B 40 04 FF 75 0C **#19 0C"),

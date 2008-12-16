@@ -63,7 +63,7 @@ SpellsStrCmds.h: SpellsStrCmds.gperf
 	$(GPERF) -L ANSI-C -tCG -m 10 -K name -H SpellsStrCommandHash \
 	  -N SpellsStrCommandLookup -W SpellsStrCommandList \
 	  "SpellsStrCmds.gperf" --output-file="gperf.out"
-	$(SED) -i 's/\<\(\(MIN\|MAX\)_\(WORD_LENGTH\|HASH_VALUE\)\|TOTAL_KEYWORDS\)\>/NWNX_DEFENSES_STRCMD_\1/g' \
+	$(SED) -i 's/\<\(\(MIN\|MAX\)_\(WORD_LENGTH\|HASH_VALUE\)\|TOTAL_KEYWORDS\)\>/NWNX_SPELLS_STRCMD_\1/g' \
 	  "gperf.out" || rm -f "gperf.out"
 	$(SED) -i 's/^const struct/static const struct/' "gperf.out" || rm -f "gperf.out"
 	$(MV) "gperf.out" "SpellsStrCmds.h"
@@ -72,7 +72,7 @@ SpellsObjCmds.h: SpellsObjCmds.gperf
 	$(GPERF) -L ANSI-C -tCG -m 10 -K name -H SpellsObjCommandHash \
 	  -N SpellsObjCommandLookup -W SpellsObjCommandList \
 	  "SpellsObjCmds.gperf" --output-file="gperf.out"
-	$(SED) -i 's/\<\(\(MIN\|MAX\)_\(WORD_LENGTH\|HASH_VALUE\)\|TOTAL_KEYWORDS\)\>/NWNX_DEFENSES_OBJCMD_\1/g' \
+	$(SED) -i 's/\<\(\(MIN\|MAX\)_\(WORD_LENGTH\|HASH_VALUE\)\|TOTAL_KEYWORDS\)\>/NWNX_SPELLS_OBJCMD_\1/g' \
 	  "gperf.out" || rm -f "gperf.out"
 	$(SED) -i 's/^const struct/static const struct/' "gperf.out" || rm -f "gperf.out"
 	$(MV) "gperf.out" "SpellsObjCmds.h"

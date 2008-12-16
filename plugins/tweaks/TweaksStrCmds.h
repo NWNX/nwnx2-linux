@@ -1,5 +1,5 @@
 /* ANSI-C code produced by gperf version 3.0.3 */
-/* Command-line: gperf -L ANSI-C -tCG -m 10 -K name -H SpellsStrCommandHash -N SpellsStrCommandLookup -W SpellsStrCommandList --output-file=gperf.out SpellsStrCmds.gperf  */
+/* Command-line: gperf -L ANSI-C -tCG -m 10 -K name -H TweaksStrCommandHash -N TweaksStrCommandLookup -W TweaksStrCommandList --output-file=gperf.out TweaksStrCmds.gperf  */
 /* Computed positions: -k'1' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
@@ -29,10 +29,10 @@
 #error "gperf generated tables don't work with this execution character set. Please report a bug to <bug-gnu-gperf@gnu.org>."
 #endif
 
-#line 1 "SpellsStrCmds.gperf"
+#line 1 "TweaksStrCmds.gperf"
 
 /***************************************************************************
-    NWNXSpells.h - Interface for the CNWNXSpells class.
+    NWNXTweaks.h - Interface for the CNWNXTweaks class.
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
@@ -50,24 +50,24 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-#ifndef NWNX_SPELLS_STRCMDS_H
-#define NWNX_SPELLS_STRCMDS_H
+#ifndef NWNX_TWEAKS_STRCMDS_H
+#define NWNX_TWEAKS_STRCMDS_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#line 30 "SpellsStrCmds.gperf"
-struct SpellsStrCommand_s {
+#line 30 "TweaksStrCmds.gperf"
+struct TweaksStrCommand_s {
     const char  *name;
     void       (*func)(CGameObject *, char *);
 };
 
-#define NWNX_SPELLS_STRCMD_TOTAL_KEYWORDS 2
-#define NWNX_SPELLS_STRCMD_MIN_WORD_LENGTH 14
-#define NWNX_SPELLS_STRCMD_MAX_WORD_LENGTH 14
-#define NWNX_SPELLS_STRCMD_MIN_HASH_VALUE 14
-#define NWNX_SPELLS_STRCMD_MAX_HASH_VALUE 15
+#define NWNX_TWEAKS_STRCMD_TOTAL_KEYWORDS 2
+#define NWNX_TWEAKS_STRCMD_MIN_WORD_LENGTH 14
+#define NWNX_TWEAKS_STRCMD_MAX_WORD_LENGTH 14
+#define NWNX_TWEAKS_STRCMD_MIN_HASH_VALUE 14
+#define NWNX_TWEAKS_STRCMD_MAX_HASH_VALUE 15
 /* maximum key range = 2, duplicates = 0 */
 
 #ifdef __GNUC__
@@ -78,7 +78,7 @@ inline
 #endif
 #endif
 static unsigned int
-SpellsStrCommandHash (register const char *str, register unsigned int len)
+TweaksStrCommandHash (register const char *str, register unsigned int len)
 {
   static const unsigned char asso_values[] =
     {
@@ -112,14 +112,14 @@ SpellsStrCommandHash (register const char *str, register unsigned int len)
   return len + asso_values[(unsigned char)str[0]];
 }
 
-static const struct SpellsStrCommand_s SpellsStrCommandList[] =
+static const struct TweaksStrCommand_s TweaksStrCommandList[] =
   {
     {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
     {""}, {""}, {""}, {""}, {""},
-#line 37 "SpellsStrCmds.gperf"
-    {"SETSPELLOPTION",                         Func_SetSpellOption},
-#line 36 "SpellsStrCmds.gperf"
-    {"GETSPELLOPTION",                         Func_GetSpellOption}
+#line 37 "TweaksStrCmds.gperf"
+    {"SETTWEAKOPTION",                         Func_SetTweakOption},
+#line 36 "TweaksStrCmds.gperf"
+    {"GETTWEAKOPTION",                         Func_GetTweakOption}
   };
 
 #ifdef __GNUC__
@@ -128,30 +128,30 @@ __inline
 __attribute__ ((__gnu_inline__))
 #endif
 #endif
-static const struct SpellsStrCommand_s *
-SpellsStrCommandLookup (register const char *str, register unsigned int len)
+static const struct TweaksStrCommand_s *
+TweaksStrCommandLookup (register const char *str, register unsigned int len)
 {
-  if (len <= NWNX_SPELLS_STRCMD_MAX_WORD_LENGTH && len >= NWNX_SPELLS_STRCMD_MIN_WORD_LENGTH)
+  if (len <= NWNX_TWEAKS_STRCMD_MAX_WORD_LENGTH && len >= NWNX_TWEAKS_STRCMD_MIN_WORD_LENGTH)
     {
-      register int key = SpellsStrCommandHash (str, len);
+      register int key = TweaksStrCommandHash (str, len);
 
-      if (key <= NWNX_SPELLS_STRCMD_MAX_HASH_VALUE && key >= 0)
+      if (key <= NWNX_TWEAKS_STRCMD_MAX_HASH_VALUE && key >= 0)
         {
-          register const char *s = SpellsStrCommandList[key].name;
+          register const char *s = TweaksStrCommandList[key].name;
 
           if (*str == *s && !strcmp (str + 1, s + 1))
-            return &SpellsStrCommandList[key];
+            return &TweaksStrCommandList[key];
         }
     }
   return 0;
 }
-#line 38 "SpellsStrCmds.gperf"
+#line 38 "TweaksStrCmds.gperf"
 
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* NWNX_SPELLS_STRCMDS_H */
+#endif /* NWNX_TWEAKS_STRCMDS_H */
 
 /* vim: set sw=4: */

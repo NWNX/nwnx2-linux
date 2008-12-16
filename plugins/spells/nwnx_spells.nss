@@ -1,6 +1,6 @@
-/* interface functions for nwnx_defenses plugin */
+/* interface functions for nwnx_spells plugin */
 
-/* Set minimum/maximum alignment values for paladin/blackguard saves. */
+/* No options yet. */
 const int NWNX_SPELLS_OPT_NO_OPTIONS_YET                  =   0; 
 
 
