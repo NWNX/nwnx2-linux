@@ -5922,7 +5922,7 @@ else
 fi
 
 
-ac_config_files="$ac_config_files Makefile plugins/spells/Makefile plugins/tweaks/Makefile $extraplugins"
+ac_config_files="$ac_config_files Makefile plugins/chat/Makefile plugins/db/Makefile plugins/defenses/Makefile plugins/events/Makefile plugins/fixes/Makefile plugins/funcs/Makefile plugins/functions/Makefile plugins/hashset/Makefile plugins/mnx/Makefile plugins/odmbc/Makefile plugins/profiler/Makefile plugins/reset/Makefile plugins/resman/Makefile plugins/ruby/Makefile plugins/spells/Makefile plugins/structs/Makefile plugins/system/Makefile plugins/tmi/Makefile plugins/tweaks/Makefile plugins/weapons/Makefile $extraplugins"
 
 
 cat >confcache <<\_ACEOF
@@ -6479,8 +6479,26 @@ do
   case $ac_config_target in
     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "plugins/chat/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/chat/Makefile" ;;
+    "plugins/db/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/db/Makefile" ;;
+    "plugins/defenses/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/defenses/Makefile" ;;
+    "plugins/events/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/events/Makefile" ;;
+    "plugins/fixes/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/fixes/Makefile" ;;
+    "plugins/funcs/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/funcs/Makefile" ;;
+    "plugins/functions/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/functions/Makefile" ;;
+    "plugins/hashset/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/hashset/Makefile" ;;
+    "plugins/mnx/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/mnx/Makefile" ;;
+    "plugins/odmbc/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/odmbc/Makefile" ;;
+    "plugins/profiler/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/profiler/Makefile" ;;
+    "plugins/reset/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/reset/Makefile" ;;
+    "plugins/resman/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/resman/Makefile" ;;
+    "plugins/ruby/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/ruby/Makefile" ;;
     "plugins/spells/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/spells/Makefile" ;;
+    "plugins/structs/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/structs/Makefile" ;;
+    "plugins/system/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/system/Makefile" ;;
+    "plugins/tmi/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/tmi/Makefile" ;;
     "plugins/tweaks/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/tweaks/Makefile" ;;
+    "plugins/weapons/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/weapons/Makefile" ;;
     "$extraplugins") CONFIG_FILES="$CONFIG_FILES $extraplugins" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
