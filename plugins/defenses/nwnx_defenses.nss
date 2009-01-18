@@ -130,6 +130,12 @@ int GetHasSpellImmunity (int nSpellId, object oCreature=OBJECT_SELF, int nSpellS
     return NWNXDefensesFour(oCreature, "NWNX!DEFENSES!GETHASSPELLIMMUNITY", nSpellId, nSpellSchool, nSpellLevel, nDurType);
 }
 
+int GetSavingThrowVersus (object oCreature, int nSave, int nSaveType=SAVING_THROW_TYPE_NONE, object oVersus=OBJECT_SELF) {
+    SetLocalString(oCreature, "NWNX!DEFENSES!GETSAVINGTHROWVERSUS",
+        IntToString(nSave) + " " + IntToString(nSaveType) + " " + ObjectToString(oVersus));
+    return StringToInt(GetLocalString(oCreature, "NWNX!DEFENSES!GETSAVINGTHROWVERSUS"));
+}
+
 int GetTrueDamageImmunity (object oCreature, int nDamType) {
     return NWNXDefensesOne(oCreature, "NWNX!DEFENSES!GETTRUEDAMAGEIMMUNITY", nDamType);
 }

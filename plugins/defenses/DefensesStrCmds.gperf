@@ -40,6 +40,7 @@ GETDEFENSEOPTION,                       Func_GetDefenseOption
 GETEFFECTDAMAGEREDUCTION,               Func_GetEffectDamageReduction
 GETEFFECTDAMAGERESISTANCE,              Func_GetEffectDamageResistance
 GETHASSPELLIMMUNITY,                    Func_GetHasSpellImmunity
+GETSAVINGTHROWVERSUS,                   Func_GetSavingThrowVersus
 GETTRUEDAMAGEIMMUNITY,                  Func_GetTrueDamageImmunity
 SETDEFENSEOPTION,                       Func_SetDefenseOption
 %%

@@ -63,7 +63,7 @@ struct DefensesStrCommand_s {
     void       (*func)(CGameObject *, char *);
 };
 
-#define NWNX_DEFENSES_STRCMD_TOTAL_KEYWORDS 9
+#define NWNX_DEFENSES_STRCMD_TOTAL_KEYWORDS 10
 #define NWNX_DEFENSES_STRCMD_MIN_WORD_LENGTH 11
 #define NWNX_DEFENSES_STRCMD_MAX_WORD_LENGTH 25
 #define NWNX_DEFENSES_STRCMD_MIN_HASH_VALUE 12
@@ -121,15 +121,16 @@ static const struct DefensesStrCommand_s DefensesStrCommandList[] =
 #line 36 "DefensesStrCmds.gperf"
     {"GETACBYTYPE",                            Func_GetACByType},
     {""}, {""},
-#line 44 "DefensesStrCmds.gperf"
+#line 45 "DefensesStrCmds.gperf"
     {"SETDEFENSEOPTION",                       Func_SetDefenseOption},
 #line 39 "DefensesStrCmds.gperf"
     {"GETDEFENSEOPTION",                       Func_GetDefenseOption},
     {""}, {""},
 #line 42 "DefensesStrCmds.gperf"
     {"GETHASSPELLIMMUNITY",                    Func_GetHasSpellImmunity},
-    {""},
 #line 43 "DefensesStrCmds.gperf"
+    {"GETSAVINGTHROWVERSUS",                   Func_GetSavingThrowVersus},
+#line 44 "DefensesStrCmds.gperf"
     {"GETTRUEDAMAGEIMMUNITY",                  Func_GetTrueDamageImmunity},
 #line 38 "DefensesStrCmds.gperf"
     {"GETALLSPELLIMMUNITIES",                  Func_GetAllSpellImmunities},
@@ -163,7 +164,7 @@ DefensesStrCommandLookup (register const char *str, register unsigned int len)
     }
   return 0;
 }
-#line 45 "DefensesStrCmds.gperf"
+#line 46 "DefensesStrCmds.gperf"
 
 
 #ifdef __cplusplus
