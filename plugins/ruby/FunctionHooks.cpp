@@ -113,7 +113,10 @@ int StackPopString(char **buf)
 	str->Text = NULL;
 	str->Length = 0;
 	int retval = CVirtualMachine_StackPopString(*g_pVirtualMachine, str);
-	*buf = str->Text;
+	if (!str->Text)
+		*buf = "";
+	else
+		*buf = str->Text;
 	free(str);
 	return retval;
 }
