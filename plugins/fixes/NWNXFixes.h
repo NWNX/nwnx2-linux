@@ -20,6 +20,8 @@
 #ifndef NWNXFixes_h_
 #define NWNXFixes_h_
 
+#include <map>
+#include <string>
 #include "NWNXBase.h"
 #include "typedefs.h"
 
@@ -33,6 +35,8 @@ public:
 	char* OnRequest (char* gameObject, char* Request, char* Parameters);
 	unsigned long OnRequestObject (char *gameObject, char* Request);
 	bool bHooked;
+
+	StringMap pluginConfig;
 
 private:
 

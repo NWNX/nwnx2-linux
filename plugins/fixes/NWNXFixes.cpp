@@ -47,9 +47,12 @@ bool CNWNXFixes::OnCreate(gline *config, const char *LogDir)
 	// call the base class function
 	if (!CNWNXBase::OnCreate(config,log))
 		return false;
-	Log(0,"NWNX Fixes 1.0.4\n");
-	Log(0,"(c) by virusman, 2007-2008\n");
+	Log(0,"NWNX Fixes 1.0.5\n");
+	Log(0,"(c) by virusman, 2007-2009\n");
 	Log(0,"visit us at http://www.nwnx.org\n\n");
+
+	pluginConfig = (*nwnxConfig)[confKey];
+	
 	if (FindHookFunctions())
 	{
 		bHooked=1;
@@ -71,8 +74,9 @@ char* CNWNXFixes::OnRequest (char *gameObject, char* Request, char* Parameters)
 	Log(2,"Request: \"%s\"\n",Request);
 	Log(3,"Params:  \"%s\"\n",Parameters);
 
-	if (strncmp(Request, "SETGOLDPIECEVALUE", 17) == 0) 	
+	if (strncmp(Request, "SETMINHPLIMIT", 13) == 0) 	
 	{
+	
 	}
 	return NULL;
 }

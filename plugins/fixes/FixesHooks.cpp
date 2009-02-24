@@ -267,29 +267,31 @@ int FindHookFunctions()
 	fixes.Log(2, "AIActionDialogObject_middle: %08lX\n", pAIActionDialogObject_middle);
 
 
-	if(pSplitItem_Copy)
+	if(pSplitItem_Copy && atoi(fixes.pluginConfig["copy_vars"].c_str()))
 	{
+		fixes.Log(2, "copy_vars = 1\n");
 		d_enable_write((dword) pSplitItem_Copy);
 		if(pSplitItem_Copy[0x3F]==0x6A) pSplitItem_Copy[0x40] = 0x1;
 		else fixes.Log(2, "Couldn't patch the SplitItem_Copy function\n");
 	}
 
-	if(pBuyItem)
+	if(pBuyItem && atoi(fixes.pluginConfig["copy_vars"].c_str()))
 	{
 		d_enable_write((dword) pBuyItem);
 		if(pBuyItem[0x60]==0x6A) pBuyItem[0x61] = 0x1;
 		else fixes.Log(2, "Couldn't patch the BuyItem function\n");
 	}
 
-	if(pMergeItems_RemoveItem)
+	if(pMergeItems_RemoveItem && atoi(fixes.pluginConfig["copy_vars"].c_str()))
 	{
 		d_enable_write((dword) pMergeItems_RemoveItem);
 		if(pMergeItems_RemoveItem[0xE]==0x6A) pMergeItems_RemoveItem[0xF] = 0x0;
 		else fixes.Log(2, "Couldn't patch the MergeItems_RemoveItem function\n");
 	}
 
-	if(pAIActionDialogObject_middle)
+	if(pAIActionDialogObject_middle && atoi(fixes.pluginConfig["keep_hidden_in_conversation"].c_str()))
 	{
+		fixes.Log(2, "keep_hidden_in_conversation = 1\n");
 		d_enable_write((dword) pAIActionDialogObject_middle);
 		if(pAIActionDialogObject_middle[0x65] == 0x6A && pAIActionDialogObject_middle[0x66] == 0x00)
 		{
@@ -302,7 +304,11 @@ int FindHookFunctions()
 		else fixes.Log(2, "Couldn't patch the AIActionDialogObject function\n");
 	}
 	
-	if(pGetIsMergeable) d_redirect((unsigned long)pGetIsMergeable, (unsigned long)GetIsMergeableHookProc, d_ret_code_merg, 9);
+	if(pGetIsMergeable && atoi(fixes.pluginConfig["compare_vars"].c_str()))
+	{
+		fixes.Log(2, "compare_vars = 1\n");
+		d_redirect((unsigned long)pGetIsMergeable, (unsigned long)GetIsMergeableHookProc, d_ret_code_merg, 9);
+	}
 
 	if(!(pGetIsMergeable && pSplitItem_Copy && pBuyItem && pMergeItems_RemoveItem))
 	{
