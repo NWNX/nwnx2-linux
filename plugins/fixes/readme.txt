@@ -1,8 +1,12 @@
-NWNX Fixes 1.0.4
+NWNX Fixes 1.0.5
 
 This plugin is intended to provide various fixes and patches to NWServer.
 
-1.0.4 (14.07.2007):
+1.0.5 (25.02.2009):
+- The plugin is now configurable - an example ini file has been added
+- New tweak: ability to set negative HP limit
+
+1.0.4 (14.07.2008):
 - New tweak: starting conversation now doesn't unhide a creature
 - Updated function signatures for compatibility with 1.69
 
@@ -20,8 +24,6 @@ This plugin is intended to provide various fixes and patches to NWServer.
  * Items with different local vars don't stack
  * When you split a stack, all vars get copied
  * When you buy an item marked as infinite from a store, the vars also get copied
-
-In future releases the plugin will be configurable.
 
 ---
 virusman
