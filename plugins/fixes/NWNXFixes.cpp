@@ -85,3 +85,9 @@ unsigned long CNWNXFixes::OnRequestObject (char *gameObject, char* Request)
 {
 	return OBJECT_INVALID;
 }
+
+int CNWNXFixes::GetConfInteger(const char *key)
+{
+	return atoi(pluginConfig[key].c_str());
+}
+

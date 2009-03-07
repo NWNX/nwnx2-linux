@@ -270,7 +270,7 @@ int FindHookFunctions()
 
 
 
-	if(pSplitItem_Copy && atoi(fixes.pluginConfig["copy_vars"].c_str()))
+	if(pSplitItem_Copy && fixes.GetConfInteger("copy_vars"))
 	{
 		fixes.Log(2, "copy_vars = 1\n");
 		d_enable_write((dword) pSplitItem_Copy);
@@ -278,21 +278,21 @@ int FindHookFunctions()
 		else fixes.Log(2, "Couldn't patch the SplitItem_Copy function\n");
 	}
 
-	if(pBuyItem && atoi(fixes.pluginConfig["copy_vars"].c_str()))
+	if(pBuyItem && fixes.GetConfInteger("copy_vars"))
 	{
 		d_enable_write((dword) pBuyItem);
 		if(pBuyItem[0x60]==0x6A) pBuyItem[0x61] = 0x1;
 		else fixes.Log(2, "Couldn't patch the BuyItem function\n");
 	}
 
-	if(pMergeItems_RemoveItem && atoi(fixes.pluginConfig["copy_vars"].c_str()))
+	if(pMergeItems_RemoveItem && fixes.GetConfInteger("copy_vars"))
 	{
 		d_enable_write((dword) pMergeItems_RemoveItem);
 		if(pMergeItems_RemoveItem[0xE]==0x6A) pMergeItems_RemoveItem[0xF] = 0x0;
 		else fixes.Log(2, "Couldn't patch the MergeItems_RemoveItem function\n");
 	}
 
-	if(pAIActionDialogObject_middle && atoi(fixes.pluginConfig["keep_hidden_in_conversation"].c_str()))
+	if(pAIActionDialogObject_middle && fixes.GetConfInteger("keep_hidden_in_conversation"))
 	{
 		fixes.Log(2, "keep_hidden_in_conversation = 1\n");
 		d_enable_write((dword) pAIActionDialogObject_middle);
@@ -307,19 +307,19 @@ int FindHookFunctions()
 		else fixes.Log(2, "Couldn't patch the AIActionDialogObject function\n");
 	}
 	
-	if(pGetIsMergeable && atoi(fixes.pluginConfig["compare_vars"].c_str()))
+	if(pGetIsMergeable && fixes.GetConfInteger("compare_vars"))
 	{
 		fixes.Log(2, "compare_vars = 1\n");
 		d_redirect((unsigned long)pGetIsMergeable, (unsigned long)GetIsMergeableHookProc, d_ret_code_merg, 9);
 	}
 
-	if(pGetDead && atoi(fixes.pluginConfig["hp_limit"].c_str()))
+	if(pGetDead && fixes.GetConfInteger("hp_limit"))
 	{
 		d_enable_write((dword) pGetDead);
-		char hpLimit = (char)atoi(fixes.pluginConfig["hp_limit"].c_str());
+		char hpLimit = (char)fixes.GetConfInteger("hp_limit");
 		if (hpLimit > 0) hpLimit = -10;
 		fixes.Log(2, "HP limit = %d\n", hpLimit);
-		pGetDead[0x6D] = (char)atoi(fixes.pluginConfig["hp_limit"].c_str());
+		pGetDead[0x6D] = hpLimit;
 	}
 
 	if(!(pGetIsMergeable && pSplitItem_Copy && pBuyItem && pMergeItems_RemoveItem))

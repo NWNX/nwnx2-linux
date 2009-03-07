@@ -34,6 +34,7 @@ public:
 	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
 	char* OnRequest (char* gameObject, char* Request, char* Parameters);
 	unsigned long OnRequestObject (char *gameObject, char* Request);
+	int GetConfInteger(const char *key);
 	bool bHooked;
 
 	StringMap pluginConfig;
