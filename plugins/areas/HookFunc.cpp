@@ -131,8 +131,6 @@ int HookFunctions()
 
     areas.Log(0, "pServThis = %08lX\n", pServThis);
 
-	sleep(5);
-
 	return (ppServThis && pScriptThis);
 }
 
