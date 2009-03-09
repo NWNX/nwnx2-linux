@@ -41,7 +41,7 @@ void (*CNWSArea__CNWSArea)(void *pArea, CResRef res, int a3, dword ObjID);
 void (*CNWSArea__LoadArea)(void *pArea, int flag);
 void (*CExoArrayList__Add)(void *pArray, dword nObjID);
 void (*CExoArrayList__Remove)(void *pArray, dword nObjID);
-void (*CNWSArea__Destructor)(void *pArea, int flag = 3);
+void (*CNWSArea__Destructor)(void *pArea, int flag);
 void *(*GetAreaByGameObjectID)(void *pServerExoAppInternal, dword nObjID);
 CGameObjectArray *(*CServerExoApp__GetObjectArray)(void *pServerExo);
 void (*CExoArrayList_unsigned_long___Add)(CExoArrayList *pArray, unsigned long nElement);
@@ -112,7 +112,7 @@ void NWNXDestroyArea(void *pModule, dword nAreaID)
 	CExoArrayList__Remove(pArray, nAreaID);
 	areas.Log(0, "Destroying area %08lX\n", nAreaID);
 	void *pArea = GetAreaByGameObjectID((void *)pServInternal, nAreaID);
-	CNWSArea__Destructor(pArea);
+	CNWSArea__Destructor(pArea, 3);
 }
 
 int HookFunctions()
