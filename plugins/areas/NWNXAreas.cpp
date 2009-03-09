@@ -50,8 +50,8 @@ bool CNWNXAreas::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX Areas version 0.2.2 for Linux.\n");
-	Log (0, "(c) 2006-2008 by virusman (virusman@virusman.ru)\n");
+	Log (0, "NWNX Areas version 0.2.3 for Linux.\n");
+	Log (0, "(c) 2006-2009 by virusman (virusman@virusman.ru)\n");
 
 	return(HookFunctions());
 }

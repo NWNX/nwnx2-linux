@@ -21,26 +21,16 @@
 #define HookFunc_h_
 
 #include "typedefs.h"
+#include "NWNStructures.h"
 
 int HookFunctions();
 
 void CreateAreaListItem(void *pAreaList, char* sAreaResRef);
 int LoadAreaNum(void *pModule, int nAreaNum);
+void AddAreaToAllCreatures(dword nAreaID);
 void NWNXCreateArea(void *pModule, char *sResRef);
 void NWNXDestroyArea(void *pModule, dword nAreaID);
 
 void InitConstants();
-
-
-struct CExoString
-{
-	char *Text;
-	dword Length;
-};
-
-struct CResRef
-{
-	char ResRef[16];
-};
 
 #endif
