@@ -4,9 +4,9 @@ LFLAGS   = $(PLUGIN_LFLAGS)
 
 LIBS     = -L/usr/lib/mysql -lmysqlclient -lz
 
-all: nwnx_odbc.so
+all: nwnx_mysql.so
 
-nwnx_odbc.so: NWNXmysql.o plugin-mysql.o data.o dbmysql.o
+nwnx_mysql.so: NWNXmysql.o plugin-mysql.o data.o dbmysql.o
 	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
@@ -16,4 +16,4 @@ distclean: clean
 	/bin/rm -f Makefile
 
 install: nwnx_odbc.so
-	mkdir -p @prefix@/ ; install nwnx_odbc.so @prefix@/
+	mkdir -p @prefix@/ ; install nwnx_mysql.so @prefix@/
