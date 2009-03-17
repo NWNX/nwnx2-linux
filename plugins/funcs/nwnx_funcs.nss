@@ -452,6 +452,9 @@ object IntToObject (int nObjectId);
 /* Dump oObject to the NWNX log. */
 void DumpObject (object oObject);
 
+/* Sleep for the given number of microseconds. This will block the whole nwserver process. */
+void USleep (int usec);
+
 
 int NWNXFuncsZero (object oObject, string sFunc) {
     SetLocalString(oObject, sFunc, "          ");
@@ -474,6 +477,10 @@ int NWNXFuncsThree (object oObject, string sFunc, int nVal1, int nVal2, int nVal
     return StringToInt(GetLocalString(oObject, sFunc));
 }
 
+
+void USleep (int usec) {
+    NWNXFuncsOne(GetModule(), "NWNX!FUNCS!USLEEP", usec);
+}
 
 int SetAbilityScore (object oCreature, int nAbility, int nValue) {
     return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!SETABILITYSCORE", nAbility, nValue);

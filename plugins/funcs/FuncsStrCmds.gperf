@@ -142,6 +142,7 @@ SETSPECIALABILITY,                     Func_SetSpecialAbility
 SETTAG,                                Func_SetTag
 SETTRAPCREATOR,                        Func_SetTrapCreator
 SETWIZARDSPECIALIZATION,               Func_SetWizardSpecialization
+USLEEP,                                Func_USleep
 %%
 
 #ifdef __cplusplus
