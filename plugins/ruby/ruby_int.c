@@ -7674,7 +7674,7 @@ static VALUE NWScript_GetFirstItemProperty(VALUE self, VALUE oItem)
 	StackPushObject(NUM2UINT(oItem));
 	VM_ExecuteCommand(612, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7683,7 +7683,7 @@ static VALUE NWScript_GetNextItemProperty(VALUE self, VALUE oItem)
 	StackPushObject(NUM2UINT(oItem));
 	VM_ExecuteCommand(613, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7715,7 +7715,7 @@ static VALUE NWScript_ItemPropertyAbilityBonus(VALUE self, VALUE nAbility, VALUE
 	StackPushInteger(NUM2INT(nAbility));
 	VM_ExecuteCommand(616, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7724,7 +7724,7 @@ static VALUE NWScript_ItemPropertyACBonus(VALUE self, VALUE nBonus)
 	StackPushInteger(NUM2INT(nBonus));
 	VM_ExecuteCommand(617, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7734,7 +7734,7 @@ static VALUE NWScript_ItemPropertyACBonusVsAlign(VALUE self, VALUE nAlignGroup, 
 	StackPushInteger(NUM2INT(nAlignGroup));
 	VM_ExecuteCommand(618, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7744,7 +7744,7 @@ static VALUE NWScript_ItemPropertyACBonusVsDmgType(VALUE self, VALUE nDamageType
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(619, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7754,7 +7754,7 @@ static VALUE NWScript_ItemPropertyACBonusVsRace(VALUE self, VALUE nRace, VALUE n
 	StackPushInteger(NUM2INT(nRace));
 	VM_ExecuteCommand(620, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7764,7 +7764,7 @@ static VALUE NWScript_ItemPropertyACBonusVsSAlign(VALUE self, VALUE nAlign, VALU
 	StackPushInteger(NUM2INT(nAlign));
 	VM_ExecuteCommand(621, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7773,7 +7773,7 @@ static VALUE NWScript_ItemPropertyEnhancementBonus(VALUE self, VALUE nEnhancemen
 	StackPushInteger(NUM2INT(nEnhancementBonus));
 	VM_ExecuteCommand(622, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7783,7 +7783,7 @@ static VALUE NWScript_ItemPropertyEnhancementBonusVsAlign(VALUE self, VALUE nAli
 	StackPushInteger(NUM2INT(nAlignGroup));
 	VM_ExecuteCommand(623, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7793,7 +7793,7 @@ static VALUE NWScript_ItemPropertyEnhancementBonusVsRace(VALUE self, VALUE nRace
 	StackPushInteger(NUM2INT(nRace));
 	VM_ExecuteCommand(624, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7803,7 +7803,7 @@ static VALUE NWScript_ItemPropertyEnhancementBonusVsSAlign(VALUE self, VALUE nAl
 	StackPushInteger(NUM2INT(nAlign));
 	VM_ExecuteCommand(625, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7812,7 +7812,7 @@ static VALUE NWScript_ItemPropertyEnhancementPenalty(VALUE self, VALUE nPenalty)
 	StackPushInteger(NUM2INT(nPenalty));
 	VM_ExecuteCommand(626, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7821,7 +7821,7 @@ static VALUE NWScript_ItemPropertyWeightReduction(VALUE self, VALUE nReduction)
 	StackPushInteger(NUM2INT(nReduction));
 	VM_ExecuteCommand(627, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7830,7 +7830,7 @@ static VALUE NWScript_ItemPropertyBonusFeat(VALUE self, VALUE nFeat)
 	StackPushInteger(NUM2INT(nFeat));
 	VM_ExecuteCommand(628, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7840,7 +7840,7 @@ static VALUE NWScript_ItemPropertyBonusLevelSpell(VALUE self, VALUE nClass, VALU
 	StackPushInteger(NUM2INT(nClass));
 	VM_ExecuteCommand(629, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7850,7 +7850,7 @@ static VALUE NWScript_ItemPropertyCastSpell(VALUE self, VALUE nSpell, VALUE nNum
 	StackPushInteger(NUM2INT(nSpell));
 	VM_ExecuteCommand(630, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7860,7 +7860,7 @@ static VALUE NWScript_ItemPropertyDamageBonus(VALUE self, VALUE nDamageType, VAL
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(631, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7871,7 +7871,7 @@ static VALUE NWScript_ItemPropertyDamageBonusVsAlign(VALUE self, VALUE nAlignGro
 	StackPushInteger(NUM2INT(nAlignGroup));
 	VM_ExecuteCommand(632, 3);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7882,7 +7882,7 @@ static VALUE NWScript_ItemPropertyDamageBonusVsRace(VALUE self, VALUE nRace, VAL
 	StackPushInteger(NUM2INT(nRace));
 	VM_ExecuteCommand(633, 3);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7893,7 +7893,7 @@ static VALUE NWScript_ItemPropertyDamageBonusVsSAlign(VALUE self, VALUE nAlign, 
 	StackPushInteger(NUM2INT(nAlign));
 	VM_ExecuteCommand(634, 3);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7903,7 +7903,7 @@ static VALUE NWScript_ItemPropertyDamageImmunity(VALUE self, VALUE nDamageType, 
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(635, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7912,7 +7912,7 @@ static VALUE NWScript_ItemPropertyDamagePenalty(VALUE self, VALUE nPenalty)
 	StackPushInteger(NUM2INT(nPenalty));
 	VM_ExecuteCommand(636, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7922,7 +7922,7 @@ static VALUE NWScript_ItemPropertyDamageReduction(VALUE self, VALUE nEnhancement
 	StackPushInteger(NUM2INT(nEnhancement));
 	VM_ExecuteCommand(637, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7932,7 +7932,7 @@ static VALUE NWScript_ItemPropertyDamageResistance(VALUE self, VALUE nDamageType
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(638, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7942,7 +7942,7 @@ static VALUE NWScript_ItemPropertyDamageVulnerability(VALUE self, VALUE nDamageT
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(639, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7950,7 +7950,7 @@ static VALUE NWScript_ItemPropertyDarkvision(VALUE self)
 {
 	VM_ExecuteCommand(640, 0);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7960,7 +7960,7 @@ static VALUE NWScript_ItemPropertyDecreaseAbility(VALUE self, VALUE nAbility, VA
 	StackPushInteger(NUM2INT(nAbility));
 	VM_ExecuteCommand(641, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7970,7 +7970,7 @@ static VALUE NWScript_ItemPropertyDecreaseAC(VALUE self, VALUE nModifierType, VA
 	StackPushInteger(NUM2INT(nModifierType));
 	VM_ExecuteCommand(642, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7980,7 +7980,7 @@ static VALUE NWScript_ItemPropertyDecreaseSkill(VALUE self, VALUE nSkill, VALUE 
 	StackPushInteger(NUM2INT(nSkill));
 	VM_ExecuteCommand(643, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7989,7 +7989,7 @@ static VALUE NWScript_ItemPropertyContainerReducedWeight(VALUE self, VALUE nCont
 	StackPushInteger(NUM2INT(nContainerType));
 	VM_ExecuteCommand(644, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -7998,7 +7998,7 @@ static VALUE NWScript_ItemPropertyExtraMeleeDamageType(VALUE self, VALUE nDamage
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(645, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8007,7 +8007,7 @@ static VALUE NWScript_ItemPropertyExtraRangeDamageType(VALUE self, VALUE nDamage
 	StackPushInteger(NUM2INT(nDamageType));
 	VM_ExecuteCommand(646, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8015,7 +8015,7 @@ static VALUE NWScript_ItemPropertyHaste(VALUE self)
 {
 	VM_ExecuteCommand(647, 0);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8023,7 +8023,7 @@ static VALUE NWScript_ItemPropertyHolyAvenger(VALUE self)
 {
 	VM_ExecuteCommand(648, 0);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8032,7 +8032,7 @@ static VALUE NWScript_ItemPropertyImmunityMisc(VALUE self, VALUE nImmunityType)
 	StackPushInteger(NUM2INT(nImmunityType));
 	VM_ExecuteCommand(649, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8040,7 +8040,7 @@ static VALUE NWScript_ItemPropertyImprovedEvasion(VALUE self)
 {
 	VM_ExecuteCommand(650, 0);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8049,7 +8049,7 @@ static VALUE NWScript_ItemPropertyBonusSpellResistance(VALUE self, VALUE nBonus)
 	StackPushInteger(NUM2INT(nBonus));
 	VM_ExecuteCommand(651, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8059,7 +8059,7 @@ static VALUE NWScript_ItemPropertyBonusSavingThrowVsX(VALUE self, VALUE nBonusTy
 	StackPushInteger(NUM2INT(nBonusType));
 	VM_ExecuteCommand(652, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8069,7 +8069,7 @@ static VALUE NWScript_ItemPropertyBonusSavingThrow(VALUE self, VALUE nBaseSaveTy
 	StackPushInteger(NUM2INT(nBaseSaveType));
 	VM_ExecuteCommand(653, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8077,7 +8077,7 @@ static VALUE NWScript_ItemPropertyKeen(VALUE self)
 {
 	VM_ExecuteCommand(654, 0);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8087,7 +8087,7 @@ static VALUE NWScript_ItemPropertyLight(VALUE self, VALUE nBrightness, VALUE nCo
 	StackPushInteger(NUM2INT(nBrightness));
 	VM_ExecuteCommand(655, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8096,7 +8096,7 @@ static VALUE NWScript_ItemPropertyMaxRangeStrengthMod(VALUE self, VALUE nModifie
 	StackPushInteger(NUM2INT(nModifier));
 	VM_ExecuteCommand(656, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8104,7 +8104,7 @@ static VALUE NWScript_ItemPropertyNoDamage(VALUE self)
 {
 	VM_ExecuteCommand(657, 0);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8125,7 +8125,7 @@ static VALUE NWScript_ItemPropertyOnHitProps(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nProperty));
 	VM_ExecuteCommand(658, 3);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8135,7 +8135,7 @@ static VALUE NWScript_ItemPropertyReducedSavingThrowVsX(VALUE self, VALUE nBaseS
 	StackPushInteger(NUM2INT(nBaseSaveType));
 	VM_ExecuteCommand(659, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8145,7 +8145,7 @@ static VALUE NWScript_ItemPropertyReducedSavingThrow(VALUE self, VALUE nBonusTyp
 	StackPushInteger(NUM2INT(nBonusType));
 	VM_ExecuteCommand(660, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8154,7 +8154,7 @@ static VALUE NWScript_ItemPropertyRegeneration(VALUE self, VALUE nRegenAmount)
 	StackPushInteger(NUM2INT(nRegenAmount));
 	VM_ExecuteCommand(661, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8164,7 +8164,7 @@ static VALUE NWScript_ItemPropertySkillBonus(VALUE self, VALUE nSkill, VALUE nBo
 	StackPushInteger(NUM2INT(nSkill));
 	VM_ExecuteCommand(662, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8173,7 +8173,7 @@ static VALUE NWScript_ItemPropertySpellImmunitySpecific(VALUE self, VALUE nSpell
 	StackPushInteger(NUM2INT(nSpell));
 	VM_ExecuteCommand(663, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8182,7 +8182,7 @@ static VALUE NWScript_ItemPropertySpellImmunitySchool(VALUE self, VALUE nSchool)
 	StackPushInteger(NUM2INT(nSchool));
 	VM_ExecuteCommand(664, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8191,7 +8191,7 @@ static VALUE NWScript_ItemPropertyThievesTools(VALUE self, VALUE nModifier)
 	StackPushInteger(NUM2INT(nModifier));
 	VM_ExecuteCommand(665, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8200,7 +8200,7 @@ static VALUE NWScript_ItemPropertyAttackBonus(VALUE self, VALUE nBonus)
 	StackPushInteger(NUM2INT(nBonus));
 	VM_ExecuteCommand(666, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8210,7 +8210,7 @@ static VALUE NWScript_ItemPropertyAttackBonusVsAlign(VALUE self, VALUE nAlignGro
 	StackPushInteger(NUM2INT(nAlignGroup));
 	VM_ExecuteCommand(667, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8220,7 +8220,7 @@ static VALUE NWScript_ItemPropertyAttackBonusVsRace(VALUE self, VALUE nRace, VAL
 	StackPushInteger(NUM2INT(nRace));
 	VM_ExecuteCommand(668, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8230,7 +8230,7 @@ static VALUE NWScript_ItemPropertyAttackBonusVsSAlign(VALUE self, VALUE nAlignme
 	StackPushInteger(NUM2INT(nAlignment));
 	VM_ExecuteCommand(669, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8239,7 +8239,7 @@ static VALUE NWScript_ItemPropertyAttackPenalty(VALUE self, VALUE nPenalty)
 	StackPushInteger(NUM2INT(nPenalty));
 	VM_ExecuteCommand(670, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8256,7 +8256,7 @@ static VALUE NWScript_ItemPropertyUnlimitedAmmo(int argc, VALUE *argv, VALUE sel
 	StackPushInteger(NUM2INT(nAmmoDamage));
 	VM_ExecuteCommand(671, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8265,7 +8265,7 @@ static VALUE NWScript_ItemPropertyLimitUseByAlign(VALUE self, VALUE nAlignGroup)
 	StackPushInteger(NUM2INT(nAlignGroup));
 	VM_ExecuteCommand(672, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8274,7 +8274,7 @@ static VALUE NWScript_ItemPropertyLimitUseByClass(VALUE self, VALUE nClass)
 	StackPushInteger(NUM2INT(nClass));
 	VM_ExecuteCommand(673, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8283,7 +8283,7 @@ static VALUE NWScript_ItemPropertyLimitUseByRace(VALUE self, VALUE nRace)
 	StackPushInteger(NUM2INT(nRace));
 	VM_ExecuteCommand(674, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8292,7 +8292,7 @@ static VALUE NWScript_ItemPropertyLimitUseBySAlign(VALUE self, VALUE nAlignment)
 	StackPushInteger(NUM2INT(nAlignment));
 	VM_ExecuteCommand(675, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8300,7 +8300,7 @@ static VALUE NWScript_BadBadReplaceMeThisDoesNothing(VALUE self)
 {
 	VM_ExecuteCommand(676, 0);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8309,7 +8309,7 @@ static VALUE NWScript_ItemPropertyVampiricRegeneration(VALUE self, VALUE nRegenA
 	StackPushInteger(NUM2INT(nRegenAmount));
 	VM_ExecuteCommand(677, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8319,7 +8319,7 @@ static VALUE NWScript_ItemPropertyTrap(VALUE self, VALUE nTrapLevel, VALUE nTrap
 	StackPushInteger(NUM2INT(nTrapLevel));
 	VM_ExecuteCommand(678, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8327,7 +8327,7 @@ static VALUE NWScript_ItemPropertyTrueSeeing(VALUE self)
 {
 	VM_ExecuteCommand(679, 0);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8346,7 +8346,7 @@ static VALUE NWScript_ItemPropertyOnMonsterHitProperties(int argc, VALUE *argv, 
 	StackPushInteger(NUM2INT(nProperty));
 	VM_ExecuteCommand(680, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8355,7 +8355,7 @@ static VALUE NWScript_ItemPropertyTurnResistance(VALUE self, VALUE nModifier)
 	StackPushInteger(NUM2INT(nModifier));
 	VM_ExecuteCommand(681, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8364,7 +8364,7 @@ static VALUE NWScript_ItemPropertyMassiveCritical(VALUE self, VALUE nDamage)
 	StackPushInteger(NUM2INT(nDamage));
 	VM_ExecuteCommand(682, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8372,7 +8372,7 @@ static VALUE NWScript_ItemPropertyFreeAction(VALUE self)
 {
 	VM_ExecuteCommand(683, 0);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8381,7 +8381,7 @@ static VALUE NWScript_ItemPropertyMonsterDamage(VALUE self, VALUE nDamage)
 	StackPushInteger(NUM2INT(nDamage));
 	VM_ExecuteCommand(684, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8390,7 +8390,7 @@ static VALUE NWScript_ItemPropertyImmunityToSpellLevel(VALUE self, VALUE nLevel)
 	StackPushInteger(NUM2INT(nLevel));
 	VM_ExecuteCommand(685, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8407,7 +8407,7 @@ static VALUE NWScript_ItemPropertySpecialWalk(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nWalkType));
 	VM_ExecuteCommand(686, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8416,7 +8416,7 @@ static VALUE NWScript_ItemPropertyHealersKit(VALUE self, VALUE nModifier)
 	StackPushInteger(NUM2INT(nModifier));
 	VM_ExecuteCommand(687, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8425,7 +8425,7 @@ static VALUE NWScript_ItemPropertyWeightIncrease(VALUE self, VALUE nWeight)
 	StackPushInteger(NUM2INT(nWeight));
 	VM_ExecuteCommand(688, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8935,7 +8935,7 @@ static VALUE NWScript_ItemPropertyOnHitCastSpell(VALUE self, VALUE nSpell, VALUE
 	StackPushInteger(NUM2INT(nSpell));
 	VM_ExecuteCommand(733, 2);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -8990,7 +8990,7 @@ static VALUE NWScript_ItemPropertyVisualEffect(VALUE self, VALUE nEffect)
 	StackPushInteger(NUM2INT(nEffect));
 	VM_ExecuteCommand(739, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -9189,7 +9189,7 @@ static VALUE NWScript_ItemPropertyArcaneSpellFailure(VALUE self, VALUE nModLevel
 	StackPushInteger(NUM2INT(nModLevel));
 	VM_ExecuteCommand(758, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -10326,7 +10326,7 @@ static VALUE NWScript_ItemPropertyMaterial(VALUE self, VALUE nMaterialType)
 	StackPushInteger(NUM2INT(nMaterialType));
 	VM_ExecuteCommand(845, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -10335,7 +10335,7 @@ static VALUE NWScript_ItemPropertyQuality(VALUE self, VALUE nQuality)
 	StackPushInteger(NUM2INT(nQuality));
 	VM_ExecuteCommand(846, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
@@ -10344,7 +10344,7 @@ static VALUE NWScript_ItemPropertyAdditional(VALUE self, VALUE nAdditionalProper
 	StackPushInteger(NUM2INT(nAdditionalProperty));
 	VM_ExecuteCommand(847, 1);
 	CGameEffect *pRetVal;
-	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
+	StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);
 	return Data_Wrap_Struct(g_cItemPropertyClass, 0, free, pRetVal);
 }
 
