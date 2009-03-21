@@ -1,0 +1,99 @@
+%{
+#ifndef OPENOVERRIDE_H
+#define OPENOVERRIDE_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+%}
+
+struct openoverride_file_s {
+  const char   *name;
+  int           fd;
+  int           module;
+  FILE         *file;
+  struct stat   sb;
+};
+
+%%
+./modules/Path of Ascension CEP Legends.mod,       -1,  1, NULL, { .st_dev = 0 }
+./currentgame.0/Path of Ascension CEP Legends.mod, -1,  0, NULL, { .st_dev = 0 }
+./data/2da.bif,                                    -1, -1, NULL, { .st_dev = 0 }
+./data/aurora_gui.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/aurora_tcn.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/aurora_tdc.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/aurora_tde.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/aurora_tdm.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/aurora_tds.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/aurora_tic.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/aurora_tin.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/aurora_tms.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/aurora_ttf.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/aurora_ttr.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/editor.bif,                                 -1, -1, NULL, { .st_dev = 0 }
+./data/ini.bif,                                    -1, -1, NULL, { .st_dev = 0 }
+./data/misc.bif,                                   -1, -1, NULL, { .st_dev = 0 }
+./data/models_01.bif,                              -1, -1, NULL, { .st_dev = 0 }
+./data/models_02.bif,                              -1, -1, NULL, { .st_dev = 0 }
+./data/music.bif,                                  -1, -1, NULL, { .st_dev = 0 }
+./data/scripts.bif,                                -1, -1, NULL, { .st_dev = 0 }
+./data/sounds.bif,                                 -1, -1, NULL, { .st_dev = 0 }
+./data/templates.bif,                              -1, -1, NULL, { .st_dev = 0 }
+./data/textures_01.bif,                            -1, -1, NULL, { .st_dev = 0 }
+./data/textures_02.bif,                            -1, -1, NULL, { .st_dev = 0 }
+./data/voicesets.bif,                              -1, -1, NULL, { .st_dev = 0 }
+./data/xp1.bif,                                    -1, -1, NULL, { .st_dev = 0 }
+./data/xp1_models.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/xp1_scripts.bif,                            -1, -1, NULL, { .st_dev = 0 }
+./data/xp1_sounds.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/xp1_templates.bif,                          -1, -1, NULL, { .st_dev = 0 }
+./data/xp1_textures.bif,                           -1, -1, NULL, { .st_dev = 0 }
+./data/xp1_tiles.bif,                              -1, -1, NULL, { .st_dev = 0 }
+./data/xp2.bif,                                    -1, -1, NULL, { .st_dev = 0 }
+./data/xp2_models.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/xp2_scripts.bif,                            -1, -1, NULL, { .st_dev = 0 }
+./data/xp2_sounds.bif,                             -1, -1, NULL, { .st_dev = 0 }
+./data/xp2_templates.bif,                          -1, -1, NULL, { .st_dev = 0 }
+./data/xp2_textures.bif,                           -1, -1, NULL, { .st_dev = 0 }
+./data/xp2_tiles.bif,                              -1, -1, NULL, { .st_dev = 0 }
+./data/xp2patch.bif,                               -1, -1, NULL, { .st_dev = 0 }
+./data/xp3.bif,                                    -1, -1, NULL, { .st_dev = 0 }
+./dialog.tlk,                                      -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_add_phenos1.hak,                        -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_add_phenos2.hak,                        -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_add_phenos3.hak,                        -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_add_phenos4.hak,                        -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_add_phenos5.hak,                        -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_add_sb_v1.hak,                          -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_add_doors.hak,                          -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_add_tiles.hak,                          -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_add_tiles1.hak,                         -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_add_tiles2.hak,                         -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_ext_tiles.hak,                          -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_core0.hak,                              -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_core1.hak,                              -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_core2.hak,                              -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_core3.hak,                              -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_core4.hak,                              -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_core5.hak,                              -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_core6.hak,                              -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_custom.hak,                             -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_top_v1.hak,                             -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_top_v21.hak,                            -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_top_v22.hak,                            -1, -1, NULL, { .st_dev = 0 }
+./hak/cep2_top_v23.hak,                            -1, -1, NULL, { .st_dev = 0 }
+./tlk/dialog.tlk,                                  -1, -1, NULL, { .st_dev = 0 }
+./tlk/cep2_v1.tlk,                                 -1, -1, NULL, { .st_dev = 0 }
+./tlk/cep2_v21.tlk,                                -1, -1, NULL, { .st_dev = 0 }
+./tlk/cep2_v22.tlk,                                -1, -1, NULL, { .st_dev = 0 }
+./tlk/cep2_v23.tlk,                                -1, -1, NULL, { .st_dev = 0 }
+%%
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* OPENOVERRIDE_H */
+
+/* vim: set sw=4: */
