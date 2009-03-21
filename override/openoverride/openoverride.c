@@ -132,7 +132,7 @@ int open (const char *path, int flags, ...) {
    *    1 - this is the module
    */
   if ((f = oo_lookup(path, strlen(path))) != NULL && f->module == 0) {
-    if (flags == O_WRONLY|O_TRUNC|O_CREAT)
+    if (flags == (O_WRONLY|O_TRUNC|O_CREAT))
       return oo_open("/dev/null", flags, 0666);
 
     f = oo_module;
