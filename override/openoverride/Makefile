@@ -5,7 +5,7 @@ SED    = sed
 GPERF  = gperf
 OPTS   = -O2 -pipe
 DEBUG  =
-CFLAGS = -Wall -Werror $(DEBUG)
+CFLAGS = -Wall -Werror -fno-stack-protector $(DEBUG)
 LIBS   = -ldl
 
 all: openoverride.so
