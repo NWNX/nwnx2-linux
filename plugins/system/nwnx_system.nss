@@ -63,7 +63,7 @@ string FileReadAll (string sFile) {
     object oMod = GetModule();
     string sSpacer = GetLocalString(oMod, "NWNX!ODBC!SPACER");
 
-    sDir += "\n" + sSpacer + sSpacer + sSpacer + sSpacer;
+    sFile += "\n" + sSpacer + sSpacer + sSpacer + sSpacer;
 
     SetLocalString(oMod, "NWNX!SYSTEM!FILEREADALL", sFile);
     sFile = GetLocalString(oMod, "NWNX!SYSTEM!FILEREADALL");
