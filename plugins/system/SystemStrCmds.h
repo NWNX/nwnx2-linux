@@ -63,7 +63,7 @@ struct SystemStrCommand_s {
     void       (*func)(CGameObject *, char *);
 };
 
-#define NWNX_SYSTEM_STRCMD_TOTAL_KEYWORDS 12
+#define NWNX_SYSTEM_STRCMD_TOTAL_KEYWORDS 13
 #define NWNX_SYSTEM_STRCMD_MIN_WORD_LENGTH 7
 #define NWNX_SYSTEM_STRCMD_MAX_WORD_LENGTH 21
 #define NWNX_SYSTEM_STRCMD_MIN_HASH_VALUE 8
@@ -88,9 +88,9 @@ SystemStrCommandHash (register const char *str, register unsigned int len)
       22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
       22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
       22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
-      22, 22, 22, 22, 22, 22, 22,  9,  1, 22,
-       0,  0, 22,  1, 22, 22,  0,  2, 22, 22,
-      22, 22,  0,  1, 22, 22, 22, 22, 22,  2,
+      22, 22, 22, 22, 22, 22, 22,  1,  5, 22,
+       0,  0, 22,  5, 22, 22,  0,  2, 22, 22,
+      22, 22,  0,  1, 22, 22, 22, 22, 22,  3,
       22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
       22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
       22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
@@ -117,28 +117,30 @@ static const struct SystemStrCommand_s SystemStrCommandList[] =
     {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
 #line 39 "SystemStrCmds.gperf"
     {"FILELINK",                               Func_FileLink},
-#line 36 "SystemStrCmds.gperf"
-    {"DIRLIST",                                Func_DirList},
-#line 40 "SystemStrCmds.gperf"
-    {"FILERENAME",                             Func_FileRename},
-#line 38 "SystemStrCmds.gperf"
-    {"FILEDELETE",                             Func_FileDelete},
-#line 41 "SystemStrCmds.gperf"
-    {"FILESYMLINK",                            Func_FileSymlink},
-#line 45 "SystemStrCmds.gperf"
-    {"GETTMILIMIT",                            Func_GetTMILimit},
-#line 46 "SystemStrCmds.gperf"
-    {"SETTMILIMIT",                            Func_SetTMILimit},
-#line 44 "SystemStrCmds.gperf"
-    {"GETSYSTEMTIME",                          Func_GetSystemTime},
-#line 47 "SystemStrCmds.gperf"
-    {"SHUTDOWNSERVER",                         Func_ShutdownServer},
 #line 37 "SystemStrCmds.gperf"
     {"FILECOPY",                               Func_FileCopy},
+#line 41 "SystemStrCmds.gperf"
+    {"FILERENAME",                             Func_FileRename},
+#line 40 "SystemStrCmds.gperf"
+    {"FILEREADALL",                            Func_FileReadAll},
 #line 42 "SystemStrCmds.gperf"
-    {"GETPROCESSCPUUSAGE",                     Func_GetProcessCPUUsage},
-    {""}, {""},
+    {"FILESYMLINK",                            Func_FileSymlink},
+#line 46 "SystemStrCmds.gperf"
+    {"GETTMILIMIT",                            Func_GetTMILimit},
+#line 47 "SystemStrCmds.gperf"
+    {"SETTMILIMIT",                            Func_SetTMILimit},
+#line 38 "SystemStrCmds.gperf"
+    {"FILEDELETE",                             Func_FileDelete},
+#line 45 "SystemStrCmds.gperf"
+    {"GETSYSTEMTIME",                          Func_GetSystemTime},
+#line 36 "SystemStrCmds.gperf"
+    {"DIRLIST",                                Func_DirList},
 #line 43 "SystemStrCmds.gperf"
+    {"GETPROCESSCPUUSAGE",                     Func_GetProcessCPUUsage},
+    {""},
+#line 48 "SystemStrCmds.gperf"
+    {"SHUTDOWNSERVER",                         Func_ShutdownServer},
+#line 44 "SystemStrCmds.gperf"
     {"GETPROCESSMEMORYUSAGE",                  Func_GetProcessMemoryUsage}
   };
 
@@ -165,7 +167,7 @@ SystemStrCommandLookup (register const char *str, register unsigned int len)
     }
   return 0;
 }
-#line 48 "SystemStrCmds.gperf"
+#line 49 "SystemStrCmds.gperf"
 
 
 #ifdef __cplusplus

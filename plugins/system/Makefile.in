@@ -40,6 +40,7 @@ OFILES  = \
     funcs/f_FileCopy.o                           \
     funcs/f_FileLink.o                           \
     funcs/f_FileDelete.o                         \
+    funcs/f_FileReadAll.o                        \
     funcs/f_FileRename.o                         \
     funcs/f_FileSymlink.o                        \
     funcs/f_GetProcessCPUUsage.o                 \

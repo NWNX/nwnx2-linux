@@ -8,6 +8,9 @@ struct CPUUsage {
 /* Get a listing of the files in sDir, separated by "\n". */
 string DirList (string sDir);
 
+/* Get the entire contents of the file sFile. */
+string FileReadAll (string sFile);
+
 /* Copy the file sFrom to sTo. Returns >0 on success. */
 int FileCopy (string sFrom, string sTo);
 
@@ -55,7 +58,19 @@ string DirList (string sDir) {
 
     return sDir;
 }
+ 
+string FileReadAll (string sFile) {
+    object oMod = GetModule();
+    string sSpacer = GetLocalString(oMod, "NWNX!ODBC!SPACER");
 
+    sDir += "\n" + sSpacer + sSpacer + sSpacer + sSpacer;
+
+    SetLocalString(oMod, "NWNX!SYSTEM!FILEREADALL", sFile);
+    sFile = GetLocalString(oMod, "NWNX!SYSTEM!FILEREADALL");
+    DeleteLocalString(oMod, "NWNX!SYSTEM!FILEREADALL");
+
+    return sFile;
+}
 
 int FileCopy (string sFrom, string sTo) {
     SetLocalString(GetModule(), "NWNX!SYSTEM!FILECOPY", sFrom + "\n" + sTo);
