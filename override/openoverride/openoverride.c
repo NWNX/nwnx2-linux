@@ -126,19 +126,7 @@ int open (const char *path, int flags, ...) {
   oo_log("request for file '%s' with flags %d", path, flags);
 #endif
 
-  /* The 'module' parameter in the openoverride structure can have 3 values:
-   *   -1 - do not perform module handling
-   *    0 - write to /dev/null; read from module
-   *    1 - this is the module
-   */
-  if ((f = oo_lookup(path, strlen(path))) != NULL && f->module == 0) {
-    if (flags == (O_WRONLY|O_TRUNC|O_CREAT))
-      return oo_open("/dev/null", flags, 0666);
-
-    f = oo_module;
-  }
-
-  if (flags != O_RDONLY || f == NULL)
+  if (flags != O_RDONLY || (f = oo_lookup(path, strlen(path))) == NULL)
     return oo_open(path, flags, 0666);
 
   oo_attach(f, path);
@@ -156,7 +144,19 @@ FILE *fopen (const char *path, const char *mode) {
   oo_log("request for file '%s' with mode '%s'", path, mode);
 #endif
 
-  if (mode[0] != 'r' || mode[1] != 'b' || mode[2] != 0 || (f = oo_lookup(path, strlen(path))) == NULL)
+  /* The 'module' parameter in the openoverride structure can have 3 values:
+   *   -1 - do not perform module handling
+   *    0 - write to /dev/null; read from module
+   *    1 - this is the module
+   */
+  if ((f = oo_lookup(path, strlen(path))) != NULL && f->module == 0) {
+    if (mode[0] == 'w' && mode[1] == 'b' && mode[2] == 0)
+      return oo_fopen("/dev/null", "wb");
+
+    f = oo_module;
+  }
+
+  if (mode[0] != 'r' || mode[1] != 'b' || mode[2] != 0 || f == NULL)
     return oo_fopen(path, mode);
 
   oo_attach(f, path);
