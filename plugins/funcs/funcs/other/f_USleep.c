@@ -1,12 +1,16 @@
 #include "NWNXFuncs.h"
-#include <unistd.h>
 
 void Func_USleep (CGameObject *ob, char *value) {
-	unsigned int usec = atoi(value);
-	if (usec < 0)
-		usec = 0;
+    int usec = atoi(value);
+    struct timeval tv;
 
-	sleep(usec);
+    if (usec <= 0)
+        return;
+
+    tv.tv_sec  = 0;
+    tv.tv_usec = usec;
+
+    select(0, NULL, NULL, NULL, &tv);
 }
 
 /* vim: set sw=4: */
