@@ -24,7 +24,7 @@
 void Func_FileReadAll (CGameObject *ob, char *value) {
     FILE *f;
     char *p = strchr(value, '\n');
-    size_t len = strlen(value) - 1;
+    ssize_t len = strlen(value) - 1;
 
     if (p != NULL)
         *p = 0;
@@ -34,7 +34,8 @@ void Func_FileReadAll (CGameObject *ob, char *value) {
         return;
     }
 
-    fread(value, 1, len, f);
+    len = fread(value, 1, len, f);
+    value[len] = 0;
     fclose(f);
 }
 
