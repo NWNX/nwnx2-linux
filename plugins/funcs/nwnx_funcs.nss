@@ -1183,6 +1183,8 @@ int GetItemCount (object oCreature) {
 
 
 int SetMovementRate (object oCreature, int nRate) {
+    if (GetIsDM(oCreature))
+        nRate = MOVEMENT_RATE_DM_FAST;
     return NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETMOVEMENTRATE", nRate);
 }
 
