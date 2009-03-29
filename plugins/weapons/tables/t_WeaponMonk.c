@@ -22,6 +22,7 @@
 
 uint16_t Table_WeaponMonk[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE] = {
     [BASE_ITEM_KAMA]                    = 1,
+    [BASE_ITEM_TORCH]                   = 1,
 };
 
 /* vim: set sw=4: */
