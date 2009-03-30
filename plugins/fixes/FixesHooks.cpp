@@ -276,6 +276,8 @@ int FindHookFunctions()
 	char *pNoPortraitHook1Code = "\x6A\x10\x6A\x00\x68\x30\x32\x5F\x00\x68\x6F\x62\x6F\x64\x68\x70\x6F\x5F\x6E\xFF\x75\x08\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90";
 	char *pNoPortraitHook2 = (char*)0x00807e57f;
 	char *pNoPortraitHook2Code = "\x18";
+	char *pNoPortraitHook3 = (char*)0x00807e52c;
+	char *pNoPortraitHook3Code = "\x66\xB8\xFF\xFF\x83\xC4\x0C\x90\x90";
 
 	if (pPlayModCharList && pNoClassesHook && pNoPortraitHook1 && pNoPortraitHook2)
 	{
@@ -298,6 +300,7 @@ int FindHookFunctions()
 			d_enable_write((dword) pNoPortraitHook1);
 			memcpy(pNoPortraitHook1, pNoPortraitHook1Code, 39);
 			memcpy(pNoPortraitHook2, pNoPortraitHook2Code, 1);
+			memcpy(pNoPortraitHook3, pNoPortraitHook3Code, 9);
 			fixes.Log(2, "* Disguising portraits in character list.\n");
 		}
 	}
