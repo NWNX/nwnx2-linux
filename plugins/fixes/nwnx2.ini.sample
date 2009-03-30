@@ -1,8 +1,12 @@
 # Add this to your nwnx2.ini file
 
 [FIXES]
-copy_vars = 0   # Copy local variables on stack split and on store transaction,
-                     # fire OnDisturbed when you merge a stack from a placeable
-compare_vars = 0  # If set to 1, items with different local vars don't stack
-keep_hidden_in_conversation = 0  # If set to 1, creatures don't unhide when they start a conversation
-hp_limit = -10  # Negative HP limit - values up to -127 are allowed
+copy_vars = 0                      # Copy local variables on stack split and on store transaction,
+                                   # fire OnDisturbed when you merge a stack from a placeable
+compare_vars = 0                   # If set to 1, items with different local vars don't stack
+keep_hidden_in_conversation = 0    # If set to 1, creatures don't unhide when they start a conversation
+hp_limit = -10                     # Negative HP limit - values up to -127 are allowed
+
+hide_charlist_all = 0              # Hide the whole online characters list on login (appears empty)
+hide_charlist_levels = 0           # Hide the class(es) (displays nothing instead of class list)
+hide_charlist_portraits = 0        # Hide the portrait (shows default male/female portrait)
