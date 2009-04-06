@@ -79,6 +79,7 @@ void AddAreaToCreatures(CNWSModule *pModule, dword nAreaID)
 				memset(pMinimap, 0, 0x80);
 				pObject->AreaMiniMaps[pModule->Areas.Count - 1] = pMinimap;
 				CExoArrayList_unsigned_long___Add(&pObject->AreaList, nAreaID);
+				pObject->AreaCount++;
 			}
 		}
 	}
