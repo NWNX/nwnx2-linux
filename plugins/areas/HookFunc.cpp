@@ -66,7 +66,8 @@ void AddAreaToCreatures(CNWSModule *pModule, dword nAreaID)
 	if(!pGameObjArray) return;
 	for(int i=0; i<=0xFFF; i++)
 	{
-		CGameObjectArrayElement *pElement = pGameObjArray->Objects[i];
+		CGameObjectArrayElement **pObjects = pGameObjArray->Objects;
+		CGameObjectArrayElement *pElement = pObjects[i];
 		if(!pElement) continue;
 		CNWSCreature *pObject = (CNWSCreature *) pElement->Object;
 		if(!pObject) continue;
