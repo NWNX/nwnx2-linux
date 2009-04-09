@@ -72,9 +72,9 @@ void CNWNXProfiler::LoadConfiguration ()
 
 void CNWNXProfiler::WriteLogHeader()
 {
-	Log(0, "NWNX Profiler V.1.60\n");
+	Log(0, "NWNX Profiler V.1.61\n");
 	Log(0, "(c) 2005 by Ingmar Stieger (papillon@nwnx.org)\n");
-	Log(0, "(c) 2006 by virusman (virusman@virusman.ru)\n");
+	Log(0, "(c) 2006-2009 by virusman (virusman@virusman.ru)\n");
 	Log(0, "visit us at http://www.nwnx.org\n\n");
 	Log(0, "* Updated entries are marked with a * symbol\n");
 	Log(0, "* Log level: ");

@@ -56,7 +56,7 @@ unsigned long lastRet;
 
 void (*RunScriptNextHook)();
 void (*CrossAreaNextHook)();
-void (*PathfindNextHook)();
+int (*PathfindNextHook)(const char * pthis, const char * NWTile, const char * NWArea, const char * PathFindInfo, int depth, float a2, int a3, float a4, float a5, float a6, float a7, float a8, int a9);
 
 hash_table scriptHash;
 
@@ -364,8 +364,8 @@ void MyCrossArea(char *gameObject)
 }
 
 
-void CrossAreaHookProc()
-{	
+void CrossAreaHookProc(const char *pThis, int depth, int a2, void *pPathfindInformation)
+{
 	/*
 int depth,int,CPathfindInformation *
 	__asm {
@@ -448,7 +448,7 @@ cleanup:
 	}*/
 }
 
-void MyPathfind(char *gameArea)
+void MyPathfind(const char *gameArea)
 {
     char* tag = (char*) gameArea+0xb4;
 	//profiler.Log(1, "MyPathfind: %s\n", tag);
@@ -480,8 +480,21 @@ void MyPathfind(char *gameArea)
 }
 
 
-void PathfindHookProc(const char * pthis, const char * NWTile, const char * NWArea, const char * PathFindInfo, int a1, float a2, int a3, float a4, float a5, float a6, float a7, float a8, int a9)
+int PathfindHookProc(const char * pthis, const char * NWTile, const char * NWArea, const char * PathFindInfo, int depth, float a2, int a3, float a4, float a5, float a6, float a7, float a8, int a9)
 {
+	int retval;
+	if(depth == 0)
+	{
+		MyPathfind(NWArea);
+		retval = PathfindNextHook(pthis, NWTile, NWArea, PathFindInfo, depth, a2, a3, a4, a5, a6, a7, a8, a9);
+		StopTimer();
+		return retval;
+	}
+	else
+	{
+		return PathfindNextHook(pthis, NWTile, NWArea, PathFindInfo, depth, a2, a3, a4, a5, a6, a7, a8, a9);
+	}
+
 //CNWTileSurfaceMesh::IntraTileDFS(CNWTile *,CNWArea *,CPathfindInformation *,int,float,int,float,float,float,float,float,int)	
 	//PathfindOrig(pthis, NWTile, NWArea, PathFindInfo, a1, a2, a3, a4, a5, a6, a7, a8, a9);
 	/*
@@ -746,19 +759,20 @@ d_redirect (long from, long to, unsigned char* rbuf, long len=0)
 void HookRunScript()
 {
 	old_RunScript = FindHookRunScript();
-	//old_CrossAreaPathFind = FindHookCrossAreaPathFind();
-	//old_PathFind = FindHookPathFind();
+	old_CrossAreaPathFind = FindHookCrossAreaPathFind();
+	old_PathFind = FindHookPathFind();
 
 	if (old_RunScript)
 		d_redirect (old_RunScript, (unsigned long)RunScriptHookProc, d_ret_code_runscript, 12);
 		//HookCode((PVOID) old_RunScript, RunScriptHookProc, (PVOID*) &RunScriptNextHook);
 
-	if (old_CrossAreaPathFind)
+	/*if (old_CrossAreaPathFind)
 		d_redirect (old_CrossAreaPathFind, (unsigned long)CrossAreaHookProc, d_ret_code_crossarea, 12);
-		//success_crossarea = HookCode((PVOID) old_CrossAreaPathFind, CrossAreaHookProc, (PVOID*) &CrossAreaNextHook);
+		//success_crossarea = HookCode((PVOID) old_CrossAreaPathFind, CrossAreaHookProc, (PVOID*) &CrossAreaNextHook);*/
 
 	if (old_PathFind)
 		d_redirect (old_PathFind, (unsigned long)PathfindHookProc, d_ret_code_pathfind, 12);
+		*(DWORD*)&PathfindNextHook = (DWORD) &d_ret_code_pathfind;
 		//success_pathfind = HookCode((PVOID) old_PathFind, PathfindHookProc, (PVOID*) &PathfindNextHook);
 
 	// Performance analysis variables
