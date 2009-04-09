@@ -8,8 +8,8 @@ CPPFLAGS = @CPPFLAGS@ -Iinclude $(DEFS)
 # Add your own plugins to the compilation with this configure option:
 # ./configure --with-extraplugins="plugin1 plugin2 ..."
 SUBDIRS = \
+    plugins/areas      \
     plugins/chat       \
-    plugins/db         \
     plugins/defenses   \
     plugins/events     \
     plugins/fixes      \
