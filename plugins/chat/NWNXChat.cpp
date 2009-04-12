@@ -195,7 +195,7 @@ int CNWNXChat::Chat(const int mode, const int id, const char **msg, const int to
     RunScript(chatScript, id);
   }
   else if (cmode==5 && id==0x7F000000) {
-    if(*servScript) RunScript(servScript, to);
+    if(*servScript) RunScript(servScript, 0);
   }
   return supressMsg;
 }
