@@ -637,6 +637,18 @@ void CNWNXFunction::IntToObject(char * value)
 	nTempObjectID = atoi(value);
 }
 
+void CNWNXFunction::SetELC(char *value)
+{
+	CServerExoApp *pServ = GetServerExoApp();
+	pServ->Internal->config->EnforceLegalCharacters = (atoi(value) == 1);
+}
+
+void CNWNXFunction::SetILR(char *value)
+{
+	CServerExoApp *pServ = GetServerExoApp();
+	pServ->Internal->config->ItemLevelRestrictions = (atoi(value) == 1);
+}
+
 void CNWNXFunction::DebugMe(char* value)
 {	
 	
@@ -699,10 +711,10 @@ bool CNWNXFunction::OnCreate(gline *config, const char *LogDir)
 	// call the base class function
 	if (!CNWNXBase::OnCreate(config,log))
 		return false;
-	Log(0,"NWNX Functions V.1.9.0\n");
+	Log(0,"NWNX Functions V.1.9.1\n");
 	Log(0,"(c) 2004 by the APS/NWNX Linux Conversion Group\n");
 	Log(0,"Based on the Win32 version (c) 2003 by Ingmar Stieger (Papillon)\n");
-	Log(0,"(c) by virusman, 2006-2008\n");
+	Log(0,"(c) by virusman, 2006-2009\n");
 	Log(0,"visit us at http://www.nwnx.org\n\n");
 	if (FindFunctions())
 	{
@@ -871,6 +883,16 @@ char* CNWNXFunction::OnRequest (char *gameObject, char* Request, char* Parameter
 	else if (strncmp(Request, "INT_TO_OBJECT", 13) == 0)
 	{
 		IntToObject(Parameters);
+		return NULL;
+	}
+	else if (strncmp(Request, "SET_ELC", 7) == 0)
+	{
+		SetELC(Parameters);
+		return NULL;
+	}
+	else if (strncmp(Request, "SET_ILR", 7) == 0)
+	{
+		SetILR(Parameters);
 		return NULL;
 	}
 	else if (strncmp(Request, "DEBUGME", 7) == 0) 	

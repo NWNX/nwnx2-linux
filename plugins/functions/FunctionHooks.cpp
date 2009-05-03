@@ -76,6 +76,13 @@ unsigned char d_ret_code[0x20];
 
 unsigned long lastRet;
 
+CServerExoApp *GetServerExoApp()
+{
+	if(!functions.bHooked) return NULL;
+	if(!pServer) InitConstants();
+	return (CServerExoApp *) pServerExo;
+}
+
 void *GetObjectByID(dword ObjID)
 {
 	if(!functions.bHooked) return NULL;
@@ -404,11 +411,11 @@ void InitConstants()
 	dword *ppServer = *(dword**)((char *)pGetObjectFactionEntry+0x7);
 	//functions.Log(2, "ppServer=%08lX", ppServer);
 	//*(dword*)&ppServer = 0x083281D4;
-	*(dword*)&pServer = *ppServer;
+	*(dword*)&pServer = *ppServer;  //CAppManager
 	*(dword*)&pRules = *(ppServer+2);
 	*(dword*)&p2das = *(dword*)((char*)pRules+0xF0);
-	*(dword*)&pServerExo = *(dword*)((char*)pServer+0x4);
-	*(dword*)&pServerExo4 = *(dword*)((char*)pServerExo+0x4);
+	*(dword*)&pServerExo = *(dword*)((char*)pServer+0x4);  //CServerExoApp
+	*(dword*)&pServerExo4 = *(dword*)((char*)pServerExo+0x4);  //CServerExoAppInternal
 
 
 	//Да, я знаю, я извращенец!
