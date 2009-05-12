@@ -40,6 +40,21 @@ int Hook_GetUseMonkAttackTables (CNWSCreatureStats *info, int unarmedonly) {
         Table_WeaponMonk[weapon->it_baseitem] < 1)
         return 0;
 
+#if 0
+    if (monk < Table_WeaponMonk[weapon->it_baseitem]);
+        return 0;
+
+    weapon = CNWSInventory__GetItemInSlot(info->cs_original->cre_equipment,
+        EQUIPMENT_SLOT_LEFTHAND);
+
+    if (weapon == NULL)
+        return 1;
+
+    if (weapon->it_baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE ||
+        Table_WeaponMonk[weapon->it_baseitem] < 1)
+        return 0;
+#endif
+
     return (monk >= Table_WeaponMonk[weapon->it_baseitem]);
 }
 

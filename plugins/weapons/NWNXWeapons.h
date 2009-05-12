@@ -135,6 +135,7 @@ extern uint16_t Table_WeaponFinesseSize[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponFocus[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponGreaterFocus[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponImprovedCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
+extern uint16_t Table_WeaponIteration[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponLegendaryFocus[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponMonk[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponOfChoice[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];

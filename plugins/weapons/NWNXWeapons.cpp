@@ -35,6 +35,7 @@ static unsigned char *Ref_OffhandCritMult1;
 static unsigned char *Ref_OffhandCritMult2;
 static unsigned char *Ref_OffhandCritMult3;
 static unsigned char *Ref_OffhandCritMult4;
+static unsigned char *Ref_UpdateAttacks;
 
 static struct WeaponSignatureTable {
     const char         *name;
@@ -49,6 +50,7 @@ static struct WeaponSignatureTable {
     NWNX_WEAPONS_SIG(Ref_OffhandCritMult2,      "83 EC 08 6A 00 68 FF 00 00 00 68 FF 00 00 00 6A 00 6A 00 6A 01 6A 01 50"),
     NWNX_WEAPONS_SIG(Ref_OffhandCritMult3,      "6A 00 68 FF 00 00 00 68 FF 00 00 00 6A 00 6A 00 6A 00 6A 01 50 6A 02 FF 75 08"),
     NWNX_WEAPONS_SIG(Ref_OffhandCritMult4,      "83 C4 10 85 C0 ** ** ** ** 00 00 83 EC 08 52 FF 75 08 ** ** ** ** ** 8B 7D D4 83 C4 10"),
+    NWNX_WEAPONS_SIG(Ref_UpdateAttacks,         "8B 45 08 83 EC 08 8B 98 28 04 00 00 6A 00 50 E8 ** ** ** ** 83 C4"),
 
     { NULL,                                     NULL },
 };
@@ -246,6 +248,29 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
         Hook_CCR_Return = (uintptr_t)(Ref_CritConfirmationRoll + 10);
         nx_hook_function(Ref_CritConfirmationRoll, (void *)Hook_GetCriticalConfirmationRoll, 5, NX_HOOK_DIRECT);
     }
+
+
+    /* attacks per round hook */
+#if 0
+    if (Ref_UpdateAttacks != NULL) {
+        unsigned char *p = Ref_UpdateAttacks;
+        unsigned char *end = p + 0x80;
+
+        nx_hook_enable_write(p, 128);
+
+        *(unsigned long *)(p + 16) = (unsigned long)CNWSCreatureStats__GetAttacksPerRound -
+            (unsigned long)(p + 20);
+
+        p += 22;
+
+        while (p++ < end) {
+             if (p[0] == 0x88 && p[1] == 0x03 && p[2] == 0x83 && p[3] == 0xEC)
+                 break;
+
+             *p = 0x90;  /* NOP */
+        }
+    }
+#endif
 
 
     /* fix offhand critical multiplier bug */

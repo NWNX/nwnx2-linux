@@ -98,6 +98,7 @@ OFILES  = \
     tables/t_WeaponFocus.o                       \
     tables/t_WeaponGreaterFocus.o                \
     tables/t_WeaponImprovedCritical.o            \
+    tables/t_WeaponIteration.o                   \
     tables/t_WeaponLegendaryFocus.o              \
     tables/t_WeaponMonk.o                        \
     tables/t_WeaponOfChoice.o                    \
