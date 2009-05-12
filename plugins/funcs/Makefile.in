@@ -129,6 +129,7 @@ OFILES  = \
     funcs/skill/f_GetPCSkillPoints.o             \
     funcs/skill/f_GetSkillIncreaseByLevel.o      \
     funcs/skill/f_ModifySkillRank.o              \
+    funcs/skill/f_ModifySkillRankByLevel.o       \
     funcs/skill/f_SetPCSkillPoints.o             \
     funcs/skill/f_SetSkillRank.o                 \
     funcs/spell/f_AddKnownSpell.o                \

@@ -120,6 +120,9 @@ int ModifyAbilityScore (object oCreature, int nAbility, int nValue);
 /* Modifies oCreature's base skill rank for nSkill by nValue. */
 int ModifySkillRank (object oCreature, int nSkill, int nValue);
 
+/* Modifies oCreature's base skill rank for nSkill at nLevel by nValue. */
+int ModifySkillRankByLevel (object oCreature, int nLevel, int nSkill, int nValue);
+
 /* Gets oCreature's natural base AC */
 int GetACNaturalBase (object oCreature);
 
@@ -497,6 +500,10 @@ int SetSkillRank (object oCreature, int nSkill, int nValue) {
 
 int ModifySkillRank (object oCreature, int nSkill, int nValue) {
     return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!MODIFYSKILLRANK", nSkill, nValue);
+}
+
+int ModifySkillRankByLevel (object oCreature, int nLevel, int nSkill, int nValue) {
+    return NWNXFuncsThree(oCreature, "NWNX!FUNCS!MODIFYSKILLRANKBYLEVEL", nLevel, nSkill, nValue);
 }
 
 
