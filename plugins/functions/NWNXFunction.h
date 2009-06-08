@@ -72,6 +72,8 @@ protected:
 	char *GetNextLocalVariable(char* value);
 	void GetItemCount_Ext(char* value);
 	void GetItemByPosition_SetPos(char* value);
+	void SetELC(char* value);
+	void SetILR(char* value);
 	void IntToObject(char* value);
 	void DebugMe(char* value);
 	void ObjDump(char* value);

@@ -25,6 +25,7 @@
 #include "CNWSScriptVarTable.h"
 #include "CItemRepository.h"
 
+CServerExoApp *GetServerExoApp();
 long GetOIDByObj(void *pObject);
 int GetFaction(long ObjID,int *buf);
 void SetFaction(long ObjID, int nFaction);

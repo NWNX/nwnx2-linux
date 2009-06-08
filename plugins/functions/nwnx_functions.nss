@@ -130,6 +130,12 @@ object GetItemByPosition(object oTarget, int nPosition);
 // Convert nObjectID to an object reference
 object IntToObject(int nObjectID);
 
+// Change 'Enforce Legal Characters' server setting
+void SetELC(int bELC);
+
+// Change 'Item Level Restrictions' server setting
+void SetILR(int bILR);
+
 // Restart the server
 // Works only with NWNX Reset Plugin installed
 void RestartServer();
@@ -401,16 +407,28 @@ object IntToObject(int nObjectID)
     return GetLocalObject(GetModule(), "NWNX!FUNCTIONS!INT_TO_OBJECT");
 }
 
+void SetELC(int bELC)
+{
+    SetLocalString(GetModule(), "NWNX!FUNCTIONS!SET_ELC", IntToString(bELC==1));
+    DeleteLocalString(GetModule(), "NWNX!FUNCTIONS!SET_ELC");
+}
+
+void SetILR(int bILR)
+{
+    SetLocalString(GetModule(), "NWNX!FUNCTIONS!SET_ILR", IntToString(bILR==1));
+    DeleteLocalString(GetModule(), "NWNX!FUNCTIONS!SET_ILR");
+}
+
 void DebugMe(object oObject)
 {
     SetLocalString(oObject, "NWNX!FUNCTIONS!DEBUGME", "      ");
-    DeleteLocalString(oObject, "NWNX!FUNCTIONS!GETEVENTHANDLER");
+    DeleteLocalString(oObject, "NWNX!FUNCTIONS!DEBUGME");
 }
 
 void ObjectDump(object oObject)
 {
     SetLocalString(oObject, "NWNX!FUNCTIONS!OBJDUMP", "      ");
-    DeleteLocalString(oObject, "NWNX!FUNCTIONS!GETEVENTHANDLER");
+    DeleteLocalString(oObject, "NWNX!FUNCTIONS!OBJDUMP");
 }
 
 void RestartServer()
