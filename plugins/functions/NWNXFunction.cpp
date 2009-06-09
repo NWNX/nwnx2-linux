@@ -50,6 +50,7 @@ void CNWNXFunction::SetGoldPieceValue(char* value)
 
 void CNWNXFunction::SetTag(char* value)
 {
+/*
 #ifdef NWNX_FUNCTIONS_SETTAG_REWRITE
     // warning: leaks memory, but allows setting a longer tag than the original, plus
     // there appear to be some cases where rewriting the tag causes corruption
@@ -71,6 +72,9 @@ void CNWNXFunction::SetTag(char* value)
 
 	*(tag+iLength) = 0x0;
 #endif
+*/
+	CExoString *sNewTag = NewCExoString(value);
+	CNWSObject_SetTag((CNWSObject *)(pGameObject-4), sNewTag);
 }
 
 void CNWNXFunction::SetArmorAC(char* value)
@@ -289,11 +293,15 @@ void CNWNXFunction::GetEventHandler(char* value)
 	if (event_id<0 || event_id>12) return;
 
 	int length = strlen(value);
-	char *func;
+	//char *func;
 	if (*(pGameObject+0x4) != 0x5) // object type creature
 		return;
+
+	CNWSCreature *cr = (CNWSCreature *)(pGameObject-4);
+	CExoString *func_0 = &cr->HeartbeatScript;
+	char *func = func_0[event_id].Text;
 	
-	func = (char*)(*(int*)(pGameObject+0x1F4+0x8*event_id));
+	//func = (char*)(*(int*)(pGameObject+0x1F4+0x8*event_id));
 	if(!func){ value[0]=0; return; }
 
 	int iFuncLength = strlen(func);

@@ -45,9 +45,10 @@ int JumpToLimbo(dword nObjectID);
 CNWSScriptVar *GetLocalVarByPosition(void *pObject, int nNum);
 dword GetItemCount(void *pObject);
 dword GetItemByPosition(void *pObject, dword nPos);
+void CNWSObject_SetTag(CNWSObject *oObject, CExoString *sNewTag);
 
 
-
+CExoString *NewCExoString(char *str);
 int FindFunctions();
 void InitConstants();
 
