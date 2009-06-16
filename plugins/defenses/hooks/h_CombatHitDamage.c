@@ -24,11 +24,12 @@ volatile uintptr_t Hook_CHD_Return;
 static volatile uint32_t Hook_CHD_Crit;
 static volatile int16_t *Hook_CHD_Damages;
 static volatile CNWSCreature *Hook_CHD_Target;
+static volatile CNWSCreature *Hook_CHD_Attacker;
 
 
 __attribute__((noinline))
 static void Hook_AdjustCombatHitDamage (CNWSCreature *target, int16_t *damages, int crit) {
-    Local_AdjustCombatHitDamage(target, damages, crit);
+    Local_AdjustCombatHitDamage((CNWSCreature *)Hook_CHD_Attacker, target, damages, crit);
 }
 
 void Hook_CombatHitDamage (void) {
@@ -42,6 +43,10 @@ void Hook_CombatHitDamage (void) {
 
     /* copy the damages out */
     asm("movl %eax, Hook_CHD_Damages");
+
+    /* get the attacker */
+    asm("movl 0x8(%ebp), %eax");
+    asm("movl %eax, Hook_CHD_Attacker");
 
     /* get the target object */ 
     asm("sub $0xc, %esp");
@@ -57,10 +62,9 @@ void Hook_CombatHitDamage (void) {
     asm("pushl 0xffffffc8(%ebp)");
     asm("popl Hook_CHD_Crit");
 
-    asm("pusha");
-    Hook_AdjustCombatHitDamage((CNWSCreature *)Hook_CHD_Target,
+    Hook_AdjustCombatHitDamage(
+        (CNWSCreature *)Hook_CHD_Target,
         (int16_t *)Hook_CHD_Damages, Hook_CHD_Crit);
-    asm("popa");
 
     /* return to the normal combat hit damage call */
     asm("push Hook_CHD_Return");
