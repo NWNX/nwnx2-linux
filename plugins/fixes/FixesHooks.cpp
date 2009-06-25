@@ -211,9 +211,6 @@ int GetIsMergeableHookProc(void *pItem1, void *pItem2)
 	else return lastRet;
 }
 
-//asm("void PlayerListNoDMHook(void):");
-//asm("	test %edi, %edi");
-
 void PlayerListNoDMHook()
 {
 	// fix broken stack. gcc can fuck off and die in a fire.
