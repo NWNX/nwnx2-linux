@@ -211,6 +211,37 @@ int GetIsMergeableHookProc(void *pItem1, void *pItem2)
 	else return lastRet;
 }
 
+//asm("void PlayerListNoDMHook(void):");
+//asm("	test %edi, %edi");
+
+void PlayerListNoDMHook()
+{
+	// fix broken stack. gcc can fuck off and die in a fire.
+	asm("pop %ebp");
+	// begin actual code
+	asm("test %edi,%edi");
+	asm("jz suppressresponse");
+	// cs_is_dm
+	asm("mov 0xC68(%eax), %eax");
+	asm("mov 0x78(%eax), %eax");
+	asm("test %eax, %eax");
+	asm("jnz suppressresponse");
+	// cs_is_pc
+	asm("mov 0xC68(%edi), %eax");
+	asm("mov 0x74(%eax), %eax");
+	asm("jnz sendresponse");
+	// cre_master_id
+	asm("mov 0xB38(%edi), %eax");
+	asm("cmp $7, %eax");
+	asm("jnz sendresponse");
+	asm("suppressresponse:");
+	asm("mov $0x0807e641, %eax");
+	asm("jmp %eax");
+	asm("sendresponse:");
+	asm("mov $0x0807e4b3, %eax");
+	asm("jmp %eax");
+}
+
 //#################### HOOK ####################
 
 void
@@ -272,12 +303,13 @@ int FindHookFunctions()
 	char *pPlayModCharListCode = "\xC2\x0C\x00";
 	char *pNoClassesHook = (char*)0x0807e586;
 	char *pNoClassesHookCode = "\xB0\x00\x90\x90\x90\x90";
-	char *pNoPortraitHook1 = (char*)0x00807e551;
+	char *pNoPortraitHook1 = (char*)0x0807e551;
 	char *pNoPortraitHook1Code = "\x6A\x10\x6A\x00\x68\x30\x32\x5F\x00\x68\x6F\x62\x6F\x64\x68\x70\x6F\x5F\x6E\xFF\x75\x08\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90";
-	char *pNoPortraitHook2 = (char*)0x00807e57f;
+	char *pNoPortraitHook2 = (char*)0x0807e57f;
 	char *pNoPortraitHook2Code = "\x18";
-	char *pNoPortraitHook3 = (char*)0x00807e52c;
+	char *pNoPortraitHook3 = (char*)0x0807e52c;
 	char *pNoPortraitHook3Code = "\x66\xB8\xFF\xFF\x83\xC4\x0C\x90\x90";
+	char *pNoDMHook = (char*)0x0807e4ab;
 
 	if (pPlayModCharList && pNoClassesHook && pNoPortraitHook1 && pNoPortraitHook2)
 	{
@@ -302,6 +334,13 @@ int FindHookFunctions()
 			memcpy(pNoPortraitHook2, pNoPortraitHook2Code, 1);
 			memcpy(pNoPortraitHook3, pNoPortraitHook3Code, 9);
 			fixes.Log(2, "* Disguising portraits in character list.\n");
+		}
+
+		if(fixes.GetConfInteger("hide_charlist_dms"))
+		{
+			d_enable_write((dword) pNoDMHook);
+			pNoDMHook[0] = (char)0xE9;
+			*((int*)(&pNoDMHook[1])) = (int)&PlayerListNoDMHook - (int)pNoDMHook - 5;
 		}
 	}
 
