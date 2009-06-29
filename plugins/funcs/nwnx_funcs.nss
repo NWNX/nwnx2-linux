@@ -449,6 +449,18 @@ string GetPCFileName (object oPC);
 /* Jump oCreature to Limbo. */
 void JumpToLimbo (object oCreature);
 
+/* Broadcast the projectile for nSpellId going from oSource to oTarget. nDelay
+ * is in milliseconds (1000=1s). If nSpellId is -1, the projectile for
+ * oSource's weapon (e.g. an arrow if oSource is wielding a bow) will be
+ * displayed.
+ *
+ * This will display cones for cone spells as well, though they will always
+ * be forward-facing from oSource. */
+int BroadcastProjectileToObject (object oSource, object oTarget, int nSpellId, int nDelay=-1);
+
+/* As for BroadcastProjectileToObject(), but to a target location. */
+int BroadcastProjectileToLocation (object oSource, location lTarget, int nSpellId, int nDelay=-1);
+
 /* Convert an object ID to an object. */
 object IntToObject (int nObjectId);
 
@@ -1219,6 +1231,44 @@ string GetPCFileName (object oPC) {
 
 void JumpToLimbo (object oCreature) {
     SetLocalString(oCreature, "NWNX!FUNCS!JUMPTOLIMBO", "          ");
+}
+
+
+int BroadcastProjectileToObject (object oSource, object oTarget, int nSpellId, int nDelay=-1) {
+    if (!GetIsObjectValid(oTarget))
+        return 0;
+
+    location lTarget = GetLocation(oTarget);
+    vector vTarget   = GetPositionFromLocation(lTarget);
+
+    if (nDelay < 0) {
+        float fDelay = GetDistanceBetween(oSource, oTarget) / 20;
+        nDelay = FloatToInt(fDelay * 1000);
+    }
+
+    SetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE",
+        ObjectToString(oTarget)        + " " +
+        FloatToString(vTarget.x, 1, 4) + " " +
+        FloatToString(vTarget.y, 1, 4) + " " +
+        FloatToString(vTarget.z, 1, 4) + " " +
+        IntToString(nSpellId) + " " + IntToString(nDelay));
+    return StringToInt(GetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE"));
+}
+
+int BroadcastProjectileToLocation (object oSource, location lTarget, int nSpellId, int nDelay=-1) {
+    vector vTarget = GetPositionFromLocation(lTarget);
+
+    if (nDelay < 0) {
+        float fDelay = GetDistanceBetweenLocations(GetLocation(oSource), lTarget) / 20;
+        nDelay = FloatToInt(fDelay * 1000);
+    }
+
+    SetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE", "0 " +
+        FloatToString(vTarget.x, 1, 4) + " " +
+        FloatToString(vTarget.y, 1, 4) + " " +
+        FloatToString(vTarget.z, 1, 4) + " " +
+        IntToString(nSpellId) + " " + IntToString(nDelay));
+    return StringToInt(GetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE"));
 }
 
 

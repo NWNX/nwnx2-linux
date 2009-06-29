@@ -34,6 +34,7 @@ void Func_AddKnownFeatAtLevel        (CGameObject *ob, char *value);
 void Func_AddKnownSpell              (CGameObject *ob, char *value);
 void Func_AddSpecialAbility          (CGameObject *ob, char *value);
 void Func_BootPCWithMessage          (CGameObject *ob, char *value);
+void Func_BroadcastProjectile        (CGameObject *ob, char *value);
 void Func_DumpObject                 (CGameObject *ob, char *value);
 void Func_GetACNaturalBase           (CGameObject *ob, char *value);
 void Func_GetAbilityIncreaseByLevel  (CGameObject *ob, char *value);

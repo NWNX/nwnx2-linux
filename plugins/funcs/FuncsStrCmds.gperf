@@ -39,6 +39,7 @@ ADDKNOWNFEATATLEVEL,                   Func_AddKnownFeatAtLevel
 ADDKNOWNSPELL,                         Func_AddKnownSpell
 ADDSPECIALABILITY,                     Func_AddSpecialAbility
 BOOTPCWITHMESSAGE,                     Func_BootPCWithMessage
+BROADCASTPROJECTILE,                   Func_BroadcastProjectile
 DUMPOBJECT,                            Func_DumpObject
 GETABILITYINCREASEBYLEVEL,             Func_GetAbilityIncreaseByLevel
 GETACNATURALBASE,                      Func_GetACNaturalBase
