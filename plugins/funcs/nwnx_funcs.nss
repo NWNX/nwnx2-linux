@@ -266,7 +266,7 @@ int GetTotalKnownSpells (object oCreature, int nClass, int nSpellLevel);
 int AddKnownSpell (object oCreature, int nClass, int nSpellLevel, int nSpellId);
 
 /* Remove a spell from oCreature's spellbook for nClass. */
-int RemoveKnownSpell (object oCreature, int nClass, int nSpellId);
+int RemoveKnownSpell (object oCreature, int nClass, int nSpellLevel, int nSpellId);
 
 /* Replace a spell in oCreature's spellbook for nClass. */
 int ReplaceKnownSpell (object oCreature, int nClass, int nOldSpell, int nNewSpell);
@@ -780,8 +780,8 @@ int AddKnownSpell (object oCreature, int nClass, int nSpellLevel, int nSpellId) 
     return NWNXFuncsThree(oCreature, "NWNX!FUNCS!ADDKNOWNSPELL", nClass, nSpellLevel, nSpellId);
 }
 
-int RemoveKnownSpell (object oCreature, int nClass, int nSpellId) {
-    return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!REMOVEKNOWNSPELL", nClass, nSpellId);
+int RemoveKnownSpell (object oCreature, int nClass, int nSpellLevel, int nSpellId) {
+    return NWNXFuncsThree(oCreature, "NWNX!FUNCS!REMOVEKNOWNSPELL", nClass, nSpellLevel, nSpellId);
 }
 
 int ReplaceKnownSpell (object oCreature, int nClass, int nOldSpell, int nNewSpell) {
@@ -808,9 +808,10 @@ struct MemorizedSpellSlot GetMemorizedSpell (object oCreature, int nClass, int n
 }
 
 int SetMemorizedSpell (object oCreature, int nClass, int nLevel, int nIndex, struct MemorizedSpellSlot mss) {
+    int nFlags = (mss.ready != 0) | ((mss.domain != 0) << 1);
     SetLocalString(oCreature, "NWNX!FUNCS!SETMEMORIZEDSPELL",
         IntToString(nClass) + " " + IntToString(nLevel) + " " + IntToString(nIndex) + " " +
-        IntToString(mss.id) + " " + IntToString(mss.meta & 0x7F) + " " + IntToString(mss.ready != 0) + "          ");
+        IntToString(mss.id) + " " + IntToString(mss.meta & 0x7F) + " " + IntToString(nFlags) + "          ");
     return StringToInt(GetLocalString(oCreature, "NWNX!FUNCS!GETMEMORIZEDSPELL"));
 }
 
