@@ -41,7 +41,7 @@ const int QUICKBAR_TYPE_FEAT                    = 4;
 
 struct MemorizedSpellSlot {
     int id;
-    int ready, meta;
+    int ready, meta, domain;
 };
 
 struct SpecialAbilitySlot {
