@@ -30,7 +30,13 @@ bool GetIsUnarmedWeapon (CNWSItem *weapon) {
             weapon->it_baseitem == BASE_ITEM_CSLASHWEAPON ||
             weapon->it_baseitem == BASE_ITEM_CPIERCWEAPON ||
             weapon->it_baseitem == BASE_ITEM_CBLUDGWEAPON ||
-            weapon->it_baseitem == BASE_ITEM_CSLSHPRCWEAP);
+            weapon->it_baseitem == BASE_ITEM_CSLSHPRCWEAP
+#ifdef NWNX_WEAPONS_HG
+                                                          ||
+            weapon->it_baseitem == 376                    || /* BASE_ITEM_CEP_GLOVES_SPIKED */
+            weapon->it_baseitem == 377                       /* BASE_ITEM_CEP_GLOVES_BLADED */
+#endif
+           );
 }
 
 
