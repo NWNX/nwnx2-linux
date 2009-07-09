@@ -273,6 +273,18 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
 #endif
 
 
+    /* override 'Extra Damage Type' with 'Replace Damage Type' */
+#ifdef NWNX_WEAPONS_HG
+    {
+        nx_hook_enable_write((unsigned char *)0x081A5DB0, 64);
+
+        *((unsigned char *)0x081A5DB3) = 0x8B;
+        *((unsigned char *)0x081A5DC3) = 0x8B;
+        *((unsigned char *)0x081A5DD3) = 0x8B;
+    }
+#endif
+
+
     /* fix offhand critical multiplier bug */
     if (Ref_OffhandCritMult1 != NULL && Ref_OffhandCritMult2 != NULL &&
         Ref_OffhandCritMult3 != NULL && Ref_OffhandCritMult4 != NULL) {
