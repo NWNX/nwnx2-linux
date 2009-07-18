@@ -1098,16 +1098,22 @@ void RestoreItemAppearance (object oItem, string sApp) {
 }
 
 int SetItemAppearance (object oItem, int nIndex, int nValue) {
-    return NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMAPPEARANCE", nIndex, nValue);
+    int nRet = NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMAPPEARANCE", nIndex, nValue);
+    DeleteLocalString(oItem, "NWNX!FUNCS!SETITEMAPPEARANCE");
+    return nRet;
 }
 
 int SetItemColor (object oItem, int nIndex, int nColor) {
-    return NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMCOLOR", nIndex, nColor);
+    int nRet = NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMCOLOR", nIndex, nColor);
+    DeleteLocalString(oItem, "NWNX!FUNCS!SETITEMCOLOR");
+    return nRet;
 }
 
 
 int SetPlaceableAppearance (object oPlace, int nApp) {
-    return NWNXFuncsOne(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE", nApp);
+    int nRet = NWNXFuncsOne(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE", nApp);
+    DeleteLocalString(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE");
+    return nRet;
 }
 
 
