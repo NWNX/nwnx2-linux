@@ -55,6 +55,9 @@ int GetEffectDamageResistance (object oCreature, int nDamType, int nDurType=-1);
 /* Get if oCreature is immune to nSpellId. */
 int GetHasSpellImmunity (int nSpellId, object oCreature=OBJECT_SELF, int nSpellSchool=-1, int nSpellLevel=-1, int nDurType=-1);
 
+/* Get the total damage immunity decrease suffered by oCreature against nDamType. */
+int GetTotalDamageImmunityDecrease (object oCreature, int nDamType, int nDurType=-1);
+
 /* Get oCreature's true total damage immunity against the specified type. */
 int GetTrueDamageImmunity (object oCreature, int nDamType);
 
@@ -134,6 +137,10 @@ int GetSavingThrowVersus (object oCreature, int nSave, int nSaveType=SAVING_THRO
     SetLocalString(oCreature, "NWNX!DEFENSES!GETSAVINGTHROWVERSUS",
         IntToString(nSave) + " " + IntToString(nSaveType) + " " + ObjectToString(oVersus));
     return StringToInt(GetLocalString(oCreature, "NWNX!DEFENSES!GETSAVINGTHROWVERSUS"));
+}
+
+int GetTotalDamageImmunityDecrease (object oCreature, int nDamType, int nDurType=-1) {
+    return NWNXDefensesTwo(oCreature, "NWNX!DEFENSES!GETTOTALDAMAGEIMMUNITYDECREASE", nDamType, nDurType);
 }
 
 int GetTrueDamageImmunity (object oCreature, int nDamType) {
