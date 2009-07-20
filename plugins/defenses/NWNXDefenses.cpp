@@ -532,10 +532,19 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
 
 
     /* fix saving throw bonus/penalty on items */
-    *((unsigned char *)0x81B045D) = 0x02;
-    *((unsigned char *)0x81B04FD) = 0x02;
-    *((unsigned char *)0x81B059D) = 0x15;
-    *((unsigned char *)0x81B063D) = 0x15;
+    {
+        nx_hook_enable_write((unsigned char *)0x81B0450, 32);
+        *((unsigned char *)0x81B045D) = 0x02;
+
+        nx_hook_enable_write((unsigned char *)0x81B04F0, 32);
+        *((unsigned char *)0x81B04FD) = 0x02;
+
+        nx_hook_enable_write((unsigned char *)0x81B0590, 32);
+        *((unsigned char *)0x81B059D) = 0x15;
+
+        nx_hook_enable_write((unsigned char *)0x81B0630, 32);
+        *((unsigned char *)0x81B063D) = 0x15;
+    }
 #endif
 
     return true;
