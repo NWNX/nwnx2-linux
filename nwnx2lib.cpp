@@ -50,8 +50,8 @@ typedef CNWNXBase* (*ClassObject)();
 ClassObject GetClassObject;
 
 static FILE *logFile = stdout;
-static char *logDir = NULL;
-static char logFileName[18] = {0};
+static const char *logDir = NULL;
+static const char *pluginDir = NULL;
 static int debuglevel = 0;
 static int xdbglevel = 1;
 static int nwnxinitdisabled = 0;
@@ -348,7 +348,7 @@ LoadLibraries() {
 
 	// search the local directory for all files matching
 	// the pattern: 'nwnx_*.so'
-	if((dp=opendir("."))==NULL) {
+	if((dp=opendir(pluginDir))==NULL) {
 		// scream and shout
 		Log(0, "Unable to scan local directory: %s\n", strerror(errno));
 		return;
@@ -385,7 +385,7 @@ LoadLibraries() {
 			continue;
 		}
 
-		sprintf(fname,"./%s",d->d_name);
+		sprintf(fname,"%s/%s",pluginDir,d->d_name);
 
 		// load the library
 		if((handle = dlopen(fname, RTLD_NOW))==NULL) {
@@ -499,7 +499,8 @@ my_GetObject (const char **s1, const char **s2)
 
 static void Configure() {
 	FILE *logfp;
-	char *logfilename,logfqpn[256];
+	char logfqpn[256];
+        const char *logfilename;
 
 	// Directory to stuff plugin logfiles
 	if(nwnxConfig.exists("LogDir","logdir")) {
@@ -514,6 +515,12 @@ static void Configure() {
 		logfilename= (char*)(nwnxConfig["NWNX"]["logfile"].c_str());
 	} else {
 		logfilename= "nwnx2.txt";
+	}
+
+	if(nwnxConfig.exists("NWNX","plugindir")) {
+		pluginDir = (char*)(nwnxConfig["NWNX"]["plugindir"].c_str());
+	} else {
+		pluginDir = ".";
 	}
 
 	// Global debug level
