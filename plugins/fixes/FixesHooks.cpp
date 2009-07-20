@@ -230,6 +230,8 @@ void PlayerListNoDMHook()
 	// cre_master_id
 	asm("mov 0xB38(%edi), %eax");
 	asm("cmp $7, %eax");
+	asm("jz suppressresponse");
+	asm("cmp $8, %eax");
 	asm("jnz sendresponse");
 	asm("suppressresponse:");
 	asm("mov $0x0807e641, %eax");
