@@ -623,13 +623,13 @@ static void Log(int priority, const char *pcMsg, ...)
 		va_end(argList);
 
 		// log string in file
-		fprintf (logFile, acBuffer);
+		fprintf (logFile, "%s", acBuffer);
 		fflush (logFile);
 	}
 
 	if(priority==0 && logFile != stdout)
 	{
-		printf(acBuffer);
+		printf("%s", acBuffer);
 	}
 }
 
