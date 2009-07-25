@@ -1,6 +1,6 @@
-NWNXDIR  = ../..
-CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR)
+CPPFLAGS = $(PLUGIN_CPPFLAGS) $(INCS)
 LFLAGS   = $(PLUGIN_LFLAGS)
+INCS	 = -I. -I.. -I../.. -I ../../include -I/usr/local/include
 
 all: nwnx_fixes.so
 

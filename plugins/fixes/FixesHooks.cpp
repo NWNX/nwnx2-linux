@@ -97,7 +97,7 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 			CNWObjectVarListElement *pVar2 = &pVarList2->VarList[j];
 
             if (pVar1->nVarType == pVar2->nVarType &&
-                strcmp(pVar1->sVarName.Text, pVar2->sVarName.Text) == 0) {
+                strcmp(pVar1->sVarName.text, pVar2->sVarName.text) == 0) {
 
 				bFound = true;
 
@@ -106,7 +106,7 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 				case 1:  //int
                         if ((int)(pVar1->nVarValue) != (int)(pVar2->nVarValue)) {
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: int value '%s' %d != %d\n", pVar1->sVarName.Text,
+                            fixes.Log(3, "blocking merge: int value '%s' %d != %d\n", pVar1->sVarName.text,
                                       (int)(pVar1->nVarValue), (int)(pVar2->nVarValue));
 #endif
                             return false;
@@ -116,7 +116,7 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 				case 2:  //float
                         if ((float)(pVar1->nVarValue) != (float)(pVar2->nVarValue)) {
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: float value '%s' %.04f != %.04f\n", pVar1->sVarName.Text,
+                            fixes.Log(3, "blocking merge: float value '%s' %.04f != %.04f\n", pVar1->sVarName.text,
                                       (float)(pVar1->nVarValue), (float)(pVar2->nVarValue));
 #endif
                             return false;
@@ -129,7 +129,7 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 					break;
                         if ((char **)(pVar1->nVarValue) == NULL || (char **)(pVar2->nVarValue) == NULL) {  //the variable is not set on one of the objects
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: string value '%s' is not set on one of the objects\n", pVar1->sVarName.Text);
+                            fixes.Log(3, "blocking merge: string value '%s' is not set on one of the objects\n", pVar1->sVarName.text);
 #endif
                             return false;
                         }
@@ -138,14 +138,14 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
                             break;
                         if (*(char **)(pVar1->nVarValue) == NULL || *(char **)(pVar2->nVarValue) == NULL) { //one of the variables is empty
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: string value '%s' is not set on one of the objects\n", pVar1->sVarName.Text);
+                            fixes.Log(3, "blocking merge: string value '%s' is not set on one of the objects\n", pVar1->sVarName.text);
 #endif
                             return false;
                         }
 
                         if (strcmp(*(char **)(pVar1->nVarValue), *(char **)(pVar2->nVarValue)) != 0) {  //string values are not equal
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: string value '%s' '%s' != '%s'\n", pVar1->sVarName.Text,
+                            fixes.Log(3, "blocking merge: string value '%s' '%s' != '%s'\n", pVar1->sVarName.text,
                                       *(char **)(pVar1->nVarValue), *(char **)(pVar2->nVarValue));
 #endif
                             return false;
@@ -155,7 +155,7 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 				case 4:  //object
                         if ((dword)(pVar1->nVarValue) != (dword)(pVar2->nVarValue)) {
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: object value '%s' %08X != %08X\n", pVar1->sVarName.Text,
+                            fixes.Log(3, "blocking merge: object value '%s' %08X != %08X\n", pVar1->sVarName.ext,
                                       (dword)(pVar1->nVarValue), (dword)(pVar2->nVarValue));
 #endif
                             return false;
@@ -172,7 +172,7 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 
         if (!bFound) {
 #ifdef NWNX_FIXES_DEBUG
-            fixes.Log(3, "blocking merge: local variable '%s' not found on one of the objects", pVar1->sVarName.Text);
+            fixes.Log(3, "blocking merge: local variable '%s' not found on one of the objects", pVar1->sVarName.text);
 #endif
             return false;
 	}
@@ -213,31 +213,45 @@ int GetIsMergeableHookProc(void *pItem1, void *pItem2)
 
 void PlayerListNoDMHook()
 {
-	// fix broken stack. gcc can fuck off and die in a fire.
-	asm("pop %ebp");
-	// begin actual code
+	CNWSCreature *cre;
+
+	// code overwritten by hook
 	asm("test %edi,%edi");
 	asm("jz suppressresponse");
-	// cs_is_dm
-	asm("mov 0xC68(%eax), %eax");
-	asm("mov 0x78(%eax), %eax");
-	asm("test %eax, %eax");
-	asm("jnz suppressresponse");
-	// cs_is_pc
-	asm("mov 0xC68(%edi), %eax");
-	asm("mov 0x74(%eax), %eax");
-	asm("jnz sendresponse");
-	// cre_master_id
-	asm("mov 0xB38(%edi), %eax");
-	asm("cmp $7, %eax");
-	asm("jz suppressresponse");
-	asm("cmp $8, %eax");
-	asm("jnz sendresponse");
-	asm("suppressresponse:");
-	asm("mov $0x0807e641, %eax");
-	asm("jmp %eax");
+	
+	// put eax (CNWSCreature*) in cre so we can work with it
+	asm("mov %%eax,%0" : "=r"(cre));
+
+	// obvious enough: if DM, don't list
+	if(cre->cre_stats->cs_is_dm)
+	{
+		asm("jmp suppressresponse");
+	}
+	// DMs are also PCs, but they've been handled above, so this is mortal PCs only
+	else if(cre->cre_stats->cs_is_pc)
+	{
+		asm("jmp sendresponse");
+	}
+	// 7 is DM possess, 8 is DM possess full powers, 0x7fffffff is WTF
+	else if(cre->cre_master_id == 7 || cre->cre_master_id == 8 || cre->cre_master_id == 0x7fffffff)
+	{
+		fixes.Log(4, "* NoDMHook Suppress (cre_master_id): %08lX\n", cre->cre_master_id);
+		asm("jmp suppressresponse");
+	}
+	else
+	{
+		fixes.Log(4, "* NoDMHook Send (default): %08lX\n", cre->cre_master_id);
+	}
+
 	asm("sendresponse:");
+	asm("pop %ebp"); // remove cre from stack
+	asm("pop %ebp"); // restore stack that gcc screwed up with function prologue
 	asm("mov $0x0807e4b3, %eax");
+	asm("jmp %eax");
+	asm("suppressresponse:");
+	asm("pop %ebp"); // remove cre from stack
+	asm("pop %ebp"); // restore stack that gcc screwed up with function prologue
+	asm("mov $0x0807e641, %eax");
 	asm("jmp %eax");
 }
 
@@ -299,15 +313,15 @@ int FindHookFunctions()
 	fixes.Log(2, "GetDead: %08lX\n", pGetDead);
 
 	char *pPlayModCharList = (char*)0x0819bcfc;
-	char *pPlayModCharListCode = "\xC2\x0C\x00";
+	char *pPlayModCharListCode = (char*)"\xC2\x0C\x00";
 	char *pNoClassesHook = (char*)0x0807e586;
-	char *pNoClassesHookCode = "\xB0\x00\x90\x90\x90\x90";
+	char *pNoClassesHookCode = (char*)"\xB0\x00\x90\x90\x90\x90";
 	char *pNoPortraitHook1 = (char*)0x0807e551;
-	char *pNoPortraitHook1Code = "\x6A\x10\x6A\x00\x68\x30\x32\x5F\x00\x68\x6F\x62\x6F\x64\x68\x70\x6F\x5F\x6E\xFF\x75\x08\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90";
+	char *pNoPortraitHook1Code = (char*)"\x6A\x10\x6A\x00\x68\x30\x32\x5F\x00\x68\x6F\x62\x6F\x64\x68\x70\x6F\x5F\x6E\xFF\x75\x08\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90";
 	char *pNoPortraitHook2 = (char*)0x0807e57f;
-	char *pNoPortraitHook2Code = "\x18";
+	char *pNoPortraitHook2Code = (char*)"\x18";
 	char *pNoPortraitHook3 = (char*)0x0807e52c;
-	char *pNoPortraitHook3Code = "\x66\xB8\xFF\xFF\x83\xC4\x0C\x90\x90";
+	char *pNoPortraitHook3Code = (char*)"\x66\xB8\xFF\xFF\x83\xC4\x0C\x90\x90";
 	char *pNoDMHook = (char*)0x0807e4ab;
 
 	if (pPlayModCharList && pNoClassesHook && pNoPortraitHook1 && pNoPortraitHook2)
