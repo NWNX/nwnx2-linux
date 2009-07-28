@@ -268,7 +268,14 @@ struct CNWSCreature_s {
 
     uint32_t                    cre_ext_combat_mode;    /* 0518 */
 
-    uint32_t                    unknown[300];           /* 051C */
+    int32_t                     cre_eff_bon_amt[50];    /* 051C */
+    int32_t                     cre_eff_pen_amt[50];    /* 05E4 */
+
+    int32_t                     cre_eff_bon_spid[50];   /* 06AC */
+    int32_t                     cre_eff_pen_spid[50];   /* 0774 */
+
+    int32_t                     cre_eff_bon_obj[50];    /* 083C */
+    int32_t                     cre_eff_pen_obj[50];    /* 0904 */
 
     uint32_t                    cre_silent;             /* 09CC */
     uint32_t                    cre_hasted;             /* 09D0 */
