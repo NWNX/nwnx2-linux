@@ -513,7 +513,7 @@ void UseFeatHookProc(void *pCreature, byte nFeat, byte nSubFeat, dword nTargetOb
 		}
 		
 		events.Log(2,
-                    "UseFeat: pCreature=%08lX, oTarget=%08lX, oItem=%08lX, vTarget=%f/%f/%f, nSkill=%d\n",
+                    "UseFeat: pCreature=%08lX, oTarget=%08lX, oItem=%08lX, vTarget=%f/%f/%f, nFeat=%d\n",
                     *((dword *)pCreature + 1), events.oTarget, events.oItem, events.vPosition.x,
                     events.vPosition.y, events.vPosition.z, events.nEventSubID);
 		if(pCreature)
