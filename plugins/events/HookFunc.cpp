@@ -499,7 +499,7 @@ void UseSkillHookProc(void *pCreature, byte nSkill, byte nSubSkill, dword nTarge
 	asm ("jmp %eax");
 }
 
-void UseFeatHookProc(void *pCreature, byte nFeat, byte nSubFeat, dword nTargetObjID, dword nAreaID, CNWSVector *pvTarget)
+void UseFeatHookProc(void *pCreature, unsigned short nFeat, unsigned short nSubFeat, dword nTargetObjID, dword nAreaID, CNWSVector *pvTarget)
 {
 	if (!scriptRun)
 	{
