@@ -33,8 +33,8 @@ void Func_SetSavingThrowFeat (CGameObject *ob, char *value) {
     
     if (table == NULL                                               ||
         sscanf(value, "%d %d %d %d", &save, &idx, &feat, &mod) != 4 ||
-        idx < 0  || idx > NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE        ||
-        feat < 0 || feat > INT16_MAX                                ||
+        idx < 0   || idx >= NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE      ||
+        feat < 0  || feat > INT16_MAX                               ||
         mod < -20 || mod > 20) {
 
         snprintf(value, strlen(value), "-1");
