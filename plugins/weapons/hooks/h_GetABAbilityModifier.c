@@ -28,7 +28,7 @@ volatile int Hook_ABAM_Ranged;
 
 
 __attribute__((noinline))
-static int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon, int ranged) {
+int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon, int ranged) {
     int baseitem, dexmod, ab_abil = 0, ab_feats = 0;
 
     if (attacker == NULL)

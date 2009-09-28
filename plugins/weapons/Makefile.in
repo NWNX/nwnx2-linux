@@ -38,6 +38,7 @@ LFLAGS   = @LDFLAGS@ -w -fPIC -shared -rdynamic
 OFILES  = \
     common/c_GetIsUnarmedWeapon.o                \
     common/c_GetIsWeaponLight.o                  \
+    funcs/f_GetAttackBonusAdjustment.o           \
     funcs/f_GetWeaponAbilityFeat.o               \
     funcs/f_GetWeaponDevastatingCriticalFeat.o   \
     funcs/f_GetWeaponEpicFocusFeat.o             \

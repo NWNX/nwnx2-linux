@@ -54,6 +54,9 @@ const int NWNX_WEAPONS_OPT_LEGFOCUS_AB_EPBONUS       = 24;
 int GetWeaponOption (int nOption);
 int SetWeaponOption (int nOption, int nValue);
 
+/* Get the plugin-calculated AB adjustment for oCreature using oWeapon. */
+int GetAttackBonusAdjustment (object oCreature, object oWeapon, int bRanged);
+
 /* Get and set the minimum Monk level required for nBaseItem to be a Monk weapon. */
 int GetWeaponIsMonkWeapon (int nBaseItem);
 int SetWeaponIsMonkWeapon (int nBaseItem, int nMonkLevelsRequired);
@@ -121,6 +124,17 @@ int GetWeaponOption (int nOption) {
 
 int SetWeaponOption (int nOption, int nValue) {
     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONOPTION", nOption, nValue); 
+}
+
+
+int GetAttackBonusAdjustment (object oCreature, object oWeapon, int bRanged) {
+    SetLocalString(oCreature, "NWNX!WEAPONS!GETATTACKBONUSADJUSTMENT",
+        IntToString(bRanged) + " " + ObjectToString(oWeapon) + "         ");
+
+    int nAdj = StringToInt(GetLocalString(oCreature, "NWNX!WEAPONS!GETATTACKBONUSADJUSTMENT"));
+    DeleteLocalString(oCreature, "NWNX!WEAPONS!GETATTACKBONUSADJUSTMENT");
+
+    return nAdj;
 }
 
 

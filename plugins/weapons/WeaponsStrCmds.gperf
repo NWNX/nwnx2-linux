@@ -33,6 +33,7 @@ struct WeaponsStrCommand_s {
 };
 
 %%
+GETATTACKBONUSADJUSTMENT,               Func_GetAttackBonusAdjustment
 GETWEAPONABILITYFEAT,                   Func_GetWeaponAbilityFeat
 GETWEAPONDEVASTATINGCRITICALFEAT,       Func_GetWeaponDevastatingCriticalFeat
 GETWEAPONEPICFOCUSFEAT,                 Func_GetWeaponEpicFocusFeat

@@ -63,6 +63,8 @@ bool GetIsWeaponLight (CNWSCreatureStats *info, CNWSItem *weapon, bool finesse);
 void Func_GetWeaponOption                    (CGameObject *ob, char *value);
 void Func_SetWeaponOption                    (CGameObject *ob, char *value);
 
+void Func_GetAttackBonusAdjustment           (CGameObject *ob, char *value);
+
 void Func_GetWeaponAbilityFeat               (CGameObject *ob, char *value);
 void Func_GetWeaponDevastatingCriticalFeat   (CGameObject *ob, char *value);
 void Func_GetWeaponEpicFocusFeat             (CGameObject *ob, char *value);
@@ -106,6 +108,7 @@ void Hook_OffhandCritMult2 (void);
 void Hook_OffhandCritMult3 (void);
 void Hook_OffhandCritMult4 (void);
 
+int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon, int ranged);
 int Hook_GetEpicWeaponDevastatingCritical (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponOverwhelmingCritical (CNWSCreatureStats *info, CNWSItem *weapon);
