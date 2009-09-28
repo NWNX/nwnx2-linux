@@ -26,6 +26,7 @@
 
 #define NWNX_DEFENSES_BASE_ITEM_TABLE_SIZE              512
 #define NWNX_DEFENSES_OPTIONS_TABLE_SIZE                 64
+#define NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE               10
 
 #define NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_GE      0 
 #define NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_LC      1 
@@ -72,6 +73,7 @@ void Func_GetSavingThrowVersus               (CGameObject *ob, char *value);
 void Func_GetTotalDamageImmunityDecrease     (CGameObject *ob, char *value);
 void Func_GetTrueDamageImmunity              (CGameObject *ob, char *value);
 void Func_SetDefenseOption                   (CGameObject *ob, char *value);
+void Func_SetSavingThrowFeat                 (CGameObject *ob, char *value);
 
 nwn_objid_t Func_IntToObject (CGameObject *ob);
 
@@ -119,6 +121,10 @@ int Local_GetPickPocketDCAdjustment (CNWSCreature *thief, CNWSCreature *victim);
 
 
 extern uint16_t Table_DefenseOptions[NWNX_DEFENSES_OPTIONS_TABLE_SIZE];
+extern int16_t Table_DefenseSaveFort[NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE * 2];
+extern int16_t Table_DefenseSaveReflex[NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE * 2];
+extern int16_t Table_DefenseSaveWill[NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE * 2];
+
 
 #ifdef __cplusplus
 }

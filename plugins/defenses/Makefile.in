@@ -48,6 +48,7 @@ OFILES  = \
     funcs/f_GetTrueDamageImmunity.o              \
     funcs/f_IntToObject.o                        \
     funcs/f_SetDefenseOption.o                   \
+    funcs/f_SetSavingThrowFeat.o                 \
     hooks/h_AddDamageImmunity.o                  \
     hooks/h_CheckConcealment.o                   \
     hooks/h_CombatHitDamage.o                    \
@@ -82,6 +83,7 @@ OFILES  = \
     local/l_GetIsSneakAttackImmune.o             \
     local/l_GetPickPocketDCAdjustment.o          \
     tables/t_DefenseOptions.o                    \
+    tables/t_DefenseSaveFeats.o                  \
     NWNXDefenses.o                               \
     plugin-defenses.o
 

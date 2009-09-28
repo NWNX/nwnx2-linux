@@ -34,6 +34,9 @@ const int AC_NATURAL_BASE                                 =  -1;
 int GetDefenseOption (int nOption);
 int SetDefenseOption (int nOption, int nValue);
 
+/* Set saving throw feats. */
+int SetSavingThrowFeat (int nSave, int nIndex, int nFeat, int nMod);
+
 /* Get oCreature's AC of the specified type. */
 int GetACByType (object oCreature, int nACType=AC_DODGE_BONUS);
 
@@ -97,6 +100,11 @@ int GetDefenseOption (int nOption) {
 int SetDefenseOption (int nOption, int nValue) {
     return NWNXDefensesTwo(GetModule(), "NWNX!DEFENSES!SETDEFENSEOPTION", nOption, nValue); 
 }
+
+int SetSavingThrowFeat (int nSave, int nIndex, int nFeat, int nMod) {
+    return NWNXDefensesFour(GetModule(), "NWNX!DEFENSES!SETSAVINGTHROWFEAT", nSave, nIndex, nFeat, nMod);
+}
+
 
 int GetACByType (object oCreature, int nACType=AC_DODGE_BONUS) {
     return NWNXDefensesOne(oCreature, "NWNX!DEFENSES!GETACBYTYPE", nACType); 

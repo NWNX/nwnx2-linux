@@ -25,7 +25,10 @@ static volatile int8_t Hook_Save_Value;
 
 
 __attribute__((noinline))
-static int8_t Hook_GetSavingThrowAdjustment (CNWSCreatureStats *stats, int save, int8_t value) {
+static int8_t Hook_GetSavingThrowAdjustment (CNWSCreatureStats *stats, int save, int8_t current) {
+    int value = current;
+    int16_t *table = NULL;
+
     if (stats == NULL)
         return value;
 
@@ -56,6 +59,26 @@ static int8_t Hook_GetSavingThrowAdjustment (CNWSCreatureStats *stats, int save,
                 value -= stats->cs_cha_mod;
         }
     }
+
+    switch (save) {
+        case SAVING_THROW_FORT:   table = Table_DefenseSaveFort;   break;
+        case SAVING_THROW_REFLEX: table = Table_DefenseSaveReflex; break;
+        case SAVING_THROW_WILL:   table = Table_DefenseSaveWill;   break;
+    }
+
+    if (table != NULL) {
+        int i;
+
+        for (i = 0; i < NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE; i += 2) {
+            if (table[i] != 0 && CNWSCreatureStats__HasFeat(stats, table[i]))
+                value += table[i + 1];
+        }
+    }
+
+    if (value < -100)
+      value = -100;
+    else if (value > 100)
+      value = 100;
 
     return value;
 }

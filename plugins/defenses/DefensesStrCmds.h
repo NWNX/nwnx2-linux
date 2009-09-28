@@ -63,7 +63,7 @@ struct DefensesStrCommand_s {
     void       (*func)(CGameObject *, char *);
 };
 
-#define NWNX_DEFENSES_STRCMD_TOTAL_KEYWORDS 11
+#define NWNX_DEFENSES_STRCMD_TOTAL_KEYWORDS 12
 #define NWNX_DEFENSES_STRCMD_MIN_WORD_LENGTH 11
 #define NWNX_DEFENSES_STRCMD_MAX_WORD_LENGTH 30
 #define NWNX_DEFENSES_STRCMD_MIN_HASH_VALUE 12
@@ -125,7 +125,9 @@ static const struct DefensesStrCommand_s DefensesStrCommandList[] =
     {"SETDEFENSEOPTION",                       Func_SetDefenseOption},
 #line 39 "DefensesStrCmds.gperf"
     {"GETDEFENSEOPTION",                       Func_GetDefenseOption},
-    {""}, {""},
+#line 47 "DefensesStrCmds.gperf"
+    {"SETSAVINGTHROWFEAT", 			Func_SetSavingThrowFeat},
+    {""},
 #line 42 "DefensesStrCmds.gperf"
     {"GETHASSPELLIMMUNITY",                    Func_GetHasSpellImmunity},
 #line 43 "DefensesStrCmds.gperf"
@@ -167,7 +169,7 @@ DefensesStrCommandLookup (register const char *str, register unsigned int len)
     }
   return 0;
 }
-#line 47 "DefensesStrCmds.gperf"
+#line 48 "DefensesStrCmds.gperf"
 
 
 #ifdef __cplusplus
