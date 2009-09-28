@@ -76,6 +76,19 @@ static int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreat
         CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_CHARISMA]))
         ab_abil = attacker->cs_cha_mod;
 
+    if (Table_WeaponGreaterFocus[baseitem] > 0 &&
+        CNWSCreatureStats__HasFeat(attacker, Table_WeaponGreaterFocus[baseitem]))
+        ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS];
+
+    if (Table_WeaponLegendaryFocus[baseitem] > 0 &&
+        CNWSCreatureStats__HasFeat(attacker, Table_WeaponLegendaryFocus[baseitem])) {
+
+        ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS];
+
+        if (CNWSCreatureStats__HasFeat(attacker, FEAT_EPIC_PROWESS))
+            ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_LEGFOCUS_AB_EPBONUS];
+    }
+
     /* apply local adjustments (if any) */
     return Local_GetAttackBonusAdjustment(attacker, target, weapon, ranged, ab_abil, ab_feats);
 }
