@@ -105,6 +105,32 @@ int Local_GetConcealmentCheckResult (CNWSCreature *attacker, CNWSCreature *targe
     }
 
 
+    if (concealment > 0) {
+        int i, reduction = 0;
+        const CGameEffect *eff;
+
+        for (i = 0; i < target->obj.obj_effects_len; i++) {
+            if ((eff = target->obj.obj_effects[i]) == NULL)
+                continue;
+    
+            if (eff->eff_type != EFFECT_TRUETYPE_SPELL_IMMUNITY)
+                continue;
+    
+            if (eff->eff_integers[0] >= 3220 && eff->eff_integers[0] <= 3229) {
+                int effred = eff->eff_integers[0] - 3219;
+
+                if (effred > reduction)
+                    reduction = effred;
+            }
+        }
+
+        if (reduction >= concealment)
+             concealment = 1;
+        else
+             concealment -= reduction;
+    }
+
+
     /* select the greater of miss chance and concealment (they do not stack) */
     if (misschance > concealment)
         conc = misschance * 0.01;
