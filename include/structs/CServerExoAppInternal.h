@@ -101,7 +101,7 @@ struct CServerExoAppInternal_s {
     u_int32_t                   field_100C4;            /* 100C4 */
     u_int32_t                   field_100C8;            /* 100C8 */
     u_int32_t                   field_100CC;            /* 100CC */
-    u_int32_t                   field_100D0;            /* 100D0 */
+    u_int32_t                   srv_pc_export_pending;  /* 100D0 */
     u_int32_t                   field_100D4;            /* 100D4 */
     u_int32_t                   field_100D8;            /* 100D8 */
     u_int32_t                   field_100DC;            /* 100DC */
