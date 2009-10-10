@@ -87,6 +87,7 @@ OFILES  = \
     funcs/item/f_GetItemByPosition.o             \
     funcs/item/f_GetItemCount.o                  \
     funcs/item/f_RestoreItemAppearance.o         \
+    funcs/item/f_SetBaseItemType.o               \
     funcs/item/f_SetGoldPieceValue.o             \
     funcs/item/f_SetItemAppearance.o             \
     funcs/item/f_SetItemColor.o                  \

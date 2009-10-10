@@ -105,6 +105,7 @@ void Func_RestoreReadySpells         (CGameObject *ob, char *value);
 void Func_SetACNaturalBase           (CGameObject *ob, char *value);
 void Func_SetAbilityScore            (CGameObject *ob, char *value);
 void Func_SetAlignmentValue          (CGameObject *ob, char *value);
+void Func_SetBaseItemType            (CGameObject *ob, char *value);
 void Func_SetClericDomain            (CGameObject *ob, char *value);
 void Func_SetConversation            (CGameObject *ob, char *value);
 void Func_SetCreatureEventHandler    (CGameObject *ob, char *value);

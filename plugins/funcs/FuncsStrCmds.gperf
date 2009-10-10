@@ -110,6 +110,7 @@ RESTOREREADYSPELLS,                    Func_RestoreReadySpells
 SETABILITYSCORE,                       Func_SetAbilityScore
 SETACNATURALBASE,                      Func_SetACNaturalBase
 SETALIGNMENTVALUE,                     Func_SetAlignmentValue
+SETBASEITEMTYPE,                       Func_SetBaseItemType
 SETCLERICDOMAIN,                       Func_SetClericDomain
 SETCONVERSATION,                       Func_SetConversation
 SETCREATUREEVENTHANDLER,               Func_SetCreatureEventHandler
