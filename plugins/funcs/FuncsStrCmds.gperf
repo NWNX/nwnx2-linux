@@ -145,6 +145,7 @@ SETSPECIALABILITY,                     Func_SetSpecialAbility
 SETTAG,                                Func_SetTag
 SETTRAPCREATOR,                        Func_SetTrapCreator
 SETWIZARDSPECIALIZATION,               Func_SetWizardSpecialization
+STRINGTOOBJECTREQUEST,                 Func_StringToObjectRequest
 USLEEP,                                Func_USleep
 %%
 

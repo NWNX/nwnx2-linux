@@ -463,6 +463,7 @@ int BroadcastProjectileToLocation (object oSource, location lTarget, int nSpellI
 
 /* Convert an object ID to an object. */
 object IntToObject (int nObjectId);
+object StringToObject (string sObjectId);
 
 /* Dump oObject to the NWNX log. */
 void DumpObject (object oObject);
@@ -1280,6 +1281,11 @@ int BroadcastProjectileToLocation (object oSource, location lTarget, int nSpellI
 
 object IntToObject (int nObjectId) {
     SetLocalString(GetModule(), "NWNX!FUNCS!INTTOOBJECTREQUEST", IntToString(nObjectId));
+    return GetLocalObject(GetModule(), "NWNX!FUNCS!INTTOOBJECT");
+}
+
+object StringToObject (string sObjectId) {
+    SetLocalString(GetModule(), "NWNX!FUNCS!STRINGTOOBJECTREQUEST", sObjectId);
     return GetLocalObject(GetModule(), "NWNX!FUNCS!INTTOOBJECT");
 }
 

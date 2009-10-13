@@ -25,7 +25,12 @@ static nwn_objid_t Object_Request = OBJECT_INVALID;
 
 
 void Func_IntToObjectRequest (CGameObject *ob, char *value) {
-    Object_Request = atoi(value);
+    Object_Request = strtoul(value, NULL, 10);
+}
+
+
+void Func_StringToObjectRequest (CGameObject *ob, char *value) {
+    Object_Request = strtoul(value, NULL, 16);
 }
 
 
