@@ -369,6 +369,9 @@ object GetFirstArea ();
 /* Get the next area in the module. */
 object GetNextArea ();
 
+/* Set oItem's base item type. */
+int SetBaseItemType (object oItem, int nBaseItem);
+
 /* Set oItem's value in gold pieces. Will not persist through zoning or saving. */
 int SetGoldPieceValue (object oItem, int nValue);
 
