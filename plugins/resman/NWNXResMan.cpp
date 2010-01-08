@@ -1,4 +1,3 @@
-
 /***************************************************************************
     NWNXResMan.cpp - Implementation of the CNWNXResMan class.
     Copyright (C) 2005 Ingmar Stieger (papillon@nwnx.org)
@@ -19,7 +18,6 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-
 #include "NWNXResMan.h"
 #include "NwnDefines.h"
 #include "HookDemandRes.h"
@@ -28,37 +26,44 @@
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
-CNWNXResMan::CNWNXResMan() {
+
+CNWNXResMan::CNWNXResMan()
+{
     confKey = "RESOURCEMANAGER";
     bufferSize = 0;
 }
 
-CNWNXResMan::~CNWNXResMan() {
+CNWNXResMan::~CNWNXResMan()
+{
 }
 
-bool CNWNXResMan::OnCreate(gline * config, const char *LogDir) {
-
+bool CNWNXResMan::OnCreate (gline *config, const char *LogDir) 
+{
     // call the base class function
     char log[MAXPATH];
 
     sprintf(log, "%s/nwnx_resman.txt", LogDir);
     if (!CNWNXBase::OnCreate(config, log))
         return false;
+
     LoadConfiguration();
     WriteLogHeader();
     HookFunctions();
     return true;
 }
 
-char *CNWNXResMan::OnRequest(char *gameObject, char *Request, char *Parameters) {
+char* CNWNXResMan::OnRequest (char* gameObject, char* Request, char* Parameters)
+{
     return NULL;
 }
 
-bool CNWNXResMan::OnRelease() {
+bool CNWNXResMan::OnRelease ()
+{
     Log(0, "o Shutdown.\n");
 }
 
-char *CNWNXResMan::DemandRes(CResStruct * cRes, char *resRef, NwnResType resType) {
+char* CNWNXResMan::DemandRes(CResStruct *cRes, char *resRef, NwnResType resType)
+{
     unsigned long size;
 
     if (!resRef || *resRef == '*' || strcmp(resRef, "default") == 0)
@@ -101,7 +106,8 @@ char *CNWNXResMan::DemandRes(CResStruct * cRes, char *resRef, NwnResType resType
     cRes->id4 = 0;
 
     // Call server function which sets various data pointers
-    if (cRes->pClass) {
+    if (cRes->pClass)
+    {
         char *pFunc = cRes->pClass;
 
         pFunc = (char *)(*(int *)(pFunc + 0x18));
@@ -112,10 +118,12 @@ char *CNWNXResMan::DemandRes(CResStruct * cRes, char *resRef, NwnResType resType
     return cRes->pResData;
 }
 
-unsigned long CNWNXResMan::LoadResource(char *resPath) {
+unsigned long CNWNXResMan::LoadResource(char *resPath)
+{
     FILE *pTemp = fopen(resPath, "rb");
 
-    if (pTemp == NULL) {
+    if (pTemp == NULL)
+    {
         Log(1, "o Skip - File not found: %s\n", resPath);
         return 0;
     }
@@ -132,13 +140,15 @@ unsigned long CNWNXResMan::LoadResource(char *resPath) {
     return size;
 }
 
-void CNWNXResMan::LoadConfiguration() {
+void CNWNXResMan::LoadConfiguration ()
+{
     if (nwnxConfig->exists(confKey)) {
         strncpy(m_sourcePath, (*nwnxConfig)[confKey]["SourcePath"].c_str(), MAXPATH);
     }
 }
 
-void CNWNXResMan::WriteLogHeader() {
+void CNWNXResMan::WriteLogHeader()
+{
     // write copy information to the log file
     Log(0, "NWNX Resource Manager V.0.0.2.1 for Linux.\n");
     Log(0, "(c) 2005 by Ingmar Stieger (papillon@nwnx.org)\n");
