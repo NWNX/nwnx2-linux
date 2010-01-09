@@ -10,7 +10,7 @@ void ClearPlayerNameList(object oPlayer);
 
 void InitPlayerNameList(object oObject, int nUnknownStyle = 0)
 {
-    SetLocalString(oObject, "NWNX!EVENTS!INITPLAYERNAMELIST", IntToString(nUnknownStyle));
+    SetLocalString(oObject, "NWNX!NAMES!INITPLAYERNAMELIST", IntToString(nUnknownStyle));
 }
 
 void SetNamesEnabled(object oPlayer, int bEnabled = TRUE)
@@ -21,16 +21,16 @@ void SetNamesEnabled(object oPlayer, int bEnabled = TRUE)
 
 void SetDynamicName(object oPlayer, object oObject, string sName)
 {
-    SetLocalString(oPlayer, "NWNX!EVENTS!SETDYNAMICNAME", ObjectToString(oObject)+"¬"+sName);
+    SetLocalString(oPlayer, "NWNX!NAMES!SETDYNAMICNAME", ObjectToString(oObject)+"¬"+sName);
 }
 
 void DeleteDynamicName(object oPlayer, object oObject)
 {
-    SetLocalString(oPlayer, "NWNX!EVENTS!DELETEDYNAMICNAME", ObjectToString(oObject));
+    SetLocalString(oPlayer, "NWNX!NAMES!DELETEDYNAMICNAME", ObjectToString(oObject));
 }
 
 void ClearPlayerNameList(object oPlayer)
 {
-    SetLocalString(oPlayer, "NWNX!EVENTS!CLEARPLAYERNAMELIST", " ");
+    SetLocalString(oPlayer, "NWNX!NAMES!CLEARPLAYERNAMELIST", " ");
 }
 
