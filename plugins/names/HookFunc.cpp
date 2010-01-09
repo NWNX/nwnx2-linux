@@ -656,7 +656,7 @@ int GetNameHookProc(void *pObjectInfoStruct, int some_flag, char *objName_buf, i
 	pNewName = new char *;
 	names.Log(3, "Finding custom name for %08lX-%08lX... ", nPlayerObjID, nCreatureObjID);
 	pPlayerEntry = names.Names.FindPlayerEntry(nPlayerObjID);
-	if(!pPlayerEntry) goto ext;
+	if(!pPlayerEntry || !pPlayerEntry->bEnabled) goto ext;
 	NewName = names.Names.FindCustomName(nPlayerObjID, nCreatureObjID);
 	names.Log(3, "Done.\n");
 	if(!NewName || bBroadcast) 
