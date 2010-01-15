@@ -53,7 +53,7 @@ bool CNWNXNames::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX Names version 1.0 for Linux.\n");
+	Log (0, "NWNX Names version 1.0.1 for Linux.\n");
 	Log (0, "(c) 2006-2010 by virusman (virusman@virusman.ru)\n");
 
 	if(nwnxConfig->exists(confKey)) {
@@ -95,6 +95,27 @@ void CNWNXNames::EnableDisableNames(char *value)
 	CPlayerNames *pPlayerEntry = Names.FindPlayerEntry(nGameObjectID);
 	if(!pPlayerEntry) return;
 	pPlayerEntry->bEnabled = (bool) atoi(value);
+}
+
+char *CNWNXNames::GetDynamicName(char *value)
+{
+	dword oPlayer = nGameObjectID;
+	dword oObject = strtol(value, NULL, 16);
+	char *sName;
+	CPlayerNames *pPlayerEntry = Names.FindPlayerEntry(oPlayer);
+	if(pPlayerEntry)
+	{
+		sName = Names.FindCustomName(oPlayer, oObject);
+		if(sName)
+		{
+			char *sNameRet = new char[strlen(sName)+1];
+			strncpy(sNameRet, sName, strlen(sName));
+			sNameRet[strlen(sName)] = 0;
+			return sNameRet;
+		}
+	}
+	value[0] = 0;
+	return NULL;
 }
 
 void CNWNXNames::SetDynamicName(char *value)
@@ -151,6 +172,10 @@ char* CNWNXNames::OnRequest (char* gameObject, char* Request, char* Parameters)
 	{
 		InitPlayerList(Parameters);
 		return NULL;
+	}
+	else if (strncmp(Request, "GETDYNAMICNAME", 14) == 0) 	
+	{
+		return GetDynamicName(Parameters);
 	}
 	else if (strncmp(Request, "SETDYNAMICNAME", 14) == 0) 	
 	{

@@ -45,6 +45,7 @@ public:
 protected:
 	void InitPlayerList(char *value);
 	void EnableDisableNames(char *value);
+	char *GetDynamicName(char *value);
 	void SetDynamicName(char *value);
 	void DeleteDynamicName(char *value);
 	void ClearPlayerList(char *value);
