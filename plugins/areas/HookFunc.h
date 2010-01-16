@@ -22,6 +22,8 @@
 
 #include "typedefs.h"
 #include "NWNStructures.h"
+#include "CExoLinkedList.h"
+#include "CExoLocString.h"
 
 int HookFunctions();
 
@@ -30,6 +32,7 @@ int LoadAreaNum(void *pModule, int nAreaNum);
 void AddAreaToAllCreatures(dword nAreaID);
 void NWNXCreateArea(void *pModule, char *sResRef);
 void NWNXDestroyArea(void *pModule, dword nAreaID);
+void NWNXSetAreaName(CNWSArea *pArea, char *sNewName);
 
 void InitConstants();
 

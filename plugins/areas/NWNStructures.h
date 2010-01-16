@@ -1,14 +1,15 @@
 #if !defined(NWNStructures_h_)
 #define NWNStructures_h_
 
+#include "CExoLinkedList.h"
+
 struct CGameObject;
 struct CExoArrayList;
 struct CExoString;
-struct CExoLinkedList;
 struct CResRef;
 struct CNWSModule;
 struct CNWSArea;
-struct CExoLocString;
+struct CExoLocString_st;
 struct CNWSObject;
 struct CNWSCreature;
 struct CGameObject
@@ -28,17 +29,16 @@ struct CExoArrayList
 };
 struct CExoString
 {
-  /* 0x0/0 */ void *Text;
+  /* 0x0/0 */ char *Text;
   /* 0x4/4 */ unsigned long Length;
-};
-struct CExoLinkedList
-{
-  /* 0x0/0 */ void *Header;
-  /* 0x4/4 */ unsigned long Count;
 };
 struct CResRef
 {
   /* 0x0/0 */ char ResRef[16];
+};
+struct CExoLocString_st
+{
+  /* 0x0/0 */ CExoLinkedList List;
 };
 struct CNWSModule
 {
@@ -98,10 +98,10 @@ struct CNWSArea
   /* 0xBC/188 */ unsigned long field_BC;
   /* 0xC0/192 */ unsigned long CResARE;
   /* 0xC4/196 */ CGameObject GameObject;
-  /* 0xFC/252 */ char rsvd2[40];
-  /* 0xFC/252 */ unsigned long field_FC;
-  /* 0x100/256 */ unsigned long field_100;
-  /* 0x104/260 */ unsigned long field_104;
+  /* 0xD4/212 */ unsigned long NumPlayers;
+  /* 0xFC/252 */ char rsvd2[36];
+  /* 0xFC/252 */ CExoLocString_st Name;
+  /* 0x104/260 */ unsigned long Tag;
   /* 0x120/288 */ char rsvd3[24];
   /* 0x120/288 */ unsigned long field_120;
   /* 0x154/340 */ char rsvd4[48];
@@ -122,10 +122,6 @@ struct CNWSArea
   /* 0x208/520 */ unsigned long field_208;
   /* 0x20C/524 */ unsigned long field_20C;
 };
-struct CExoLocString
-{
-  /* 0x0/0 */ CExoLinkedList List;
-};
 struct CNWSObject
 {
   /* 0x0/0 */ unsigned long field_0;
@@ -135,7 +131,7 @@ struct CNWSObject
   /* 0xA/10 */ char field_A;
   /* 0xB/11 */ char field_B;
   /* 0xC/12 */ void *Methods;
-  /* 0x10/16 */ CExoLocString LocString;
+  /* 0x10/16 */ CExoLocString_st LocString;
   /* 0x18/24 */ unsigned short field_18;
   /* 0x1A/26 */ unsigned short field_1A;
   /* 0x1C/28 */ void *vtbl2;

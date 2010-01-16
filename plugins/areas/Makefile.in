@@ -4,7 +4,7 @@ LFLAGS   = $(PLUGIN_LFLAGS)
 
 all: nwnx_areas.so
 
-nwnx_areas.so: HookFunc.o NWNXAreas.o plugin-areas.o
+nwnx_areas.so: HookFunc.o NWNXAreas.o CExoLinkedList.o CExoLocString.o plugin-areas.o
 	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:
