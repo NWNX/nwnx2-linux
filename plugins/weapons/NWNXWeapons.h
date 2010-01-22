@@ -103,6 +103,7 @@ void Hook_GetABAbilityModifier (void);
 void Hook_GetCriticalConfirmationRoll (void);
 void Hook_GetCriticalMultiplier (void);
 void Hook_GetCriticalRange (void);
+void Hook_GetMonsterDamageHandler (void);
 void Hook_OffhandCritMult1 (void);
 void Hook_OffhandCritMult2 (void);
 void Hook_OffhandCritMult3 (void);

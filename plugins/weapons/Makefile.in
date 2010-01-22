@@ -81,6 +81,7 @@ OFILES  = \
     hooks/h_GetEpicWeaponOverwhelmingCritical.o  \
     hooks/h_GetEpicWeaponSpecialization.o        \
     hooks/h_GetIsWeaponOfChoice.o                \
+    hooks/h_GetMonsterDamageHandler.o            \
     hooks/h_GetUseMonkAttackTables.o             \
     hooks/h_GetWeaponFinesse.o                   \
     hooks/h_GetWeaponFocus.o                     \

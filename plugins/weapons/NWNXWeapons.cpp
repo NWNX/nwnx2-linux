@@ -285,6 +285,27 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
 #endif
 
 
+    /* allow Monster Damage to work on all weapons */
+#ifdef NWNX_WEAPONS_HG
+    {
+        nx_hook_enable_write((unsigned char *)0x0814AADD, 64);
+
+        *((unsigned char *)0x0814AAE3) = 0x31;  /* XOR EBX, EBX */
+        *((unsigned char *)0x0814AAE4) = 0xDB;
+        *((unsigned char *)0x0814AAE5) = 0x83;  /* CMP EAX, 2   */
+        *((unsigned char *)0x0814AAE6) = 0xF8;
+        *((unsigned char *)0x0814AAE7) = 0x02;
+        *((unsigned char *)0x0814AAE8) = 0x0F;  /* SETA BL      */
+        *((unsigned char *)0x0814AAE9) = 0x97;
+        *((unsigned char *)0x0814AAEA) = 0xC3;
+        *((unsigned char *)0x0814AAEB) = 0x90;  /* NOP          */
+        *((unsigned char *)0x0814AB06) = 0x90;  /* NOP          */
+
+        nx_hook_function((unsigned char *)0x0814AB01, (void *)Hook_GetMonsterDamageHandler, 5, NX_HOOK_DIRECT);
+    }
+#endif
+
+
     /* fix offhand critical multiplier bug */
     if (Ref_OffhandCritMult1 != NULL && Ref_OffhandCritMult2 != NULL &&
         Ref_OffhandCritMult3 != NULL && Ref_OffhandCritMult4 != NULL) {
