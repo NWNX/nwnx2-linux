@@ -65,8 +65,8 @@ struct CGameObject_VTable_s {
     int                       (*GetGender)(void *);                                                     /* 94 */
     int                       (*GetFirstName)(void *);                                                  /* 98 */
     int                       (*GetLastName)(void *);                                                   /* 9C */
-    int                       (*GetMaxHitPoints)(void *);                                               /* A0 */
-    int                       (*GetCurrentHitPoints)(void *);                                           /* A4 */
+    int                       (*GetMaxHitPoints)(void *, int);                                          /* A0 */
+    int16_t                   (*GetCurrentHitPoints)(void *, int);                                      /* A4 */
     int                       (*DoDamage)(void *, int);                                                 /* A8 */
     int                       (*DoDamageReduction)(void *, void *, int, uint8_t, int, int);             /* AC */
     int                       (*DoDamageResistance)(void *, void *, int, uint16_t, int, int, int);      /* B0 */
