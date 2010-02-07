@@ -40,65 +40,74 @@ static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_ob
         return 0.0;
 
     switch (*(range->text)) {
-        case 'T': ret = 2.25; break;
-        case 'S': ret = 8.00; break;
-        case 'M': ret = 20.0; break;
-        case 'L': ret = 40.0; break;
+        case 'T': ret =  2.25; break;
+        case 'S': ret =  8.00; break;
+        case 'M': ret = 20.00; break;
+        case 'L': ret = 40.00; break;
+        case 'P': ret =  0.00; break;
 
 #ifdef NWNX_SPELLS_HG
-        case 'F': {
+        case 'a':
+        case 'c':
+        case 'd':
+        case 'e':
+        case 'i':
+        case 'n':
+        case 't':
+        case 'v':
+        case 'p': {
             u_int16_t feats[3] = { 0, 0, 0 };
 
-            switch (*(range->text + 1)) {
-                case 'A':
+            switch (*(range->text)) {
+                case 'a':
                     feats[0] = FEAT_SPELL_FOCUS_ABJURATION;
                     feats[1] = FEAT_GREATER_SPELL_FOCUS_ABJURATION;
                     feats[2] = FEAT_EPIC_SPELL_FOCUS_ABJURATION;
                     break;
 
-                case 'C':
+                case 'c':
                     feats[0] = FEAT_SPELL_FOCUS_CONJURATION;
                     feats[1] = FEAT_GREATER_SPELL_FOCUS_CONJURATION;
                     feats[2] = FEAT_EPIC_SPELL_FOCUS_CONJURATION;
                     break;
 
-                case 'D':
+                case 'd':
                     feats[0] = FEAT_SPELL_FOCUS_DIVINATION;
                     feats[1] = FEAT_GREATER_SPELL_FOCUS_DIVINATION;
                     feats[2] = FEAT_EPIC_SPELL_FOCUS_DIVINATION;
                     break;
 
-                case 'E':
+                case 'e':
                     feats[0] = FEAT_SPELL_FOCUS_ENCHANTMENT;
                     feats[1] = FEAT_GREATER_SPELL_FOCUS_ENCHANTMENT;
                     feats[2] = FEAT_EPIC_SPELL_FOCUS_ENCHANTMENT;
                     break;
 
-                case 'I':
+                case 'i':
                     feats[0] = FEAT_SPELL_FOCUS_ILLUSION;
                     feats[1] = FEAT_GREATER_SPELL_FOCUS_ILLUSION;
                     feats[2] = FEAT_EPIC_SPELL_FOCUS_ILLUSION;
                     break;
 
-                case 'N':
+                case 'n':
                     feats[0] = FEAT_SPELL_FOCUS_NECROMANCY;
                     feats[1] = FEAT_GREATER_SPELL_FOCUS_NECROMANCY;
                     feats[2] = FEAT_EPIC_SPELL_FOCUS_NECROMANCY;
                     break;
 
-                case 'T':
+                case 't':
                     feats[0] = FEAT_SPELL_FOCUS_TRANSMUTATION;
                     feats[1] = FEAT_GREATER_SPELL_FOCUS_TRANSMUTATION;
                     feats[2] = FEAT_EPIC_SPELL_FOCUS_TRANSMUTATION;
                     break;
 
-                case 'V':
+                case 'v':
                     feats[0] = FEAT_SPELL_FOCUS_EVOCATION;
                     feats[1] = FEAT_GREATER_SPELL_FOCUS_EVOCATION;
                     feats[2] = FEAT_EPIC_SPELL_FOCUS_EVOCATION;
                     break;
 
-                case 'P':
+                case 'p':
                     feats[0] = FEAT_SPELL_PENETRATION;
                     feats[1] = FEAT_GREATER_SPELL_PENETRATION;
                     feats[2] = FEAT_EPIC_SPELL_PENETRATION;
