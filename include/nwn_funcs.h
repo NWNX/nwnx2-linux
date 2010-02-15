@@ -38,6 +38,7 @@ int nwn_GetLevelByClass (const CNWSCreatureStats *stats, int cl);
 CNWSStats_Level *nwn_GetLevelStats (const CNWSCreatureStats *stats, int level);
 int64_t nwn_GetWorldTime (uint32_t *time_2880s, uint32_t *time_msec);
 void nwn_UpdateQuickBar (CNWSCreature *cre);
+void nwn_ExecuteScript (const char *scr, nwn_objid_t oid);
 
 
 extern int (*CExoKeyTable__AddDirectoryContents)(CExoKeyTable *, int32_t);
