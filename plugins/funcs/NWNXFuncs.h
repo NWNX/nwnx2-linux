@@ -93,6 +93,7 @@ void Func_ModifyAbilityScore         (CGameObject *ob, char *value);
 void Func_ModifyCurrentHitPoints     (CGameObject *ob, char *value);
 void Func_ModifySkillRank            (CGameObject *ob, char *value);
 void Func_ModifySkillRankByLevel     (CGameObject *ob, char *value);
+void Func_RecalculateDexModifier     (CGameObject *ob, char *value);
 void Func_RemoveKnownFeat            (CGameObject *ob, char *value);
 void Func_RemoveKnownFeatByLevel     (CGameObject *ob, char *value);
 void Func_RemoveKnownSpell           (CGameObject *ob, char *value);

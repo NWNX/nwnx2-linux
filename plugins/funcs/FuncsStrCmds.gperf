@@ -98,6 +98,7 @@ MODIFYABILITYSCORE,                    Func_ModifyAbilityScore
 MODIFYCURRENTHITPOINTS,                Func_ModifyCurrentHitPoints
 MODIFYSKILLRANK,                       Func_ModifySkillRank
 MODIFYSKILLRANKBYLEVEL,                Func_ModifySkillRankByLevel
+RECALCULATEDEXMODIFIER,                Func_RecalculateDexModifier
 REMOVEKNOWNFEAT,                       Func_RemoveKnownFeat
 REMOVEKNOWNFEATBYLEVEL,                Func_RemoveKnownFeatByLevel
 REMOVEKNOWNSPELL,                      Func_RemoveKnownSpell

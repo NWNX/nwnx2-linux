@@ -773,6 +773,11 @@ int SetMaxHitPoints (object oCreature, int nHP) {
 }
 
 
+int RecalculateDexModifier (object oCreature) {
+    return NWNXFuncsZero(oCreature, "NWNX!FUNCS!RECALCULATEDEXMODIFIER");
+}
+
+
 int GetKnowsSpell (int nSpellId, object oCreature, int nClass=CLASS_TYPE_INVALID) {
     return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!GETKNOWSSPELL", nClass, nSpellId);
 }

@@ -39,6 +39,7 @@ LFLAGS   = @LDFLAGS@ -w -fPIC -shared -rdynamic
 OFILES  = \
     funcs/ability/f_GetAbilityIncreaseByLevel.o  \
     funcs/ability/f_ModifyAbilityScore.o         \
+    funcs/ability/f_RecalculateDexModifier.o     \
     funcs/ability/f_SetAbilityScore.o            \
     funcs/action/f_ActionUseItem.o               \
     funcs/area/f_GetFirstNextArea.o              \
