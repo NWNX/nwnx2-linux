@@ -76,6 +76,7 @@ OFILES  = \
     hooks/h_GetCriticalConfirmationRoll.o        \
     hooks/h_GetCriticalMultiplier.o              \
     hooks/h_GetCriticalRange.o                   \
+    hooks/h_GetDamageBonus.o                     \
     hooks/h_GetEpicWeaponDevastatingCritical.o   \
     hooks/h_GetEpicWeaponFocus.o                 \
     hooks/h_GetEpicWeaponOverwhelmingCritical.o  \
@@ -92,6 +93,7 @@ OFILES  = \
     local/l_GetCriticalConfirmationAdjustment.o  \
     local/l_GetCriticalMultiplierAdjustment.o    \
     local/l_GetCriticalRangeAdjustment.o         \
+    local/l_GetDamageBonusAdjustment.o           \
     tables/t_WeaponAbility.o                     \
     tables/t_WeaponDevastatingCritical.o         \
     tables/t_WeaponEpicFocus.o                   \
@@ -99,13 +101,17 @@ OFILES  = \
     tables/t_WeaponFinesseSize.o                 \
     tables/t_WeaponFocus.o                       \
     tables/t_WeaponGreaterFocus.o                \
+    tables/t_WeaponGreaterSpecialization.o       \
     tables/t_WeaponImprovedCritical.o            \
     tables/t_WeaponIteration.o                   \
     tables/t_WeaponLegendaryFocus.o              \
+    tables/t_WeaponLegendarySpecialization.o     \
     tables/t_WeaponMonk.o                        \
     tables/t_WeaponOfChoice.o                    \
     tables/t_WeaponOptions.o                     \
     tables/t_WeaponOverwhelmingCritical.o        \
+    tables/t_WeaponParagonFocus.o                \
+    tables/t_WeaponParagonSpecialization.o       \
     tables/t_WeaponPowerCritical.o               \
     tables/t_WeaponSpecialization.o              \
     tables/t_WeaponSuperiorCritical.o            \

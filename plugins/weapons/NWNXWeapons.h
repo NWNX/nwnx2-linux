@@ -52,6 +52,11 @@
 #define NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS               22
 #define NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS               23
 #define NWNX_WEAPONS_OPT_LEGFOCUS_AB_EPBONUS             24
+#define NWNX_WEAPONS_OPT_PARFOCUS_AB_BONUS               25
+#define NWNX_WEAPONS_OPT_PARFOCUS_AB_EPBONUS             26
+#define NWNX_WEAPONS_OPT_GRTSPEC_DAM_BONUS               27
+#define NWNX_WEAPONS_OPT_LEGSPEC_DAM_BONUS               28
+#define NWNX_WEAPONS_OPT_PARSPEC_DAM_BONUS               29
 
 #ifdef __cplusplus
 extern "C" {
@@ -60,42 +65,50 @@ extern "C" {
 bool GetIsUnarmedWeapon (CNWSItem *weapon);
 bool GetIsWeaponLight (CNWSCreatureStats *info, CNWSItem *weapon, bool finesse);
 
-void Func_GetWeaponOption                    (CGameObject *ob, char *value);
-void Func_SetWeaponOption                    (CGameObject *ob, char *value);
+void Func_GetWeaponOption                      (CGameObject *ob, char *value);
+void Func_SetWeaponOption                      (CGameObject *ob, char *value);
 
-void Func_GetAttackBonusAdjustment           (CGameObject *ob, char *value);
+void Func_GetAttackBonusAdjustment             (CGameObject *ob, char *value);
 
-void Func_GetWeaponAbilityFeat               (CGameObject *ob, char *value);
-void Func_GetWeaponDevastatingCriticalFeat   (CGameObject *ob, char *value);
-void Func_GetWeaponEpicFocusFeat             (CGameObject *ob, char *value);
-void Func_GetWeaponEpicSpecializationFeat    (CGameObject *ob, char *value);
-void Func_GetWeaponFinesseSize               (CGameObject *ob, char *value);
-void Func_GetWeaponFocusFeat                 (CGameObject *ob, char *value);
-void Func_GetWeaponGreaterFocusFeat          (CGameObject *ob, char *value);
-void Func_GetWeaponImprovedCriticalFeat      (CGameObject *ob, char *value);
-void Func_GetWeaponIsMonkWeapon              (CGameObject *ob, char *value);
-void Func_GetWeaponLegendaryFocusFeat        (CGameObject *ob, char *value);
-void Func_GetWeaponOfChoiceFeat              (CGameObject *ob, char *value);
-void Func_GetWeaponOverwhelmingCriticalFeat  (CGameObject *ob, char *value);
-void Func_GetWeaponPowerCriticalFeat         (CGameObject *ob, char *value);
-void Func_GetWeaponSpecializationFeat        (CGameObject *ob, char *value);
-void Func_GetWeaponSuperiorCriticalFeat      (CGameObject *ob, char *value);
+void Func_GetWeaponAbilityFeat                 (CGameObject *ob, char *value);
+void Func_GetWeaponDevastatingCriticalFeat     (CGameObject *ob, char *value);
+void Func_GetWeaponEpicFocusFeat               (CGameObject *ob, char *value);
+void Func_GetWeaponEpicSpecializationFeat      (CGameObject *ob, char *value);
+void Func_GetWeaponFinesseSize                 (CGameObject *ob, char *value);
+void Func_GetWeaponFocusFeat                   (CGameObject *ob, char *value);
+void Func_GetWeaponGreaterFocusFeat            (CGameObject *ob, char *value);
+void Func_GetWeaponGreaterSpecializationFeat   (CGameObject *ob, char *value);
+void Func_GetWeaponImprovedCriticalFeat        (CGameObject *ob, char *value);
+void Func_GetWeaponIsMonkWeapon                (CGameObject *ob, char *value);
+void Func_GetWeaponLegendaryFocusFeat          (CGameObject *ob, char *value);
+void Func_GetWeaponLegendarySpecializationFeat (CGameObject *ob, char *value);
+void Func_GetWeaponOfChoiceFeat                (CGameObject *ob, char *value);
+void Func_GetWeaponOverwhelmingCriticalFeat    (CGameObject *ob, char *value);
+void Func_GetWeaponParagonFocusFeat            (CGameObject *ob, char *value);
+void Func_GetWeaponParagonSpecializationFeat   (CGameObject *ob, char *value);
+void Func_GetWeaponPowerCriticalFeat           (CGameObject *ob, char *value);
+void Func_GetWeaponSpecializationFeat          (CGameObject *ob, char *value);
+void Func_GetWeaponSuperiorCriticalFeat        (CGameObject *ob, char *value);
 
-void Func_SetWeaponAbilityFeat               (CGameObject *ob, char *value);
-void Func_SetWeaponDevastatingCriticalFeat   (CGameObject *ob, char *value);
-void Func_SetWeaponEpicFocusFeat             (CGameObject *ob, char *value);
-void Func_SetWeaponEpicSpecializationFeat    (CGameObject *ob, char *value);
-void Func_SetWeaponFinesseSize               (CGameObject *ob, char *value);
-void Func_SetWeaponFocusFeat                 (CGameObject *ob, char *value);
-void Func_SetWeaponGreaterFocusFeat          (CGameObject *ob, char *value);
-void Func_SetWeaponImprovedCriticalFeat      (CGameObject *ob, char *value);
-void Func_SetWeaponIsMonkWeapon              (CGameObject *ob, char *value);
-void Func_SetWeaponLegendaryFocusFeat        (CGameObject *ob, char *value);
-void Func_SetWeaponOfChoiceFeat              (CGameObject *ob, char *value);
-void Func_SetWeaponOverwhelmingCriticalFeat  (CGameObject *ob, char *value);
-void Func_SetWeaponPowerCriticalFeat         (CGameObject *ob, char *value);
-void Func_SetWeaponSpecializationFeat        (CGameObject *ob, char *value);
-void Func_SetWeaponSuperiorCriticalFeat      (CGameObject *ob, char *value);
+void Func_SetWeaponAbilityFeat                 (CGameObject *ob, char *value);
+void Func_SetWeaponDevastatingCriticalFeat     (CGameObject *ob, char *value);
+void Func_SetWeaponEpicFocusFeat               (CGameObject *ob, char *value);
+void Func_SetWeaponEpicSpecializationFeat      (CGameObject *ob, char *value);
+void Func_SetWeaponFinesseSize                 (CGameObject *ob, char *value);
+void Func_SetWeaponFocusFeat                   (CGameObject *ob, char *value);
+void Func_SetWeaponGreaterFocusFeat            (CGameObject *ob, char *value);
+void Func_SetWeaponGreaterSpecializationFeat   (CGameObject *ob, char *value);
+void Func_SetWeaponImprovedCriticalFeat        (CGameObject *ob, char *value);
+void Func_SetWeaponIsMonkWeapon                (CGameObject *ob, char *value);
+void Func_SetWeaponLegendaryFocusFeat          (CGameObject *ob, char *value);
+void Func_SetWeaponLegendarySpecializationFeat (CGameObject *ob, char *value);
+void Func_SetWeaponOfChoiceFeat                (CGameObject *ob, char *value);
+void Func_SetWeaponOverwhelmingCriticalFeat    (CGameObject *ob, char *value);
+void Func_SetWeaponParagonFocusFeat            (CGameObject *ob, char *value);
+void Func_SetWeaponParagonSpecializationFeat   (CGameObject *ob, char *value);
+void Func_SetWeaponPowerCriticalFeat           (CGameObject *ob, char *value);
+void Func_SetWeaponSpecializationFeat          (CGameObject *ob, char *value);
+void Func_SetWeaponSuperiorCriticalFeat        (CGameObject *ob, char *value);
 
 nwn_objid_t Func_IntToObject (CGameObject *ob);
 
@@ -110,6 +123,7 @@ void Hook_OffhandCritMult3 (void);
 void Hook_OffhandCritMult4 (void);
 
 int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon, int ranged);
+int Hook_GetDamageBonusAdjustment (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponDevastatingCritical (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon);
 int Hook_GetEpicWeaponOverwhelmingCritical (CNWSCreatureStats *info, CNWSItem *weapon);
@@ -127,6 +141,7 @@ int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *t
 int Local_GetCriticalConfirmationAdjustment (CNWSCreature *attacker, CNWSCreature *target, CNWSItem *weapon, int roll, int bonus);
 int Local_GetCriticalMultiplierAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj);
 int Local_GetCriticalRangeAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj);
+int Local_GetDamageBonusAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj);
 
 
 extern uint16_t Table_WeaponOptions[NWNX_WEAPONS_OPTIONS_TABLE_SIZE];
@@ -141,9 +156,12 @@ extern uint16_t Table_WeaponGreaterFocus[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponImprovedCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponIteration[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponLegendaryFocus[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
+extern uint16_t Table_WeaponLegendarySpecialization[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponMonk[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponOfChoice[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponOverwhelmingCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
+extern uint16_t Table_WeaponParagonFocus[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
+extern uint16_t Table_WeaponParagonSpecialization[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponPowerCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponSpecialization[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
 extern uint16_t Table_WeaponSuperiorCritical[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE];
