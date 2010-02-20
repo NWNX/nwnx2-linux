@@ -48,6 +48,14 @@ const int NWNX_WEAPONS_OPT_SUPCRIT_RANGE_STACK       = 21;
 const int NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS         = 22;
 const int NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS         = 23;
 const int NWNX_WEAPONS_OPT_LEGFOCUS_AB_EPBONUS       = 24;
+const int NWNX_WEAPONS_OPT_PARFOCUS_AB_BONUS         = 25;
+const int NWNX_WEAPONS_OPT_PARFOCUS_AB_EPBONUS       = 26;
+
+/* Set the damage bonus for Greater, Legendary, or Paragon Weapon Specialization.
+ */
+const int NWNX_WEAPONS_OPT_GRTSPEC_DAM_BONUS         = 27;
+const int NWNX_WEAPONS_OPT_LEGSPEC_DAM_BONUS         = 28;
+const int NWNX_WEAPONS_OPT_PARSPEC_DAM_BONUS         = 29;
 
 
 /* Get and set NWNX_WEAPONS_OPT_* options. */
@@ -75,22 +83,31 @@ int GetWeaponEpicFocusFeat (int nBaseItem);
 int GetWeaponEpicSpecializationFeat (int nBaseItem);
 int GetWeaponFocusFeat (int nBaseItem);
 int GetWeaponGreaterFocusFeat (int nBaseItem);
+int GetWeaponGreaterSpecializationFeat (int nBaseItem);
 int GetWeaponImprovedCriticalFeat (int nBaseItem);
 int GetWeaponLegendaryFocusFeat (int nBaseItem);
+int GetWeaponLegendarySpecializationFeat (int nBaseItem);
 int GetWeaponOfChoiceFeat (int nBaseItem);
 int GetWeaponOverwhelmingCriticalFeat (int nBaseItem);
+int GetWeaponParagonFocusFeat (int nBaseItem);
+int GetWeaponParagonSpecializationFeat (int nBaseItem);
 int GetWeaponPowerCriticalFeat (int nBaseItem);
 int GetWeaponSpecializationFeat (int nBaseItem);
 int GetWeaponSuperiorCriticalFeat (int nBaseItem);
+
 int SetWeaponDevastatingCriticalFeat (int nBaseItem, int nFeat);
 int SetWeaponEpicFocusFeat (int nBaseItem, int nFeat);
 int SetWeaponEpicSpecializationFeat (int nBaseItem, int nFeat);
 int SetWeaponFocusFeat (int nBaseItem, int nFeat);
 int SetWeaponGreaterFocusFeat (int nBaseItem, int nFeat);
+int SetWeaponGreaterSpecializationFeat (int nBaseItem, int nFeat);
 int SetWeaponImprovedCriticalFeat (int nBaseItem, int nFeat);
 int SetWeaponLegendaryFocusFeat (int nBaseItem, int nFeat);
+int SetWeaponLegendarySpecializationFeat (int nBaseItem, int nFeat);
 int SetWeaponOfChoiceFeat (int nBaseItem, int nFeat);
 int SetWeaponOverwhelmingCriticalFeat (int nBaseItem, int nFeat);
+int SetWeaponParagonFocusFeat (int nBaseItem, int nFeat);
+int SetWeaponParagonSpecializationFeat (int nBaseItem, int nFeat);
 int SetWeaponPowerCriticalFeat (int nBaseItem, int nFeat);
 int SetWeaponSpecializationFeat (int nBaseItem, int nFeat);
 int SetWeaponSuperiorCriticalFeat (int nBaseItem, int nFeat);
@@ -165,98 +182,132 @@ int SetWeaponFinesseSize (int nBaseItem, int nSize) {
 }
 
 
-int GetWeaponDevastatingCriticalFeat  (int nBaseItem) {
+int GetWeaponDevastatingCriticalFeat            (int nBaseItem) {
      return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONDEVASTATINGCRITICALFEAT",  nBaseItem); 
 }
 
-int GetWeaponEpicFocusFeat            (int nBaseItem) {
-     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONEPICFOCUSFEAT",            nBaseItem); 
+int GetWeaponEpicFocusFeat                      (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONEPICFOCUSFEAT",                  nBaseItem); 
 }
 
-int GetWeaponEpicSpecializationFeat   (int nBaseItem) {
-     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONEPICSPECIALIZATIONFEAT",   nBaseItem); 
+int GetWeaponEpicSpecializationFeat             (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONEPICSPECIALIZATIONFEAT",         nBaseItem); 
 }
 
-int GetWeaponFocusFeat                (int nBaseItem) {
-     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONFOCUSFEAT",                nBaseItem); 
+int GetWeaponFocusFeat                          (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONFOCUSFEAT",                      nBaseItem); 
 }
 
-int GetWeaponGreaterFocusFeat         (int nBaseItem) {
-     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONGREATERFOCUSFEAT",         nBaseItem); 
+int GetWeaponGreaterFocusFeat                   (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONGREATERFOCUSFEAT",               nBaseItem); 
 }
 
-int GetWeaponImprovedCriticalFeat     (int nBaseItem) {
-     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONIMPROVEDCRITICALFEAT",     nBaseItem); 
+int GetWeaponGreaterSpecializationFeat          (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONGREATERSPECIALIZATIONFEAT",      nBaseItem); 
 }
 
-int GetWeaponLegendaryFocusFeat       (int nBaseItem) {
-     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONLEGENDARYFOCUSFEAT",       nBaseItem); 
+int GetWeaponImprovedCriticalFeat               (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONIMPROVEDCRITICALFEAT",           nBaseItem); 
 }
 
-int GetWeaponOfChoiceFeat             (int nBaseItem) {
-     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONOFCHOICEFEAT",             nBaseItem); 
+int GetWeaponLegendaryFocusFeat                 (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONLEGENDARYFOCUSFEAT",             nBaseItem); 
 }
 
-int GetWeaponOverwhelmingCriticalFeat (int nBaseItem) {
-     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONOVERWHELMINGCRITICALFEAT", nBaseItem); 
+int GetWeaponLegendarySpecializationFeat        (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONLEGENDARYSPECIALIZATIONFEAT",    nBaseItem); 
 }
 
-int GetWeaponPowerCriticalFeat        (int nBaseItem) {
-     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONPOWERCRITICALFEAT",        nBaseItem); 
+int GetWeaponOfChoiceFeat                       (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONOFCHOICEFEAT",                   nBaseItem); 
 }
 
-int GetWeaponSpecializationFeat       (int nBaseItem) {
-     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONSPECIALIZATIONFEAT",       nBaseItem); 
+int GetWeaponOverwhelmingCriticalFeat           (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONOVERWHELMINGCRITICALFEAT",       nBaseItem); 
 }
 
-int GetWeaponSuperiorCriticalFeat     (int nBaseItem) {
-     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONSUPERIORCRITICALFEAT",     nBaseItem); 
+int GetWeaponParagonFocusFeat                   (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONPARAGONFOCUSFEAT",               nBaseItem); 
+}
+
+int GetWeaponParagonSpecializationFeat          (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONPARAGONSPECIALIZATIONFEAT",      nBaseItem); 
+}
+
+int GetWeaponPowerCriticalFeat                  (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONPOWERCRITICALFEAT",              nBaseItem); 
+}
+
+int GetWeaponSpecializationFeat                 (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONSPECIALIZATIONFEAT",             nBaseItem); 
+}
+
+int GetWeaponSuperiorCriticalFeat               (int nBaseItem) {
+     return NWNXWeaponsOne(GetModule(), "NWNX!WEAPONS!GETWEAPONSUPERIORCRITICALFEAT",           nBaseItem); 
 }
 
 
-int SetWeaponDevastatingCriticalFeat  (int nBaseItem, int nFeat) {
-     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONDEVASTATINGCRITICALFEAT",  nBaseItem, nFeat); 
+int SetWeaponDevastatingCriticalFeat            (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONDEVASTATINGCRITICALFEAT",        nBaseItem, nFeat); 
 }
 
-int SetWeaponEpicFocusFeat            (int nBaseItem, int nFeat) {
-     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONEPICFOCUSFEAT",            nBaseItem, nFeat); 
+int SetWeaponEpicFocusFeat                      (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONEPICFOCUSFEAT",                  nBaseItem, nFeat); 
 }
 
-int SetWeaponEpicSpecializationFeat   (int nBaseItem, int nFeat) {
-     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONEPICSPECIALIZATIONFEAT",   nBaseItem, nFeat); 
+int SetWeaponEpicSpecializationFeat             (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONEPICSPECIALIZATIONFEAT",         nBaseItem, nFeat); 
 }
 
-int SetWeaponFocusFeat                (int nBaseItem, int nFeat) {
-     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONFOCUSFEAT",                nBaseItem, nFeat); 
+int SetWeaponFocusFeat                          (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONFOCUSFEAT",                      nBaseItem, nFeat); 
 }
 
-int SetWeaponGreaterFocusFeat         (int nBaseItem, int nFeat) {
-     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONGREATERFOCUSFEAT",         nBaseItem, nFeat); 
+int SetWeaponGreaterFocusFeat                   (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONGREATERFOCUSFEAT",               nBaseItem, nFeat); 
 }
 
-int SetWeaponImprovedCriticalFeat     (int nBaseItem, int nFeat) {
-     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONIMPROVEDCRITICALFEAT",     nBaseItem, nFeat); 
+int SetWeaponGreaterSpecializationFeat          (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONGREATERSPECIALIZATIONFEAT",      nBaseItem, nFeat); 
 }
 
-int SetWeaponLegendaryFocusFeat       (int nBaseItem, int nFeat) {
-     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONLEGENDARYFOCUSFEAT",       nBaseItem, nFeat); 
+int SetWeaponImprovedCriticalFeat               (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONIMPROVEDCRITICALFEAT",           nBaseItem, nFeat); 
 }
 
-int SetWeaponOfChoiceFeat             (int nBaseItem, int nFeat) {
-     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONOFCHOICEFEAT",             nBaseItem, nFeat); 
+int SetWeaponLegendaryFocusFeat                 (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONLEGENDARYFOCUSFEAT",             nBaseItem, nFeat); 
 }
 
-int SetWeaponOverwhelmingCriticalFeat (int nBaseItem, int nFeat) {
-     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONOVERWHELMINGCRITICALFEAT", nBaseItem, nFeat); 
+int SetWeaponLegendarySpecializationFeat        (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONLEGENDARYSPECIALIZATIONFEAT",    nBaseItem, nFeat); 
 }
 
-int SetWeaponPowerCriticalFeat        (int nBaseItem, int nFeat) {
-     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONPOWERCRITICALFEAT",        nBaseItem, nFeat); 
+int SetWeaponOfChoiceFeat                       (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONOFCHOICEFEAT",                   nBaseItem, nFeat); 
 }
 
-int SetWeaponSpecializationFeat       (int nBaseItem, int nFeat) {
-     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONSPECIALIZATIONFEAT",       nBaseItem, nFeat); 
+int SetWeaponOverwhelmingCriticalFeat           (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONOVERWHELMINGCRITICALFEAT",       nBaseItem, nFeat); 
 }
 
-int SetWeaponSuperiorCriticalFeat     (int nBaseItem, int nFeat) {
-     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONSUPERIORCRITICALFEAT",     nBaseItem, nFeat); }
+int SetWeaponParagonFocusFeat                   (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONPARAGONFOCUSFEAT",               nBaseItem, nFeat); 
+}
+
+int SetWeaponParagonSpecializationFeat          (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONPARAGONSPECIALIZATIONFEAT",      nBaseItem, nFeat); 
+}
+
+int SetWeaponPowerCriticalFeat                  (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONPOWERCRITICALFEAT",              nBaseItem, nFeat); 
+}
+
+int SetWeaponSpecializationFeat                 (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONSPECIALIZATIONFEAT",             nBaseItem, nFeat); 
+}
+
+int SetWeaponSuperiorCriticalFeat               (int nBaseItem, int nFeat) {
+     return NWNXWeaponsTwo(GetModule(), "NWNX!WEAPONS!SETWEAPONSUPERIORCRITICALFEAT",           nBaseItem, nFeat);
+}
+

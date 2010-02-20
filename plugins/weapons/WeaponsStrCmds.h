@@ -63,12 +63,12 @@ struct WeaponsStrCommand_s {
     void       (*func)(CGameObject *, char *);
 };
 
-#define NWNX_WEAPONS_STRCMD_TOTAL_KEYWORDS 33
+#define NWNX_WEAPONS_STRCMD_TOTAL_KEYWORDS 41
 #define NWNX_WEAPONS_STRCMD_MIN_WORD_LENGTH 15
-#define NWNX_WEAPONS_STRCMD_MAX_WORD_LENGTH 33
-#define NWNX_WEAPONS_STRCMD_MIN_HASH_VALUE 15
-#define NWNX_WEAPONS_STRCMD_MAX_HASH_VALUE 53
-/* maximum key range = 39, duplicates = 0 */
+#define NWNX_WEAPONS_STRCMD_MAX_WORD_LENGTH 36
+#define NWNX_WEAPONS_STRCMD_MIN_HASH_VALUE 18
+#define NWNX_WEAPONS_STRCMD_MAX_HASH_VALUE 68
+/* maximum key range = 51, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -82,32 +82,32 @@ WeaponsStrCommandHash (register const char *str, register unsigned int len)
 {
   static const unsigned char asso_values[] =
     {
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54,  3,  3, 54, 20, 19,
-      19,  0, 54, 14, 54, 54, 20, 54, 54,  0,
-      19, 54, 54,  1, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54, 54, 54, 54, 54,
-      54, 54, 54, 54, 54, 54
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69,  2,  6, 69, 22, 34,
+       0,  3, 69, 29, 69, 69, 16, 69, 69, 27,
+      10, 69, 69,  0, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69, 69, 69, 69, 69,
+      69, 69, 69, 69, 69, 69
     };
   return len + asso_values[(unsigned char)str[9]] + asso_values[(unsigned char)str[0]];
 }
@@ -115,76 +115,98 @@ WeaponsStrCommandHash (register const char *str, register unsigned int len)
 static const struct WeaponsStrCommand_s WeaponsStrCommandList[] =
   {
     {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""},
-#line 48 "WeaponsStrCmds.gperf"
-    {"GETWEAPONOPTION",                        Func_GetWeaponOption},
-#line 64 "WeaponsStrCmds.gperf"
-    {"SETWEAPONOPTION",                        Func_SetWeaponOption},
-    {""}, {""}, {""}, {""},
-#line 47 "WeaponsStrCmds.gperf"
-    {"GETWEAPONOFCHOICEFEAT",                  Func_GetWeaponOfChoiceFeat},
-#line 63 "WeaponsStrCmds.gperf"
-    {"SETWEAPONOFCHOICEFEAT",                  Func_SetWeaponOfChoiceFeat},
-#line 37 "WeaponsStrCmds.gperf"
-    {"GETWEAPONABILITYFEAT",                   Func_GetWeaponAbilityFeat},
-#line 53 "WeaponsStrCmds.gperf"
-    {"SETWEAPONABILITYFEAT",                   Func_SetWeaponAbilityFeat},
-#line 43 "WeaponsStrCmds.gperf"
-    {"GETWEAPONGREATERFOCUSFEAT",              Func_GetWeaponGreaterFocusFeat},
-#line 59 "WeaponsStrCmds.gperf"
-    {"SETWEAPONGREATERFOCUSFEAT",              Func_SetWeaponGreaterFocusFeat},
-#line 36 "WeaponsStrCmds.gperf"
-    {"GETATTACKBONUSADJUSTMENT",               Func_GetAttackBonusAdjustment},
-#line 51 "WeaponsStrCmds.gperf"
-    {"GETWEAPONSPECIALIZATIONFEAT",            Func_GetWeaponSpecializationFeat},
-#line 67 "WeaponsStrCmds.gperf"
-    {"SETWEAPONSPECIALIZATIONFEAT",            Func_SetWeaponSpecializationFeat},
-#line 52 "WeaponsStrCmds.gperf"
-    {"GETWEAPONSUPERIORCRITICALFEAT",          Func_GetWeaponSuperiorCriticalFeat},
-#line 68 "WeaponsStrCmds.gperf"
-    {"SETWEAPONSUPERIORCRITICALFEAT",          Func_SetWeaponSuperiorCriticalFeat},
+    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
+#line 62 "WeaponsStrCmds.gperf"
+    {"SETWEAPONFOCUSFEAT",                     Func_SetWeaponFocusFeat},
     {""},
-#line 49 "WeaponsStrCmds.gperf"
-    {"GETWEAPONOVERWHELMINGCRITICALFEAT",      Func_GetWeaponOverwhelmingCriticalFeat},
-#line 65 "WeaponsStrCmds.gperf"
-    {"SETWEAPONOVERWHELMINGCRITICALFEAT",      Func_SetWeaponOverwhelmingCriticalFeat},
-#line 45 "WeaponsStrCmds.gperf"
-    {"GETWEAPONISMONKWEAPON",                  Func_GetWeaponIsMonkWeapon},
 #line 61 "WeaponsStrCmds.gperf"
-    {"SETWEAPONISMONKWEAPON",                  Func_SetWeaponIsMonkWeapon},
+    {"SETWEAPONFINESSESIZE",                   Func_SetWeaponFinesseSize},
 #line 42 "WeaponsStrCmds.gperf"
     {"GETWEAPONFOCUSFEAT",                     Func_GetWeaponFocusFeat},
-#line 58 "WeaponsStrCmds.gperf"
-    {"SETWEAPONFOCUSFEAT",                     Func_SetWeaponFocusFeat},
+#line 57 "WeaponsStrCmds.gperf"
+    {"SETWEAPONABILITYFEAT",                   Func_SetWeaponAbilityFeat},
 #line 41 "WeaponsStrCmds.gperf"
     {"GETWEAPONFINESSESIZE",                   Func_GetWeaponFinesseSize},
-#line 57 "WeaponsStrCmds.gperf"
-    {"SETWEAPONFINESSESIZE",                   Func_SetWeaponFinesseSize},
-#line 39 "WeaponsStrCmds.gperf"
-    {"GETWEAPONEPICFOCUSFEAT",                 Func_GetWeaponEpicFocusFeat},
-#line 55 "WeaponsStrCmds.gperf"
-    {"SETWEAPONEPICFOCUSFEAT",                 Func_SetWeaponEpicFocusFeat},
-#line 44 "WeaponsStrCmds.gperf"
-    {"GETWEAPONIMPROVEDCRITICALFEAT",          Func_GetWeaponImprovedCriticalFeat},
-#line 60 "WeaponsStrCmds.gperf"
-    {"SETWEAPONIMPROVEDCRITICALFEAT",          Func_SetWeaponImprovedCriticalFeat},
-#line 50 "WeaponsStrCmds.gperf"
-    {"GETWEAPONPOWERCRITICALFEAT",             Func_GetWeaponPowerCriticalFeat},
-#line 66 "WeaponsStrCmds.gperf"
-    {"SETWEAPONPOWERCRITICALFEAT",             Func_SetWeaponPowerCriticalFeat},
-#line 46 "WeaponsStrCmds.gperf"
-    {"GETWEAPONLEGENDARYFOCUSFEAT",            Func_GetWeaponLegendaryFocusFeat},
-#line 62 "WeaponsStrCmds.gperf"
-    {"SETWEAPONLEGENDARYFOCUSFEAT",            Func_SetWeaponLegendaryFocusFeat},
     {""},
-#line 40 "WeaponsStrCmds.gperf"
-    {"GETWEAPONEPICSPECIALIZATIONFEAT",        Func_GetWeaponEpicSpecializationFeat},
+#line 37 "WeaponsStrCmds.gperf"
+    {"GETWEAPONABILITYFEAT",                   Func_GetWeaponAbilityFeat},
+    {""},
+#line 75 "WeaponsStrCmds.gperf"
+    {"SETWEAPONSPECIALIZATIONFEAT",            Func_SetWeaponSpecializationFeat},
+#line 63 "WeaponsStrCmds.gperf"
+    {"SETWEAPONGREATERFOCUSFEAT",              Func_SetWeaponGreaterFocusFeat},
+#line 76 "WeaponsStrCmds.gperf"
+    {"SETWEAPONSUPERIORCRITICALFEAT",          Func_SetWeaponSuperiorCriticalFeat},
+#line 55 "WeaponsStrCmds.gperf"
+    {"GETWEAPONSPECIALIZATIONFEAT",            Func_GetWeaponSpecializationFeat},
+#line 43 "WeaponsStrCmds.gperf"
+    {"GETWEAPONGREATERFOCUSFEAT",              Func_GetWeaponGreaterFocusFeat},
 #line 56 "WeaponsStrCmds.gperf"
-    {"SETWEAPONEPICSPECIALIZATIONFEAT",        Func_SetWeaponEpicSpecializationFeat},
+    {"GETWEAPONSUPERIORCRITICALFEAT",          Func_GetWeaponSuperiorCriticalFeat},
+#line 36 "WeaponsStrCmds.gperf"
+    {"GETATTACKBONUSADJUSTMENT",               Func_GetAttackBonusAdjustment},
+    {""},
+#line 72 "WeaponsStrCmds.gperf"
+    {"SETWEAPONPARAGONFOCUSFEAT",              Func_SetWeaponParagonFocusFeat},
+#line 74 "WeaponsStrCmds.gperf"
+    {"SETWEAPONPOWERCRITICALFEAT",             Func_SetWeaponPowerCriticalFeat},
+#line 64 "WeaponsStrCmds.gperf"
+    {"SETWEAPONGREATERSPECIALIZATIONFEAT",     Func_SetWeaponGreaterSpecializationFeat},
+#line 52 "WeaponsStrCmds.gperf"
+    {"GETWEAPONPARAGONFOCUSFEAT",              Func_GetWeaponParagonFocusFeat},
+#line 54 "WeaponsStrCmds.gperf"
+    {"GETWEAPONPOWERCRITICALFEAT",             Func_GetWeaponPowerCriticalFeat},
+#line 44 "WeaponsStrCmds.gperf"
+    {"GETWEAPONGREATERSPECIALIZATIONFEAT",     Func_GetWeaponGreaterSpecializationFeat},
+    {""},
+#line 70 "WeaponsStrCmds.gperf"
+    {"SETWEAPONOPTION",                        Func_SetWeaponOption},
+#line 67 "WeaponsStrCmds.gperf"
+    {"SETWEAPONLEGENDARYFOCUSFEAT",            Func_SetWeaponLegendaryFocusFeat},
+#line 73 "WeaponsStrCmds.gperf"
+    {"SETWEAPONPARAGONSPECIALIZATIONFEAT",     Func_SetWeaponParagonSpecializationFeat},
+#line 50 "WeaponsStrCmds.gperf"
+    {"GETWEAPONOPTION",                        Func_GetWeaponOption},
+#line 47 "WeaponsStrCmds.gperf"
+    {"GETWEAPONLEGENDARYFOCUSFEAT",            Func_GetWeaponLegendaryFocusFeat},
+#line 53 "WeaponsStrCmds.gperf"
+    {"GETWEAPONPARAGONSPECIALIZATIONFEAT",     Func_GetWeaponParagonSpecializationFeat},
+#line 69 "WeaponsStrCmds.gperf"
+    {"SETWEAPONOFCHOICEFEAT",                  Func_SetWeaponOfChoiceFeat},
+    {""},
+#line 66 "WeaponsStrCmds.gperf"
+    {"SETWEAPONISMONKWEAPON",                  Func_SetWeaponIsMonkWeapon},
+#line 49 "WeaponsStrCmds.gperf"
+    {"GETWEAPONOFCHOICEFEAT",                  Func_GetWeaponOfChoiceFeat},
+#line 68 "WeaponsStrCmds.gperf"
+    {"SETWEAPONLEGENDARYSPECIALIZATIONFEAT",   Func_SetWeaponLegendarySpecializationFeat},
+#line 46 "WeaponsStrCmds.gperf"
+    {"GETWEAPONISMONKWEAPON",                  Func_GetWeaponIsMonkWeapon},
+#line 58 "WeaponsStrCmds.gperf"
+    {"SETWEAPONDEVASTATINGCRITICALFEAT",       Func_SetWeaponDevastatingCriticalFeat},
+#line 48 "WeaponsStrCmds.gperf"
+    {"GETWEAPONLEGENDARYSPECIALIZATIONFEAT",   Func_GetWeaponLegendarySpecializationFeat},
+#line 59 "WeaponsStrCmds.gperf"
+    {"SETWEAPONEPICFOCUSFEAT",                 Func_SetWeaponEpicFocusFeat},
 #line 38 "WeaponsStrCmds.gperf"
     {"GETWEAPONDEVASTATINGCRITICALFEAT",       Func_GetWeaponDevastatingCriticalFeat},
-#line 54 "WeaponsStrCmds.gperf"
-    {"SETWEAPONDEVASTATINGCRITICALFEAT",       Func_SetWeaponDevastatingCriticalFeat}
+#line 65 "WeaponsStrCmds.gperf"
+    {"SETWEAPONIMPROVEDCRITICALFEAT",          Func_SetWeaponImprovedCriticalFeat},
+#line 39 "WeaponsStrCmds.gperf"
+    {"GETWEAPONEPICFOCUSFEAT",                 Func_GetWeaponEpicFocusFeat},
+#line 71 "WeaponsStrCmds.gperf"
+    {"SETWEAPONOVERWHELMINGCRITICALFEAT",      Func_SetWeaponOverwhelmingCriticalFeat},
+#line 45 "WeaponsStrCmds.gperf"
+    {"GETWEAPONIMPROVEDCRITICALFEAT",          Func_GetWeaponImprovedCriticalFeat},
+    {""},
+#line 51 "WeaponsStrCmds.gperf"
+    {"GETWEAPONOVERWHELMINGCRITICALFEAT",      Func_GetWeaponOverwhelmingCriticalFeat},
+    {""},
+#line 60 "WeaponsStrCmds.gperf"
+    {"SETWEAPONEPICSPECIALIZATIONFEAT",        Func_SetWeaponEpicSpecializationFeat},
+    {""}, {""},
+#line 40 "WeaponsStrCmds.gperf"
+    {"GETWEAPONEPICSPECIALIZATIONFEAT",        Func_GetWeaponEpicSpecializationFeat}
   };
 
 #ifdef __GNUC__
@@ -210,7 +232,7 @@ WeaponsStrCommandLookup (register const char *str, register unsigned int len)
     }
   return 0;
 }
-#line 69 "WeaponsStrCmds.gperf"
+#line 77 "WeaponsStrCmds.gperf"
 
 
 #ifdef __cplusplus
