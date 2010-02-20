@@ -81,6 +81,7 @@ void Hook_AddDamageImmunity (CNWSCreature *cre, int damtype, int percent);
 void Hook_CheckConcealment (void);
 void Hook_CombatHitDamage (void);
 int Hook_ConfirmCritical (CNWSCreatureStats *target, CNWSCreature *attacker);
+void Hook_DamageResistanceMessage (void);
 void Hook_GetFortitudeSavingThrow (void);
 void Hook_GetReflexSavingThrow (void);
 void Hook_GetWillSavingThrow (void);
