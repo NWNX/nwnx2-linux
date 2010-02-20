@@ -89,6 +89,15 @@ int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *ta
             ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_LEGFOCUS_AB_EPBONUS];
     }
 
+    if (Table_WeaponParagonFocus[baseitem] > 0 &&
+        CNWSCreatureStats__HasFeat(attacker, Table_WeaponParagonFocus[baseitem])) {
+
+        ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_PARFOCUS_AB_BONUS];
+
+        if (CNWSCreatureStats__HasFeat(attacker, FEAT_EPIC_PROWESS))
+            ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_PARFOCUS_AB_EPBONUS];
+    }
+
     /* apply local adjustments (if any) */
     return Local_GetAttackBonusAdjustment(attacker, target, weapon, ranged, ab_abil, ab_feats);
 }
