@@ -40,7 +40,7 @@ LIBRARY = \
 
 all: nwnx2.so subdirs
 
-nwnx2.so: nwnx2lib.o NWNXBase.o gline.o $(LIBRARY)
+nwnx2.so: nwnx2lib.o NWNXBase.o modules.o lists.o gline.o $(LIBRARY)
 	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 # always execute regardless of existance or timestamp

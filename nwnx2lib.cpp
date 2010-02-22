@@ -38,8 +38,12 @@ using namespace std;
 #include "config.h"
 #endif
 
+//#include "typedef.h"
+
 #include "NWNXBase.h"
 #include "nx_hook.h"
+#include "commonheaders.h"
+#include "modules.h"
 
 #include <limits.h>		/* for PAGESIZE */
 #ifndef PAGESIZE
@@ -635,6 +639,16 @@ public:
 // extern "C" void
 // _init ()
 
+int TestFunction(WPARAM wParam,LPARAM lParam)
+{
+	printf("TestFunction here: %d:%d\n", wParam, lParam);
+	return 1;
+}
+
+extern "C" int InitialiseModularEngine(void);
+
+
+
 startstop::startstop()
 {
     nwnxConfig.open("nwnx2.ini");
@@ -659,10 +673,10 @@ startstop::startstop()
     Configure();
 
     // banner
-    Log(0,"NWN Extender v2.7.1-dev\n");
+    Log(0,"NWN Extender v2.8-dev\n");
     Log(1,"--------------------------------\n");
     printf("(c) 2004 by the APS/NWNX Linux Conversion Group\n");
-    printf("(c) 2007-2009 by virusman and Acaos\n");
+    printf("(c) 2007-2010 by virusman and Acaos\n");
     printf("Based on the Win32 version (c) 2003 by Ingmar Stieger (Papillon)\n");
     printf("and Jeroen Broekhuizen\n");
     printf("visit us at http://www.avlis.org\n\n");
@@ -675,6 +689,22 @@ startstop::startstop()
 
     // log & emit
     Log(0,"* NWNX2 activated.\n");
+	
+//DEBUG:: DELETE AFTER TEST
+	InitialiseModularEngine();
+	HANDLE hFunc = CreateServiceFunction("System/TestFunction", TestFunction);
+	Log(0, "Create function: %x\n", hFunc);
+	Log(0, "Service exists: %d\n", ServiceExists("System/TestFunction"));
+	int nRes = CallService("System/TestFunction", 1, 2);
+	Log(0, "Call Service: %x\n", nRes);
+
+	HANDLE hTestHook = CreateHookableEvent("System/TestHook");
+	HookEvent("System/TestHook", TestFunction);
+	NotifyEventHooks(hTestHook, 2, 3);
+
+
+
+	
 }
 
 // extern "C" void
