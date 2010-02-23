@@ -26,6 +26,8 @@
 #include "NWNXodbc.h"
 #include "HookSCORCO.h"
 
+extern PLUGINLINK *pluginLink;
+
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -74,6 +76,18 @@ bool CNWNXODBC::OnCreate (gline *config, const char* LogDir)
 
   if (!LoadConfiguration()) 
     return false;
+
+  if(!pluginLink)
+  {
+	Log (0, "Plugin link not accessible\n");
+  }
+  else
+  {
+  		Log (0, "Plugin link: %08lX\n", pluginLink);
+		Log (0, "Plugin link: %08lX\n", pluginLink);
+	  hSCOEvent = CreateHookableEvent("NWServer/SCO");
+	  hRCOEvent = CreateHookableEvent("NWServer/RCO");
+  }
 
   if (hookScorco)
 	{
@@ -239,15 +253,31 @@ int CNWNXODBC::WriteSCO(char* database, char* key, char* player, int flags, unsi
 {
   Log(3, "o SCO: db='%s', key='%s', player='%s', flags=%08lX, pData=%08lX, size=%08lX\n", database, key, player, flags, pData, size);
 
-  if (size > 0)
-	{
-		//Log ("o Writing scorco data.\n");
-		if (!db->WriteScorcoData(scorcoSQL, pData, size))
-      Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
-    else
-      return 1;
-	}
-  return 0;
+  if(strcmp(key,"-") == 0)
+  {
+	  if (size > 0)
+		{
+			//Log ("o Writing scorco data.\n");
+			if (!db->WriteScorcoData(scorcoSQL, pData, size))
+	      Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
+	    else
+	      return 1;
+		}
+	  return 0;
+  }
+  else
+  {
+	  SCORCOStruct scoInfo = {
+		database,
+		key,
+		player,
+		pData,
+		size
+	  };
+	  NotifyEventHooks(hSCOEvent,(WPARAM)&scoInfo,0);
+
+	  return 1;
+  }
 }
 
 //============================================================================================================================
@@ -256,6 +286,9 @@ unsigned char* CNWNXODBC::ReadSCO(char* database, char* key, char* player, int* 
   *arg4 = 0x4f;
 
   Log(3, "o RCO(0): db='%s', key='%s', player='%s', arg4=%08lX, size=%08lX\n", database, key, player, arg4, size);
+
+  if(strcmp(key,"-") == 0)
+  {
 
 	BYTE* pData;
 	BOOL sqlError;
@@ -274,6 +307,24 @@ unsigned char* CNWNXODBC::ReadSCO(char* database, char* key, char* player, int* 
 			Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
 	}
   return NULL;
+  }
+  else
+  {
+	SCORCOStruct rcoInfo = {
+		database,
+		key,
+		player,
+		NULL,
+		NULL
+	};
+	NotifyEventHooks(hSCOEvent,(WPARAM)&rcoInfo,0);
+
+	if(rcoInfo.pData && rcoInfo.size)
+	{
+		return rcoInfo.pData;
+	}
+	return NULL;
+  }
 }
 
 //============================================================================================================================

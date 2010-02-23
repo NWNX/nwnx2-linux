@@ -76,6 +76,9 @@ private:
 	bool hookScorco;
 	char* scorcoSQL;
 
+	HANDLE hSCOEvent;
+	HANDLE hRCOEvent;
+
 	enum ELogLevel {logNothing, logErrors, logAll};
 };
 

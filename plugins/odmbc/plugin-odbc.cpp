@@ -20,6 +20,30 @@
 #include "NWNXodbc.h"
 
 CNWNXODBC odbc;
+PLUGINLINK *pluginLink = 0;
+
+PLUGININFO pluginInfo={
+	sizeof(PLUGININFO),
+	"NWNX ODBC",
+	PLUGIN_MAKE_VERSION(0,0,0,2),
+	"The long description of your plugin, to go in the plugin options dialog",
+	"virusman",
+	"virusman@virusman.ru",
+	"© 2010 virusman",
+	"http://www.virusman.ru/",
+	0		//not transient
+};
+
+extern "C" PLUGININFO* GetPluginInfo(DWORD nwnxVersion)
+{
+	return &pluginInfo;
+}
+
+extern "C" int InitPlugin(PLUGINLINK *link)
+{
+	pluginLink=link;
+	return 0;
+}
 
 extern "C"
 CNWNXBase* GetClassObject ()
