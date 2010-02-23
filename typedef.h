@@ -9,7 +9,7 @@ typedef void * HINSTANCE;
 typedef void * HWND;
 typedef unsigned int UINT;
 typedef unsigned long DWORD;
-typedef char	BYTE;
+typedef unsigned char	BYTE;
 
 #define MAX_PATH          260
 #define CALLBACK 

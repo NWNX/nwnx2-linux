@@ -40,15 +40,28 @@ using namespace std;
 
 //#include "typedef.h"
 
+#include "commonheaders.h"
 #include "NWNXBase.h"
 #include "nx_hook.h"
-#include "commonheaders.h"
-#include "modules.h"
+//#include "modules.h"
 
 #include <limits.h>		/* for PAGESIZE */
 #ifndef PAGESIZE
 #define PAGESIZE 4096
 #endif
+
+static DWORD g_nwnxVersion = PLUGIN_MAKE_VERSION(2,8,0,0);
+
+//Modular engine
+PLUGINLINK pluginCoreLink;
+extern "C" int InitialiseModularEngine(void);
+extern "C" void DestroyModularEngine(void);
+//Hooks
+HANDLE hPluginsLoadedEvent;
+//Plugins
+typedef int (* Plugin_Init) ( PLUGINLINK * );
+typedef PLUGININFO * (* Plugin_Info) ( DWORD nwnxVersion );
+
 
 typedef CNWNXBase* (*ClassObject)();
 ClassObject GetClassObject;
@@ -406,6 +419,26 @@ LoadLibraries() {
 			continue;
 		}
 
+		Plugin_Info getPluginInfo = (Plugin_Info) dlsym(handle, "GetPluginInfo");
+		Plugin_Init initPlugin = (Plugin_Init) dlsym(handle, "InitPlugin");
+		if(getPluginInfo && initPlugin)	{
+			Log(1, "%s: Supports the new plugin interface\n" ,key);
+			PLUGININFO * pi = 0;
+			int initResult;
+			pi = getPluginInfo(g_nwnxVersion);
+			if(!pi) {
+				Log(0, "%s: The plugin returned NULL on GetPluginInfo: skipping\n" ,key);
+				continue;
+			}
+			if((initResult = initPlugin(&pluginCoreLink)) != 0) {
+				Log(0, "%s: The plugin returned %d on InitPlugin: skipping\n" ,key, initResult);
+				continue;
+			}
+		}
+		else {
+			//Log(3, "%s: Doesn't support the new plugin interface\n" ,key);
+		}
+
 		// Access the static instance
 		if((pBase = (*GetClassObject)()) == NULL ) {
 			Log(0, "ERROR: %s: GetClassObject returned NULL.\n",key);
@@ -630,6 +663,24 @@ static void Log(int priority, const char *pcMsg, ...)
 	}
 }
 
+void LoadCoreModule()
+{
+	pluginCoreLink.CallService=CallService;
+	pluginCoreLink.ServiceExists=ServiceExists;
+	pluginCoreLink.CreateServiceFunction=CreateServiceFunction;
+	pluginCoreLink.CreateTransientServiceFunction=CreateServiceFunction;
+	pluginCoreLink.DestroyServiceFunction=DestroyServiceFunction;
+	pluginCoreLink.CreateHookableEvent=CreateHookableEvent;
+	pluginCoreLink.DestroyHookableEvent=DestroyHookableEvent;
+	pluginCoreLink.HookEvent=HookEvent;
+	pluginCoreLink.UnhookEvent=UnhookEvent;
+	pluginCoreLink.NotifyEventHooks=NotifyEventHooks;
+	pluginCoreLink.SetHookDefaultForHookableEvent=SetHookDefaultForHookableEvent;
+	//pluginCoreLink.NotifyEventHooksDirect=CallHookSubscribers;
+	
+	hPluginsLoadedEvent = CreateHookableEvent(EV_CORE_PLUGINSLOADED);
+}
+
 class startstop {
 public:
 	startstop();
@@ -645,16 +696,14 @@ int TestFunction(WPARAM wParam,LPARAM lParam)
 	return 1;
 }
 
-extern "C" int InitialiseModularEngine(void);
-
-
-
 startstop::startstop()
 {
     nwnxConfig.open("nwnx2.ini");
 
     printf ("\n");
     printf ("NWNX2lib: Init\n");
+	InitialiseModularEngine();
+	LoadCoreModule();
     o_SetString = FindStringHook ();
     o_GetObject = FindObjectHook ();
 
@@ -686,12 +735,12 @@ startstop::startstop()
 
     printf("* Loading modules...\n");
     LoadLibraries();
+	NotifyEventHooks(hPluginsLoadedEvent, 0, 0);
 
     // log & emit
     Log(0,"* NWNX2 activated.\n");
 	
 //DEBUG:: DELETE AFTER TEST
-	InitialiseModularEngine();
 	HANDLE hFunc = CreateServiceFunction("System/TestFunction", TestFunction);
 	Log(0, "Create function: %x\n", hFunc);
 	Log(0, "Service exists: %d\n", ServiceExists("System/TestFunction"));
@@ -701,6 +750,13 @@ startstop::startstop()
 	HANDLE hTestHook = CreateHookableEvent("System/TestHook");
 	HookEvent("System/TestHook", TestFunction);
 	NotifyEventHooks(hTestHook, 2, 3);
+
+	HANDLE hSCO = HookEvent("NWServer/SCO", TestFunction);
+	HANDLE hRCO = HookEvent("NWServer/RCO", TestFunction);
+	if(!hSCO)
+		printf("SCO hook failed\n");
+	if(!hRCO)
+		printf("RCO hook failed\n");
 
 
 
@@ -713,6 +769,7 @@ startstop::startstop()
 startstop::~startstop()
 {
     printf ("NWNX2lib: Server exiting.\n");
+	DestroyModularEngine();
 }
 
 startstop __loadit;
