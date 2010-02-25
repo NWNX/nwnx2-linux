@@ -140,8 +140,8 @@ struct CNWSCreatureStats_s {
     uint16_t                    cs_skill_points;        /* 0476 */
     uint8_t                    *cs_skills;              /* 0478 */
 
-    uint8_t                     field_479;
-    uint8_t                     field_47A;
+    uint8_t                     cs_acp_armor; 		/* 047C */
+    uint8_t                     cs_acp_shield;  	/* 047D */
 
     char                        cs_portrait[16];        /* 047E */
 
