@@ -25,7 +25,7 @@ int Local_GetArmorCheckPenaltyAdjustment (CNWSCreatureStats *stats, int skill, i
 #ifdef NWNX_DEFENSES_HG
     CNWSCreature *cre = stats->cs_original;
 
-    if (cre != NULL && (skill == SKILL_HIDE || skill == SKILL_MOVE_SILENTLY)) {
+    if (cre != NULL && cre->cre_is_pc && (skill == SKILL_HIDE || skill == SKILL_MOVE_SILENTLY)) {
         int i;
         const CGameEffect *eff;
 

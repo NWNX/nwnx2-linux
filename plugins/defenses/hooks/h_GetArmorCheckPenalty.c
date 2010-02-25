@@ -53,6 +53,7 @@ void Hook_GetArmorCheckPenalty (void) {
         (CNWSCreatureStats *)Hook_ACP_Stats, (uint8_t)Hook_ACP_Skill);
 
     /* the result of Hook_GetArmorCheckPenaltyAdjustment() is in %eax */
+    asm("pushl Hook_ACP_Return");
     asm("ret");
 }
 

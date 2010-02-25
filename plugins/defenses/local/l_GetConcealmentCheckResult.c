@@ -88,9 +88,8 @@ int Local_GetConcealmentCheckResult (CNWSCreature *attacker, CNWSCreature *targe
                 break;
 
             case 56: {
-                /* assassin improved invisibility */
-                int hide = nwn_GetLevelByClass(target->cre_stats, CLASS_TYPE_ASSASSIN) +
-                           CNWSCreatureStats__GetSkillRank(target->cre_stats, SKILL_HIDE, NULL, 0);
+                /* assassin concealment */
+                int hide = CNWSCreatureStats__GetSkillRank(target->cre_stats, SKILL_HIDE, NULL, 0);
 
                 if (hide > 127)
                     hide = 127;
