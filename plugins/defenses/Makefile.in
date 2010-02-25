@@ -54,6 +54,7 @@ OFILES  = \
     hooks/h_CombatHitDamage.o                    \
     hooks/h_ConfirmCritical.o                    \
     hooks/h_GetACNaturalBase.o                   \
+    hooks/h_GetArmorCheckPenalty.o               \
     hooks/h_GetDamageImmunity.o                  \
     hooks/h_GetDamageResistance.o                \
     hooks/h_GetHasSlipperyMind.o                 \
@@ -76,6 +77,7 @@ OFILES  = \
     local/l_GetACTouchBase.o                     \
     local/l_GetACTumbleAdjustment.o              \
     local/l_GetACWisAdjustment.o                 \
+    local/l_GetArmorCheckPenaltyAdjustment.o     \
     local/l_GetConcealmentCheckResult.o          \
     local/l_GetCritConfirmationResult.o          \
     local/l_GetDamageImmunity.o                  \

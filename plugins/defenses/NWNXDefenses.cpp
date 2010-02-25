@@ -29,6 +29,7 @@
 
 #define NWNX_DEFENSES_SIG(NAME, SIG) { #NAME, &NAME, SIG }
 
+static unsigned char *Ref_ArmorCheckPenalty;
 static unsigned char *Ref_CheckConcealment;
 static unsigned char *Ref_CombatHitDamage;
 static unsigned char *Ref_ConfirmCritical;
@@ -58,6 +59,7 @@ static struct DefenseSignatureTable {
 } Table_DefenseSignatures[] = {
     { NULL,                                     NULL },
 
+    NWNX_DEFENSES_SIG(Ref_ArmorCheckPenalty,     "0F B6 45 F3 8D 14 80 8D 14 50 8B 81 E8 00 00 00 83 7C 90 24 01 75"),
     NWNX_DEFENSES_SIG(Ref_CheckConcealment,      "C7 45 BC 0A 00 00 00 8B 5D C0 85 DB 7F ** 8B 4D"),
     NWNX_DEFENSES_SIG(Ref_CombatHitDamage,       "FF 5A 59 6A 01 50 ** ** ** ** ** 83 C4 10 85 C0 78 36 83 EC"),
     NWNX_DEFENSES_SIG(Ref_ConfirmCritical,       "85 C0 75 ** 83 EC 08 68 80 03 00 00 8B 45 94 FF B0 64|68 0C 00 00 E8"),
@@ -453,6 +455,16 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
 
         *(unsigned long *)(p + 22) = (unsigned long)Hook_ConfirmCritical -
             (unsigned long)(p + 26);
+    }
+
+
+    /* armor check penalty check */
+    if (Ref_ArmorCheckPenalty != NULL) {
+        extern volatile uintptr_t Hook_ACP_Return;
+
+        Hook_ACP_Return = (uintptr_t)(Ref_ArmorCheckPenalty + 38);
+
+        nx_hook_function(Ref_ArmorCheckPenalty + 23, (void *)Hook_GetArmorCheckPenalty, 5, NX_HOOK_DIRECT);
     }
 
 
