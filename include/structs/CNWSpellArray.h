@@ -26,6 +26,7 @@
 
 struct CNWSpellArray_s {
     void               *unknown;
+    CNWSpell           *spa_spells;
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSPELLARRAY_ */

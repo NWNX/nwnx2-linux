@@ -37,7 +37,7 @@ static int Hook_GetArmorCheckPenaltyAdjustment (CNWSCreatureStats *stats, uint8_
     acp_armor  = stats->cs_acp_armor;
     acp_shield = stats->cs_acp_shield;
 
-    return -(Local_GetArmorCheckPenaltyAdjustment(stats, skill, acp_armor, acp_shield));
+    return Local_GetArmorCheckPenaltyAdjustment(stats, skill, acp_armor, acp_shield);
 }
 
 void Hook_GetArmorCheckPenalty (void) {
