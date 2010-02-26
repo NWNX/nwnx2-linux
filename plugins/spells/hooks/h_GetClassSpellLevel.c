@@ -21,8 +21,57 @@
 #include "NWNXSpells.h"
 
 
-int8_t Hook_GetClassSpellLevel (int cl, int spell) {
-    return -1;
+volatile uintptr_t Hook_CSL_ReturnCheck;
+volatile uintptr_t Hook_CSL_ReturnDone;
+volatile CNWSpell *Hook_CSL_Spell;
+volatile int32_t Hook_CSL_Class;
+volatile int8_t Hook_CSL_Level;
+
+
+__attribute__((noinline))
+static int8_t Hook_GetClassSpellLevel (CNWSpell *spell, int32_t class) {
+    int id = spell - (*NWN_Rules)->ru_spells->spa_spells;
+
+    switch (class) {
+        case CLASS_TYPE_ASSASSIN: switch (id) {
+        }
+        break;
+
+        case CLASS_TYPE_BLACKGUARD: switch (id) {
+            case  433: return 3;
+            case  434: return 4;
+        }
+        break;
+    }
+
+    return -2;
+}
+
+
+void Hook_GetSpellLevel (void) {
+    asm("leave");
+
+    asm("movl 0x8(%ebp), %eax");
+    asm("movl %eax, Hook_CSL_Spell");
+
+    asm("movzbl 0xc(%ebp), %edx");
+    asm("movl %edx, Hook_CSL_Class");
+
+    Hook_CSL_Level = Hook_GetClassSpellLevel(
+        (CNWSpell *)Hook_CSL_Spell, (int32_t)Hook_CSL_Class);
+
+    if (Hook_CSL_Level == -2) {
+        /* duplicate the work originally done */
+        asm("movzbl 0xc(%ebp), %edx");
+        asm("cmp $0xa, %edx");
+        asm("movl 0x8(%ebp), %eax");
+        asm("pushl Hook_CSL_ReturnCheck");
+    } else {
+        asm("mov Hook_CSL_Level, %al");
+        asm("pushl Hook_CSL_ReturnDone");
+    }
+
+    asm("ret");
 }
 
 

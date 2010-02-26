@@ -184,6 +184,21 @@ bool CNWNXSpells::OnCreate (gline *config, const char *LogDir) {
 #endif
 
 
+#if 0
+    /* override spell levels for classes */
+    /* XXX: clean this up */
+    if (1) {
+        extern volatile uintptr_t Hook_CSL_ReturnCheck, Hook_CSL_ReturnDone;
+        unsigned char *p = (unsigned char *)0x081D8923;
+
+        nx_hook_function((void *)p, (void *)Hook_GetSpellLevel, 7, NX_HOOK_DIRECT);
+
+        Hook_CSL_ReturnCheck = 0x081D892D;
+        Hook_CSL_ReturnDone  = 0x081D8977;
+    }
+#endif
+
+
     /* add the possibility of additional caster classes */
     if (Ref_CasterAbility1 != NULL) {
         extern volatile uintptr_t Hook_SCA1_Return;

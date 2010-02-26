@@ -45,6 +45,7 @@ void Hook_GetIsMemorizationCasterClass2 (void);
 void Hook_GetIsMemorizationCasterClass3 (void);
 void Hook_GetIsMemorizationCasterClass4 (void);
 void Hook_GetIsUnlimitedBookCasterClass1 (void);
+void Hook_GetSpellLevel (void);
 void Hook_SpellSlotLoop1 (void);
 void Hook_SpellSlotLoop2 (void);
 void Hook_SpellSlotLoop3 (void);
