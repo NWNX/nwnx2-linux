@@ -26,14 +26,13 @@ int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *t
 #ifdef NWNX_WEAPONS_HG
 #define NWNX_EXALT_GET_AB(P)            ((P >> 16) & 0xFF)
 
-    int ab = 0;
+    int ab = 0, wm = 0, woc = 0;
 
     if ((attacker->cs_age & 0x80000000) &&
         (ab = NWNX_EXALT_GET_AB(attacker->cs_age)) > 0 && ab < 130)
         ab_abil = ab;
 
     if (weapon != NULL) {
-        int wm = 0;
         int rogue = nwn_GetLevelByClass(attacker, CLASS_TYPE_ROGUE);
 
         if (attacker->cs_original != NULL &&
@@ -41,13 +40,15 @@ int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *t
             wm = nwn_GetLevelByClass(attacker, CLASS_TYPE_WEAPON_MASTER);
 
         /* PC weapon masters get +1 AB at 10, +1 at 29, and +2 at 30 */
-        if (wm >= 10 && CNWSCreatureStats__GetIsWeaponOfChoice(attacker, weapon->it_baseitem)) {
-            ab_feats++;
-
+        if (wm >= 5 && CNWSCreatureStats__GetIsWeaponOfChoice(attacker, weapon->it_baseitem)) {
+            if (wm >= 10)
+                ab_feats++;
             if (wm >= 29)
                 ab_feats++;
             if (wm >= 30)
                 ab_feats += 2;
+
+            woc = 1;
         }
 
 
@@ -97,6 +98,34 @@ int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *t
             case 24: ab_abil = attacker->cs_cha_mod + ((ab - 239) * 5);                       break;
         }
     }
+
+    if (attacker->cs_original != NULL && attacker->cs_original->cre_is_pc) {
+        int i, ab_true = 0;
+        const CGameEffect *eff;
+        const CNWSCreature *cre = attacker->cs_original;
+
+        for (i = 0; i < cre->obj.obj_effects_len; i++) {
+            if ((eff = cre->obj.obj_effects[i]) == NULL)
+                continue;
+
+            if (eff->eff_type != EFFECT_TRUETYPE_SPELL_IMMUNITY)
+                continue;
+
+            if (eff->eff_integers[0] == 415 && eff->eff_integers[1] > ab_true)  /* SPELL_TRUE_STRIKE */
+                ab_true = eff->eff_integers[1];
+        }
+
+        if (woc) {
+            ab_true--;
+
+            if (wm >= 10)
+                ab_true -= (wm - 7) / 3;
+        }
+
+        if (ab_true > 0)
+            ab_feats += ab_true;
+    }
+
 #endif
 
     return (ab_abil + ab_feats);
