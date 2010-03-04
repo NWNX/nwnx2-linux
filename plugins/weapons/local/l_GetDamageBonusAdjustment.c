@@ -23,6 +23,26 @@
 
 int Local_GetDamageBonusAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj) {
 #ifdef NWNX_WEAPONS_HG
+    if (attacker->cs_original != NULL && attacker->cs_original->cre_is_pc) {
+        int i, bonus = 0;
+        const CGameEffect *eff;
+        const CNWSCreature *cre = attacker->cs_original;
+
+        for (i = 0; i < cre->obj.obj_effects_len; i++) {
+            if ((eff = cre->obj.obj_effects[i]) == NULL)
+                continue;
+
+            if (eff->eff_type != EFFECT_TRUETYPE_SPELL_IMMUNITY)
+                continue;
+
+            if (eff->eff_integers[0] == 746)
+                bonus |= 2;
+            else if (eff->eff_integers[0] == 747)
+                bonus |= 8;
+        }
+
+        adj += bonus;
+    }
 #endif
 
     return adj;
