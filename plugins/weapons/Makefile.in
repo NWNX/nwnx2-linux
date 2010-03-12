@@ -43,10 +43,10 @@ OFILES  = \
     funcs/f_GetWeaponDevastatingCriticalFeat.o      \
     funcs/f_GetWeaponEpicFocusFeat.o                \
     funcs/f_GetWeaponEpicSpecializationFeat.o       \
+    funcs/f_GetWeaponFinesseSize.o                  \
     funcs/f_GetWeaponFocusFeat.o                    \
     funcs/f_GetWeaponGreaterFocusFeat.o             \
     funcs/f_GetWeaponGreaterSpecializationFeat.o    \
-    funcs/f_GetWeaponFinesseSize.o                  \
     funcs/f_GetWeaponImprovedCriticalFeat.o         \
     funcs/f_GetWeaponIsMonkWeapon.o                 \
     funcs/f_GetWeaponLegendaryFocusFeat.o           \
