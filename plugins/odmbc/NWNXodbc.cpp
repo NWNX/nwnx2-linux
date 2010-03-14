@@ -317,7 +317,7 @@ unsigned char* CNWNXODBC::ReadSCO(char* database, char* key, char* player, int* 
 		NULL,
 		NULL
 	};
-	NotifyEventHooks(hSCOEvent,(WPARAM)&rcoInfo,0);
+	NotifyEventHooks(hRCOEvent,(WPARAM)&rcoInfo,0);
 
 	if(rcoInfo.pData && rcoInfo.size)
 	{
