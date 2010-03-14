@@ -1,3 +1,6 @@
+#ifndef TYPEDEF_H
+#define TYPEDEF_H
+
 typedef unsigned int WPARAM;
 typedef long LPARAM;
 typedef void * HANDLE;
@@ -13,6 +16,4 @@ typedef unsigned char	BYTE;
 
 #define MAX_PATH          260
 #define CALLBACK 
-
-
-
+#endif
