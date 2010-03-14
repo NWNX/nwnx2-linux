@@ -750,17 +750,6 @@ startstop::startstop()
 	HANDLE hTestHook = CreateHookableEvent("System/TestHook");
 	HookEvent("System/TestHook", TestFunction);
 	NotifyEventHooks(hTestHook, 2, 3);
-
-	HANDLE hSCO = HookEvent("NWServer/SCO", TestFunction);
-	HANDLE hRCO = HookEvent("NWServer/RCO", TestFunction);
-	if(!hSCO)
-		printf("SCO hook failed\n");
-	if(!hRCO)
-		printf("RCO hook failed\n");
-
-
-
-	
 }
 
 // extern "C" void
