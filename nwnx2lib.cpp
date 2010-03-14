@@ -704,6 +704,8 @@ startstop::startstop()
     printf ("NWNX2lib: Init\n");
 	InitialiseModularEngine();
 	LoadCoreModule();
+	HANDLE hStartup = CreateHookableEvent("System/Startup");
+
     o_SetString = FindStringHook ();
     o_GetObject = FindObjectHook ();
 
@@ -750,6 +752,8 @@ startstop::startstop()
 	HANDLE hTestHook = CreateHookableEvent("System/TestHook");
 	HookEvent("System/TestHook", TestFunction);
 	NotifyEventHooks(hTestHook, 2, 3);
+
+	NotifyEventHooks(hStartup, 0, 0);
 }
 
 // extern "C" void
