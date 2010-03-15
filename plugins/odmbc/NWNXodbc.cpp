@@ -321,6 +321,9 @@ unsigned char* CNWNXODBC::ReadSCO(char* database, char* key, char* player, int* 
 
 	if(rcoInfo.pData && rcoInfo.size)
 	{
+		*size = rcoInfo.size;
+		Log(3, "o RCO(n1): db='%s', key='%s', player='%s', arg4=%08lX, size=%08lX\n", database, key, player, *arg4, *size);
+		Log(3, "o RCO(n2): pData=%08lX, size=%08lX, pData='%s'\n", rcoInfo.pData, rcoInfo.size, rcoInfo.pData);
 		return rcoInfo.pData;
 	}
 	return NULL;
