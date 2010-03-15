@@ -276,7 +276,7 @@ int CNWNXODBC::WriteSCO(char* database, char* key, char* player, int flags, unsi
 	  };
 	  NotifyEventHooks(hSCOEvent,(WPARAM)&scoInfo,0);
 
-	  return 1;
+	  return 0;
   }
 }
 
