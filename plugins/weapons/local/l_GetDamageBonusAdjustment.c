@@ -24,7 +24,7 @@
 int Local_GetDamageBonusAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj) {
 #ifdef NWNX_WEAPONS_HG
     if (attacker->cs_original != NULL && attacker->cs_original->cre_is_pc) {
-        int i, bonus = 0;
+        int i, bit_bonus = 0, cha_bonus = 0, con_bonus = 0, misc_bonus_1 = 0, misc_bonus_2 = 0;
         const CGameEffect *eff;
         const CNWSCreature *cre = attacker->cs_original;
 
@@ -36,12 +36,20 @@ int Local_GetDamageBonusAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapo
                 continue;
 
             if (eff->eff_integers[0] == 746)
-                bonus |= 2;
+                bit_bonus |= 2;
             else if (eff->eff_integers[0] == 747)
-                bonus |= 8;
+                bit_bonus |= 8;
+            else if (eff->eff_integers[0] == 748 && attacker->cs_cha_mod > 0)
+                cha_bonus = attacker->cs_cha_mod;
+            else if (eff->eff_integers[0] == 749 && attacker->cs_con_mod > 0)
+                con_bonus = attacker->cs_con_mod;
+            else if (eff->eff_integers[0] == 750 && eff->eff_integers[1] > misc_bonus_1)
+                misc_bonus_1 = eff->eff_integers[1];
+            else if (eff->eff_integers[0] == 751 && eff->eff_integers[1] > misc_bonus_2)
+                misc_bonus_2 = eff->eff_integers[1];
         }
 
-        adj += bonus;
+        adj += (bit_bonus + cha_bonus + con_bonus + misc_bonus_1 + misc_bonus_2);
     }
 #endif
 

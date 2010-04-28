@@ -111,8 +111,24 @@ int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *t
             if (eff->eff_type != EFFECT_TRUETYPE_SPELL_IMMUNITY)
                 continue;
 
-            if (eff->eff_integers[0] == 415 && eff->eff_integers[1] > ab_true)  /* SPELL_TRUE_STRIKE */
-                ab_true = eff->eff_integers[1];
+            if (eff->eff_integers[0] == 415) {          /* SPELL_TRUE_STRIKE */
+                int val = eff->eff_integers[1];
+
+                if (val >= 110 && val <= 199) {
+                    switch (val % 10) {
+                        case 0:  val = attacker->cs_str_mod / ((val / 10) % 10);                       break;
+                        case 1:  val = CNWSCreatureStats__GetDEXMod(attacker, 0) / ((val / 10) % 10);  break;
+                        case 2:  val = attacker->cs_con_mod / ((val / 10) % 10);                       break;
+                        case 3:  val = attacker->cs_int_mod / ((val / 10) % 10);                       break;
+                        case 4:  val = attacker->cs_wis_mod / ((val / 10) % 10);                       break;
+                        case 5:  val = attacker->cs_cha_mod / ((val / 10) % 10);                       break;
+                        default: val = 0;                                                              break;
+                    }
+
+                    if (val > ab_true)
+                        ab_true = val;
+                }
+            }
         }
 
         if (woc) {
