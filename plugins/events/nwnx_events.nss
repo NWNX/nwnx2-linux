@@ -1,16 +1,17 @@
-const int EVENT_TYPE_ALL               = 0;
-const int EVENT_TYPE_SAVE_CHAR         = 1;
-const int EVENT_TYPE_PICKPOCKET        = 2;
-const int EVENT_TYPE_ATTACK            = 3;
-const int EVENT_TYPE_USE_ITEM          = 4;
-const int EVENT_TYPE_QUICKCHAT         = 5;
-const int EVENT_TYPE_EXAMINE           = 6;
-const int EVENT_TYPE_USE_SKILL         = 7;
-const int EVENT_TYPE_USE_FEAT          = 8;
-const int EVENT_TYPE_TOGGLE_MODE       = 9;
-const int EVENT_TYPE_CAST_SPELL        = 10;
-const int EVENT_TYPE_TOGGLE_PAUSE      = 11;
-const int EVENT_TYPE_POSSESS_FAMILIAR  = 12;
+const int EVENT_TYPE_ALL                = 0;
+const int EVENT_TYPE_SAVE_CHAR          = 1;
+const int EVENT_TYPE_PICKPOCKET         = 2;
+const int EVENT_TYPE_ATTACK             = 3;
+const int EVENT_TYPE_USE_ITEM           = 4;
+const int EVENT_TYPE_QUICKCHAT          = 5;
+const int EVENT_TYPE_EXAMINE            = 6;
+const int EVENT_TYPE_USE_SKILL          = 7;
+const int EVENT_TYPE_USE_FEAT           = 8;
+const int EVENT_TYPE_TOGGLE_MODE        = 9;
+const int EVENT_TYPE_CAST_SPELL         = 10;
+const int EVENT_TYPE_TOGGLE_PAUSE       = 11;
+const int EVENT_TYPE_POSSESS_FAMILIAR   = 12;
+const int EVENT_TYPE_VALIDATE_CHARACTER = 13;
 
 // DEPRECATED
 // For backwards compatibility only - use above constants instead
@@ -24,20 +25,20 @@ const int EVENT_USE_SKILL = 7;
 const int EVENT_USE_FEAT = 8;
 const int EVENT_TOGGLE_MODE = 9;
 
-const int NODE_TYPE_STARTING_NODE      = 0;
-const int NODE_TYPE_ENTRY_NODE         = 1;
-const int NODE_TYPE_REPLY_NODE         = 2;
+const int NODE_TYPE_STARTING_NODE = 0;
+const int NODE_TYPE_ENTRY_NODE    = 1;
+const int NODE_TYPE_REPLY_NODE    = 2;
 
-const int LANGUAGE_ENGLISH             = 0;
-const int LANGUAGE_FRENCH              = 1;
-const int LANGUAGE_GERMAN              = 2;
-const int LANGUAGE_ITALIAN             = 3;
-const int LANGUAGE_SPANISH             = 4;
-const int LANGUAGE_POLISH              = 5;
-const int LANGUAGE_KOREAN              = 128;
-const int LANGUAGE_CHINESE_TRADITIONAL = 129;
-const int LANGUAGE_CHINESE_SIMPLIFIED  = 130;
-const int LANGUAGE_JAPANESE            = 131;
+const int LANGUAGE_ENGLISH              = 0;
+const int LANGUAGE_FRENCH               = 1;
+const int LANGUAGE_GERMAN               = 2;
+const int LANGUAGE_ITALIAN              = 3;
+const int LANGUAGE_SPANISH              = 4;
+const int LANGUAGE_POLISH               = 5;
+const int LANGUAGE_KOREAN               = 128;
+const int LANGUAGE_CHINESE_TRADITIONAL  = 129;
+const int LANGUAGE_CHINESE_SIMPLIFIED   = 130;
+const int LANGUAGE_JAPANESE             = 131;
 
 int GetEventType();
 int GetEventSubType();
@@ -45,6 +46,7 @@ object GetEventTarget();
 object GetEventItem();
 vector GetEventPosition();
 void BypassEvent();
+void SetReturnValue(int nRetVal);
 void SetGlobalEventHandler(int nEventID, string sHandler);
 
 int GetCurrentNodeType();
@@ -58,13 +60,13 @@ string GetSelectedNodeText(int nLangID = LANGUAGE_ENGLISH, int nGender = GENDER_
 
 int GetEventType()
 {
-    SetLocalString(GetModule(), "NWNX!EVENTS!GET_EVENT_ID", "          ");
+    SetLocalString(GetModule(), "NWNX!EVENTS!GET_EVENT_ID", "      ");
     return StringToInt(GetLocalString(GetModule(), "NWNX!EVENTS!GET_EVENT_ID"));
 }
 
 int GetEventSubType()
 {
-    SetLocalString(GetModule(), "NWNX!EVENTS!GET_EVENT_SUBID", "          ");
+    SetLocalString(GetModule(), "NWNX!EVENTS!GET_EVENT_SUBID", "      ");
     return StringToInt(GetLocalString(GetModule(), "NWNX!EVENTS!GET_EVENT_SUBID"));
 }
 
@@ -116,6 +118,11 @@ vector GetEventPosition()
 void BypassEvent()
 {
     SetLocalString(GetModule(), "NWNX!EVENTS!BYPASS", "1");
+}
+
+void SetReturnValue(int nRetVal)
+{
+    SetLocalString(GetModule(), "NWNX!EVENTS!RETURN", IntToString(nRetVal));
 }
 
 void SetGlobalEventHandler(int nEventID, string sHandler)

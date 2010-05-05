@@ -37,7 +37,7 @@ CNWNXEvents::CNWNXEvents()
     for (i = 0; i < NUM_EVENT_TYPES; i++)
         eventScripts[i] = strdup("vir_events");
 
-    confKey = "EVENTS";
+	confKey = "EVENTS";
 }
 
 CNWNXEvents::~CNWNXEvents()
@@ -55,10 +55,10 @@ bool CNWNXEvents::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX Events version 1.3.1 for Linux.\n");
-	Log (0, "(c) 2006-2008 by virusman (virusman@virusman.ru)\n");
+	Log (0, "NWNX Events version 1.3.2 for Linux.\n");
+	Log (0, "(c) 2006-2010 by virusman (virusman@virusman.ru)\n");
 
-        if (nwnxConfig->exists(confKey)) {
+	if(nwnxConfig->exists(confKey)) {
             int i;
 
             for (i = 0; i < NUM_EVENT_TYPES; i++) {
@@ -68,9 +68,9 @@ bool CNWNXEvents::OnCreate (gline *config, const char* LogDir)
                 eventScripts[i]     = strdup((*nwnxConfig)[confKey]["event_script"].c_str());
                 eventScripts[i][16] = 0;
             }
-        }
+	}
 
-	return (HookFunctions());
+	return(HookFunctions());
 }
 
 char* CNWNXEvents::OnRequest (char* gameObject, char* Request, char* Parameters)
@@ -266,6 +266,10 @@ char* CNWNXEvents::OnRequest (char* gameObject, char* Request, char* Parameters)
 	else if (strncmp(Request, "BYPASS", 6) == 0)
 	{
 		bBypass = atoi(Parameters);
+	}
+	else if (strncmp(Request, "RETURN", 6) == 0)
+	{
+		nReturnValue = atoi(Parameters);
 	}
 	return NULL;
 }
