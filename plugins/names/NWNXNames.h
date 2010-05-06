@@ -20,8 +20,8 @@
 #ifndef _NWNX_EVENTS_H_
 #define _NWNX_EVENTS_H_
 
-#include "../NWNXBase.h"
-#include "../gline.h"
+#include "NWNXBase.h"
+#include "gline.h"
 #include "HookFunc.h"
 #include "CCustomNames.h"
 
@@ -47,6 +47,8 @@ protected:
 	void EnableDisableNames(char *value);
 	char *GetDynamicName(char *value);
 	void SetDynamicName(char *value);
+	void UpdateDynamicName(char *value);
+	void UpdatePlayerList(char *value);
 	void DeleteDynamicName(char *value);
 	void ClearPlayerList(char *value);
 };

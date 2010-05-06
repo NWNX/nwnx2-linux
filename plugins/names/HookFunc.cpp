@@ -46,6 +46,11 @@ void *(*pGetPlayerList)(void *pServerExo);
 void *(*pGetServerMessage)(void *pServerExo);
 void *(*pSendNewName)(void *pServerMessage, void *pPlayer, void *pObject);
 void *(*GetClientObjectByPlayerId)(void *pServerExoApp, dword nClientID, unsigned char flag);
+void (*CNWMessage__CreateWriteMessage)(CNWSMessage *pMessage, dword length, dword recipient, dword flag);
+void (*CNWSMessage__WriteGameObjUpdate_UpdateObject)(CNWSMessage *pMessage, CNWSPlayer *pPlayer, CNWSCreature *pCreature, CLastUpdateObject *pLUO, dword flags, dword AppearanceFlags);
+void (*CNWMessage__GetWriteMessage)(CNWSMessage *pMessage, char **ppData, dword *pLength);
+void (*CNWSMessage__SendServerToPlayerMessage)(CNWSMessage *pMessage, dword nPlayerID, byte type, byte subtype, char *dataPtr, dword length);
+void (*CNWSMessage__SendServerToPlayerPlayerList_All)(CNWSMessage *pMessage, CNWSPlayer *pPlayer);
 
 //CExoLocString *(*GetFirstName)(CNWSCreature *pCreature);
 //void *(*CExoLinkedListInternal__GetFirst)(void *pList);
@@ -166,11 +171,28 @@ void *GetPlayerList()
 
 void SendNewName(dword nPlayerObjID, dword nObjID)
 {
-	void *pServerMessage = pGetServerMessage(pServerExo);
-	void *pPlayer = GetPlayer(nPlayerObjID);
-	void *pObject = GetObjectByID(nObjID);
-	if(!pServerMessage || !pPlayer || !pObject) return;
-	pSendNewName(pServerMessage, pPlayer, pObject);
+	CNWSMessage *pServerMessage = (CNWSMessage *) pGetServerMessage(pServerExo);
+	CNWSPlayer *pPlayer = (CNWSPlayer *) GetPlayer(nPlayerObjID);
+	CNWSObject *pObject = (CNWSObject *) GetObjectByID(nObjID);
+	CLastUpdateObject luo;
+	char *pData;
+	dword length;
+	if(!pServerMessage || !pPlayer || !pObject || pObject->ObjectType != 5) return;
+	//pSendNewName(pServerMessage, pPlayer, pObject);
+	CNWMessage__CreateWriteMessage(pServerMessage, 0x400, pPlayer->Client.PlayerID, 1);
+	CNWSMessage__WriteGameObjUpdate_UpdateObject(pServerMessage, pPlayer, (CNWSCreature *) pObject, &luo, 0, 0x400);
+	CNWMessage__GetWriteMessage(pServerMessage, &pData, &length);
+	if(length)
+	{
+		CNWSMessage__SendServerToPlayerMessage(pServerMessage, pPlayer->Client.PlayerID, 5, 1, pData, length);
+	}
+}
+
+void SendPlayerList(dword nPlayerObjID)
+{
+	CNWSMessage *pServerMessage = (CNWSMessage *) pGetServerMessage(pServerExo);
+	CNWSPlayer *pPlayer = (CNWSPlayer *) GetPlayer(nPlayerObjID);
+	CNWSMessage__SendServerToPlayerPlayerList_All(pServerMessage, pPlayer);
 }
 
 /*void *GetPlayerByPID(dword nPlayerID)
@@ -380,7 +402,7 @@ int GetNameHookProc(void *pObjectInfoStruct, int some_flag, char *objName_buf, i
 			pPlayer = *(dword **)((char *)SomeModAreaData_ebp+0x10);
 			nClientID = *(dword *)((char *)SomeModAreaData_ebp+0xC);
 			names.Log(3, "Message type: %08lX\n", nClientID);
-			if(nClientID >= 0x0FFFFFFF5)
+			if(nClientID >= 0x0FFFFFFF5 && nClientID != 0x0FFFFFFF6)
 			{
 				bBroadcast=1;
 				nPlayerObjID = nCreatureObjID;
@@ -407,7 +429,7 @@ int GetNameHookProc(void *pObjectInfoStruct, int some_flag, char *objName_buf, i
 			pPlayer = *(dword **)((char *)SomeModAreaData2_ebp+0xC);
 			nClientID = *(dword *)((char *)SomeModAreaData2_ebp+0xC);
 			names.Log(3, "Message type: %08lX\n", nClientID);
-			if(nClientID >= 0x0FFFFFFF5)
+			if(nClientID >= 0x0FFFFFFF5 && nClientID != 0x0FFFFFFF6)
 			{
 				bBroadcast=1;
 				nPlayerObjID = nCreatureObjID;
@@ -434,7 +456,9 @@ int GetNameHookProc(void *pObjectInfoStruct, int some_flag, char *objName_buf, i
 			void *LoginCharList_ebp = *pESP;
 			nCreatureObjID = *(dword *)((char *)LoginCharList_ebp+0x10);
 			pCreature = GetObjectByID(nCreatureObjID);
-			pPlayer = NULL;
+			nClientID = *(dword *)((char *)LoginCharList_ebp+0xC);
+			pPlayer = GetPlayerByClientID(nClientID);
+			
 			bBroadcast=1;
 
 			pPlayerObj = NULL;
@@ -827,9 +851,9 @@ d_redirect (long from, long to, unsigned char *d_ret_code, long len=0)
 
 void InitConstants()
 {
-	*(dword*)&pServer = *ppServer;
-	*(dword*)&pServerExo = *(dword*)((char*)pServer+0x4);
-	*(dword*)&pServerExo4 = *(dword*)((char*)pServerExo+0x4);
+	*(dword*)&pServer = *ppServer; //CAppManager
+	*(dword*)&pServerExo = *(dword*)((char*)pServer+0x4);  //CServerExoApp
+	*(dword*)&pServerExo4 = *(dword*)((char*)pServerExo+0x4);  //CServerExoAppInternal
 	
 	*(dword*)&pObjectClass = *(dword*)(*(dword*)((char*)pServerExo+0x4)+0x10080);
 	*(dword*)&pFactionClass = *(dword*)(*(dword*)((char*)pServerExo+0x4)+0x10074);
@@ -852,6 +876,12 @@ int HookFunctions()
 	*(dword*)&pGetObjByOID = 0x080BB2CC;
 	*(dword*)&GetClientObjectByPlayerId = 0x080B24D0;
 
+	*(dword*)&CNWMessage__CreateWriteMessage = 0x080C3AEC;
+	*(dword*)&CNWSMessage__WriteGameObjUpdate_UpdateObject = 0x08071A24;
+	*(dword*)&CNWMessage__GetWriteMessage = 0x080C2E54;
+	*(dword*)&CNWSMessage__SendServerToPlayerMessage = 0x08076F10;
+	*(dword*)&CNWSMessage__SendServerToPlayerPlayerList_All = 0x080774E4;
+
 	ppServer = (dword *) 0x0832F1F4;  //CAppManager *g_pAppManager
 	
 	*(dword*)&pScriptThis = (dword)((char*)ppServer-0x8);
@@ -862,5 +892,4 @@ int HookFunctions()
 
 	return 1;
 }
-
 

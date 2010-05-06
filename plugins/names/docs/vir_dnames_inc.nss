@@ -34,6 +34,13 @@ void LoadNamesForPC(object oPC)
             oTmp = GetNextPC();
         }
     }
+    object oTmp = GetFirstPC();
+    while(GetIsObjectValid(oTmp))
+    {
+        if(GetIsDM(oTmp))
+            DelayCommand(2.0, UpdatePlayerList(oTmp));
+        oTmp = GetNextPC();
+    }
 }
 
 void SetDynamicNameDB(object oPC, object oObject, string sName)

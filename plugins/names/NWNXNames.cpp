@@ -53,7 +53,7 @@ bool CNWNXNames::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX Names version 1.0.1 for Linux.\n");
+	Log (0, "NWNX Names version 1.0.3 for Linux.\n");
 	Log (0, "(c) 2006-2010 by virusman (virusman@virusman.ru)\n");
 
 	if(nwnxConfig->exists(confKey)) {
@@ -142,6 +142,20 @@ void CNWNXNames::SetDynamicName(char *value)
 		return;
 	}
 	Names.InsertCustomName(oPlayer, oObject, sName);
+	SendNewName(oPlayer, oObject);
+}
+
+void CNWNXNames::UpdateDynamicName(char *value)
+{
+	dword oPlayer = nGameObjectID;
+	dword oObject = strtol(value, NULL, 16);
+	SendNewName(oPlayer, oObject);
+}
+
+void CNWNXNames::UpdatePlayerList(char *value)
+{
+	dword oPlayer = nGameObjectID;
+	SendPlayerList(oPlayer);
 }
 
 void CNWNXNames::DeleteDynamicName(char *value)
@@ -180,6 +194,16 @@ char* CNWNXNames::OnRequest (char* gameObject, char* Request, char* Parameters)
 	else if (strncmp(Request, "SETDYNAMICNAME", 14) == 0) 	
 	{
 		SetDynamicName(Parameters);
+		return NULL;
+	}
+	else if (strncmp(Request, "UPDATEDYNAMICNAME", 17) == 0) 	
+	{
+		UpdateDynamicName(Parameters);
+		return NULL;
+	}
+	else if (strncmp(Request, "UPDATEPLAYERLIST", 16) == 0) 	
+	{
+		UpdatePlayerList(Parameters);
 		return NULL;
 	}
 	else if (strncmp(Request, "DELETEDYNAMICNAME", 17) == 0) 	

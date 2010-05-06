@@ -10,6 +10,11 @@ void InitPlayerNameList(object oObject, int nUnknownStyle = 0);
 void SetNamesEnabled(object oPlayer, int bEnabled = TRUE);
 string GetDynamicName(object oPlayer, object oObject);
 void SetDynamicName(object oPlayer, object oObject, string sName);
+//Force the name to update on the client
+void UpdateDynamicName(object oPlayer, object oObject);
+// Force the whole player list to update
+// Use on DMs every time a new player enters
+void UpdatePlayerList(object oPlayer);
 void DeleteDynamicName(object oPlayer, object oObject);
 // Do not use this
 void ClearPlayerNameList(object oPlayer);
@@ -35,6 +40,18 @@ string GetDynamicName(object oPlayer, object oObject)
 void SetDynamicName(object oPlayer, object oObject, string sName)
 {
     SetLocalString(oPlayer, "NWNX!NAMES!SETDYNAMICNAME", ObjectToString(oObject)+"¬"+sName);
+}
+
+void UpdateDynamicName(object oPlayer, object oObject)
+{
+    if(!GetIsObjectValid(oPlayer) || !GetIsObjectValid(oObject)) return;
+    SetLocalString(oPlayer, "NWNX!NAMES!UPDATEDYNAMICNAME", ObjectToString(oObject));
+}
+
+void UpdatePlayerList(object oPlayer)
+{
+    if(!GetIsObjectValid(oPlayer)) return;
+    SetLocalString(oPlayer, "NWNX!NAMES!UPDATEPLAYERLIST", " ");
 }
 
 void DeleteDynamicName(object oPlayer, object oObject)
