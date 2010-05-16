@@ -70,6 +70,7 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 	}
 	
 	cNWScript = RubyInt_InitNWScript();
+	rb_include_module(rb_cObject, cNWScript);
 
 	if (HookFunctions())
 	{
