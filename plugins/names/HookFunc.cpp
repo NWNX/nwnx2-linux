@@ -171,6 +171,7 @@ void *GetPlayerList()
 
 void SendNewName(dword nPlayerObjID, dword nObjID)
 {
+	if(!pServerExo) InitConstants();
 	CNWSMessage *pServerMessage = (CNWSMessage *) pGetServerMessage(pServerExo);
 	CNWSPlayer *pPlayer = (CNWSPlayer *) GetPlayer(nPlayerObjID);
 	CNWSObject *pObject = (CNWSObject *) GetObjectByID(nObjID);
@@ -190,8 +191,10 @@ void SendNewName(dword nPlayerObjID, dword nObjID)
 
 void SendPlayerList(dword nPlayerObjID)
 {
+	if(!pServerExo) InitConstants();
 	CNWSMessage *pServerMessage = (CNWSMessage *) pGetServerMessage(pServerExo);
 	CNWSPlayer *pPlayer = (CNWSPlayer *) GetPlayer(nPlayerObjID);
+	if(!pServerMessage || !pPlayer) return;
 	CNWSMessage__SendServerToPlayerPlayerList_All(pServerMessage, pPlayer);
 }
 
