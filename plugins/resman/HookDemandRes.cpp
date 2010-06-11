@@ -44,34 +44,49 @@ extern CNWNXResMan resman;
 NwnResType lastResType;
 char lastResRef[17];
 
-int RetrieveResEntry(const int * pthis, char* resRef, NwnResType resType, void ** v1, void** v2)
+int (*CExoResMan__FreeChunk_int)(CExoResMan *pResMan) = (int(*)(CExoResMan *)) 0x082AFC7C;
+char *(*DemandRes_orig)(CExoResMan * pthis, CResStruct* cRes);
+int (*RetrieveResEntry_orig)(CExoResMan * pthis, char* resRef, NwnResType resType, void ** v1, void** v2);
+
+
+int CExoResMan__FreeChunk(CExoResMan *pResMan)
 {
-  asm ("pusha");
-  lastResType = resType;
-  memcpy(lastResRef, resRef, 16);
-  lastResRef[16] = 0x0;
-	asm ("popa");
-  asm ("leave");
-  asm ("mov $d_ret_code_res, %eax");
-  asm ("jmp %eax");
+	return CExoResMan__FreeChunk_int(pResMan);
+}
+
+int RetrieveResEntry(CExoResMan * pthis, char* resRef, NwnResType resType, void ** v1, void** v2)
+{
+	//asm ("pusha");
+	lastResType = resType;
+	memcpy(lastResRef, resRef, 16);
+	lastResRef[16] = 0x0;
+	return RetrieveResEntry_orig(pthis, resRef, resType, v1, v2);
+	/*asm ("popa");
+	asm ("leave");
+	asm ("mov $d_ret_code_res, %eax");
+	asm ("jmp %eax");*/
 }
 
 char *lastRet = 0;
 
-char* DemandRes(const int * pthis, CResStruct* cRes)
+char* DemandRes(CExoResMan * pthis, CResStruct* cRes)
 {
-	asm ("pusha");
-    lastRet = resman.DemandRes(cRes, lastResRef, lastResType);
+	//asm ("pusha");
+    lastRet = resman.DemandRes(pthis, cRes, lastResRef, lastResType);
+	if(lastRet)
+		return lastRet;
+	else
+		return DemandRes_orig(pthis, cRes);
 /*
   resman.Log(0, "cRes(pClass=%08lX, pResData=%08lX, pResName=%08lX), lastResRef=%s, lastResType=%d, ret=%d\n", 
     cRes->pClass, cRes->pResData, cRes->pResName, lastResRef, lastResType, lastRet );
 */
-	asm ("popa");
-	asm ("leave");
- /* if (lastRet)
-		asm ("ret");*/
-    asm ("mov $d_ret_code_dem, %eax");
-	asm ("jmp %eax");
+	//asm ("popa");
+	//asm ("leave");
+    //if (lastRet)
+	//	asm ("ret");
+    //asm ("mov $d_ret_code_dem, %eax");
+	//asm ("jmp %eax");
 }
 
 // 55 89 e5 57 56 53 83 ec 18 8b 75 08 83 c6 1c
@@ -173,6 +188,7 @@ int HookFunctions()
 	{
     resman.Log(0, "o RetrieveResEntry hooked at %x.\n", old_RetrieveResEntry);
     d_redirect (old_RetrieveResEntry, (unsigned long)RetrieveResEntry, d_ret_code_res, 12);
+	*(unsigned long*)&RetrieveResEntry_orig = (unsigned long)&d_ret_code_res;
 	}
   else
   {
@@ -185,6 +201,7 @@ int HookFunctions()
 	{
     resman.Log(0, "o DemandRes hooked at %x.\n", old_DemandRes);
     d_redirect (old_DemandRes, (unsigned long)DemandRes, d_ret_code_dem, 12);
+	*(unsigned long*)&DemandRes_orig = (unsigned long)&d_ret_code_dem;
 	}
   else
   {

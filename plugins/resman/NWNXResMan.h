@@ -21,12 +21,32 @@
 #if !defined(_NWNXResMan_H_)
 #define _NWNXResMan_H_
 
+#include <string>
+#include <sys/stat.h>
+#ifdef __GNUC__
+#include <ext/hash_map>
+#else
+#include <hash_map>
+#endif
 #include "NWNXBase.h"
 
 #include "NwnDefines.h"
 #include "HookDemandRes.h"
 
 #define MAXPATH 512
+
+namespace std
+{
+ using namespace __gnu_cxx;
+}
+
+struct CResFileInfo
+{
+	char ResName[17];
+	NwnResType resType;
+	unsigned int size;
+	unsigned int mtime;
+};
 
 class CNWNXResMan : public CNWNXBase
 {
@@ -40,14 +60,17 @@ public:
 	void LoadConfiguration();
 	void WriteLogHeader();
 
-	char* DemandRes(CResStruct* cRes, char* resRef, NwnResType resType);
+	char* DemandRes(CExoResMan *pResMan, CResStruct* cRes, char* resRef, NwnResType resType);
 	unsigned long LoadResource(char* resPath);
+	void DumpResStruct(CResStruct *cRes);
 
 private:
+	bool disableHook;
 	char *pScriptBuffer;
 	char *saveName;
 	int bufferSize;
 	char m_sourcePath[MAXPATH];
+	std::hash_map<const char*, CResFileInfo> resFiles;
 };
 
 #endif 
