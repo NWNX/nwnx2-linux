@@ -63,6 +63,7 @@ public:
 	char* DemandRes(CExoResMan *pResMan, CResStruct* cRes, char* resRef, NwnResType resType);
 	unsigned long LoadResource(char* resPath);
 	void DumpResStruct(CResStruct *cRes);
+	int ResourceExists(char *resRef, NwnResType resType);
 
 private:
 	bool disableHook;

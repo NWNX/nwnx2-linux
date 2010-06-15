@@ -237,6 +237,24 @@ unsigned long CNWNXResMan::LoadResource(char *resPath)
     return size;
 }
 
+int CNWNXResMan::ResourceExists(char *resRef, NwnResType resType)
+{
+    // try to load external resource
+    char resPath[MAXPATH + 16];
+
+    snprintf(resPath, sizeof(resPath), "%s/%s/%s.%s",
+        m_sourcePath, NwnGetResTypeExtension(resType), resRef, NwnGetResTypeExtension(resType));
+
+	struct stat stFileInfo;
+	CResFileInfo pFileInfo;
+	if(stat(resPath, &stFileInfo) == 0){  //exists
+		return 1;
+	}
+	else{
+		return 0;
+	}
+}
+
 void CNWNXResMan::LoadConfiguration ()
 {
     if (nwnxConfig->exists(confKey)) {
@@ -253,7 +271,7 @@ void CNWNXResMan::LoadConfiguration ()
 void CNWNXResMan::WriteLogHeader()
 {
     // write copy information to the log file
-    Log(0, "NWNX Resource Manager 1.0 for Linux.\n");
+    Log(0, "NWNX Resource Manager 1.0.1 for Linux.\n");
     Log(0, "(c) 2005 by Ingmar Stieger (papillon@nwnx.org)\n");
     Log(0, "(c) 2006 by dumbo (dumbo@nm.ru)\n");
     Log(0, "(c) 2006-2010 by virusman (virusman@virusman.ru)\n");
