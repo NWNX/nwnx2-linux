@@ -42,6 +42,7 @@ void (*CNWSArea__LoadArea)(void *pArea, int flag);
 void (*CExoArrayList__Add)(void *pArray, dword nObjID);
 void (*CExoArrayList__Remove)(void *pArray, dword nObjID);
 void (*CNWSArea__Destructor)(void *pArea, int flag);
+void *(*CServerExoAppInternal__GetGameObject)(void *pServerExoAppInternal, dword nObjID);
 void *(*GetAreaByGameObjectID)(void *pServerExoAppInternal, dword nObjID);
 CGameObjectArray *(*CServerExoApp__GetObjectArray)(void *pServerExo);
 void (*CExoArrayList_unsigned_long___Add)(CExoArrayList *pArray, unsigned long nElement);
@@ -50,7 +51,8 @@ int (*CExoArrayList_unsigned_long___IndexOf)(CExoArrayList *pArray, unsigned lon
 CExoLinkedList *(*pGetPlayerList)(void *pServerExo);
 void *(*pGetServerMessage)(void *pServerExo);
 void (*SendServerToPlayerDungeonMasterAreaList)(void *pMessage, void *pPlayer);
-
+int (*CNWSArea__GetFirstObjectInArea)(CNWSArea *pArea, dword *pObjID);
+int (*CNWSArea__GetNextObjectInArea)(CNWSArea *pArea, dword *pObjID);
 
 dword ppServThis = 0;
 dword pServThis = 0; //g_pAppManager
@@ -170,8 +172,28 @@ void NWNXDestroyArea(void *pModule, dword nAreaID)
 	areas.Log(2, "Unregistering area %08lX\n", nAreaID);
 	void *pArray = ((dword *)pModule+0x7);
 	CExoArrayList__Remove(pArray, nAreaID);
-	areas.Log(0, "Destroying area %08lX\n", nAreaID);
+
+	areas.Log(2, "Destroying objects on area %08lX\n", nAreaID);
 	CNWSArea *pArea = (CNWSArea *) GetAreaByGameObjectID((void *)pServInternal, nAreaID);
+	dword nTmpObj;
+	CNWSArea__GetFirstObjectInArea(pArea, &nTmpObj);
+	do{
+		CGameObject *pObject = (CGameObject *) CServerExoAppInternal__GetGameObject((void *)pServInternal, nTmpObj);
+		if(!pObject)
+			continue;
+		if(pObject->ObjectType == 0x5){
+			CNWSCreature *pCreature = (CNWSCreature *) pObject;
+			if(pCreature->IsPC)
+				continue;
+		}
+		areas.Log(2, "Destroying object %08lX\n", nTmpObj);
+		void (*pDestructor)(CGameObject *pthis, int flag) =
+			(void (*)(CGameObject *pthis, int flag))(*(dword*)((dword*)(pObject->Methods)+0x2));
+		pDestructor(pObject, 3);
+	}
+	while(CNWSArea__GetNextObjectInArea(pArea, &nTmpObj));
+	
+	areas.Log(0, "Destroying area %08lX\n", nAreaID);
 	if(pArea->NumPlayers > 0)
 	{
 		areas.Log(1, "NumPlayers > 0, aborting\n");
@@ -202,6 +224,7 @@ int HookFunctions()
 	*(dword*)&CNWSArea__LoadArea = 0x080CDFDC;
 	*(dword*)&CExoArrayList__Add = 0x0805EEE0;
 	*(dword*)&CNWSArea__Destructor = 0x080CC244;
+	*(dword*)&CServerExoAppInternal__GetGameObject = 0x080B02FC;
 	*(dword*)&GetAreaByGameObjectID = 0x080B0484;
 	*(dword*)&CExoArrayList__Remove = 0x0805EE88;
 	*(dword*)&CServerExoApp__GetObjectArray = 0x080B1D84;
@@ -212,6 +235,9 @@ int HookFunctions()
 	*(dword*)&pGetPlayerList = 0x080B1F2C;  //CServerExoApp::GetPlayerList(void)
 	*(dword*)&pGetServerMessage = 0x080B1F54;  //CServerExoApp::GetNWSMessage(void)
 	*(dword*)&SendServerToPlayerDungeonMasterAreaList = 0x08075960;  //CNWSMessage::SendServerToPlayerDungeonMasterAreaList(CNWSPlayer *)
+
+	*(dword*)&CNWSArea__GetFirstObjectInArea = 0x080D4814;
+	*(dword*)&CNWSArea__GetNextObjectInArea = 0x080D4858;
 
     areas.Log(0, "pServThis = %08lX\n", pServThis);
 
