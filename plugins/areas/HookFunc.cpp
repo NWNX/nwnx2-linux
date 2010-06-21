@@ -38,7 +38,7 @@ AssemblyHelper asmhelp;
 
 
 void (*CNWSArea__CNWSArea)(void *pArea, CResRef res, int a3, dword ObjID);
-void (*CNWSArea__LoadArea)(void *pArea, int flag);
+int (*CNWSArea__LoadArea)(void *pArea, int flag);
 void (*CExoArrayList__Add)(void *pArray, dword nObjID);
 void (*CExoArrayList__Remove)(void *pArray, dword nObjID);
 void (*CNWSArea__Destructor)(void *pArea, int flag);
@@ -153,7 +153,12 @@ void NWNXCreateArea(void *pModule, char *sResRef)
 	areas.Log(0, "Creating area '%s'\n", sResRef);
 	CNWSArea__CNWSArea(pArea, res, 0, OBJECT_INVALID);
 	areas.Log(0, "Loading area '%s'\n", sResRef);
-	CNWSArea__LoadArea(pArea, 0);
+	if(!CNWSArea__LoadArea(pArea, 0)){
+		areas.Log(0, "Load failed: '%s'\n", sResRef);
+		CNWSArea__Destructor(pArea, 3);
+		areas.nLastAreaID = OBJECT_INVALID;
+		return;
+	}
 	dword nAreaID = *((dword *)pArea+0x32);
 	areas.Log(0, "AreaID=%08lX\n", nAreaID);
 	void *pArray = ((dword *)pModule+0x7);
