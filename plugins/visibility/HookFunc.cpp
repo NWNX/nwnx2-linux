@@ -47,7 +47,7 @@ int CNWSMessage__TestObjectVisible(void *pMessage, CNWSObject *pObject1, CNWSObj
 	if(!visibility.TestVisibility(oObject1, oObject2, nResult)){
 		nResult = CNWSMessage__TestObjectVisible_orig(pMessage, pObject1, pObject2);
 	}
-	visibility.Log(1, "Visibility check: %x - %x: %d\n", pObject1->ObjectID, pObject2->ObjectID, nResult);
+	visibility.Log(3, "Visibility check: %x - %x: %d\n", pObject1->ObjectID, pObject2->ObjectID, nResult);
 	return nResult;
 }
 

@@ -63,9 +63,9 @@ bool CNWNXVisibility::OnCreate (gline *config, const char* LogDir)
 int CNWNXVisibility::TestVisibility(dword oObject1, dword oObject2, int &nResult)
 {
 	if(objects.find(oObject1) != objects.end()){
-		Log(0, "Found object entry!");
+		Log(2, "Found object entry!");
 		if(objects[oObject1].vismap.find(oObject2) != objects[oObject1].vismap.end()){
-			Log(0, "Found object-object entry!");
+			Log(2, "Found object-object entry!");
 			nResult = objects[oObject1].vismap[oObject2];
 			return 1;
 		}
