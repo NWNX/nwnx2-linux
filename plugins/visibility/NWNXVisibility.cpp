@@ -33,8 +33,6 @@
 CNWNXVisibility::CNWNXVisibility()
 {
 	confKey = "VISIBILITY";
-	strcpy(eventScript,"vir_events");
-	logDebug = 0;
 }
 
 CNWNXVisibility::~CNWNXVisibility()
