@@ -24,7 +24,9 @@
 int Local_GetDamageBonusAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj) {
 #ifdef NWNX_WEAPONS_HG
     if (attacker->cs_original != NULL && attacker->cs_original->cre_is_pc) {
-        int i, bit_bonus = 0, cha_bonus = 0, con_bonus = 0, misc_bonus_1 = 0, misc_bonus_2 = 0;
+        int i, bit_bonus = 0, str_bonus = 0, dex_bonus = 0, con_bonus = 0;
+        int int_bonus = 0, wis_bonus = 0, cha_bonus = 0;
+        int misc_bonus_1 = 0, misc_bonus_2 = 0, misc_bonus_3 = 0;
         const CGameEffect *eff;
         const CNWSCreature *cre = attacker->cs_original;
 
@@ -39,17 +41,33 @@ int Local_GetDamageBonusAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapo
                 bit_bonus |= 2;
             else if (eff->eff_integers[0] == 747)
                 bit_bonus |= 8;
-            else if (eff->eff_integers[0] == 748 && attacker->cs_cha_mod > 0)
-                cha_bonus = attacker->cs_cha_mod;
-            else if (eff->eff_integers[0] == 749 && attacker->cs_con_mod > 0)
-                con_bonus = attacker->cs_con_mod;
-            else if (eff->eff_integers[0] == 750 && eff->eff_integers[1] > misc_bonus_1)
+            else if (eff->eff_integers[0] == 749 && eff->eff_integers[1] > misc_bonus_1)
                 misc_bonus_1 = eff->eff_integers[1];
-            else if (eff->eff_integers[0] == 751 && eff->eff_integers[1] > misc_bonus_2)
+            else if (eff->eff_integers[0] == 750 && eff->eff_integers[1] > misc_bonus_2)
                 misc_bonus_2 = eff->eff_integers[1];
+            else if (eff->eff_integers[0] == 751 && eff->eff_integers[1] > misc_bonus_3)
+                misc_bonus_3 = eff->eff_integers[1];
+            else if (eff->eff_integers[0] == 748) {
+                switch (eff->eff_integers[1]) {
+                    case 1: str_bonus = (attacker->cs_str_mod > 0 ? attacker->cs_str_mod : 0); break;
+                    case 3: con_bonus = (attacker->cs_con_mod > 0 ? attacker->cs_con_mod : 0); break;
+                    case 4: int_bonus = (attacker->cs_int_mod > 0 ? attacker->cs_int_mod : 0); break;
+                    case 5: wis_bonus = (attacker->cs_wis_mod > 0 ? attacker->cs_wis_mod : 0); break;
+                    case 6: cha_bonus = (attacker->cs_cha_mod > 0 ? attacker->cs_cha_mod : 0); break;
+
+                    case 2:
+                        dex_bonus = CNWSCreatureStats__GetDEXMod(attacker, 0);
+                        if (dex_bonus < 0)
+                            dex_bonus = 0;
+                        break;
+                }
+            }
         }
 
-        adj += (bit_bonus + cha_bonus + con_bonus + misc_bonus_1 + misc_bonus_2);
+        adj += (bit_bonus +
+                str_bonus + dex_bonus + con_bonus +
+                int_bonus + wis_bonus + cha_bonus +
+                misc_bonus_1 + misc_bonus_2 + misc_bonus_3);
     }
 #endif
 
