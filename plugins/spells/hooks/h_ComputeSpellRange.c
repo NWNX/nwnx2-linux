@@ -143,6 +143,7 @@ static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_ob
 
     /* TODO: check if spell is being cast from an item */
 
+#ifdef NWNX_SPELLS_HG
     if (!no_bonus) {
         /* increase spell range with Extraordinary Spell Reach feat */
         if (caster != NULL                               &&
@@ -168,6 +169,7 @@ static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_ob
 #endif
         }
     }
+#endif
 
     return ret;
 }
