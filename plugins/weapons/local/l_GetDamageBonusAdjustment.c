@@ -24,9 +24,10 @@
 int Local_GetDamageBonusAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj) {
 #ifdef NWNX_WEAPONS_HG
     if (attacker->cs_original != NULL && attacker->cs_original->cre_is_pc) {
-        int i, bit_bonus = 0, str_bonus = 0, dex_bonus = 0, con_bonus = 0;
+        int i, j, bit_bonus = 0, dice_bonus = 0;
+        int str_bonus = 0, dex_bonus = 0, con_bonus = 0;
         int int_bonus = 0, wis_bonus = 0, cha_bonus = 0;
-        int misc_bonus_1 = 0, misc_bonus_2 = 0, misc_bonus_3 = 0;
+        int misc_bonus_1 = 0, misc_bonus_2 = 0;
         const CGameEffect *eff;
         const CNWSCreature *cre = attacker->cs_original;
 
@@ -37,17 +38,11 @@ int Local_GetDamageBonusAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapo
             if (eff->eff_type != EFFECT_TRUETYPE_SPELL_IMMUNITY)
                 continue;
 
-            if (eff->eff_integers[0] == 746)
+            if (eff->eff_integers[0] == 746) {
                 bit_bonus |= 2;
-            else if (eff->eff_integers[0] == 747)
+            } else if (eff->eff_integers[0] == 747) {
                 bit_bonus |= 8;
-            else if (eff->eff_integers[0] == 749 && eff->eff_integers[1] > misc_bonus_1)
-                misc_bonus_1 = eff->eff_integers[1];
-            else if (eff->eff_integers[0] == 750 && eff->eff_integers[1] > misc_bonus_2)
-                misc_bonus_2 = eff->eff_integers[1];
-            else if (eff->eff_integers[0] == 751 && eff->eff_integers[1] > misc_bonus_3)
-                misc_bonus_3 = eff->eff_integers[1];
-            else if (eff->eff_integers[0] == 748) {
+            } else if (eff->eff_integers[0] == 748) {
                 switch (eff->eff_integers[1]) {
                     case 1: str_bonus = (attacker->cs_str_mod > 0 ? attacker->cs_str_mod : 0); break;
                     case 3: con_bonus = (attacker->cs_con_mod > 0 ? attacker->cs_con_mod : 0); break;
@@ -61,13 +56,22 @@ int Local_GetDamageBonusAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapo
                             dex_bonus = 0;
                         break;
                 }
+            } else if (eff->eff_integers[0] == 749 && eff->eff_integers[1] > 0 && eff->eff_integers[2] > 0) {
+                dice_bonus = eff->eff_integers[1];
+
+                for (j = 0; j < eff->eff_integers[1]; j++) 
+                    dice_bonus += random() % eff->eff_integers[2];
+            } else if (eff->eff_integers[0] == 750 && eff->eff_integers[1] > misc_bonus_1) {
+                misc_bonus_1 = eff->eff_integers[1];
+            } else if (eff->eff_integers[0] == 751 && eff->eff_integers[1] > misc_bonus_2) {
+                misc_bonus_2 = eff->eff_integers[1];
             }
         }
 
-        adj += (bit_bonus +
+        adj += (bit_bonus + dice_bonus +
                 str_bonus + dex_bonus + con_bonus +
                 int_bonus + wis_bonus + cha_bonus +
-                misc_bonus_1 + misc_bonus_2 + misc_bonus_3);
+                misc_bonus_1 + misc_bonus_2);
     }
 #endif
 
