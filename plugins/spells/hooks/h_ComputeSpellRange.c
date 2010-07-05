@@ -33,6 +33,7 @@ static volatile nwn_objid_t Hook_SPR_Target;
 __attribute__((noinline))
 static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_objid_t target_id) {
     float ret;
+    bool no_bonus = false;
     CGameObject *ob;
     CNWSCreature *target;
 
@@ -41,7 +42,9 @@ static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_ob
 
     switch (*(range->text)) {
         case 'T': ret =  2.25; break;
+        case 's': no_bonus = true;
         case 'S': ret =  8.00; break;
+        case 'm': no_bonus = true;
         case 'M': ret = 20.00; break;
         case 'L': ret = 40.00; break;
         case 'P': ret =  0.00; break;
@@ -138,17 +141,32 @@ static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_ob
         default:  ret = 0.0; break;
     }
 
-    /* increase spell range when someone is hit by Targeting Ray */
-    if (target_id != OBJECT_INVALID                      &&
-        (ob = nwn_GetObjectByID(target_id)) != NULL      &&
-        (target = ob->vtable->AsNWSCreature(ob)) != NULL &&
-        target->cre_stats != NULL) {
+    /* TODO: check if spell is being cast from an item */
+
+    if (!no_bonus) {
+        /* increase spell range with Extraordinary Spell Reach feat */
+        if (caster != NULL                               &&
+            caster->obj.obj_type == OBJECT_TYPE_CREATURE &&
+            caster->cre_is_pc                            &&
+            caster->cre_stats != NULL                    &&
+            CNWSCreatureStats__HasFeat(caster->cre_stats, 2426)) {  /* HGFEAT_EXTRAORDINARY_SPELL_REACH */
+
+            if (ret >= 5.0 && ret <= 30.0)
+                ret *= 1.25;
+        }
+
+        /* increase spell range when someone is hit by Targeting Ray */
+        if (target_id != OBJECT_INVALID                      &&
+            (ob = nwn_GetObjectByID(target_id)) != NULL      &&
+            (target = ob->vtable->AsNWSCreature(ob)) != NULL &&
+            target->cre_stats != NULL) {
 
 #if 0
-        if (ret >= 5.0 && 
-            CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Z_TARGETING_RAY))
-            ret *= 1.5;
+            if (ret >= 5.0 && 
+                CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Z_TARGETING_RAY))
+                ret *= 1.5;
 #endif
+        }
     }
 
     return ret;
