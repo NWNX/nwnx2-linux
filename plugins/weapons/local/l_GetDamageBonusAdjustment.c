@@ -27,7 +27,7 @@ int Local_GetDamageBonusAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapo
         int i, j, bit_bonus = 0, dice_bonus = 0;
         int str_bonus = 0, dex_bonus = 0, con_bonus = 0;
         int int_bonus = 0, wis_bonus = 0, cha_bonus = 0;
-        int misc_bonus_1 = 0, misc_bonus_2 = 0;
+        int skill_bonus = 0, misc_bonus_1 = 0, misc_bonus_2 = 0;
         const CGameEffect *eff;
         const CNWSCreature *cre = attacker->cs_original;
 
@@ -55,6 +55,14 @@ int Local_GetDamageBonusAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapo
                         if (dex_bonus < 0)
                             dex_bonus = 0;
                         break;
+
+                    default:
+                        if (eff->eff_integers[1] >= 100 && eff->eff_integers[1] <= 127 && eff->eff_integers[2] > 0) {
+                            j = CNWSCreatureStats__GetSkillRank(attacker, eff->eff_integers[1] - 100, NULL, 0) / eff->eff_integers[2];
+                            if (j > skill_bonus)
+                                skill_bonus = j;
+                        }
+                        break;
                 }
             } else if (eff->eff_integers[0] == 749 && eff->eff_integers[1] > 0 && eff->eff_integers[2] > 0) {
                 dice_bonus = eff->eff_integers[1];
@@ -71,7 +79,7 @@ int Local_GetDamageBonusAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapo
         adj += (bit_bonus + dice_bonus +
                 str_bonus + dex_bonus + con_bonus +
                 int_bonus + wis_bonus + cha_bonus +
-                misc_bonus_1 + misc_bonus_2);
+                skill_bonus + misc_bonus_1 + misc_bonus_2);
     }
 #endif
 
