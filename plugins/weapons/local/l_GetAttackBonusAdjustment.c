@@ -124,10 +124,10 @@ int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *t
                         case 5:  val = attacker->cs_cha_mod / ((val / 10) % 10);                       break;
                         default: val = 0;                                                              break;
                     }
-
-                    if (val > ab_true)
-                        ab_true = val;
                 }
+
+                if (val > ab_true)
+                    ab_true = val;
             }
         }
 
