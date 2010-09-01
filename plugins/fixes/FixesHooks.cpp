@@ -218,7 +218,7 @@ void PlayerListNoDMHook()
 	// code overwritten by hook
 	asm("test %edi,%edi");
 	asm("jz suppressresponse");
-	
+
 	// put eax (CNWSCreature*) in cre so we can work with it
 	asm("mov %%eax,%0" : "=r"(cre));
 
@@ -306,7 +306,7 @@ int FindHookFunctions()
 	fixes.Log(2, "BuyItem: %08lX\n", pBuyItem);
 	char *pMergeItems_RemoveItem = (char *) asmhelp.FindFunctionBySignature("89 C3 83 C4 10 85 DB 0F 84 8A 00 00 00 50 6A 01 FF B5 28 FE FF FF 53 E8");
 	fixes.Log(2, "MergeItems_RemoveItem: %08lX\n", pMergeItems_RemoveItem);
-	
+
 	char *pAIActionDialogObject_middle = (char *) asmhelp.FindFunctionBySignature("83 EC 08 8B 55 08 A1 ** ** ** ** FF 72 04 FF 70 04 E8 ** ** ** ** 8B 55  08 89 85 54 FF FF FF 8B 42 0C 89 14 24 FF 50 38 83 C4 10 85 C0 0F 84 85 02 00 00");
 	fixes.Log(2, "AIActionDialogObject_middle: %08lX\n", pAIActionDialogObject_middle);
 	char *pGetDead = (char *) asmhelp.FindFunctionBySignature("55 89 E5 56 53 83 EC 0C 8B 5D 08 8B 43 0C 53 FF 50 38 83 C4 10 85 C0 74 5B 83 EC 0C 8B 43 0C 53 FF 50 38 8B 90 DC 0A 00 00 83 C4 10 31 F6 85 D2 75 10 83 EC 0C 50 E8");
@@ -393,7 +393,7 @@ int FindHookFunctions()
 		}
 		else fixes.Log(2, "Couldn't patch the AIActionDialogObject function\n");
 	}
-	
+
 	if(pGetIsMergeable && fixes.GetConfInteger("compare_vars"))
 	{
 		fixes.Log(2, "compare_vars = 1\n");
@@ -408,14 +408,14 @@ int FindHookFunctions()
 		fixes.Log(2, "HP limit = %d\n", hpLimit);
 		pGetDead[0x6D] = hpLimit;
 	}
-	
+
 	// begin cap hooks
 	int cap_ability_inc = fixes.GetConfInteger("cap_ability_inc");
 	char* cap_ability_inc_h1 = (char*)0x08134a63;
 	char* cap_ability_inc_h2 = (char*)0x08134a6c;
 	int cap_ability_dec = fixes.GetConfInteger("cap_ability_dec");
 	char* cap_ability_dec_h1 = (char*)0x08134a76;
-	char* cap_ability_dec_h2 = (char*)0x08134a85;
+	char* cap_ability_dec_h2 = (char*)0x08134a7f;
 	int cap_atkbonus_inc = fixes.GetConfInteger("cap_atkbonus_inc");
 	char* cap_atkbonus_inc_h1 = (char*)0x0813290f;
 	char* cap_atkbonus_inc_h2 = (char*)0x0813291f;

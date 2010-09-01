@@ -10,3 +10,10 @@ hp_limit = -10                     # Negative HP limit - values up to -127 are a
 hide_charlist_all = 0              # Hide the whole online characters list on login (appears empty)
 hide_charlist_levels = 0           # Hide the class(es) (displays nothing instead of class list)
 hide_charlist_portraits = 0        # Hide the portrait (shows default male/female portrait)
+
+cap_ability_inc = 0                # If greater than zero, set ability increase cap.
+cap_ability_dec = 0                # If greater than zero, set ability decrease cap.
+cap_atkbonus_inc = 0               # If greater than zero, set attack bonus increase cap.
+cap_atkbonus_dec = 0               # If greater than zero, set attack bonus decrease cap.
+cap_skill_inc = 0                  # If greater than zero, set skill increase cap.
+cap_skill_dec = 0                  # If greater than zero, set skill decrease cap.
