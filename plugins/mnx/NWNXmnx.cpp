@@ -40,15 +40,15 @@ bool CNWNXmnx::ClientClose(const char *cname) {
 	if((*i).second.sd != -1)
 		close((*i).second.sd);
 	Connections.erase(i);
-	
+
 }
 
 bool CNWNXmnx::ClientInit(const char *cname, const char *dest) {
-  
 	int rc, len;;
 	struct sockaddr_in cliAddr;
 	struct hostent *h;
-	char *pStr, hostname[128];
+	const char *pStr;
+	char hostname[128];
 	short port;
 	connection conn;
 
@@ -83,7 +83,7 @@ bool CNWNXmnx::ClientInit(const char *cname, const char *dest) {
 		   inet_ntoa(*(struct in_addr *)h->h_addr_list[0]));
 
 	conn.srvAddr.sin_family = h->h_addrtype;
-	memcpy((char *) &conn.srvAddr.sin_addr.s_addr, 
+	memcpy((char *) &conn.srvAddr.sin_addr.s_addr,
 		   h->h_addr_list[0], h->h_length);
 	conn.srvAddr.sin_port = htons(port);
 
@@ -94,12 +94,12 @@ bool CNWNXmnx::ClientInit(const char *cname, const char *dest) {
 		Log(0,"[%s] cannot open socket \n",cname);
 		return false;
 	}
-  
+
 	/* bind any port */
 	cliAddr.sin_family = AF_INET;
 	cliAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	cliAddr.sin_port = htons(0);
-  
+
 	rc = bind(conn.sd, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
 	if(rc<0) {
 		Log(0,"[%s] cannot bind port\n",cname);
@@ -208,7 +208,7 @@ bool CNWNXmnx::SendMsg(const char *cname, const char *Request, char *Parameters)
 
 	/* send query */
 	rc = sendto(conn->sd, mnx_buf, strlen(mnx_buf)+1, 0,
-				(struct sockaddr *) &conn->srvAddr, 
+				(struct sockaddr *) &conn->srvAddr,
 				sizeof(conn->srvAddr));
 
 	if(rc<0) {
@@ -255,7 +255,7 @@ bool CNWNXmnx::SendMsg(const char *cname, const char *Request, char *Parameters)
 		// close(conn->sd);
 		// conn->sd = -1;
 	}
-  
+
 	return true;
 }
 
@@ -267,7 +267,7 @@ bool CNWNXmnx::Configure() {
 		srvcname = (char*)((*nwnxConfig)[confKey]["service"].c_str());
 		hostport = (char*)((*nwnxConfig)[confKey]["hostname"].c_str());
 
-		// this shouldn't cause a fatal error, so 
+		// this shouldn't cause a fatal error, so
 		// we don't care about the return code
 		ClientInit(srvcname,hostport);
 	}
