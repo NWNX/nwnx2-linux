@@ -34,8 +34,10 @@ __attribute__((noinline))
 static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_objid_t target_id) {
     float ret;
     bool no_bonus = false;
+#ifdef NWNX_SPELLS_HG
     CGameObject *ob;
     CNWSCreature *target;
+#endif // (NWNX_SPELLS_HG)
 
     if (range == NULL || range->text == NULL)
         return 0.0;
@@ -133,7 +135,7 @@ static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_ob
                     ret = 2.25;
             } else
                 ret = 2.25;
-                
+
         }
         break;
 #endif
@@ -163,7 +165,7 @@ static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_ob
             target->cre_stats != NULL) {
 
 #if 0
-            if (ret >= 5.0 && 
+            if (ret >= 5.0 &&
                 CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Z_TARGETING_RAY))
                 ret *= 1.5;
 #endif
