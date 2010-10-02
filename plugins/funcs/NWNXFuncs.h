@@ -55,6 +55,7 @@ void Func_GetIsClassBonusFeat        (CGameObject *ob, char *value);
 void Func_GetIsClassGeneralFeat      (CGameObject *ob, char *value);
 void Func_GetIsClassGrantedFeat      (CGameObject *ob, char *value);
 void Func_GetIsClassSkill            (CGameObject *ob, char *value);
+void Func_GetIsStatic                (CGameObject *ob, char *value);
 void Func_GetIsWalkable              (CGameObject *ob, char *value);
 void Func_GetItemByPositionRequest   (CGameObject *ob, char *value);
 void Func_GetItemCount               (CGameObject *ob, char *value);

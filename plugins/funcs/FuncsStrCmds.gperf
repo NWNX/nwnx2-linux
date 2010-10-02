@@ -60,6 +60,7 @@ GETISCLASSBONUSFEAT,                   Func_GetIsClassBonusFeat
 GETISCLASSGENERALFEAT,                 Func_GetIsClassGeneralFeat
 GETISCLASSGRANTEDFEAT,                 Func_GetIsClassGrantedFeat
 GETISCLASSSKILL,                       Func_GetIsClassSkill
+GETISSTATIC,                           Func_GetIsStatic
 GETISWALKABLE,                         Func_GetIsWalkable
 GETITEMBYPOSITIONREQUEST,              Func_GetItemByPositionRequest
 GETITEMCOUNT,                          Func_GetItemCount

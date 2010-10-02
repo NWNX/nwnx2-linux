@@ -393,6 +393,8 @@ int SetItemAppearance (object oItem, int nIndex, int nValue);
  * item is refreshed for them (e.g. by logging out and back in). */
 int SetItemColor (object oItem, int nIndex, int nColor);
 
+int GetIsStatic (object oPlace);
+
 /* Set oPlace's appearance. Will not update for PCs until they re-enter the area. */
 int SetPlaceableAppearance (object oPlace, int nApp);
 
@@ -1118,6 +1120,11 @@ int SetItemColor (object oItem, int nIndex, int nColor) {
     return nRet;
 }
 
+int GetIsStatic (object oPlace) {
+    int nRet = NWNXFuncsZero(oPlace, "NWNX!FUNCS!GETISSTATIC");
+    DeleteLocalString(oPlace, "NWNX!FUNCS!GETISSTATIC");
+    return nRet;
+}
 
 int SetPlaceableAppearance (object oPlace, int nApp) {
     int nRet = NWNXFuncsOne(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE", nApp);
