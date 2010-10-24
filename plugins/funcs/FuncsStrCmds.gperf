@@ -149,6 +149,7 @@ SETTRAPCREATOR,                        Func_SetTrapCreator
 SETWIZARDSPECIALIZATION,               Func_SetWizardSpecialization
 STRINGTOOBJECTREQUEST,                 Func_StringToObjectRequest
 USLEEP,                                Func_USleep
+GETTIMEOFDAY,                          Func_GetTimeOfDay
 %%
 
 #ifdef __cplusplus

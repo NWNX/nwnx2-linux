@@ -144,6 +144,7 @@ void Func_SetTrapCreator             (CGameObject *ob, char *value);
 void Func_SetWizardSpecialization    (CGameObject *ob, char *value);
 void Func_StringToObjectRequest      (CGameObject *ob, char *value);
 void Func_USleep                     (CGameObject *ob, char* value);
+void Func_GetTimeOfDay               (CGameObject *ob, char* value);
 
 nwn_objid_t Func_GetFirstArea        (CGameObject *ob);
 nwn_objid_t Func_GetItemByPosition   (CGameObject *ob);

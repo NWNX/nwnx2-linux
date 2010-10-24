@@ -63,7 +63,7 @@ struct FuncsStrCommand_s {
     void       (*func)(CGameObject *, char *);
 };
 
-#define NWNX_FUNCS_STRCMD_TOTAL_KEYWORDS 116
+#define NWNX_FUNCS_STRCMD_TOTAL_KEYWORDS 117
 #define NWNX_FUNCS_STRCMD_MIN_WORD_LENGTH 6
 #define NWNX_FUNCS_STRCMD_MAX_WORD_LENGTH 26
 #define NWNX_FUNCS_STRCMD_MIN_HASH_VALUE 25
@@ -90,7 +90,7 @@ FuncsStrCommandHash (register const char *str, register unsigned int len)
       244, 244, 244, 244, 244, 244, 244, 244, 244, 244,
       244, 244, 244, 244, 244,  29, 101,  23, 116,  59,
         5,   3,  33,   6,  90,  14,  56,   3,   6,  45,
-       47,  33,  30,   2,  18,   2, 244,  53,  41, 244,
+       47,  33,  30,   2,  18,   2, 244,  61,  41, 244,
         2, 244, 244, 244, 244, 244, 244, 244, 244, 244,
       244, 244, 244, 244, 244, 244, 244, 244, 244, 244,
       244, 244, 244, 244, 244, 244, 244, 244, 244, 244,
@@ -237,8 +237,8 @@ static const struct FuncsStrCommand_s FuncsStrCommandList[] =
     {"MODIFYCURRENTHITPOINTS",                Func_ModifyCurrentHitPoints},
 #line 150 "FuncsStrCmds.gperf"
     {"STRINGTOOBJECTREQUEST",                 Func_StringToObjectRequest},
-#line 126 "FuncsStrCmds.gperf"
-    {"SETITEMWEIGHT",                         Func_SetItemWeight},
+#line 152 "FuncsStrCmds.gperf"
+    {"GETTIMEOFDAY",                          Func_GetTimeOfDay},
 #line 64 "FuncsStrCmds.gperf"
     {"GETISWALKABLE",                         Func_GetIsWalkable},
 #line 140 "FuncsStrCmds.gperf"
@@ -253,7 +253,8 @@ static const struct FuncsStrCommand_s FuncsStrCommandList[] =
     {"GETSKILLINCREASEBYLEVEL",               Func_GetSkillIncreaseByLevel},
 #line 75 "FuncsStrCmds.gperf"
     {"GETMAXSPELLSLOTS",                      Func_GetMaxSpellSlots},
-    {""},
+#line 126 "FuncsStrCmds.gperf"
+    {"SETITEMWEIGHT",                         Func_SetItemWeight},
 #line 80 "FuncsStrCmds.gperf"
     {"GETPCPORT",                             Func_GetPCPort},
 #line 139 "FuncsStrCmds.gperf"
@@ -298,10 +299,7 @@ static const struct FuncsStrCommand_s FuncsStrCommandList[] =
     {"SETMEMORIZEDSPELL",                     Func_SetMemorizedSpell},
 #line 77 "FuncsStrCmds.gperf"
     {"GETMEMORIZEDSPELL",                     Func_GetMemorizedSpell},
-#line 149 "FuncsStrCmds.gperf"
-    {"SETWIZARDSPECIALIZATION",               Func_SetWizardSpecialization},
-#line 95 "FuncsStrCmds.gperf"
-    {"GETWIZARDSPECIALIZATION",               Func_GetWizardSpecialization},
+    {""}, {""},
 #line 105 "FuncsStrCmds.gperf"
     {"REMOVEKNOWNSPELL",                      Func_RemoveKnownSpell},
 #line 131 "FuncsStrCmds.gperf"
@@ -314,7 +312,10 @@ static const struct FuncsStrCommand_s FuncsStrCommandList[] =
     {"GETPCSKILLPOINTS",                      Func_GetPCSkillPoints},
 #line 56 "FuncsStrCmds.gperf"
     {"GETENTIREITEMAPPEARANCE",               Func_GetEntireItemAppearance},
-    {""}, {""},
+#line 149 "FuncsStrCmds.gperf"
+    {"SETWIZARDSPECIALIZATION",               Func_SetWizardSpecialization},
+#line 95 "FuncsStrCmds.gperf"
+    {"GETWIZARDSPECIALIZATION",               Func_GetWizardSpecialization},
 #line 132 "FuncsStrCmds.gperf"
     {"SETMAXHITPOINTSBYLEVEL",                Func_SetMaxHitPointsByLevel},
 #line 74 "FuncsStrCmds.gperf"
@@ -435,7 +436,7 @@ FuncsStrCommandLookup (register const char *str, register unsigned int len)
     }
   return 0;
 }
-#line 152 "FuncsStrCmds.gperf"
+#line 153 "FuncsStrCmds.gperf"
 
 
 #ifdef __cplusplus
