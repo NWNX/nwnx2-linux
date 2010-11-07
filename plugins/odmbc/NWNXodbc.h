@@ -34,6 +34,7 @@
 #include "pgsql.h"
 #endif
 #include "HookSCORCO.h"
+#include "ObjectStorage.h"
 
 class CNWNXODBC : public CNWNXBase
 {
@@ -43,6 +44,7 @@ public:
 	~CNWNXODBC();
 	bool OnCreate(gline *config, const char* LogDir);
 	char* OnRequest(char* gameObject, char* Request, char* Parameters);
+	unsigned long OnRequestObject(char *gameObject, char *Request);
 	bool OnRelease();
 
   int WriteSCO(char* database, char* key, char* player, int flags, unsigned char * pData, int size);
@@ -75,6 +77,7 @@ private:
 
 	bool hookScorco;
 	char* scorcoSQL;
+	unsigned long lastObjectID;
 
 	enum ELogLevel {logNothing, logErrors, logAll};
 };

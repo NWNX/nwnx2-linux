@@ -62,9 +62,9 @@ bool CNWNXODBC::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX2 ODBC2 version 0.3.2 for Linux.\n");
+	Log (0, "NWNX2 ODBC2 version 1.0.0 for Linux.\n");
 	Log (0, "(c) 2005-2006 dumbo (dumbo@nm.ru)\n");
-	Log (0, "(c) 2006-2008 virusman (virusman@virusman.ru)\n");
+	Log (0, "(c) 2006-2010 virusman (virusman@virusman.ru)\n");
 #if SQLITE_SUPPORT == 1
 	Log (0, "SQLite engine is supported\n");
 #endif
@@ -160,8 +160,45 @@ char* CNWNXODBC::OnRequest (char* gameObject, char* Request, char* Parameters)
 		Fetch (Parameters, strlen (Parameters));
 	else if (strncmp(Request, "SETSCORCOSQL", 12) == 0)
 		SetScorcoSQL(Parameters);
+	else if (strncmp(Request, "STOREOBJECT", 11) == 0)
+	{
+		int nSize = 0;
+		char *pData = SaveObject(strtol(Parameters, NULL, 16), nSize);
+		WriteSCO("NWNX", "-", "-", 0, (unsigned char *)pData, nSize);
+	}
+	else if (strncmp(Request, "RETRIEVEOBJECT", 14) == 0)
+	{
+		dword AreaID;
+		float x, y, z, fFacing;
+		if(sscanf(Parameters, "%x¬%f¬%f¬%f¬%f", &AreaID, &x, &y, &z, &fFacing)<5)
+		{
+			Log(1, "o sscanf error\n");
+			return NULL;
+		}
+		Location lLoc;
+		lLoc.AreaID = AreaID;
+		lLoc.vect.X = x;
+		lLoc.vect.Y = y;
+		lLoc.vect.Z = z;
+		lLoc.Facing = fFacing;
+		int nSize = 0;
+		unsigned char *pData = ReadSCO("NWNX", "-", "-", &nSize, &nSize);
+		if(pData && nSize)
+			lastObjectID = LoadObject((const char *)pData, nSize, lLoc);
+		else
+			lastObjectID = 0x7F000000;
+	}
 
 	return NULL;
+}
+
+//============================================================================================================================
+unsigned long CNWNXODBC::OnRequestObject(char *gameObject, char *Request)
+{
+	if (strncmp(Request, "RETRIEVEOBJECT", 14) == 0)
+	{
+		return lastObjectID;
+	}
 }
 
 //============================================================================================================================
