@@ -37,6 +37,7 @@ extern CNWNXAreas areas;
 AssemblyHelper asmhelp;
 
 
+CNWSModule *(*CServerExoApp__GetModule)(void *pServerExo);
 void (*CNWSArea__CNWSArea)(void *pArea, CResRef res, int a3, dword ObjID);
 int (*CNWSArea__LoadArea)(void *pArea, int flag);
 void (*CExoArrayList__Add)(void *pArray, dword nObjID);
@@ -117,17 +118,49 @@ void RemoveAreaForCreatures(CNWSModule *pModule, dword nAreaID)
 			{
 				areas.Log(3, "Removing minimaps for creature '%x'\n", pObject->Object.ObjectID);
 				//TODO: cleanup minimap data
-				/*int nIndex = CExoArrayList_unsigned_long___IndexOf(&pObject->AreaList, nAreaID);
+				int nIndex = CExoArrayList_unsigned_long___IndexOf(&pObject->AreaList, nAreaID);
 				if(nIndex!=-1)
 				{
 					free(pObject->AreaMiniMaps[nIndex]);
-				}*/
-				pObject->AreaMiniMaps = (void **) realloc(pObject->AreaMiniMaps, pModule->Areas.Count * 4);
+					memcpy(&pObject->AreaMiniMaps[nIndex], &pObject->AreaMiniMaps[nIndex+1], (pObject->AreaCount - nIndex - 1)*4);
+					pObject->AreaMiniMaps = (void **) realloc(pObject->AreaMiniMaps, (pObject->AreaCount-1) * 4 );
+				}
+				//pObject->AreaMiniMaps = (void **) realloc(pObject->AreaMiniMaps, pModule->Areas.Count * 4);
 				CExoArrayList_unsigned_long___Remove(&pObject->AreaList, nAreaID);
 				pObject->AreaCount--;
 				areas.Log(3, "Object area count: %d\n", pObject->AreaCount);
 			}
 		}
+	}
+	//Cleanup TURDs
+	CNWSModule *pRealModule = CServerExoApp__GetModule((void *)pServThis);
+	CExoLinkedListElement *pTURDEntry = pRealModule->TURDList.GetHeadPos();
+	while(pTURDEntry != NULL)
+	{
+		CNWSPlayerTURD *pTURD = (CNWSPlayerTURD *) pTURDEntry->Data;
+		if(pTURD) {
+ 			if(pTURD->MapAreasData && pTURD->MapNumAreas && pTURD->MapData){
+				int nIndex = -1;
+				for(int i=0; i<pTURD->MapNumAreas; i++) {
+					if(pTURD->MapAreasData[i] == nAreaID){
+						nIndex = i;
+						break;
+					}
+				}
+				if(nIndex != -1) {
+					areas.Log(3, "Cleaning up TURD...\n");
+					free(pTURD->MapData[nIndex]);
+					memcpy(&pTURD->MapData[nIndex], &pTURD->MapData[nIndex+1], (pTURD->MapNumAreas - nIndex - 1)*4);
+					pTURD->MapData = (void **) realloc(pTURD->MapData, (pTURD->MapNumAreas-1) * 4 );
+
+					memcpy(&pTURD->MapAreasData[nIndex], &pTURD->MapAreasData[nIndex+1], (pTURD->MapNumAreas - nIndex - 1)*4);
+					pTURD->MapAreasData = (dword *) realloc(pTURD->MapAreasData, (pTURD->MapNumAreas-1) * 4 );
+
+					pTURD->MapNumAreas--;
+				}
+ 			}
+		}
+		pTURDEntry = pRealModule->TURDList.GetNext(pTURDEntry);
 	}
 }
 
@@ -214,8 +247,10 @@ void NWNXSetAreaName(CNWSArea *pArea, char *sNewName)
 	areas.Log(3, "SetAreaName: %x, '%s'\n", pArea->GameObject.ObjectID, sNewName);
 	CExoLocString *lsName = (CExoLocString *)&pArea->Name;
 	if(!lsName) return;
-	char *newstr = new char[strlen(sNewName)+1];
-	strncpy(newstr, sNewName, strlen(sNewName));
+	int len = strlen(sNewName);
+	char *newstr = new char[len+1];
+	strncpy(newstr, sNewName, len);
+	newstr[len] = 0;
 	lsName->AddString(0, newstr);
 	UpdateAreasForDMs();
 }
@@ -224,7 +259,7 @@ int HookFunctions()
 {
 	ppServThis = 0x0832F1F4;
 	pScriptThis = pServThis - 8;
-
+	*(dword*)&CServerExoApp__GetModule = 0x080B1ADC;
 	*(dword*)&CNWSArea__CNWSArea = 0x080CBD30;
 	*(dword*)&CNWSArea__LoadArea = 0x080CDFDC;
 	*(dword*)&CExoArrayList__Add = 0x0805EEE0;
