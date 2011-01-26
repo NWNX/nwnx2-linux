@@ -1107,6 +1107,12 @@ object GetNextArea () {
     return GetLocalObject(GetModule(), "NWNX!FUNCS!GETNEXTAREA");
 }
 
+int SetBaseItemType (object oItem, int nBaseItem)
+{
+    SetLocalString(oItem, "NWNX!FUNCS!SETBASEITEMTYPE", IntToString(nBaseItem));
+    return StringToInt(GetLocalString(oItem, "NWNX!FUNCS!SETBASEITEMTYPE"));
+}
+
 
 int SetGoldPieceValue (object oItem, int nValue) {
     return NWNXFuncsOne(oItem, "NWNX!FUNCS!SETGOLDPIECEVALUE", nValue);
