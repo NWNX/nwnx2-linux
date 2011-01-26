@@ -88,6 +88,7 @@ OFILES  = \
     funcs/item/f_GetItemByPosition.o             \
     funcs/item/f_GetItemCount.o                  \
     funcs/item/f_RestoreItemAppearance.o         \
+    funcs/item/f_SetArmorAC.o                    \
     funcs/item/f_SetBaseItemType.o               \
     funcs/item/f_SetGoldPieceValue.o             \
     funcs/item/f_SetItemAppearance.o             \
@@ -108,6 +109,7 @@ OFILES  = \
     funcs/other/f_SetAlignmentValue.o            \
     funcs/other/f_SetCreatureSize.o              \
     funcs/other/f_SetGender.o                    \
+    funcs/other/f_SetIsCreatureDisarmable.o      \
     funcs/other/f_SetMovementRate.o              \
     funcs/other/f_SetPCBodyBag.o                 \
     funcs/other/f_SetPCLootable.o                \
@@ -117,8 +119,6 @@ OFILES  = \
     funcs/other/f_SetTag.o                       \
     funcs/other/f_SetTrapCreator.o               \
     funcs/other/f_USleep.o                       \
-    funcs/other/f_GetTimeOfDay.o                 \
-    funcs/placeable/f_GetIsStatic.o              \
     funcs/placeable/f_SetPlaceableAppearance.o   \
     funcs/quickbar/f_GetQuickBarSlot.o           \
     funcs/quickbar/f_SetQuickBarSlot.o           \
@@ -191,3 +191,6 @@ clean:
 
 distclean: clean
 	$(RM) -f .depend FuncsStrCmds.h FuncsObjCmds.h
+
+install: nwnx_funcs.so
+	mkdir -p @prefix@/ ; install nwnx_funcs.so @prefix@/
