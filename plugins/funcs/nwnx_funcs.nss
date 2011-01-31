@@ -972,11 +972,13 @@ int SetTrapCreator (object oTrap, object oCreator) {
 
 
 string GetConversation (object oCreature) {
-    return "";
+    SetLocalString(oCreature, "NWNX!FUNCS!GETCONVERSATION", "                ");
+    return GetLocalString(oCreature, "NWNX!FUNCS!GETCONVERSATION");
 }
 
 string SetConversation (object oCreature, string sConv) {
-    return "";
+    SetLocalString(oCreature, "NWNX!FUNCS!SETCONVERSATION", sConv);
+    return GetLocalString(oCreature, "NWNX!FUNCS!SETCONVERSATION");
 }
 
 
