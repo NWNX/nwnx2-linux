@@ -101,6 +101,11 @@ struct CreatureSkills {
     int sk_ride;
 };
 
+struct Timeval {
+    int sec;
+    int usec;
+};
+
 /* Returns TRUE if the target inherently knows a feat (as opposed to
  * by any equipment they may possess) */
 int GetKnowsFeat (int nFeatId, object oCreature);
@@ -393,6 +398,8 @@ int SetItemAppearance (object oItem, int nIndex, int nValue);
  * item is refreshed for them (e.g. by logging out and back in). */
 int SetItemColor (object oItem, int nIndex, int nColor);
 
+int GetIsStatic (object oPlace);
+
 /* Set oPlace's appearance. Will not update for PCs until they re-enter the area. */
 int SetPlaceableAppearance (object oPlace, int nApp);
 
@@ -474,6 +481,9 @@ void DumpObject (object oObject);
 /* Sleep for the given number of microseconds. This will block the whole nwserver process. */
 void USleep (int usec);
 
+/* Returns the current system time.
+ * Returns .sec = 0 and .usec = 0 on failure. */
+struct Timeval GetTimeOfDay();
 
 int NWNXFuncsZero (object oObject, string sFunc) {
     SetLocalString(oObject, sFunc, "          ");
@@ -499,6 +509,20 @@ int NWNXFuncsThree (object oObject, string sFunc, int nVal1, int nVal2, int nVal
 
 void USleep (int usec) {
     NWNXFuncsOne(GetModule(), "NWNX!FUNCS!USLEEP", usec);
+}
+
+struct Timeval GetTimeOfDay() {
+    struct Timeval ret;
+    string sFunc = "NWNX!FUNCS!GETTIMEOFDAY";
+    SetLocalString(GetModule(),
+        sFunc, "                                         ");
+    string time = GetLocalString(GetModule(), sFunc);
+    int idx = FindSubString(time, ".");
+    if (-1 != idx) {
+        ret.sec = StringToInt(GetSubString(time, 0, idx));
+        ret.usec = StringToInt(GetSubString(time, idx + 1, 32));
+    }
+    return ret;
 }
 
 int SetAbilityScore (object oCreature, int nAbility, int nValue) {
@@ -1091,6 +1115,7 @@ int SetBaseItemType (object oItem, int nBaseItem)
     return StringToInt(GetLocalString(oItem, "NWNX!FUNCS!SETBASEITEMTYPE"));
 }
 
+
 int SetGoldPieceValue (object oItem, int nValue) {
     return NWNXFuncsOne(oItem, "NWNX!FUNCS!SETGOLDPIECEVALUE", nValue);
 }
@@ -1125,6 +1150,11 @@ int SetItemColor (object oItem, int nIndex, int nColor) {
     return nRet;
 }
 
+int GetIsStatic (object oPlace) {
+    int nRet = NWNXFuncsZero(oPlace, "NWNX!FUNCS!GETISSTATIC");
+    DeleteLocalString(oPlace, "NWNX!FUNCS!GETISSTATIC");
+    return nRet;
+}
 
 int SetPlaceableAppearance (object oPlace, int nApp) {
     int nRet = NWNXFuncsOne(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE", nApp);

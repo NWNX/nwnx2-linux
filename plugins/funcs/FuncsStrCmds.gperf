@@ -60,6 +60,7 @@ GETISCLASSBONUSFEAT,                   Func_GetIsClassBonusFeat
 GETISCLASSGENERALFEAT,                 Func_GetIsClassGeneralFeat
 GETISCLASSGRANTEDFEAT,                 Func_GetIsClassGrantedFeat
 GETISCLASSSKILL,                       Func_GetIsClassSkill
+GETISSTATIC,                           Func_GetIsStatic
 GETISWALKABLE,                         Func_GetIsWalkable
 GETITEMBYPOSITIONREQUEST,              Func_GetItemByPositionRequest
 GETITEMCOUNT,                          Func_GetItemCount
@@ -111,7 +112,6 @@ RESTOREREADYSPELLS,                    Func_RestoreReadySpells
 SETABILITYSCORE,                       Func_SetAbilityScore
 SETACNATURALBASE,                      Func_SetACNaturalBase
 SETALIGNMENTVALUE,                     Func_SetAlignmentValue
-SETARMORAC,                            Func_SetArmorAC
 SETBASEITEMTYPE,                       Func_SetBaseItemType
 SETCLERICDOMAIN,                       Func_SetClericDomain
 SETCONVERSATION,                       Func_SetConversation
@@ -121,7 +121,6 @@ SETCURRENTHITPOINTS,                   Func_SetCurrentHitPoints
 SETFACTIONID,                          Func_SetFactionId
 SETGENDER,                             Func_SetGender
 SETGOLDPIECEVALUE,                     Func_SetGoldPieceValue
-SETISCREATUREDISARMABLE,               Func_SetIsCreatureDisarmable 
 SETITEMAPPEARANCE,                     Func_SetItemAppearance
 SETITEMCOLOR,                          Func_SetItemColor
 SETITEMWEIGHT,                         Func_SetItemWeight
@@ -150,6 +149,7 @@ SETTRAPCREATOR,                        Func_SetTrapCreator
 SETWIZARDSPECIALIZATION,               Func_SetWizardSpecialization
 STRINGTOOBJECTREQUEST,                 Func_StringToObjectRequest
 USLEEP,                                Func_USleep
+GETTIMEOFDAY,                          Func_GetTimeOfDay
 %%
 
 #ifdef __cplusplus
