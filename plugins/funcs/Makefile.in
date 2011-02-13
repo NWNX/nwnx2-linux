@@ -108,6 +108,7 @@ OFILES  = \
     funcs/other/f_SetAlignmentValue.o            \
     funcs/other/f_SetCreatureSize.o              \
     funcs/other/f_SetGender.o                    \
+    funcs/other/f_SetIsCreatureDisarmable.o      \
     funcs/other/f_SetMovementRate.o              \
     funcs/other/f_SetPCBodyBag.o                 \
     funcs/other/f_SetPCLootable.o                \

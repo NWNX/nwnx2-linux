@@ -471,6 +471,13 @@ int BroadcastProjectileToObject (object oSource, object oTarget, int nSpellId, i
 /* As for BroadcastProjectileToObject(), but to a target location. */
 int BroadcastProjectileToLocation (object oSource, location lTarget, int nSpellId, int nDelay=-1);
 
+//Sets disarm flag on oCreature
+//Returns:
+//  1 on success
+//  0 on failure
+//Note: standard function GetIsCreatureDisarmable() also takes into account weapon in creature's right hand besides disarm flag itself
+int SetIsCreatureDisarmable(object oCreature, int bDisarmable);
+
 /* Convert an object ID to an object. */
 object IntToObject (int nObjectId);
 object StringToObject (string sObjectId);
@@ -1323,6 +1330,13 @@ int BroadcastProjectileToLocation (object oSource, location lTarget, int nSpellI
     return StringToInt(GetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE"));
 }
 
+
+int SetIsCreatureDisarmable(object oCreature, int bDisarmable)
+{
+    int nRet = NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETISCREATUREDISARMABLE", bDisarmable != FALSE);
+    DeleteLocalString(oCreature, "NWNX!FUNCS!SETISCREATUREDISARMABLE");
+    return nRet;	
+}
 
 object IntToObject (int nObjectId) {
     SetLocalString(GetModule(), "NWNX!FUNCS!INTTOOBJECTREQUEST", IntToString(nObjectId));
