@@ -47,8 +47,8 @@ bool CNWNXFixes::OnCreate(gline *config, const char *LogDir)
 	// call the base class function
 	if (!CNWNXBase::OnCreate(config,log))
 		return false;
-	Log(0,"NWNX Fixes 1.0.5\n");
-	Log(0,"(c) by virusman, 2007-2009\n");
+	Log(0,"NWNX Fixes 1.0.7\n");
+	Log(0,"(c) by virusman, 2007-2011\n");
 	Log(0,"visit us at http://www.nwnx.org\n\n");
 
 	pluginConfig = (*nwnxConfig)[confKey];

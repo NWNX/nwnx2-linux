@@ -37,10 +37,15 @@ AssemblyHelper asmhelp;
 
 //Functions:
 //Return value: 0 upon success, 1 upon failure
+void (*pRunScript)(void *pScriptMachine, CExoString *script_name, dword ObjID, int arg_4);
 int (*pGetObjByOID)(void *pObjectClass,dword ObjID,void **buf);
 void *(*pGetPlayer)(void *pServerExo4, dword ObjID);
 void *(*pGetObjectFactionEntry)(void *pObject);
 int (*pGetIsMergeable)(void *pItem1, void *pItem2);
+int (*CNWSCreature__DoDamage)(CNWSCreature *a1, unsigned int a2);
+int (*CNWSModule__AIUpdate)(void *a1);
+int (*CNWSModule__AIUpdate_R)(void *a1);
+
 //Constants:
 
 void *pServer = 0;
@@ -51,14 +56,21 @@ void *pFactionClass = 0;
 void *pClientClass = 0;
 void *pRules = 0;
 void *p2das = 0;
+
+void **g_pVirtualMachine = (void **) 0x0832F1EC;
 //dword pScriptThis = 0;
 //dword oPC = 0;
 
 unsigned char d_jmp_code[] = "\x68\x60\x70\x80\x90"       /* push dword 0x90807060 */
                              "\xc3\x90\x90\x90\x90";//x00 /* ret , nop , nop       */
 unsigned char d_ret_code_merg[0x20];
+unsigned char d_ret_code_dmg[0x20];
+unsigned char d_ret_code_mai[0x20];
+
 
 unsigned long lastRet;
+char scriptRun = 0;
+char runLock = 0;
 
 //#################### ENGINE FUNCTIONS ####################
 
@@ -97,7 +109,7 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 			CNWObjectVarListElement *pVar2 = &pVarList2->VarList[j];
 
             if (pVar1->nVarType == pVar2->nVarType &&
-                strcmp(pVar1->sVarName.text, pVar2->sVarName.text) == 0) {
+                strcmp(pVar1->sVarName.Text, pVar2->sVarName.Text) == 0) {
 
 				bFound = true;
 
@@ -106,7 +118,7 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 				case 1:  //int
                         if ((int)(pVar1->nVarValue) != (int)(pVar2->nVarValue)) {
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: int value '%s' %d != %d\n", pVar1->sVarName.text,
+                            fixes.Log(3, "blocking merge: int value '%s' %d != %d\n", pVar1->sVarName.Text,
                                       (int)(pVar1->nVarValue), (int)(pVar2->nVarValue));
 #endif
                             return false;
@@ -116,7 +128,7 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 				case 2:  //float
                         if ((float)(pVar1->nVarValue) != (float)(pVar2->nVarValue)) {
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: float value '%s' %.04f != %.04f\n", pVar1->sVarName.text,
+                            fixes.Log(3, "blocking merge: float value '%s' %.04f != %.04f\n", pVar1->sVarName.Text,
                                       (float)(pVar1->nVarValue), (float)(pVar2->nVarValue));
 #endif
                             return false;
@@ -129,7 +141,7 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 					break;
                         if ((char **)(pVar1->nVarValue) == NULL || (char **)(pVar2->nVarValue) == NULL) {  //the variable is not set on one of the objects
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: string value '%s' is not set on one of the objects\n", pVar1->sVarName.text);
+                            fixes.Log(3, "blocking merge: string value '%s' is not set on one of the objects\n", pVar1->sVarName.Text);
 #endif
                             return false;
                         }
@@ -138,14 +150,14 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
                             break;
                         if (*(char **)(pVar1->nVarValue) == NULL || *(char **)(pVar2->nVarValue) == NULL) { //one of the variables is empty
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: string value '%s' is not set on one of the objects\n", pVar1->sVarName.text);
+                            fixes.Log(3, "blocking merge: string value '%s' is not set on one of the objects\n", pVar1->sVarName.Text);
 #endif
                             return false;
                         }
 
                         if (strcmp(*(char **)(pVar1->nVarValue), *(char **)(pVar2->nVarValue)) != 0) {  //string values are not equal
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: string value '%s' '%s' != '%s'\n", pVar1->sVarName.text,
+                            fixes.Log(3, "blocking merge: string value '%s' '%s' != '%s'\n", pVar1->sVarName.Text,
                                       *(char **)(pVar1->nVarValue), *(char **)(pVar2->nVarValue));
 #endif
                             return false;
@@ -155,7 +167,7 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 				case 4:  //object
                         if ((dword)(pVar1->nVarValue) != (dword)(pVar2->nVarValue)) {
 #ifdef NWNX_FIXES_DEBUG
-                            fixes.Log(3, "blocking merge: object value '%s' %08X != %08X\n", pVar1->sVarName.ext,
+                            fixes.Log(3, "blocking merge: object value '%s' %08X != %08X\n", pVar1->sVarName.Text,
                                       (dword)(pVar1->nVarValue), (dword)(pVar2->nVarValue));
 #endif
                             return false;
@@ -172,13 +184,23 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
 
         if (!bFound) {
 #ifdef NWNX_FIXES_DEBUG
-            fixes.Log(3, "blocking merge: local variable '%s' not found on one of the objects", pVar1->sVarName.text);
+            fixes.Log(3, "blocking merge: local variable '%s' not found on one of the objects", pVar1->sVarName.Text);
 #endif
             return false;
 	}
 }
 
     return true;
+}
+
+void RunScript(char * sname, int ObjID)
+{
+	CExoString script_name;
+	script_name.Text = sname;
+	script_name.Length = strlen(sname);
+	scriptRun = 1;
+	pRunScript(*g_pVirtualMachine, &script_name, ObjID, 1);
+	scriptRun = 0;
 }
 
 //#################### HOOKED FUNCTIONS ####################
@@ -223,24 +245,24 @@ void PlayerListNoDMHook()
 	asm("mov %%eax,%0" : "=r"(cre));
 
 	// obvious enough: if DM, don't list
-	if(cre->cre_stats->cs_is_dm)
+	if(cre->CreatureStats->IsDM)
 	{
 		asm("jmp suppressresponse");
 	}
 	// DMs are also PCs, but they've been handled above, so this is mortal PCs only
-	else if(cre->cre_stats->cs_is_pc)
+	else if(cre->CreatureStats->IsPC)
 	{
 		asm("jmp sendresponse");
 	}
 	// 7 is DM possess, 8 is DM possess full powers, 0x7fffffff is WTF
-	else if(cre->cre_master_id == 7 || cre->cre_master_id == 8 || cre->cre_master_id == 0x7fffffff)
+	else if(cre->MasterID == 7 || cre->MasterID == 8 || cre->MasterID == 0x7fffffff)
 	{
-		fixes.Log(4, "* NoDMHook Suppress (cre_master_id): %08lX\n", cre->cre_master_id);
+		fixes.Log(4, "* NoDMHook Suppress (cre_master_id): %08lX\n", cre->MasterID);
 		asm("jmp suppressresponse");
 	}
 	else
 	{
-		fixes.Log(4, "* NoDMHook Send (default): %08lX\n", cre->cre_master_id);
+		fixes.Log(4, "* NoDMHook Send (default): %08lX\n", cre->MasterID);
 	}
 
 	asm("sendresponse:");
@@ -253,6 +275,34 @@ void PlayerListNoDMHook()
 	asm("pop %ebp"); // restore stack that gcc screwed up with function prologue
 	asm("mov $0x0807e641, %eax");
 	asm("jmp %eax");
+}
+
+int CNWSCreature__DoDamage_hook(CNWSCreature *a1, unsigned int a2)
+{
+	fixes.Log(3, "DoDamage: %08lX, %d, Current: %d\n", a1->Object.ObjectID, a2, a1->Object.HitPoints);
+	if(a1->IsPC && a1->Object.HitPoints > 0 && a2 > a1->Object.HitPoints+5)
+	{
+		a2 = a1->Object.HitPoints + 5;
+		int ret = CNWSCreature__DoDamage(a1, a2);
+		fixes.Log(3, "Running script...\n");
+		RunScript("vir_oncdamage", a1->Object.ObjectID);
+		return ret;
+	}
+	return CNWSCreature__DoDamage(a1, a2);
+}
+
+int CNWSModule__AIUpdate_hook(void *a1)
+{
+	int ret = CNWSModule__AIUpdate_R(a1);
+	if(ret == 1 && !runLock)
+	{
+		runLock = 1;
+		int ret2 = CNWSModule__AIUpdate(a1);
+		runLock = 0;
+		fixes.Log(3, "CNWSModule__AIUpdate: %d\n", ret2);
+		return ret2;
+	}
+	return ret;
 }
 
 //#################### HOOK ####################
@@ -311,6 +361,14 @@ int FindHookFunctions()
 	fixes.Log(2, "AIActionDialogObject_middle: %08lX\n", pAIActionDialogObject_middle);
 	char *pGetDead = (char *) asmhelp.FindFunctionBySignature("55 89 E5 56 53 83 EC 0C 8B 5D 08 8B 43 0C 53 FF 50 38 83 C4 10 85 C0 74 5B 83 EC 0C 8B 43 0C 53 FF 50 38 8B 90 DC 0A 00 00 83 C4 10 31 F6 85 D2 75 10 83 EC 0C 50 E8");
 	fixes.Log(2, "GetDead: %08lX\n", pGetDead);
+	char *pAIActionJumpToPoint = (char *) 0x08100BA4;
+	fixes.Log(2, "AIActionJumpToPoint: %08lX\n", pAIActionJumpToPoint);
+	*(dword*)&CNWSCreature__DoDamage = 0x0812E998;
+	fixes.Log(2, "CNWSCreature__DoDamage: %08lX\n", CNWSCreature__DoDamage);
+	*(dword*)&CNWSModule__AIUpdate = 0x081B3DEC;
+	fixes.Log(2, "CNWSModule__AIUpdate: %08lX\n", CNWSModule__AIUpdate);
+
+	*(dword*)&pRunScript = 0x08261F94;
 
 	char *pPlayModCharList = (char*)0x0819bcfc;
 	char *pPlayModCharListCode = (char*)"\xC2\x0C\x00";
@@ -400,6 +458,19 @@ int FindHookFunctions()
 		d_redirect((unsigned long)pGetIsMergeable, (unsigned long)GetIsMergeableHookProc, d_ret_code_merg, 9);
 	}
 
+	if(pGetIsMergeable && fixes.GetConfInteger("damage_tweak"))
+	{
+		fixes.Log(2, "damage_tweak = 1\n");
+		d_redirect((unsigned long)CNWSCreature__DoDamage, (unsigned long)CNWSCreature__DoDamage_hook, d_ret_code_dmg, 9);
+		*(dword*)&CNWSCreature__DoDamage = (dword)&d_ret_code_dmg;
+	}
+
+	if(CNWSModule__AIUpdate)
+	{
+		d_redirect((unsigned long)CNWSModule__AIUpdate, (unsigned long)CNWSModule__AIUpdate_hook, d_ret_code_mai, 9);
+		*(dword*)&CNWSModule__AIUpdate_R = (dword)&d_ret_code_mai;
+	}
+
 	if(pGetDead && fixes.GetConfInteger("hp_limit"))
 	{
 		d_enable_write((dword) pGetDead);
@@ -407,6 +478,16 @@ int FindHookFunctions()
 		if (hpLimit > 0) hpLimit = -10;
 		fixes.Log(2, "HP limit = %d\n", hpLimit);
 		pGetDead[0x6D] = hpLimit;
+	}
+
+	//Allow to move dead PCs
+	if(pAIActionJumpToPoint)
+	{
+		d_enable_write((dword) pAIActionJumpToPoint);
+		pAIActionJumpToPoint[0x18] = 0x90;
+		pAIActionJumpToPoint[0x19] = 0x90;
+		pAIActionJumpToPoint[0x29] = 0x90;
+		pAIActionJumpToPoint[0x2A] = 0x90;
 	}
 
 	// begin cap hooks
