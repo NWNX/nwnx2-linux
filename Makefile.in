@@ -26,7 +26,6 @@ SUBDIRS = \
     plugins/tmi        \
     plugins/tweaks     \
     plugins/weapons    \
-	plugins/nocharlist \
     @EXTRAPLUGINDIRS@
 
 LIBRARY = \
