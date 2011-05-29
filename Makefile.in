@@ -1,9 +1,9 @@
 CXX      = @CXX@
 LIBS     = @LIBS@ -ldl
 DEFS     = @DEFS@
-LFLAGS   = -w -fPIC -shared -W -Wall @LDFLAGS@
-CFLAGS   = @CFLAGS@ -Iinclude $(DEFS)
-CPPFLAGS = @CPPFLAGS@ -Iinclude $(DEFS)
+LFLAGS   = -m32 -w -fPIC -shared -W -Wall @LDFLAGS@
+CFLAGS   = @CFLAGS@ -m32 -Iinclude $(DEFS)
+CPPFLAGS = @CPPFLAGS@ -m32 -Iinclude $(DEFS)
 
 # Add your own plugins to the compilation with this configure option:
 # ./configure --with-extraplugins="plugin1 plugin2 ..."
@@ -26,6 +26,7 @@ SUBDIRS = \
     plugins/tmi        \
     plugins/tweaks     \
     plugins/weapons    \
+	plugins/nocharlist \
     @EXTRAPLUGINDIRS@
 
 LIBRARY = \

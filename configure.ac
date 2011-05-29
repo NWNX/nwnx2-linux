@@ -129,6 +129,7 @@ AC_CONFIG_FILES([
         plugins/tmi/Makefile
         plugins/tweaks/Makefile
         plugins/weapons/Makefile
+		plugins/nocharlist/Makefile
         $extraplugins ])
 
 AC_OUTPUT
