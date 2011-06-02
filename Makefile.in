@@ -21,6 +21,7 @@ SUBDIRS = \
     plugins/profiler   \
     plugins/reset      \
     plugins/resman     \
+    plugins/ruby       \
     plugins/spells     \
     plugins/structs    \
     plugins/tmi        \
