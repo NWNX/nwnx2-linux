@@ -6,7 +6,7 @@ LIBS     = -L/usr/lib/mysql -lmysqlclient -lz
 
 all: nwnx_odbc.so
 
-nwnx_odbc.so: HookSCORCO.o NWNXodbc.o mysql.o plugin-odbc.o
+nwnx_odbc.so: HookSCORCO.o CExoString.o ObjectStorage.o NWNXodbc.o mysql.o plugin-odbc.o
 	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:

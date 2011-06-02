@@ -25,5 +25,7 @@ typedef unsigned short int word;
 typedef unsigned char byte;
 
 int HookFunctions();
+void d_enable_write (unsigned long location);
+
 
 #endif

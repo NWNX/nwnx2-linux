@@ -1,3 +1,8 @@
+1.0.0 - 07.11.2010
+----
+* New configuration parameters: 'socket' and 'port'
+* Added object storage for placeables, stores and triggers
+
 0.3.2 - 23.01.2008
 ----
 * Added optional PostgreSQL support
