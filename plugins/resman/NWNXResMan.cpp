@@ -82,7 +82,7 @@ char *CNWNXResMan::DemandRes(CResStruct * cRes, char *resRef, NwnResType resType
     if (notifyRet && demandResInfo.pData == NULL)
         return NULL;
 
-    if (demandResInfo.pData && demandresInfo.size) {
+    if (demandResInfo.pData && demandResInfo.size) {
 		printf("Got data from Hook, returning (size = %d): %s\n", demandResInfo.size, demandResInfo.pData);
 		pScriptBuffer = (char*) demandResInfo.pData;
 		size = demandResInfo.size;
