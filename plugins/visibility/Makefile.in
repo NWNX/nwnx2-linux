@@ -1,0 +1,17 @@
+NWNXDIR  = ../..
+CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR)
+LFLAGS   = $(PLUGIN_LFLAGS)
+
+all: nwnx_visibility.so
+
+nwnx_visibility.so: CExoLinkedList.o HookFunc.o NWNXVisibility.o plugin-visibility.o $(NWNXBASE)
+	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS) 
+
+clean:
+	/bin/rm -f *.o *.so *~
+
+distclean: clean
+	/bin/rm -f Makefile
+
+install: nwnx_visibility.so
+	mkdir -p @prefix@/ ; install nwnx_visibility.so @prefix@/

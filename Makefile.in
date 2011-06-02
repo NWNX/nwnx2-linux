@@ -25,6 +25,7 @@ SUBDIRS = \
     plugins/structs    \
     plugins/tmi        \
     plugins/tweaks     \
+    plugins/visibility \
     plugins/weapons    \
     @EXTRAPLUGINDIRS@
 
