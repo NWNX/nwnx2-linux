@@ -48,6 +48,7 @@ private:
 	char *saveName;
 	int bufferSize;
 	char m_sourcePath[MAXPATH];
+	HANDLE hDemandRes;
 };
 
 #endif 

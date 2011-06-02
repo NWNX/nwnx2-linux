@@ -47,6 +47,9 @@ bool CNWNXResMan::OnCreate(gline * config, const char *LogDir) {
     LoadConfiguration();
     WriteLogHeader();
     HookFunctions();
+
+    hDemandRes = CreateHookableEvent("NWNX/ResMan/DemandResource");
+
     return true;
 }
 
@@ -69,16 +72,33 @@ char *CNWNXResMan::DemandRes(CResStruct * cRes, char *resRef, NwnResType resType
         // nothing for us to do
         return NULL;
     }
+    char resrefWithExt[20];
+    snprintf(resrefWithExt, 20, "%s.%s", resRef, NwnGetResTypeExtension(resType));
 
-    // try to load external resource
-    char resPath[MAXPATH + 16];
-
-    snprintf(resPath, sizeof(resPath), "%s/%s/%s.%s",
-        m_sourcePath, NwnGetResTypeExtension(resType), resRef, NwnGetResTypeExtension(resType));
-
-    size = LoadResource(resPath);
-    if (size == 0)
+    ResManDemandResStruct demandResInfo = {
+        resrefWithExt, NULL, NULL
+    };
+    int notifyRet = NotifyEventHooks(hDemandRes, (WPARAM)&demandResInfo, 0);
+    if (notifyRet && demandResInfo.pData == NULL)
         return NULL;
+
+    if (demandResInfo.pData && demandresInfo.size) {
+		printf("Got data from Hook, returning (size = %d): %s\n", demandResInfo.size, demandResInfo.pData);
+		pScriptBuffer = (char*) demandResInfo.pData;
+		size = demandResInfo.size;
+
+	} else {
+		// try to load external resource
+		char resPath[MAXPATH + 16];
+
+		snprintf(resPath, sizeof(resPath), "%s/%s/%s.%s",
+			m_sourcePath, NwnGetResTypeExtension(resType), resRef, NwnGetResTypeExtension(resType));
+
+		size = LoadResource(resPath);
+		if (size == 0)
+			return NULL;
+	}
+
     int namelen = strlen(resRef) + 1;
     saveName = new char[namelen];
 
