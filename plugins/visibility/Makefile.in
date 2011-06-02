@@ -1,11 +1,15 @@
+LFLAGS = -w -fPIC -shared -W -Wall @LDFLAGS@
+
 NWNXDIR  = ../..
 CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR)
-LFLAGS   = $(PLUGIN_LFLAGS)
+LFLAGS   = $(PLUGIN_LFLAGS) -shared
+
+NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o 
 
 all: nwnx_visibility.so
 
 nwnx_visibility.so: CExoLinkedList.o HookFunc.o NWNXVisibility.o plugin-visibility.o $(NWNXBASE)
-	$(CXX) $(FLAGS) -o $@ $^ $(LIBS) $(DEFS) 
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS) $(DEFS)
 
 clean:
 	/bin/rm -f *.o *.so *~
