@@ -115,6 +115,7 @@ AC_CONFIG_FILES([
         plugins/defenses/Makefile
         plugins/dmactions/Makefile
         plugins/events/Makefile
+        plugins/extend/Makefile
         plugins/fixes/Makefile
         plugins/funcs/Makefile
         plugins/functions/Makefile

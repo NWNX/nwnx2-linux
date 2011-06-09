@@ -1,0 +1,25 @@
+29965: Ineffective: Use Magical Device*
+29966: Ineffective: Use Magical Device
+29967: Use Magical Device skill is not effective against this item.
+29968: Maximum Dexterity Bonus:*
+29969: Maximum Dexterity Bonus:
+29970: Will adjust armor's maximum dexterity bonus.
+29971: -8
+29972: -7
+29973: -6
+29974: -5
+29975: -4
+29976: -3
+29977: -2
+29978: -1
+29979: None
+29980: +1
+29981: +2
+29982: +3
+29983: +4
+29984: +5
+29985: +6
+29986: +7
+29987: +8
+29988: +9
+29989: +10
