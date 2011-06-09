@@ -17,6 +17,7 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
+#include <stdint.h>
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <dlfcn.h>
@@ -37,10 +38,15 @@ AssemblyHelper asmhelp;
 
 //Functions:
 //Return value: 0 upon success, 1 upon failure
+void (*pRunScript)(void *pScriptMachine, CExoString *script_name, dword ObjID, int arg_4);
 int (*pGetObjByOID)(void *pObjectClass,dword ObjID,void **buf);
 void *(*pGetPlayer)(void *pServerExo4, dword ObjID);
 void *(*pGetObjectFactionEntry)(void *pObject);
 int (*pGetIsMergeable)(void *pItem1, void *pItem2);
+int (*CNWSCreature__DoDamage)(CNWSCreature *a1, unsigned int a2);
+int (*CNWSModule__AIUpdate)(void *a1);
+int (*CNWSModule__AIUpdate_R)(void *a1);
+
 //Constants:
 
 void *pServer = 0;
@@ -51,14 +57,21 @@ void *pFactionClass = 0;
 void *pClientClass = 0;
 void *pRules = 0;
 void *p2das = 0;
+
+void **g_pVirtualMachine = (void **) 0x0832F1EC;
 //dword pScriptThis = 0;
 //dword oPC = 0;
 
 unsigned char d_jmp_code[] = "\x68\x60\x70\x80\x90"       /* push dword 0x90807060 */
                              "\xc3\x90\x90\x90\x90";//x00 /* ret , nop , nop       */
 unsigned char d_ret_code_merg[0x20];
+unsigned char d_ret_code_dmg[0x20];
+unsigned char d_ret_code_mai[0x20];
+
 
 unsigned long lastRet;
+char scriptRun = 0;
+char runLock = 0;
 
 //#################### ENGINE FUNCTIONS ####################
 
@@ -181,6 +194,16 @@ bool CompareVarLists (CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2) 
     return true;
 }
 
+void RunScript(char * sname, int ObjID)
+{
+	CExoString script_name;
+	script_name.Text = sname;
+	script_name.Length = strlen(sname);
+	scriptRun = 1;
+	pRunScript(*g_pVirtualMachine, &script_name, ObjID, 1);
+	scriptRun = 0;
+}
+
 //#################### HOOKED FUNCTIONS ####################
 
 int GetIsMergeableHookProc(void *pItem1, void *pItem2)
@@ -209,6 +232,78 @@ int GetIsMergeableHookProc(void *pItem1, void *pItem2)
 		//return lastRet;
 	}
 	else return lastRet;
+}
+
+void PlayerListNoDMHook()
+{
+	CNWSCreature *cre;
+
+	// code overwritten by hook
+	asm("test %edi,%edi");
+	asm("jz suppressresponse");
+
+	// put eax (CNWSCreature*) in cre so we can work with it
+	asm("mov %%eax,%0" : "=r"(cre));
+
+	// obvious enough: if DM, don't list
+	if(cre->CreatureStats->IsDM)
+	{
+		asm("jmp suppressresponse");
+	}
+	// DMs are also PCs, but they've been handled above, so this is mortal PCs only
+	else if(cre->CreatureStats->IsPC)
+	{
+		asm("jmp sendresponse");
+	}
+	// 7 is DM possess, 8 is DM possess full powers, 0x7fffffff is WTF
+	else if(cre->MasterID == 7 || cre->MasterID == 8 || cre->MasterID == 0x7fffffff)
+	{
+		fixes.Log(4, "* NoDMHook Suppress (cre_master_id): %08lX\n", cre->MasterID);
+		asm("jmp suppressresponse");
+	}
+	else
+	{
+		fixes.Log(4, "* NoDMHook Send (default): %08lX\n", cre->MasterID);
+	}
+
+	asm("sendresponse:");
+	asm("pop %ebp"); // remove cre from stack
+	asm("pop %ebp"); // restore stack that gcc screwed up with function prologue
+	asm("mov $0x0807e4b3, %eax");
+	asm("jmp %eax");
+	asm("suppressresponse:");
+	asm("pop %ebp"); // remove cre from stack
+	asm("pop %ebp"); // restore stack that gcc screwed up with function prologue
+	asm("mov $0x0807e641, %eax");
+	asm("jmp %eax");
+}
+
+int CNWSCreature__DoDamage_hook(CNWSCreature *a1, unsigned int a2)
+{
+	fixes.Log(3, "DoDamage: %08lX, %d, Current: %d\n", a1->Object.ObjectID, a2, a1->Object.HitPoints);
+	if(a1->IsPC && a1->Object.HitPoints > 0 && a2 > a1->Object.HitPoints+5)
+	{
+		a2 = a1->Object.HitPoints + 5;
+		int ret = CNWSCreature__DoDamage(a1, a2);
+		fixes.Log(3, "Running script...\n");
+		RunScript("vir_oncdamage", a1->Object.ObjectID);
+		return ret;
+	}
+	return CNWSCreature__DoDamage(a1, a2);
+}
+
+int CNWSModule__AIUpdate_hook(void *a1)
+{
+	int ret = CNWSModule__AIUpdate_R(a1);
+	if(ret == 1 && !runLock)
+	{
+		runLock = 1;
+		int ret2 = CNWSModule__AIUpdate(a1);
+		runLock = 0;
+		fixes.Log(3, "CNWSModule__AIUpdate: %d\n", ret2);
+		return ret2;
+	}
+	return ret;
 }
 
 //#################### HOOK ####################
@@ -262,22 +357,31 @@ int FindHookFunctions()
 	fixes.Log(2, "BuyItem: %08lX\n", pBuyItem);
 	char *pMergeItems_RemoveItem = (char *) asmhelp.FindFunctionBySignature("89 C3 83 C4 10 85 DB 0F 84 8A 00 00 00 50 6A 01 FF B5 28 FE FF FF 53 E8");
 	fixes.Log(2, "MergeItems_RemoveItem: %08lX\n", pMergeItems_RemoveItem);
-	
+
 	char *pAIActionDialogObject_middle = (char *) asmhelp.FindFunctionBySignature("83 EC 08 8B 55 08 A1 ** ** ** ** FF 72 04 FF 70 04 E8 ** ** ** ** 8B 55  08 89 85 54 FF FF FF 8B 42 0C 89 14 24 FF 50 38 83 C4 10 85 C0 0F 84 85 02 00 00");
 	fixes.Log(2, "AIActionDialogObject_middle: %08lX\n", pAIActionDialogObject_middle);
 	char *pGetDead = (char *) asmhelp.FindFunctionBySignature("55 89 E5 56 53 83 EC 0C 8B 5D 08 8B 43 0C 53 FF 50 38 83 C4 10 85 C0 74 5B 83 EC 0C 8B 43 0C 53 FF 50 38 8B 90 DC 0A 00 00 83 C4 10 31 F6 85 D2 75 10 83 EC 0C 50 E8");
 	fixes.Log(2, "GetDead: %08lX\n", pGetDead);
+	char *pAIActionJumpToPoint = (char *) 0x08100BA4;
+	fixes.Log(2, "AIActionJumpToPoint: %08lX\n", pAIActionJumpToPoint);
+	*(dword*)&CNWSCreature__DoDamage = 0x0812E998;
+	fixes.Log(2, "CNWSCreature__DoDamage: %08lX\n", CNWSCreature__DoDamage);
+	*(dword*)&CNWSModule__AIUpdate = 0x081B3DEC;
+	fixes.Log(2, "CNWSModule__AIUpdate: %08lX\n", CNWSModule__AIUpdate);
+
+	*(dword*)&pRunScript = 0x08261F94;
 
 	char *pPlayModCharList = (char*)0x0819bcfc;
-	char *pPlayModCharListCode = "\xC2\x0C\x00";
+	char *pPlayModCharListCode = (char*)"\xC2\x0C\x00";
 	char *pNoClassesHook = (char*)0x0807e586;
-	char *pNoClassesHookCode = "\xB0\x00\x90\x90\x90\x90";
-	char *pNoPortraitHook1 = (char*)0x00807e551;
-	char *pNoPortraitHook1Code = "\x6A\x10\x6A\x00\x68\x30\x32\x5F\x00\x68\x6F\x62\x6F\x64\x68\x70\x6F\x5F\x6E\xFF\x75\x08\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90";
-	char *pNoPortraitHook2 = (char*)0x00807e57f;
-	char *pNoPortraitHook2Code = "\x18";
-	char *pNoPortraitHook3 = (char*)0x00807e52c;
-	char *pNoPortraitHook3Code = "\x66\xB8\xFF\xFF\x83\xC4\x0C\x90\x90";
+	char *pNoClassesHookCode = (char*)"\xB0\x00\x90\x90\x90\x90";
+	char *pNoPortraitHook1 = (char*)0x0807e551;
+	char *pNoPortraitHook1Code = (char*)"\x6A\x10\x6A\x00\x68\x30\x32\x5F\x00\x68\x6F\x62\x6F\x64\x68\x70\x6F\x5F\x6E\xFF\x75\x08\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90";
+	char *pNoPortraitHook2 = (char*)0x0807e57f;
+	char *pNoPortraitHook2Code = (char*)"\x18";
+	char *pNoPortraitHook3 = (char*)0x0807e52c;
+	char *pNoPortraitHook3Code = (char*)"\x66\xB8\xFF\xFF\x83\xC4\x0C\x90\x90";
+	char *pNoDMHook = (char*)0x0807e4ab;
 
 	if (pPlayModCharList && pNoClassesHook && pNoPortraitHook1 && pNoPortraitHook2)
 	{
@@ -302,6 +406,13 @@ int FindHookFunctions()
 			memcpy(pNoPortraitHook2, pNoPortraitHook2Code, 1);
 			memcpy(pNoPortraitHook3, pNoPortraitHook3Code, 9);
 			fixes.Log(2, "* Disguising portraits in character list.\n");
+		}
+
+		if(fixes.GetConfInteger("hide_charlist_dms"))
+		{
+			d_enable_write((dword) pNoDMHook);
+			pNoDMHook[0] = (char)0xE9;
+			*((int*)(&pNoDMHook[1])) = (int)&PlayerListNoDMHook - (int)pNoDMHook - 5;
 		}
 	}
 
@@ -341,11 +452,24 @@ int FindHookFunctions()
 		}
 		else fixes.Log(2, "Couldn't patch the AIActionDialogObject function\n");
 	}
-	
+
 	if(pGetIsMergeable && fixes.GetConfInteger("compare_vars"))
 	{
 		fixes.Log(2, "compare_vars = 1\n");
 		d_redirect((unsigned long)pGetIsMergeable, (unsigned long)GetIsMergeableHookProc, d_ret_code_merg, 9);
+	}
+
+	if(pGetIsMergeable && fixes.GetConfInteger("damage_tweak"))
+	{
+		fixes.Log(2, "damage_tweak = 1\n");
+		d_redirect((unsigned long)CNWSCreature__DoDamage, (unsigned long)CNWSCreature__DoDamage_hook, d_ret_code_dmg, 9);
+		*(dword*)&CNWSCreature__DoDamage = (dword)&d_ret_code_dmg;
+	}
+
+	if(CNWSModule__AIUpdate)
+	{
+		d_redirect((unsigned long)CNWSModule__AIUpdate, (unsigned long)CNWSModule__AIUpdate_hook, d_ret_code_mai, 9);
+		*(dword*)&CNWSModule__AIUpdate_R = (dword)&d_ret_code_mai;
 	}
 
 	if(pGetDead && fixes.GetConfInteger("hp_limit"))
@@ -356,6 +480,87 @@ int FindHookFunctions()
 		fixes.Log(2, "HP limit = %d\n", hpLimit);
 		pGetDead[0x6D] = hpLimit;
 	}
+
+	//Allow to move dead PCs
+	if(pAIActionJumpToPoint)
+	{
+		d_enable_write((dword) pAIActionJumpToPoint);
+		pAIActionJumpToPoint[0x18] = 0x90;
+		pAIActionJumpToPoint[0x19] = 0x90;
+		pAIActionJumpToPoint[0x29] = 0x90;
+		pAIActionJumpToPoint[0x2A] = 0x90;
+	}
+
+	// begin cap hooks
+	int cap_ability_inc = fixes.GetConfInteger("cap_ability_inc");
+	char* cap_ability_inc_h1 = (char*)0x08134a63;
+	char* cap_ability_inc_h2 = (char*)0x08134a6c;
+	int cap_ability_dec = fixes.GetConfInteger("cap_ability_dec");
+	char* cap_ability_dec_h1 = (char*)0x08134a76;
+	char* cap_ability_dec_h2 = (char*)0x08134a7f;
+	int cap_atkbonus_inc = fixes.GetConfInteger("cap_atkbonus_inc");
+	char* cap_atkbonus_inc_h1 = (char*)0x0813290f;
+	char* cap_atkbonus_inc_h2 = (char*)0x0813291f;
+	int cap_atkbonus_dec = fixes.GetConfInteger("cap_atkbonus_dec");
+	char* cap_atkbonus_dec_h1 = (char*)0x08132922;
+	char* cap_atkbonus_dec_h2 = (char*)0x0813292b;
+	int cap_skill_inc = fixes.GetConfInteger("cap_skill_inc");
+	char* cap_skill_inc_h1 = (char*)0x08135053;
+	char* cap_skill_inc_h2 = (char*)0x0813505c;
+	int cap_skill_dec = fixes.GetConfInteger("cap_skill_dec");
+	char* cap_skill_dec_h1 = (char*)0x08135066;
+	char* cap_skill_dec_h2 = (char*)0x0813506f;
+
+	if(cap_ability_inc > 0)
+	{
+		if(cap_ability_inc > 255) cap_ability_inc = 255;
+		d_enable_write((dword)cap_ability_inc_h1);
+		d_enable_write((dword)cap_ability_inc_h2);
+		*cap_ability_inc_h1 = (char)cap_ability_inc;
+		*cap_ability_inc_h2 = (uint8_t)cap_ability_inc;
+		fixes.Log(2, "Ability increase cap changed to %d\n", cap_ability_inc);
+	}
+	if(cap_ability_dec > 0)
+	{
+		if(cap_ability_dec > 255) cap_ability_dec = 255;
+		d_enable_write((dword)cap_ability_dec_h1);
+		*cap_ability_dec_h1 = (uint8_t)cap_ability_dec;
+		*cap_ability_dec_h2 = (uint8_t)cap_ability_dec;
+		fixes.Log(2, "Ability decrease cap changed to %d\n", cap_ability_dec);
+	}
+	if(cap_atkbonus_inc > 0)
+	{
+		if(cap_atkbonus_inc > 255) cap_atkbonus_inc = 255;
+		d_enable_write((dword)cap_atkbonus_inc_h1);
+		*cap_atkbonus_inc_h1 = (uint8_t)cap_atkbonus_inc;
+		*cap_atkbonus_inc_h2 = (uint8_t)cap_atkbonus_inc;
+		fixes.Log(2, "AB increase cap changed to %d\n", cap_atkbonus_inc);
+	}
+	if(cap_atkbonus_dec > 0)
+	{
+		if(cap_atkbonus_dec > 255) cap_atkbonus_dec = 255;
+		d_enable_write((dword)cap_atkbonus_dec_h1);
+		*cap_atkbonus_dec_h1 = (uint8_t)cap_atkbonus_dec;
+		*cap_atkbonus_dec_h2 = (uint8_t)cap_atkbonus_dec;
+		fixes.Log(2, "AB decrease cap changed to %d\n", cap_atkbonus_dec);
+	}
+	if(cap_skill_inc > 0)
+	{
+		if(cap_skill_inc > 255) cap_skill_inc = 255;
+		d_enable_write((dword)cap_skill_inc_h1);
+		*cap_skill_inc_h1 = (uint8_t)cap_skill_inc;
+		*cap_skill_inc_h2 = (uint8_t)cap_skill_inc;
+		fixes.Log(2, "Skill increase cap changed to %d\n", cap_skill_inc);
+	}
+	if(cap_skill_dec > 0)
+	{
+		if(cap_skill_dec > 255) cap_skill_dec = 255;
+		d_enable_write((dword)cap_skill_dec_h1);
+		*cap_skill_dec_h1 = (uint8_t)cap_skill_dec;
+		*cap_skill_dec_h2 = (uint8_t)cap_skill_dec;
+		fixes.Log(2, "Skill decrease cap changed to %d\n", cap_skill_dec);
+	}
+	// end cap hooks
 
 	if(!(pGetIsMergeable && pSplitItem_Copy && pBuyItem && pMergeItems_RemoveItem))
 	{

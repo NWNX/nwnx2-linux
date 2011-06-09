@@ -23,8 +23,10 @@
 #include "typedefs.h"
 
 
-
+void RunScript(char * sname, int ObjID);
 int FindHookFunctions();
 void InitConstants();
+
+extern char scriptRun;
 
 #endif
