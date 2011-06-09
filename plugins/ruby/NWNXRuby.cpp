@@ -56,6 +56,16 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 	Log(0,"(c) by virusman, 2008\n");
 
 	ruby_init();
+	
+	struct sigaction sa;
+	memset(&sa, 0, sizeof(struct sigaction));
+	sigemptyset(&sa.sa_mask);
+	sa.sa_handler = SIG_DFL;
+	sa.sa_flags   = 0;
+	sigaction(SIGSEGV, &sa, NULL);
+	sigaction(SIGABRT, &sa, NULL);
+	sigaction(SIGILL, &sa, NULL);
+	
 	ruby_script("embedded");
 	ruby_init_loadpath();
 	RubyInt_DefineConstants();
@@ -70,6 +80,7 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 	}
 	
 	cNWScript = RubyInt_InitNWScript();
+	rb_include_module(rb_cObject, cNWScript);
 
 	if (HookFunctions())
 	{
