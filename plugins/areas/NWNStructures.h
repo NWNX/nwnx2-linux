@@ -1,16 +1,19 @@
 #if !defined(NWNStructures_h_)
 #define NWNStructures_h_
 
+#include "CExoLinkedList.h"
+
 struct CGameObject;
 struct CExoArrayList;
 struct CExoString;
-struct CExoLinkedList;
 struct CResRef;
 struct CNWSModule;
 struct CNWSArea;
-struct CExoLocString;
+struct CExoLocString_st;
 struct CNWSObject;
 struct CNWSCreature;
+struct CNWSPlayerTURD;
+
 struct CGameObject
 {
   /* 0x0/0 */ unsigned long field_0;
@@ -28,42 +31,82 @@ struct CExoArrayList
 };
 struct CExoString
 {
-  /* 0x0/0 */ void *Text;
+  /* 0x0/0 */ char *Text;
   /* 0x4/4 */ unsigned long Length;
-};
-struct CExoLinkedList
-{
-  /* 0x0/0 */ void *Header;
-  /* 0x4/4 */ unsigned long Count;
 };
 struct CResRef
 {
   /* 0x0/0 */ char ResRef[16];
 };
+struct CExoLocString_st
+{
+  /* 0x0/0 */ CExoLinkedList List;
+};
 struct CNWSModule
 {
   /* 0x0/0 */ CGameObject GameObject;
   /* 0x10/16 */ unsigned long ModuleExpansionList;
-  /* 0x14/20 */ unsigned long field_30;
+  /* 0x14/20 */ unsigned long field_14;
   /* 0x18/24 */ unsigned long AreasResrefList;
   /* 0x1C/28 */ CExoArrayList Areas;
-  /* 0x4C/76 */ char rsvd1[40];
-  /* 0x4C/76 */ unsigned long field_68;
-  /* 0xD4/212 */ char rsvd2[132];
+  /* 0x28/40 */ unsigned long field_28;
+  /* 0x2C/44 */ unsigned long field_2C;
+  /* 0x30/48 */ unsigned long field_30;
+  /* 0x34/52 */ unsigned long field_34;
+  /* 0x38/56 */ unsigned long field_38;
+  /* 0x3C/60 */ unsigned long field_3C;
+  /* 0x40/64 */ unsigned long field_40;
+  /* 0x44/68 */ unsigned long field_44;
+  /* 0x48/72 */ unsigned long field_48;
+  /* 0x4C/76 */ CExoLinkedList TURDList;
+  /* 0xB8/184 */ char rsvd1[100];
+  /* 0xB8/184 */ CExoString OnHeartbeat;
+  /* 0xD4/212 */ char rsvd2[20];
   /* 0xD4/212 */ CExoString field_F0;
   /* 0xDC/220 */ CExoString field_F8;
   /* 0xE4/228 */ CExoString OnPlayerDeath;
   /* 0xEC/236 */ CExoString OnPlayerDying;
   /* 0xF4/244 */ CExoString field_110;
   /* 0x1CC/460 */ char rsvd3[208];
-  /* 0x1CC/460 */ unsigned long field_1E8;
-  /* 0x1D0/464 */ unsigned long field_1EC;
-  /* 0x1D4/468 */ unsigned long field_1F0;
-  /* 0x1D8/472 */ unsigned long field_1F4;
-  /* 0x1DC/476 */ unsigned long field_1F8;
-  /* 0x1E0/480 */ unsigned long field_1FC;
-  /* 0x1E4/484 */ unsigned long field_200;
+  /* 0x1CC/460 */ unsigned long field_1CC;
+  /* 0x1D0/464 */ unsigned long field_1D0;
+  /* 0x1D4/468 */ unsigned long field_1D4;
+  /* 0x1D8/472 */ unsigned long field_1D8;
+  /* 0x1DC/476 */ unsigned long field_1DC;
+  /* 0x1E0/480 */ unsigned long field_1E0;
+  /* 0x1E4/484 */ unsigned long field_1E4;
+  /* 0x1E8/488 */ unsigned long field_1E8;
+  /* 0x1EC/492 */ unsigned long field_1EC;
+  /* 0x1F0/496 */ unsigned long field_1F0;
+  /* 0x1F4/500 */ unsigned long field_1F4;
+  /* 0x1F8/504 */ unsigned long field_1F8;
+  /* 0x1FC/508 */ unsigned long field_1FC;
+  /* 0x200/512 */ unsigned long field_200;
+  /* 0x204/516 */ unsigned long field_204;
+  /* 0x208/520 */ unsigned long field_208;
+  /* 0x20C/524 */ unsigned long field_20C;
+  /* 0x210/528 */ unsigned long field_210;
+  /* 0x214/532 */ unsigned long field_214;
+  /* 0x218/536 */ unsigned long field_218;
+  /* 0x21C/540 */ unsigned long field_21C;
+  /* 0x220/544 */ unsigned long field_220;
+  /* 0x224/548 */ unsigned long SaveGameERF;
+  /* 0x228/552 */ unsigned long field_228;
+  /* 0x22C/556 */ unsigned long field_22C;
+  /* 0x230/560 */ unsigned long field_230;
+  /* 0x234/564 */ unsigned long field_234;
+  /* 0x238/568 */ unsigned long field_238;
+  /* 0x23C/572 */ unsigned long field_23C;
+  /* 0x240/576 */ unsigned long field_240;
+  /* 0x244/580 */ unsigned long field_244;
+  /* 0x248/584 */ unsigned long field_248;
+  /* 0x24C/588 */ unsigned long field_24C;
+  /* 0x250/592 */ unsigned long field_250;
+  /* 0x254/596 */ unsigned long field_254;
+  /* 0x258/600 */ unsigned long field_258;
+  /* 0x25C/604 */ unsigned long field_25C;
 };
+
 struct CNWSArea
 {
   /* 0x0/0 */ unsigned long field_0;
@@ -98,10 +141,10 @@ struct CNWSArea
   /* 0xBC/188 */ unsigned long field_BC;
   /* 0xC0/192 */ unsigned long CResARE;
   /* 0xC4/196 */ CGameObject GameObject;
-  /* 0xFC/252 */ char rsvd2[40];
-  /* 0xFC/252 */ unsigned long field_FC;
-  /* 0x100/256 */ unsigned long field_100;
-  /* 0x104/260 */ unsigned long field_104;
+  /* 0xD4/212 */ unsigned long NumPlayers;
+  /* 0xFC/252 */ char rsvd2[36];
+  /* 0xFC/252 */ CExoLocString_st Name;
+  /* 0x104/260 */ unsigned long Tag;
   /* 0x120/288 */ char rsvd3[24];
   /* 0x120/288 */ unsigned long field_120;
   /* 0x154/340 */ char rsvd4[48];
@@ -122,10 +165,6 @@ struct CNWSArea
   /* 0x208/520 */ unsigned long field_208;
   /* 0x20C/524 */ unsigned long field_20C;
 };
-struct CExoLocString
-{
-  /* 0x0/0 */ CExoLinkedList List;
-};
 struct CNWSObject
 {
   /* 0x0/0 */ unsigned long field_0;
@@ -135,7 +174,7 @@ struct CNWSObject
   /* 0xA/10 */ char field_A;
   /* 0xB/11 */ char field_B;
   /* 0xC/12 */ void *Methods;
-  /* 0x10/16 */ CExoLocString LocString;
+  /* 0x10/16 */ CExoLocString_st LocString;
   /* 0x18/24 */ unsigned short field_18;
   /* 0x1A/26 */ unsigned short field_1A;
   /* 0x1C/28 */ void *vtbl2;
@@ -275,6 +314,22 @@ struct CNWSCreature
   /* 0xC6C/3180 */ unsigned long field_C6C;
   /* 0xC70/3184 */ unsigned long field_C70;
 };
+struct CNWSPlayerTURD
+{
+  /* 0x0/0 */ CNWSObject Object;
+  /* 0x1C4/452 */ CExoString CommntyName;
+  /* 0x1CC/460 */ CExoString FirstName;
+  /* 0x1D4/468 */ CExoString LastName;
+  /* 0x1DC/476 */ unsigned long PlayerID;
+  /* 0x1E0/480 */ unsigned long CalendarDay;
+  /* 0x1E4/484 */ unsigned long TimeOfDay;
+  /* 0x1E8/488 */ void *ReputationList;
+  /* 0x1EC/492 */ void *PersonalRep;
+  /* 0x1F0/496 */ unsigned long MapNumAreas;
+  /* 0x1F4/500 */ dword *MapAreasData;
+  /* 0x1F8/504 */ void **MapData;
+};
+
 
 #endif
 
