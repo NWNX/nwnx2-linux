@@ -42,15 +42,18 @@ LIBRARY = \
     lib/nx_signature.o
 
 
-all: nwnx2.so subdirs
+all: nwnx2.so subdirs override
 
 nwnx2.so: nwnx2lib.o NWNXBase.o modules.o lists.o gline.o $(LIBRARY)
 	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 # always execute regardless of existance or timestamp
-.PHONY: clean subdirs $(SUBDIRS)
+.PHONY: clean subdirs override $(SUBDIRS)
 
 subdirs: $(SUBDIRS)
+
+override:
+	make -C override all
 
 $(SUBDIRS):
 	$(MAKE) -C $@ PLUGIN_CFLAGS="$(CFLAGS)" PLUGIN_CPPFLAGS="$(CPPFLAGS)" PLUGIN_LFLAGS="$(LFLAGS)"
@@ -58,6 +61,7 @@ $(SUBDIRS):
 clean:
 	for i in $(SUBDIRS); do $(MAKE) -C $$i $@; done
 	/bin/rm -f *.o *.so lib/*.o *~
+	make -C override clean
 
 install: all
 	for i in $(SUBDIRS); do $(MAKE) -C $$i $@; done
