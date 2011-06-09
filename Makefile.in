@@ -25,6 +25,7 @@ SUBDIRS = \
     plugins/resman     \
     plugins/spells     \
     plugins/structs    \
+    plugins/system     \
     plugins/tmi        \
     plugins/tweaks     \
     plugins/visibility \
