@@ -21,41 +21,30 @@
 #include "NWNXWeapons.h"
 
 
-int Hook_GetUseMonkAttackTables (CNWSCreatureStats *info, int unarmedonly) {
-    int monk = nwn_GetLevelByClass(info, CLASS_TYPE_MONK);
+int Hook_GetDamageBonusAdjustment (CNWSCreatureStats *info, CNWSItem *weapon) {
+    int baseitem, adj = 0;
 
-    if (monk < 1                    ||
-        info->cs_ac_armour_base > 0 ||
-        info->cs_ac_shield_base > 0)
+    if (info == NULL)
         return 0;
 
-    CNWSItem *weapon = CNWSInventory__GetItemInSlot(info->cs_original->cre_equipment,
-        EQUIPMENT_SLOT_RIGHTHAND);
+    baseitem = (weapon == NULL ? BASE_ITEM_GLOVES : weapon->it_baseitem);
 
-    if (weapon == NULL)
-        return 1;
+    if (CNWSCreatureStats__GetEpicWeaponSpecialization(info, weapon))
+        adj += 4;
 
-    if (unarmedonly                                              ||
-        weapon->it_baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE ||
-        Table_WeaponMonk[weapon->it_baseitem] < 1)
-        return 0;
+    if (Table_WeaponGreaterSpecialization[baseitem] > 0 &&
+        CNWSCreatureStats__HasFeat(info, Table_WeaponGreaterSpecialization[baseitem]))
+        adj += Table_WeaponOptions[NWNX_WEAPONS_OPT_GRTSPEC_DAM_BONUS];
 
-#if 0
-    if (monk < Table_WeaponMonk[weapon->it_baseitem]);
-        return 0;
+    if (Table_WeaponLegendarySpecialization[baseitem] > 0 &&
+        CNWSCreatureStats__HasFeat(info, Table_WeaponLegendarySpecialization[baseitem]))
+        adj += Table_WeaponOptions[NWNX_WEAPONS_OPT_LEGSPEC_DAM_BONUS];
 
-    weapon = CNWSInventory__GetItemInSlot(info->cs_original->cre_equipment,
-        EQUIPMENT_SLOT_LEFTHAND);
+    if (Table_WeaponParagonSpecialization[baseitem] > 0 &&
+        CNWSCreatureStats__HasFeat(info, Table_WeaponParagonSpecialization[baseitem]))
+        adj += Table_WeaponOptions[NWNX_WEAPONS_OPT_PARSPEC_DAM_BONUS];
 
-    if (weapon == NULL)
-        return 1;
-
-    if (weapon->it_baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE ||
-        Table_WeaponMonk[weapon->it_baseitem] < 1)
-        return 0;
-#endif
-
-    return (monk >= Table_WeaponMonk[weapon->it_baseitem]);
+    return Local_GetDamageBonusAdjustment(info, weapon, adj);
 }
 
 

@@ -1,6 +1,6 @@
 
 /***************************************************************************
-    ExaltReplace.c - Implementation of NWN combat replacement functions
+    CombatTables.h - NWN Combat Tables
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
@@ -20,24 +20,8 @@
 
 #include "NWNXWeapons.h"
 
-
-bool GetIsUnarmedWeapon (CNWSItem *weapon) {
-    if (weapon == NULL)
-        return true;
-
-    return (weapon->it_baseitem == BASE_ITEM_GLOVES       ||
-            weapon->it_baseitem == BASE_ITEM_BRACER       ||
-            weapon->it_baseitem == BASE_ITEM_CSLASHWEAPON ||
-            weapon->it_baseitem == BASE_ITEM_CPIERCWEAPON ||
-            weapon->it_baseitem == BASE_ITEM_CBLUDGWEAPON ||
-            weapon->it_baseitem == BASE_ITEM_CSLSHPRCWEAP
-#ifdef NWNX_WEAPONS_HG
-                                                          ||
-            weapon->it_baseitem == 376                    || /* BASE_ITEM_CEP_GLOVES_SPIKED */
-            weapon->it_baseitem == 377                       /* BASE_ITEM_CEP_GLOVES_BLADED */
-#endif
-           );
-}
-
+uint16_t Table_WeaponIteration[NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE] = {
+    [BASE_ITEM_GLOVES]                    = 0,
+};
 
 /* vim: set sw=4: */

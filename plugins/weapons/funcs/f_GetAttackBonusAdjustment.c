@@ -1,6 +1,6 @@
 
 /***************************************************************************
-    ExaltReplace.c - Implementation of NWN combat replacement functions
+    NWNXFuncs.cpp - Implementation of the CNWNXFuncs class.
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
@@ -21,22 +21,26 @@
 #include "NWNXWeapons.h"
 
 
-bool GetIsUnarmedWeapon (CNWSItem *weapon) {
-    if (weapon == NULL)
-        return true;
+void Func_GetAttackBonusAdjustment (CGameObject *ob, char *value) {
+    int adj, ranged = atoi(value);
+    CGameObject *wob;
+    CNWSCreature *attacker;
 
-    return (weapon->it_baseitem == BASE_ITEM_GLOVES       ||
-            weapon->it_baseitem == BASE_ITEM_BRACER       ||
-            weapon->it_baseitem == BASE_ITEM_CSLASHWEAPON ||
-            weapon->it_baseitem == BASE_ITEM_CPIERCWEAPON ||
-            weapon->it_baseitem == BASE_ITEM_CBLUDGWEAPON ||
-            weapon->it_baseitem == BASE_ITEM_CSLSHPRCWEAP
-#ifdef NWNX_WEAPONS_HG
-                                                          ||
-            weapon->it_baseitem == 376                    || /* BASE_ITEM_CEP_GLOVES_SPIKED */
-            weapon->it_baseitem == 377                       /* BASE_ITEM_CEP_GLOVES_BLADED */
-#endif
-           );
+    if (value[1] != ' '                                    ||
+        ob == NULL                                         ||
+        (attacker = ob->vtable->AsNWSCreature(ob)) == NULL) {
+
+        adj = 0;
+    } else {
+        CNWSItem *weapon = NULL;
+
+        if ((wob = nwn_GetObjectByStringID(value + 2)) != NULL)
+            weapon = wob->vtable->AsNWSItem(wob);
+
+        adj = Hook_GetAttackBonusAdjustment(attacker->cre_stats, NULL, weapon, ranged);
+    }
+
+    snprintf(value, strlen(value), "%d", adj);
 }
 
 

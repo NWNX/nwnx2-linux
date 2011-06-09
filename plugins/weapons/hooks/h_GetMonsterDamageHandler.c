@@ -20,23 +20,35 @@
 
 #include "NWNXWeapons.h"
 
+static volatile uint32_t Hook_GetWeaponAttackType;
+static volatile uint32_t Hook_GetMonsterDamageExists;
+static volatile uint32_t Hook_GetMonsterDamageReturn;
 
-bool GetIsUnarmedWeapon (CNWSItem *weapon) {
-    if (weapon == NULL)
-        return true;
 
-    return (weapon->it_baseitem == BASE_ITEM_GLOVES       ||
-            weapon->it_baseitem == BASE_ITEM_BRACER       ||
-            weapon->it_baseitem == BASE_ITEM_CSLASHWEAPON ||
-            weapon->it_baseitem == BASE_ITEM_CPIERCWEAPON ||
-            weapon->it_baseitem == BASE_ITEM_CBLUDGWEAPON ||
-            weapon->it_baseitem == BASE_ITEM_CSLSHPRCWEAP
-#ifdef NWNX_WEAPONS_HG
-                                                          ||
-            weapon->it_baseitem == 376                    || /* BASE_ITEM_CEP_GLOVES_SPIKED */
-            weapon->it_baseitem == 377                       /* BASE_ITEM_CEP_GLOVES_BLADED */
-#endif
-           );
+__attribute__((noinline))
+static uint32_t Hook_GetMonsterDamageHandlerReturn (void) {
+    if (Hook_GetMonsterDamageExists)
+        return 0x0814AB07;
+
+    if (Hook_GetWeaponAttackType)
+        return 0x0814ACA8;
+
+    return 0x0814B049;
+}
+
+void Hook_GetMonsterDamageHandler (void) {
+    asm("leave");
+
+    asm("pushl %ebx");
+    asm("popl Hook_GetWeaponAttackType");
+
+    asm("pushl %eax");
+    asm("popl Hook_GetMonsterDamageExists");
+
+    Hook_GetMonsterDamageReturn = Hook_GetMonsterDamageHandlerReturn();
+
+    asm("pushl %eax");
+    asm("ret");
 }
 
 

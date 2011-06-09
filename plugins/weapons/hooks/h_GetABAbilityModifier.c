@@ -28,7 +28,7 @@ volatile int Hook_ABAM_Ranged;
 
 
 __attribute__((noinline))
-static int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon, int ranged) {
+int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon, int ranged) {
     int baseitem, dexmod, ab_abil = 0, ab_feats = 0;
 
     if (attacker == NULL)
@@ -75,6 +75,28 @@ static int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreat
         Table_WeaponAbility[baseitem][ABILITY_CHARISMA] > 0     && 
         CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_CHARISMA]))
         ab_abil = attacker->cs_cha_mod;
+
+    if (Table_WeaponGreaterFocus[baseitem] > 0 &&
+        CNWSCreatureStats__HasFeat(attacker, Table_WeaponGreaterFocus[baseitem]))
+        ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS];
+
+    if (Table_WeaponLegendaryFocus[baseitem] > 0 &&
+        CNWSCreatureStats__HasFeat(attacker, Table_WeaponLegendaryFocus[baseitem])) {
+
+        ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS];
+
+        if (CNWSCreatureStats__HasFeat(attacker, FEAT_EPIC_PROWESS))
+            ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_LEGFOCUS_AB_EPBONUS];
+    }
+
+    if (Table_WeaponParagonFocus[baseitem] > 0 &&
+        CNWSCreatureStats__HasFeat(attacker, Table_WeaponParagonFocus[baseitem])) {
+
+        ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_PARFOCUS_AB_BONUS];
+
+        if (CNWSCreatureStats__HasFeat(attacker, FEAT_EPIC_PROWESS))
+            ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_PARFOCUS_AB_EPBONUS];
+    }
 
     /* apply local adjustments (if any) */
     return Local_GetAttackBonusAdjustment(attacker, target, weapon, ranged, ab_abil, ab_feats);
