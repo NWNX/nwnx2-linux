@@ -55,6 +55,7 @@ void (*pActionUseItem)(void *pCreature, dword nItemObjID, dword nPropertyNum, dw
 void (*pDisconnectPlayer)(void *pClientList, dword nPlayerID, dword nStringRef, dword arg_C);
 void (*pRemoveObjectFromLocation)(void *pObject, dword arg_4);
 void (*pAddObjectToLimboList)(void *pModule, dword nObjID);
+void (*pSetTag)(void *pObject, CExoString *sNewTag);
 
 //Constants:
 
@@ -75,6 +76,15 @@ unsigned char d_jmp_code[] = "\x68\x60\x70\x80\x90"       /* push dword 0x908070
 unsigned char d_ret_code[0x20];
 
 unsigned long lastRet;
+
+
+CExoString *NewCExoString(char *str)
+{
+	CExoString *ret = (CExoString *) malloc(sizeof(CExoString));
+	ret->Text = strdup(str);
+	ret->Length = strlen(str)+1;
+	return ret;
+}
 
 CServerExoApp *GetServerExoApp()
 {
@@ -333,6 +343,11 @@ dword GetItemByPosition(void *pObject, dword nPos)
 	return pItemRepository->GetItemByPosition(nPos);
 }
 
+void CNWSObject_SetTag(CNWSObject *oObject, CExoString *sNewTag)
+{
+	pSetTag(oObject, sNewTag);
+}
+
 int FindFunctions()
 {
 	//Version check
@@ -392,6 +407,9 @@ int FindFunctions()
 	if(!pAddObjectToLimboList)
 		*(dword*)&pAddObjectToLimboList = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 0C 8B 75 08 8D 86 18 02 00 00 31 DB 89 45 F0 3B 9E 1C 02 00 00");
 	functions.Log(2, "AddObjectToLimboList: %08lX\n", pAddObjectToLimboList);
+	*(dword*)&pSetTag = 0x081D5EE8;
+	functions.Log(2, "SetTag: %08lX\n", pSetTag);
+
 
 	if(!(pGetFaction && pGetFactionEntry && pChangeFaction && pGetObjectFactionEntry &&
 		pGetFactionLeader && pGetZCoordinate && pGetAreaByID && pGetIsWalkable && pGetModule &&
