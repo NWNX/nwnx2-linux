@@ -1,0 +1,29 @@
+36 - invur
+50 - immortal
+37 - force rest
+34 - goto
+35 - possess
+41 - possess dm
+43 - toggle AI
+44 - toggle lock
+46 - send event enter
+47 - send event exit
+33 - kill
+32 - heal
+80 - jump to point
+140 - alig to good
+141 - alig to evil
+142 - alig to law
+143 - alig to chaos
+131 - jump all players to point
+132 - Modify*/Set* creature stats
+134 - SetVar*
+133 - GetVar*
+139 - DumpVars
+135 - settime
+48 - appear
+49 - disappear
+17 - change difficulty
+3 - find by tag
+39 - find next
+1 - get objects list in area

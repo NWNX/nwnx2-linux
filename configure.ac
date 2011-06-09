@@ -113,6 +113,7 @@ AC_CONFIG_FILES([
         plugins/chat/Makefile
         plugins/db/Makefile
         plugins/defenses/Makefile
+        plugins/dmactions/Makefile
         plugins/events/Makefile
         plugins/fixes/Makefile
         plugins/funcs/Makefile

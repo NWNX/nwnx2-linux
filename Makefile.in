@@ -12,6 +12,7 @@ SUBDIRS = \
     plugins/chat       \
     plugins/db         \
     plugins/defenses   \
+    plugins/dmactions  \
     plugins/events     \
     plugins/fixes      \
     plugins/funcs      \
