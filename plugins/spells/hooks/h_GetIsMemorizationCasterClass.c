@@ -22,6 +22,9 @@
 
 
 volatile uintptr_t Hook_SCM1_Return;
+volatile uintptr_t Hook_SCM2_Return;
+volatile uintptr_t Hook_SCM3_Return;
+volatile uintptr_t Hook_SCM4_Return;
 static volatile int Hook_SCM_Class;
 
 
@@ -44,6 +47,54 @@ void Hook_GetIsMemorizationCasterClass1 (void) {
     asm("cmp $0x1, %eax");
 
     asm("push Hook_SCM1_Return");
+    asm("ret");
+}
+
+
+void Hook_GetIsMemorizationCasterClass2 (void) {
+    asm("leave");
+
+    asm("movzbl %al, %eax");
+    asm("movl %eax, Hook_SCM_Class");
+
+    Hook_SCM_Class = Hook_GetIsMemorizationCasterClass(Hook_SCM_Class);
+
+    /* The result of Hook_GetIsMemorizationCasterClass() is in %eax */
+    asm("cmp $0x1, %eax");
+
+    asm("push Hook_SCM2_Return");
+    asm("ret");
+}
+
+
+void Hook_GetIsMemorizationCasterClass3 (void) {
+    asm("leave");
+
+    asm("movzbl %al, %eax");
+    asm("movl %eax, Hook_SCM_Class");
+
+    Hook_SCM_Class = Hook_GetIsMemorizationCasterClass(Hook_SCM_Class);
+
+    /* The result of Hook_GetIsMemorizationCasterClass() is in %eax */
+    asm("cmp $0x1, %eax");
+
+    asm("push Hook_SCM3_Return");
+    asm("ret");
+}
+
+
+void Hook_GetIsMemorizationCasterClass4 (void) {
+    asm("leave");
+
+    asm("movzbl %bl, %eax");
+    asm("movl %eax, Hook_SCM_Class");
+
+    Hook_SCM_Class = Hook_GetIsMemorizationCasterClass(Hook_SCM_Class);
+
+    /* The result of Hook_GetIsMemorizationCasterClass() is in %eax */
+    asm("cmp $0x1, %eax");
+
+    asm("push Hook_SCM4_Return");
     asm("ret");
 }
 

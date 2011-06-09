@@ -32,6 +32,9 @@
 
 static unsigned char *Ref_CasterAbility1;
 static unsigned char *Ref_CasterMemorize1;
+static unsigned char *Ref_CasterMemorize2;
+static unsigned char *Ref_CasterMemorize3;
+static unsigned char *Ref_CasterMemorize4;
 static unsigned char *Ref_CasterUnlimBook1;
 
 static unsigned char *Ref_IdentifySpell;
@@ -47,6 +50,9 @@ static struct SpellSignatureTable {
 
     NWNX_SPELLS_SIG(Ref_CasterAbility1,        "8A 55 E5 31 C0 3A ** ** ** ** ** 74 08 3A ** ** ** ** ** 75 13 83 EC 0C 0F B6 B7 03"),
     NWNX_SPELLS_SIG(Ref_CasterMemorize1,       "C1 E0 02 29 D0 8B 5D 08 8A 94 C3 B2 01 00 00 3A 15 ** ** ** ** 74 20 3A 15"),
+    NWNX_SPELLS_SIG(Ref_CasterMemorize2,       "83 EC 08 0F B6 BD 54 FF FF FF 57 52 E8 ** ** ** ** 83 C4 10 3A ** ** ** ** ** 0F"),
+    NWNX_SPELLS_SIG(Ref_CasterMemorize3,       "83 BC D0 54 02 00 00 01 0F 85 ** ** ** ** 8A 45 DA 3A 05 ** ** ** ** 74 24 3A 05"),
+    NWNX_SPELLS_SIG(Ref_CasterMemorize4,       "83 C4 10 83 BC D0 54 02 00 00 01 0F 85 ** ** ** ** 3A 1D ** ** ** ** 74 24 3A 1D"),
     NWNX_SPELLS_SIG(Ref_CasterUnlimBook1,      "0F B6 D3 8D 04 D2 C1 E0 02 29 D0 8A 84 C7 B2 01 00 00 3A 05 ** ** ** ** 74 17 52"),
 
     NWNX_SPELLS_SIG(Ref_IdentifySpell,         "8B 85 78 FF FF FF 0F B6 58 47 56 6A 14 6A 01 FF"),
@@ -178,6 +184,21 @@ bool CNWNXSpells::OnCreate (gline *config, const char *LogDir) {
 #endif
 
 
+#if 0
+    /* override spell levels for classes */
+    /* XXX: clean this up */
+    if (1) {
+        extern volatile uintptr_t Hook_CSL_ReturnCheck, Hook_CSL_ReturnDone;
+        unsigned char *p = (unsigned char *)0x081D8923;
+
+        nx_hook_function((void *)p, (void *)Hook_GetSpellLevel, 7, NX_HOOK_DIRECT);
+
+        Hook_CSL_ReturnCheck = 0x081D892D;
+        Hook_CSL_ReturnDone  = 0x081D8977;
+    }
+#endif
+
+
     /* add the possibility of additional caster classes */
     if (Ref_CasterAbility1 != NULL) {
         extern volatile uintptr_t Hook_SCA1_Return;
@@ -193,6 +214,30 @@ bool CNWNXSpells::OnCreate (gline *config, const char *LogDir) {
         Hook_SCM1_Return = (uintptr_t)(Ref_CasterMemorize1 + 53);
 
         nx_hook_function((void *)(Ref_CasterMemorize1 + 15), (void *)Hook_GetIsMemorizationCasterClass1, 5, NX_HOOK_DIRECT);
+    }
+
+    if (Ref_CasterMemorize2 != NULL) {
+        extern volatile uintptr_t Hook_SCM2_Return;
+
+        Hook_SCM2_Return = (uintptr_t)(Ref_CasterMemorize2 + 126);
+
+        nx_hook_function((void *)(Ref_CasterMemorize2 + 20), (void *)Hook_GetIsMemorizationCasterClass2, 5, NX_HOOK_DIRECT);
+    }
+
+    if (Ref_CasterMemorize3 != NULL) {
+        extern volatile uintptr_t Hook_SCM3_Return;
+
+        Hook_SCM3_Return = (uintptr_t)(Ref_CasterMemorize3 + 47);
+
+        nx_hook_function((void *)(Ref_CasterMemorize3 + 17), (void *)Hook_GetIsMemorizationCasterClass3, 5, NX_HOOK_DIRECT);
+    }
+
+    if (Ref_CasterMemorize4 != NULL) {
+        extern volatile uintptr_t Hook_SCM4_Return;
+
+        Hook_SCM4_Return = (uintptr_t)(Ref_CasterMemorize4 + 47);
+
+        nx_hook_function((void *)(Ref_CasterMemorize4 + 17), (void *)Hook_GetIsMemorizationCasterClass4, 5, NX_HOOK_DIRECT);
     }
 
     if (Ref_CasterUnlimBook1 != NULL) {

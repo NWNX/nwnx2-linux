@@ -30,40 +30,52 @@ static volatile int Hook_SCA_Ability, Hook_SCA_Modifier;
 
 __attribute__((noinline))
 static int Hook_GetCasterClassAbility (CNWSCreatureStats *stats, int cl) {
-    int abil;
+    int abil, force = 0;
 
     if (cl < 0 || cl > 255)
         cl = 255;
 
+#ifdef NWNX_SPELLS_HG
+    {
+        int i, level = 0;
+
+        for (i = 0; i < stats->cs_classes_len; i++)
+            level += stats->cs_classes[i].cl_level;
+
+        if (level >= 40)
+            force = 1;
+    }
+#endif
+
     switch (abil = Table_SpellAbilities[cl] - 1) {
         case ABILITY_STRENGTH:
             Hook_SCA_Ability  = CNWSCreatureStats__GetSTRStat(stats);
-            Hook_SCA_Modifier = stats->cs_str_mod;
+            Hook_SCA_Modifier = (force ? (stats->cs_str / 2) + 1 : stats->cs_str_mod);
             break;
 
         case ABILITY_DEXTERITY:
             Hook_SCA_Ability  = CNWSCreatureStats__GetDEXStat(stats);
-            Hook_SCA_Modifier = stats->cs_dex_mod;
+            Hook_SCA_Modifier = (force ? (stats->cs_dex / 2) + 1 : CNWSCreatureStats__GetDEXMod(stats, 0));
             break;
 
         case ABILITY_CONSTITUTION:
             Hook_SCA_Ability  = CNWSCreatureStats__GetCONStat(stats);
-            Hook_SCA_Modifier = stats->cs_con_mod;
+            Hook_SCA_Modifier = (force ? (stats->cs_con / 2) + 1 : stats->cs_con_mod);
             break;
 
         case ABILITY_INTELLIGENCE:
             Hook_SCA_Ability  = CNWSCreatureStats__GetINTStat(stats);
-            Hook_SCA_Modifier = stats->cs_int_mod;
+            Hook_SCA_Modifier = (force ? (stats->cs_int / 2) + 1 : stats->cs_int_mod);
             break;
 
         case ABILITY_WISDOM:
             Hook_SCA_Ability  = CNWSCreatureStats__GetWISStat(stats);
-            Hook_SCA_Modifier = stats->cs_wis_mod;
+            Hook_SCA_Modifier = (force ? (stats->cs_wis / 2) + 1 : stats->cs_wis_mod);
             break;
 
         case ABILITY_CHARISMA:
             Hook_SCA_Ability  = CNWSCreatureStats__GetCHAStat(stats);
-            Hook_SCA_Modifier = stats->cs_cha_mod;
+            Hook_SCA_Modifier = (force ? (stats->cs_cha / 2) + 1 : stats->cs_cha_mod);
             break;
 
         default:

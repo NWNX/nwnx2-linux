@@ -33,32 +33,145 @@ static volatile nwn_objid_t Hook_SPR_Target;
 __attribute__((noinline))
 static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_objid_t target_id) {
     float ret;
+    bool no_bonus = false;
+#ifdef NWNX_SPELLS_HG
     CGameObject *ob;
     CNWSCreature *target;
+#endif // (NWNX_SPELLS_HG)
 
     if (range == NULL || range->text == NULL)
         return 0.0;
 
     switch (*(range->text)) {
-        case 'T': ret = 2.25; break;
-        case 'S': ret = 8.00; break;
-        case 'M': ret = 20.0; break;
-        case 'L': ret = 40.0; break;
+        case 'T': ret =  2.25; break;
+        case 's': no_bonus = true;
+        case 'S': ret =  8.00; break;
+        case 'm': no_bonus = true;
+        case 'M': ret = 20.00; break;
+        case 'L': ret = 40.00; break;
+        case 'P': ret =  0.00; break;
+
+#ifdef NWNX_SPELLS_HG
+        case 'a':
+        case 'c':
+        case 'd':
+        case 'e':
+        case 'i':
+        case 'n':
+        case 't':
+        case 'v':
+        case 'p': {
+            u_int16_t feats[3] = { 0, 0, 0 };
+
+            switch (*(range->text)) {
+                case 'a':
+                    feats[0] = FEAT_SPELL_FOCUS_ABJURATION;
+                    feats[1] = FEAT_GREATER_SPELL_FOCUS_ABJURATION;
+                    feats[2] = FEAT_EPIC_SPELL_FOCUS_ABJURATION;
+                    break;
+
+                case 'c':
+                    feats[0] = FEAT_SPELL_FOCUS_CONJURATION;
+                    feats[1] = FEAT_GREATER_SPELL_FOCUS_CONJURATION;
+                    feats[2] = FEAT_EPIC_SPELL_FOCUS_CONJURATION;
+                    break;
+
+                case 'd':
+                    feats[0] = FEAT_SPELL_FOCUS_DIVINATION;
+                    feats[1] = FEAT_GREATER_SPELL_FOCUS_DIVINATION;
+                    feats[2] = FEAT_EPIC_SPELL_FOCUS_DIVINATION;
+                    break;
+
+                case 'e':
+                    feats[0] = FEAT_SPELL_FOCUS_ENCHANTMENT;
+                    feats[1] = FEAT_GREATER_SPELL_FOCUS_ENCHANTMENT;
+                    feats[2] = FEAT_EPIC_SPELL_FOCUS_ENCHANTMENT;
+                    break;
+
+                case 'i':
+                    feats[0] = FEAT_SPELL_FOCUS_ILLUSION;
+                    feats[1] = FEAT_GREATER_SPELL_FOCUS_ILLUSION;
+                    feats[2] = FEAT_EPIC_SPELL_FOCUS_ILLUSION;
+                    break;
+
+                case 'n':
+                    feats[0] = FEAT_SPELL_FOCUS_NECROMANCY;
+                    feats[1] = FEAT_GREATER_SPELL_FOCUS_NECROMANCY;
+                    feats[2] = FEAT_EPIC_SPELL_FOCUS_NECROMANCY;
+                    break;
+
+                case 't':
+                    feats[0] = FEAT_SPELL_FOCUS_TRANSMUTATION;
+                    feats[1] = FEAT_GREATER_SPELL_FOCUS_TRANSMUTATION;
+                    feats[2] = FEAT_EPIC_SPELL_FOCUS_TRANSMUTATION;
+                    break;
+
+                case 'v':
+                    feats[0] = FEAT_SPELL_FOCUS_EVOCATION;
+                    feats[1] = FEAT_GREATER_SPELL_FOCUS_EVOCATION;
+                    feats[2] = FEAT_EPIC_SPELL_FOCUS_EVOCATION;
+                    break;
+
+                case 'p':
+                    feats[0] = FEAT_SPELL_PENETRATION;
+                    feats[1] = FEAT_GREATER_SPELL_PENETRATION;
+                    feats[2] = FEAT_EPIC_SPELL_PENETRATION;
+                    break;
+
+                default: return 0.0;
+            }
+
+            if (caster != NULL                               &&
+                caster->obj.obj_type == OBJECT_TYPE_CREATURE &&
+                caster->cre_stats != NULL) {
+
+                if (CNWSCreatureStats__HasFeat(caster->cre_stats, feats[2]))
+                    ret = 40.0;
+                else if (CNWSCreatureStats__HasFeat(caster->cre_stats, feats[1]))
+                    ret = 20.0;
+                else if (CNWSCreatureStats__HasFeat(caster->cre_stats, feats[0]))
+                    ret = 8.0;
+                else
+                    ret = 2.25;
+            } else
+                ret = 2.25;
+
+        }
+        break;
+#endif
+
         default:  ret = 0.0; break;
     }
 
-    /* increase spell range when someone is hit by Targeting Ray */
-    if (target_id != OBJECT_INVALID                      &&
-        (ob = nwn_GetObjectByID(target_id)) != NULL      &&
-        (target = ob->vtable->AsNWSCreature(ob)) != NULL &&
-        target->cre_stats != NULL) {
+    /* TODO: check if spell is being cast from an item */
+
+#ifdef NWNX_SPELLS_HG
+    if (!no_bonus) {
+        /* increase spell range with Extraordinary Spell Reach feat */
+        if (caster != NULL                               &&
+            caster->obj.obj_type == OBJECT_TYPE_CREATURE &&
+            caster->cre_is_pc                            &&
+            caster->cre_stats != NULL                    &&
+            CNWSCreatureStats__HasFeat(caster->cre_stats, 2426)) {  /* HGFEAT_EXTRAORDINARY_SPELL_REACH */
+
+            if (ret >= 5.0 && ret <= 30.0)
+                ret *= 1.25;
+        }
+
+        /* increase spell range when someone is hit by Targeting Ray */
+        if (target_id != OBJECT_INVALID                      &&
+            (ob = nwn_GetObjectByID(target_id)) != NULL      &&
+            (target = ob->vtable->AsNWSCreature(ob)) != NULL &&
+            target->cre_stats != NULL) {
 
 #if 0
-        if (ret >= 5.0 && 
-            CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Z_TARGETING_RAY))
-            ret *= 1.5;
+            if (ret >= 5.0 &&
+                CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Z_TARGETING_RAY))
+                ret *= 1.5;
 #endif
+        }
     }
+#endif
 
     return ret;
 }
