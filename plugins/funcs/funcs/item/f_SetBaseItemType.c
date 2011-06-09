@@ -21,21 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-static nwn_objid_t Object_Request = OBJECT_INVALID;
+void Func_SetBaseItemType (CGameObject *ob, char *value) {
+    CNWSItem *item;
 
+    if (ob == NULL || (item = ob->vtable->AsNWSItem(ob)) == NULL) {
+        snprintf(value, strlen(value), "-1");
+        return;
+    }
 
-void Func_IntToObjectRequest (CGameObject *ob, char *value) {
-    Object_Request = strtoul(value, NULL, 10);
-}
-
-
-void Func_StringToObjectRequest (CGameObject *ob, char *value) {
-    Object_Request = strtoul(value, NULL, 16);
-}
-
-
-nwn_objid_t Func_IntToObject (CGameObject *ob) {
-    return Object_Request;
+    item->it_baseitem = atoi(value);
 }
 
 

@@ -20,28 +20,29 @@
 
 #include "NWNXFuncs.h"
 
-static int GetPlayerPort (void *pSomeStruct, uint32_t nPlayerID) {
+static int GetPlayerPort (void *pNetLayer, uint32_t nPlayerID) {
     int i;
     uint32_t nNum;
-    void *pClientStruct;
+    void *pClientStruct, *pNetLayerInternal, *pExoNet, *pExoNetInternal;
 
-    pSomeStruct = *(void **)pSomeStruct;
+    pNetLayerInternal = *(void **)pNetLayer;
+    pExoNet = *(void **)((char*)pNetLayerInternal+0x4);
+        if(!pExoNet) return -1;
+    pExoNetInternal = *(void **)pExoNet;
+        if(!pExoNetInternal) return -2;
 
     /* Yes, this is ugly. But I don't want to describe 4 or 5 nested structures. :) */
     for (i = 0; i < 0x60; i++) {
-        pClientStruct = (void *)((char *)pSomeStruct + 0xC + i*0x91C);
+        pClientStruct = (void *)((char *)pNetLayerInternal + 0xC + i*0x91C);
 
         if(*(uint32_t *)((char*)pClientStruct+0x8) == 1) {
             if(*(uint32_t *)((char*)pClientStruct+0xC) == nPlayerID) {
                 nNum = *(uint32_t *)((char*)pClientStruct+0x14);
-                pSomeStruct = *(void **)((char*)pSomeStruct+0x4);
-                if(!pSomeStruct) return -1;
-                pSomeStruct = *(void **)pSomeStruct;
-                if(!pSomeStruct) return -2;
-
-                uint8_t *pFlagList = *(uint8_t **)((char*)pSomeStruct+0x34);
+                uint8_t *pFlagList = *(uint8_t **)((char*)pExoNetInternal+0x34);
                 if(!pFlagList || !pFlagList[nNum]) return -3;
-                struct sockaddr_in *pIP = *(struct sockaddr_in **)((char*)pSomeStruct+0x3C);
+
+		char* pNetInfoBase = *(char**)((char*)pExoNetInternal+0x3c);
+		struct sockaddr_in *pIP = (struct sockaddr_in *)(pNetInfoBase+nNum*16);
                 if(!pIP) return -4;
 
                 return pIP->sin_port;
@@ -66,8 +67,9 @@ void Func_GetPCPort (CGameObject *ob, char *value) {
         return;
     }
 
+    int port = GetPlayerPort((*NWN_AppManager)->app_server->srv_internal->srv_network, pl->pl_id);
     snprintf(value, strlen(value), "%d",
-        GetPlayerPort((*NWN_AppManager)->app_server->srv_internal->srv_network, pl->pl_id));
+        port);
 
     /* TODO: describe all nested structures */
 }

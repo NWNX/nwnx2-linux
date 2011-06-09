@@ -41,7 +41,7 @@ const int QUICKBAR_TYPE_FEAT                    = 4;
 
 struct MemorizedSpellSlot {
     int id;
-    int ready, meta;
+    int ready, meta, domain;
 };
 
 struct SpecialAbilitySlot {
@@ -101,6 +101,11 @@ struct CreatureSkills {
     int sk_ride;
 };
 
+struct Timeval {
+    int sec;
+    int usec;
+};
+
 /* Returns TRUE if the target inherently knows a feat (as opposed to
  * by any equipment they may possess) */
 int GetKnowsFeat (int nFeatId, object oCreature);
@@ -119,6 +124,9 @@ int ModifyAbilityScore (object oCreature, int nAbility, int nValue);
 
 /* Modifies oCreature's base skill rank for nSkill by nValue. */
 int ModifySkillRank (object oCreature, int nSkill, int nValue);
+
+/* Modifies oCreature's base skill rank for nSkill at nLevel by nValue. */
+int ModifySkillRankByLevel (object oCreature, int nLevel, int nSkill, int nValue);
 
 /* Gets oCreature's natural base AC */
 int GetACNaturalBase (object oCreature);
@@ -263,7 +271,7 @@ int GetTotalKnownSpells (object oCreature, int nClass, int nSpellLevel);
 int AddKnownSpell (object oCreature, int nClass, int nSpellLevel, int nSpellId);
 
 /* Remove a spell from oCreature's spellbook for nClass. */
-int RemoveKnownSpell (object oCreature, int nClass, int nSpellId);
+int RemoveKnownSpell (object oCreature, int nClass, int nSpellLevel, int nSpellId);
 
 /* Replace a spell in oCreature's spellbook for nClass. */
 int ReplaceKnownSpell (object oCreature, int nClass, int nOldSpell, int nNewSpell);
@@ -366,6 +374,9 @@ object GetFirstArea ();
 /* Get the next area in the module. */
 object GetNextArea ();
 
+/* Set oItem's base item type. */
+int SetBaseItemType (object oItem, int nBaseItem);
+
 /* Set oItem's value in gold pieces. Will not persist through zoning or saving. */
 int SetGoldPieceValue (object oItem, int nValue);
 
@@ -386,6 +397,8 @@ int SetItemAppearance (object oItem, int nIndex, int nValue);
 /* Directly set a color value on an item. This will not be visible to PCs until the
  * item is refreshed for them (e.g. by logging out and back in). */
 int SetItemColor (object oItem, int nIndex, int nColor);
+
+int GetIsStatic (object oPlace);
 
 /* Set oPlace's appearance. Will not update for PCs until they re-enter the area. */
 int SetPlaceableAppearance (object oPlace, int nApp);
@@ -446,8 +459,28 @@ string GetPCFileName (object oPC);
 /* Jump oCreature to Limbo. */
 void JumpToLimbo (object oCreature);
 
+/* Broadcast the projectile for nSpellId going from oSource to oTarget. nDelay
+ * is in milliseconds (1000=1s). If nSpellId is -1, the projectile for
+ * oSource's weapon (e.g. an arrow if oSource is wielding a bow) will be
+ * displayed.
+ *
+ * This will display cones for cone spells as well, though they will always
+ * be forward-facing from oSource. */
+int BroadcastProjectileToObject (object oSource, object oTarget, int nSpellId, int nDelay=-1);
+
+/* As for BroadcastProjectileToObject(), but to a target location. */
+int BroadcastProjectileToLocation (object oSource, location lTarget, int nSpellId, int nDelay=-1);
+
+//Sets disarm flag on oCreature
+//Returns:
+//  1 on success
+//  0 on failure
+//Note: standard function GetIsCreatureDisarmable() also takes into account weapon in creature's right hand besides disarm flag itself
+int SetIsCreatureDisarmable(object oCreature, int bDisarmable);
+
 /* Convert an object ID to an object. */
 object IntToObject (int nObjectId);
+object StringToObject (string sObjectId);
 
 /* Dump oObject to the NWNX log. */
 void DumpObject (object oObject);
@@ -455,6 +488,9 @@ void DumpObject (object oObject);
 /* Sleep for the given number of microseconds. This will block the whole nwserver process. */
 void USleep (int usec);
 
+/* Returns the current system time.
+ * Returns .sec = 0 and .usec = 0 on failure. */
+struct Timeval GetTimeOfDay();
 
 int NWNXFuncsZero (object oObject, string sFunc) {
     SetLocalString(oObject, sFunc, "          ");
@@ -482,6 +518,20 @@ void USleep (int usec) {
     NWNXFuncsOne(GetModule(), "NWNX!FUNCS!USLEEP", usec);
 }
 
+struct Timeval GetTimeOfDay() {
+    struct Timeval ret;
+    string sFunc = "NWNX!FUNCS!GETTIMEOFDAY";
+    SetLocalString(GetModule(),
+        sFunc, "                                         ");
+    string time = GetLocalString(GetModule(), sFunc);
+    int idx = FindSubString(time, ".");
+    if (-1 != idx) {
+        ret.sec = StringToInt(GetSubString(time, 0, idx));
+        ret.usec = StringToInt(GetSubString(time, idx + 1, 32));
+    }
+    return ret;
+}
+
 int SetAbilityScore (object oCreature, int nAbility, int nValue) {
     return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!SETABILITYSCORE", nAbility, nValue);
 }
@@ -497,6 +547,10 @@ int SetSkillRank (object oCreature, int nSkill, int nValue) {
 
 int ModifySkillRank (object oCreature, int nSkill, int nValue) {
     return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!MODIFYSKILLRANK", nSkill, nValue);
+}
+
+int ModifySkillRankByLevel (object oCreature, int nLevel, int nSkill, int nValue) {
+    return NWNXFuncsThree(oCreature, "NWNX!FUNCS!MODIFYSKILLRANKBYLEVEL", nLevel, nSkill, nValue);
 }
 
 
@@ -750,6 +804,11 @@ int SetMaxHitPoints (object oCreature, int nHP) {
 }
 
 
+int RecalculateDexModifier (object oCreature) {
+    return NWNXFuncsZero(oCreature, "NWNX!FUNCS!RECALCULATEDEXMODIFIER");
+}
+
+
 int GetKnowsSpell (int nSpellId, object oCreature, int nClass=CLASS_TYPE_INVALID) {
     return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!GETKNOWSSPELL", nClass, nSpellId);
 }
@@ -773,8 +832,8 @@ int AddKnownSpell (object oCreature, int nClass, int nSpellLevel, int nSpellId) 
     return NWNXFuncsThree(oCreature, "NWNX!FUNCS!ADDKNOWNSPELL", nClass, nSpellLevel, nSpellId);
 }
 
-int RemoveKnownSpell (object oCreature, int nClass, int nSpellId) {
-    return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!REMOVEKNOWNSPELL", nClass, nSpellId);
+int RemoveKnownSpell (object oCreature, int nClass, int nSpellLevel, int nSpellId) {
+    return NWNXFuncsThree(oCreature, "NWNX!FUNCS!REMOVEKNOWNSPELL", nClass, nSpellLevel, nSpellId);
 }
 
 int ReplaceKnownSpell (object oCreature, int nClass, int nOldSpell, int nNewSpell) {
@@ -801,9 +860,10 @@ struct MemorizedSpellSlot GetMemorizedSpell (object oCreature, int nClass, int n
 }
 
 int SetMemorizedSpell (object oCreature, int nClass, int nLevel, int nIndex, struct MemorizedSpellSlot mss) {
+    int nFlags = (mss.ready != 0) | ((mss.domain != 0) << 1);
     SetLocalString(oCreature, "NWNX!FUNCS!SETMEMORIZEDSPELL",
         IntToString(nClass) + " " + IntToString(nLevel) + " " + IntToString(nIndex) + " " +
-        IntToString(mss.id) + " " + IntToString(mss.meta & 0x7F) + " " + IntToString(mss.ready != 0) + "          ");
+        IntToString(mss.id) + " " + IntToString(mss.meta & 0x7F) + " " + IntToString(nFlags) + "          ");
     return StringToInt(GetLocalString(oCreature, "NWNX!FUNCS!GETMEMORIZEDSPELL"));
 }
 
@@ -943,11 +1003,13 @@ int SetTrapCreator (object oTrap, object oCreator) {
 
 
 string GetConversation (object oCreature) {
-    return "";
+    SetLocalString(oCreature, "NWNX!FUNCS!GETCONVERSATION", "                ");
+    return GetLocalString(oCreature, "NWNX!FUNCS!GETCONVERSATION");
 }
 
 string SetConversation (object oCreature, string sConv) {
-    return "";
+    SetLocalString(oCreature, "NWNX!FUNCS!SETCONVERSATION", sConv);
+    return GetLocalString(oCreature, "NWNX!FUNCS!SETCONVERSATION");
 }
 
 
@@ -1054,6 +1116,12 @@ object GetNextArea () {
     return GetLocalObject(GetModule(), "NWNX!FUNCS!GETNEXTAREA");
 }
 
+int SetBaseItemType (object oItem, int nBaseItem)
+{
+    SetLocalString(oItem, "NWNX!FUNCS!SETBASEITEMTYPE", IntToString(nBaseItem));
+    return StringToInt(GetLocalString(oItem, "NWNX!FUNCS!SETBASEITEMTYPE"));
+}
+
 
 int SetGoldPieceValue (object oItem, int nValue) {
     return NWNXFuncsOne(oItem, "NWNX!FUNCS!SETGOLDPIECEVALUE", nValue);
@@ -1078,16 +1146,27 @@ void RestoreItemAppearance (object oItem, string sApp) {
 }
 
 int SetItemAppearance (object oItem, int nIndex, int nValue) {
-    return NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMAPPEARANCE", nIndex, nValue);
+    int nRet = NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMAPPEARANCE", nIndex, nValue);
+    DeleteLocalString(oItem, "NWNX!FUNCS!SETITEMAPPEARANCE");
+    return nRet;
 }
 
 int SetItemColor (object oItem, int nIndex, int nColor) {
-    return NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMCOLOR", nIndex, nColor);
+    int nRet = NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMCOLOR", nIndex, nColor);
+    DeleteLocalString(oItem, "NWNX!FUNCS!SETITEMCOLOR");
+    return nRet;
 }
 
+int GetIsStatic (object oPlace) {
+    int nRet = NWNXFuncsZero(oPlace, "NWNX!FUNCS!GETISSTATIC");
+    DeleteLocalString(oPlace, "NWNX!FUNCS!GETISSTATIC");
+    return nRet;
+}
 
 int SetPlaceableAppearance (object oPlace, int nApp) {
-    return NWNXFuncsOne(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE", nApp);
+    int nRet = NWNXFuncsOne(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE", nApp);
+    DeleteLocalString(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE");
+    return nRet;
 }
 
 
@@ -1214,8 +1293,58 @@ void JumpToLimbo (object oCreature) {
 }
 
 
+int BroadcastProjectileToObject (object oSource, object oTarget, int nSpellId, int nDelay=-1) {
+    if (!GetIsObjectValid(oTarget))
+        return 0;
+
+    location lTarget = GetLocation(oTarget);
+    vector vTarget   = GetPositionFromLocation(lTarget);
+
+    if (nDelay < 0) {
+        float fDelay = GetDistanceBetween(oSource, oTarget) / 20;
+        nDelay = FloatToInt(fDelay * 1000);
+    }
+
+    SetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE",
+        ObjectToString(oTarget)        + " " +
+        FloatToString(vTarget.x, 1, 4) + " " +
+        FloatToString(vTarget.y, 1, 4) + " " +
+        FloatToString(vTarget.z, 1, 4) + " " +
+        IntToString(nSpellId) + " " + IntToString(nDelay));
+    return StringToInt(GetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE"));
+}
+
+int BroadcastProjectileToLocation (object oSource, location lTarget, int nSpellId, int nDelay=-1) {
+    vector vTarget = GetPositionFromLocation(lTarget);
+
+    if (nDelay < 0) {
+        float fDelay = GetDistanceBetweenLocations(GetLocation(oSource), lTarget) / 20;
+        nDelay = FloatToInt(fDelay * 1000);
+    }
+
+    SetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE", "0 " +
+        FloatToString(vTarget.x, 1, 4) + " " +
+        FloatToString(vTarget.y, 1, 4) + " " +
+        FloatToString(vTarget.z, 1, 4) + " " +
+        IntToString(nSpellId) + " " + IntToString(nDelay));
+    return StringToInt(GetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE"));
+}
+
+
+int SetIsCreatureDisarmable(object oCreature, int bDisarmable)
+{
+    int nRet = NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETISCREATUREDISARMABLE", bDisarmable != FALSE);
+    DeleteLocalString(oCreature, "NWNX!FUNCS!SETISCREATUREDISARMABLE");
+    return nRet;	
+}
+
 object IntToObject (int nObjectId) {
     SetLocalString(GetModule(), "NWNX!FUNCS!INTTOOBJECTREQUEST", IntToString(nObjectId));
+    return GetLocalObject(GetModule(), "NWNX!FUNCS!INTTOOBJECT");
+}
+
+object StringToObject (string sObjectId) {
+    SetLocalString(GetModule(), "NWNX!FUNCS!STRINGTOOBJECTREQUEST", sObjectId);
     return GetLocalObject(GetModule(), "NWNX!FUNCS!INTTOOBJECT");
 }
 

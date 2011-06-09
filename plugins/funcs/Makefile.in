@@ -39,6 +39,7 @@ LFLAGS   = @LDFLAGS@ -w -fPIC -shared -rdynamic
 OFILES  = \
     funcs/ability/f_GetAbilityIncreaseByLevel.o  \
     funcs/ability/f_ModifyAbilityScore.o         \
+    funcs/ability/f_RecalculateDexModifier.o     \
     funcs/ability/f_SetAbilityScore.o            \
     funcs/action/f_ActionUseItem.o               \
     funcs/area/f_GetFirstNextArea.o              \
@@ -87,6 +88,7 @@ OFILES  = \
     funcs/item/f_GetItemByPosition.o             \
     funcs/item/f_GetItemCount.o                  \
     funcs/item/f_RestoreItemAppearance.o         \
+    funcs/item/f_SetBaseItemType.o               \
     funcs/item/f_SetGoldPieceValue.o             \
     funcs/item/f_SetItemAppearance.o             \
     funcs/item/f_SetItemColor.o                  \
@@ -106,6 +108,7 @@ OFILES  = \
     funcs/other/f_SetAlignmentValue.o            \
     funcs/other/f_SetCreatureSize.o              \
     funcs/other/f_SetGender.o                    \
+    funcs/other/f_SetIsCreatureDisarmable.o      \
     funcs/other/f_SetMovementRate.o              \
     funcs/other/f_SetPCBodyBag.o                 \
     funcs/other/f_SetPCLootable.o                \
@@ -115,6 +118,8 @@ OFILES  = \
     funcs/other/f_SetTag.o                       \
     funcs/other/f_SetTrapCreator.o               \
     funcs/other/f_USleep.o                       \
+    funcs/other/f_GetTimeOfDay.o                 \
+    funcs/placeable/f_GetIsStatic.o              \
     funcs/placeable/f_SetPlaceableAppearance.o   \
     funcs/quickbar/f_GetQuickBarSlot.o           \
     funcs/quickbar/f_SetQuickBarSlot.o           \
@@ -129,6 +134,7 @@ OFILES  = \
     funcs/skill/f_GetPCSkillPoints.o             \
     funcs/skill/f_GetSkillIncreaseByLevel.o      \
     funcs/skill/f_ModifySkillRank.o              \
+    funcs/skill/f_ModifySkillRankByLevel.o       \
     funcs/skill/f_SetPCSkillPoints.o             \
     funcs/skill/f_SetSkillRank.o                 \
     funcs/spell/f_AddKnownSpell.o                \
@@ -148,6 +154,7 @@ OFILES  = \
     funcs/spell/f_SetRemainingSpellSlots.o       \
     funcs/var/f_GetLocalVariableByPosition.o     \
     funcs/var/f_GetLocalVariableCount.o          \
+    funcs/vfx/f_BroadcastProjectile.o            \
     NWNXFuncs.o                                  \
     plugin-funcs.o
 

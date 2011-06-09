@@ -21,21 +21,22 @@
 #include "NWNXFuncs.h"
 
 
-static nwn_objid_t Object_Request = OBJECT_INVALID;
+void Func_RecalculateDexModifier (CGameObject *ob, char *value) {
+    int dex;
+    CNWSCreature *cre = (CNWSCreature *)ob;
 
+    if (ob == NULL                                     ||
+        (cre = ob->vtable->AsNWSCreature(ob)) == NULL  ||
+        cre->cre_stats == NULL) {
 
-void Func_IntToObjectRequest (CGameObject *ob, char *value) {
-    Object_Request = strtoul(value, NULL, 10);
-}
+        snprintf(value, strlen(value), "-1");
+        return;
+    }
 
+    dex = CNWSCreatureStats__GetDEXStat(cre->cre_stats);
+    cre->cre_stats->cs_dex_mod = (dex / 2) - 5;
 
-void Func_StringToObjectRequest (CGameObject *ob, char *value) {
-    Object_Request = strtoul(value, NULL, 16);
-}
-
-
-nwn_objid_t Func_IntToObject (CGameObject *ob) {
-    return Object_Request;
+    snprintf(value, strlen(value), "%d", cre->cre_stats->cs_dex_mod);
 }
 
 

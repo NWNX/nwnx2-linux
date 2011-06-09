@@ -39,6 +39,7 @@ ADDKNOWNFEATATLEVEL,                   Func_AddKnownFeatAtLevel
 ADDKNOWNSPELL,                         Func_AddKnownSpell
 ADDSPECIALABILITY,                     Func_AddSpecialAbility
 BOOTPCWITHMESSAGE,                     Func_BootPCWithMessage
+BROADCASTPROJECTILE,                   Func_BroadcastProjectile
 DUMPOBJECT,                            Func_DumpObject
 GETABILITYINCREASEBYLEVEL,             Func_GetAbilityIncreaseByLevel
 GETACNATURALBASE,                      Func_GetACNaturalBase
@@ -59,6 +60,7 @@ GETISCLASSBONUSFEAT,                   Func_GetIsClassBonusFeat
 GETISCLASSGENERALFEAT,                 Func_GetIsClassGeneralFeat
 GETISCLASSGRANTEDFEAT,                 Func_GetIsClassGrantedFeat
 GETISCLASSSKILL,                       Func_GetIsClassSkill
+GETISSTATIC,                           Func_GetIsStatic
 GETISWALKABLE,                         Func_GetIsWalkable
 GETITEMBYPOSITIONREQUEST,              Func_GetItemByPositionRequest
 GETITEMCOUNT,                          Func_GetItemCount
@@ -96,6 +98,8 @@ JUMPTOLIMBO,                           Func_JumpToLimbo
 MODIFYABILITYSCORE,                    Func_ModifyAbilityScore
 MODIFYCURRENTHITPOINTS,                Func_ModifyCurrentHitPoints
 MODIFYSKILLRANK,                       Func_ModifySkillRank
+MODIFYSKILLRANKBYLEVEL,                Func_ModifySkillRankByLevel
+RECALCULATEDEXMODIFIER,                Func_RecalculateDexModifier
 REMOVEKNOWNFEAT,                       Func_RemoveKnownFeat
 REMOVEKNOWNFEATBYLEVEL,                Func_RemoveKnownFeatByLevel
 REMOVEKNOWNSPELL,                      Func_RemoveKnownSpell
@@ -108,6 +112,7 @@ RESTOREREADYSPELLS,                    Func_RestoreReadySpells
 SETABILITYSCORE,                       Func_SetAbilityScore
 SETACNATURALBASE,                      Func_SetACNaturalBase
 SETALIGNMENTVALUE,                     Func_SetAlignmentValue
+SETBASEITEMTYPE,                       Func_SetBaseItemType
 SETCLERICDOMAIN,                       Func_SetClericDomain
 SETCONVERSATION,                       Func_SetConversation
 SETCREATUREEVENTHANDLER,               Func_SetCreatureEventHandler
@@ -116,6 +121,7 @@ SETCURRENTHITPOINTS,                   Func_SetCurrentHitPoints
 SETFACTIONID,                          Func_SetFactionId
 SETGENDER,                             Func_SetGender
 SETGOLDPIECEVALUE,                     Func_SetGoldPieceValue
+SETISCREATUREDISARMABLE,               Func_SetIsCreatureDisarmable
 SETITEMAPPEARANCE,                     Func_SetItemAppearance
 SETITEMCOLOR,                          Func_SetItemColor
 SETITEMWEIGHT,                         Func_SetItemWeight
@@ -142,7 +148,9 @@ SETSPECIALABILITY,                     Func_SetSpecialAbility
 SETTAG,                                Func_SetTag
 SETTRAPCREATOR,                        Func_SetTrapCreator
 SETWIZARDSPECIALIZATION,               Func_SetWizardSpecialization
+STRINGTOOBJECTREQUEST,                 Func_StringToObjectRequest
 USLEEP,                                Func_USleep
+GETTIMEOFDAY,                          Func_GetTimeOfDay
 %%
 
 #ifdef __cplusplus

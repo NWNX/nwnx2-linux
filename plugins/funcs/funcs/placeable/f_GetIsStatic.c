@@ -21,21 +21,17 @@
 #include "NWNXFuncs.h"
 
 
-static nwn_objid_t Object_Request = OBJECT_INVALID;
+void Func_GetIsStatic (CGameObject *ob, char *value) {
+    CNWSPlaceable *plc;
 
+    if (ob == NULL                                     ||
+        (plc = ob->vtable->AsNWSPlaceable(ob)) == NULL) {
 
-void Func_IntToObjectRequest (CGameObject *ob, char *value) {
-    Object_Request = strtoul(value, NULL, 10);
-}
+        snprintf(value, strlen(value), "-1");
+        return;
+    }
 
-
-void Func_StringToObjectRequest (CGameObject *ob, char *value) {
-    Object_Request = strtoul(value, NULL, 16);
-}
-
-
-nwn_objid_t Func_IntToObject (CGameObject *ob) {
-    return Object_Request;
+    snprintf(value, strlen(value), "%d", plc->plc_static);
 }
 
 

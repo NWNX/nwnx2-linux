@@ -21,21 +21,25 @@
 #include "NWNXFuncs.h"
 
 
-static nwn_objid_t Object_Request = OBJECT_INVALID;
+void Func_BroadcastProjectile (CGameObject *ob, char *value) {
+    int spell, projtime;
+    nwn_objid_t target_id;
+    Vector target_loc;
+    CNWSObject *obj;
 
+    if (ob == NULL                                  ||
+        (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
+        sscanf(value, "%x %f %f %f %d %d", &target_id, &(target_loc.x), &(target_loc.y), &(target_loc.z), &spell, &projtime) != 6) {
+        snprintf(value, strlen(value), "0");
+        return;
+    }
 
-void Func_IntToObjectRequest (CGameObject *ob, char *value) {
-    Object_Request = strtoul(value, NULL, 10);
-}
+    if (spell < 0)
+        CNWSObject__BroadcastSafeProjectile(obj, obj->obj_id, target_id, obj->obj_position, target_loc, projtime, 0, 0, 0, -spell);
+    else
+        CNWSObject__BroadcastSafeProjectile(obj, obj->obj_id, target_id, obj->obj_position, target_loc, projtime, 6, spell, 0, 0);
 
-
-void Func_StringToObjectRequest (CGameObject *ob, char *value) {
-    Object_Request = strtoul(value, NULL, 16);
-}
-
-
-nwn_objid_t Func_IntToObject (CGameObject *ob) {
-    return Object_Request;
+    snprintf(value, strlen(value), "%d", spell);
 }
 
 

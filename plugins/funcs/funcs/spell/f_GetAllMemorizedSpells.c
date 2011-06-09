@@ -60,7 +60,7 @@ void Func_GetAllMemorizedSpells (CGameObject *ob, char *value) {
 
             for (k = 0; k < sp_len; k++) {
                 if ((sp = CExoArrayList_ptr_get(&(cre->cre_stats->cs_classes[i].cl_spells_mem[j]), k)) != NULL)
-                    sp_save = ((!!sp->sp_ready) << 24) | ((sp->sp_meta & 0xFF) << 16) | (sp->sp_id & 0xFFFF);
+                    sp_save = ((!!sp->sp_domain) << 25) | ((!!sp->sp_ready) << 24) | ((sp->sp_meta & 0xFF) << 16) | (sp->sp_id & 0xFFFF);
                 else
                     sp_save = 0xFFFFFF;
 

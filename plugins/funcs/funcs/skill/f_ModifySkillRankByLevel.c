@@ -21,21 +21,30 @@
 #include "NWNXFuncs.h"
 
 
-static nwn_objid_t Object_Request = OBJECT_INVALID;
+void Func_ModifySkillRankByLevel (CGameObject *ob, char *value) {
+    int level, skill, val;
+    CNWSCreature *cre;
+    CNWSStats_Level *ls;
 
+    if (ob == NULL                                              ||
+        (cre = ob->vtable->AsNWSCreature(ob)) == NULL           ||
+        cre->cre_stats == NULL                                  ||
+        sscanf(value, "%d %d %d", &level, &skill, &val) != 3    ||
+        skill < 0 || skill > SKILL_LAST                         ||
+        (ls = nwn_GetLevelStats(cre->cre_stats, level)) == NULL) {
 
-void Func_IntToObjectRequest (CGameObject *ob, char *value) {
-    Object_Request = strtoul(value, NULL, 10);
-}
+        snprintf(value, strlen(value), "-1");
+        return;
+    }
 
+    ls->ls_skilllist[skill] += val;
 
-void Func_StringToObjectRequest (CGameObject *ob, char *value) {
-    Object_Request = strtoul(value, NULL, 16);
-}
+    val = cre->cre_stats->cs_skills[skill] + val;
+    if (val < 0) val = 0;
+    if (val > 127) val = 127;
+    cre->cre_stats->cs_skills[skill] = val;
 
-
-nwn_objid_t Func_IntToObject (CGameObject *ob) {
-    return Object_Request;
+    snprintf(value, strlen(value), "%d", val);
 }
 
 
