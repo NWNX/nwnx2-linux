@@ -111,6 +111,7 @@ AC_CONFIG_FILES([
         Makefile
         plugins/areas/Makefile
         plugins/chat/Makefile
+        plugins/db/Makefile
         plugins/defenses/Makefile
         plugins/events/Makefile
         plugins/fixes/Makefile
