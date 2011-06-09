@@ -1,12 +1,24 @@
 string LIST_ITEM_NAME = "PC_";
 string PC_ID_NAME = "OID";
 
+const int CHAT_CHANNEL_TALK        = 1;
+const int CHAT_CHANNEL_SHOUT       = 2;
+const int CHAT_CHANNEL_WHISPER     = 3;
+const int CHAT_CHANNEL_PRIVATE     = 4;
+const int CHAT_CHANNEL_SERVER_MSG  = 5;
+const int CHAT_CHANNEL_PARTY       = 6;
+
 struct chat_message
 {
     int    Mode;
     object Recipient;
     string Text;
 };
+
+//Send chat message
+//nChannel - CHAT_CHANNEL_*
+void NWNXChat_SendMessage(object oSender, int nChannel, string sMessage, object oRecipient=OBJECT_INVALID);
+
 
 string GetStringFrom(string s, int from = 1)
 {
@@ -87,4 +99,14 @@ void NWNXChat_SuppressMessage()
 {
     SetLocalString(GetModule(), "NWNX!CHAT!SUPRESS", "1");
     DeleteLocalString(GetModule(), "NWNX!CHAT!SUPRESS");
+}
+
+int NWNXChat_SendMessage(object oSender, int nChannel, string sMessage, object oRecipient=OBJECT_INVALID)
+{
+    if (!GetIsObjectValid(oSender)) return FALSE;
+    if (FindSubString(sMessage, "¬")!=-1) return FALSE;
+    if (nChannel == CHAT_CHANNEL_PRIVATE && !GetIsObjectValid(oRecipient)) return FALSE;
+    SetLocalString(oSender, "NWNX!CHAT!SPEAK", ObjectToString(oSender)+"¬"+ObjectToString(oRecipient)+"¬"+IntToString(nChannel)+"¬"+sMessage);
+    if(GetLocalString(oSender, "NWNX!CHAT!SPEAK")=="1") return TRUE;
+    else return FALSE;
 }
