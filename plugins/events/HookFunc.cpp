@@ -73,6 +73,13 @@ unsigned char d_ret_code_tm[0x20];
 unsigned char d_ret_code_cz[0x20];
 unsigned char d_ret_code_tp[0x20];
 unsigned char d_ret_code_pf[0x20];
+unsigned char d_ret_code_vc[0x20];
+
+int (*CNWSPlayer__ValidateCharacter)(void *pPlayer, int *result);
+
+
+void *(*GetPlayerObject)(void *pPlayer);
+
 
 
 unsigned char **pEBP;
@@ -499,7 +506,7 @@ void UseSkillHookProc(void *pCreature, byte nSkill, byte nSubSkill, dword nTarge
 	asm ("jmp %eax");
 }
 
-void UseFeatHookProc(void *pCreature, byte nFeat, byte nSubFeat, dword nTargetObjID, dword nAreaID, CNWSVector *pvTarget)
+void UseFeatHookProc(void *pCreature, unsigned short nFeat, unsigned short nSubFeat, dword nTargetObjID, dword nAreaID, CNWSVector *pvTarget)
 {
 	if (!scriptRun)
 	{
@@ -513,7 +520,7 @@ void UseFeatHookProc(void *pCreature, byte nFeat, byte nSubFeat, dword nTargetOb
 		}
 		
 		events.Log(2,
-                    "UseFeat: pCreature=%08lX, oTarget=%08lX, oItem=%08lX, vTarget=%f/%f/%f, nSkill=%d\n",
+                    "UseFeat: pCreature=%08lX, oTarget=%08lX, oItem=%08lX, vTarget=%f/%f/%f, nFeat=%d\n",
                     *((dword *)pCreature + 1), events.oTarget, events.oItem, events.vPosition.x,
                     events.vPosition.y, events.vPosition.z, events.nEventSubID);
 		if(pCreature)
@@ -627,6 +634,29 @@ void PossessFamiliarHookProc(void *pCreature) {
 	}
 	asm ("mov $d_ret_code_pf, %eax");
 	asm ("jmp %eax");
+}
+
+int CNWSPlayer__ValidateCharacter_hook(void *pPlayer, int *result)
+{
+	if (!scriptRun)
+	{
+		void *pCreature = GetPlayerObject(pPlayer);
+		if(pCreature)
+			bBypass_b = events.FireEvent(*((dword *)pCreature + 1) , EVENT_TYPE_VALIDATE_CHARACTER);
+	}
+	if(bBypass_b)
+	{
+		if(events.nReturnValue){
+			*result = 0;
+			return events.nReturnValue;
+		}
+		else {
+			*result = 1;
+			return 0;
+		}
+	}
+	else
+		return CNWSPlayer__ValidateCharacter(pPlayer, result);
 }
 
 
@@ -776,7 +806,8 @@ int HookFunctions()
     dword org_CastSpell = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC 1C 01 00 00 8A 45 3C");
 	dword org_TogglePause = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 4C 8A 45 0C 88 45 D3 8B 75 08 8B 86 18 00 01 00 89 45 CC 8A 96 A0 00 01 00 31 C0 84 55 D3 0F 95 C0 3B 45 10 0F 84 47 03 00 00 83 7D 10 01 75 4C 0A 55 D3 83 EC 0C 88 96 A0 00 01 00 FF B6 68 00 01 00 E8 ** ** ** ** 83 C4 10 F6 86 A0 00 01 00 02 B0 02 75 09 8A 86 A0 00 01 00");
 	dword org_PossessFamiliar = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 20 6A 01 6A 03 FF 75 08 E8 ** ** ** ** 83 C4 10 3D 00 00 00 7F 0F 84 01 03 00 00 83 EC 08 6A 00 FF 75 08 C7 45 F0 00 00 00 00 E8 ** ** ** ** 83 C4 10 85 C0 74 19 83 EC 18 6A 01 FF 75 08 E8 ** ** ** ** 83 C4 14 50 E8 ** ** ** ** 83 C4 10 8B 45 08 81 78 58 00 00 00 7F 74 0C");
-	
+	dword org_ValidateCharacter = 0x080580BC;
+
 	if (org_SaveChar)
 	{
 		pServThis = *(dword*)(org_SaveChar + 0x3C);
@@ -799,7 +830,9 @@ int HookFunctions()
 	hook_function (org_CastSpell, (unsigned long)CastSpellHookProc, d_ret_code_cz, 12);
 	hook_function (org_TogglePause, (unsigned long)TogglePauseHookProc, d_ret_code_tp, 9);
 	hook_function (org_PossessFamiliar, (unsigned long)PossessFamiliarHookProc, d_ret_code_pf, 9);
-
+	hook_function (org_ValidateCharacter, (unsigned long)CNWSPlayer__ValidateCharacter_hook, d_ret_code_vc, 12);
+	*(dword*)&CNWSPlayer__ValidateCharacter = (dword)&d_ret_code_vc;
+	
 	if (org_Run) {
 		*(dword*)&pRunScript = org_Run;
 	}
@@ -821,7 +854,10 @@ int HookFunctions()
 	PrintHookInfo(org_CastSpell, "CastSpell");
 	PrintHookInfo(org_TogglePause, "TogglePause");
 	PrintHookInfo(org_PossessFamiliar, "PossessFamiliar");
+	PrintHookInfo(org_ValidateCharacter, "ValidateCharacter");
 	PrintHookInfo(org_Run, "RunProc");
+
+	*(dword*)&GetPlayerObject = 0x0805E8B8;  //CNWSPlayer::GetGameObject(void)
 	
 	return (org_SaveChar && org_PickPocket && org_Attack && org_UseItem &&
 	        org_ConvSelect && org_ConditionalScript &&
@@ -829,7 +865,7 @@ int HookFunctions()
 	        org_ExamineDoor && org_UseSkill && org_UseFeat &&
                 org_ToggleMode && org_CastSpell &&
                 org_TogglePause && org_PossessFamiliar &&
-                org_SendServerToPlayerQuickChatMessage &&
+	        org_SendServerToPlayerQuickChatMessage &&
 	        org_Run && pServThis && pScriptThis);
 }
 

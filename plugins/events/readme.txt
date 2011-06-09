@@ -1,43 +1,53 @@
-NWNX Events plugin (version 1.3.1)
+NWNX Events plugin (version 1.3.2)
 (requires NWNX Core version 2.7-beta2 or higher)
 
 Provides hooks for the following events:
-  * PickPocket (can be blocked from script)
+* PickPocket (can be blocked from script)
     - OBJECT_SELF        = Thief
     - GetEventTarget()   = Victim
-  * Attack
+* Attack
     - OBJECT_SELF        = Attacker
     - GetEventTarget()   = Target
-  * UseItem (can be blocked from script)
+* UseItem (can be blocked from script)
     - OBJECT_SELF        = Item user
     - GetEventTarget()   = Item target
     - GetEventItem()     = Item used
     - GetEventPosition() = Target position (as a vector)
-  * QuickChat (can be blocked from script)
+* QuickChat (can be blocked from script)
     - OBJECT_SELF        = Talker
     - GetEventSubType()  = QuickChat ID
-  * Examine (can be blocked from script except OnExamineItem)
+* Examine (can be blocked from script except OnExamineItem)
     - OBJECT_SELF        = Examiner
     - GetEventTarget()   = Thing to be examined
-  * UseSkill (can be blocked from script)
+* UseSkill (can be blocked from script)
     - OBJECT_SELF        = Skill user
     - GetEventSubType()  = Skill ID (SKILL_*)
     - GetEventTarget()   = Skill target
     - GetEventPosition() = Skill target position (as a vector)
     - GetEventItem()     = Item associated with the skill
-  * UseFeat (can be blocked from script)
+* UseFeat (can be blocked from script)
     - OBJECT_SELF        = Feat user
     - GetEventSubType()  = Feat ID (FEAT_*)
     - GetEventTarget()   = Feat target
     - GetEventPosition() = Feat target position (as a vector)
-  * CastSpell (can be blocked from script)
+* ToggleMode (can be blocked from script)
+    - OBJECT_SELF        = Creature toggling
+    - GetEventSubType()  = Action mode toggled (ACTION_MODE_*)
+* CastSpell (can be blocked from script)
     - OBJECT_SELF        = Spell user
     - GetEventSubType()  = Spell ID (SPELL_*) - mask with '& 0xFFFF'
     - GetEventTarget()   = Spell target
     - GetEventPosition() = Spell target position (as a vector)
-  * ToggleMode (can be blocked from script)
-    - OBJECT_SELF        = Creature toggling
-    - GetEventSubType()  = Action mode toggled (ACTION_MODE_*)
+* TogglePause (can be blocked from script)
+    - GetEventSubType()  = Pause state
+* PossessFamiliar (can be blocked from script)
+    - OBJECT_SELF        = Player character
+* ValidateCharacter (can be overriden by script)
+    - OBJECT_SELF        = Player character
+    * BypassEvent()      = Override default ELC check
+    * SetReturnValue()   = Return value to override
+                           0 - valid character
+                           <any number> - StrRef (TLK string) of the error message (the character won't be able to enter)
 
 Provides functions for conditional and action scripts:
     int GetCurrentNodeType();
@@ -55,17 +65,20 @@ given event, call the SetGlobalEventHandler() function as follows:
     SetGlobalEventHandler(EVENT_TYPE_ATTACK, "vir_ev_attack");
 
 You can also use the following lines in your nwnx2.ini file:
-    [EVENTS]
-    event_script=<your script name>
+[EVENTS]
+event_script=<your script name>
 
 Example script and demo module are included.
 
 ---
-virusman, 12.11.2008
+virusman, 05.05.2010
 
 
 -----------------
 CHANGELOG:
+
+1.3.2 (05.05.2010)
+- New event: ValidateCharacter
 
 1.3.1 (12.11.2008)
 - New function:
