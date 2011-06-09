@@ -118,6 +118,7 @@ AC_CONFIG_FILES([
         plugins/extend/Makefile
         plugins/fixes/Makefile
         plugins/funcs/Makefile
+        plugins/funcsext/Makefile
         plugins/functions/Makefile
         plugins/hashset/Makefile
         plugins/jvm/Makefile

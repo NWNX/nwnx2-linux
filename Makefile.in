@@ -17,6 +17,7 @@ SUBDIRS = \
     plugins/extend     \
     plugins/fixes      \
     plugins/funcs      \
+    plugins/funcsext   \
     plugins/functions  \
     plugins/hashset    \
     plugins/mnx        \
