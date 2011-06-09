@@ -20,42 +20,29 @@
 
 #include "NWNXDefenses.h"
 
-void Local_AdjustCombatHitDamage (CNWSCreature *attacker, CNWSCreature *target, int16_t *damages, int crit) {
-#ifdef NWNX_DEFENSES_HG
 
-#define HGFEAT_Y_CRITICAL_REDUCTION               3000
-#define HGFEAT_Z_CRITICAL_REDUCTION               3280
+void Func_SetSavingThrowFeat (CGameObject *ob, char *value) {
+    int save, idx, feat, mod;
+    int16_t *table = NULL;
 
-    int i, parry, reduce;
+    switch (atoi(value)) {
+        case SAVING_THROW_FORT:   table = Table_DefenseSaveFort;   break;
+        case SAVING_THROW_REFLEX: table = Table_DefenseSaveReflex; break;
+        case SAVING_THROW_WILL:   table = Table_DefenseSaveWill;   break;
+    }
+    
+    if (table == NULL                                               ||
+        sscanf(value, "%d %d %d %d", &save, &idx, &feat, &mod) != 4 ||
+        idx < 0   || idx >= NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE      ||
+        feat < 0  || feat > INT16_MAX                               ||
+        mod < -20 || mod > 20) {
 
-    if (target == NULL            ||
-        target->cre_stats == NULL ||
-        target->obj.obj_type != 5)
+        snprintf(value, strlen(value), "-1");
         return;
-
-    if (!crit)
-        return;
-
-    if (CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Y_CRITICAL_REDUCTION) ||
-        CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Z_CRITICAL_REDUCTION)) {
-
-        parry = 50;
-    } else {
-        parry = (CNWSCreatureStats__GetSkillRank(target->cre_stats, SKILL_PARRY, NULL, 0) - 20) / 2;
-
-        if (parry < 1)
-            return;
-        if (parry > 50)
-            parry = 50;
     }
 
-    for (i = 0; i < 13; i++) {
-        if (damages[11 + i] >= 5) {
-            reduce = (damages[11 + i] * parry) / 100;
-            damages[11 + i] -= reduce;
-        }
-    }
-#endif
+    table[idx * 2]       = feat;
+    table[(idx * 2) + 1] = mod;
 }
 
 

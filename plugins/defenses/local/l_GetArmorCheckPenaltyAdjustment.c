@@ -20,42 +20,29 @@
 
 #include "NWNXDefenses.h"
 
-void Local_AdjustCombatHitDamage (CNWSCreature *attacker, CNWSCreature *target, int16_t *damages, int crit) {
+
+int Local_GetArmorCheckPenaltyAdjustment (CNWSCreatureStats *stats, int skill, int acp_armor, int acp_shield) {
 #ifdef NWNX_DEFENSES_HG
+    CNWSCreature *cre = stats->cs_original;
 
-#define HGFEAT_Y_CRITICAL_REDUCTION               3000
-#define HGFEAT_Z_CRITICAL_REDUCTION               3280
+    if (cre != NULL && cre->cre_is_pc && (skill == SKILL_HIDE || skill == SKILL_MOVE_SILENTLY)) {
+        int i;
+        const CGameEffect *eff;
 
-    int i, parry, reduce;
+        for (i = 0; i < cre->obj.obj_effects_len; i++) {
+            if ((eff = cre->obj.obj_effects[i]) == NULL)
+                continue;
 
-    if (target == NULL            ||
-        target->cre_stats == NULL ||
-        target->obj.obj_type != 5)
-        return;
+            if (eff->eff_type != EFFECT_TRUETYPE_SPELL_IMMUNITY)
+                continue;
 
-    if (!crit)
-        return;
-
-    if (CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Y_CRITICAL_REDUCTION) ||
-        CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Z_CRITICAL_REDUCTION)) {
-
-        parry = 50;
-    } else {
-        parry = (CNWSCreatureStats__GetSkillRank(target->cre_stats, SKILL_PARRY, NULL, 0) - 20) / 2;
-
-        if (parry < 1)
-            return;
-        if (parry > 50)
-            parry = 50;
-    }
-
-    for (i = 0; i < 13; i++) {
-        if (damages[11 + i] >= 5) {
-            reduce = (damages[11 + i] * parry) / 100;
-            damages[11 + i] -= reduce;
+            if (eff->eff_integers[0] == 2113) 	/* HGSPELL_IRON_SILENCE */
+                return 0;
         }
     }
 #endif
+
+    return (acp_armor + acp_shield);
 }
 
 

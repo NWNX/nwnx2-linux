@@ -26,6 +26,7 @@
 
 #define NWNX_DEFENSES_BASE_ITEM_TABLE_SIZE              512
 #define NWNX_DEFENSES_OPTIONS_TABLE_SIZE                 64
+#define NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE               10
 
 #define NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_GE      0 
 #define NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_LC      1 
@@ -69,8 +70,10 @@ void Func_GetEffectDamageReduction           (CGameObject *ob, char *value);
 void Func_GetEffectDamageResistance          (CGameObject *ob, char *value);
 void Func_GetHasSpellImmunity                (CGameObject *ob, char *value);
 void Func_GetSavingThrowVersus               (CGameObject *ob, char *value);
+void Func_GetTotalDamageImmunityDecrease     (CGameObject *ob, char *value);
 void Func_GetTrueDamageImmunity              (CGameObject *ob, char *value);
 void Func_SetDefenseOption                   (CGameObject *ob, char *value);
+void Func_SetSavingThrowFeat                 (CGameObject *ob, char *value);
 
 nwn_objid_t Func_IntToObject (CGameObject *ob);
 
@@ -78,6 +81,8 @@ void Hook_AddDamageImmunity (CNWSCreature *cre, int damtype, int percent);
 void Hook_CheckConcealment (void);
 void Hook_CombatHitDamage (void);
 int Hook_ConfirmCritical (CNWSCreatureStats *target, CNWSCreature *attacker);
+void Hook_DamageResistanceMessage (void);
+void Hook_GetArmorCheckPenalty (void);
 void Hook_GetFortitudeSavingThrow (void);
 void Hook_GetReflexSavingThrow (void);
 void Hook_GetWillSavingThrow (void);
@@ -95,7 +100,7 @@ int Hook_GetTumbleACBonus (CNWSCreatureStats *stats);
 
 int8_t Hook_GetDamageImmunity (CNWSCreature *cre, int damtypeindex);
 
-void Local_AdjustCombatHitDamage(CNWSCreature *target, int16_t *damages, int crit);
+void Local_AdjustCombatHitDamage (CNWSCreature *attacker, CNWSCreature *target, int16_t *damages, int crit);
 int Local_GetACChaAdjustment (CNWSCreatureStats *stats, int touch, int adj);
 int Local_GetACClassAdjustment (CNWSCreatureStats *stats, int touch, int adj);
 int Local_GetACConAdjustment (CNWSCreatureStats *stats, int touch, int adj);
@@ -108,6 +113,7 @@ int Local_GetACStrAdjustment (CNWSCreatureStats *stats, int touch, int adj);
 int Local_GetACTumbleAdjustment (CNWSCreatureStats *stats, int adj);
 int Local_GetACTouchBase (CNWSCreatureStats *stats);
 int Local_GetACWisAdjustment (CNWSCreatureStats *stats, int touch, int adj);
+int Local_GetArmorCheckPenaltyAdjustment (CNWSCreatureStats *stats, int skill, int acp_armor, int acp_shield);
 int Local_GetConcealmentCheckResult (CNWSCreature *attacker, CNWSCreature *target, int concealment, int misschance);
 int Local_GetCritConfirmationResult (CNWSCreature *attacker, CNWSCreatureStats *target);
 int Local_GetDamageImmunity (CNWSCreature *cre, int damtypeindex, int imm);
@@ -118,6 +124,10 @@ int Local_GetPickPocketDCAdjustment (CNWSCreature *thief, CNWSCreature *victim);
 
 
 extern uint16_t Table_DefenseOptions[NWNX_DEFENSES_OPTIONS_TABLE_SIZE];
+extern int16_t Table_DefenseSaveFort[NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE * 2];
+extern int16_t Table_DefenseSaveReflex[NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE * 2];
+extern int16_t Table_DefenseSaveWill[NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE * 2];
+
 
 #ifdef __cplusplus
 }

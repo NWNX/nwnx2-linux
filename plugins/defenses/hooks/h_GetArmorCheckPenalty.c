@@ -20,42 +20,41 @@
 
 #include "NWNXDefenses.h"
 
-void Local_AdjustCombatHitDamage (CNWSCreature *attacker, CNWSCreature *target, int16_t *damages, int crit) {
-#ifdef NWNX_DEFENSES_HG
 
-#define HGFEAT_Y_CRITICAL_REDUCTION               3000
-#define HGFEAT_Z_CRITICAL_REDUCTION               3280
+volatile uintptr_t Hook_ACP_Return;
+volatile int Hook_ACP_Penalty;
+volatile uint8_t Hook_ACP_Skill;
+volatile CNWSCreatureStats *Hook_ACP_Stats;
 
-    int i, parry, reduce;
 
-    if (target == NULL            ||
-        target->cre_stats == NULL ||
-        target->obj.obj_type != 5)
-        return;
+__attribute__((noinline))
+static int Hook_GetArmorCheckPenaltyAdjustment (CNWSCreatureStats *stats, uint8_t skill) {
+    int acp_armor, acp_shield;
 
-    if (!crit)
-        return;
+    if (stats == NULL)
+        return 0;
 
-    if (CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Y_CRITICAL_REDUCTION) ||
-        CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Z_CRITICAL_REDUCTION)) {
+    acp_armor  = stats->cs_acp_armor;
+    acp_shield = stats->cs_acp_shield;
 
-        parry = 50;
-    } else {
-        parry = (CNWSCreatureStats__GetSkillRank(target->cre_stats, SKILL_PARRY, NULL, 0) - 20) / 2;
+    return Local_GetArmorCheckPenaltyAdjustment(stats, skill, acp_armor, acp_shield);
+}
 
-        if (parry < 1)
-            return;
-        if (parry > 50)
-            parry = 50;
-    }
+void Hook_GetArmorCheckPenalty (void) {
+    asm("leave");
 
-    for (i = 0; i < 13; i++) {
-        if (damages[11 + i] >= 5) {
-            reduce = (damages[11 + i] * parry) / 100;
-            damages[11 + i] -= reduce;
-        }
-    }
-#endif
+    /* copy creature being checked out */
+    asm("movl %edi, Hook_ACP_Stats");
+
+    asm("mov 0xc(%ebp), %al");
+    asm("mov %al, Hook_ACP_Skill");
+
+    Hook_ACP_Penalty = Hook_GetArmorCheckPenaltyAdjustment(
+        (CNWSCreatureStats *)Hook_ACP_Stats, (uint8_t)Hook_ACP_Skill);
+
+    /* the result of Hook_GetArmorCheckPenaltyAdjustment() is in %eax */
+    asm("pushl Hook_ACP_Return");
+    asm("ret");
 }
 
 

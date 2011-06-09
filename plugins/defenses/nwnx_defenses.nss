@@ -34,6 +34,9 @@ const int AC_NATURAL_BASE                                 =  -1;
 int GetDefenseOption (int nOption);
 int SetDefenseOption (int nOption, int nValue);
 
+/* Set saving throw feats. */
+int SetSavingThrowFeat (int nSave, int nIndex, int nFeat, int nMod);
+
 /* Get oCreature's AC of the specified type. */
 int GetACByType (object oCreature, int nACType=AC_DODGE_BONUS);
 
@@ -54,6 +57,9 @@ int GetEffectDamageResistance (object oCreature, int nDamType, int nDurType=-1);
 
 /* Get if oCreature is immune to nSpellId. */
 int GetHasSpellImmunity (int nSpellId, object oCreature=OBJECT_SELF, int nSpellSchool=-1, int nSpellLevel=-1, int nDurType=-1);
+
+/* Get the total damage immunity decrease suffered by oCreature against nDamType. */
+int GetTotalDamageImmunityDecrease (object oCreature, int nDamType, int nDurType=-1);
 
 /* Get oCreature's true total damage immunity against the specified type. */
 int GetTrueDamageImmunity (object oCreature, int nDamType);
@@ -95,6 +101,11 @@ int SetDefenseOption (int nOption, int nValue) {
     return NWNXDefensesTwo(GetModule(), "NWNX!DEFENSES!SETDEFENSEOPTION", nOption, nValue); 
 }
 
+int SetSavingThrowFeat (int nSave, int nIndex, int nFeat, int nMod) {
+    return NWNXDefensesFour(GetModule(), "NWNX!DEFENSES!SETSAVINGTHROWFEAT", nSave, nIndex, nFeat, nMod);
+}
+
+
 int GetACByType (object oCreature, int nACType=AC_DODGE_BONUS) {
     return NWNXDefensesOne(oCreature, "NWNX!DEFENSES!GETACBYTYPE", nACType); 
 }
@@ -134,6 +145,10 @@ int GetSavingThrowVersus (object oCreature, int nSave, int nSaveType=SAVING_THRO
     SetLocalString(oCreature, "NWNX!DEFENSES!GETSAVINGTHROWVERSUS",
         IntToString(nSave) + " " + IntToString(nSaveType) + " " + ObjectToString(oVersus));
     return StringToInt(GetLocalString(oCreature, "NWNX!DEFENSES!GETSAVINGTHROWVERSUS"));
+}
+
+int GetTotalDamageImmunityDecrease (object oCreature, int nDamType, int nDurType=-1) {
+    return NWNXDefensesTwo(oCreature, "NWNX!DEFENSES!GETTOTALDAMAGEIMMUNITYDECREASE", nDamType, nDurType);
 }
 
 int GetTrueDamageImmunity (object oCreature, int nDamType) {

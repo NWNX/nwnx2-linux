@@ -29,6 +29,7 @@
 
 #define NWNX_DEFENSES_SIG(NAME, SIG) { #NAME, &NAME, SIG }
 
+static unsigned char *Ref_ArmorCheckPenalty;
 static unsigned char *Ref_CheckConcealment;
 static unsigned char *Ref_CombatHitDamage;
 static unsigned char *Ref_ConfirmCritical;
@@ -46,6 +47,7 @@ static unsigned char *Ref_SneakAttackImmune;
 static unsigned char *Ref_DamageImmEffect;
 static unsigned char *Ref_DamageImmRemove;
 static unsigned char *Ref_DamageResEffect;
+static unsigned char *Ref_DamageResMessage;
 static unsigned char *Ref_DamageVulnEffect;
 static unsigned char *Ref_DamageImmItemProp;
 #endif
@@ -57,6 +59,7 @@ static struct DefenseSignatureTable {
 } Table_DefenseSignatures[] = {
     { NULL,                                     NULL },
 
+    NWNX_DEFENSES_SIG(Ref_ArmorCheckPenalty,     "0F B6 45 F3 8D 14 80 8D 14 50 8B 81 E8 00 00 00 83 7C 90 24 01 75"),
     NWNX_DEFENSES_SIG(Ref_CheckConcealment,      "C7 45 BC 0A 00 00 00 8B 5D C0 85 DB 7F ** 8B 4D"),
     NWNX_DEFENSES_SIG(Ref_CombatHitDamage,       "FF 5A 59 6A 01 50 ** ** ** ** ** 83 C4 10 85 C0 78 36 83 EC"),
     NWNX_DEFENSES_SIG(Ref_ConfirmCritical,       "85 C0 75 ** 83 EC 08 68 80 03 00 00 8B 45 94 FF B0 64|68 0C 00 00 E8"),
@@ -74,6 +77,7 @@ static struct DefenseSignatureTable {
     NWNX_DEFENSES_SIG(Ref_DamageImmEffect,       "31 C0 89 45 F4 8B 45 F8 85 C0 78 08 3B 05 ** ** ** ** 7E 08 A1 ** ** ** ** 89 45 F8 66 8B 43 0A 25 E7"),
     NWNX_DEFENSES_SIG(Ref_DamageImmRemove,       "47 8B 45 E8 3B 78 04 7C 83 57 2B 75 EC 56 0F B7 45 F0"),
     NWNX_DEFENSES_SIG(Ref_DamageResEffect,       "B8 81 FD FF FF E9 ** ** ** ** 8D 76 00 8B 45 F4 85 C0 78 08 3B 05 ** ** ** ** 7E 08 A1"),
+    NWNX_DEFENSES_SIG(Ref_DamageResMessage,      "8B 75 18 85 F6 0F 85 CB 02 00 00 83 7D 1C 01 0F"),
     NWNX_DEFENSES_SIG(Ref_DamageVulnEffect,      "B8 9C FF FF FF 89 45 F4 8B 45 F8 85 C0 78 08 3B 05 ** ** ** ** 7E 08 A1 ** ** ** ** 89 45 F8 66 8B 43 0A 25 E7"),
     NWNX_DEFENSES_SIG(Ref_DamageImmItemProp,     "5B 5F 6A 02 56 E8 ** ** ** ** 0F B7 45 C2 83 C4 10 83 F8 0B 0F"),
 #endif
@@ -233,11 +237,11 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         Ref_DamageImmunityAlloc[1]  = 0x30;    /* PUSH 0x30 */
         Ref_DamageImmunityAlloc[32] = 0x30;    /* CMP EDX, 0x30 */
 
-        Ref_DamageImmunitySet1[-6]  = 0x89;    /* MOV EBX, ESI */
+        Ref_DamageImmunitySet1[-6]  = 0x89;    /* MOV EBX <- ESI */
         Ref_DamageImmunitySet1[-5]  = 0xF3;    
         Ref_DamageImmunitySet1[-4]  = 0x90;    /* NOP */
 
-        Ref_DamageImmunitySet2[-6]  = 0x89;    /* MOV EBX, ESI */
+        Ref_DamageImmunitySet2[-6]  = 0x89;    /* MOV EBX <- ESI */
         Ref_DamageImmunitySet2[-5]  = 0xF3;    
         Ref_DamageImmunitySet2[-4]  = 0x90;    /* NOP */
 #else
@@ -379,7 +383,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
 
         nx_hook_enable_write(p, 33);
 
-        p[0]  = 0x0F;  /* MOVZBL EAX, [EBP+12] */
+        p[0]  = 0x0F;  /* MOVZBL EAX <- [EBP+12] */
         p[1]  = 0xB6;
         p[2]  = 0x45;
         p[3]  = 0x0C;
@@ -388,7 +392,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         p[5]  = 0xE0;
         p[6]  = 0x10;
 
-        p[7]  = 0x66;  /* MOVZBW AX, [EBP-45] */
+        p[7]  = 0x66;  /* MOVZBW AX <- [EBP-45] */
         p[8]  = 0x0F;
         p[9]  = 0xB6;
         p[10] = 0x45;
@@ -454,6 +458,16 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
     }
 
 
+    /* armor check penalty check */
+    if (Ref_ArmorCheckPenalty != NULL) {
+        extern volatile uintptr_t Hook_ACP_Return;
+
+        Hook_ACP_Return = (uintptr_t)(Ref_ArmorCheckPenalty + 38);
+
+        nx_hook_function(Ref_ArmorCheckPenalty + 23, (void *)Hook_GetArmorCheckPenalty, 5, NX_HOOK_DIRECT);
+    }
+
+
 #ifdef NWNX_DEFENSES_HG
     /* damage immunity effect hook */
     if (Ref_DamageImmEffect != NULL) {
@@ -470,7 +484,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
     if (Ref_DamageImmRemove != NULL) {
         nx_hook_enable_write(Ref_DamageImmRemove, 32);
 
-        Ref_DamageImmRemove[14] = 0x8B;         /* MOV EAX, DWORD PTR [EBP-16] */
+        Ref_DamageImmRemove[14] = 0x8B;         /* MOV EAX <- DWORD PTR [EBP-16] */
         Ref_DamageImmRemove[15] = 0x45;
         Ref_DamageImmRemove[16] = 0xF0;
         Ref_DamageImmRemove[17] = 0x90;         /* NOP */
@@ -504,9 +518,9 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         nx_hook_enable_write(Ref_DamageImmItemProp, 40);
 
         Ref_DamageImmItemProp[17] = 0x51;       /* PUSH ECX */
-        Ref_DamageImmItemProp[18] = 0x89;       /* MOV ECX, EAX */
+        Ref_DamageImmItemProp[18] = 0x89;       /* MOV ECX <- EAX */
         Ref_DamageImmItemProp[19] = 0xC1;
-        Ref_DamageImmItemProp[20] = 0xBE;       /* MOV ESI, 0x1 */
+        Ref_DamageImmItemProp[20] = 0xBE;       /* MOV ESI <- 0x1 */
         Ref_DamageImmItemProp[21] = 0x01;
         Ref_DamageImmItemProp[22] = 0x00;
         Ref_DamageImmItemProp[23] = 0x00;
@@ -529,7 +543,28 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
     }
 
     /* damage resistance effect hook */
+    if (Ref_DamageResMessage != NULL) {
+        extern uintptr_t Hook_DR_Return;
 
+        Hook_DR_Return = (uintptr_t)(Ref_DamageResMessage + 5);
+        nx_hook_function(Ref_DamageResMessage, (void *)Hook_DamageResistanceMessage, 5, NX_HOOK_DIRECT);
+    }
+
+
+    /* fix saving throw bonus/penalty on items */
+    {
+        nx_hook_enable_write((unsigned char *)0x81B0450, 32);
+        *((unsigned char *)0x81B045D) = 0x02;
+
+        nx_hook_enable_write((unsigned char *)0x81B04F0, 32);
+        *((unsigned char *)0x81B04FD) = 0x02;
+
+        nx_hook_enable_write((unsigned char *)0x81B0590, 32);
+        *((unsigned char *)0x81B059D) = 0x15;
+
+        nx_hook_enable_write((unsigned char *)0x81B0630, 32);
+        *((unsigned char *)0x81B063D) = 0x15;
+    }
 #endif
 
     return true;

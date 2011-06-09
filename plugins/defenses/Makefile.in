@@ -44,15 +44,19 @@ OFILES  = \
     funcs/f_GetEffectDamageResistance.o          \
     funcs/f_GetHasSpellImmunity.o                \
     funcs/f_GetSavingThrowVersus.o               \
+    funcs/f_GetTotalDamageImmunityDecrease.o     \
     funcs/f_GetTrueDamageImmunity.o              \
     funcs/f_IntToObject.o                        \
     funcs/f_SetDefenseOption.o                   \
+    funcs/f_SetSavingThrowFeat.o                 \
     hooks/h_AddDamageImmunity.o                  \
     hooks/h_CheckConcealment.o                   \
     hooks/h_CombatHitDamage.o                    \
     hooks/h_ConfirmCritical.o                    \
     hooks/h_GetACNaturalBase.o                   \
+    hooks/h_GetArmorCheckPenalty.o               \
     hooks/h_GetDamageImmunity.o                  \
+    hooks/h_GetDamageResistance.o                \
     hooks/h_GetHasSlipperyMind.o                 \
     hooks/h_GetIsDeathAttackImmune.o             \
     hooks/h_GetIsSneakAttackImmune.o             \
@@ -73,6 +77,7 @@ OFILES  = \
     local/l_GetACTouchBase.o                     \
     local/l_GetACTumbleAdjustment.o              \
     local/l_GetACWisAdjustment.o                 \
+    local/l_GetArmorCheckPenaltyAdjustment.o     \
     local/l_GetConcealmentCheckResult.o          \
     local/l_GetCritConfirmationResult.o          \
     local/l_GetDamageImmunity.o                  \
@@ -81,6 +86,7 @@ OFILES  = \
     local/l_GetIsSneakAttackImmune.o             \
     local/l_GetPickPocketDCAdjustment.o          \
     tables/t_DefenseOptions.o                    \
+    tables/t_DefenseSaveFeats.o                  \
     NWNXDefenses.o                               \
     plugin-defenses.o
 
