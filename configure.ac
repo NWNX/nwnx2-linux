@@ -122,6 +122,7 @@ AC_CONFIG_FILES([
         plugins/functions/Makefile
         plugins/hashset/Makefile
         plugins/jvm/Makefile
+        plugins/lua/Makefile
         plugins/mnx/Makefile
         plugins/names/Makefile
         plugins/odmbc/Makefile
