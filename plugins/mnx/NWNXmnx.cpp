@@ -44,11 +44,11 @@ bool CNWNXmnx::ClientClose(const char *cname) {
 }
 
 bool CNWNXmnx::ClientInit(const char *cname, const char *dest) {
-  
 	int rc, len;;
 	struct sockaddr_in cliAddr;
 	struct hostent *h;
-	char *pStr, hostname[128];
+	const char *pStr;
+	char hostname[128];
 	short port;
 	connection conn;
 
