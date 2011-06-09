@@ -17,6 +17,7 @@ SUBDIRS = \
     plugins/functions  \
     plugins/hashset    \
     plugins/mnx        \
+    plugins/names      \
     plugins/odmbc      \
     plugins/profiler   \
     plugins/reset      \
