@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.0.3 */
 /* Command-line: gperf -L ANSI-C -tG -m 10 -K name -H oo_hash -N oo_lookup -W oo_list --output-file=gperf.out openoverride.gperf  */
-/* Computed positions: -k'10,14,16-18,21-22' */
+/* Computed positions: -k'10-11,14,16-18,21-22' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -47,12 +47,12 @@ struct openoverride_file_s {
   struct stat   sb;
 };
 
-#define OPENOVERRIDE_HASH_TOTAL_KEYWORDS 71
+#define OPENOVERRIDE_HASH_TOTAL_KEYWORDS 79
 #define OPENOVERRIDE_HASH_MIN_WORD_LENGTH 12
 #define OPENOVERRIDE_HASH_MAX_WORD_LENGTH 49
-#define OPENOVERRIDE_HASH_MIN_HASH_VALUE 13
-#define OPENOVERRIDE_HASH_MAX_HASH_VALUE 108
-/* maximum key range = 96, duplicates = 0 */
+#define OPENOVERRIDE_HASH_MIN_HASH_VALUE 16
+#define OPENOVERRIDE_HASH_MAX_HASH_VALUE 123
+/* maximum key range = 108, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -66,32 +66,32 @@ oo_hash (register const char *str, register unsigned int len)
 {
   static unsigned char asso_values[] =
     {
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109,   1, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109,   1,   1,  40,   2,
-        1,   9,  37,  30,  13, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-        3, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109,   4, 109,   6,   2,  38,
-        2,  10,   1,   3,  12,   3, 109,  35,   1,  34,
-       20,   2,   8, 109,  13,   1,   1,  46,   4, 109,
-        1, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-      109, 109, 109, 109, 109, 109
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124,   3, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124,   2,   3,  44,   3,
+        2,  10,  25,   6,   4, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+        2, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124,   5, 124,  28,  16,  35,
+        3,  16,   2,   3,   2,   6, 124,   2,   2,  31,
+       33,   5,  10, 124,   3,  15,   2,  48,  13, 124,
+        2, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124, 124, 124, 124, 124,
+      124, 124, 124, 124, 124, 124
     };
   register int hval = len;
 
@@ -121,6 +121,8 @@ oo_hash (register const char *str, register unsigned int len)
       case 13:
       case 12:
       case 11:
+        hval += asso_values[(unsigned char)str[10]];
+      /*FALLTHROUGH*/
       case 10:
         hval += asso_values[(unsigned char)str[9]];
         break;
@@ -131,159 +133,183 @@ oo_hash (register const char *str, register unsigned int len)
 static struct openoverride_file_s oo_list[] =
   {
     {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""},
+    {""}, {""}, {""}, {""}, {""}, {""}, {""},
 #line 62 "openoverride.gperf"
     {"./dialog.tlk",                                      -1, -1, NULL, { .st_dev = 0 }},
-    {""}, {""},
+    {""}, {""}, {""},
 #line 53 "openoverride.gperf"
     {"./data/xp2.bif",                                    -1, -1, NULL, { .st_dev = 0 }},
 #line 46 "openoverride.gperf"
     {"./data/xp1.bif",                                    -1, -1, NULL, { .st_dev = 0 }},
+    {""}, {""},
 #line 35 "openoverride.gperf"
     {"./data/ini.bif",                                    -1, -1, NULL, { .st_dev = 0 }},
-#line 36 "openoverride.gperf"
-    {"./data/misc.bif",                                   -1, -1, NULL, { .st_dev = 0 }},
-#line 39 "openoverride.gperf"
-    {"./data/music.bif",                                  -1, -1, NULL, { .st_dev = 0 }},
-#line 22 "openoverride.gperf"
-    {"./data/2da.bif",                                    -1, -1, NULL, { .st_dev = 0 }},
     {""}, {""},
+#line 90 "openoverride.gperf"
+    {"./tlk/dialog.tlk",                                  -1, -1, NULL, { .st_dev = 0 }},
 #line 61 "openoverride.gperf"
     {"./data/xp3.bif",                                    -1, -1, NULL, { .st_dev = 0 }},
+    {""},
+#line 91 "openoverride.gperf"
+    {"./tlk/cep2_v1.tlk",                                 -1, -1, NULL, { .st_dev = 0 }},
+#line 96 "openoverride.gperf"
+    {"./tlk/cep22_v1.tlk",                                -1, -1, NULL, { .st_dev = 0 }},
+#line 95 "openoverride.gperf"
+    {"./tlk/cep21_v1.tlk",                                -1, -1, NULL, { .st_dev = 0 }},
+#line 93 "openoverride.gperf"
+    {"./tlk/cep2_v22.tlk",                                -1, -1, NULL, { .st_dev = 0 }},
+#line 92 "openoverride.gperf"
+    {"./tlk/cep2_v21.tlk",                                -1, -1, NULL, { .st_dev = 0 }},
 #line 34 "openoverride.gperf"
     {"./data/editor.bif",                                 -1, -1, NULL, { .st_dev = 0 }},
-#line 59 "openoverride.gperf"
-    {"./data/xp2_tiles.bif",                              -1, -1, NULL, { .st_dev = 0 }},
-#line 52 "openoverride.gperf"
-    {"./data/xp1_tiles.bif",                              -1, -1, NULL, { .st_dev = 0 }},
+#line 79 "openoverride.gperf"
+    {"./hak/cep2_core2.hak",                              -1, -1, NULL, { .st_dev = 0 }},
+#line 78 "openoverride.gperf"
+    {"./hak/cep2_core1.hak",                              -1, -1, NULL, { .st_dev = 0 }},
+#line 83 "openoverride.gperf"
+    {"./hak/cep2_core6.hak",                              -1, -1, NULL, { .st_dev = 0 }},
+#line 97 "openoverride.gperf"
+    {"./tlk/cep23_v1.tlk",                                -1, -1, NULL, { .st_dev = 0 }},
+#line 82 "openoverride.gperf"
+    {"./hak/cep2_core5.hak",                              -1, -1, NULL, { .st_dev = 0 }},
+#line 94 "openoverride.gperf"
+    {"./tlk/cep2_v23.tlk",                                -1, -1, NULL, { .st_dev = 0 }},
+#line 32 "openoverride.gperf"
+    {"./data/aurora_ttf.bif",                             -1, -1, NULL, { .st_dev = 0 }},
+#line 33 "openoverride.gperf"
+    {"./data/aurora_ttr.bif",                             -1, -1, NULL, { .st_dev = 0 }},
+#line 80 "openoverride.gperf"
+    {"./hak/cep2_core3.hak",                              -1, -1, NULL, { .st_dev = 0 }},
+    {""},
+#line 22 "openoverride.gperf"
+    {"./data/2da.bif",                                    -1, -1, NULL, { .st_dev = 0 }},
+#line 76 "openoverride.gperf"
+    {"./hak/cep2_ext_tiles.hak",                          -1, -1, NULL, { .st_dev = 0 }},
+#line 73 "openoverride.gperf"
+    {"./hak/cep2_add_tiles.hak",                          -1, -1, NULL, { .st_dev = 0 }},
+#line 75 "openoverride.gperf"
+    {"./hak/cep2_add_tiles2.hak",                         -1, -1, NULL, { .st_dev = 0 }},
+#line 74 "openoverride.gperf"
+    {"./hak/cep2_add_tiles1.hak",                         -1, -1, NULL, { .st_dev = 0 }},
+#line 69 "openoverride.gperf"
+    {"./hak/cep2_add_doors.hak",                          -1, -1, NULL, { .st_dev = 0 }},
 #line 54 "openoverride.gperf"
     {"./data/xp2_models.bif",                             -1, -1, NULL, { .st_dev = 0 }},
 #line 47 "openoverride.gperf"
     {"./data/xp1_models.bif",                             -1, -1, NULL, { .st_dev = 0 }},
+#line 98 "openoverride.gperf"
+    {"./tlk/cep24_v1.tlk",                                -1, -1, NULL, { .st_dev = 0 }},
+#line 39 "openoverride.gperf"
+    {"./data/music.bif",                                  -1, -1, NULL, { .st_dev = 0 }},
+#line 28 "openoverride.gperf"
+    {"./data/aurora_tds.bif",                             -1, -1, NULL, { .st_dev = 0 }},
+#line 26 "openoverride.gperf"
+    {"./data/aurora_tde.bif",                             -1, -1, NULL, { .st_dev = 0 }},
+#line 85 "openoverride.gperf"
+    {"./hak/cep2_top_v1.hak",                             -1, -1, NULL, { .st_dev = 0 }},
+#line 81 "openoverride.gperf"
+    {"./hak/cep2_core4.hak",                              -1, -1, NULL, { .st_dev = 0 }},
+    {""},
+#line 72 "openoverride.gperf"
+    {"./hak/cep2_add_skies.hak",                          -1, -1, NULL, { .st_dev = 0 }},
+#line 59 "openoverride.gperf"
+    {"./data/xp2_tiles.bif",                              -1, -1, NULL, { .st_dev = 0 }},
+#line 52 "openoverride.gperf"
+    {"./data/xp1_tiles.bif",                              -1, -1, NULL, { .st_dev = 0 }},
 #line 38 "openoverride.gperf"
     {"./data/models_02.bif",                              -1, -1, NULL, { .st_dev = 0 }},
 #line 37 "openoverride.gperf"
     {"./data/models_01.bif",                              -1, -1, NULL, { .st_dev = 0 }},
-    {""}, {""}, {""},
-#line 72 "openoverride.gperf"
-    {"./hak/cep2_add_tiles2.hak",                         -1, -1, NULL, { .st_dev = 0 }},
-#line 71 "openoverride.gperf"
-    {"./hak/cep2_add_tiles1.hak",                         -1, -1, NULL, { .st_dev = 0 }},
-#line 45 "openoverride.gperf"
-    {"./data/voicesets.bif",                              -1, -1, NULL, { .st_dev = 0 }},
 #line 40 "openoverride.gperf"
     {"./data/scripts.bif",                                -1, -1, NULL, { .st_dev = 0 }},
-    {""}, {""}, {""},
-#line 32 "openoverride.gperf"
-    {"./data/aurora_ttf.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-#line 28 "openoverride.gperf"
-    {"./data/aurora_tds.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-#line 73 "openoverride.gperf"
-    {"./hak/cep2_ext_tiles.hak",                          -1, -1, NULL, { .st_dev = 0 }},
-#line 70 "openoverride.gperf"
-    {"./hak/cep2_add_tiles.hak",                          -1, -1, NULL, { .st_dev = 0 }},
-#line 69 "openoverride.gperf"
-    {"./hak/cep2_add_doors.hak",                          -1, -1, NULL, { .st_dev = 0 }},
-#line 68 "openoverride.gperf"
-    {"./hak/cep2_add_sb_v1.hak",                          -1, -1, NULL, { .st_dev = 0 }},
-#line 76 "openoverride.gperf"
-    {"./hak/cep2_core2.hak",                              -1, -1, NULL, { .st_dev = 0 }},
-#line 75 "openoverride.gperf"
-    {"./hak/cep2_core1.hak",                              -1, -1, NULL, { .st_dev = 0 }},
 #line 55 "openoverride.gperf"
     {"./data/xp2_scripts.bif",                            -1, -1, NULL, { .st_dev = 0 }},
 #line 48 "openoverride.gperf"
     {"./data/xp1_scripts.bif",                            -1, -1, NULL, { .st_dev = 0 }},
-#line 26 "openoverride.gperf"
-    {"./data/aurora_tde.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-#line 86 "openoverride.gperf"
-    {"./tlk/dialog.tlk",                                  -1, -1, NULL, { .st_dev = 0 }},
-#line 33 "openoverride.gperf"
-    {"./data/aurora_ttr.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-#line 87 "openoverride.gperf"
-    {"./tlk/cep2_v1.tlk",                                 -1, -1, NULL, { .st_dev = 0 }},
+    {""}, {""},
+#line 36 "openoverride.gperf"
+    {"./data/misc.bif",                                   -1, -1, NULL, { .st_dev = 0 }},
+#line 27 "openoverride.gperf"
+    {"./data/aurora_tdm.bif",                             -1, -1, NULL, { .st_dev = 0 }},
+#line 70 "openoverride.gperf"
+    {"./hak/cep2_add_loads.hak",                          -1, -1, NULL, { .st_dev = 0 }},
+#line 68 "openoverride.gperf"
+    {"./hak/cep2_add_sb_v1.hak",                          -1, -1, NULL, { .st_dev = 0 }},
+    {""},
+#line 25 "openoverride.gperf"
+    {"./data/aurora_tdc.bif",                             -1, -1, NULL, { .st_dev = 0 }},
+#line 30 "openoverride.gperf"
+    {"./data/aurora_tin.bif",                             -1, -1, NULL, { .st_dev = 0 }},
 #line 77 "openoverride.gperf"
-    {"./hak/cep2_core3.hak",                              -1, -1, NULL, { .st_dev = 0 }},
-#line 89 "openoverride.gperf"
-    {"./tlk/cep2_v22.tlk",                                -1, -1, NULL, { .st_dev = 0 }},
-#line 88 "openoverride.gperf"
-    {"./tlk/cep2_v21.tlk",                                -1, -1, NULL, { .st_dev = 0 }},
-#line 42 "openoverride.gperf"
-    {"./data/templates.bif",                              -1, -1, NULL, { .st_dev = 0 }},
-#line 80 "openoverride.gperf"
-    {"./hak/cep2_core6.hak",                              -1, -1, NULL, { .st_dev = 0 }},
+    {"./hak/cep2_core0.hak",                              -1, -1, NULL, { .st_dev = 0 }},
+#line 29 "openoverride.gperf"
+    {"./data/aurora_tic.bif",                             -1, -1, NULL, { .st_dev = 0 }},
+    {""},
 #line 64 "openoverride.gperf"
     {"./hak/cep2_add_phenos2.hak",                        -1, -1, NULL, { .st_dev = 0 }},
 #line 63 "openoverride.gperf"
     {"./hak/cep2_add_phenos1.hak",                        -1, -1, NULL, { .st_dev = 0 }},
-#line 30 "openoverride.gperf"
-    {"./data/aurora_tin.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-#line 60 "openoverride.gperf"
-    {"./data/xp2patch.bif",                               -1, -1, NULL, { .st_dev = 0 }},
-#line 90 "openoverride.gperf"
-    {"./tlk/cep2_v23.tlk",                                -1, -1, NULL, { .st_dev = 0 }},
-#line 21 "openoverride.gperf"
-    {"./currentgame.0/Path of Ascension CEP Legends.mod", -1,  0, NULL, { .st_dev = 0 }},
+#line 84 "openoverride.gperf"
+    {"./hak/cep2_custom.hak",                             -1, -1, NULL, { .st_dev = 0 }},
+#line 31 "openoverride.gperf"
+    {"./data/aurora_tms.bif",                             -1, -1, NULL, { .st_dev = 0 }},
+#line 67 "openoverride.gperf"
+    {"./hak/cep2_add_phenos5.hak",                        -1, -1, NULL, { .st_dev = 0 }},
+#line 87 "openoverride.gperf"
+    {"./hak/cep2_top_v22.hak",                            -1, -1, NULL, { .st_dev = 0 }},
+#line 86 "openoverride.gperf"
+    {"./hak/cep2_top_v21.hak",                            -1, -1, NULL, { .st_dev = 0 }},
     {""},
-#line 41 "openoverride.gperf"
-    {"./data/sounds.bif",                                 -1, -1, NULL, { .st_dev = 0 }},
 #line 65 "openoverride.gperf"
     {"./hak/cep2_add_phenos3.hak",                        -1, -1, NULL, { .st_dev = 0 }},
-#line 57 "openoverride.gperf"
-    {"./data/xp2_templates.bif",                          -1, -1, NULL, { .st_dev = 0 }},
-#line 50 "openoverride.gperf"
-    {"./data/xp1_templates.bif",                          -1, -1, NULL, { .st_dev = 0 }},
-#line 82 "openoverride.gperf"
-    {"./hak/cep2_top_v1.hak",                             -1, -1, NULL, { .st_dev = 0 }},
+#line 60 "openoverride.gperf"
+    {"./data/xp2patch.bif",                               -1, -1, NULL, { .st_dev = 0 }},
+#line 71 "openoverride.gperf"
+    {"./hak/cep2_add_rules.hak",                          -1, -1, NULL, { .st_dev = 0 }},
+#line 23 "openoverride.gperf"
+    {"./data/aurora_gui.bif",                             -1, -1, NULL, { .st_dev = 0 }},
+    {""},
+#line 88 "openoverride.gperf"
+    {"./hak/cep2_top_v23.hak",                            -1, -1, NULL, { .st_dev = 0 }},
+    {""},
+#line 42 "openoverride.gperf"
+    {"./data/templates.bif",                              -1, -1, NULL, { .st_dev = 0 }},
+    {""},
 #line 56 "openoverride.gperf"
     {"./data/xp2_sounds.bif",                             -1, -1, NULL, { .st_dev = 0 }},
 #line 49 "openoverride.gperf"
     {"./data/xp1_sounds.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-#line 31 "openoverride.gperf"
-    {"./data/aurora_tms.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-#line 27 "openoverride.gperf"
-    {"./data/aurora_tdm.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-#line 79 "openoverride.gperf"
-    {"./hak/cep2_core5.hak",                              -1, -1, NULL, { .st_dev = 0 }},
-#line 84 "openoverride.gperf"
-    {"./hak/cep2_top_v22.hak",                            -1, -1, NULL, { .st_dev = 0 }},
-#line 83 "openoverride.gperf"
-    {"./hak/cep2_top_v21.hak",                            -1, -1, NULL, { .st_dev = 0 }},
-#line 25 "openoverride.gperf"
-    {"./data/aurora_tdc.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-#line 29 "openoverride.gperf"
-    {"./data/aurora_tic.bif",                             -1, -1, NULL, { .st_dev = 0 }},
+    {""},
 #line 44 "openoverride.gperf"
     {"./data/textures_02.bif",                            -1, -1, NULL, { .st_dev = 0 }},
 #line 43 "openoverride.gperf"
     {"./data/textures_01.bif",                            -1, -1, NULL, { .st_dev = 0 }},
-#line 78 "openoverride.gperf"
-    {"./hak/cep2_core4.hak",                              -1, -1, NULL, { .st_dev = 0 }},
-    {""},
-#line 85 "openoverride.gperf"
-    {"./hak/cep2_top_v23.hak",                            -1, -1, NULL, { .st_dev = 0 }},
-#line 74 "openoverride.gperf"
-    {"./hak/cep2_core0.hak",                              -1, -1, NULL, { .st_dev = 0 }},
-    {""},
-#line 23 "openoverride.gperf"
-    {"./data/aurora_gui.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-#line 67 "openoverride.gperf"
-    {"./hak/cep2_add_phenos5.hak",                        -1, -1, NULL, { .st_dev = 0 }},
-    {""}, {""}, {""}, {""},
-#line 81 "openoverride.gperf"
-    {"./hak/cep2_custom.hak",                             -1, -1, NULL, { .st_dev = 0 }},
     {""},
 #line 66 "openoverride.gperf"
     {"./hak/cep2_add_phenos4.hak",                        -1, -1, NULL, { .st_dev = 0 }},
+    {""},
 #line 24 "openoverride.gperf"
     {"./data/aurora_tcn.bif",                             -1, -1, NULL, { .st_dev = 0 }},
+    {""},
+#line 41 "openoverride.gperf"
+    {"./data/sounds.bif",                                 -1, -1, NULL, { .st_dev = 0 }},
+#line 89 "openoverride.gperf"
+    {"./hak/cep2_top_v24.hak",                            -1, -1, NULL, { .st_dev = 0 }},
+#line 45 "openoverride.gperf"
+    {"./data/voicesets.bif",                              -1, -1, NULL, { .st_dev = 0 }},
+#line 20 "openoverride.gperf"
+    {"./modules/Path of Ascension CEP Legends.mod",       -1,  1, NULL, { .st_dev = 0 }},
+#line 57 "openoverride.gperf"
+    {"./data/xp2_templates.bif",                          -1, -1, NULL, { .st_dev = 0 }},
+#line 50 "openoverride.gperf"
+    {"./data/xp1_templates.bif",                          -1, -1, NULL, { .st_dev = 0 }},
+    {""}, {""}, {""}, {""}, {""}, {""}, {""},
 #line 58 "openoverride.gperf"
     {"./data/xp2_textures.bif",                           -1, -1, NULL, { .st_dev = 0 }},
 #line 51 "openoverride.gperf"
     {"./data/xp1_textures.bif",                           -1, -1, NULL, { .st_dev = 0 }},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""},
-#line 20 "openoverride.gperf"
-    {"./modules/Path of Ascension CEP Legends.mod",       -1,  1, NULL, { .st_dev = 0 }}
+#line 21 "openoverride.gperf"
+    {"./currentgame.0/Path of Ascension CEP Legends.mod", -1,  0, NULL, { .st_dev = 0 }}
   };
 
 #ifdef __GNUC__
@@ -309,7 +335,7 @@ oo_lookup (register const char *str, register unsigned int len)
     }
   return 0;
 }
-#line 91 "openoverride.gperf"
+#line 99 "openoverride.gperf"
 
 
 #ifdef __cplusplus
