@@ -27,10 +27,8 @@
 struct CNWSStats_Spell_s {
     int32_t             sp_id;
     uint32_t            sp_ready;
-
-    uint8_t             sp_meta;
-
-    uint8_t             unknown[7];
+    uint32_t 		sp_meta;
+    uint32_t 		sp_domain;
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSSTATS_SPELL_ */

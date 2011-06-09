@@ -26,6 +26,7 @@
 
 struct CNWSpell_s {
     void               *unknown;
+    uint32_t            sp_data[87];
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSPELL_ */
