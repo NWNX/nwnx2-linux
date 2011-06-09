@@ -24,7 +24,7 @@
 #include <vector>
 #include <string>
 #include "db.h"
-#include "sqlite/sqlite3.h"
+#include <sqlite3.h>
 
 class CSQLite : public CDB
 {

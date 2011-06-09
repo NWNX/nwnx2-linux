@@ -22,7 +22,7 @@
 
 #include "db.h"
 
-#include "pgsql/libpq-fe.h"
+#include <postgresql/libpq-fe.h>
 
 class CPgSQL : public CDB
 {

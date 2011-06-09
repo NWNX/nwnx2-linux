@@ -67,11 +67,14 @@ bool CNWNXODBC::OnCreate (gline *config, const char* LogDir)
 	Log (0, "NWNX2 ODBC2 version 1.0.0 for Linux.\n");
 	Log (0, "(c) 2005-2006 dumbo (dumbo@nm.ru)\n");
 	Log (0, "(c) 2006-2010 virusman (virusman@virusman.ru)\n");
-#if SQLITE_SUPPORT == 1
+#ifdef SQLITE_SUPPORT
 	Log (0, "SQLite engine is supported\n");
 #endif
-#if PGSQL_SUPPORT == 1
-	Log (0, "PostgerSQL engine is supported\n");
+#ifdef PGSQL_SUPPORT
+	Log (0, "PostgreSQL engine is supported\n");
+#endif
+#ifdef MYSQL_SUPPORT
+	Log (0, "MySQL engine is supported\n");
 #endif
 
   if (!LoadConfiguration()) 
@@ -105,7 +108,9 @@ BOOL CNWNXODBC::Connect()
 {
 	BOOL connected;
 // CODBC* odbc;
+#ifdef MYSQL_SUPPORT
 	CMySQL* mysql;
+#endif
 #if SQLITE_SUPPORT == 1
 	CSQLite* sqlite;
 #endif
@@ -118,6 +123,7 @@ BOOL CNWNXODBC::Connect()
 	// create a database instance
 	switch (dbType)
 	{
+#ifdef MYSQL_SUPPORT
 		case dbMYSQL:
 			mysql = new CMySQL();
 			if (strcmp(p.server, "localhost") == 0)
@@ -137,6 +143,7 @@ BOOL CNWNXODBC::Connect()
 			connected = mysql->Connect(p.server, p.user, p.pass, p.db, p.port, p.socket, p.charset);
 			db = mysql;
 			break;
+#endif
 #if SQLITE_SUPPORT == 1
 		case dbSQLITE:
 			sqlite = new CSQLite();
@@ -375,18 +382,20 @@ bool CNWNXODBC::LoadConfiguration ()
 	if(!nwnxConfig->exists(confKey)) {
 		Log (0, "o Critical Error: Section [%s] not found in nwnx2.ini\n", confKey);
 		return false;
-  }
+	}
 
   // see what mode should be used
 	strcpy(buffer, (char*)((*nwnxConfig)[confKey]["source"].c_str()));
+	dbType = dbNONE;
 
-  if (strcasecmp (buffer, "MYSQL") == 0) {
+#ifdef MYSQL_SUPPORT
+	if (strcasecmp (buffer, "MYSQL") == 0) {
 		// load in the settings for a direct mysql connection
 		p.server    = strdup((char*)((*nwnxConfig)[confKey]["server"].c_str()));
 		p.user      = strdup((char*)((*nwnxConfig)[confKey]["user"].c_str()));
 		p.pass      = strdup((char*)((*nwnxConfig)[confKey]["pass"].c_str()));
 		if(!*p.pass)
-		p.pass      = strdup((char*)((*nwnxConfig)[confKey]["pwd"].c_str()));
+			p.pass  = strdup((char*)((*nwnxConfig)[confKey]["pwd"].c_str()));
 		p.db        = strdup((char*)((*nwnxConfig)[confKey]["db"].c_str()));
 		p.port      = atoi((char*)((*nwnxConfig)[confKey]["port"].c_str()));
 		p.socket    = strdup((char*)((*nwnxConfig)[confKey]["socket"].c_str()));
@@ -395,40 +404,42 @@ bool CNWNXODBC::LoadConfiguration ()
 		p.charset   = strdup((char*)((*nwnxConfig)[confKey]["charset"].c_str()));
 		dbType = dbMYSQL;
 	}
+#endif
 /*
   else if (strcasecmp (buffer, "ODBC") == 0) {
 		p.server = strdup((char*)((*nwnxConfig)[confKey]["dsn"].c_str()));
 		dbType = dbODBC;
 	}*/
-#if SQLITE_SUPPORT==1
-	else if (strcasecmp (buffer, "SQLITE") == 0) {
+#ifdef SQLITE_SUPPORT
+	if (strcasecmp (buffer, "SQLITE") == 0) {
 		// load in the settings for the internal database
 		p.db = strdup((char*)((*nwnxConfig)[confKey]["file"].c_str()));
 		dbType = dbSQLITE;
 	}
 #endif
-#if PGSQL_SUPPORT==1
-	else if (strcasecmp (buffer, "PGSQL") == 0) {
+#ifdef PGSQL_SUPPORT
+	if (strcasecmp (buffer, "PGSQL") == 0) {
 		  // load in the settings for a direct pgsql connection
 		  p.server	  = strdup((char*)((*nwnxConfig)[confKey]["server"].c_str()));
 		  p.user	  = strdup((char*)((*nwnxConfig)[confKey]["user"].c_str()));
 		  p.pass	  = strdup((char*)((*nwnxConfig)[confKey]["pass"].c_str()));
 		  if(!*p.pass)
-		  p.pass	  = strdup((char*)((*nwnxConfig)[confKey]["pwd"].c_str()));
+			p.pass    = strdup((char*)((*nwnxConfig)[confKey]["pwd"].c_str()));
 		  p.db		  = strdup((char*)((*nwnxConfig)[confKey]["db"].c_str()));
 		  dbType = dbPGSQL;
-	  }
+	}
 #endif
-	else {
-#if SQLITE_SUPPORT==1
-		Log (0, "o Critical Error: Datasource must be MySQL or SQLite.\n");
+	if (dbType == dbNONE) {
+		Log(0, "o Critical Error: Datasource must be one of:\n");
+#ifdef SQLITE_SUPPORT
+		Log (0, "oo SQLITE\n");
 #endif
-#if PGSQL_SUPPORT==1
-		Log (0, "o Critical Error: Datasource must be MySQL or PGSQL.\n");
-#else
-		Log (0, "o Critical Error: Datasource must be MySQL.\n");
+#ifdef PGSQL_SUPPORT
+		Log (0, "oo PGSQL\n");
 #endif
-		dbType = dbNONE;
+#ifdef MYSQL_SUPPORT
+		Log (0, "oo MYSQL\n");
+#endif
 		return false;
 	}
 

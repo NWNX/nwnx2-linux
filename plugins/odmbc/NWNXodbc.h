@@ -20,17 +20,16 @@
 #ifndef _NWNX_odbc_H_
 #define _NWNX_odbc_H_
 
-#define SQLITE_SUPPORT 0
-#define PGSQL_SUPPORT 1
-
 #include "NWNXBase.h"
 
 #include "db.h"
+#ifdef MYSQL_SUPPORT
 #include "mysql.h"
-#if SQLITE_SUPPORT == 1
+#endif
+#ifdef SQLITE_SUPPORT
 #include "sqlite.h"
 #endif
-#if PGSQL_SUPPORT == 1
+#ifdef PGSQL_SUPPORT
 #include "pgsql.h"
 #endif
 #include "HookSCORCO.h"

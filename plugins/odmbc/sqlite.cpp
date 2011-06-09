@@ -20,6 +20,9 @@
 
 //#include <assert.h>
 #include "sqlite.h"
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 CSQLite::CSQLite() : CDB()
 {

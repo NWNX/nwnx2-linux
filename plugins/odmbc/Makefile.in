@@ -1,13 +1,48 @@
 NWNXDIR  = ../..
-CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR)
+DFLAGS   :=
+CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR) $(DFLAGS)
 LFLAGS   = $(PLUGIN_LFLAGS)
 
-LIBS     = -L/usr/lib/mysql -lmysqlclient -lz
+DFLAGS   :=
+SODEPS   := HookSCORCO.o CExoString.o ObjectStorage.o NWNXodbc.o plugin-odbc.o
+LIBS     := -lz
 
-all: nwnx_odbc.so
+ANY_SUPPORT = 0
 
-nwnx_odbc.so: HookSCORCO.o CExoString.o ObjectStorage.o NWNXodbc.o mysql.o plugin-odbc.o
+ifdef MYSQL_SUPPORT
+	DFLAGS := $(DFLAGS) -DMYSQL_SUPPORT
+	LIBS   := $(LIBS) -lmysqlclient
+	SODEPS := $(SODEPS) mysql.o
+	ANY_SUPPORT = 1
+endif
+
+ifdef PGSQL_SUPPORT
+	DFLAGS := $(DFLAGS) -DPGSQL_SUPPORT
+	LIBS   := $(LIBS) -lpq
+	SODEPS := $(SODEPS) pgsql.o
+	ANY_SUPPORT = 1
+endif
+
+ifdef SQLITE_SUPPORT
+	DFLAGS := $(DFLAGS) -DSQLITE_SUPPORT
+	LIBS   := $(LIBS) -lsqlite3
+	SODEPS := $(SODEPS) sqlite.o
+	ANY_SUPPORT = 1
+endif
+
+all: supcheck nwnx_odbc.so
+
+.PHONY: supcheck
+supcheck:
+ifneq ($(ANY_SUPPORT),1)
+	@echo "You might want to enable at least one data source. See README."
+	exit 1
+endif
+
+nwnx_odbc.so: HookSCORCO.o CExoString.o ObjectStorage.o NWNXodbc.o plugin-odbc.o
+nwnx_odbc.so: $(SODEPS)
 	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
+
 
 clean:
 	/bin/rm -f *.o *.so *~
@@ -15,5 +50,5 @@ clean:
 distclean: clean
 	/bin/rm -f Makefile
 
-install: nwnx_odmbc.so
-	mkdir -p @prefix@/ ; install nwnx_odmbc.so @prefix@/
+install: nwnx_odbc.so
+	mkdir -p @prefix@/ ; install nwnx_odbc.so @prefix@/
