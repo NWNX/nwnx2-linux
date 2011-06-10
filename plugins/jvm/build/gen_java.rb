@@ -7,7 +7,7 @@ $core_package = "org.nwnx.nwnx2.jvm"
 $core_classprefix = "org_nwnx_nwnx2_jvm_"
 $core_classpath = "org/nwnx/nwnx2/jvm/"
 
-$path = ARGV.shift or fail "Need argument: nwscript.nss"
+$path = ARGV.shift or fail "Need argument: funcs.nss"
 $path = File.expand_path($path)
 $path.freeze
 
