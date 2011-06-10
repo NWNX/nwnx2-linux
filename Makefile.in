@@ -10,7 +10,6 @@ CPPFLAGS = @CPPFLAGS@ -Iinclude $(DEFS)
 SUBDIRS = \
     plugins/areas      \
     plugins/chat       \
-    plugins/db         \
     plugins/defenses   \
     plugins/dmactions  \
     plugins/events     \
