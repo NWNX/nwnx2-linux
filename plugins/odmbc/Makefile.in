@@ -3,46 +3,53 @@ DFLAGS   :=
 CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR) $(DFLAGS)
 LFLAGS   = $(PLUGIN_LFLAGS)
 
-DFLAGS   :=
 SODEPS   := HookSCORCO.o CExoString.o ObjectStorage.o NWNXodbc.o plugin-odbc.o
 LIBS     := -lz
 
-ANY_SUPPORT = 0
+TARGET_ANY = 0
+TARGETCXX = $(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
+
+all: warn_if_no_target nwnx_odbc_mysql.so nwnx_odbc_sqlite.so nwnx_odbc_pgsql.so
+
+nwnx_odbc_clean_o:
+	-@rm *.o
+nwnx_odbc_mysql.so:: nwnx_odbc_clean_o
+nwnx_odbc_sqlite.so:: nwnx_odbc_clean_o
+nwnx_odbc_pgsql.so:: nwnx_odbc_clean_o
 
 ifdef MYSQL_SUPPORT
-	DFLAGS := $(DFLAGS) -DMYSQL_SUPPORT
-	LIBS   := $(LIBS) -lmysqlclient
-	SODEPS := $(SODEPS) mysql.o
-	ANY_SUPPORT = 1
-endif
-
-ifdef PGSQL_SUPPORT
-	DFLAGS := $(DFLAGS) -DPGSQL_SUPPORT
-	LIBS   := $(LIBS) -lpq
-	SODEPS := $(SODEPS) pgsql.o
-	ANY_SUPPORT = 1
+TARGETS := $(TARGETS) nwnx_odbc_mysql.so
+TARGET_ANY = 1
+nwnx_odbc_mysql.so:: $(SODEPS) mysql.o
+	$(TARGETCXX) -DMYSQL_SUPPORT -lmysqlclient
 endif
 
 ifdef SQLITE_SUPPORT
-	DFLAGS := $(DFLAGS) -DSQLITE_SUPPORT
-	LIBS   := $(LIBS) -lsqlite3
-	SODEPS := $(SODEPS) sqlite.o
-	ANY_SUPPORT = 1
+TARGETS := $(TARGETS) nwnx_odbc_sqlite.so
+TARGET_ANY = 1
+nwnx_odbc_sqlite.so:: $(SODEPS) sqlite.o
+	$(TARGETCXX) -DSQLITE_SUPPORT -lsqlite3
 endif
 
-all: supcheck nwnx_odbc.so
-
-.PHONY: supcheck
-supcheck:
-ifneq ($(ANY_SUPPORT),1)
-	@echo "You might want to enable at least one data source. See README."
-	exit 1
+ifdef PGSQL_SUPPORT
+TARGETS := $(TARGETS) nwnx_odbc_pgsql.so
+TARGET_ANY = 1
+nwnx_odbc_pgsql.so:: $(SODEPS) pgsql.o
+	$(TARGETCXX) -DPGSQL_SUPPORT -lpq
 endif
 
-nwnx_odbc.so: HookSCORCO.o CExoString.o ObjectStorage.o NWNXodbc.o plugin-odbc.o
-nwnx_odbc.so: $(SODEPS)
-	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
-
+.PHONY: warn_if_no_target
+warn_if_no_target:
+ifeq ($(TARGET_ANY),0)
+	@echo ""
+	@echo "************************************"
+	@echo "              WARNING "
+	@echo "You don't have any targets selected."
+	@echo "No database plugin is being built."
+	@echo " See README in the odbmc directory."
+	@echo "************************************"
+	@echo ""
+endif
 
 clean:
 	/bin/rm -f *.o *.so *~
@@ -50,5 +57,5 @@ clean:
 distclean: clean
 	/bin/rm -f Makefile
 
-install: nwnx_odbc.so
-	mkdir -p @prefix@/ ; install nwnx_odbc.so @prefix@/
+# automatic installation not supported, since the user needs to
+# select a plugin

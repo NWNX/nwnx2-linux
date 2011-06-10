@@ -158,6 +158,11 @@ BOOL CNWNXODBC::Connect()
 			db = pgsql;
 			break;
 #endif
+		case dbNONE:
+			// Do not connect, no database has been compiled in.
+			Log (0, "o Not connecting, plugin has been built without any database support.\n");
+			connected = false;
+			return true;
 	}
 
 	// try to connect to the database
@@ -225,6 +230,12 @@ unsigned long CNWNXODBC::OnRequestObject(char *gameObject, char *Request)
 //============================================================================================================================
 void CNWNXODBC::Execute(char *request)
 {
+	if (!db) {
+		Log (1, "! Error: Tried to execute SQL statement, but no support compiled in.\n");
+		request[0] = '0';
+		request[1] = 0;
+		return;
+	}
   Log (2, "o Got request: %s\n", request);
 	request_counter++;
 
@@ -251,6 +262,12 @@ void CNWNXODBC::Execute(char *request)
 //============================================================================================================================
 void CNWNXODBC::Fetch(char *buffer, unsigned int buffersize)
 {
+	if (!db) {
+		Log (1, "! Error: Tried to execute SQL statement, but no support compiled in.\n");
+		buffer[0] = 0x0;
+		return;
+	}
+
 	unsigned int totalbytes = 0;
 	buffer[0] = 0x0;
 	// fetch data from recordset
@@ -265,6 +282,11 @@ void CNWNXODBC::Fetch(char *buffer, unsigned int buffersize)
 //============================================================================================================================
 void CNWNXODBC::SetScorcoSQL(char *request)
 {
+	if (!db) {
+		Log (1, "! Error: Tried to execute SQL-based SCO/RCO, but no support compiled in.\n");
+		return;
+	}
+
 	memcpy(scorcoSQL, request, strlen(request) + 1);
   Log (2, "o Got request (scorco): %s\n", scorcoSQL);
 }
@@ -299,6 +321,12 @@ int CNWNXODBC::WriteSCO(char* database, char* key, char* player, int flags, unsi
 
   if(strcmp(key,"-") == 0)
   {
+
+	if (!db) {
+		Log (1, "! Error: Tried to execute SQL-based SCO/RCO, but no support compiled in.\n");
+		return 0;
+	}
+
 	  if (size > 0)
 		{
 			//Log ("o Writing scorco data.\n");
@@ -333,6 +361,10 @@ unsigned char* CNWNXODBC::ReadSCO(char* database, char* key, char* player, int* 
 
   if(strcmp(key,"-") == 0)
   {
+	if (!db) {
+		Log (1, "! Error: Tried to execute SQL-based SCO/RCO, but no support compiled in.\n");
+		return NULL;
+	}
 
 	BYTE* pData;
 	BOOL sqlError;
@@ -430,7 +462,8 @@ bool CNWNXODBC::LoadConfiguration ()
 	}
 #endif
 	if (dbType == dbNONE) {
-		Log(0, "o Critical Error: Datasource must be one of:\n");
+		p.db = NULL;
+		Log(0, "o Warning: Datasource must be one of:\n");
 #ifdef SQLITE_SUPPORT
 		Log (0, "oo SQLITE\n");
 #endif
@@ -440,7 +473,7 @@ bool CNWNXODBC::LoadConfiguration ()
 #ifdef MYSQL_SUPPORT
 		Log (0, "oo MYSQL\n");
 #endif
-		return false;
+		Log (0, "o Only providing SCO/RCO hooks to other plugins.\n");
 	}
 
 	// check if scorco should be hooked
