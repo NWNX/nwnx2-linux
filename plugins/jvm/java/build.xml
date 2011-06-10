@@ -5,6 +5,7 @@
 
 	<target name="init">
 		<mkdir dir="${build}"/>
+		<mkdir dir="${dist}"/>
 	</target>
 
 	<target name="compile" depends="init">
@@ -27,9 +28,7 @@
 			manifest="META-INF/MANIFEST.MF" basedir="${build}"/>
 	</target>
 
-	<target name="dist" depends="jar,doc">
-		<mkdir dir="${dist}"/>
-	</target>
+	<target name="dist" depends="jar,doc" />
 
 	<target name="clean" description="clean up" >
 		<delete dir="${build}"/>

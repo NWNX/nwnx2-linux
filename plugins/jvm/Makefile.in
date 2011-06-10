@@ -15,7 +15,7 @@ JAVA_HOME=/usr/lib/jvm/java-6-sun
 endif
 chkdep::
 	@if [ ! -d $$JAVA_HOME ]; then \
-		echo "JAVA_HOME is not pointing to a valid JDK.
+		echo "JAVA_HOME is not pointing to a valid JDK. \
 		Please set it to your JDK installation directory."; \
 		exit 1; \
 	fi
