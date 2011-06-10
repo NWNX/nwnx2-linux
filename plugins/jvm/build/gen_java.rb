@@ -601,7 +601,12 @@ while m = RX.match(post)
   doc = doc.split("\r\n").map {|x|
     x.gsub(%r{^\s*//\s*}, "").strip
   }.map {|x|
-    x.gsub(%r{- ([^:]+)(: (.+))?}) {|v| "@param " + $1 + ($3 ? " " + $3 : "") }
+    x.gsub(%r{- ([^:]+)(: (.+))?}) {|v|
+      vxa = if ArgumentRename[function + " " + $1]
+        ArgumentRename[function + " " + $1]
+      else $1 end
+      "@param " + vxa + ($3 ? " " + $3 : "")
+    }
   }
 
 	params = params.split(/,\s*/).map {|p|

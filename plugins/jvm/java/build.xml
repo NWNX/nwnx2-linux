@@ -15,11 +15,20 @@
 			encoding="utf-8"/>
 	</target>
 
-	<target name="dist" depends="compile">
-		<mkdir dir="${dist}"/>
-
+	<target name="doc">
+		<mkdir dir="${dist}/doc"/>
+		<javadoc sourcepath="${src}"
+			excludepackagenames="org.nwnx.nwnx2.jvm.constants.*"
+			destdir="${dist}/doc" />
+	</target>
+	
+	<target name="jar" depends="compile">
 		<jar jarfile="${dist}/org.nwnx.nwnx2.jvm.jar"
 			manifest="META-INF/MANIFEST.MF" basedir="${build}"/>
+	</target>
+
+	<target name="dist" depends="jar,doc">
+		<mkdir dir="${dist}"/>
 	</target>
 
 	<target name="clean" description="clean up" >
