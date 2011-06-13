@@ -134,6 +134,7 @@ AC_CONFIG_FILES([
         plugins/system/Makefile
         plugins/tmi/Makefile
         plugins/tweaks/Makefile
+        plugins/vaultster/Makefile
         plugins/visibility/Makefile
         plugins/weapons/Makefile
         $extraplugins ])
