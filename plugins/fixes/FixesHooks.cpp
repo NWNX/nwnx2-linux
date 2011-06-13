@@ -21,6 +21,7 @@
 #include <sys/mman.h>
 #include <dlfcn.h>
 #include <stdarg.h>
+#include <stdint.h>
 
 #include <limits.h>		/* for PAGESIZE */
 #ifndef PAGESIZE
