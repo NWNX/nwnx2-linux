@@ -694,15 +694,6 @@ public:
 	~startstop();
 };
 
-// extern "C" void
-// _init ()
-
-int TestFunction(WPARAM wParam,LPARAM lParam)
-{
-	printf("TestFunction here: %d:%d\n", wParam, lParam);
-	return 1;
-}
-
 startstop::startstop()
 {
     nwnxConfig.open("nwnx2.ini");
@@ -746,21 +737,7 @@ startstop::startstop()
 
     // log & emit
     Log(0,"* NWNX2 activated.\n");
-	
-//DEBUG:: DELETE AFTER TEST
-	HANDLE hFunc = CreateServiceFunction("System/TestFunction", TestFunction);
-	Log(0, "Create function: %x\n", hFunc);
-	Log(0, "Service exists: %d\n", ServiceExists("System/TestFunction"));
-	int nRes = CallService("System/TestFunction", 1, 2);
-	Log(0, "Call Service: %x\n", nRes);
-
-	HANDLE hTestHook = CreateHookableEvent("System/TestHook");
-	HookEvent("System/TestHook", TestFunction);
-	NotifyEventHooks(hTestHook, 2, 3);
 }
-
-// extern "C" void
-// _fini ()
 
 startstop::~startstop()
 {
