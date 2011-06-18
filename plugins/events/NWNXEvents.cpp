@@ -47,7 +47,7 @@ CNWNXEvents::~CNWNXEvents()
 bool CNWNXEvents::OnCreate (gline *config, const char* LogDir)
 {
 	char log[128];
-	bool validate = true, startServer = true;
+	bool validate = true, startServer = true, enableUnsafe = false;
 
 	// call the base class function
 	sprintf (log, "%s/nwnx_events.txt", LogDir);
@@ -55,8 +55,8 @@ bool CNWNXEvents::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX Events version 1.3.2 for Linux.\n");
-	Log (0, "(c) 2006-2010 by virusman (virusman@virusman.ru)\n");
+	Log (0, "NWNX Events version 1.3.3 for Linux.\n");
+	Log (0, "(c) 2006-2011 by virusman (virusman@virusman.ru)\n");
 
 	if(nwnxConfig->exists(confKey)) {
             int i;
@@ -64,13 +64,17 @@ bool CNWNXEvents::OnCreate (gline *config, const char* LogDir)
             for (i = 0; i < NUM_EVENT_TYPES; i++) {
                 //if (eventScripts[i] != NULL)
                 //    free(eventScripts[i]);
-
-                eventScripts[i]     = strdup((*nwnxConfig)[confKey]["event_script"].c_str());
-                eventScripts[i][16] = 0;
+				if(strlen((*nwnxConfig)[confKey]["event_script"].c_str()))
+				{
+	                eventScripts[i]     = strdup((*nwnxConfig)[confKey]["event_script"].c_str());
+	                eventScripts[i][16] = 0;
+				}
             }
+			if(atoi((*nwnxConfig)[confKey]["enable_unsafe_events"].c_str()))
+				enableUnsafe = true;
 	}
 
-	return(HookFunctions());
+	return(HookFunctions(enableUnsafe));
 }
 
 char* CNWNXEvents::OnRequest (char* gameObject, char* Request, char* Parameters)
@@ -80,6 +84,12 @@ char* CNWNXEvents::OnRequest (char* gameObject, char* Request, char* Parameters)
 	this->pGameObject = gameObject;
 	this->nGameObjectID = *(dword *)(gameObject+0x4);
 
+	if (strncmp(Request, "GET_SCRIPT_RETURN_VALUE", 23) == 0)
+	{
+		if (strlen(Parameters) > 2)
+			sprintf(Parameters, "%d", GetRunScriptReturnValue());
+		return NULL;
+	}
 	//TODO: make this accessible only from conditional scripts
 	if (ConditionalScriptRunning)
 	{

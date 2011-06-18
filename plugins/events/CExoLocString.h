@@ -8,12 +8,7 @@
 
 #include "typedefs.h"
 #include "CExoLinkedList.h"
-
-struct CExoString
-{
-	char *Text;
-	dword Length;
-};
+#include "NWNStructures.h"
 
 struct CExoLocStringElement
 {

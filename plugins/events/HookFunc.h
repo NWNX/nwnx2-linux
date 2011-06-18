@@ -22,6 +22,7 @@
 
 #include "typedefs.h"
 #include "CExoLocString.h"
+#include "NWNStructures.h"
 
 struct CDialogEntryReply
 {
@@ -137,9 +138,10 @@ struct CNWSVector
 };
 
 
-int HookFunctions();
+int HookFunctions(bool enableUnsafe);
 
 void RunScript(char * sname, int ObjID);
+int GetRunScriptReturnValue();
 
 extern char scriptRun;
 extern char ActionScriptRunning;

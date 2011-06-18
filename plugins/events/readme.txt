@@ -1,4 +1,4 @@
-NWNX Events plugin (version 1.3.2)
+NWNX Events plugin (version 1.3.3)
 (requires NWNX Core version 2.7-beta2 or higher)
 
 Provides hooks for the following events:
@@ -48,6 +48,8 @@ Provides hooks for the following events:
     * SetReturnValue()   = Return value to override
                            0 - valid character
                            <any number> - StrRef (TLK string) of the error message (the character won't be able to enter)
+* DestroyObject (unsafe)
+    - OBJECT_SELF        = The object being destroyed
 
 Provides functions for conditional and action scripts:
     int GetCurrentNodeType();
@@ -67,15 +69,21 @@ given event, call the SetGlobalEventHandler() function as follows:
 You can also use the following lines in your nwnx2.ini file:
 [EVENTS]
 event_script=<your script name>
+enable_unsafe_events=0
 
 Example script and demo module are included.
 
 ---
-virusman, 05.05.2010
+virusman, 19.06.2011
 
 
 -----------------
 CHANGELOG:
+
+1.3.3 (19.06.2011)
+- New event: DestroyObject
+- New ini config: enable_unsafe_events
+- New function: GetScriptReturnValue()
 
 1.3.2 (05.05.2010)
 - New event: ValidateCharacter

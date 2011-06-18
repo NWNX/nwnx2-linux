@@ -74,8 +74,12 @@ unsigned char d_ret_code_cz[0x20];
 unsigned char d_ret_code_tp[0x20];
 unsigned char d_ret_code_pf[0x20];
 unsigned char d_ret_code_vc[0x20];
+unsigned char d_ret_code_objdest[0x20];
+
 
 int (*CNWSPlayer__ValidateCharacter)(void *pPlayer, int *result);
+void (*CNWSObject___CNWSObject)(CNWSObject *pObject, int n) = (void (*)(CNWSObject*,int)) 0x081C8E94;
+int (*CVirtualMachine__GetRunScriptReturnValue)(void *pVirtualMachine, int *a2, void **a3) = (int (*)(void *, int *, void **)) 0x08264324;
 
 
 void *(*GetPlayerObject)(void *pPlayer);
@@ -659,6 +663,25 @@ int CNWSPlayer__ValidateCharacter_hook(void *pPlayer, int *result)
 		return CNWSPlayer__ValidateCharacter(pPlayer, result);
 }
 
+void CNWSObject___CNWSObject_hook(CNWSObject *pObject, int n)
+{
+	events.Log(2, "Object destructor: %08lx\n", pObject);
+	if(pObject)
+		events.FireEvent(pObject->ObjectID, EVENT_TYPE_DESTROY_OBJECT);
+	asm ("leave");
+	asm ("mov $d_ret_code_objdest, %eax");
+	asm ("jmp %eax");
+}
+
+int GetRunScriptReturnValue()
+{
+	int type;
+	int value;
+	if(CVirtualMachine__GetRunScriptReturnValue(*(void **)pScriptThis, &type, (void **)&value) && type == 3)
+		return value;
+	else
+		return 0;
+}
 
 // 0824AA5C - runScript : 55 89 e5 57 56 53 83 ec 18 ff 75 0c e8 eb
 unsigned long
@@ -776,7 +799,7 @@ void PrintHookInfo(dword function_addr, char *function_name)
 
 }
 
-int HookFunctions()
+int HookFunctions(bool enableUnsafe)
 {
 	dword org_SaveChar = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC B8 00 00 00 FF 75 08 C7 85 74");
 	dword org_Run = FindHookRunScript();
@@ -807,6 +830,8 @@ int HookFunctions()
 	dword org_TogglePause = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 4C 8A 45 0C 88 45 D3 8B 75 08 8B 86 18 00 01 00 89 45 CC 8A 96 A0 00 01 00 31 C0 84 55 D3 0F 95 C0 3B 45 10 0F 84 47 03 00 00 83 7D 10 01 75 4C 0A 55 D3 83 EC 0C 88 96 A0 00 01 00 FF B6 68 00 01 00 E8 ** ** ** ** 83 C4 10 F6 86 A0 00 01 00 02 B0 02 75 09 8A 86 A0 00 01 00");
 	dword org_PossessFamiliar = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 20 6A 01 6A 03 FF 75 08 E8 ** ** ** ** 83 C4 10 3D 00 00 00 7F 0F 84 01 03 00 00 83 EC 08 6A 00 FF 75 08 C7 45 F0 00 00 00 00 E8 ** ** ** ** 83 C4 10 85 C0 74 19 83 EC 18 6A 01 FF 75 08 E8 ** ** ** ** 83 C4 14 50 E8 ** ** ** ** 83 C4 10 8B 45 08 81 78 58 00 00 00 7F 74 0C");
 	dword org_ValidateCharacter = 0x080580BC;
+	CNWSObject___CNWSObject = (void (*)(CNWSObject*,int)) 0x081C8E94;
+	CVirtualMachine__GetRunScriptReturnValue = (int (*)(void *, int *, void **)) 0x08264324;
 
 	if (org_SaveChar)
 	{
@@ -832,6 +857,12 @@ int HookFunctions()
 	hook_function (org_PossessFamiliar, (unsigned long)PossessFamiliarHookProc, d_ret_code_pf, 9);
 	hook_function (org_ValidateCharacter, (unsigned long)CNWSPlayer__ValidateCharacter_hook, d_ret_code_vc, 12);
 	*(dword*)&CNWSPlayer__ValidateCharacter = (dword)&d_ret_code_vc;
+	if(enableUnsafe)
+	{
+		hook_function ((dword)CNWSObject___CNWSObject, (unsigned long)CNWSObject___CNWSObject_hook, d_ret_code_objdest, 9);
+		*(dword*)&CNWSObject___CNWSObject = (dword)&d_ret_code_objdest;
+	}
+
 	
 	if (org_Run) {
 		*(dword*)&pRunScript = org_Run;

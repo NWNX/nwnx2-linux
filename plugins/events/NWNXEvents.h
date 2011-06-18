@@ -39,7 +39,8 @@
 #define EVENT_TYPE_TOGGLE_PAUSE         11
 #define EVENT_TYPE_POSSESS_FAMILIAR     12
 #define EVENT_TYPE_VALIDATE_CHARACTER   13
-#define NUM_EVENT_TYPES                 14
+#define EVENT_TYPE_DESTROY_OBJECT       14
+#define NUM_EVENT_TYPES                 15
 
 enum eNodeType {StartingNode, EntryNode, ReplyNode};
 

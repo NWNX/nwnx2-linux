@@ -12,6 +12,7 @@ const int EVENT_TYPE_CAST_SPELL         = 10;
 const int EVENT_TYPE_TOGGLE_PAUSE       = 11;
 const int EVENT_TYPE_POSSESS_FAMILIAR   = 12;
 const int EVENT_TYPE_VALIDATE_CHARACTER = 13;
+const int EVENT_TYPE_DESTROY_OBJECT     = 14;
 
 // DEPRECATED
 // For backwards compatibility only - use above constants instead
@@ -57,6 +58,7 @@ void SetCurrentNodeText(string sText, int nLangID = LANGUAGE_ENGLISH, int nGende
 int GetSelectedNodeID();
 int GetSelectedAbsoluteNodeID();
 string GetSelectedNodeText(int nLangID = LANGUAGE_ENGLISH, int nGender = GENDER_MALE);
+int GetScriptReturnValue();
 
 int GetEventType()
 {
@@ -183,4 +185,10 @@ void SetCurrentNodeText(string sText, int nLangID, int nGender)
 {
     if (nGender != GENDER_FEMALE) nGender = GENDER_MALE;
     SetLocalString(GetModule(), "NWNX!EVENTS!SET_NODE_TEXT", IntToString(nLangID*2 + nGender)+"¬"+sText);
+}
+
+int GetScriptReturnValue()
+{
+    SetLocalString(GetModule(), "NWNX!EVENTS!GET_SCRIPT_RETURN_VALUE", "         ");
+    return StringToInt(GetLocalString(GetModule(), "NWNX!EVENTS!GET_SCRIPT_RETURN_VALUE"));
 }
