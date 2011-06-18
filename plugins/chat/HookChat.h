@@ -25,7 +25,10 @@ typedef unsigned long dword;
 typedef unsigned short int word;
 typedef unsigned char byte;
 
+#include "NWNStructures.h"
+
 int HookFunctions();
+void InitConstants();
 
 void RunScript(char * sname, int ObjID);
 unsigned long * GetPCobj(dword OID);

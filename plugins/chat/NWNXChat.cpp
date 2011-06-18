@@ -1,7 +1,7 @@
 /***************************************************************************
     Chat plugin for NWNX - Implementation of the CNWNXChat class.
     (c) 2005-2006 dumbo (dumbo@nm.ru)
-	(c) 2006-2007 virusman (virusman@virusman.ru)
+	(c) 2006-2010 virusman (virusman@virusman.ru)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -35,6 +35,7 @@ CNWNXChat::CNWNXChat()
 {
   confKey = "CHAT";
   strcpy(chatScript,"chat_script");
+  strcpy(ccScript,"cc_script");
   processNPC = 0;
   ignore_silent = 0;
   maxMsgLen = 1024;
@@ -55,9 +56,9 @@ bool CNWNXChat::OnCreate (gline *config, const char* LogDir)
     return false;
 
   // write copy information to the log file
-  Log (0, "NWNX Chat version 0.3.5 for Linux.\n");
+  Log (0, "NWNX Chat version 1.0.0 for Linux.\n");
   Log (0, "(c) 2005-2006 by dumbo (dumbo@nm.ru)\n");
-  Log (0, "(c) 2006-2008 virusman (virusman@virusman.ru)\n");
+  Log (0, "(c) 2006-2010 virusman (virusman@virusman.ru)\n");
 
   if(nwnxConfig->exists(confKey)) {
 	if(nwnxConfig->exists(confKey,"chat_script"))
@@ -66,6 +67,11 @@ bool CNWNXChat::OnCreate (gline *config, const char* LogDir)
       chatScript[16] = 0;
     }
     strncpy(servScript, (*nwnxConfig)[confKey]["server_script"].c_str(), 16);
+	if(nwnxConfig->exists(confKey,"cc_script"))
+	{
+		strncpy(ccScript, (*nwnxConfig)[confKey]["cc_script"].c_str(), 16);
+		ccScript[16] = 0;
+	}
     servScript[16] = 0;
     int maxLen = atoi((*nwnxConfig)[confKey]["max_msg_len"].c_str());
     if (maxLen) maxMsgLen = maxLen;
@@ -78,6 +84,7 @@ bool CNWNXChat::OnCreate (gline *config, const char* LogDir)
   Log (1, "Settings:\n");
   Log (1, "chat_script: %s\n", chatScript);
   Log (1, "server_script: %s\n", servScript);
+  Log (1, "cc_script: %s\n", ccScript);
   Log (1, "max_msg_len: %d\n", maxMsgLen);
   Log (1, "processnpc: %d\n", processNPC);
   Log (1, "ignore_silent: %d\n\n", processNPC);
@@ -141,7 +148,7 @@ char* CNWNXChat::OnRequest (char* gameObject, char* Request, char* Parameters)
       processNPC = atoi(Parameters);
 	  Log(3, "o processNPC = %d\n", processNPC);
   }
-  else if (strncmp(Request, "IGNORESILENT", 6) == 0)
+  else if (strncmp(Request, "IGNORESILENT", 12) == 0)
   {
 	  Log(3, "o IGNORESILENT: %s\n", Parameters);
       ignore_silent = atoi(Parameters);
@@ -165,6 +172,19 @@ char* CNWNXChat::OnRequest (char* gameObject, char* Request, char* Parameters)
 		ret[length]=0;
 		return ret;
 	}
+	else if (strncmp(Request, "TYPE", 4) == 0)
+	{
+		char *ret = (char *) malloc(32);
+		sprintf(ret, "%d", messageType);
+		return ret;
+	}
+	else if (strncmp(Request, "SUBTYPE", 7) == 0)
+	{
+		char *ret = (char *) malloc(32);
+		sprintf(ret, "%d", messageSubtype);
+		return ret;
+	}
+
   else if (strncmp(Request, "LOG", 3) == 0)
     Log(0, "%s", Parameters);
   else if (strncmp(Request, "SUPRESS", 7) == 0)
@@ -198,4 +218,13 @@ int CNWNXChat::Chat(const int mode, const int id, const char **msg, const int to
     if(*servScript) RunScript(servScript, 0);
   }
   return supressMsg;
+}
+
+int CNWNXChat::CCMessage(const int objID, const int type, const int subtype, CNWCCMessageData* messageData)
+{
+	supressMsg = 0;
+	messageType = type;
+	messageSubtype = subtype;
+	RunScript(ccScript, objID);
+	return supressMsg;
 }

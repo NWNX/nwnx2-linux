@@ -17,7 +17,7 @@ struct chat_message
 
 //Send chat message
 //nChannel - CHAT_CHANNEL_*
-void NWNXChat_SendMessage(object oSender, int nChannel, string sMessage, object oRecipient=OBJECT_INVALID);
+int NWNXChat_SendMessage(object oSender, int nChannel, string sMessage, object oRecipient=OBJECT_INVALID);
 
 
 string GetStringFrom(string s, int from = 1)
@@ -109,4 +109,21 @@ int NWNXChat_SendMessage(object oSender, int nChannel, string sMessage, object o
     SetLocalString(oSender, "NWNX!CHAT!SPEAK", ObjectToString(oSender)+"¬"+ObjectToString(oRecipient)+"¬"+IntToString(nChannel)+"¬"+sMessage);
     if(GetLocalString(oSender, "NWNX!CHAT!SPEAK")=="1") return TRUE;
     else return FALSE;
+}
+
+void NWNXChat_SendMessageVoid(object oSender, int nChannel, string sMessage, object oRecipient=OBJECT_INVALID)
+{
+    NWNXChat_SendMessage(oSender, nChannel, sMessage, oRecipient);
+}
+
+int NWNXChat_GetCCMessageType()
+{
+    SetLocalString(GetModule(), "NWNX!CHAT!TYPE", "  ");
+    return StringToInt(GetLocalString(GetModule(), "NWNX!CHAT!TYPE"));
+}
+
+int NWNXChat_GetCCMessagSubtype()
+{
+    SetLocalString(GetModule(), "NWNX!CHAT!SUBTYPE", "  ");
+    return StringToInt(GetLocalString(GetModule(), "NWNX!CHAT!SUBTYPE"));
 }

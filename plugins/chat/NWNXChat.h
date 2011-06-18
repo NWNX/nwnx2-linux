@@ -22,6 +22,7 @@
 #define _NWNX_CHAT_H_
 
 #include "NWNXBase.h"
+#include "gline.h"
 #include "HookChat.h"
 
 class CNWNXChat : public CNWNXBase
@@ -37,9 +38,13 @@ public:
   int maxMsgLen;
   int processNPC;
   int ignore_silent;
+  int messageType;
+  int messageSubtype;
   char chatScript[17];
   char servScript[17];
+  char ccScript[17];
   int Chat(const int mode, const int id, const char **msg, const int to);
+  int CCMessage(const int objID, const int type, const int subtype, CNWCCMessageData* messageData);
 protected:
   char *SendMessage(char* Parameters);
 };

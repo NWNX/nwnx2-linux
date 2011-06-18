@@ -1,8 +1,11 @@
-NWNX Chat Plugin V.0.3.5
+NWNX Chat Plugin V.1.0.0
 (c) 2005-2006 by dumbo (dumbo@nm.ru)
-(c) 2006-2008 by virusman (virusman@virusman.ru)
+(c) 2006-2010 by virusman (virusman@virusman.ru)
 
 Changelog:
+1.0.0 (03.12.2010)
+- Added CCMessage (combat log messages) hook
+
 0.3.5 (04.06.2008)
 - Updated RunScript signature for compatibility with 1.69 beta 10
 
