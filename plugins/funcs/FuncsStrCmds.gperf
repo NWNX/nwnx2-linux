@@ -54,6 +54,7 @@ GETCRITICALHITMULTIPLIER,              Func_GetCriticalHitMultiplier
 GETCRITICALHITRANGE,                   Func_GetCriticalHitRange
 GETDAMAGEIMMUNITY,                     Func_GetDamageImmunity
 GETENTIREITEMAPPEARANCE,               Func_GetEntireItemAppearance
+GETEVENTHANDLER,                       Func_GetEventHandler
 GETFACTIONID,                          Func_GetFactionId
 GETGROUNDHEIGHT,                       Func_GetGroundHeight
 GETISCLASSBONUSFEAT,                   Func_GetIsClassBonusFeat
@@ -118,6 +119,7 @@ SETCONVERSATION,                       Func_SetConversation
 SETCREATUREEVENTHANDLER,               Func_SetCreatureEventHandler
 SETCREATURESIZE,                       Func_SetCreatureSize
 SETCURRENTHITPOINTS,                   Func_SetCurrentHitPoints
+SETEVENTHANDLER,                       Func_SetEventHandler
 SETFACTIONID,                          Func_SetFactionId
 SETGENDER,                             Func_SetGender
 SETGOLDPIECEVALUE,                     Func_SetGoldPieceValue
