@@ -111,10 +111,10 @@ BOOL CNWNXODBC::Connect()
 #ifdef MYSQL_SUPPORT
 	CMySQL* mysql;
 #endif
-#if SQLITE_SUPPORT == 1
+#ifdef SQLITE_SUPPORT
 	CSQLite* sqlite;
 #endif
-#if PGSQL_SUPPORT == 1
+#ifdef PGSQL_SUPPORT
 	CPgSQL* pgsql;
 #endif
 
@@ -144,14 +144,14 @@ BOOL CNWNXODBC::Connect()
 			db = mysql;
 			break;
 #endif
-#if SQLITE_SUPPORT == 1
+#ifdef SQLITE_SUPPORT
 		case dbSQLITE:
 			sqlite = new CSQLite();
 			connected = sqlite->Connect(p.db);
 			db = sqlite;
 			break;
 #endif
-#if PGSQL_SUPPORT == 1
+#ifdef PGSQL_SUPPORT
 		case dbPGSQL:
 			pgsql = new CPgSQL();
 			connected = pgsql->Connect(p.server, p.user, p.pass, p.db);
@@ -160,7 +160,7 @@ BOOL CNWNXODBC::Connect()
 #endif
 		case dbNONE:
 			// Do not connect, no database has been compiled in.
-			Log (0, "o Not connecting, plugin has been built without any database support.\n");
+			Log (0, "o Not connecting, no valid datasource has been selected.\n");
 			connected = false;
 			return true;
 	}

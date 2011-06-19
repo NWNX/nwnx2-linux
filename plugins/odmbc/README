@@ -14,4 +14,5 @@ To compile postgre support:
 - pass PGSQL_SUPPORT=1 to make
 
 You can pass any combination of these flags, but you need to pass at
-least one.
+least one. For each passed flag, one .so file will be built, which you
+will have to rename to nwnx_odbc.so and put into your nwn directory.
