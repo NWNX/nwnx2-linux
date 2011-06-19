@@ -1,6 +1,11 @@
-NWNX Fixes 1.0.5
+NWNX Fixes 1.0.7
 
 This plugin is intended to provide various fixes and patches to NWServer.
+
+1.0.7 (19.03.2011):
+- DoDamage hook that limits HP damage to certain negative limit
+- Fix for time freeze that's happening on some servers
+- Added hide_charlist_dms and cap_* tweaks
 
 1.0.5 (25.02.2009):
 - The plugin is now configurable - an example ini file has been added
