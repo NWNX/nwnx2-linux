@@ -18,6 +18,99 @@ const int CREATURE_EVENT_DEATH                  = 10;
 const int CREATURE_EVENT_USERDEF                = 11;
 const int CREATURE_EVENT_BLOCKED                = 12;
 
+// Supported by SetEventHandler() / GetEventHandler
+int CREATURE_SCRIPT_ON_HEARTBEAT              = 0;
+int CREATURE_SCRIPT_ON_NOTICE                 = 1;
+int CREATURE_SCRIPT_ON_SPELLCASTAT            = 2;
+int CREATURE_SCRIPT_ON_MELEE_ATTACKED         = 3;
+int CREATURE_SCRIPT_ON_DAMAGED                = 4;
+int CREATURE_SCRIPT_ON_DISTURBED              = 5;
+int CREATURE_SCRIPT_ON_END_COMBATROUND        = 6;
+int CREATURE_SCRIPT_ON_DIALOGUE               = 7;
+int CREATURE_SCRIPT_ON_SPAWN_IN               = 8;
+int CREATURE_SCRIPT_ON_RESTED                 = 9;
+int CREATURE_SCRIPT_ON_DEATH                  = 10;
+int CREATURE_SCRIPT_ON_USER_DEFINED_EVENT     = 11;
+int CREATURE_SCRIPT_ON_BLOCKED_BY_DOOR        = 12;
+// Trigger
+int SCRIPT_TRIGGER_ON_HEARTBEAT          = 0;
+int SCRIPT_TRIGGER_ON_OBJECT_ENTER       = 1;
+int SCRIPT_TRIGGER_ON_OBJECT_EXIT        = 2;
+int SCRIPT_TRIGGER_ON_USER_DEFINED_EVENT = 3;
+int SCRIPT_TRIGGER_ON_TRAPTRIGGERED      = 4;
+int SCRIPT_TRIGGER_ON_DISARMED           = 5;
+int SCRIPT_TRIGGER_ON_CLICKED            = 6;
+// Area
+int SCRIPT_AREA_ON_HEARTBEAT            = 0;
+int SCRIPT_AREA_ON_USER_DEFINED_EVENT   = 1;
+int SCRIPT_AREA_ON_ENTER                = 2;
+int SCRIPT_AREA_ON_EXIT                 = 3;
+int SCRIPT_AREA_ON_CLIENT_ENTER	        = 4;
+// Door
+int SCRIPT_DOOR_ON_OPEN            = 0;
+int SCRIPT_DOOR_ON_CLOSE           = 1;
+int SCRIPT_DOOR_ON_DAMAGE          = 2;
+int SCRIPT_DOOR_ON_DEATH           = 3;
+int SCRIPT_DOOR_ON_DISARM          = 4;
+int SCRIPT_DOOR_ON_HEARTBEAT       = 5;
+int SCRIPT_DOOR_ON_LOCK            = 6;
+int SCRIPT_DOOR_ON_MELEE_ATTACKED  = 7;
+int SCRIPT_DOOR_ON_SPELLCASTAT     = 8;
+int SCRIPT_DOOR_ON_TRAPTRIGGERED   = 9;
+int SCRIPT_DOOR_ON_UNLOCK          = 10;
+int SCRIPT_DOOR_ON_USERDEFINED     = 11;
+int SCRIPT_DOOR_ON_CLICKED         = 12;
+int SCRIPT_DOOR_ON_DIALOGUE        = 13;
+int SCRIPT_DOOR_ON_FAIL_TO_OPEN    = 14;
+// Encounter
+int SCRIPT_ENCOUNTER_ON_OBJECT_ENTER        = 0;
+int SCRIPT_ENCOUNTER_ON_OBJECT_EXIT         = 1;
+int SCRIPT_ENCOUNTER_ON_HEARTBEAT           = 2;
+int SCRIPT_ENCOUNTER_ON_ENCOUNTER_EXHAUSTED = 3;
+int SCRIPT_ENCOUNTER_ON_USER_DEFINED_EVENT  = 4;
+// Module
+int SCRIPT_MODULE_ON_HEARTBEAT              = 0;
+int SCRIPT_MODULE_ON_USER_DEFINED_EVENT     = 1;
+int SCRIPT_MODULE_ON_MODULE_LOAD            = 2;
+int SCRIPT_MODULE_ON_MODULE_START           = 3;
+int SCRIPT_MODULE_ON_CLIENT_ENTER           = 4;
+int SCRIPT_MODULE_ON_CLIENT_EXIT            = 5;
+int SCRIPT_MODULE_ON_ACTIVATE_ITEM          = 6;
+int SCRIPT_MODULE_ON_ACQUIRE_ITEM           = 7;
+int SCRIPT_MODULE_ON_LOSE_ITEM              = 8;
+int SCRIPT_MODULE_ON_PLAYER_DEATH           = 9;
+int SCRIPT_MODULE_ON_PLAYER_DYING           = 10;
+int SCRIPT_MODULE_ON_RESPAWN_BUTTON_PRESSED = 11;
+int SCRIPT_MODULE_ON_PLAYER_REST            = 12;
+int SCRIPT_MODULE_ON_PLAYER_LEVEL_UP        = 13;
+int SCRIPT_MODULE_ON_PLAYER_CANCEL_CUTSCENE = 14;
+int SCRIPT_MODULE_ON_EQUIP_ITEM             = 15;
+int SCRIPT_MODULE_ON_UNEQUIP_ITEM           = 16;
+// Placeable
+int SCRIPT_PLACEABLE_ON_CLOSED              = 0;
+int SCRIPT_PLACEABLE_ON_DAMAGED             = 1;
+int SCRIPT_PLACEABLE_ON_DEATH               = 2;
+int SCRIPT_PLACEABLE_ON_DISARM              = 3;
+int SCRIPT_PLACEABLE_ON_HEARTBEAT           = 4;
+int SCRIPT_PLACEABLE_ON_INVENTORYDISTURBED  = 5;
+int SCRIPT_PLACEABLE_ON_LOCK                = 6;
+int SCRIPT_PLACEABLE_ON_MELEEATTACKED       = 7;
+int SCRIPT_PLACEABLE_ON_OPEN                = 8;
+int SCRIPT_PLACEABLE_ON_SPELLCASTAT         = 9;
+int SCRIPT_PLACEABLE_ON_TRAPTRIGGERED       = 10;
+int SCRIPT_PLACEABLE_ON_UNLOCK              = 11;
+int SCRIPT_PLACEABLE_ON_USED                = 12;
+int SCRIPT_PLACEABLE_ON_USER_DEFINED_EVENT  = 13;
+int SCRIPT_PLACEABLE_ON_DIALOGUE            = 14;
+// AOE
+int SCRIPT_AOE_ON_HEARTBEAT            = 0;
+int SCRIPT_AOE_ON_USER_DEFINED_EVENT   = 1;
+int SCRIPT_AOE_ON_OBJECT_ENTER         = 2;
+int SCRIPT_AOE_ON_OBJECT_EXIT          = 3;
+// Store
+int SCRIPT_STORE_ON_OPEN              = 0;
+int SCRIPT_STORE_ON_CLOSE             = 1;
+
 const int MOVEMENT_RATE_PC                      = 0;
 const int MOVEMENT_RATE_IMMOBILE                = 1;
 const int MOVEMENT_RATE_VERY_SLOW               = 2;
@@ -428,6 +521,12 @@ string GetCreatureEventHandler (object oCreature, int nEvent);
 
 /* Set oCreature's event handler for nEvent. */
 string SetCreatureEventHandler (object oCreature, int nEvent, string sScript);
+
+/* Get oObject's event handler for nEvent. */
+string GetEventHandler (object oObject, int nEvent);
+
+/* Set oObject's event handler for nEvent. */
+string SetEventHandler (object oObject, int nEvent, string sScript);
 
 /* Get oObject's faction ID. */
 int GetFactionId (object oObject);
@@ -1237,6 +1336,15 @@ string SetCreatureEventHandler (object oCreature, int nEvent, string sScript) {
     return GetLocalString(oCreature, "NWNX!FUNCS!SETCREATUREEVENTHANDLER");
 }
 
+string GetEventHandler (object oObject, int nEvent) {
+    SetLocalString(oObject, "NWNX!FUNCS!GETEVENTHANDLER", IntToString(nEvent) + "                ");
+    return GetLocalString(oObject, "NWNX!FUNCS!GETEVENTHANDLER");
+}
+
+string SetEventHandler (object oObject, int nEvent, string sScript) {
+    SetLocalString(oObject, "NWNX!FUNCS!SETEVENTHANDLER", IntToString(nEvent) + " " + sScript);
+    return GetLocalString(oObject, "NWNX!FUNCS!SETEVENTHANDLER");
+}
 
 int GetFactionId (object oObject) {
     return NWNXFuncsZero(oObject, "NWNX!FUNCS!GETFACTIONID");
