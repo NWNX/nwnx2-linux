@@ -120,6 +120,12 @@ char *CNWNXChat::SendMessage(char* Parameters)
 		delete[] sMessage;
 		return "0";
 	  }
+	if((nChannel==0x6 || nChannel==0x16) && oSender <= 0x7F000000)
+	{
+		Log(3, "o oSender is not a PC - invalid for party channel\n");
+		delete[] sMessage;
+		return "0";
+	}
 	if(nChannel!=4 && nChannel!=5 && nChannel!=20 && nChannel!=21)
           nRecipientID=-1;
 	Log(3, "o SendMsg(%d, %08lX, '%s', %d)\n", nChannel, oSender, sMessage, nRecipientID);
