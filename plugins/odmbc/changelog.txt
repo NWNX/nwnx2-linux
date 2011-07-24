@@ -1,3 +1,7 @@
+1.0.1 - 25.07.2011 /*Ilerien*/
+---
+* Added reconnection in case of "MySQL server has gone away" error and 'reconnectonerror' ini option
+
 1.0.0 - 07.11.2010
 ----
 * New configuration parameters: 'socket' and 'port'

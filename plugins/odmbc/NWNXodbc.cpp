@@ -40,6 +40,7 @@ CNWNXODBC::CNWNXODBC()
 	db = 0;
 	dbType = dbNONE;
 	hookScorco = true;
+	bReconnectOnError = false;
 	memset (&p, 0, sizeof (PARAMETERS));
 }
 //============================================================================================================================
@@ -62,7 +63,7 @@ bool CNWNXODBC::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX2 ODBC2 version 1.0.0 for Linux.\n");
+	Log (0, "NWNX2 ODBC2 version 1.0.1 for Linux.\n");
 	Log (0, "(c) 2005-2006 dumbo (dumbo@nm.ru)\n");
 	Log (0, "(c) 2006-2010 virusman (virusman@virusman.ru)\n");
 #if SQLITE_SUPPORT == 1
@@ -152,6 +153,30 @@ BOOL CNWNXODBC::Connect()
 }
 
 //============================================================================================================================
+BOOL CNWNXODBC::Reconnect()
+{
+	if(db)	
+		db->Disconnect();
+
+	Log (1, "o Trying to reconnect...\n");
+	
+
+	if(Connect())
+	{
+		Log (1, "o Reconnect successful\n");
+		//if(output != NULL)
+		//	snprintf(output, strlen(output), "%d", 1);
+		return true;
+	}	
+
+	Log (1, "! Reconnect failed!\n");
+	//if(output != NULL)
+	//	snprintf(output, strlen(output), "%d", 0);
+	
+	return false;		
+}
+
+//============================================================================================================================
 char* CNWNXODBC::OnRequest (char* gameObject, char* Request, char* Parameters)
 {
 	if (strncmp (Request, "EXEC", 4) == 0)
@@ -213,18 +238,28 @@ void CNWNXODBC::Execute(char *request)
 		return;
 	}
 
+	
+	bool bSuccess = false;
+
 	// try to execute the SQL query
-	if (!db->Execute((const uchar*)request))
-	{
-		Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
-		request[0] = '0';
-		request[1] = 0;
-	}
+	if (db->Execute((const uchar*)request))
+		bSuccess = true;
 	else
 	{
-		request[0] = '1';
-		request[1] = 0;
+		Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
+
+		if(
+			bReconnectOnError && 
+			dbType == dbMYSQL && 
+			reinterpret_cast<CMySQL*>(db)->GetErrorCode() == CR_SERVER_GONE_ERROR && 
+			Reconnect() && 
+			db->Execute((const uchar*)request)
+		  )
+			bSuccess = true;	
 	}
+	
+	request[0] = bSuccess ? '1' : '0';
+	request[1] = 0;
 }
 
 //============================================================================================================================
@@ -280,7 +315,17 @@ int CNWNXODBC::WriteSCO(char* database, char* key, char* player, int flags, unsi
 	{
 		//Log ("o Writing scorco data.\n");
 		if (!db->WriteScorcoData(scorcoSQL, pData, size))
-      Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
+		{
+      			Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
+			if(
+				bReconnectOnError && 
+				dbType == dbMYSQL && 
+				reinterpret_cast<CMySQL*>(db)->GetErrorCode() == CR_SERVER_GONE_ERROR && 
+				Reconnect() && 
+				db->WriteScorcoData(scorcoSQL, pData, size)
+		  	)
+				return 1;
+		}
     else
       return 1;
 	}
@@ -305,10 +350,23 @@ unsigned char* CNWNXODBC::ReadSCO(char* database, char* key, char* player, int* 
 
   if (!sqlError && pData)
 		return pData;
-	else 
+	else Log (0, "(c) 2006-2010 virusman (virusman@virusman.ru)\n");
 	{
 		if (sqlError)
+		{
 			Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
+			if(
+				bReconnectOnError && 
+				dbType == dbMYSQL && 
+				reinterpret_cast<CMySQL*>(db)->GetErrorCode() == CR_SERVER_GONE_ERROR && 
+				Reconnect() 
+		  	)
+			{
+				pData = db->ReadScorcoData(scorcoSQL, key, &sqlError, size);
+				if (!sqlError && pData)
+					return pData;	
+			}
+		}
 	}
   return NULL;
 }
@@ -382,6 +440,12 @@ bool CNWNXODBC::LoadConfiguration ()
 	strcpy(buffer, (char*)((*nwnxConfig)[confKey]["hookscorco"].c_str()));
 	if (strcasecmp (buffer, "false") == 0)
 		hookScorco = false;
+	
+	//check reconnect flag
+	strcpy(buffer, (char*)((*nwnxConfig)[confKey]["reconnectonerror"].c_str()));
+	if (strcasecmp (buffer, "true") == 0)
+		bReconnectOnError = true;
+	
 
 	return true;
 }

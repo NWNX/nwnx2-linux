@@ -52,6 +52,7 @@ public:
 
 protected:
 	BOOL Connect();
+	BOOL Reconnect();
 	void Execute(char* request);
 	void Fetch(char* buffer, unsigned int buffersize);
 	void SetScorcoSQL(char *request);
@@ -76,6 +77,7 @@ private:
 	unsigned int sqlerror_counter;
 
 	bool hookScorco;
+	bool bReconnectOnError;
 	char* scorcoSQL;
 	unsigned long lastObjectID;
 

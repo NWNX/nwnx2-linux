@@ -1,3 +1,4 @@
+
 /***************************************************************************
     CMySQL.h: interface for the CMySQL class.
     Copyright (C) 2004 Jeroen Broekhuizen (nwnx@jengine.nl)
@@ -24,6 +25,7 @@
 #include "db.h"
 
 #include <mysql/mysql.h>
+#include <mysql/errmsg.h>
 
 class CMySQL : public CDB
 {
@@ -42,6 +44,8 @@ public:
 	BOOL SetCharacterSet (const char *charset);
 
 	const char* GetErrorMessage ();
+
+	unsigned int GetErrorCode();
 
 private:
 	MYSQL mysql;

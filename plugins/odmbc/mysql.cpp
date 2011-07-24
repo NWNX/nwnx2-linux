@@ -215,3 +215,9 @@ const char* CMySQL::GetErrorMessage ()
 	// return the error message
 	return mysql_error (&mysql);
 }
+
+unsigned int CMySQL::GetErrorCode()
+{
+	// return the error code
+	return mysql_errno(&mysql);
+}
