@@ -63,11 +63,11 @@ struct DefensesStrCommand_s {
     void       (*func)(CGameObject *, char *);
 };
 
-#define NWNX_DEFENSES_STRCMD_TOTAL_KEYWORDS 12
+#define NWNX_DEFENSES_STRCMD_TOTAL_KEYWORDS 14
 #define NWNX_DEFENSES_STRCMD_MIN_WORD_LENGTH 11
 #define NWNX_DEFENSES_STRCMD_MAX_WORD_LENGTH 30
-#define NWNX_DEFENSES_STRCMD_MIN_HASH_VALUE 12
-#define NWNX_DEFENSES_STRCMD_MAX_HASH_VALUE 31
+#define NWNX_DEFENSES_STRCMD_MIN_HASH_VALUE 15
+#define NWNX_DEFENSES_STRCMD_MAX_HASH_VALUE 34
 /* maximum key range = 20, duplicates = 0 */
 
 #ifdef __GNUC__
@@ -82,32 +82,32 @@ DefensesStrCommandHash (register const char *str, register unsigned int len)
 {
   static const unsigned char asso_values[] =
     {
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32,  1, 32, 32, 32,
-       0,  1, 32, 32, 32, 32,  1, 32, 32, 32,
-      32, 32, 32,  0,  0,  0,  0, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
-      32, 32, 32, 32, 32, 32
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35,  1, 35, 35, 35,
+       0,  4, 35, 35, 35, 35,  5, 35, 35, 35,
+      35, 35, 35,  3,  0,  2,  0, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+      35, 35, 35, 35, 35, 35
     };
   return len + asso_values[(unsigned char)str[5]] + asso_values[(unsigned char)str[0]];
 }
@@ -115,34 +115,37 @@ DefensesStrCommandHash (register const char *str, register unsigned int len)
 static const struct DefensesStrCommand_s DefensesStrCommandList[] =
   {
     {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""},
+    {""}, {""}, {""}, {""}, {""}, {""},
 #line 37 "DefensesStrCmds.gperf"
     {"GETACVERSUS",                            Func_GetACVersus},
 #line 36 "DefensesStrCmds.gperf"
     {"GETACBYTYPE",                            Func_GetACByType},
     {""}, {""},
-#line 46 "DefensesStrCmds.gperf"
+#line 48 "DefensesStrCmds.gperf"
     {"SETDEFENSEOPTION",                       Func_SetDefenseOption},
-#line 39 "DefensesStrCmds.gperf"
+#line 40 "DefensesStrCmds.gperf"
     {"GETDEFENSEOPTION",                       Func_GetDefenseOption},
-#line 47 "DefensesStrCmds.gperf"
+#line 49 "DefensesStrCmds.gperf"
     {"SETSAVINGTHROWFEAT", 			Func_SetSavingThrowFeat},
     {""},
-#line 42 "DefensesStrCmds.gperf"
-    {"GETHASSPELLIMMUNITY",                    Func_GetHasSpellImmunity},
-#line 43 "DefensesStrCmds.gperf"
-    {"GETSAVINGTHROWVERSUS",                   Func_GetSavingThrowVersus},
+#line 39 "DefensesStrCmds.gperf"
+    {"GETBASESAVEBONUS",                       Func_GetBaseSaveBonus},
 #line 45 "DefensesStrCmds.gperf"
+    {"GETSAVINGTHROWVERSUS",                   Func_GetSavingThrowVersus},
+#line 43 "DefensesStrCmds.gperf"
+    {"GETEFFECTSAVEMODIFIER",                  Func_GetEffectSaveModifier},
+#line 44 "DefensesStrCmds.gperf"
+    {"GETHASSPELLIMMUNITY",                    Func_GetHasSpellImmunity},
+#line 47 "DefensesStrCmds.gperf"
     {"GETTRUEDAMAGEIMMUNITY",                  Func_GetTrueDamageImmunity},
+#line 41 "DefensesStrCmds.gperf"
+    {"GETEFFECTDAMAGEREDUCTION",               Func_GetEffectDamageReduction},
+#line 42 "DefensesStrCmds.gperf"
+    {"GETEFFECTDAMAGERESISTANCE",              Func_GetEffectDamageResistance},
 #line 38 "DefensesStrCmds.gperf"
     {"GETALLSPELLIMMUNITIES",                  Func_GetAllSpellImmunities},
-    {""},
-#line 40 "DefensesStrCmds.gperf"
-    {"GETEFFECTDAMAGEREDUCTION",               Func_GetEffectDamageReduction},
-#line 41 "DefensesStrCmds.gperf"
-    {"GETEFFECTDAMAGERESISTANCE",              Func_GetEffectDamageResistance},
-    {""}, {""}, {""}, {""},
-#line 44 "DefensesStrCmds.gperf"
+    {""}, {""}, {""},
+#line 46 "DefensesStrCmds.gperf"
     {"GETTOTALDAMAGEIMMUNITYDECREASE",         Func_GetTotalDamageImmunityDecrease}
   };
 
@@ -169,7 +172,7 @@ DefensesStrCommandLookup (register const char *str, register unsigned int len)
     }
   return 0;
 }
-#line 48 "DefensesStrCmds.gperf"
+#line 50 "DefensesStrCmds.gperf"
 
 
 #ifdef __cplusplus
