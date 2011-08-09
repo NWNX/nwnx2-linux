@@ -82,8 +82,17 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
     }
 
     if (cre != NULL && cre->cre_stats != NULL) {
-        if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_SACRED_DEFENSE_1))
-            total_inc_all += nwn_GetLevelByClass(cre->cre_stats, CLASS_TYPE_DIVINECHAMPION) / 2;
+        if (savetype == SAVING_THROW_TYPE_POISON &&
+            CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_PRESTIGE_POISON_SAVE_1)) {
+
+            total_inc_savetype = total_inc_all + total_inc_save + total_inc_savetype +
+                                 (nwn_GetLevelByClass(cre->cre_stats, CLASS_TYPE_ASSASSIN) / 2);
+            total_inc_all      = 0;
+            total_inc_save     = 0;
+        } else {
+            if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_SACRED_DEFENSE_1))
+                total_inc_all += nwn_GetLevelByClass(cre->cre_stats, CLASS_TYPE_DIVINECHAMPION) / 2;
+        }
     }
 
     if ((total_inc_all = total_inc_all + total_inc_save + total_inc_savetype) > 20)
@@ -151,8 +160,6 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
                     val += 2;
                 if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_RESIST_POISON))
                     val += 4;
-                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_PRESTIGE_POISON_SAVE_1))
-                    val += nwn_GetLevelByClass(cre->cre_stats, CLASS_TYPE_ASSASSIN) / 2;
                 break;
         }
 
