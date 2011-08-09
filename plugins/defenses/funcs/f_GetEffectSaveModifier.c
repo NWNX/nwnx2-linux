@@ -27,6 +27,7 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
     int total_dec_all = 0, total_dec_save = 0, total_dec_savetype = 0;
     const CGameEffect *eff;
     const CNWSObject *obj;
+    const CNWSCreature *cre;
 
     if (ob == NULL                                                 ||
         (obj = ob->vtable->AsNWSObject(ob)) == NULL                ||
@@ -37,6 +38,7 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
         return;
     }
 
+    cre      = ob->vtable->AsNWSCreature(ob);
     savetype = (saveflag < 0 ? -saveflag : saveflag) & 0xFF;
 
     for (i = 0; i < obj->obj_effects_len; i++) {
@@ -55,7 +57,7 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
 
         if (eff->eff_integers[2] != 0 && eff->eff_integers[2] != savetype) {
 #ifdef NWNX_DEFENSES_HG
-            if ((saveflag & 1024) && eff->eff_integers[2] == 14) {
+            if ((saveflag & 1024) && eff->eff_integers[2] == SAVING_THROW_TYPE_TRAP) {
                 /* do nothing; the trap bonus will fall through as a savetype bonus */
             } else
 #endif
@@ -79,15 +81,18 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
         }
     }
 
+    if (cre != NULL && cre->cre_stats != NULL) {
+        if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_SACRED_DEFENSE_1))
+            total_inc_all += nwn_GetLevelByClass(cre->cre_stats, CLASS_TYPE_DIVINECHAMPION) / 2;
+    }
+
     if ((total_inc_all = total_inc_all + total_inc_save + total_inc_savetype) > 20)
         total_inc_all = 20;
     if ((total_dec_all = total_dec_all + total_dec_save + total_dec_savetype) > 20)
         total_dec_all = 20;
 
 #ifdef NWNX_DEFENSES_HG
-    if (((saveflag & 512) || savetype == 15) && total_inc_savetype < 25) {
-        const CNWSCreature *cre = ob->vtable->AsNWSCreature(ob);
-
+    if (((saveflag & 512) || savetype == SAVING_THROW_TYPE_SPELL) && total_inc_savetype < 25) {
         if (cre != NULL && cre->cre_stats != NULL) {
             total_inc_savetype += CNWSCreatureStats__GetSkillRank(cre->cre_stats, SKILL_SPELLCRAFT, NULL, 0) / 5;
 
@@ -108,6 +113,74 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
 #endif
 
     val = total_inc_all - total_dec_all;
+
+    if (saveflag != 0 && cre != NULL && cre->cre_stats != NULL) {
+        switch (savetype) {
+            case SAVING_THROW_TYPE_DISEASE:
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_RESIST_DISEASE))
+                    val += 4;
+                break;
+
+            case SAVING_THROW_TYPE_DEATH:
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_STRONG_SOUL))
+                    val += 1;
+                break;
+
+            case SAVING_THROW_TYPE_FEAR:
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_FEARLESS))
+                    val += 2;
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_RESIST_NATURES_LURE))
+                    val += 2;
+                break;
+
+            case SAVING_THROW_TYPE_MIND_SPELLS:
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_HARDINESS_VERSUS_ENCHANTMENTS))
+                    val += 2;
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_HARDINESS_VERSUS_ILLUSIONS))
+                    val += 2;
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_LLIIRAS_HEART))
+                    val += 2;
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_STILL_MIND))
+                    val += 2;
+                break;
+
+            case SAVING_THROW_TYPE_POISON:
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_HARDINESS_VERSUS_POISONS))
+                    val += 2;
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_SNAKE_BLOOD))
+                    val += 2;
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_RESIST_POISON))
+                    val += 4;
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_PRESTIGE_POISON_SAVE_1))
+                    val += nwn_GetLevelByClass(cre->cre_stats, CLASS_TYPE_ASSASSIN) / 2;
+                break;
+        }
+
+        if (savetype == SAVING_THROW_TYPE_SPELL || (saveflag & 512)) {
+            if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_HARDINESS_VERSUS_SPELLS))
+                val += 2;
+        }
+
+        if (savetype == SAVING_THROW_TYPE_TRAP || (saveflag & 1024)) {
+            if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_DENEIRS_EYE))
+                val += 2;
+            if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_PRESTIGE_DEFENSIVE_AWARENESS_3))
+                val += 1;
+
+            if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_UNCANNY_DODGE_1)) {
+                if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_UNCANNY_DODGE_6))
+                    val += 5;
+                else if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_UNCANNY_DODGE_5))
+                    val += 4;
+                else if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_UNCANNY_DODGE_4))
+                    val += 3;
+                else if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_UNCANNY_DODGE_3))
+                    val += 2;
+                else if (CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_UNCANNY_DODGE_2))
+                    val += 1;
+            }
+        }
+    }
 
     snprintf(value, strlen(value), "%d", val);
 }
