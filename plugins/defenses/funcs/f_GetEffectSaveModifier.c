@@ -48,7 +48,7 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
         if (durtype >= 0 && (eff->eff_dursubtype & DURATION_TYPE_MASK) != durtype)
             continue;
 
-        if (eff->eff_integers[0] != 0 && eff->eff_integers[0] != save)
+        if (eff->eff_integers[1] != 0 && eff->eff_integers[1] != save)
             continue;
 
         if (eff->eff_integers[2] != 0 && eff->eff_integers[2] != savetype)
@@ -56,18 +56,18 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
 
         if (eff->eff_type == EFFECT_TRUETYPE_SAVING_THROW_INCREASE) {
             if (eff->eff_integers[2] != 0)
-                total_inc_savetype += eff->eff_integers[1];
-            else if (eff->eff_integers[0] != 0)
-                total_inc_save     += eff->eff_integers[1];
+                total_inc_savetype += eff->eff_integers[0];
+            else if (eff->eff_integers[1] != 0)
+                total_inc_save     += eff->eff_integers[0];
             else
-                total_inc_all      += eff->eff_integers[1];
+                total_inc_all      += eff->eff_integers[0];
         } else {
             if (eff->eff_integers[2] != 0)
-                total_dec_savetype += eff->eff_integers[1];
-            else if (eff->eff_integers[0] != 0)
-                total_dec_save     += eff->eff_integers[1];
+                total_dec_savetype += eff->eff_integers[0];
+            else if (eff->eff_integers[1] != 0)
+                total_dec_save     += eff->eff_integers[0];
             else
-                total_dec_all      += eff->eff_integers[1];
+                total_dec_all      += eff->eff_integers[0];
         }
     }
 
