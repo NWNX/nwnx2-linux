@@ -22,7 +22,7 @@
 
 
 void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
-    int i, save, savetype, durtype, val = 0;
+    int i, save, savetype, saveflag, durtype, val = 0;
     int total_inc_all = 0, total_inc_save = 0, total_inc_savetype = 0;
     int total_dec_all = 0, total_dec_save = 0, total_dec_savetype = 0;
     const CGameEffect *eff;
@@ -30,12 +30,14 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
 
     if (ob == NULL                                                 ||
         (obj = ob->vtable->AsNWSObject(ob)) == NULL                ||
-        sscanf(value, "%d %d %d", &save, &savetype, &durtype) != 3 ||
+        sscanf(value, "%d %d %d", &save, &saveflag, &durtype) != 3 ||
         save < 0 || save > 3) {
 
         snprintf(value, strlen(value), "0");
         return;
     }
+
+    savetype = (saveflag < 0 ? -saveflag : saveflag) & 0xFF;
 
     for (i = 0; i < obj->obj_effects_len; i++) {
         if ((eff = obj->obj_effects[i]) == NULL)
@@ -51,8 +53,14 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
         if (eff->eff_integers[1] != 0 && eff->eff_integers[1] != save)
             continue;
 
-        if (eff->eff_integers[2] != 0 && eff->eff_integers[2] != savetype)
+        if (eff->eff_integers[2] != 0 && eff->eff_integers[2] != savetype) {
+#ifdef NWNX_DEFENSES_HG
+            if ((saveflag & 1024) && eff->eff_integers[2] == 14) {
+                /* do nothing; the trap bonus will fall through as a savetype bonus */
+            } else
+#endif
             continue;
+        }
 
         if (eff->eff_type == EFFECT_TRUETYPE_SAVING_THROW_INCREASE) {
             if (eff->eff_integers[2] != 0)
@@ -77,6 +85,17 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
         total_dec_all = 20;
 
 #ifdef NWNX_DEFENSES_HG
+    if (((saveflag & 512) || savetype == 15) && total_inc_savetype < 25) {
+        const CNWSCreature *cre = ob->vtable->AsNWSCreature(ob);
+
+        if (cre != NULL && cre->cre_stats != NULL) {
+            total_inc_savetype += CNWSCreatureStats__GetSkillRank(cre->cre_stats, SKILL_SPELLCRAFT, NULL, 0) / 5;
+
+            if (total_inc_savetype > 25)
+                total_inc_savetype = 25;
+        }
+    }
+
     if (total_inc_savetype > total_inc_all)
         total_inc_all = (total_inc_savetype > 30 ? 30 : total_inc_savetype);
     if (total_inc_save > total_inc_all)
