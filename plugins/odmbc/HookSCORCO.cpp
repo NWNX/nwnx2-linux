@@ -53,7 +53,7 @@ int SCOproc(const int * pthis, char** database, char** key, char** player, int f
     {
       asm ("mov $d_ret_code_sco, %eax");
       asm ("leave");
-      asm ("jmp %eax");
+      asm ("jmp *%eax");
     }
     asm ("pusha");
     int lastRet = (unsigned long)odbc.WriteSCO(*database, *key, *player, flags, pData, size);
@@ -71,7 +71,7 @@ unsigned char * RCOproc(const int * pthis, char** database, char** key, char** p
     {
       asm ("mov $d_ret_code_rco, %eax");
       asm ("leave");
-      asm ("jmp %eax");
+      asm ("jmp *%eax");
     }
     asm ("pusha");
     unsigned char * lastRet = odbc.ReadSCO(*database, *key, *player, arg4, size);
@@ -183,7 +183,7 @@ int HookFunctions()
     odbc.Log(0, "! SCO locate failed.\n");
     return 0;
   }
-  
+
   dword rco = FindHookRCO();
 	if (rco)
 	{

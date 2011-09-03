@@ -37,14 +37,15 @@ public:
 	BOOL Execute (const uchar* query);
 	uint Fetch (char* buffer, uint size);
 	BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length);
-	BYTE* ReadScorcoData(char* SQL, char *param, BOOL* pSqlError, int *size);
+	BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size);
 
 	const char* GetErrorMessage ();
 
 private:
     PGconn *pgsql;
     PGresult *result;
-    unsigned long NumCol, CurRow;
+    unsigned long NumCol;
+	int CurRow;
 
 	unsigned long version;
 };

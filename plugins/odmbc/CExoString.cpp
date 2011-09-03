@@ -29,7 +29,7 @@ bool CExoString::operator==(const char *str)
 	}
 	else
 	{
-		if( !Text && !str || Text && !*str || str && !*str)
+		if((!Text && !str) || (Text && !*str) || (str && !*str))
 			return 1;
 		else
 			return 0;

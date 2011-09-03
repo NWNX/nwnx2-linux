@@ -147,7 +147,7 @@ BOOL CMySQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 
 	len = mysql_real_escape_string (&mysql, Data + 1, (const char*)pData, Length);
 	Data[0] = Data[len + 1] = 39; //'
-	Data[len + 2] = 0x0; 
+	Data[len + 2] = 0x0;
 	sprintf(pSQL, SQL, Data);
 
 	MYSQL_RES *result = mysql_store_result (&mysql);
@@ -163,11 +163,11 @@ BOOL CMySQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 		return false;
 }
 
-BYTE* CMySQL::ReadScorcoData(char* SQL, char *param, BOOL* pSqlError, int *size)
+BYTE * CMySQL::ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size)
 {
 	MYSQL_RES *rcoresult;
 	if (strcmp(param, "FETCHMODE") != 0)
-	{	
+	{
 		if (mysql_query(&mysql, (const char *) SQL) != 0)
 		{
 			*pSqlError = true;

@@ -18,7 +18,9 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-//#include <assert.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include "sqlite.h"
 
 CSQLite::CSQLite() : CDB()
@@ -36,7 +38,7 @@ BOOL CSQLite::Connect()
 	return Connect("sqlite.db");
 }
 
-BOOL CSQLite::Connect(char *db)
+BOOL CSQLite::Connect(const char * db)
 {
 	int rc;
 	rc = sqlite3_open(db, &sdb);
@@ -150,7 +152,7 @@ uint CSQLite::Fetch(char* buffer, uint size)
 				if ((total < size) && (len > 0))
 				{
 					memcpy (&buffer[totalbytes], pCol, len);
-					totalbytes = total;					
+					totalbytes = total;
 				}
 			}
 			if ((i < maxCol - 1) && (totalbytes + 1 < size))
@@ -163,7 +165,7 @@ uint CSQLite::Fetch(char* buffer, uint size)
 		buffer[totalbytes] = 0;
 		return totalbytes;
 	}
-	else 
+	else
 	{
 		finalizeStatement();
 	}
@@ -189,7 +191,7 @@ BOOL CSQLite::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 	}
 
 	rc = sqlite3_bind_blob(pStmt, 1, (const void*) pData, Length, SQLITE_STATIC);
-	rc = sqlite3_step(pStmt);   
+	rc = sqlite3_step(pStmt);
 	finalizeStatement();
 
 	if (rc != SQLITE_DONE)
@@ -201,13 +203,13 @@ BOOL CSQLite::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 	return true;
 }
 
-BYTE* CSQLite::ReadScorcoData(char* SQL, char *param, BOOL* pSqlError, int *size)
+BYTE * CSQLite::ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size)
 {
 	int rc;
 	const void* pBlob;
 
 	if (strcmp(param, "FETCHMODE") != 0)
-	{	
+	{
 		finalizeStatement();
 		rc = sqlite3_prepare(sdb, SQL, -1, &pStmt, NULL);
 		if (rc != SQLITE_OK)
@@ -235,13 +237,13 @@ BYTE* CSQLite::ReadScorcoData(char* SQL, char *param, BOOL* pSqlError, int *size
 		*size = sqlite3_column_bytes(pStmt, 0);
 		if (*size > MAXRESULT)
 		{
-			sprintf(lastError, "Critical error - object too large (>%ld bytes).\n", MAXRESULT);
+			sprintf(lastError, "Critical error - object too large (>%d bytes).\n", MAXRESULT);
 			*pSqlError = true;
 			return NULL;
 		}
 		pBlob = sqlite3_column_blob(pStmt, 0);
 		memcpy(pReturn, pBlob, *size);
-		return pReturn;	
+		return pReturn;
 	}
 	else if (rc == SQLITE_DONE)
 	{

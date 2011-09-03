@@ -91,7 +91,7 @@ Vector FacingToOrientation(float fFacing)
 
 void ApplyInventoryLoadPatch(unsigned long pAddr, bool bEnabled)
 {
-	char *pCode = (char *) pAddr; //68 80 0A 31 08          push    offset aObjectid                ; "ObjectId"
+	unsigned char * pCode = (unsigned char *)pAddr;
 	d_enable_write((unsigned long)pCode);
 	if(bEnabled)
 	{
@@ -108,7 +108,7 @@ char *SaveObject(dword nObjectID, int &nSize)
 	if(!pServThis)
 		InitConstants();
 	int (*SaveObjectInternal)(CNWSObject *pObject, CResGFF *pGFF, CResStruct *pResStruct);
-	char *sGFFType = NULL;
+	const char * sGFFType = NULL;
 	odbc.Log(4, "SaveObject: %x\n", nObjectID);
 	CNWSObject *pObject = CServerExoApp__GetGameObject((void *)pServThis, nObjectID);
 	odbc.Log(4, "pObject: %08lx\n", pObject);
@@ -154,11 +154,11 @@ char *SaveObject(dword nObjectID, int &nSize)
 					odbc.Log(4, "CResGFF__WriteGFFToPointer - done\n");
 					odbc.Log(4, "Length: %d, data: %s\n", nDataSize, pData);
 					//free(pData);
-					
+
 					if(pGFF)
 						CResGFF___CResGFF(pGFF, 3);
 					delete pResStruct;
-					
+
 					nSize = nDataSize;
 					return (char *)pData;
 				}
@@ -167,6 +167,11 @@ char *SaveObject(dword nObjectID, int &nSize)
 		if(pGFF)
 			CResGFF___CResGFF(pGFF, 3);
 		delete pResStruct;
+		nSize = 0;
+		return NULL;
+	}
+	else
+	{
 		nSize = 0;
 		return NULL;
 	}
@@ -193,11 +198,11 @@ char *SaveObject(dword nObjectID, int &nSize)
 				odbc.Log(4, "CResGFF__WriteGFFToPointer - done\n");
 				odbc.Log(4, "Length: %d, data: %s\n", nDataSize, pData);
 				//free(pData);
-				
+
 				if(pGFF)
 					CResGFF___CResGFF(pGFF, 3);
 				delete pResStruct;
-				
+
 				pnSize = nDataSize;
 				return (char *)pData;
 			}
@@ -231,11 +236,11 @@ char *SaveStore(CNWSStore *pObject, int &pnSize)
 				odbc.Log(4, "CResGFF__WriteGFFToPointer - done\n");
 				odbc.Log(4, "Length: %d, data: %s\n", nDataSize, pData);
 				//free(pData);
-				
+
 				if(pGFF)
 					CResGFF___CResGFF(pGFF, 3);
 				delete pResStruct;
-				
+
 				pnSize = nDataSize;
 				return (char *)pData;
 			}
@@ -362,7 +367,7 @@ dword LoadObject(const char *pData, int nSize, Location lLocation)
 
 void HookObjectStorage()
 {
-	
+
 }
 
 void InitConstants()
@@ -401,7 +406,7 @@ void InitConstants()
 	CNWSTrigger__SaveTrigger = (int (*)(CNWSTrigger*,CResGFF *,CResStruct*)) 0x081F1610;
 	CNWSTrigger__LoadTrigger = (int (*)(CNWSTrigger*,CResGFF*,CResStruct*,CExoString*)) 0x081F0138;
 	CNWSTrigger__AddToArea = (int (*)(CNWSTrigger*,CNWSArea*,float,float,float,int)) 0x081EE668;
-	
+
 	//CNWSObject
 	CNWSObject__SaveVarTable = (void (*)(CNWSObject*,CResGFF*,CResStruct*)) 0x081D4BD8;
 	CNWSObject__LoadVarTable = (void (*)(CNWSObject*,CResGFF*,CResStruct*)) 0x081D4BC0;

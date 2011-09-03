@@ -69,7 +69,7 @@ BOOL CPgSQL::Connect (const char *server, const char *user, const char *pass, co
 		free(connstring);
 		return false;
 	}
-	
+
 	free(connstring);
 
 	return true;
@@ -98,10 +98,10 @@ BOOL CPgSQL::Execute (const uchar* query)
 	{
 		return false;
 	}
-	
+
 	// successfull retreived the results from the SELECT
 	NumCol = PQnfields (result);
-	// Set the CurCol cursor to 0	 
+	// Set the CurCol cursor to 0
 	CurRow = 0;
 	return true;
 }
@@ -109,9 +109,7 @@ BOOL CPgSQL::Execute (const uchar* query)
 uint CPgSQL::Fetch (char* buffer, uint size)
 {
 	uint totalbytes = 0;
-	ulong *lengths;
 	ulong i, total;
-	//MYSQL_ROW row;
 
 	if (PQstatus(pgsql) != CONNECTION_OK)
 		return (uint)-1;
@@ -124,7 +122,7 @@ uint CPgSQL::Fetch (char* buffer, uint size)
 	// Check for empty set
 	if (NumCol == 0 || PQntuples(result) == 0) {
 	  return (uint)-1;
-	}  
+	}
 
 
 	if (PQntuples(result) > CurRow)
@@ -162,7 +160,7 @@ BOOL CPgSQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 
 	//len = mysql_real_escape_string (&mysql, Data + 1, (const char*)pData, Length);
 	Data2 = PQescapeByteaConn(pgsql, pData, Length, &len);
-	
+
 	Data = new char[len + 4];
 	pSQL = new char[MAXSQL + len + 3];
 
@@ -178,9 +176,9 @@ BOOL CPgSQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 		res = 1;
 	else
 		res = 0;
-	
+
 	PQclear (sco_result);
-	
+
 	delete[] pSQL;
 	delete[] Data;
 	PQfreemem(Data2);
@@ -191,11 +189,11 @@ BOOL CPgSQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 		return false;
 }
 
-BYTE* CPgSQL::ReadScorcoData(char* SQL, char *param, BOOL* pSqlError, int *size)
+BYTE * CPgSQL::ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size)
 {
 	PGresult *rcoresult;
 	if (strcmp(param, "FETCHMODE") != 0)
-	{	
+	{
 		rcoresult = PQexec (pgsql, SQL);
 		if (rcoresult == NULL || PQresultStatus(rcoresult) == PGRES_FATAL_ERROR)
 		{
