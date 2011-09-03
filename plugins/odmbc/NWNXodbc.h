@@ -20,8 +20,8 @@
 #ifndef _NWNX_odbc_H_
 #define _NWNX_odbc_H_
 
-#define SQLITE_SUPPORT 1
-#define PGSQL_SUPPORT 1
+#define SQLITE_SUPPORT 0
+#define PGSQL_SUPPORT 0
 
 #include "NWNXBase.h"
 
