@@ -20,8 +20,8 @@
 #ifndef _NWNX_odbc_H_
 #define _NWNX_odbc_H_
 
-#define SQLITE_SUPPORT 0
-#define PGSQL_SUPPORT 0
+#define SQLITE_SUPPORT 1
+#define PGSQL_SUPPORT 1
 
 #include "NWNXBase.h"
 
@@ -54,7 +54,7 @@ protected:
 	BOOL Connect();
 	BOOL Reconnect();
 	void Execute(char* request);
-	void Fetch(char* buffer, unsigned int buffersize);
+	char * Fetch(char * buffer, unsigned int buffersize);
 	void SetScorcoSQL(char *request);
 	bool LoadConfiguration ();
 

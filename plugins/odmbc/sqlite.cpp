@@ -116,61 +116,78 @@ BOOL CSQLite::Execute(const uchar* query)
 	return true;
 }
 
-uint CSQLite::Fetch(char* buffer, uint size)
+char * CSQLite::Fetch(char * buffer, unsigned int buffersize)
 {
+	// Move a database cursor to the next (requested) row.
 	int rc;
-	unsigned int total, len, i, maxCol, totalbytes;
-	const char* pCol;
-
 	if (firstFetch)
 	{
 		firstFetch = false;
 		rc = SQLITE_ROW;
 	}
 	else
-	{
-		// execute step
 		rc = sqlite3_step(pStmt);
-		if (rc == SQLITE_ERROR)
-		{
-			strcpy(lastError, sqlite3_errmsg(sdb));
+
+	switch (rc)
+	{
+		case SQLITE_BUSY:
+			strncpy(lastError, "CSQLite::Fetch: The database file is locked!", lastErrorSize);
 			finalizeStatement();
-			return (uint)-1;
-		}
-	}
-	if (rc == SQLITE_ROW)
+			return NULL;
+
+		case SQLITE_ERROR:
+			strncpy(lastError, sqlite3_errmsg(sdb), lastErrorSize);
+			finalizeStatement();
+			return NULL;
+
+		case SQLITE_MISUSE:
+			strncpy(lastError, "CSQLite::Fetch: Library used incorrectly.", lastErrorSize);
+			finalizeStatement();
+			return NULL;
+
+		case SQLITE_ROW:
+			break;
+
+		default:
+			finalizeStatement();
+			return NULL;
+	};
+
+	// Calculate length of the row.
+	int NumCol = sqlite3_column_count(pStmt);
+	unsigned long row_length = 0;
+	for (int i = 0; i < NumCol; ++i)
 	{
-		totalbytes = 0;
-		maxCol = sqlite3_column_count(pStmt);
-		for (i = 0; i < maxCol; i++)
+		const char * column = (const char *)sqlite3_column_text(pStmt, i);
+		if (column)
 		{
-			pCol = (const char*) sqlite3_column_text(pStmt, i);
-			if (pCol)
-			{
-				len = strlen(pCol);
-				total = totalbytes + len;
-				if ((total < size) && (len > 0))
-				{
-					memcpy (&buffer[totalbytes], pCol, len);
-					totalbytes = total;
-				}
-			}
-			if ((i < maxCol - 1) && (totalbytes + 1 < size))
-			{
-				buffer[totalbytes] = '¬'; // ascii 170
-				totalbytes++;
-			}
+			// We will need one more character per a column to act as a column separator and a NULL terminating
+			// character.
+			row_length += strlen(column) + 1;
 		}
-
-		buffer[totalbytes] = 0;
-		return totalbytes;
 	}
-	else
+	if (row_length == 0)
+		return NULL;
+
+	// If the row length exceeds size of the SPACER buffer, allocate a new one.
+	// The SPACER will be deleted automatically in nwnx2lib.cpp.
+	char * result = row_length <= buffersize ? buffer : (char *)malloc(row_length);
+
+	// Copy content of the columns to the buffer.
+	for (int i = 0, pos = 0; i < NumCol; ++i)
 	{
-		finalizeStatement();
+		const char * column = (const char *)sqlite3_column_text(pStmt, i);
+		if (column)
+		{
+			int length = strlen(column);
+			strncpy(&result[pos], column, length);
+			pos += length;
+			result[pos++] = '¬';
+		}
 	}
+	result[row_length-1] = '\0';
 
-	return 0;
+	return result;
 }
 
 BOOL CSQLite::WriteScorcoData(char* SQL, BYTE* pData, int Length)

@@ -181,7 +181,7 @@ char * CNWNXODBC::OnRequest (char *, char * Request, char * Parameters)
 	if (strncmp (Request, "EXEC", 4) == 0)
 		Execute(Parameters);
 	else if (strncmp (Request, "FETCH", 5) == 0)
-		Fetch (Parameters, strlen (Parameters));
+		return Fetch(Parameters, strlen(Parameters));
 	else if (strncmp(Request, "SETSCORCOSQL", 12) == 0)
 		SetScorcoSQL(Parameters);
 	else if (strncmp(Request, "STOREOBJECT", 11) == 0)
@@ -266,17 +266,21 @@ void CNWNXODBC::Execute(char *request)
 }
 
 //============================================================================================================================
-void CNWNXODBC::Fetch(char *buffer, unsigned int buffersize)
+char * CNWNXODBC::Fetch(char * buffer, unsigned int buffersize)
 {
-	unsigned int totalbytes = 0;
-	buffer[0] = 0x0;
-	// fetch data from recordset
-	totalbytes = db->Fetch (buffer, buffersize);
-  // log what we received
-  if (totalbytes == (unsigned int)-1)
-    Log (2, "o Empty set\n");
-  else
-    Log (2, "o Sent response (%d bytes): %s\n", totalbytes, buffer);
+	// Clear the SPACER buffer.
+	buffer[0] = '\0';
+
+	// Fetch a row from the database.
+	char * result = db->Fetch(buffer, buffersize);
+
+	// Print a row content to a log file.
+	if (result)
+		Log(2, "o Sent result: %s\n", result);
+	else
+		Log(2, "o No result\n");
+
+	return result;
 }
 
 //============================================================================================================================

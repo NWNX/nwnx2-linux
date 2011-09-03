@@ -35,7 +35,7 @@ public:
 	void Disconnect ();
 
 	BOOL Execute (const uchar* query);
-	uint Fetch (char* buffer, uint size);
+	char * Fetch(char * buffer, unsigned int buffersize);
 	BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length);
 	BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size);
 
