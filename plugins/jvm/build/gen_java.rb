@@ -573,6 +573,7 @@ ExceptionReturnValue = {
   'void' => '',
   'int' => '0',
   'float' => '0.0',
+  'bool' => 'JNI_FALSE'
 }
 ExceptionReturnValue.default = 'NULL'
 

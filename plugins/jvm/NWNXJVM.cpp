@@ -378,7 +378,7 @@ char* CNWNXJVM::OnRequest (char *gameObject, char* request, char* parameters) {
 		j_resetPerEventMappings(env);
 
 	if (NULL == obj_self) {
-		printf("%c          %-20s NWObject.apply(%0.8llx) == NULL!\n", request[0], event, oid);
+		printf("%c          %-20s NWObject.apply(%8llx) == NULL!\n", request[0], event, oid);
 
 	} else if (j_printEvents) {
 		timeval t2; gettimeofday(&t2, NULL);
@@ -386,7 +386,7 @@ char* CNWNXJVM::OnRequest (char *gameObject, char* request, char* parameters) {
 		long se = usec / 1000000;
 		long ms = usec % 1000000;
 
-		printf("%c %0.8llx %-20s %6d s %8d u %12d calls (d: %d)\n", request[0], oid, event, se, ms, calls, nwn_contextDepth);
+		printf("%c %8llx %-20s %6ld s %8ld u %12ld calls (d: %ld)\n", request[0], oid, event, se, ms, calls, nwn_contextDepth);
 	}
 
 	return NULL;
