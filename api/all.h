@@ -201,4 +201,5 @@
 #include "CExtendedServerInfo.h"
 #include "MS_RSAPublicKey.h"
 #include "Matrix.h"
+#include "custom/nwn_globals.h"
 #endif

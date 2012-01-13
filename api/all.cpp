@@ -201,3 +201,4 @@
 #include "CExtendedServerInfo.cpp"
 #include "MS_RSAPublicKey.cpp"
 #include "Matrix.cpp"
+#include "custom/nwn_globals.cpp"

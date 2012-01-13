@@ -9,8 +9,8 @@ public:
 	int operator-=(Vector const &);
 	int operator+=(Vector const &);
 
-	/* 0x0/0 */ unsigned long X;
-	/* 0x4/4 */ unsigned long Y;
-	/* 0x8/8 */ unsigned long Z;
+	/* 0x0/0 */ float X;
+	/* 0x4/4 */ float Y;
+	/* 0x8/8 */ float Z;
 };
 #endif
