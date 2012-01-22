@@ -368,6 +368,7 @@ int FindHookFunctions()
 	fixes.Log(2, "CNWSCreature__DoDamage: %08lX\n", CNWSCreature__DoDamage);
 	*(dword*)&CNWSModule__AIUpdate = 0x081B3DEC;
 	fixes.Log(2, "CNWSModule__AIUpdate: %08lX\n", CNWSModule__AIUpdate);
+	char *pAdjustReputation_middle = (char *) 0x081084C3;
 
 	*(dword*)&pRunScript = 0x08261F94;
 
@@ -490,6 +491,19 @@ int FindHookFunctions()
 		pAIActionJumpToPoint[0x29] = 0x90;
 		pAIActionJumpToPoint[0x2A] = 0x90;
 	}
+
+	if(pAdjustReputation_middle[0] == 0x56)
+	{
+		d_enable_write((dword) pAdjustReputation_middle);
+		pAdjustReputation_middle[0] = 0xFF;
+		pAdjustReputation_middle[1] = 0xB0;
+		pAdjustReputation_middle[2] = 0x90;
+		pAdjustReputation_middle[3] = 0;
+		pAdjustReputation_middle[4] = 0;
+		pAdjustReputation_middle[5] = 0;
+		pAdjustReputation_middle[6] = 0x56;
+	}
+	else fixes.Log(2, "Couldn't patch the AdjustReputation function\n");
 
 	// begin cap hooks
 	int cap_ability_inc = fixes.GetConfInteger("cap_ability_inc");
