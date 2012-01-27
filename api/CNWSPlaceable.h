@@ -1,13 +1,13 @@
 #ifndef _CNWSPLACEABLE_H_
 #define _CNWSPLACEABLE_H_
 #include "nwndef.h"
+#include "CNWSObject.h"
 #include "Vector.h"
 #include "CResRef.h"
 #include "CExoString.h"
 #include "CExoLocString.h"
-#include "CNWSObject.h"
 
-class CNWSPlaceable
+class CNWSPlaceable : public CNWSObject
 {
 public:
 	int AIActionCastSpell(CNWSObjectActionNode *);
@@ -164,7 +164,6 @@ public:
 	~CNWSPlaceable();
 	CNWSPlaceable(unsigned long);
 
-	/* 0x0/0 */ CNWSObject Object;
 	/* 0x1C4/452 */ CExoLocString Name;
 	/* 0x1CC/460 */ char rsvd1[4];
 	/* 0x1CC/460 */ unsigned long DisplayName;

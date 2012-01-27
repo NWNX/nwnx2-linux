@@ -30,6 +30,6 @@ public:
 	int operator!=(CResRef const &) const;
 	int operator!();
 
-	/* 0x0/0 */ char ResRef[16];
+	/* 0x0/0 */ char m_resRef[16];
 };
 #endif

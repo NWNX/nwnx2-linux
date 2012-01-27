@@ -21,8 +21,8 @@ public:
 	int operator=(CExoArrayList<T> const &);
 	CExoArrayList(int);
 	CExoArrayList(CExoArrayList<T> const &);
-	int operator[](int) const;
-	int operator[](int);
+	T &operator[](int) const;
+	T &operator[](int);
 
 	/* 0x0/0 */ T *Array;
 	/* 0x4/4 */ unsigned long nAllocatedSize;

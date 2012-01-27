@@ -6,6 +6,7 @@
 #include "CExoArrayList.h"
 #include "CResRef.h"
 #include "CNWSObject.h"
+#include "CNWSCombatRound.h"
 #include "nwnstructs.h"
 #include "CNWSCreatureStats.h"
 
@@ -845,7 +846,7 @@ public:
 	/* 0xA88/2696 */ unsigned long Spotted;
 	/* 0xA8C/2700 */ unsigned long field_A8C[15];
 	/* 0xAC8/2760 */ unsigned long field_AC8;
-	/* 0xACC/2764 */ void *CombatRound;
+	/* 0xACC/2764 */ CNWSCombatRound *CombatRound;
 	/* 0xAD0/2768 */ unsigned long field_AD0;
 	/* 0xAD4/2772 */ void *Barter;
 	/* 0xAD8/2776 */ unsigned long Gold;
@@ -866,7 +867,7 @@ public:
 	/* 0xB10/2832 */ char rsvd14;
 	/* 0xB10/2832 */ unsigned long field_B10;
 	/* 0xB34/2868 */ char rsvd15[32];
-	/* 0xB34/2868 */ unsigned long Master;
+	/* 0xB34/2868 */ unsigned long MasterID;
 	/* (ptr_to:CExoArrayList<int>) */
 	/* 0xB38/2872 */ CExoArrayList<int> *field_B38;
 	/* 0xB5C/2908 */ char rsvd16[32];

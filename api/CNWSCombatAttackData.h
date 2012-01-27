@@ -2,6 +2,7 @@
 #define _CNWSCOMBATATTACKDATA_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "CExoArrayList.h"
 
 class CNWSCombatAttackData
 {
@@ -22,7 +23,7 @@ public:
 	/* 0x2/2 */ unsigned short AnimationLength;
 	/* 0x4/4 */ unsigned long ReactObject;
 	/* 0x8/8 */ unsigned short ReaxnDelay;
-	/* 0xA/10 */ unsigned short Reaxn;
+	/* 0xA/10 */ unsigned short ReaxnAnimation;
 	/* 0xC/12 */ unsigned short ReaxnAnimLength;
 	/* 0xE/14 */ char ToHitRoll;
 	/* 0xF/15 */ char ThreatRoll;
@@ -46,23 +47,30 @@ public:
 	/* 0x34/52 */ char rsvd4;
 	/* 0x34/52 */ unsigned long RangedAttack;
 	/* 0x38/56 */ unsigned long SneakAttack;
-	/* 0x40/64 */ char rsvd5[4];
+	/* 0x3C/60 */ unsigned long m_bDeathAttack;
 	/* 0x40/64 */ unsigned long KillingBlow;
 	/* 0x44/68 */ unsigned long CoupDeGrace;
 	/* 0x48/72 */ unsigned long CriticalThreat;
 	/* 0x4C/76 */ unsigned long AttackDeflected;
 	/* 0x50/80 */ char AttackResult;
-	/* 0x52/82 */ char rsvd6;
+	/* 0x52/82 */ char rsvd5;
 	/* 0x52/82 */ unsigned short AttackType;
 	/* 0x54/84 */ unsigned short AttackID;
-	/* 0x58/88 */ char rsvd7[2];
+	/* 0x58/88 */ char rsvd6[2];
 	/* 0x58/88 */ unsigned long RangedTargetX;
 	/* 0x5C/92 */ unsigned long RangedTargetY;
 	/* 0x60/96 */ unsigned long RangedTargetZ;
 	/* 0x64/100 */ unsigned long AmmoItem;
 	/* 0x68/104 */ CExoString AttackDebugText;
 	/* 0x70/112 */ CExoString DamageDebugText;
-	/* 0xA4/164 */ char rsvd8[44];
+	/* (mtype:CExoArrayList<unsigned long>) */
+	/* 0x78/120 */ CExoArrayList<unsigned long> m_alstOnHitGameEffects;
+	/* (mtype:CExoArrayList<CNWSSpellScriptData *>) */
+	/* 0x84/132 */ CExoArrayList<CNWSSpellScriptData *> m_alstOnHitSpellScripts;
+	/* (mtype:CExoArrayList<CNWSSpellScriptData *>) */
+	/* 0x90/144 */ CExoArrayList<CNWSSpellScriptData *> m_alstOnHitEnemySpellScripts;
+	/* 0x9C/156 */ unsigned long m_alstPendingFeedback;
+	/* 0xA0/160 */ unsigned long field_A0;
 	/* 0xA4/164 */ unsigned long field_A4;
 };
 #endif

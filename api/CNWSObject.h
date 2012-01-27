@@ -7,6 +7,8 @@
 #include "nwnstructs.h"
 #include "CExoLocString.h"
 #include "CNWSDialog.h"
+#include "CExoLinkedList.h"
+#include "CNWSObjectActionNode.h"
 
 class CNWSObject
 {
@@ -305,19 +307,16 @@ public:
 	/* 0x64/100 */ unsigned long field_64;
 	/* 0x68/104 */ unsigned long field_68;
 	/* 0x6C/108 */ unsigned long field_6C;
-	/* 0x70/112 */ unsigned long field_70;
+	/* 0x70/112 */ unsigned long ActionTarget;
 	/* 0x78/120 */ char rsvd3[4];
 	/* 0x78/120 */ unsigned long AreaID;
-	/* 0x7C/124 */ unsigned long X;
-	/* 0x80/128 */ unsigned long Y;
-	/* 0x84/132 */ unsigned long Z;
-	/* 0x8C/140 */ char rsvd4[4];
-	/* 0x8C/140 */ unsigned long field_8C;
-	/* 0xB8/184 */ char rsvd5[40];
+	/* 0x7C/124 */ Vector m_vPosition;
+	/* 0x88/136 */ Vector m_vOrientation;
+	/* 0xB8/184 */ char rsvd4[36];
 	/* 0xB8/184 */ unsigned long HitPoints;
 	/* 0xBC/188 */ unsigned short field_BC;
 	/* 0xBE/190 */ char field_BE;
-	/* 0xC0/192 */ char rsvd6;
+	/* 0xC0/192 */ char rsvd5;
 	/* 0xC0/192 */ unsigned short TempHitPoints;
 	/* 0xC2/194 */ unsigned short field_C2;
 	/* 0xC4/196 */ unsigned long CanModifyActionQueue;
@@ -325,15 +324,16 @@ public:
 	/* 0xCC/204 */ unsigned long IsRaiseable;
 	/* 0xD0/208 */ unsigned long DeadSelectable;
 	/* 0xD4/212 */ unsigned long Invulnerable;
-	/* 0xD8/216 */ unsigned long field_D8;
+	/* (mtype:CExoLinkedList<CNWSObjectActionNode>) */
+	/* 0xD8/216 */ CExoLinkedList<CNWSObjectActionNode> ActionsList;
 	/* 0xDC/220 */ unsigned long ScriptVarTable;
 	/* 0xE0/224 */ unsigned long field_E0;
 	/* 0xE4/228 */ unsigned long field_E4;
 	/* 0xE8/232 */ unsigned long field_E8;
 	/* 0xEC/236 */ void *Effects;
-	/* 0xF8/248 */ char rsvd7[8];
+	/* 0xF8/248 */ char rsvd6[8];
 	/* 0xF8/248 */ unsigned long PerceptionList;
-	/* 0x1C0/448 */ char rsvd8[196];
+	/* 0x1C0/448 */ char rsvd7[196];
 	/* 0x1C0/448 */ unsigned long field_1C0;
 };
 #endif

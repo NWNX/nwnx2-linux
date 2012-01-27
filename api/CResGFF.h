@@ -120,10 +120,11 @@ public:
 	/* 0x84/132 */ char m_pLabelBuffer[17];
 	/* 0x95/149 */ char m_pFileType[4];
 	/* 0x9A/154 */ char rsvd1;
-	/* 0x9A/154 */ unsigned long m_bLoaded;
+	/* 0x9A/154 */ unsigned short m_bLoaded;
+	/* 0x9C/156 */ unsigned short field_9C;
 	/* 0x9E/158 */ unsigned short field_9E;
-	/* 0xA0/160 */ unsigned short field_A0;
-	/* 0xA8/168 */ char rsvd2[6];
+	/* 0xA0/160 */ unsigned long field_A0;
+	/* 0xA4/164 */ unsigned long field_A4;
 	/* 0xA8/168 */ unsigned long field_A8;
 };
 #endif

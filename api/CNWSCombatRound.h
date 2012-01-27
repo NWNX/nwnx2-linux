@@ -2,6 +2,7 @@
 #define _CNWSCOMBATROUND_H_
 #include "nwndef.h"
 #include "CNWSCombatAttackData.h"
+#include "CNWSCreature.h"
 
 class CNWSCombatRound
 {
@@ -103,6 +104,6 @@ public:
 	/* 0x2150/8528 */ unsigned long ParryActions;
 	/* 0x2154/8532 */ unsigned long DodgeTarget;
 	/* 0x2158/8536 */ unsigned long SchedActionList;
-	/* 0x215C/8540 */ void *Creature;
+	/* 0x215C/8540 */ CNWSCreature *Creature;
 };
 #endif

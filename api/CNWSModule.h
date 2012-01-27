@@ -181,15 +181,23 @@ public:
 	/* 0x48/72 */ unsigned long field_48;
 	/* (mtype:CExoLinkedList<CNWSPlayerTURD>) */
 	/* 0x4C/76 */ CExoLinkedList<CNWSPlayerTURD> TURDList;
-	/* 0xB8/184 */ char rsvd1[104];
+	/* 0x58/88 */ char rsvd1[8];
+	/* 0x58/88 */ CExoString m_sCustomTLK;
+	/* 0x80/128 */ char rsvd2[32];
+	/* 0x80/128 */ unsigned long field_80;
+	/* 0x84/132 */ unsigned long field_84;
+	/* 0x88/136 */ unsigned long field_88;
+	/* (mtype:CExoArrayList<CExoString>) */
+	/* 0x8C/140 */ CExoArrayList<CExoString> HakList;
+	/* 0xB8/184 */ char rsvd3[32];
 	/* 0xB8/184 */ CExoString OnHeartbeat;
-	/* 0xD4/212 */ char rsvd2[20];
+	/* 0xD4/212 */ char rsvd4[20];
 	/* 0xD4/212 */ CExoString field_F0;
 	/* 0xDC/220 */ CExoString field_F8;
 	/* 0xE4/228 */ CExoString OnPlayerDeath;
 	/* 0xEC/236 */ CExoString OnPlayerDying;
 	/* 0xF4/244 */ CExoString field_110;
-	/* 0x1CC/460 */ char rsvd3[208];
+	/* 0x1CC/460 */ char rsvd5[208];
 	/* 0x1CC/460 */ unsigned long field_1CC;
 	/* 0x1D0/464 */ unsigned long field_1D0;
 	/* 0x1D4/468 */ unsigned long field_1D4;

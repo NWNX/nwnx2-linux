@@ -4,6 +4,7 @@
 #include "CExoArrayList.h"
 #include "CNWSCreature.h"
 #include "CExoLocString.h"
+#include "CResRef.h"
 
 class CNWSCreatureStats
 {
@@ -225,14 +226,29 @@ public:
 	/* 0x34/52 */ CExoLocString FirstName;
 	/* 0x3C/60 */ char rsvd4[4];
 	/* 0x3C/60 */ CExoLocString LastName;
-	/* 0x64/100 */ char rsvd5[36];
+	/* 0x44/68 */ char rsvd5[4];
+	/* 0x44/68 */ CResRef Conversation;
+	/* 0x54/84 */ unsigned long ConvInterruptable;
+	/* 0x58/88 */ unsigned long field_58;
+	/* 0x60/96 */ char rsvd6[4];
+	/* 0x60/96 */ unsigned long field_60;
 	/* 0x64/100 */ unsigned long field_64;
-	/* 0x70/112 */ char rsvd6[8];
+	/* 0x68/104 */ unsigned long Age;
+	/* 0x6C/108 */ unsigned long Gender;
 	/* 0x70/112 */ unsigned long XP;
-	/* 0x74/116 */ unsigned long field_74;
+	/* 0x74/116 */ unsigned long IsPC;
 	/* 0x78/120 */ unsigned long IsDM;
 	/* 0x7C/124 */ unsigned long field_7C;
-	/* 0x49A/1178 */ char rsvd7[1050];
+	/* 0x80/128 */ unsigned long field_80;
+	/* 0x84/132 */ unsigned long AIDisabled;
+	/* 0x88/136 */ unsigned long field_88;
+	/* 0x8C/140 */ unsigned long field_8C;
+	/* 0x90/144 */ unsigned long FactionID;
+	/* 0x94/148 */ unsigned long field_94;
+	/* 0x98/152 */ unsigned long field_98;
+	/* 0x9C/156 */ unsigned long field_9C;
+	/* 0xA0/160 */ unsigned long field_A0;
+	/* 0x49A/1178 */ char rsvd7[1014];
 	/* 0x49A/1178 */ char ArmorPart_RFoot;
 	/* 0x49B/1179 */ char BodyPart_LFoot;
 	/* 0x49C/1180 */ char BodyPart_RShin;

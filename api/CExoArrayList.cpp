@@ -68,7 +68,7 @@ int CExoArrayList<CExoString>::SetSize(int)
 }
 
 template <>
-int CExoArrayList<CExoString>::operator[](int) const
+CExoString *CExoArrayList<CExoString>::operator[](int) const
 {
 	asm("leave");
 	asm("mov $0x082acf5c, %eax");
@@ -76,7 +76,7 @@ int CExoArrayList<CExoString>::operator[](int) const
 }
 
 template <>
-int CExoArrayList<CExoString>::operator[](int)
+CExoString *CExoArrayList<CExoString>::operator[](int)
 {
 	asm("leave");
 	asm("mov $0x08050fc4, %eax");
@@ -132,7 +132,7 @@ int CExoArrayList<CLoopingVisualEffect *>::SetSize(int)
 }
 
 template <>
-int CExoArrayList<CLoopingVisualEffect *>::operator[](int)
+CLoopingVisualEffect **CExoArrayList<CLoopingVisualEffect *>::operator[](int)
 {
 	asm("leave");
 	asm("mov $0x0813f0a0, %eax");

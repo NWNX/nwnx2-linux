@@ -4,6 +4,7 @@
 #include "CExoString.h"
 #include "CResRef.h"
 #include "nwnstructs.h"
+#include "CNetLayer.h"
 
 class CServerExoAppInternal
 {
@@ -166,7 +167,7 @@ public:
 	/* 0x10054/65620 */ unsigned long field_10054;
 	/* 0x10058/65624 */ unsigned long field_10058;
 	/* 0x1005C/65628 */ unsigned long field_1005C;
-	/* 0x10060/65632 */ unsigned long m_NetLayer;
+	/* 0x10060/65632 */ CNetLayer *m_NetLayer;
 	/* 0x10064/65636 */ unsigned long m_ServerAIMaster;
 	/* 0x10068/65640 */ unsigned long WorldTimer1;
 	/* 0x1006C/65644 */ unsigned long WorldTimer2;

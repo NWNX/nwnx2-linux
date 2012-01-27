@@ -31,7 +31,7 @@ public:
 	/* 0x2/2 */ unsigned short m_nRequests;
 	/* 0x4/4 */ unsigned long m_nID;
 	/* 0x8/8 */ unsigned long field_8;
-	/* 0xC/12 */ void *pResData;
+	/* 0xC/12 */ void *m_pResource;
 	/* 0x10/16 */ void *ResName;
 	/* 0x14/20 */ unsigned long m_nSize;
 	/* 0x18/24 */ unsigned long m_status;

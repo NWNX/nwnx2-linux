@@ -9,6 +9,7 @@
 #include "CResRef.h"
 #include "CExoLocString.h"
 #include "nwnstructs.h"
+#include "CGameEffect.h"
 struct CServerExoAppConfig
 {
 	/* 0x0/0 */ unsigned long field_0;
@@ -311,6 +312,11 @@ struct CRes_vtbl
 	/* 0x14/20 */ void *OnResourceFreed;
 	/* 0x18/24 */ unsigned long OnResourceServiced;
 };
+struct CActionParam
+{
+	/* 0x0/0 */ unsigned long m_nParamType;
+	/* 0x4/4 */ unsigned long m_pParamValue;
+};
 struct CNWModule
 {
 	/* 0x0/0 */ unsigned long field_0;
@@ -374,18 +380,18 @@ struct CVirtualMachineScript
 };
 struct CResHelper
 {
-	/* 0x0/0 */ unsigned long field_0;
-	/* 0x4/4 */ CRes *Res;
-	/* 0x8/8 */ CResRef ResRef;
+	/* 0x0/0 */ unsigned long m_bAutoRequest;
+	/* 0x4/4 */ CRes *m_pRes;
+	/* 0x8/8 */ CResRef m_cResRef;
 	/* 0x18/24 */ unsigned long vtable;
 };
 struct CKeyTableEntry
 {
-	/* 0x0/0 */ CResRef ResRef;
-	/* 0x10/16 */ unsigned long Res;
-	/* 0x14/20 */ unsigned long ResID;
-	/* 0x18/24 */ unsigned short RefCount;
-	/* 0x1A/26 */ unsigned short ResType;
+	/* 0x0/0 */ CResRef m_cResRef;
+	/* 0x10/16 */ unsigned long m_pRes;
+	/* 0x14/20 */ unsigned long m_nID;
+	/* 0x18/24 */ unsigned short m_nRefCount;
+	/* 0x1A/26 */ unsigned short m_nType;
 };
 struct CDialogEntry
 {
@@ -430,8 +436,13 @@ struct CDialogReplyEntry
 	/* 0x0/0 */ CResRef ConditionalScript;
 	/* 0x10/16 */ unsigned long Index;
 };
+struct CActionParams
+{
+	/* 0x0/0 */ CActionParam Params[12];
+};
 struct CNWItemProperty
 {
+	/* 0x0/0 */ CGameEffect Effect;
 };
 struct CNWSQuickbarButton
 {
