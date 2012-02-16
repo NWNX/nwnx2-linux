@@ -45,6 +45,7 @@ OFILES  = \
     funcs/f_GetEffectDamageResistance.o          \
     funcs/f_GetEffectSaveModifier.o              \
     funcs/f_GetHasSpellImmunity.o                \
+    funcs/f_GetSavingThrowFeat.o                 \
     funcs/f_GetSavingThrowVersus.o               \
     funcs/f_GetTotalDamageImmunityDecrease.o     \
     funcs/f_GetTrueDamageImmunity.o              \

@@ -71,6 +71,7 @@ void Func_GetEffectDamageReduction           (CGameObject *ob, char *value);
 void Func_GetEffectDamageResistance          (CGameObject *ob, char *value);
 void Func_GetEffectSaveModifier              (CGameObject *ob, char *value);
 void Func_GetHasSpellImmunity                (CGameObject *ob, char *value);
+void Func_GetSavingThrowFeat                 (CGameObject *ob, char *value);
 void Func_GetSavingThrowVersus               (CGameObject *ob, char *value);
 void Func_GetTotalDamageImmunityDecrease     (CGameObject *ob, char *value);
 void Func_GetTrueDamageImmunity              (CGameObject *ob, char *value);

@@ -63,7 +63,7 @@ struct DefensesStrCommand_s {
     void       (*func)(CGameObject *, char *);
 };
 
-#define NWNX_DEFENSES_STRCMD_TOTAL_KEYWORDS 14
+#define NWNX_DEFENSES_STRCMD_TOTAL_KEYWORDS 15
 #define NWNX_DEFENSES_STRCMD_MIN_WORD_LENGTH 11
 #define NWNX_DEFENSES_STRCMD_MAX_WORD_LENGTH 30
 #define NWNX_DEFENSES_STRCMD_MIN_HASH_VALUE 15
@@ -121,22 +121,23 @@ static const struct DefensesStrCommand_s DefensesStrCommandList[] =
 #line 36 "DefensesStrCmds.gperf"
     {"GETACBYTYPE",                            Func_GetACByType},
     {""}, {""},
-#line 48 "DefensesStrCmds.gperf"
+#line 49 "DefensesStrCmds.gperf"
     {"SETDEFENSEOPTION",                       Func_SetDefenseOption},
 #line 40 "DefensesStrCmds.gperf"
     {"GETDEFENSEOPTION",                       Func_GetDefenseOption},
-#line 49 "DefensesStrCmds.gperf"
+#line 50 "DefensesStrCmds.gperf"
     {"SETSAVINGTHROWFEAT", 			Func_SetSavingThrowFeat},
-    {""},
+#line 45 "DefensesStrCmds.gperf"
+    {"GETSAVINGTHROWFEAT", 			Func_GetSavingThrowFeat},
 #line 39 "DefensesStrCmds.gperf"
     {"GETBASESAVEBONUS",                       Func_GetBaseSaveBonus},
-#line 45 "DefensesStrCmds.gperf"
+#line 46 "DefensesStrCmds.gperf"
     {"GETSAVINGTHROWVERSUS",                   Func_GetSavingThrowVersus},
 #line 43 "DefensesStrCmds.gperf"
     {"GETEFFECTSAVEMODIFIER",                  Func_GetEffectSaveModifier},
 #line 44 "DefensesStrCmds.gperf"
     {"GETHASSPELLIMMUNITY",                    Func_GetHasSpellImmunity},
-#line 47 "DefensesStrCmds.gperf"
+#line 48 "DefensesStrCmds.gperf"
     {"GETTRUEDAMAGEIMMUNITY",                  Func_GetTrueDamageImmunity},
 #line 41 "DefensesStrCmds.gperf"
     {"GETEFFECTDAMAGEREDUCTION",               Func_GetEffectDamageReduction},
@@ -145,7 +146,7 @@ static const struct DefensesStrCommand_s DefensesStrCommandList[] =
 #line 38 "DefensesStrCmds.gperf"
     {"GETALLSPELLIMMUNITIES",                  Func_GetAllSpellImmunities},
     {""}, {""}, {""},
-#line 46 "DefensesStrCmds.gperf"
+#line 47 "DefensesStrCmds.gperf"
     {"GETTOTALDAMAGEIMMUNITYDECREASE",         Func_GetTotalDamageImmunityDecrease}
   };
 
@@ -172,7 +173,7 @@ DefensesStrCommandLookup (register const char *str, register unsigned int len)
     }
   return 0;
 }
-#line 50 "DefensesStrCmds.gperf"
+#line 51 "DefensesStrCmds.gperf"
 
 
 #ifdef __cplusplus

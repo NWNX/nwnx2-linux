@@ -42,6 +42,7 @@ GETEFFECTDAMAGEREDUCTION,               Func_GetEffectDamageReduction
 GETEFFECTDAMAGERESISTANCE,              Func_GetEffectDamageResistance
 GETEFFECTSAVEMODIFIER,                  Func_GetEffectSaveModifier
 GETHASSPELLIMMUNITY,                    Func_GetHasSpellImmunity
+GETSAVINGTHROWFEAT, 			Func_GetSavingThrowFeat
 GETSAVINGTHROWVERSUS,                   Func_GetSavingThrowVersus
 GETTOTALDAMAGEIMMUNITYDECREASE,         Func_GetTotalDamageImmunityDecrease
 GETTRUEDAMAGEIMMUNITY,                  Func_GetTrueDamageImmunity
