@@ -19,7 +19,7 @@ nwnx_odbc_pgsql.so:: nwnx_odbc_clean_o
 
 ifdef MYSQL_SUPPORT
 TARGETS := $(TARGETS) nwnx_odbc_mysql.so
-CPPFLAGS := $(CPPFLAGS) -DMYSQL_SUPPORT
+CPPFLAGS := $(CPPFLAGS) -DMYSQL_SUPPORT -USQLITE_SUPPORT -UPGSQL_SUPPORT
 TARGET_ANY = 1
 nwnx_odbc_mysql.so:: $(SODEPS) mysql.o
 	$(TARGETCXX) -lmysqlclient
@@ -27,7 +27,7 @@ endif
 
 ifdef SQLITE_SUPPORT
 TARGETS := $(TARGETS) nwnx_odbc_sqlite.so
-CPPFLAGS := $(CPPFLAGS) -DSQLITE_SUPPORT
+CPPFLAGS := $(CPPFLAGS) -DSQLITE_SUPPORT -UPGSQL_SUPPORT -UMYSQL_SUPPORT
 TARGET_ANY = 1
 nwnx_odbc_sqlite.so:: $(SODEPS) sqlite.o
 	$(TARGETCXX) -lsqlite3
@@ -35,7 +35,7 @@ endif
 
 ifdef PGSQL_SUPPORT
 TARGETS := $(TARGETS) nwnx_odbc_pgsql.so
-CPPFLAGS := $(CPPFLAGS) -DPGSQL_SUPPORT
+CPPFLAGS := $(CPPFLAGS) -DPGSQL_SUPPORT -USQLITE_SUPPORT -UMYSQL_SUPPORT
 TARGET_ANY = 1
 nwnx_odbc_pgsql.so:: $(SODEPS) pgsql.o
 	$(TARGETCXX) -lpq
