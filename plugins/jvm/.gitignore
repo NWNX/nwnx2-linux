@@ -1,0 +1,6 @@
+java/src/org/nwnx/nwnx2/jvm/Action.java
+java/src/org/nwnx/nwnx2/jvm/NWScript.java
+java/src/org/nwnx/nwnx2/jvm/constants
+org_nwnx_nwnx2_jvm_NWScript.cpp
+org_nwnx_nwnx2_jvm_NWScript.h
+org_nwnx_nwnx2_jvm_registerNWScript.cpp
