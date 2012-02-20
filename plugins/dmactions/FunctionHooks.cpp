@@ -43,7 +43,7 @@ volatile uint16_t
 	buffer_DMActivity_TargetsCurrent = 0;
 
 volatile uint32_t
-	Ret_Address = NULL;
+	Ret_Address = 0;
 
 void hook_DMActivity_GiveLevel(void) {
     asm ("leave");
