@@ -1,18 +1,19 @@
 To compile sqlite3-support:
 - install the relevant libraries and headers:
   on debian-likes: apt-get install libsqlite3-0 libsqlite3-dev
-- pass SQLITE_SUPPORT=1 to make
+- pass ODMBC_SQLITE=1 to make
 
 To compile mysql support:
 - install the relevant libraries and headers:
   on debian-likes: apt-get install libmysqlclient16 libmysqlclient-dev
-- pass MYSQL_SUPPORT=1 to make
+- pass ODMBC_MYSQL=1 to make
 
 To compile postgre support:
 - install the relevant libraries and headers:
   on debian-likes: apt-get install libpq5 libpq-dev
-- pass PGSQL_SUPPORT=1 to make
+- pass ODMBC_PGSQL=1 to make
 
 You can pass any combination of these flags, but you need to pass at
-least one. For each passed flag, one .so file will be built, which you
-will have to rename to nwnx_odbc.so and put into your nwn directory.
+least one. For each passed flag, a static and dynamically linked .so file
+will be built, which you will have to rename to nwnx_odbc.so and put
+into your nwn directory.

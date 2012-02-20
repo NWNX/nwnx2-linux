@@ -40,17 +40,17 @@ read dbtype
 case "$dbtype" in
 	[Mm]*)
 		dbtype=mysql
-		MAKESTR="MYSQL_SUPPORT=1"
+		MAKESTR="ODMBC_MYSQL=1"
 		packages="libmysqlclient16 libmysqlclient-dev"
 		;;
 	[Ss]*)
 		dbtype=sqlite
-		MAKESTR="SQLITE_SUPPORT=1"
+		MAKESTR="ODMBC_SQLITE=1"
 		packages="libsqlite3-0 libsqlite3-dev"
 		;;
 	[Pp]*)
 		dbtype=pgsql
-		MAKESTR="PGSQL_SUPPORT=1"
+		MAKESTR="ODMBC_PGSQL=1"
 		packages="libpq5 libpq-dev"
 		;;
 	[n]*)
@@ -83,7 +83,7 @@ echo "And then press enter when ready."
 read whatever
 
 rm -r compiled || true
-mkdir -vp ./compiled/lib
+mkdir -vp ./compiled/
 
 autoconf
 
@@ -100,26 +100,21 @@ for p in plugins/*/; do
 			echo ""  >> ./compiled/nwnx2.ini
 			cat $p/nwnx2.ini >> ./compiled/nwnx2.ini
 		fi
-		if [ -f $p/lib/* ]; then
-			cp -v $p/lib/* ./compiled/lib
-		fi
 	fi
 done
 mv -v ./plugins/*/*.so ./compiled/
 mv -v ./nwnx2.so ./compiled/
-if [ "$dbtype" != "none" ] ; then
-	mv -v ./compiled/nwnx_odbc_${dbtype}.so ./compiled/nwnx_odbc.so
-	cp -v ./plugins/odmbc/lib/${dbtype}/* ./compiled/lib
-fi
 
 echo ""
 echo ""
 echo "NWNX has been compiled successfully."
 echo " - Look in the 'compiled' directory for the libraries."
 echo " -- These should be copied into your NWN directory."
-echo " -- Include lib/ if you cannot or do not want to install required shared libraries."
-echo "     (If you have compiled this successfully, they're already installed. They are"
-echo "      provided for your convenience if you want to run nwserver on another system.)"
+echo ""
+echo " IMPORTANT:"
+echo " - Use only one of the compiled nwnx_odbc_*.so binaries. If you're running"
+echo "   nwserver the same host that you are compiling on, the dynamic one will be fine."
+echo "   static binaries include the database connector linked in."
 echo ""
 echo " - Read & change nwnx2.ini carefully."
 echo " - Edit nwnstartup.sh to match your desired server settings."
