@@ -1,6 +1,6 @@
 #include "NWNStructures.h"
 #include "FunctionHooks.h"
-#include "ruby/ruby.h"
+#include <ruby.h>
 #include "nwscript.h"
 
 #define RUBY_RETVAL "nwnx_retval"

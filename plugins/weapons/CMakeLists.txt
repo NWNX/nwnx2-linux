@@ -1,0 +1,101 @@
+if (gperf)
+
+add_custom_command(OUTPUT WeaponsStrCmds.h
+	COMMAND ../gperf_gen.sh WeaponsStr WEAPONS STR DEPENDS WeaponsStrCmds.gperf)
+add_custom_command(OUTPUT WeaponsObjCmds.h
+	COMMAND ../gperf_gen.sh WeaponsObj WEAPONS OBJ DEPENDS WeaponsObjCmds.gperf)
+
+include_directories(.)
+add_module(weapons NWNXWeapons plugin-weapons
+	WeaponsStrCmds WeaponsObjCmds
+
+	common/c_GetIsUnarmedWeapon
+	common/c_GetIsWeaponLight
+	funcs/f_GetAttackBonusAdjustment
+	funcs/f_GetWeaponAbilityFeat
+	funcs/f_GetWeaponDevastatingCriticalFeat
+	funcs/f_GetWeaponEpicFocusFeat
+	funcs/f_GetWeaponEpicSpecializationFeat
+	funcs/f_GetWeaponFinesseSize
+	funcs/f_GetWeaponFocusFeat
+	funcs/f_GetWeaponGreaterFocusFeat
+	funcs/f_GetWeaponGreaterSpecializationFeat
+	funcs/f_GetWeaponImprovedCriticalFeat
+	funcs/f_GetWeaponIsMonkWeapon
+	funcs/f_GetWeaponLegendaryFocusFeat
+	funcs/f_GetWeaponLegendarySpecializationFeat
+	funcs/f_GetWeaponOfChoiceFeat
+	funcs/f_GetWeaponOption
+	funcs/f_GetWeaponOverwhelmingCriticalFeat
+	funcs/f_GetWeaponParagonFocusFeat
+	funcs/f_GetWeaponParagonSpecializationFeat
+	funcs/f_GetWeaponPowerCriticalFeat
+	funcs/f_GetWeaponSpecializationFeat
+	funcs/f_GetWeaponSuperiorCriticalFeat
+	funcs/f_IntToObject
+	funcs/f_SetWeaponAbilityFeat
+	funcs/f_SetWeaponDevastatingCriticalFeat
+	funcs/f_SetWeaponEpicFocusFeat
+	funcs/f_SetWeaponEpicSpecializationFeat
+	funcs/f_SetWeaponFinesseSize
+	funcs/f_SetWeaponFocusFeat
+	funcs/f_SetWeaponGreaterFocusFeat
+	funcs/f_SetWeaponGreaterSpecializationFeat
+	funcs/f_SetWeaponImprovedCriticalFeat
+	funcs/f_SetWeaponIsMonkWeapon
+	funcs/f_SetWeaponLegendaryFocusFeat
+	funcs/f_SetWeaponLegendarySpecializationFeat
+	funcs/f_SetWeaponOfChoiceFeat
+	funcs/f_SetWeaponOption
+	funcs/f_SetWeaponOverwhelmingCriticalFeat
+	funcs/f_SetWeaponParagonFocusFeat
+	funcs/f_SetWeaponParagonSpecializationFeat
+	funcs/f_SetWeaponPowerCriticalFeat
+	funcs/f_SetWeaponSpecializationFeat
+	funcs/f_SetWeaponSuperiorCriticalFeat
+	hooks/h_GetABAbilityModifier
+	hooks/h_GetCriticalConfirmationRoll
+	hooks/h_GetCriticalMultiplier
+	hooks/h_GetCriticalRange
+	hooks/h_GetDamageBonus
+	hooks/h_GetEpicWeaponDevastatingCritical
+	hooks/h_GetEpicWeaponFocus
+	hooks/h_GetEpicWeaponOverwhelmingCritical
+	hooks/h_GetEpicWeaponSpecialization
+	hooks/h_GetIsWeaponOfChoice
+	hooks/h_GetMonsterDamageHandler
+	hooks/h_GetUseMonkAttackTables
+	hooks/h_GetWeaponFinesse
+	hooks/h_GetWeaponFocus
+	hooks/h_GetWeaponImprovedCritical
+	hooks/h_GetWeaponSpecialization
+	hooks/h_OffhandCritMultiplier
+	local/l_GetAttackBonusAdjustment
+	local/l_GetCriticalConfirmationAdjustment
+	local/l_GetCriticalMultiplierAdjustment
+	local/l_GetCriticalRangeAdjustment
+	local/l_GetDamageBonusAdjustment
+	tables/t_WeaponAbility
+	tables/t_WeaponDevastatingCritical
+	tables/t_WeaponEpicFocus
+	tables/t_WeaponEpicSpecialization
+	tables/t_WeaponFinesseSize
+	tables/t_WeaponFocus
+	tables/t_WeaponGreaterFocus
+	tables/t_WeaponGreaterSpecialization
+	tables/t_WeaponImprovedCritical
+	tables/t_WeaponIteration
+	tables/t_WeaponLegendaryFocus
+	tables/t_WeaponLegendarySpecialization
+	tables/t_WeaponMonk
+	tables/t_WeaponOfChoice
+	tables/t_WeaponOptions
+	tables/t_WeaponOverwhelmingCritical
+	tables/t_WeaponParagonFocus
+	tables/t_WeaponParagonSpecialization
+	tables/t_WeaponPowerCritical
+	tables/t_WeaponSpecialization
+	tables/t_WeaponSuperiorCritical
+)
+
+endif (gperf)

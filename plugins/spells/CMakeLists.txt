@@ -1,0 +1,31 @@
+if (gperf)
+
+add_custom_command(OUTPUT SpellsStrCmds.h
+	COMMAND ../gperf_gen.sh SpellsStr SPELLS STR DEPENDS SpellsStrCmds.gperf)
+add_custom_command(OUTPUT SpellsObjCmds.h
+	COMMAND ../gperf_gen.sh SpellsObj SPELLS OBJ DEPENDS SpellsObjCmds.gperf)
+
+include_directories(.)
+add_module(spells NWNXSpells plugin-spells
+	SpellsStrCmds SpellsObjCmds
+
+	funcs/f_GetSpellOption
+	funcs/f_IntToObject
+	funcs/f_SetSpellOption
+	hooks/h_ComputeSpellRange
+	hooks/h_GetCasterClassAbility
+	hooks/h_GetClassSpellLevel
+	hooks/h_GetIsMemorizationCasterClass
+	hooks/h_GetIsUnlimitedBookCasterClass
+	hooks/h_GetSpellMinAbilityMet
+	hooks/h_IdentifySpell
+	hooks/h_SpellSlotLoop
+	local/l_GetIsArcaneCasterClass
+	local/l_GetIsMemorizationCasterClass
+	local/l_GetIsSpontaneousCasterClass
+	local/l_GetIsUnlimitedBookCasterClass
+	tables/t_SpellAbilities
+	tables/t_SpellOptions
+)
+
+endif (gperf)

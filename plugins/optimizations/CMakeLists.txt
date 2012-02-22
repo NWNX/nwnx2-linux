@@ -1,0 +1,1 @@
+add_module(optimizations HookFunc NWNXOptimizations plugin-optimizations)

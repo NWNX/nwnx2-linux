@@ -23,7 +23,7 @@
 #include "NWNXBase.h"
 #include "typedefs.h"
 #include "NWNStructures.h"
-#include "ruby/ruby.h"
+#include <ruby.h>
 
 class CNWNXRuby : public CNWNXBase
 {
