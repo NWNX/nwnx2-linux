@@ -31,7 +31,7 @@ void Func_GetKnownFeatByLevel (CGameObject *ob, char *value) {
         cre->cre_stats == NULL                                  ||
         sscanf(value, "%d %d", &level, &idx) != 2               ||
         (ls = nwn_GetLevelStats(cre->cre_stats, level)) == NULL ||
-        idx < 0 || idx > ls->ls_featlist.len) {
+        idx < 0 || idx >= ls->ls_featlist.len) {
 
         snprintf(value, strlen(value), "-1");
         return;
