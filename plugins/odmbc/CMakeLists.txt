@@ -1,46 +1,52 @@
 set(all_deps HookSCORCO CExoString ObjectStorage NWNXodbc plugin-odbc)
 
-find_library(lmysql mysqlclient)
-if (lmysql)
-	add_module(odmbc_mysql_dynamic mysql ${all_deps})
-	target_link_libraries(odmbc_mysql_dynamic mysqlclient)
+find_package(PostgreSQL)
+if (PostgreSQL_FOUND)
+	message("Found PostgreSQL installation!")
+	message("PostgreSQL_INCLUDE_DIRS = " "${PostgreSQL_INCLUDE_DIRS}")
+	message("PostgreSQL_LIBRARIES    = " "${PostgreSQL_LIBRARIES}")
+	include_directories(${PostgreSQL_INCLUDE_DIRS})
 
-	add_module(odmbc_mysql_static mysql ${all_deps})
-	target_link_libraries(odmbc_mysql_static mysqlclient.a)
+	add_module(odmbc_pgsql pgsql ${all_deps})
+	target_link_libraries(odmbc_pgsql ${PostgreSQL_LIBRARIES})
 
-	set_target_properties(odmbc_mysql_dynamic odmbc_mysql_static
-		PROPERTIES
-			COMPILE_FLAGS "-DMYSQL_SUPPORT=1"
-	)
-else (lmysql)
-	message(WARNING "Cannot find mysql libraries, not building nwnx_mysql")
-endif (lmysql)
+	set_target_properties(odmbc_pgsql
+		PROPERTIES COMPILE_FLAGS "-DPGSQL_SUPPORT=1")
+else (PostgreSQL_FOUND)
+	message(WARNING "PostgreSQL installation not found")
+endif (PostgreSQL_FOUND)
 
-find_library(lpq pq)
-if (lpq)
-	add_module(odmbc_pq_dynamic pgsql ${all_deps})
-	target_link_libraries(odmbc_pq_dynamic pq)
+find_package(SQLite3)
+if (SQLITE3_FOUND)
+	message("Found SQLite3 installation!")
+	message("SQLITE3_INCLUDE_DIRS = " "${SQLITE3_INCLUDE_DIRS}")
+	message("SQLITE3_LIBRARIES    = " "${SQLITE3_LIBRARIES}")
+	include_directories(${SQLITE3_INCLUDE_DIRS})
 
-	set_target_properties(odmbc_pq_dynamic
-		PROPERTIES
-			COMPILE_FLAGS "-DPGSQL_SUPPORT=1"
-	)
-else (lpq)
-	message(WARNING "Cannot find pq libraries, not building nwnx_pgsql")
-endif (lpq)
+	add_module(odmbc_sqlite sqlite ${all_deps})
+	target_link_libraries(odmbc_sqlite ${SQLITE3_LIBRARIES})
 
-find_library(lsqlite sqlite3)
-if (lsqlite)
-	add_module(odmbc_sqlite_dynamic sqlite ${all_deps})
-	target_link_libraries(odmbc_sqlite_dynamic sqlite3)
+	set_target_properties(odmbc_sqlite
+		PROPERTIES COMPILE_FLAGS "-DSQLITE_SUPPORT=1")
+else (SQLITE3_FOUND)
+	message(WARNING "SQLite3 installation not found")
+endif (SQLITE3_FOUND)
 
-	add_module(odmbc_sqlite_static sqlite ${all_deps})
-	target_link_libraries(odmbc_sqlite_static sqlite3.a)
+find_package(MySQL)
+if (MYSQL_FOUND)
+	message("Found MySQL installation!")
+	message("MYSQL_INCLUDE_DIR = " "${MYSQL_INCLUDE_DIR}")
+	message("MYSQL_LIBRARY     = " "${MYSQL_LIBRARY}")
+	include_directories(${MYSQL_INCLUDE_DIR})
 
-	set_target_properties(odmbc_sqlite_dynamic odmbc_sqlite_static
-		PROPERTIES
-			COMPILE_FLAGS "-DSQLITE_SUPPORT=1"
-	)
-else (lsqlite)
-	message(WARNING "Cannot find sqlite libraries, not building nwnx_sqlite")
-endif (lsqlite)
+	add_module(odmbc_mysql mysql ${all_deps})
+	target_link_libraries(odmbc_mysql ${MYSQL_LIBRARY})
+
+	#add_module(odmbc_mysql_static mysql ${all_deps})
+	#target_link_libraries(odmbc_mysql_static mysqlclient.a)
+
+	set_target_properties(odmbc_mysql
+		PROPERTIES COMPILE_FLAGS "-DMYSQL_SUPPORT=1")
+else (MYSQL_FOUND)
+	message(WARNING "MySQL installation not found")
+endif (MYSQL_FOUND)

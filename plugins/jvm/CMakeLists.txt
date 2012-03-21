@@ -26,7 +26,8 @@ if (JNI_FOUND AND JAVA_FOUND)
 	target_link_libraries(jvm ${JAVA_JVM_LIBRARY})
 
 	add_subdirectory(java)
-
+else (JNI_FOUND AND JAVA_FOUND)
+	message(WARNING "Cannot find java libraries")
 endif (JNI_FOUND AND JAVA_FOUND)
 else (ruby)
 	message(WARNING "Cannot compile nwnx_jvm until you install ruby")

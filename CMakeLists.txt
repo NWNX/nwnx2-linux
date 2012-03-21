@@ -4,6 +4,8 @@ project(nwnx-core-2.8)
 # You can exclude plugins from being built here.
 set(dont_build_plugins connect)
 
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
+
 set(CMAKE_C_FLAGS "-mtune=i386 -m32 -Wall -Wno-unused -Wno-write-strings")
 set(CMAKE_CXX_FLAGS "-mtune=i386 -m32 -Wall -Wno-unused -Wno-write-strings")
 set(CMAKE_SHARED_LIBRARY_C_FLAGS "")
