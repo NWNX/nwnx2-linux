@@ -298,7 +298,7 @@ void RunScriptHookProc()
 	asm ("mov 0x8(%ebp), %eax");
 	asm ("push %eax");
 	asm ("mov $d_ret_code_runscript, %eax");
-	asm ("call %eax");
+	asm ("call *%eax");
 
 	asm ("push %eax");
 	asm ("push %ecx");
@@ -315,7 +315,7 @@ void RunScriptHookProc()
 	asm ("mov 0x8(%ebp), %eax");
 	asm ("push %eax");
 	asm ("mov $d_ret_code_runscript, %eax");
-	asm ("call %eax");
+	asm ("call *%eax");
 
 	asm ("push %eax");
 	asm ("push %ecx");
@@ -721,7 +721,7 @@ void Release()
 {
 	struct timeval tvCurrent;
 	gettimeofday(&tvCurrent, NULL);
-	DWORD dwStatisticMsec;
+	DWORD dwStatisticMsec = 0;
 	//DWORD dwStatisticMsec = (DWORD) (((liCurrent.QuadPart - liLastStatistic.QuadPart) * 1000) / liFrequency.QuadPart);
 	FlushStatistics(dwStatisticMsec);	
 }
