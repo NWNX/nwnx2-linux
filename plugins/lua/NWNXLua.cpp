@@ -208,6 +208,7 @@ bool CNWNXLua::OnRelease ()
 {
 	int nKBytes = lua_gc(LuaInstance, LUA_GCCOUNT, 0); 
 	Log (0, "o Shutdown.. Memory: %d Kb\n", nKBytes);
+	return true;
 }
 
 int CNWNXLua::WriteSCO(char* database, char* key, char* player, int flags, unsigned char * pData, int size)
