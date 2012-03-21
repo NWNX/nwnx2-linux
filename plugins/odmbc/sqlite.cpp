@@ -238,7 +238,7 @@ BYTE* CSQLite::ReadScorcoData(char* SQL, char *param, BOOL* pSqlError, int *size
 		*size = sqlite3_column_bytes(pStmt, 0);
 		if (*size > MAXRESULT)
 		{
-			sprintf(lastError, "Critical error - object too large (>%ld bytes).\n", MAXRESULT);
+			sprintf(lastError, "Critical error - object too large (>%d bytes).\n", MAXRESULT);
 			*pSqlError = true;
 			return NULL;
 		}

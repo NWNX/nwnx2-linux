@@ -170,6 +170,7 @@ char *SaveObject(dword nObjectID, int &nSize)
 		nSize = 0;
 		return NULL;
 	}
+	return NULL;
 }
 
 /*char *SavePlaceable(CNWSPlaceable *pObject, int &pnSize)

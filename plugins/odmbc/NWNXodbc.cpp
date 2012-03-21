@@ -196,7 +196,7 @@ char* CNWNXODBC::OnRequest (char* gameObject, char* Request, char* Parameters)
 	{
 		dword AreaID;
 		float x, y, z, fFacing;
-		if(sscanf(Parameters, "%x¬%f¬%f¬%f¬%f", &AreaID, &x, &y, &z, &fFacing)<5)
+		if(sscanf(Parameters, "%lx¬%f¬%f¬%f¬%f", &AreaID, &x, &y, &z, &fFacing)<5)
 		{
 			Log(1, "o sscanf error\n");
 			return NULL;
@@ -225,6 +225,7 @@ unsigned long CNWNXODBC::OnRequestObject(char *gameObject, char *Request)
 	{
 		return lastObjectID;
 	}
+	return NULL;
 }
 
 //============================================================================================================================
@@ -312,6 +313,7 @@ bool CNWNXODBC::OnRelease ()
 		free (p.pass);
 		free (p.db);
 	}
+	return true;
 }
 
 //============================================================================================================================
