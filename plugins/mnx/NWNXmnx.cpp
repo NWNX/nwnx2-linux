@@ -40,7 +40,7 @@ bool CNWNXmnx::ClientClose(const char *cname) {
 	if((*i).second.sd != -1)
 		close((*i).second.sd);
 	Connections.erase(i);
-	
+	return true;
 }
 
 bool CNWNXmnx::ClientInit(const char *cname, const char *dest) {
