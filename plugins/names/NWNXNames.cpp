@@ -130,7 +130,7 @@ void CNWNXNames::SetDynamicName(char *value)
 		return;
 	}
 	char *sName = new char[nParamLen-(nLastDelimiter-value)+1];
-	if(sscanf(value, "%x¬%s", &oObject, sName)<2)
+	if(sscanf(value, "%lx¬%s", &oObject, sName)<2)
 	{
 		Log(3, "o sscanf error\n");
 		return;
@@ -228,4 +228,5 @@ bool CNWNXNames::OnRelease ()
 {
 	Log (0, "o Shutdown.\n");
 	fclose(PacketData);
+	return true;
 }

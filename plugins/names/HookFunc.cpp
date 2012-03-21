@@ -308,7 +308,7 @@ void SendDataHookProc(void *pServerMessage, int nClientID, int type1, int type2,
 	asm ("movl 0x4(%ebp), %ebx");
 	asm ("movl  %ebx, pESP");
 	//names.Log(1, "Packet sent\n");
-	fprintf(names.PacketData, "%08lX>%08lX [%02lX|%02lX] : '", pESP, nClientID, type1, type2);
+	fprintf(names.PacketData, "%p>%08X [%02X|%02X] : '", pESP, nClientID, type1, type2);
 	fwrite(pData, size, 1, names.PacketData);
 	fputs("'\n", names.PacketData);
 	fflush(names.PacketData);
@@ -316,7 +316,7 @@ void SendDataHookProc(void *pServerMessage, int nClientID, int type1, int type2,
 
 	asm ("leave");
 	asm ("mov $d_ret_code_sd, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 int GetNameHookProc(void *pObjectInfoStruct, int some_flag, char *objName_buf, int flag)
@@ -753,7 +753,7 @@ int GetNameHookProc(void *pObjectInfoStruct, int some_flag, char *objName_buf, i
 	asm ("push %eax");
 	asm ("mov $d_ret_code_nm, %eax");
 	//asm ("jmp %eax");
-	asm ("call %eax");
+	asm ("call *%eax");
 	asm ("add $0x10, %esp");
 
 	asm ("pusha");
@@ -762,6 +762,7 @@ int GetNameHookProc(void *pObjectInfoStruct, int some_flag, char *objName_buf, i
 	asm ("popa");
 	asm ("leave");
 	asm ("ret");
+	return 1;
 }
 
 // 0824AA5C - runScript : 55 89 e5 57 56 53 83 ec 18 ff 75 0c e8 eb
