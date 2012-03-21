@@ -64,6 +64,7 @@ char* CNWNXResMan::OnRequest (char* gameObject, char* Request, char* Parameters)
 bool CNWNXResMan::OnRelease ()
 {
     Log(0, "o Shutdown.\n");
+	return true;
 }
 
 char* CNWNXResMan::DemandRes(CExoResMan *pResMan, CResStruct *cRes, char *resRef, NwnResType resType)
