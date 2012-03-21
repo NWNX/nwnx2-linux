@@ -460,8 +460,8 @@ public:
 
 private:
   io_service& io_service_;
-  tcp::acceptor acceptor_;
   config* c_;
+  tcp::acceptor acceptor_;
 };
 
 int main(int argc, char* argv[])
