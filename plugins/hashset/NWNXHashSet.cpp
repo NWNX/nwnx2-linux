@@ -158,7 +158,7 @@ bool CNWNXHashSet::ParseParam(char *gameObj, char *Param, string &Name, string *
 	}
 
 	// assemble the real setname
-	sprintf(oid,"%08x-",iGameObjectId);
+	sprintf(oid,"%08lx-",iGameObjectId);
 	Name = oid;
 	Name += setname;
 
