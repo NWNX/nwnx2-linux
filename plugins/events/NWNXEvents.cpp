@@ -304,6 +304,7 @@ unsigned long CNWNXEvents::OnRequestObject (char *gameObject, char* Request)
 bool CNWNXEvents::OnRelease ()
 {
 	Log (0, "o Shutdown.\n");
+	return true;
 }
 
 int CNWNXEvents::FireEvent(const int pObj, int nEvID)

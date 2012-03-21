@@ -106,7 +106,7 @@ void SaveCharHookProc()
 	asm ("popa");
 	asm ("leave");
 	asm ("mov $d_ret_code_sc, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void PickPocketHookProc()
@@ -135,7 +135,7 @@ void PickPocketHookProc()
 		asm("ret");
 	}
 	asm ("mov $d_ret_code_pp, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void AttackHookProc()
@@ -170,7 +170,7 @@ void AttackHookProc()
             asm("ret");
         }
 	asm ("mov $d_ret_code_at, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void UseItemHookProc()
@@ -221,7 +221,7 @@ void UseItemHookProc()
 		asm("ret");
 	}
 	asm ("mov $d_ret_code_ui, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void ConversationNodeSelectHookProc()
@@ -279,7 +279,7 @@ void ConversationNodeSelectHookProc()
 
 	asm ("mov $d_ret_code_cn, %eax");
 	ActionScriptRunning = 1;
-	asm ("call %eax");
+	asm ("call *%eax");
 	asm ("add $0x18, %esp");
 	ActionScriptRunning = 0;
 }
@@ -371,7 +371,7 @@ void ConditionalScriptHookProc()
 	asm ("push %eax");
 	asm ("mov $d_ret_code_cs, %eax");
 	ConditionalScriptRunning = 1;
-	asm ("call %eax");
+	asm ("call *%eax");
 	asm ("add $0xC, %esp");
 	ConditionalScriptRunning = 0;
 }
@@ -403,7 +403,7 @@ void SendServerToPlayerQuickChatMessageHookProc()
 		asm("ret");
 	}
 	asm ("mov $d_ret_code_qc, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void ExamineItemHookProc(void *pMessage, void *pPlayer, dword nObjID)
@@ -422,7 +422,7 @@ void ExamineItemHookProc(void *pMessage, void *pPlayer, dword nObjID)
 		asm("ret");
 	}*/
 	asm ("mov $d_ret_code_ei, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void ExamineCreatureHookProc(void *pMessage, void *pPlayer, dword nObjID)
@@ -441,7 +441,7 @@ void ExamineCreatureHookProc(void *pMessage, void *pPlayer, dword nObjID)
 		asm("ret");
 	}
 	asm ("mov $d_ret_code_ec, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void ExaminePlaceableHookProc(void *pMessage, void *pPlayer, dword nObjID)
@@ -460,7 +460,7 @@ void ExaminePlaceableHookProc(void *pMessage, void *pPlayer, dword nObjID)
 		asm("ret");
 	}
 	asm ("mov $d_ret_code_ep, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void ExamineDoorHookProc(void *pMessage, void *pPlayer, dword nObjID)
@@ -479,7 +479,7 @@ void ExamineDoorHookProc(void *pMessage, void *pPlayer, dword nObjID)
 		asm("ret");
 	}
 	asm ("mov $d_ret_code_ed, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void UseSkillHookProc(void *pCreature, byte nSkill, byte nSubSkill, dword nTargetObjID, CNWSVector vTarget, dword nAreaID, dword nItemObjID, int arg_24)
@@ -507,7 +507,7 @@ void UseSkillHookProc(void *pCreature, byte nSkill, byte nSubSkill, dword nTarge
 		asm("ret");
 	}
 	asm ("mov $d_ret_code_us, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void UseFeatHookProc(void *pCreature, unsigned short nFeat, unsigned short nSubFeat, dword nTargetObjID, dword nAreaID, CNWSVector *pvTarget)
@@ -536,7 +536,7 @@ void UseFeatHookProc(void *pCreature, unsigned short nFeat, unsigned short nSubF
 		asm("ret");
 	}
 	asm ("mov $d_ret_code_uf, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void ToggleModeHookProc(void *pCreature, byte nMode)
@@ -555,7 +555,7 @@ void ToggleModeHookProc(void *pCreature, byte nMode)
 		asm("ret");
 	}
 	asm ("mov $d_ret_code_tm, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void CastSpellHookProc(	void *pCreature,
@@ -605,7 +605,7 @@ void CastSpellHookProc(	void *pCreature,
         asm("ret");
     }
     asm("mov $d_ret_code_cz, %eax");
-    asm("jmp %eax");
+    asm("jmp *%eax");
 }
 
 
@@ -622,7 +622,7 @@ void TogglePauseHookProc(void *pThis, unsigned char unknown, int state)
 		asm("ret");
 	}
 	asm ("mov $d_ret_code_tp, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 
@@ -637,7 +637,7 @@ void PossessFamiliarHookProc(void *pCreature) {
 		asm("ret");
 	}
 	asm ("mov $d_ret_code_pf, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 int CNWSPlayer__ValidateCharacter_hook(void *pPlayer, int *result)
@@ -670,7 +670,7 @@ void CNWSObject___CNWSObject_hook(CNWSObject *pObject, int n)
 		events.FireEvent(pObject->ObjectID, EVENT_TYPE_DESTROY_OBJECT);
 	asm ("leave");
 	asm ("mov $d_ret_code_objdest, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 int GetRunScriptReturnValue()
