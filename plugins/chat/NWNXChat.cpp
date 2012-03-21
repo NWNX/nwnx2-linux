@@ -205,6 +205,7 @@ bool CNWNXChat::OnRelease ()
 {
 	delete[] lastMsg;
 	Log (0, "o Shutdown.\n");
+	return true;
 }
 
 int CNWNXChat::Chat(const int mode, const int id, const char **msg, const int to)

@@ -66,7 +66,7 @@ void ChatHookProc(char * pthis, const int mode, const int id, const char **msg, 
 	if (!scriptRun && lastRet)
 		asm ("ret");
 	asm ("mov $d_ret_code_chat, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void SendServerToPlayerCCMessageHookProc(void *pMessage, int nPlayerID, char nMessageID, CNWCCMessageData *pMessageData, void *pCombatData)
@@ -87,7 +87,7 @@ void SendServerToPlayerCCMessageHookProc(void *pMessage, int nPlayerID, char nMe
 	if (!scriptRun && lastRet)
 		asm ("ret");
 	asm ("mov $d_ret_code_cc, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 
@@ -235,6 +235,7 @@ int SendMsg(const int mode, const int id, char *msg, const int to)
 		char xz=0;
 		return pChat(pChatThis, mode, id, &msg, to, &xz);
 	}
+	return 0;
 }
 
 unsigned long * GetPCobj(dword OID)
