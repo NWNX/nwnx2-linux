@@ -497,7 +497,7 @@ my_SetString (const char **s1, const char **s2, const char **s3)
     // jmp back to original function
 	asm ("leave");
 	asm ("mov $ret_code_ss, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 void
@@ -531,7 +531,7 @@ my_GetObject (const char **s1, const char **s2)
 		asm("ret");
 	}
 	asm ("mov $ret_code_go, %eax");
-	asm ("jmp %eax");
+	asm ("jmp *%eax");
 }
 
 static void Configure() {
@@ -708,9 +708,9 @@ startstop::startstop()
     m_SetString = (unsigned long) my_SetString;
     o_SetStringFunc = (void (*)(char **, char **)) o_SetString;
 
-    printf ("NWNX2lib: org SetString() at %p, new SetString() at %p\n",
+    printf ("NWNX2lib: org SetString() at %lx, new SetString() at %lx\n",
             o_SetString, m_SetString);
-    printf ("NWNX2lib: org GetObj() at %p, new GetObj() at %p\n",
+    printf ("NWNX2lib: org GetObj() at %lx, new GetObj() at %lx\n",
             o_GetObject, (unsigned long) my_GetObject);
 
     d_redirect (o_SetString, m_SetString, ret_code_ss, 10);
