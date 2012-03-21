@@ -89,7 +89,6 @@ char* CNWNXdmactions::OnRequest (char *gameObject, char* Request, char* Paramete
 		} else
 		if (strncmp(Request, "PREVENT", 6) == 0) {
 			this->bPrevent = 1;
-			sprintf(Parameters, "");
 		}
 		bMatch = 1;
 	}
@@ -121,7 +120,6 @@ char* CNWNXdmactions::OnRequest (char *gameObject, char* Request, char* Paramete
 					}
 				}
 			}
-			sprintf(Parameters, "");
 		}
 	}
 
