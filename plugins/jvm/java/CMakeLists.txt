@@ -6,7 +6,9 @@ if (ruby AND ant)
 		DEPENDS
 			../build/consts.nss ../build/gen_const.rb
 		COMMAND
-			cd .. && ${ruby} build/gen_const.rb build/consts.nss
+			mkdir -p src/org/nwnx/nwnx2/jvm/constants &&
+			cd .. &&
+			${ruby} build/gen_const.rb build/consts.nss
 	)
 
 	add_custom_command(
