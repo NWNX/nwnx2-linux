@@ -92,4 +92,5 @@ unsigned long CNWNXAreas::OnRequestObject (char *gameObject, char* Request)
 bool CNWNXAreas::OnRelease ()
 {
 	Log (0, "o Shutdown.\n");
+	return true;
 }
