@@ -1,9 +1,7 @@
 if (gperf)
 
-add_custom_command(OUTPUT FuncsStrCmds.h
-	COMMAND ../gperf_gen.sh FuncsStr FUNCS STR DEPENDS FuncsStrCmds.gperf)
-add_custom_command(OUTPUT FuncsObjCmds.h
-	COMMAND ../gperf_gen.sh FuncsObj FUNCS OBJ DEPENDS FuncsObjCmds.gperf)
+add_gperf_target(FuncsStrCmds FuncsStr FUNCS STR)
+add_gperf_target(FuncsObjCmds FuncsObj FUNCS OBJ)
 
 include_directories(.)
 add_module(funcs NWNXFuncs plugin-funcs

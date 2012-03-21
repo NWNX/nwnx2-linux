@@ -1,9 +1,7 @@
 if (gperf)
 
-add_custom_command(OUTPUT DefensesStrCmds.h
-	COMMAND ../gperf_gen.sh DefensesStr DEFENSES STR DEPENDS DefensesStrCmds.gperf)
-add_custom_command(OUTPUT DefensesObjCmds.h
-	COMMAND ../gperf_gen.sh DefensesObj DEFENSES OBJ DEPENDS DefensesObjCmds.gperf)
+add_gperf_target(DefensesStrCmds DefensesStr DEFENSES STR)
+add_gperf_target(DefensesObjCmds DefensesObj DEFENSES OBJ)
 
 include_directories(.)
 add_module(defenses NWNXDefenses plugin-defenses

@@ -1,9 +1,7 @@
 if (gperf)
 
-add_custom_command(OUTPUT StructsStrCmds.h
-	COMMAND ../gperf_gen.sh StructsStr STRUCTS STR DEPENDS StructsStrCmds.gperf)
-add_custom_command(OUTPUT StructsObjCmds.h
-	COMMAND ../gperf_gen.sh StructsObj STRUCTS OBJ DEPENDS StructsObjCmds.gperf)
+add_gperf_target(StructsStrCmds StructsStr STRUCTS STR)
+add_gperf_target(StructsObjCmds StructsObj STRUCTS OBJ)
 
 include_directories(.)
 add_module(structs NWNXStructs plugin-structs

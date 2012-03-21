@@ -41,6 +41,14 @@ function(add_module target)
 	set_target_properties(${target} PROPERTIES PREFIX "nwnx_")
 endfunction()
 
+function(add_gperf_target gperf v k l)
+	add_custom_command(
+		OUTPUT "${gperf}.h"
+		COMMAND ${PROJECT_SOURCE_DIR}/plugins/gperf_gen.sh "${v}" "${k}" "${l}"
+		DEPENDS ${PROJECT_SOURCE_DIR}/plugins/gperf_gen.sh "${gperf}.gperf"
+	)
+endfunction()
+
 foreach(plugin ${plugins})
 	get_filename_component(pa ${plugin} PATH)
 	get_filename_component(na ${pa} NAME)

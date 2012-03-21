@@ -1,9 +1,7 @@
 if (gperf)
 
-add_custom_command(OUTPUT SystemStrCmds.h
-	COMMAND ../gperf_gen.sh SystemStr SYSTEM STR DEPENDS SystemStrCmds.gperf)
-add_custom_command(OUTPUT SystemObjCmds.h
-	COMMAND ../gperf_gen.sh SystemObj SYSTEM OBJ DEPENDS SystemObjCmds.gperf)
+add_gperf_target(SystemStrCmds SystemStr SYSTEM STR)
+add_gperf_target(SystemObjCmds SystemObj SYSTEM OBJ)
 
 include_directories(.)
 add_module(system NWNXSystem plugin-system

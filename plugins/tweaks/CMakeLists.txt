@@ -1,9 +1,7 @@
 if (gperf)
 
-add_custom_command(OUTPUT TweaksStrCmds.h
-	COMMAND ../gperf_gen.sh TweaksStr TWEAKS STR DEPENDS TweaksStrCmds.gperf)
-add_custom_command(OUTPUT TweaksObjCmds.h
-	COMMAND ../gperf_gen.sh TweaksObj TWEAKS OBJ DEPENDS TweaksObjCmds.gperf)
+add_gperf_target(TweaksStrCmds TweaksStr TWEAKS STR)
+add_gperf_target(TweaksObjCmds TweaksObj TWEAKS OBJ)
 
 include_directories(.)
 add_module(tweaks NWNXTweaks plugin-tweaks

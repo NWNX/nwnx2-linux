@@ -1,9 +1,7 @@
 if (gperf)
 
-add_custom_command(OUTPUT WeaponsStrCmds.h
-	COMMAND ../gperf_gen.sh WeaponsStr WEAPONS STR DEPENDS WeaponsStrCmds.gperf)
-add_custom_command(OUTPUT WeaponsObjCmds.h
-	COMMAND ../gperf_gen.sh WeaponsObj WEAPONS OBJ DEPENDS WeaponsObjCmds.gperf)
+add_gperf_target(WeaponsStrCmds WeaponsStr WEAPONS STR)
+add_gperf_target(WeaponsObjCmds WeaponsObj WEAPONS OBJ)
 
 include_directories(.)
 add_module(weapons NWNXWeapons plugin-weapons

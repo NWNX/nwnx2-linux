@@ -1,9 +1,7 @@
 if (gperf)
 
-add_custom_command(OUTPUT SpellsStrCmds.h
-	COMMAND ../gperf_gen.sh SpellsStr SPELLS STR DEPENDS SpellsStrCmds.gperf)
-add_custom_command(OUTPUT SpellsObjCmds.h
-	COMMAND ../gperf_gen.sh SpellsObj SPELLS OBJ DEPENDS SpellsObjCmds.gperf)
+add_gperf_target(SpellsStrCmds SpellsStr SPELLS STR)
+add_gperf_target(SpellsObjCmds SpellsObj SPELLS OBJ)
 
 include_directories(.)
 add_module(spells NWNXSpells plugin-spells
