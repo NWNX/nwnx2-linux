@@ -118,7 +118,7 @@ char* CNWNXVisibility::OnRequest (char* gameObject, char* Request, char* Paramet
 	{
 		dword oObject2;
 		int nValue;
-		if(sscanf(Parameters, "%x¬%d", &oObject2, &nValue)<2)
+		if(sscanf(Parameters, "%lx¬%d", &oObject2, &nValue)<2)
 		{
 			Log(0, "o sscanf error\n");
 			return NULL;
@@ -133,4 +133,5 @@ char* CNWNXVisibility::OnRequest (char* gameObject, char* Request, char* Paramet
 bool CNWNXVisibility::OnRelease ()
 {
 	Log (0, "o Shutdown.\n");
+	return true;
 }
