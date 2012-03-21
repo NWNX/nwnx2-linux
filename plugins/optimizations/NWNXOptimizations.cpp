@@ -76,4 +76,5 @@ char* CNWNXOptimizations::OnRequest (char* gameObject, char* Request, char* Para
 bool CNWNXOptimizations::OnRelease ()
 {
 	Log (0, "o Shutdown.\n");
+	return true;
 }
