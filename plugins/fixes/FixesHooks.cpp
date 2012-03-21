@@ -213,7 +213,7 @@ int GetIsMergeableHookProc(void *pItem1, void *pItem2)
 	asm ("mov 0x8(%ebp), %eax");
 	asm ("push %eax");
 	asm ("mov $d_ret_code_merg, %eax");
-	asm ("call %eax");
+	asm ("call *%eax");
 	asm ("add $0x8, %esp");
 	asm ("movl %eax, lastRet");
 	if(fixes.bHooked && lastRet)
@@ -270,12 +270,12 @@ void PlayerListNoDMHook()
 	asm("pop %ebp"); // remove cre from stack
 	asm("pop %ebp"); // restore stack that gcc screwed up with function prologue
 	asm("mov $0x0807e4b3, %eax");
-	asm("jmp %eax");
+	asm("jmp *%eax");
 	asm("suppressresponse:");
 	asm("pop %ebp"); // remove cre from stack
 	asm("pop %ebp"); // restore stack that gcc screwed up with function prologue
 	asm("mov $0x0807e641, %eax");
-	asm("jmp %eax");
+	asm("jmp *%eax");
 }
 
 int CNWSCreature__DoDamage_hook(CNWSCreature *a1, unsigned int a2)
