@@ -105,6 +105,7 @@ OFILES  = \
     funcs/other/f_GetPCFileName.o                \
     funcs/other/f_GetPortrait.o                  \
     funcs/other/f_GetSoundset.o                  \
+    funcs/other/f_GetTimeOfDay.o                 \
     funcs/other/f_IntToObject.o                  \
     funcs/other/f_JumpToLimbo.o                  \
     funcs/other/f_SetACNaturalBase.o             \
@@ -122,7 +123,6 @@ OFILES  = \
     funcs/other/f_SetTag.o                       \
     funcs/other/f_SetTrapCreator.o               \
     funcs/other/f_USleep.o                       \
-    funcs/other/f_GetTimeOfDay.o                 \
     funcs/placeable/f_GetIsStatic.o              \
     funcs/placeable/f_SetPlaceableAppearance.o   \
     funcs/quickbar/f_GetQuickBarSlot.o           \
@@ -134,6 +134,7 @@ OFILES  = \
     funcs/sabil/f_SetSpecialAbility.o            \
     funcs/save/f_GetSavingThrowBonus.o           \
     funcs/save/f_SetSavingThrowBonus.o           \
+    funcs/skill/f_GetEffectSkillModifier.o       \
     funcs/skill/f_GetIsClassSkill.o              \
     funcs/skill/f_GetPCSkillPoints.o             \
     funcs/skill/f_GetSkillIncreaseByLevel.o      \

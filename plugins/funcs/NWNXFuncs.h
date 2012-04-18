@@ -49,6 +49,7 @@ void Func_GetCreatureEventHandler    (CGameObject *ob, char *value);
 void Func_GetCriticalHitMultiplier   (CGameObject *ob, char *value);
 void Func_GetCriticalHitRange        (CGameObject *ob, char *value);
 void Func_GetDamageImmunity          (CGameObject *ob, char *value);
+void Func_GetEffectSkillModifier     (CGameObject *ob, char *value);
 void Func_GetEntireItemAppearance    (CGameObject *ob, char *value);
 void Func_GetEventHandler            (CGameObject *ob, char *value);
 void Func_GetFactionId               (CGameObject *ob, char *value);

@@ -54,6 +54,7 @@ GETCREATUREEVENTHANDLER,               Func_GetCreatureEventHandler
 GETCRITICALHITMULTIPLIER,              Func_GetCriticalHitMultiplier
 GETCRITICALHITRANGE,                   Func_GetCriticalHitRange
 GETDAMAGEIMMUNITY,                     Func_GetDamageImmunity
+GETEFFECTSKILLMODIFIER,                Func_GetEffectSkillModifier
 GETENTIREITEMAPPEARANCE,               Func_GetEntireItemAppearance
 GETEVENTHANDLER,                       Func_GetEventHandler
 GETFACTIONID,                          Func_GetFactionId
