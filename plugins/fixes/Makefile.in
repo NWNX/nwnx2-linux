@@ -1,0 +1,17 @@
+CPPFLAGS = $(PLUGIN_CPPFLAGS) $(INCS)
+LFLAGS   = $(PLUGIN_LFLAGS)
+INCS	 = -I. -I.. -I../.. -I ../../include -I/usr/local/include
+
+all: nwnx_fixes.so
+
+nwnx_fixes.so: FixesHooks.o NWNXFixes.o plugin-fixes.o
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
+
+clean:
+	/bin/rm -f *.o *.so *~
+
+distclean: clean
+	/bin/rm -f Makefile
+
+install: nwnx_fixes.so
+	mkdir -p @prefix@/ ; install nwnx_fixes.so @prefix@/
