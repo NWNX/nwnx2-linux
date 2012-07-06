@@ -2,25 +2,28 @@
 #define _CNWSAMBIENTSOUND_H_
 #include "nwndef.h"
 #include "CExoArrayList.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
+#include "CNWSMessage.h"
 
 class CNWSAmbientSound
 {
 public:
 	int GetPlayersInArea(CExoArrayList<unsigned long> *);
 	int Load(CResGFF *, CResStruct *);
-	int PackIntoMessage(CNWSMessage *);
-	int PlayAmbientSound(int);
-	int PlayBattleMusic(int);
-	int PlayMusic(int);
-	int Save(CResGFF *, CResStruct *);
-	int SetAmbientDayTrack(int);
-	int SetAmbientDayVolume(int);
-	int SetAmbientNightTrack(int);
-	int SetAmbientNightVolume(int);
-	int SetBattleMusicTrack(int);
-	int SetMusicDayTrack(int);
-	int SetMusicDelay(int);
-	int SetMusicNightTrack(int);
+	void PackIntoMessage(CNWSMessage *);
+	void PlayAmbientSound(int);
+	void PlayBattleMusic(int);
+	void PlayMusic(int);
+	void Save(CResGFF *, CResStruct *);
+	void SetAmbientDayTrack(int);
+	void SetAmbientDayVolume(int);
+	void SetAmbientNightTrack(int);
+	void SetAmbientNightVolume(int);
+	void SetBattleMusicTrack(int);
+	void SetMusicDayTrack(int);
+	void SetMusicDelay(int);
+	void SetMusicNightTrack(int);
 	~CNWSAmbientSound();
 	CNWSAmbientSound(unsigned long);
 

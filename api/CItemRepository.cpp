@@ -21,7 +21,7 @@ int CItemRepository::CalculateContentsWeight()
 	asm("jmp *%eax");
 }
 
-int CItemRepository::CalculatePage(unsigned char, unsigned char)
+unsigned char CItemRepository::CalculatePage(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081a6a38, %eax");
@@ -42,14 +42,14 @@ int CItemRepository::CheckItemOverlaps(CNWSItem *, CNWSItem *, unsigned char, un
 	asm("jmp *%eax");
 }
 
-int CItemRepository::FindItemWithBaseItemId(unsigned long, int)
+unsigned long CItemRepository::FindItemWithBaseItemId(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081a3ee4, %eax");
 	asm("jmp *%eax");
 }
 
-int CItemRepository::FindItemWithTag(CExoString *)
+unsigned long CItemRepository::FindItemWithTag(CExoString *)
 {
 	asm("leave");
 	asm("mov $0x081a3f9c, %eax");
@@ -70,21 +70,21 @@ int CItemRepository::GetItemInRepository(CNWSItem *, int)
 	asm("jmp *%eax");
 }
 
-int CItemRepository::GetItemInRepository(unsigned char, unsigned char)
+unsigned long CItemRepository::GetItemInRepository(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081a6ab8, %eax");
 	asm("jmp *%eax");
 }
 
-int CItemRepository::ItemListGetItemObjectID(CExoLinkedListNode *)
+unsigned long CItemRepository::ItemListGetItemObjectID(CExoLinkedListNode *)
 {
 	asm("leave");
 	asm("mov $0x081a6a90, %eax");
 	asm("jmp *%eax");
 }
 
-int CItemRepository::ItemListGetItem(CExoLinkedListNode *)
+CNWSItem * CItemRepository::ItemListGetItem(CExoLinkedListNode *)
 {
 	asm("leave");
 	asm("mov $0x081a6a58, %eax");

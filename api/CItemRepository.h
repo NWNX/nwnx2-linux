@@ -1,6 +1,9 @@
 #ifndef _CITEMREPOSITORY_H_
 #define _CITEMREPOSITORY_H_
 #include "nwndef.h"
+#include "CNWSItem.h"
+#include "CExoString.h"
+#include "nwnstructs.h"
 #include "CExoLinkedList.h"
 
 class CItemRepository
@@ -9,16 +12,16 @@ public:
 	int AddItem(CNWSItem **, unsigned char, unsigned char, int, int);
 	int AddPanel();
 	int CalculateContentsWeight();
-	int CalculatePage(unsigned char, unsigned char);
+	unsigned char CalculatePage(unsigned char, unsigned char);
 	int CheckFit(CNWSItem *, unsigned char, unsigned char);
 	int CheckItemOverlaps(CNWSItem *, CNWSItem *, unsigned char, unsigned char);
-	int FindItemWithBaseItemId(unsigned long, int);
-	int FindItemWithTag(CExoString *);
+	unsigned long FindItemWithBaseItemId(unsigned long, int);
+	unsigned long FindItemWithTag(CExoString *);
 	int FindPosition(CNWSItem *, unsigned char &, unsigned char &, int);
 	int GetItemInRepository(CNWSItem *, int);
-	int GetItemInRepository(unsigned char, unsigned char);
-	int ItemListGetItemObjectID(CExoLinkedListNode *);
-	int ItemListGetItem(CExoLinkedListNode *);
+	unsigned long GetItemInRepository(unsigned char, unsigned char);
+	unsigned long ItemListGetItemObjectID(CExoLinkedListNode *);
+	CNWSItem * ItemListGetItem(CExoLinkedListNode *);
 	int MoveItem(CNWSItem *, unsigned char, unsigned char);
 	int RemoveItem(CNWSItem *);
 	~CItemRepository();

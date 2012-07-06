@@ -14,14 +14,14 @@ int CNetLayerPlayerInfo::AllKeysAuthed(unsigned long &)
 	asm("jmp *%eax");
 }
 
-int CNetLayerPlayerInfo::Initialize()
+void CNetLayerPlayerInfo::Initialize()
 {
 	asm("leave");
 	asm("mov $0x082ab5b0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNetLayerPlayerInfo::SetCDKey(int, CExoString const &, CExoString const &)
+void CNetLayerPlayerInfo::SetCDKey(int, CExoString const &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082ab7ac, %eax");

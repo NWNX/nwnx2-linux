@@ -5,8 +5,8 @@
 class CExoCriticalSection
 {
 public:
-	int EnterCriticalSection();
-	int LeaveCriticalSection();
+	void EnterCriticalSection();
+	void LeaveCriticalSection();
 	~CExoCriticalSection();
 	CExoCriticalSection();
 

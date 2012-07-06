@@ -1,79 +1,89 @@
 #ifndef _CNWSOBJECT_H_
 #define _CNWSOBJECT_H_
 #include "nwndef.h"
+#include "CNWSObjectActionNode.h"
 #include "CExoString.h"
+#include "CGameEffect.h"
+#include "CNWSpell.h"
+#include "CNWCCMessageData.h"
 #include "Vector.h"
+#include "CNWSScriptVarTable.h"
+#include "CNWSCreature.h"
+#include "CNWSArea.h"
 #include "CResRef.h"
-#include "nwnstructs.h"
 #include "CExoLocString.h"
+#include "CNWSExpression.h"
+#include "nwnstructs.h"
+#include "CScriptLocation.h"
+#include "CResGFF.h"
+#include "CNWSPlayer.h"
 #include "CNWSDialog.h"
 #include "CExoLinkedList.h"
-#include "CNWSObjectActionNode.h"
 
 class CNWSObject
 {
 public:
-	int AIActionCloseDoor(CNWSObjectActionNode *);
-	int AIActionDialogObject(CNWSObjectActionNode *);
+	unsigned long AIActionCloseDoor(CNWSObjectActionNode *);
+	unsigned long AIActionDialogObject(CNWSObjectActionNode *);
 	int AIActionDoCommand(CNWSObjectActionNode *);
-	int AIActionGiveItem(CNWSObjectActionNode *);
-	int AIActionLockObject(CNWSObjectActionNode *);
-	int AIActionOpenDoor(CNWSObjectActionNode *);
-	int AIActionPauseDialog(CNWSObjectActionNode *);
-	int AIActionPlayAnimation(CNWSObjectActionNode *);
-	int AIActionPlaySound(CNWSObjectActionNode *);
-	int AIActionResumeDialog(CNWSObjectActionNode *);
+	unsigned long AIActionGiveItem(CNWSObjectActionNode *);
+	unsigned long AIActionLockObject(CNWSObjectActionNode *);
+	unsigned long AIActionOpenDoor(CNWSObjectActionNode *);
+	unsigned long AIActionPauseDialog(CNWSObjectActionNode *);
+	unsigned long AIActionPlayAnimation(CNWSObjectActionNode *);
+	unsigned long AIActionPlaySound(CNWSObjectActionNode *);
+	unsigned long AIActionResumeDialog(CNWSObjectActionNode *);
 	int AIActionSetCommandable(CNWSObjectActionNode *);
 	int AIActionSpeakStrRef(CNWSObjectActionNode *);
-	int AIActionSpeak(CNWSObjectActionNode *);
-	int AIActionTakeItem(CNWSObjectActionNode *);
-	int AIActionUnlockObject(CNWSObjectActionNode *);
-	int AIActionUseObject(CNWSObjectActionNode *);
+	unsigned long AIActionSpeak(CNWSObjectActionNode *);
+	unsigned long AIActionTakeItem(CNWSObjectActionNode *);
+	unsigned long AIActionUnlockObject(CNWSObjectActionNode *);
+	unsigned long AIActionUseObject(CNWSObjectActionNode *);
 	int AIActionWait(CNWSObjectActionNode *);
-	int AddActionAfterFront(unsigned long, unsigned short, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *);
-	int AddActionNodeParameter(CNWSObjectActionNode *, unsigned long, unsigned long, void *);
-	int AddActionToFront(unsigned long, unsigned short, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *);
-	int AddAction(unsigned long, unsigned short, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *);
+	void AddActionAfterFront(unsigned long, unsigned short, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *);
+	void AddActionNodeParameter(CNWSObjectActionNode *, unsigned long, unsigned long, void *);
+	void AddActionToFront(unsigned long, unsigned short, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *);
+	void AddAction(unsigned long, unsigned short, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *);
 	int AddCloseDoorAction(unsigned long, int);
 	int AddDoCommandAction(void *);
 	int AddEffectTarget(unsigned long);
 	int AddGiveItemActions(unsigned long, unsigned long, int);
 	int AddLockObjectAction(unsigned long);
-	int AddLoopingVisualEffect(unsigned short, unsigned long, unsigned char);
-	int AddMatchedExpressionString(CExoString const &);
+	void AddLoopingVisualEffect(unsigned short, unsigned long, unsigned char);
+	void AddMatchedExpressionString(CExoString const &);
 	int AddOpenDoorAction(unsigned long, int);
 	int AddTakeItemActions(unsigned long, unsigned long, int);
 	int AddUnlockObjectAction(unsigned long, unsigned long, int);
 	int AddUseObjectAction(unsigned long);
 	int AnimationStationary(unsigned short);
-	int ApplyEffect(CGameEffect *, int, int);
-	int AsNWSObject();
-	int BroadcastCounterSpellData(CNWSpell *, CNWCCMessageData *);
-	int BroadcastDialog(CExoString, float);
-	int BroadcastFloatyDataSTRREF(unsigned long);
-	int BroadcastFloatyData(CNWCCMessageData *);
-	int BroadcastSafeProjectile(unsigned long, unsigned long, Vector, Vector, unsigned long, unsigned char, unsigned long, unsigned char, unsigned char);
-	int BroadcastSpellData(CNWSpell *, CNWCCMessageData *);
-	int CalculateLastSpellProjectileTime(unsigned char);
-	int CalculateSpellRangedMissTarget(unsigned long, unsigned long);
+	void ApplyEffect(CGameEffect *, int, int);
+	CNWSObject * AsNWSObject();
+	void BroadcastCounterSpellData(CNWSpell *, CNWCCMessageData *);
+	void BroadcastDialog(CExoString, float);
+	void BroadcastFloatyDataSTRREF(unsigned long);
+	void BroadcastFloatyData(CNWCCMessageData *);
+	void BroadcastSafeProjectile(unsigned long, unsigned long, Vector, Vector, unsigned long, unsigned char, unsigned long, unsigned char, unsigned char);
+	void BroadcastSpellData(CNWSpell *, CNWCCMessageData *);
+	void CalculateLastSpellProjectileTime(unsigned char);
+	Vector CalculateSpellRangedMissTarget(unsigned long, unsigned long);
 	int ClearAction(CNWSObjectActionNode *, int);
-	int ClearAllActions();
-	int ClearAllPartyInvalidActions();
-	int ClearMatchedExpressionStrings();
-	int ClearSpellEffectsOnOthers();
-	int CopyScriptVars(CNWSScriptVarTable *);
-	int DeleteCurrentAIAction();
+	void ClearAllActions();
+	void ClearAllPartyInvalidActions();
+	void ClearMatchedExpressionStrings();
+	void ClearSpellEffectsOnOthers();
+	void CopyScriptVars(CNWSScriptVarTable *);
+	void DeleteCurrentAIAction();
 	int DoDamageImmunity(CNWSCreature *, int, unsigned short, int, int);
 	int DoDamageReduction(CNWSCreature *, int, unsigned char, int, int);
 	int DoDamageResistance(CNWSCreature *, int, unsigned short, int, int, int);
-	int DoDamage(int);
+	void DoDamage(int);
 	int DoSpellImmunity(CNWSObject *);
 	int DoSpellLevelAbsorption(CNWSObject *);
 	int GetAILevel();
 	int GetAILock();
 	int GetAIPosList();
-	int GetAIStateReaction(unsigned long);
-	int GetAQActionIDByID(unsigned short, int);
+	unsigned char GetAIStateReaction(unsigned long);
+	unsigned short GetAQActionIDByID(unsigned short, int);
 	int GetAcceptableAction(unsigned long);
 	int GetActionByGroupId(unsigned short, CNWSObjectActionNode **);
 	int GetAnimationSpeed();
@@ -81,29 +91,29 @@ public:
 	int GetAppliedEffects();
 	int GetApplyingPostProcessEffects();
 	int GetAreaId();
-	int GetArea();
+	CNWSArea * GetArea();
 	int GetBaseHitPoints();
 	int GetConversationPlayHello();
-	int GetCurrentHitPoints(int);
+	short GetCurrentHitPoints(int);
 	int GetCustomScriptEventId();
-	int GetDamageImmunityByFlags(unsigned short);
-	int GetDamageImmunity(unsigned char);
-	int GetDamageLevel();
+	char GetDamageImmunityByFlags(unsigned short);
+	char GetDamageImmunity(unsigned char);
+	unsigned char GetDamageLevel();
 	int GetDead();
 	int GetDialogInterruptable();
 	int GetDialogOwner();
 	int GetDialogPrivate();
-	int GetDialogResref();
+	CResRef GetDialogResref();
 	int GetDialogValid();
 	int GetEffectArrayIndex();
-	int GetEffectSpellId();
+	unsigned long GetEffectSpellId();
 	int GetEffectTargets();
 	int GetExecutingAIAction();
 	int GetExpressionStrings();
-	int GetFirstName();
-	int GetGender();
+	CExoLocString & GetFirstName();
+	unsigned char GetGender();
 	int GetHasFeatEffectApplied(unsigned short);
-	int GetIDByAQActionID(unsigned short);
+	unsigned short GetIDByAQActionID(unsigned short);
 	int GetInventoryDisturbItem();
 	int GetInventoryDisturbType();
 	int GetIsDestroyable();
@@ -113,13 +123,13 @@ public:
 	int GetLastAttackMode();
 	int GetLastAttackType();
 	int GetLastAttacker();
-	int GetLastConversationResref();
+	CExoString GetLastConversationResref();
 	int GetLastDamageAmountByFlags(int);
 	int GetLastDamager();
 	int GetLastDisturbed();
 	int GetLastGroupID();
 	int GetLastHostileActor();
-	int GetLastName();
+	CExoLocString & GetLastName();
 	int GetLastSpeaker();
 	int GetLastSpellCastAtMeCaster();
 	int GetLastSpellCastAtMeHarmful();
@@ -134,14 +144,14 @@ public:
 	int GetLastSpellLocationTarget();
 	int GetLastSpellObjectTarget();
 	int GetLastWeaponAttackedWith();
-	int GetListenExpressionObj(int);
+	CNWSExpression * GetListenExpressionObj(int);
 	int GetListenExpressions();
-	int GetLockOrientationToObject();
+	unsigned long GetLockOrientationToObject();
 	int GetLoopingVisualEffects();
 	int GetMatchedPos();
-	int GetMaxHitPoints(int);
+	short GetMaxHitPoints(int);
 	int GetMaximumDamageResistanceVsDamageFlag(unsigned short, int *);
-	int GetNearestObjectByName(CExoString const &, float);
+	unsigned long GetNearestObjectByName(CExoString const &, float);
 	int GetNewGroupID();
 	int GetNodeById(unsigned short, unsigned short);
 	int GetNumActionGroups();
@@ -150,19 +160,19 @@ public:
 	int GetOrientation();
 	int GetPendingEffectRemoval();
 	int GetPlotObject();
-	int GetPortraitId();
-	int GetPortrait();
-	int GetPositionByGroupIndex(int);
+	unsigned short GetPortraitId();
+	CResRef GetPortrait();
+	CExoLinkedListNode * GetPositionByGroupIndex(int);
 	int GetPosition();
 	int GetPrivateConversation();
 	int GetQueuedActionsList();
 	int GetReputation(unsigned long, int &, int);
 	int GetSavingThrowSpellId();
-	int GetScriptLocation();
+	CScriptLocation GetScriptLocation();
 	int GetScriptVarTable();
 	int GetSelectableWhenDead();
-	int GetTag();
-	int GetTemplate();
+	CExoString * GetTag();
+	CExoString * GetTemplate();
 	int GetTemporaryHitPoints();
 	int HasSpellEffectApplied(unsigned long);
 	int IsAbleToModifyActionQueue();
@@ -170,30 +180,30 @@ public:
 	int IsDialogPaused();
 	int IsListening();
 	int IsPCInDialog();
-	int LoadActionQueue(CResGFF *, CResStruct *);
-	int LoadEffectList(CResGFF *, CResStruct *);
-	int LoadListenData(CResGFF *, CResStruct *);
-	int LoadObjectState(CResGFF *, CResStruct *);
-	int LoadVarTable(CResGFF *, CResStruct *);
-	int PlaySoundSet(CNWSPlayer *, unsigned char);
-	int RemoveEffectByCreator(unsigned long);
+	void LoadActionQueue(CResGFF *, CResStruct *);
+	void LoadEffectList(CResGFF *, CResStruct *);
+	void LoadListenData(CResGFF *, CResStruct *);
+	void LoadObjectState(CResGFF *, CResStruct *);
+	void LoadVarTable(CResGFF *, CResStruct *);
+	void PlaySoundSet(CNWSPlayer *, unsigned char);
+	void RemoveEffectByCreator(unsigned long);
 	int RemoveEffectById(unsigned long long);
 	int RemoveEffectBySpellId(unsigned long);
-	int RemoveEffectTarget(unsigned long);
-	int RemoveEffect(CGameEffect *);
-	int RemoveGroup(unsigned short);
-	int RemoveLoopingVisualEffect(unsigned short);
+	void RemoveEffectTarget(unsigned long);
+	void RemoveEffect(CGameEffect *);
+	void RemoveGroup(unsigned short);
+	void RemoveLoopingVisualEffect(unsigned short);
 	int RemoveObjectFromDialog(unsigned long);
-	int RemoveSomeEffectsOfDurationType(unsigned short);
+	void RemoveSomeEffectsOfDurationType(unsigned short);
 	int ReplyDialog(unsigned long, unsigned long, int, unsigned long);
-	int ReportOverflow(int, int, int, int);
+	void ReportOverflow(int, int, int, int);
 	int RunActions(unsigned long, unsigned long, unsigned long long);
 	int RunDialogOneLiner(CExoString const &, unsigned long);
-	int SaveActionQueue(CResGFF *, CResStruct *);
-	int SaveEffectList(CResGFF *, CResStruct *);
-	int SaveListenData(CResGFF *, CResStruct *);
-	int SaveObjectState(CResGFF *, CResStruct *);
-	int SaveVarTable(CResGFF *, CResStruct *);
+	void SaveActionQueue(CResGFF *, CResStruct *);
+	void SaveEffectList(CResGFF *, CResStruct *);
+	void SaveListenData(CResGFF *, CResStruct *);
+	void SaveObjectState(CResGFF *, CResStruct *);
+	void SaveVarTable(CResGFF *, CResStruct *);
 	int SendDialogEntry(unsigned long, int);
 	int SendDialogReplies();
 	int SetAILevel(int);
@@ -201,24 +211,24 @@ public:
 	int SetAIPosList(CExoLinkedListNode *);
 	int SetAbleToModifyActionQueue(int);
 	int SetAnimationSpeed(float);
-	int SetAnimation(int);
+	void SetAnimation(int);
 	int SetApplyingPostProcessEffects(int);
 	int SetAreaId(unsigned long);
-	int SetArea(CNWSArea *);
+	void SetArea(CNWSArea *);
 	int SetBaseHitPoints(int);
 	int SetConversationPlayHello(int);
 	int SetCurrentActionTarget(unsigned long);
 	int SetCurrentHitPoints(int);
 	int SetCustomScriptEventId(int);
-	int SetDamageImmunity(unsigned short, int);
+	void SetDamageImmunity(unsigned short, int);
 	int SetDialogAnimation(int);
-	int SetDialogDelay(float);
-	int SetDialogOwner(unsigned long);
+	void SetDialogDelay(float);
+	void SetDialogOwner(unsigned long);
 	int SetDialogPaused(int);
 	int SetEffectArrayIndex(unsigned short);
-	int SetEffectSpellId(unsigned long);
+	void SetEffectSpellId(unsigned long);
 	int SetExecutingAIAction(CNWSObjectActionNode *);
-	int SetGroupInterruptable(unsigned short, int);
+	void SetGroupInterruptable(unsigned short, int);
 	int SetInventoryDisturbItem(unsigned long);
 	int SetInventoryDisturbType(int);
 	int SetIsDestroyable(int);
@@ -228,12 +238,12 @@ public:
 	int SetLastAttackMode(unsigned char);
 	int SetLastAttackType(unsigned short);
 	int SetLastAttacker(unsigned long);
-	int SetLastConversationResref(CExoString);
+	void SetLastConversationResref(CExoString);
 	int SetLastDamageAmount(int, int);
 	int SetLastDamager(unsigned long);
 	int SetLastDisturbed(unsigned long);
 	int SetLastGroupID(unsigned short);
-	int SetLastHostileActor(unsigned long, int);
+	void SetLastHostileActor(unsigned long, int);
 	int SetLastSpeaker(unsigned long);
 	int SetLastSpellCastAtMeCaster(unsigned long);
 	int SetLastSpellCastAtMeHarmful(int);
@@ -250,33 +260,33 @@ public:
 	int SetLastWeaponAttackedWith(unsigned long);
 	int SetListenExpression(CExoString, int);
 	int SetListening(int);
-	int SetLockOrientationToObject(unsigned long);
+	void SetLockOrientationToObject(unsigned long);
 	int SetMatchedPos(int);
 	int SetOpenDoorAnimationPlayed(int);
-	int SetOrientation(Vector);
+	void SetOrientation(Vector);
 	int SetPendingEffectRemoval(int);
 	int SetPlotObject(int);
-	int SetPortraitId(unsigned short);
-	int SetPortrait(CResRef);
-	int SetPosition(Vector, int);
+	void SetPortraitId(unsigned short);
+	void SetPortrait(CResRef);
+	void SetPosition(Vector, int);
 	int SetPrivateConversation(int);
 	int SetSavingThrowSpellId(unsigned long);
 	int SetSelectableWhenDead(int);
 	int SetStartActionTimer(unsigned long, unsigned long);
-	int SetTag(CExoString);
+	void SetTag(CExoString);
 	int SetTemplate(CExoString const &);
 	int SetTemporaryHitPoints(int);
-	int SpawnBodyBag();
-	int SpellCastAndImpact(unsigned long, Vector, unsigned long, unsigned char, unsigned long, int, int, unsigned char, int);
+	void SpawnBodyBag();
+	void SpellCastAndImpact(unsigned long, Vector, unsigned long, unsigned char, unsigned long, int, int, unsigned char, int);
 	int StartDialog(unsigned long, CExoString const &, int, int);
 	int StopDialog();
 	int TerminateAISliceAfterAction(unsigned long);
 	int TestActionList();
 	int TestListenExpression(CExoString);
-	int UpdateAttributesOnEffect(CGameEffect *, int);
+	void UpdateAttributesOnEffect(CGameEffect *, int);
 	int UpdateDialog();
-	int UpdateEffectList(unsigned long, unsigned long);
-	int UpdateEffectPtrs();
+	void UpdateEffectList(unsigned long, unsigned long);
+	void UpdateEffectPtrs();
 	~CNWSObject();
 	CNWSObject(unsigned char, unsigned long, int, int);
 

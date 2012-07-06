@@ -1,13 +1,13 @@
 #include "CNWBaseItem.h"
 
-int CNWBaseItem::GetIconResRef(unsigned char, short, char)
+CResRef CNWBaseItem::GetIconResRef(unsigned char, short, char)
 {
 	asm("leave");
 	asm("mov $0x080c1814, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWBaseItem::GetModelResRef(unsigned char, short, char)
+CResRef CNWBaseItem::GetModelResRef(unsigned char, short, char)
 {
 	asm("leave");
 	asm("mov $0x080c1954, %eax");
@@ -21,7 +21,7 @@ int CNWBaseItem::GetNameText()
 	asm("jmp *%eax");
 }
 
-int CNWBaseItem::GetRequiredFeat(unsigned char)
+unsigned short CNWBaseItem::GetRequiredFeat(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080c192c, %eax");

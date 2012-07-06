@@ -6,8 +6,8 @@
 class CNWSpellArray
 {
 public:
-	int GetSpell(int) const;
-	int Load();
+	CNWSpell * GetSpell(int) const;
+	void Load();
 	~CNWSpellArray();
 	CNWSpellArray();
 	int operator[](int) const;

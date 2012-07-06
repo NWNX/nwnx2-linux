@@ -1,6 +1,12 @@
 #ifndef _CSERVERAIMASTER_H_
 #define _CSERVERAIMASTER_H_
 #include "nwndef.h"
+#include "CNWSObject.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
+#include "CGameEffect.h"
+#include "CNWSItem.h"
+#include "CNWSCreature.h"
 #include "CServerExoAppInternal.h"
 #include "CServerAIList.h"
 #include "CExoLinkedList.h"
@@ -14,13 +20,13 @@ public:
 	int AddEventAbsoluteTime(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, void *);
 	int AddEventDeltaTime(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, void *);
 	int AddObject(CNWSObject *, int);
-	int AdjustTargetAndWitnessReputations(unsigned long, unsigned long, int);
-	int ClearEventQueue();
-	int DeleteEventData(unsigned long, void *);
+	void AdjustTargetAndWitnessReputations(unsigned long, unsigned long, int);
+	void ClearEventQueue();
+	void DeleteEventData(unsigned long, void *);
 	int EventPending(unsigned long, unsigned long);
 	int GetPendingEvent(unsigned long *, unsigned long *, unsigned long *, unsigned long *, unsigned long *, void **);
 	int LoadEventQueue(CResGFF *, CResStruct *);
-	int LoadReputationAdjustments();
+	void LoadReputationAdjustments();
 	int OnEffectApplied(CNWSObject *, CGameEffect *, int);
 	int OnEffectRemoved(CNWSObject *, CGameEffect *);
 	int OnItemPropertyApplied(CNWSItem *, CNWItemProperty *, CNWSCreature *, unsigned long, int);
@@ -28,8 +34,8 @@ public:
 	int RemoveObject(CNWSObject *);
 	int SaveEventQueue(CResGFF *, CResStruct *);
 	int SetAILevel(CNWSObject *, int);
-	int SetExoAppInternal(CServerExoAppInternal *);
-	int UpdateState();
+	void SetExoAppInternal(CServerExoAppInternal *);
+	void UpdateState();
 	~CServerAIMaster();
 	CServerAIMaster();
 

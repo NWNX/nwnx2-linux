@@ -1,21 +1,22 @@
 #ifndef _CEXOSTRINGLIST_H_
 #define _CEXOSTRINGLIST_H_
 #include "nwndef.h"
+#include "CExoString.h"
 
 class CExoStringList
 {
 public:
-	int AddSorted(CExoString *);
-	int Add(CExoString *);
+	void AddSorted(CExoString *);
+	void Add(CExoString *);
 	int Clear();
 	int Delete(CExoString *);
 	int GetCount();
 	int GetDuplicate();
 	int GetSize();
 	int GetSorted();
-	int GetString(int);
+	CExoString * GetString(int);
 	int Insert(CExoString *, int);
-	int Introduce(CExoString *, int);
+	void Introduce(CExoString *, int);
 	int Merge(CExoStringList *, int, int);
 	int Remove(int);
 	~CExoStringList();

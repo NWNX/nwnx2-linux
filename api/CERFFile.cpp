@@ -84,7 +84,7 @@ int CERFFile::SetNumEntries(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CERFFile::SetVersion(char *)
+void CERFFile::SetVersion(char *)
 {
 	asm("leave");
 	asm("mov $0x082b7b5c, %eax");

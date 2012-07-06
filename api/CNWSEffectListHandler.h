@@ -1,11 +1,13 @@
 #ifndef _CNWSEFFECTLISTHANDLER_H_
 #define _CNWSEFFECTLISTHANDLER_H_
 #include "nwndef.h"
+#include "CNWSObject.h"
+#include "CGameEffect.h"
 
 class CNWSEffectListHandler
 {
 public:
-	int InitializeEffects();
+	void InitializeEffects();
 	int OnApplyACDecrease(CNWSObject *, CGameEffect *, int);
 	int OnApplyACIncrease(CNWSObject *, CGameEffect *, int);
 	int OnApplyAbilityDecrease(CNWSObject *, CGameEffect *, int);
@@ -170,7 +172,7 @@ public:
 	int OnRemoveVision(CNWSObject *, CGameEffect *);
 	int OnRemoveVisualEffect(CNWSObject *, CGameEffect *);
 	int OnRemoveWounding(CNWSObject *, CGameEffect *);
-	int SendFloatyEffect(unsigned long, unsigned long);
+	void SendFloatyEffect(unsigned long, unsigned long);
 	~CNWSEffectListHandler();
 
 };

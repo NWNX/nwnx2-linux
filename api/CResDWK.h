@@ -5,8 +5,8 @@
 class CResDWK
 {
 public:
-	int GetDWKDataPtr();
-	int GetDWKSize();
+	unsigned char * GetDWKDataPtr();
+	unsigned long GetDWKSize();
 	int IsLoaded();
 	int OnResourceFreed();
 	int OnResourceServiced();

@@ -35,14 +35,14 @@ int CVirtualMachineDebuggerInstance::FindWatchViewEntry(CExoString *, CExoString
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineDebuggerInstance::GenerateCallStackParameterView(int, CExoString *, CExoString *)
+CExoString CVirtualMachineDebuggerInstance::GenerateCallStackParameterView(int, CExoString *, CExoString *)
 {
 	asm("leave");
 	asm("mov $0x08267914, %eax");
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineDebuggerInstance::GenerateCallStackView(int, int, int)
+CExoString CVirtualMachineDebuggerInstance::GenerateCallStackView(int, int, int)
 {
 	asm("leave");
 	asm("mov $0x08267a30, %eax");
@@ -77,7 +77,7 @@ int CVirtualMachineDebuggerInstance::GenerateStackSizeAtInstructionPointer(int, 
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineDebuggerInstance::GenerateTypeName(CExoString *)
+CExoString CVirtualMachineDebuggerInstance::GenerateTypeName(CExoString *)
 {
 	asm("leave");
 	asm("mov $0x08267488, %eax");
@@ -91,7 +91,7 @@ int CVirtualMachineDebuggerInstance::GenerateTypeSize(CExoString *)
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineDebuggerInstance::GenerateTypeValueFromStackLocation(int, CExoString *)
+CExoString CVirtualMachineDebuggerInstance::GenerateTypeValueFromStackLocation(int, CExoString *)
 {
 	asm("leave");
 	asm("mov $0x082675f0, %eax");
@@ -119,7 +119,7 @@ int CVirtualMachineDebuggerInstance::LoadDebugInfo(CVirtualMachineDebugLoader *)
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineDebuggerInstance::LoadScriptLine(unsigned char *, unsigned long, unsigned long, unsigned long *, int)
+char * CVirtualMachineDebuggerInstance::LoadScriptLine(unsigned char *, unsigned long, unsigned long, unsigned long *, int)
 {
 	asm("leave");
 	asm("mov $0x0826a254, %eax");
@@ -147,42 +147,42 @@ int CVirtualMachineDebuggerInstance::ReadStringFromInput(int *, CExoString *)
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineDebuggerInstance::SendCallStackWindowUpdateCommands()
+void CVirtualMachineDebuggerInstance::SendCallStackWindowUpdateCommands()
 {
 	asm("leave");
 	asm("mov $0x08267ee8, %eax");
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineDebuggerInstance::SendCodeWindowUpdateCommands(CExoString, int)
+void CVirtualMachineDebuggerInstance::SendCodeWindowUpdateCommands(CExoString, int)
 {
 	asm("leave");
 	asm("mov $0x08267084, %eax");
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineDebuggerInstance::SendLabelsAndKeywords()
+void CVirtualMachineDebuggerInstance::SendLabelsAndKeywords()
 {
 	asm("leave");
 	asm("mov $0x08269cf8, %eax");
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineDebuggerInstance::SendWatchWindowEntry(CExoString *, CExoString *, CExoString *, CExoString *, int)
+void CVirtualMachineDebuggerInstance::SendWatchWindowEntry(CExoString *, CExoString *, CExoString *, CExoString *, int)
 {
 	asm("leave");
 	asm("mov $0x08268804, %eax");
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineDebuggerInstance::SendWatchWindowUpdateCommands(int)
+void CVirtualMachineDebuggerInstance::SendWatchWindowUpdateCommands(int)
 {
 	asm("leave");
 	asm("mov $0x08269238, %eax");
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineDebuggerInstance::ShutDownDebugger()
+void CVirtualMachineDebuggerInstance::ShutDownDebugger()
 {
 	asm("leave");
 	asm("mov $0x0826a100, %eax");
@@ -196,7 +196,7 @@ int CVirtualMachineDebuggerInstance::SpawnDebugger()
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineDebuggerInstance::ToggleWatchWindowExpansion(CExoString)
+void CVirtualMachineDebuggerInstance::ToggleWatchWindowExpansion(CExoString)
 {
 	asm("leave");
 	asm("mov $0x0826a1b0, %eax");

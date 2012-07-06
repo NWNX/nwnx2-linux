@@ -6,10 +6,10 @@
 class CNWBaseItem
 {
 public:
-	int GetIconResRef(unsigned char, short, char);
-	int GetModelResRef(unsigned char, short, char);
+	CResRef GetIconResRef(unsigned char, short, char);
+	CResRef GetModelResRef(unsigned char, short, char);
 	int GetNameText();
-	int GetRequiredFeat(unsigned char);
+	unsigned short GetRequiredFeat(unsigned char);
 	int SetRequiredFeatCount(unsigned char);
 	int SetRequiredFeat(unsigned char, unsigned short);
 	~CNWBaseItem();

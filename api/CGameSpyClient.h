@@ -1,7 +1,9 @@
 #ifndef _CGAMESPYCLIENT_H_
 #define _CGAMESPYCLIENT_H_
 #include "nwndef.h"
+#include "CExoString.h"
 #include "nwnstructs.h"
+#include "CConnectionLib.h"
 
 class CGameSpyClient
 {

@@ -1,22 +1,27 @@
 #ifndef _CNWSTRIGGER_H_
 #define _CNWSTRIGGER_H_
 #include "nwndef.h"
+#include "CNWSArea.h"
 #include "Vector.h"
-#include "CResRef.h"
+#include "CScriptLocation.h"
 #include "CExoString.h"
+#include "CExoLocString.h"
+#include "CResRef.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 #include "CNWSObject.h"
 
 class CNWSTrigger
 {
 public:
-	int AIUpdate();
-	int AddToArea(CNWSArea *, float, float, float, int);
-	int AsNWSTrigger();
+	void AIUpdate();
+	void AddToArea(CNWSArea *, float, float, float, int);
+	CNWSTrigger * AsNWSTrigger();
 	int CalculateNearestPoint(Vector, Vector *);
-	int ComputeBoundingBox(float *, float *, float *, float *);
-	int CreateNewGeometry(float, Vector, CNWSArea *);
-	int CreateNewGeometry(float, CScriptLocation *, CNWSArea *);
-	int EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
+	void ComputeBoundingBox(float *, float *, float *, float *);
+	void CreateNewGeometry(float, Vector, CNWSArea *);
+	void CreateNewGeometry(float, CScriptLocation *, CNWSArea *);
+	void EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
 	int GetActive();
 	int GetAutoRemoveKey();
 	int GetBaseType();
@@ -26,14 +31,14 @@ public:
 	int GetCreatureList();
 	int GetCursor();
 	int GetCustomScriptEventId();
-	int GetDescriptionOverride();
+	CExoString GetDescriptionOverride();
 	int GetDetectDC();
 	int GetDetectable();
 	int GetDisarmDC();
 	int GetDisarmable();
-	int GetFacingPosition();
+	Vector GetFacingPosition();
 	int GetFactionId();
-	int GetFirstName();
+	CExoLocString & GetFirstName();
 	int GetFlagged();
 	int GetIsAreaTransition();
 	int GetIsTrap();
@@ -42,22 +47,22 @@ public:
 	int GetLastEntered();
 	int GetLastLeft();
 	int GetLinkedFlags();
-	int GetLinkedTo();
-	int GetLoadScreenID();
+	CExoString GetLinkedTo();
+	unsigned short GetLoadScreenID();
 	int GetNumVertices();
 	int GetObjectArrayIndex();
 	int GetOneShot();
 	int GetRecoverable();
-	int GetScriptName(int);
-	int GetTargetArea();
+	CExoString * GetScriptName(int);
+	unsigned long GetTargetArea();
 	int GetTriggerHeight();
 	int GetVertices();
 	int InTrigger(Vector);
 	int LineSegmentIntersectTrigger(Vector, Vector);
 	int LoadFromTemplate(CResRef);
 	int LoadTrigger(CResGFF *, CResStruct *);
-	int OnEnterTrap(int);
-	int RemoveFromArea();
+	void OnEnterTrap(int);
+	void RemoveFromArea();
 	int SaveTrigger(CResGFF *, CResStruct *);
 	int SetActive(int);
 	int SetAutoRemoveKey(int);
@@ -65,7 +70,7 @@ public:
 	int SetCreator(unsigned long);
 	int SetCursor(unsigned char);
 	int SetCustomScriptEventId(int);
-	int SetDescriptionOverride(CExoString);
+	void SetDescriptionOverride(CExoString);
 	int SetDetectDC(int);
 	int SetDetectable(int);
 	int SetDisarmDC(int);
@@ -84,7 +89,7 @@ public:
 	int SetObjectArrayIndex(unsigned short);
 	int SetOneShot(unsigned char);
 	int SetRecoverable(int);
-	int SetScriptName(int, CExoString);
+	void SetScriptName(int, CExoString);
 	int SetTriggerHeight(float);
 	~CNWSTrigger();
 	CNWSTrigger(unsigned long);

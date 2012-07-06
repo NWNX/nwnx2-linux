@@ -1,48 +1,48 @@
 #include "CTwoDimArrays.h"
 
-int CTwoDimArrays::ClearCached2DAs()
+void CTwoDimArrays::ClearCached2DAs()
 {
 	asm("leave");
 	asm("mov $0x080b98a4, %eax");
 	asm("jmp *%eax");
 }
 
-int CTwoDimArrays::GetCached2DA(CExoString, int)
+C2DA * CTwoDimArrays::GetCached2DA(CExoString, int)
 {
 	asm("leave");
 	asm("mov $0x080b92a8, %eax");
 	asm("jmp *%eax");
 }
 
-int CTwoDimArrays::GetEpicAttackBonus(unsigned char)
+unsigned char CTwoDimArrays::GetEpicAttackBonus(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080b9a68, %eax");
 	asm("jmp *%eax");
 }
 
-int CTwoDimArrays::GetEpicFortSaveBonus(unsigned char)
+unsigned char CTwoDimArrays::GetEpicFortSaveBonus(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080b9a04, %eax");
 	asm("jmp *%eax");
 }
 
-int CTwoDimArrays::GetEpicRefSaveBonus(unsigned char)
+unsigned char CTwoDimArrays::GetEpicRefSaveBonus(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080b9a24, %eax");
 	asm("jmp *%eax");
 }
 
-int CTwoDimArrays::GetEpicWillSaveBonus(unsigned char)
+unsigned char CTwoDimArrays::GetEpicWillSaveBonus(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080b9a48, %eax");
 	asm("jmp *%eax");
 }
 
-int CTwoDimArrays::GetIPRPCostTable(unsigned char)
+C2DA * CTwoDimArrays::GetIPRPCostTable(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080b99e0, %eax");

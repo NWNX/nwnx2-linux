@@ -10,9 +10,9 @@ public:
 	int CheckForCD(unsigned long);
 	int GetAugmentedDirectoryList(CExoArrayList<CFileInfo> *, CExoString, unsigned short, int);
 	int GetDirectoryList(CExoArrayList<CExoString> *, CExoString, unsigned short, int, int);
-	int GetResTypeFromExtension(CExoString const &);
-	int GetResourceExtension(unsigned short);
-	int LoadAliases(CExoString);
+	unsigned short GetResTypeFromExtension(CExoString const &);
+	CExoString const & GetResourceExtension(unsigned short);
+	void LoadAliases(CExoString);
 	int ShutDown();
 	int SpawnExternalApplication(CExoString const &, CExoString const &, int);
 	~CExoBase();

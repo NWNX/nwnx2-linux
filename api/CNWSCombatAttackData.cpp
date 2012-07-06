@@ -1,20 +1,20 @@
 #include "CNWSCombatAttackData.h"
 
-int CNWSCombatAttackData::AddDamage(unsigned short, int)
+void CNWSCombatAttackData::AddDamage(unsigned short, int)
 {
 	asm("leave");
 	asm("mov $0x080e4c74, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCombatAttackData::ClearAttackData()
+void CNWSCombatAttackData::ClearAttackData()
 {
 	asm("leave");
 	asm("mov $0x080e0314, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCombatAttackData::Copy(CNWSCombatAttackData *, int)
+void CNWSCombatAttackData::Copy(CNWSCombatAttackData *, int)
 {
 	asm("leave");
 	asm("mov $0x080e0430, %eax");
@@ -49,7 +49,7 @@ int CNWSCombatAttackData::SaveData(CResGFF *, CResStruct *)
 	asm("jmp *%eax");
 }
 
-int CNWSCombatAttackData::SetBaseDamage(int)
+void CNWSCombatAttackData::SetBaseDamage(int)
 {
 	asm("leave");
 	asm("mov $0x080e4c2c, %eax");

@@ -1,55 +1,55 @@
 #include "CNWSEncounter.h"
 
-int CNWSEncounter::AIUpdate()
+void CNWSEncounter::AIUpdate()
 {
 	asm("leave");
 	asm("mov $0x0817fc8c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::AddCreaturesToSpawnList(CEncounterListEntry *, int &, int, CEncounterListEntry)
+void CNWSEncounter::AddCreaturesToSpawnList(CEncounterListEntry *, int &, int, CEncounterListEntry)
 {
 	asm("leave");
 	asm("mov $0x08181330, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::AddToActivateAreaList(unsigned long)
+void CNWSEncounter::AddToActivateAreaList(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08181590, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::AddToArea(CNWSArea *, float, float, float, int)
+void CNWSEncounter::AddToArea(CNWSArea *, float, float, float, int)
 {
 	asm("leave");
 	asm("mov $0x08183fac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::AsNWSEncounter()
+CNWSEncounter * CNWSEncounter::AsNWSEncounter()
 {
 	asm("leave");
 	asm("mov $0x08184360, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::CalculatePointsFromCR(float)
+float CNWSEncounter::CalculatePointsFromCR(float)
 {
 	asm("leave");
 	asm("mov $0x08183724, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::CalculateSpawnPool(float)
+void CNWSEncounter::CalculateSpawnPool(float)
 {
 	asm("leave");
 	asm("mov $0x08183604, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSEncounter::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0817fef0, %eax");
@@ -119,7 +119,7 @@ int CNWSEncounter::GetFactionId()
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::GetFirstName()
+CExoLocString & CNWSEncounter::GetFirstName()
 {
 	asm("leave");
 	asm("mov $0x081845b8, %eax");
@@ -252,21 +252,21 @@ int CNWSEncounter::LoadFractionalCRData()
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::LoadFromTemplate(CResRef, int, Vector *)
+void CNWSEncounter::LoadFromTemplate(CResRef, int, Vector *)
 {
 	asm("leave");
 	asm("mov $0x08181a08, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::MakeSpawnList(CEncounterListEntry *, int &)
+void CNWSEncounter::MakeSpawnList(CEncounterListEntry *, int &)
 {
 	asm("leave");
 	asm("mov $0x08180ef0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::PadOutCreatureCount(CEncounterListEntry *, int &)
+void CNWSEncounter::PadOutCreatureCount(CEncounterListEntry *, int &)
 {
 	asm("leave");
 	asm("mov $0x081839f4, %eax");
@@ -280,7 +280,7 @@ int CNWSEncounter::ReadEncounterFromGff(CResGFF *, CResStruct *, int, Vector *)
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::ReadEncounterScriptsFromGff(CResGFF *, CResStruct *)
+void CNWSEncounter::ReadEncounterScriptsFromGff(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x08182bc8, %eax");
@@ -294,14 +294,14 @@ int CNWSEncounter::RemoveFromActivateAreaList(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::RemoveFromActiveCreatureCount(float, int)
+void CNWSEncounter::RemoveFromActiveCreatureCount(float, int)
 {
 	asm("leave");
 	asm("mov $0x08181668, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::RemoveFromArea()
+void CNWSEncounter::RemoveFromArea()
 {
 	asm("leave");
 	asm("mov $0x0818402c, %eax");
@@ -322,7 +322,7 @@ int CNWSEncounter::SetActivateObjectArrayIndex(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::SetActive(int)
+void CNWSEncounter::SetActive(int)
 {
 	asm("leave");
 	asm("mov $0x08184278, %eax");
@@ -336,7 +336,7 @@ int CNWSEncounter::SetCustomScriptEventId(int)
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::SetDifficulty(int)
+void CNWSEncounter::SetDifficulty(int)
 {
 	asm("leave");
 	asm("mov $0x08183864, %eax");
@@ -406,7 +406,7 @@ int CNWSEncounter::SetRespawnsMax(int)
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::SetScriptName(int, CExoString)
+void CNWSEncounter::SetScriptName(int, CExoString)
 {
 	asm("leave");
 	asm("mov $0x081845e4, %eax");
@@ -420,28 +420,28 @@ int CNWSEncounter::SetSpawnMode(int)
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::SpawnEncounterCreatures()
+void CNWSEncounter::SpawnEncounterCreatures()
 {
 	asm("leave");
 	asm("mov $0x08180510, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::SpawnIfAppropriate(unsigned long, float)
+void CNWSEncounter::SpawnIfAppropriate(unsigned long, float)
 {
 	asm("leave");
 	asm("mov $0x081841fc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::TallyEnemyRadiusPoints()
+void CNWSEncounter::TallyEnemyRadiusPoints()
 {
 	asm("leave");
 	asm("mov $0x08183c00, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSEncounter::UpdateActivateAreaList(unsigned long)
+void CNWSEncounter::UpdateActivateAreaList(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0818028c, %eax");

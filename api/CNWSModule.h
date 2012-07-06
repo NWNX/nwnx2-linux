@@ -2,45 +2,53 @@
 #define _CNWSMODULE_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "CNWSPlayerTURD.h"
+#include "CPathfindInformation.h"
+#include "CNWSArea.h"
 #include "CResRef.h"
+#include "CExoLocString.h"
+#include "CNWSPlayer.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 #include "CExoArrayList.h"
+#include "CERFFile.h"
+#include "Vector.h"
 #include "CGameObject.h"
 #include "CExoLinkedList.h"
-#include "CNWSPlayerTURD.h"
 
 class CNWSModule
 {
 public:
 	int AIUpdate();
-	int AddObjectToLimbo(unsigned long);
+	void AddObjectToLimbo(unsigned long);
 	int AddObjectToLookupTable(CExoString, unsigned long);
 	int AddTURDsToWorld();
-	int AddToTURDList(CNWSPlayerTURD *);
+	void AddToTURDList(CNWSPlayerTURD *);
 	int AddWorldJournalEntryStrref(unsigned long, unsigned long, unsigned long, unsigned long);
-	int AddWorldJournalEntry(int, CExoString, CExoString, unsigned long, unsigned long);
-	int AsNWSModule();
-	int CleanUpLimboList();
+	void AddWorldJournalEntry(int, CExoString, CExoString, unsigned long, unsigned long);
+	CNWSModule * AsNWSModule();
+	void CleanUpLimboList();
 	int ClearAreaVisitedFlags();
 	int ComputeInterAreaPath(CPathfindInformation *);
 	int DeleteWorldJournalAllEntries();
-	int DeleteWorldJournalEntryStrref(unsigned long);
-	int DeleteWorldJournalEntry(int);
-	int DoUpdate();
-	int EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
-	int FindObjectByTagOrdinal(CExoString const &, unsigned long);
-	int FindObjectByTagTypeOrdinal(CExoString const &, int, unsigned long);
+	void DeleteWorldJournalEntryStrref(unsigned long);
+	void DeleteWorldJournalEntry(int);
+	void DoUpdate();
+	void EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
+	unsigned long FindObjectByTagOrdinal(CExoString const &, unsigned long);
+	unsigned long FindObjectByTagTypeOrdinal(CExoString const &, int, unsigned long);
 	int FindTagPositionInTable(char *);
 	int GenerateInterAreaDFSSuccessors(int, CPathfindInformation *, unsigned long **);
 	int GetAreaByName(CExoString &);
-	int GetAreaByTag(CExoString &);
+	CNWSArea * GetAreaByTag(CExoString &);
 	int GetAreaList();
-	int GetArea(CResRef);
-	int GetArea(unsigned long);
+	CNWSArea * GetArea(CResRef);
+	CNWSArea * GetArea(unsigned long);
 	int GetCustomScriptEventId();
 	int GetDawnHour();
 	int GetDuskHour();
 	int GetEnableScriptDebugger();
-	int GetFullCipher(CExoString);
+	unsigned char * GetFullCipher(CExoString);
 	int GetInvisibleCreaturesList();
 	int GetIsDigitalDistributionDemo();
 	int GetIsNWMFile();
@@ -62,7 +70,7 @@ public:
 	int GetLastPCCancelCutscene();
 	int GetLastPCLevellingUp();
 	int GetLastPlayerChatMessageType();
-	int GetLastPlayerChatMessage();
+	CExoString GetLastPlayerChatMessage();
 	int GetLastPlayerChatObject();
 	int GetLastPlayerDied();
 	int GetLastPlayerDying();
@@ -72,57 +80,57 @@ public:
 	int GetLimboArray();
 	int GetMaxHenchmen();
 	int GetMinutesPerHour();
-	int GetModuleDescription();
+	CExoLocString GetModuleDescription();
 	int GetModuleEntryInfo();
-	int GetModuleName();
-	int GetNWMResName();
+	CExoLocString GetModuleName();
+	CExoString GetNWMResName();
 	int GetPCItemLastEquippedBy();
 	int GetPCItemLastEquipped();
 	int GetPCItemLastUnequippedBy();
 	int GetPCItemLastUnequipped();
-	int GetPlayerIndexInPlayerList(CNWSPlayer *);
+	unsigned long GetPlayerIndexInPlayerList(CNWSPlayer *);
 	int GetPlayerPathfindRule();
-	int GetPlayerTURDFromList(CNWSPlayer *);
-	int GetPrimaryPlayerIndex();
+	CNWSPlayerTURD * GetPlayerTURDFromList(CNWSPlayer *);
+	unsigned long GetPrimaryPlayerIndex();
 	int GetScriptName(int);
 	int GetScriptVarTable();
 	int GetStartMovie();
-	int GetTag();
+	CExoString GetTag();
 	int GetTimeOfDayState();
-	int GetTime(unsigned long *, unsigned long *, unsigned long *, unsigned long *, unsigned char *, unsigned long *);
-	int GetWaypoint(CExoString const &);
-	int GetWorldJournalIndexUnique();
+	void GetTime(unsigned long *, unsigned long *, unsigned long *, unsigned long *, unsigned char *, unsigned long *);
+	unsigned long GetWaypoint(CExoString const &);
+	unsigned long GetWorldJournalIndexUnique();
 	int GetXPScale();
 	int InterAreaDFS(int, int, CPathfindInformation *);
 	int IsObjectInLimbo(unsigned long);
-	int IsOfficialCampaign();
+	unsigned char IsOfficialCampaign();
 	int LoadLimboCreatures(CResGFF *, CResStruct *, int);
-	int LoadModuleFinish();
-	int LoadModuleInProgress(int, int);
-	int LoadModuleStart(CExoString, int);
-	int LoadTURDList(CResGFF *, CResStruct *);
-	int PackModuleIntoMessage(unsigned long);
-	int PackPlayerCharacterListIntoMessage(CNWSPlayer *, CExoArrayList<NWPlayerCharacterList_st *> &);
-	int PlotInterAreaPath(CPathfindInformation *, unsigned long);
-	int PlotPathInArea(CPathfindInformation *, unsigned long);
-	int PlotPath(CPathfindInformation *, unsigned long);
-	int PostProcess();
-	int RemoveFromTURDList(CNWSPlayer *);
-	int RemoveObjectFromLimbo(unsigned long);
+	unsigned long LoadModuleFinish();
+	unsigned long LoadModuleInProgress(int, int);
+	unsigned long LoadModuleStart(CExoString, int);
+	void LoadTURDList(CResGFF *, CResStruct *);
+	void PackModuleIntoMessage(unsigned long);
+	void PackPlayerCharacterListIntoMessage(CNWSPlayer *, CExoArrayList<NWPlayerCharacterList_st *> &);
+	unsigned long PlotInterAreaPath(CPathfindInformation *, unsigned long);
+	unsigned long PlotPathInArea(CPathfindInformation *, unsigned long);
+	unsigned long PlotPath(CPathfindInformation *, unsigned long);
+	void PostProcess();
+	void RemoveFromTURDList(CNWSPlayer *);
+	void RemoveObjectFromLimbo(unsigned long);
 	int RemoveObjectFromLookupTable(CExoString, unsigned long);
-	int SaveLimboCreatures(CResGFF *, CResStruct *);
+	void SaveLimboCreatures(CResGFF *, CResStruct *);
 	int SaveModuleFAC(CERFFile *);
 	int SaveModuleFinish(CExoString &, CExoString &);
 	int SaveModuleIFOFinish(CResGFF *, CResStruct *, CERFFile *, CExoString &, CExoArrayList<unsigned long> &);
 	int SaveModuleIFOStart(CResGFF *, CResStruct *);
 	int SaveModuleInProgress();
-	int SaveModuleStart(CExoString &, CExoString &);
+	void SaveModuleStart(CExoString &, CExoString &);
 	int SavePlayers(CResGFF *, CResStruct *, CExoString &, CExoArrayList<unsigned long> &);
 	int SaveStatic(CERFFile *, CExoString, unsigned short, int);
 	int SaveTURDList(CResGFF *, CResStruct *);
 	int SetCustomScriptEventId(int);
 	int SetEnableScriptDebugger(unsigned char);
-	int SetIntraAreaGoal(CPathfindInformation *);
+	void SetIntraAreaGoal(CPathfindInformation *);
 	int SetIsNWMFile(int);
 	int SetIsSaveGame(int);
 	int SetLastEnter(unsigned long);
@@ -156,11 +164,11 @@ public:
 	int SetPCItemLastUnequippedBy(unsigned long);
 	int SetPCItemLastUnequipped(unsigned long);
 	int SetPlayerPathfindRule(unsigned char);
-	int SetScriptName(int, CExoString);
+	void SetScriptName(int, CExoString);
 	int SetXPScale(unsigned char);
-	int TimeStopSanityCheck();
+	void TimeStopSanityCheck();
 	int UnloadModule();
-	int UpdateTime(unsigned long, unsigned long, unsigned long);
+	void UpdateTime(unsigned long, unsigned long, unsigned long);
 	~CNWSModule();
 	CNWSModule(CExoString, int, int);
 

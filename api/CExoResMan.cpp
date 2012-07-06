@@ -56,7 +56,7 @@ int CExoResMan::CreateDirectory(CExoString)
 	asm("jmp *%eax");
 }
 
-int CExoResMan::Demand(CRes *)
+void * CExoResMan::Demand(CRes *)
 {
 	asm("leave");
 	asm("mov $0x082af408, %eax");
@@ -147,14 +147,14 @@ int CExoResMan::GetResID(CResRef const &, unsigned short)
 	asm("jmp *%eax");
 }
 
-int CExoResMan::GetResObject(CResRef const &, unsigned short)
+CRes * CExoResMan::GetResObject(CResRef const &, unsigned short)
 {
 	asm("leave");
 	asm("mov $0x082b3a30, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoResMan::GetResOfType(unsigned short, CRes *)
+CExoStringList * CExoResMan::GetResOfType(unsigned short, CRes *)
 {
 	asm("leave");
 	asm("mov $0x082b39f4, %eax");
@@ -168,14 +168,14 @@ int CExoResMan::GetResOfType(unsigned short, int)
 	asm("jmp *%eax");
 }
 
-int CExoResMan::GetResRefFromFile(CResRef &, CExoString const &)
+void CExoResMan::GetResRefFromFile(CResRef &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082b0450, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoResMan::GetResTypeFromFile(CExoString const &)
+unsigned short CExoResMan::GetResTypeFromFile(CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082b056c, %eax");
@@ -189,7 +189,7 @@ int CExoResMan::GetTableCount(CRes *, int)
 	asm("jmp *%eax");
 }
 
-int CExoResMan::GetTable(CRes *)
+CExoKeyTable * CExoResMan::GetTable(CRes *)
 {
 	asm("leave");
 	asm("mov $0x082b3b30, %eax");
@@ -364,7 +364,7 @@ int CExoResMan::ServiceFromResFile(CRes *, int)
 	asm("jmp *%eax");
 }
 
-int CExoResMan::SetResObject(CResRef const &, unsigned short, CRes *)
+void CExoResMan::SetResObject(CResRef const &, unsigned short, CRes *)
 {
 	asm("leave");
 	asm("mov $0x082b3a80, %eax");

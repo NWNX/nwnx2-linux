@@ -6,25 +6,25 @@
 class CExoNetInternal
 {
 public:
-	int AddressTranslationAvailable();
-	int ClearNetworkAddressProtect();
-	int ClearUnusedNetworkAddresses(unsigned long);
+	unsigned long AddressTranslationAvailable();
+	void ClearNetworkAddressProtect();
+	void ClearUnusedNetworkAddresses(unsigned long);
 	int CloseTCPConnection(int);
 	int CompareToLocalAddress(unsigned long, unsigned char *, unsigned char *);
-	int EndAddressTranslation();
+	void EndAddressTranslation();
 	int EndIncomingMessageProcessing();
 	int EnumerateLocalAddresses(unsigned long);
-	int ExoWarningOnError();
+	void ExoWarningOnError();
 	int FetchIncomingMessage(unsigned long *, unsigned char **, unsigned long *);
-	int GetAddressTranslation(unsigned char *);
+	void GetAddressTranslation(unsigned char *);
 	int GetLocalAdapterString(unsigned long, unsigned long);
 	int GetNetworkAddressData(unsigned long, unsigned long *, unsigned char **, unsigned char **, unsigned long *);
-	int GetNetworkAddressString(unsigned long);
+	CExoString GetNetworkAddressString(unsigned long);
 	int GetNumberLocalAdapters(unsigned long);
 	int GetProtocolInitialized(unsigned long);
-	int GetProtocolReceivePort(unsigned long);
+	unsigned long GetProtocolReceivePort(unsigned long);
 	int GetProtocolSendPort(unsigned long);
-	int GetSendUDPSocket();
+	unsigned long GetSendUDPSocket();
 	int GetTCPMessage(int *, char **, int *);
 	int InitializeProtocol(unsigned long, unsigned long, unsigned long, unsigned long);
 	int MessageArrived(unsigned long, unsigned long, unsigned long, int);
@@ -33,13 +33,13 @@ public:
 	int SendMessage(unsigned long, unsigned char *, unsigned long, unsigned long, unsigned long);
 	int SendTCPMessage(int, char *, int);
 	int SetConnectionIdTimer(unsigned long);
-	int SetMasterServerInternetAddress(unsigned char const *, unsigned long);
-	int SetNetworkAddressData(unsigned long, unsigned char *, unsigned char *, unsigned long);
+	void SetMasterServerInternetAddress(unsigned char const *, unsigned long);
+	unsigned long SetNetworkAddressData(unsigned long, unsigned char *, unsigned char *, unsigned long);
 	int SetNetworkAddressProtect(unsigned long, int);
 	int ShutDownProtocol(unsigned long);
-	int StartAddressTranslation(CExoString, unsigned long);
+	void StartAddressTranslation(CExoString, unsigned long);
 	int StartIncomingMessageProcessing();
-	int StoreMessage(unsigned char *, unsigned long, unsigned long);
+	void StoreMessage(unsigned char *, unsigned long, unsigned long);
 	int TranslateAddressFromString(char *, unsigned long *, unsigned char *, unsigned char *, unsigned long *);
 	int WinSockInitialize();
 	~CExoNetInternal();

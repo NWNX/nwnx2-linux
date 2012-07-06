@@ -1,7 +1,10 @@
 #ifndef _CCONNECTIONLIB_H_
 #define _CCONNECTIONLIB_H_
 #include "nwndef.h"
+#include "CExoString.h"
+#include "CNetLayer.h"
 #include "CExoArrayList.h"
+#include "nwnstructs.h"
 
 class CConnectionLib
 {
@@ -18,7 +21,7 @@ public:
 	int GSClientMessage(int, CExoString const &, CExoString const &);
 	int GSClientRoomPlayerChange(int, CExoString const &, CExoString const &);
 	int GSClientSetBuildFilter(CExoString const &);
-	int GenerateCommunityNameResponse(CExoString const &, CExoString const &);
+	CExoString GenerateCommunityNameResponse(CExoString const &, CExoString const &);
 	int GenerateResponse(CExoString const &, CExoString const &, CExoString &, CExoString &);
 	int GetAvailabilityStatus();
 	int GetAvailability();
@@ -30,30 +33,30 @@ public:
 	int GetGameFilters(CExoString *);
 	int GetGameTypeFromGroupId(int);
 	int GetGroupIdFromGameType(int);
-	int GetKeyAuthDemand(CExoString &);
-	int GetKeyCollision();
-	int GetKeyRejectionReason(unsigned short);
-	int GetKeyStatus(CExoString const &, unsigned short &);
-	int GetMasterServerInternetName();
-	int GetMasterServerPort();
-	int GetMasterServerStatus();
+	CExoString GetKeyAuthDemand(CExoString &);
+	CExoString GetKeyCollision();
+	unsigned long GetKeyRejectionReason(unsigned short);
+	unsigned short GetKeyStatus(CExoString const &, unsigned short &);
+	CExoString GetMasterServerInternetName();
+	unsigned long GetMasterServerPort();
+	unsigned short GetMasterServerStatus();
 	int GetMessageOfTheDay();
-	int GetMessagesIn();
+	unsigned long GetMessagesIn();
 	int GetNetConnectionUp();
-	int GetNetLayer();
+	CNetLayer * GetNetLayer();
 	int GetNextBuddyEntry();
-	int GetPublicPartFromCDKey(CExoString const &);
-	int GetStrrefFromGameType(int);
+	CExoString GetPublicPartFromCDKey(CExoString const &);
+	unsigned long GetStrrefFromGameType(int);
 	int GetStrrefFromGroupId(int);
 	int GetVersionNumber();
 	int GetVersion();
-	int HandleGameSpyToServerMessage(int, void *, int);
+	void HandleGameSpyToServerMessage(int, void *, int);
 	int HandleMasterServerToGameMessage(unsigned char *, unsigned long);
 	int HandleServerGameSpyMessage(unsigned long, unsigned char *, unsigned long);
-	int InitializeGameSpyRooms();
+	void InitializeGameSpyRooms();
 	int NewClientChallenge(unsigned long);
 	int RemoveServer(void *);
-	int ResetMessagesInFlag(unsigned long);
+	void ResetMessagesInFlag(unsigned long);
 	int SendAddBuddyRequest(CExoString const &, CExoString const &);
 	int SendClientToMasterCreateAccountPartOne(CExoString const &);
 	int SendClientToMasterCreateAccountPartTwo(CExoString const &, CExoString const &, CExoString const &, unsigned char *, CExoString const &);
@@ -79,17 +82,17 @@ public:
 	int ServerConnectToGameSpy(unsigned int);
 	int SetGSClientGameRegion(int);
 	int SetGameFilters(unsigned long, CExoString *);
-	int SetLanguage(int);
-	int SetNetConnectionUp(int);
+	void SetLanguage(int);
+	void SetNetConnectionUp(int);
 	int ShutDownClientGameSpyConnection();
-	int ShutDownServerGameSpyConnection();
+	void ShutDownServerGameSpyConnection();
 	int StartMstHeartbeatTimer(unsigned long long);
 	int StartSystemUpdateTimer(unsigned long long);
 	int StartTimeOutTimer(unsigned long long);
 	int TimeOutTimerRunning();
 	int UpdateConnectionPhase(unsigned char, CExoString const &);
 	int UpdateGameSpyClient();
-	int UpdateGameSpyServer();
+	void UpdateGameSpyServer();
 	int UpdateMstHeartbeatTimer(unsigned long long);
 	int UpdateServer(void *, char *, char *, int, int, int, int, char *, int, int, char *, int, int, int, char *, char *, int, int, int, int, int, bool);
 	int UpdateSystemUpdateTimer(unsigned long long);

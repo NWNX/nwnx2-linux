@@ -1,6 +1,6 @@
 #include "CNWSMessage.h"
 
-int CNWSMessage::AddActiveItemPropertiesToMessage(CNWSItem *, CNWSCreature *)
+void CNWSMessage::AddActiveItemPropertiesToMessage(CNWSItem *, CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x08061f24, %eax");
@@ -21,14 +21,14 @@ int CNWSMessage::AddDoorAppearanceToMessage(CNWSDoor *)
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::AddItemAppearanceToMessage(CNWSItem *)
+void CNWSMessage::AddItemAppearanceToMessage(CNWSItem *)
 {
 	asm("leave");
 	asm("mov $0x080621b8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::AddPlaceableAppearanceToMessage(CNWSPlaceable *)
+void CNWSMessage::AddPlaceableAppearanceToMessage(CNWSPlaceable *)
 {
 	asm("leave");
 	asm("mov $0x08061dc8, %eax");
@@ -49,7 +49,7 @@ int CNWSMessage::AssignCreatureLists(CExoArrayList<unsigned long> *, CExoArrayLi
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::AssignVisualEffectLists(CExoArrayList<CLoopingVisualEffect *> *, CExoArrayList<CLoopingVisualEffect *> *)
+void CNWSMessage::AssignVisualEffectLists(CExoArrayList<CLoopingVisualEffect *> *, CExoArrayList<CLoopingVisualEffect *> *)
 {
 	asm("leave");
 	asm("mov $0x080625cc, %eax");
@@ -70,7 +70,7 @@ int CNWSMessage::CompareVisualEffectLists(CExoArrayList<CLoopingVisualEffect *> 
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::ComputeAppearanceUpdateRequired(CNWSObject *, CLastUpdateObject *)
+unsigned long CNWSMessage::ComputeAppearanceUpdateRequired(CNWSObject *, CLastUpdateObject *)
 {
 	asm("leave");
 	asm("mov $0x08062330, %eax");
@@ -84,7 +84,7 @@ int CNWSMessage::ComputeGameObjectUpdateForCategory(unsigned long, unsigned long
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::ComputeGameObjectUpdateForObject(CNWSPlayer *, CNWSObject *, CGameObjectArray *, unsigned long)
+void CNWSMessage::ComputeGameObjectUpdateForObject(CNWSPlayer *, CNWSObject *, CGameObjectArray *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0808028c, %eax");
@@ -119,7 +119,7 @@ int CNWSMessage::ComputeLastUpdate_ActionQueue(CNWSCreature *, CNWSPlayerLastUpd
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::ComputeLastUpdate_AssociateState(CNWSCreature *)
+unsigned short CNWSMessage::ComputeLastUpdate_AssociateState(CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x08064d8c, %eax");
@@ -189,28 +189,28 @@ int CNWSMessage::ComputeLastUpdate_GuiSkills(CNWSCreature *)
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::ComputeLastUpdate_PlayerState(CNWSCreature *)
+unsigned long CNWSMessage::ComputeLastUpdate_PlayerState(CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x08064c84, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::ComputeLastUpdate_StoreUpdateSpellLikeAbility(CNWSCreature *, CNWSPlayerLastUpdateObject *)
+void CNWSMessage::ComputeLastUpdate_StoreUpdateSpellLikeAbility(CNWSCreature *, CNWSPlayerLastUpdateObject *)
 {
 	asm("leave");
 	asm("mov $0x080645f0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::ComputeLastUpdate_WriteSpellLikeAbility(CNWSCreature *, CNWSPlayerLastUpdateObject *)
+void CNWSMessage::ComputeLastUpdate_WriteSpellLikeAbility(CNWSCreature *, CNWSPlayerLastUpdateObject *)
 {
 	asm("leave");
 	asm("mov $0x080644bc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::ComputeNumAutoMapUpdatesRequired(CNWSCreature *, CNWSPlayerLastUpdateObject *, unsigned long *)
+unsigned long CNWSMessage::ComputeNumAutoMapUpdatesRequired(CNWSCreature *, CNWSPlayerLastUpdateObject *, unsigned long *)
 {
 	asm("leave");
 	asm("mov $0x08064830, %eax");
@@ -231,7 +231,7 @@ int CNWSMessage::ComputeRepositoryUpdateRequired(CNWSPlayer *, CExoLinkedListNod
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::ComputeUpdateRequired(CNWSPlayer *, CNWSObject *, CLastUpdateObject *, int)
+unsigned long CNWSMessage::ComputeUpdateRequired(CNWSPlayer *, CNWSObject *, CLastUpdateObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080629d0, %eax");
@@ -245,21 +245,21 @@ int CNWSMessage::ComputeVisibilityLists(CNWSCreature *, CNWSPlayerLastUpdateObje
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::CreateNewLastUpdateObject(CNWSPlayer *, CNWSObject *, unsigned long *, unsigned long *)
+CLastUpdateObject * CNWSMessage::CreateNewLastUpdateObject(CNWSPlayer *, CNWSObject *, unsigned long *, unsigned long *)
 {
 	asm("leave");
 	asm("mov $0x0806bcd8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::DeleteLastUpdateObjectsForObject(CNWSPlayer *, unsigned long)
+void CNWSMessage::DeleteLastUpdateObjectsForObject(CNWSPlayer *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0806cea8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::DeleteLastUpdateObjectsInOtherAreas(CNWSPlayer *)
+void CNWSMessage::DeleteLastUpdateObjectsInOtherAreas(CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x0806cc64, %eax");
@@ -686,14 +686,14 @@ int CNWSMessage::ParseToken(char const *, unsigned char **, unsigned long &, int
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::ReadOBJECTIDServer()
+unsigned long CNWSMessage::ReadOBJECTIDServer()
 {
 	asm("leave");
 	asm("mov $0x08052d84, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::SelectCategoryForGameObject(CGameObject *, CNWSObject *)
+unsigned long CNWSMessage::SelectCategoryForGameObject(CGameObject *, CNWSObject *)
 {
 	asm("leave");
 	asm("mov $0x0806b0fc, %eax");
@@ -1995,7 +1995,7 @@ int CNWSMessage::SendServerToPlayerWhirlwindAttack(CNWSPlayer *, CNWSCreature *)
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::SendServerToServerAdminBannedList(unsigned long)
+void CNWSMessage::SendServerToServerAdminBannedList(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081e6030, %eax");
@@ -2009,63 +2009,63 @@ int CNWSMessage::SendServerToServerAdminMessage(unsigned long, CExoString)
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::SendServerToServerAdminModuleList(unsigned long)
+void CNWSMessage::SendServerToServerAdminModuleList(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081e4cf0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::SendServerToServerAdminPlayerList(unsigned long)
+void CNWSMessage::SendServerToServerAdminPlayerList(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081e5f38, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::SendServerToServerAdminPortalList(unsigned long)
+void CNWSMessage::SendServerToServerAdminPortalList(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081e6128, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::SendServerToServerAdminSaveGameList(unsigned long)
+void CNWSMessage::SendServerToServerAdminSaveGameList(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081e567c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::SendServerToServerAdminSaveStatus(unsigned long, unsigned char)
+void CNWSMessage::SendServerToServerAdminSaveStatus(unsigned long, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081e8604, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::SendServerToServerAdminServerSettings(unsigned long)
+void CNWSMessage::SendServerToServerAdminServerSettings(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081e6220, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::SendServerToServerAdminServerStatus(unsigned long)
+void CNWSMessage::SendServerToServerAdminServerStatus(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081e5d50, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::SortObjectsForGameObjectUpdate(CNWSPlayer *, CNWSObject *, CGameObjectArray *, int *)
+CNWSPlayerLUOSortedObjectList * CNWSMessage::SortObjectsForGameObjectUpdate(CNWSPlayer *, CNWSObject *, CGameObjectArray *, int *)
 {
 	asm("leave");
 	asm("mov $0x0806b3a4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::StoreValuesInLastPlayerUpdateObject(CNWSPlayer *, CNWSPlayerLastUpdateObject *, CLastUpdateObject *, unsigned short)
+void CNWSMessage::StoreValuesInLastPlayerUpdateObject(CNWSPlayer *, CNWSPlayerLastUpdateObject *, CLastUpdateObject *, unsigned short)
 {
 	asm("leave");
 	asm("mov $0x0806fbec, %eax");
@@ -2079,7 +2079,7 @@ int CNWSMessage::StoreValuesInLastUpdateObject(CNWSPlayer *, CLastUpdateObject *
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::StoreValuesInLastUpdatePartyObject(CNWSCreature *, CLastUpdatePartyObject *, CNWSCreature *, unsigned long)
+void CNWSMessage::StoreValuesInLastUpdatePartyObject(CNWSCreature *, CLastUpdatePartyObject *, CNWSCreature *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080714d8, %eax");
@@ -2107,70 +2107,70 @@ int CNWSMessage::TestPartyObjectUpdateDifferences(CNWSPlayer *, CNWSCreature *, 
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::TestPlayerUpdateDifferences(CNWSPlayer *, CNWSPlayerLastUpdateObject *, CLastUpdateObject *, unsigned short &)
+void CNWSMessage::TestPlayerUpdateDifferences(CNWSPlayer *, CNWSPlayerLastUpdateObject *, CLastUpdateObject *, unsigned short &)
 {
 	asm("leave");
 	asm("mov $0x0806d744, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::UpdateLastUpdateActionQueue(CNWSCreature *, CNWSPlayerLastUpdateObject *)
+void CNWSMessage::UpdateLastUpdateActionQueue(CNWSCreature *, CNWSPlayerLastUpdateObject *)
 {
 	asm("leave");
 	asm("mov $0x0806497c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::UpdateLastUpdateAutoMap(CNWSCreature *, CNWSPlayerLastUpdateObject *)
+void CNWSMessage::UpdateLastUpdateAutoMap(CNWSCreature *, CNWSPlayerLastUpdateObject *)
 {
 	asm("leave");
 	asm("mov $0x08064784, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::UpdateLastUpdateInventory(CNWSPlayer *, unsigned long, CNWSPlayerInventoryGUI *)
+void CNWSMessage::UpdateLastUpdateInventory(CNWSPlayer *, unsigned long, CNWSPlayerInventoryGUI *)
 {
 	asm("leave");
 	asm("mov $0x08077cb4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::UpdateLastUpdateObjectAppearance(CNWSObject *, CLastUpdateObject *, unsigned long)
+void CNWSMessage::UpdateLastUpdateObjectAppearance(CNWSObject *, CLastUpdateObject *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08078968, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::UpdateLastUpdateObject(CNWSPlayer *, CNWSObject *, CLastUpdateObject *, unsigned long)
+void CNWSMessage::UpdateLastUpdateObject(CNWSPlayer *, CNWSObject *, CLastUpdateObject *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08077dbc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::UpdateLastUpdateVisibilityList(CNWSCreature *, CNWSPlayerLastUpdateObject *)
+void CNWSMessage::UpdateLastUpdateVisibilityList(CNWSCreature *, CNWSPlayerLastUpdateObject *)
 {
 	asm("leave");
 	asm("mov $0x080628ec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::UpdateLastUpdate_GuiEffectIcons(CNWSCreature *, CExoArrayList<CEffectIconObject *> *, int)
+void CNWSMessage::UpdateLastUpdate_GuiEffectIcons(CNWSCreature *, CExoArrayList<CEffectIconObject *> *, int)
 {
 	asm("leave");
 	asm("mov $0x0807dfa8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteCExoLocStringServer(CExoLocString &, unsigned char)
+void CNWSMessage::WriteCExoLocStringServer(CExoLocString &, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08052480, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteGameObjUpdate_CharacterSheet(CNWSPlayer *, unsigned long)
+void CNWSMessage::WriteGameObjUpdate_CharacterSheet(CNWSPlayer *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08074db8, %eax");
@@ -2184,28 +2184,28 @@ int CNWSMessage::WriteGameObjUpdate_DungeonMasterAIState(CNWSPlayer *)
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteGameObjUpdate_MajorGUIPanels_HenchmanInventoryData(CNWSPlayer *)
+void CNWSMessage::WriteGameObjUpdate_MajorGUIPanels_HenchmanInventoryData(CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x0806d618, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteGameObjUpdate_MajorGUIPanels_Inventory(CNWSPlayer *, CNWSPlayerInventoryGUI *)
+void CNWSMessage::WriteGameObjUpdate_MajorGUIPanels_Inventory(CNWSPlayer *, CNWSPlayerInventoryGUI *)
 {
 	asm("leave");
 	asm("mov $0x0806d174, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteGameObjUpdate_MajorGUIPanels(CNWSPlayer *)
+void CNWSMessage::WriteGameObjUpdate_MajorGUIPanels(CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x0806d040, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteGameObjUpdate_MinorGUIPanels(CNWSPlayer *)
+void CNWSMessage::WriteGameObjUpdate_MinorGUIPanels(CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x0806d468, %eax");
@@ -2219,28 +2219,28 @@ int CNWSMessage::WriteGameObjUpdate_PartyAIState(CNWSPlayer *)
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteGameObjUpdate_PlayerUpdate(CNWSPlayer *, CNWSPlayerLastUpdateObject *, CLastUpdateObject *, unsigned short)
+void CNWSMessage::WriteGameObjUpdate_PlayerUpdate(CNWSPlayer *, CNWSPlayerLastUpdateObject *, CLastUpdateObject *, unsigned short)
 {
 	asm("leave");
 	asm("mov $0x0806db28, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteGameObjUpdate_UpdateAppearance(CNWSObject *, CLastUpdateObject *, unsigned long)
+void CNWSMessage::WriteGameObjUpdate_UpdateAppearance(CNWSObject *, CLastUpdateObject *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0806a2a0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteGameObjUpdate_UpdateObject(CNWSPlayer *, CNWSObject *, CLastUpdateObject *, unsigned long, unsigned long)
+void CNWSMessage::WriteGameObjUpdate_UpdateObject(CNWSPlayer *, CNWSObject *, CLastUpdateObject *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08071a24, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteGameObjUpdate_UpdateQuickbarItemUseCount(CNWSObject *, CLastUpdateObject *)
+void CNWSMessage::WriteGameObjUpdate_UpdateQuickbarItemUseCount(CNWSObject *, CLastUpdateObject *)
 {
 	asm("leave");
 	asm("mov $0x0807e82c, %eax");
@@ -2275,28 +2275,28 @@ int CNWSMessage::WriteGameObjUpdate_WriteInventorySlotUpdate(unsigned long, unsi
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteGuiEffectIconsUpdate(CNWSCreature *, CExoArrayList<CEffectIconObject *> *, int)
+void CNWSMessage::WriteGuiEffectIconsUpdate(CNWSCreature *, CExoArrayList<CEffectIconObject *> *, int)
 {
 	asm("leave");
 	asm("mov $0x0807e188, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteOBJECTIDServer(unsigned long)
+void CNWSMessage::WriteOBJECTIDServer(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08052434, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteRepositoryUpdate(CNWSPlayer *, CNWSObject *, CItemRepository *, CNWSPlayerLUOInventory *, unsigned char, char, unsigned char)
+void CNWSMessage::WriteRepositoryUpdate(CNWSPlayer *, CNWSObject *, CItemRepository *, CNWSPlayerLUOInventory *, unsigned char, char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08070240, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSMessage::WriteStoreInventoryUpdate(CNWSPlayer *, CNWSStore *)
+void CNWSMessage::WriteStoreInventoryUpdate(CNWSPlayer *, CNWSStore *)
 {
 	asm("leave");
 	asm("mov $0x08070a90, %eax");

@@ -21,7 +21,7 @@ int CExoFile::Flush()
 	asm("jmp *%eax");
 }
 
-int CExoFile::GetOffset()
+unsigned long CExoFile::GetOffset()
 {
 	asm("leave");
 	asm("mov $0x082c95bc, %eax");
@@ -49,7 +49,7 @@ int CExoFile::ReadAsyncComplete()
 	asm("jmp *%eax");
 }
 
-int CExoFile::ReadAsync(void *, unsigned long, unsigned long)
+void CExoFile::ReadAsync(void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c9628, %eax");
@@ -63,14 +63,14 @@ int CExoFile::ReadStringLineFromBuffer(unsigned char **, unsigned long *, unsign
 	asm("jmp *%eax");
 }
 
-int CExoFile::Read(void *, unsigned long, unsigned long)
+unsigned long CExoFile::Read(void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c95e4, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoFile::Read(CExoString &, unsigned long)
+unsigned long CExoFile::Read(CExoString &, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c9614, %eax");
@@ -105,14 +105,14 @@ int CExoFile::Write(char const *)
 	asm("jmp *%eax");
 }
 
-int CExoFile::Write(void const *, unsigned long, unsigned long)
+unsigned long CExoFile::Write(void const *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c9668, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoFile::Write(CExoString const &)
+unsigned long CExoFile::Write(CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082c96ac, %eax");

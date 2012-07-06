@@ -2,23 +2,25 @@
 #define _CNWCCMESSAGEDATA_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 #include "CExoArrayList.h"
 
 class CNWCCMessageData
 {
 public:
 	int ClearData();
-	int CopyTo(CNWCCMessageData *);
+	void CopyTo(CNWCCMessageData *);
 	int GetFloat(int);
 	int GetInteger(int);
-	int GetObjectID(int);
-	int GetString(int);
+	unsigned long GetObjectID(int);
+	CExoString GetString(int);
 	int LoadData(CResGFF *, CResStruct *);
 	int SaveData(CResGFF *, CResStruct *);
 	int SetFloat(int, float);
-	int SetInteger(int, int);
-	int SetObjectID(int, unsigned long);
-	int SetString(int, CExoString);
+	void SetInteger(int, int);
+	void SetObjectID(int, unsigned long);
+	void SetString(int, CExoString);
 	~CNWCCMessageData();
 	CNWCCMessageData();
 

@@ -1,5 +1,19 @@
 #include "CExoLinkedList.h"
 
+#include "CServerAIEventNode.h"
+#include "CNWSObjectActionNode.h"
+#include "CNWSCombatRoundAction.h"
+#include "CNWSClient.h"
+#include "CExoKeyTable.h"
+#include "CNWSPlayerTURD.h"
+#include "CLastUpdateObject.h"
+#include "C2DA.h"
+#include "CRes.h"
+#include "CERFString.h"
+#include "CExoString.h"
+#include "CERFKey.h"
+#include "CERFRes.h"
+#include "CResRef.h"
 template <>
 int CExoLinkedList<CServerAIEventNode>::AddAfter(CServerAIEventNode *, CExoLinkedListNode *)
 {
@@ -1129,7 +1143,7 @@ int CExoLinkedList<CNWSDialogPlayer>::AddTail(CNWSDialogPlayer *)
 }
 
 template <>
-int CExoLinkedList<CNWSDialogPlayer>::Count()
+unsigned long CExoLinkedList<CNWSDialogPlayer>::Count()
 {
 	asm("leave");
 	asm("mov $0x0823e70c, %eax");

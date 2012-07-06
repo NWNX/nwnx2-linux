@@ -1,6 +1,6 @@
 #include "CNWLevelStats.h"
 
-int CNWLevelStats::AddFeat(unsigned short)
+void CNWLevelStats::AddFeat(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x080bfa84, %eax");
@@ -14,14 +14,14 @@ int CNWLevelStats::ClearFeats()
 	asm("jmp *%eax");
 }
 
-int CNWLevelStats::GetSkillRankChange(unsigned short)
+char CNWLevelStats::GetSkillRankChange(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x080bfa30, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWLevelStats::SetSkillRankChange(unsigned short, char)
+void CNWLevelStats::SetSkillRankChange(unsigned short, char)
 {
 	asm("leave");
 	asm("mov $0x080bfa5c, %eax");

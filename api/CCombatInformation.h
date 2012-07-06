@@ -1,6 +1,8 @@
 #ifndef _CCOMBATINFORMATION_H_
 #define _CCOMBATINFORMATION_H_
 #include "nwndef.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 
 class CCombatInformation
 {
@@ -9,7 +11,7 @@ public:
 	int SaveData(CResGFF *, CResStruct *);
 	~CCombatInformation();
 	CCombatInformation();
-	int operator=(CCombatInformation &);
+	CCombatInformation & operator=(CCombatInformation &);
 	int operator==(CCombatInformation &);
 	int operator!=(CCombatInformation &);
 

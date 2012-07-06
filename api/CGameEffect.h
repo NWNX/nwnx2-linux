@@ -2,29 +2,31 @@
 #define _CGAMEEFFECT_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 
 class CGameEffect
 {
 public:
-	int CopyEffect(CGameEffect *, int);
-	int GetExpiryTime(unsigned long *, unsigned long *);
-	int GetFloat(int);
+	void CopyEffect(CGameEffect *, int);
+	void GetExpiryTime(unsigned long *, unsigned long *);
+	float GetFloat(int);
 	int GetInteger(int);
-	int GetObjectID(int);
+	unsigned long GetObjectID(int);
 	int GetScriptEffectType();
-	int GetString(int);
-	int LoadGameEffect(CResGFF *, CResStruct *);
-	int SaveGameEffect(CResGFF *, CResStruct *);
-	int SetCreator(unsigned long);
-	int SetExpiryTime(unsigned long, unsigned long);
-	int SetFloat(int, float);
-	int SetInteger(int, int);
-	int SetLinked(CGameEffect *, CGameEffect *);
-	int SetNumIntegersInitializeToNegativeOne(int);
-	int SetNumIntegers(int);
-	int SetObjectID(int, unsigned long);
-	int SetString(int, CExoString);
-	int UpdateLinked();
+	CExoString GetString(int);
+	void LoadGameEffect(CResGFF *, CResStruct *);
+	void SaveGameEffect(CResGFF *, CResStruct *);
+	void SetCreator(unsigned long);
+	void SetExpiryTime(unsigned long, unsigned long);
+	void SetFloat(int, float);
+	void SetInteger(int, int);
+	void SetLinked(CGameEffect *, CGameEffect *);
+	void SetNumIntegersInitializeToNegativeOne(int);
+	void SetNumIntegers(int);
+	void SetObjectID(int, unsigned long);
+	void SetString(int, CExoString);
+	void UpdateLinked();
 	~CGameEffect();
 	CGameEffect(CGameEffect *, int);
 	CGameEffect(int);

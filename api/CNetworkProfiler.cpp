@@ -1,13 +1,13 @@
 #include "CNetworkProfiler.h"
 
-int CNetworkProfiler::AddMessageToFrameProfile(unsigned char, unsigned long)
+void CNetworkProfiler::AddMessageToFrameProfile(unsigned char, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c6c3c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNetworkProfiler::AddMessageToProfile(unsigned char, unsigned char, unsigned char, unsigned long)
+void CNetworkProfiler::AddMessageToProfile(unsigned char, unsigned char, unsigned char, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c6a54, %eax");
@@ -42,7 +42,7 @@ int CNetworkProfiler::GetStartTime()
 	asm("jmp *%eax");
 }
 
-int CNetworkProfiler::OutputReport()
+void CNetworkProfiler::OutputReport()
 {
 	asm("leave");
 	asm("mov $0x082c6748, %eax");

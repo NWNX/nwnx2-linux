@@ -28,21 +28,21 @@ int CServerAIMaster::AddObject(CNWSObject *, int)
 	asm("jmp *%eax");
 }
 
-int CServerAIMaster::AdjustTargetAndWitnessReputations(unsigned long, unsigned long, int)
+void CServerAIMaster::AdjustTargetAndWitnessReputations(unsigned long, unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x08096480, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerAIMaster::ClearEventQueue()
+void CServerAIMaster::ClearEventQueue()
 {
 	asm("leave");
 	asm("mov $0x080980a4, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerAIMaster::DeleteEventData(unsigned long, void *)
+void CServerAIMaster::DeleteEventData(unsigned long, void *)
 {
 	asm("leave");
 	asm("mov $0x080976c0, %eax");
@@ -70,7 +70,7 @@ int CServerAIMaster::LoadEventQueue(CResGFF *, CResStruct *)
 	asm("jmp *%eax");
 }
 
-int CServerAIMaster::LoadReputationAdjustments()
+void CServerAIMaster::LoadReputationAdjustments()
 {
 	asm("leave");
 	asm("mov $0x08096de0, %eax");
@@ -126,14 +126,14 @@ int CServerAIMaster::SetAILevel(CNWSObject *, int)
 	asm("jmp *%eax");
 }
 
-int CServerAIMaster::SetExoAppInternal(CServerExoAppInternal *)
+void CServerAIMaster::SetExoAppInternal(CServerExoAppInternal *)
 {
 	asm("leave");
 	asm("mov $0x08098094, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerAIMaster::UpdateState()
+void CServerAIMaster::UpdateState()
 {
 	asm("leave");
 	asm("mov $0x08095d60, %eax");

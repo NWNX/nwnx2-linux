@@ -5,7 +5,7 @@
 class CNWSSysAdmin
 {
 public:
-	int AsNWSSysAdmin();
+	CNWSSysAdmin * AsNWSSysAdmin();
 	~CNWSSysAdmin();
 	CNWSSysAdmin(unsigned long);
 

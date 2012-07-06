@@ -1,13 +1,13 @@
 #include "CNWClass.h"
 
-int CNWClass::GetAttackBonus(unsigned char)
+unsigned char CNWClass::GetAttackBonus(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080bf260, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWClass::GetBonusFeats(unsigned char)
+unsigned char CNWClass::GetBonusFeats(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080bf280, %eax");
@@ -28,7 +28,7 @@ int CNWClass::GetDescriptionText()
 	asm("jmp *%eax");
 }
 
-int CNWClass::GetFortSaveBonus(unsigned char)
+unsigned char CNWClass::GetFortSaveBonus(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080bf2a4, %eax");
@@ -77,28 +77,28 @@ int CNWClass::GetNameText()
 	asm("jmp *%eax");
 }
 
-int CNWClass::GetRefSaveBonus(unsigned char)
+unsigned char CNWClass::GetRefSaveBonus(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080bf2c4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWClass::GetSpellGain(unsigned char, unsigned char)
+unsigned char CNWClass::GetSpellGain(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080bf30c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWClass::GetSpellsKnownPerLevel(unsigned char, unsigned char, unsigned char, unsigned short, unsigned char)
+unsigned char CNWClass::GetSpellsKnownPerLevel(unsigned char, unsigned char, unsigned char, unsigned short, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080bf344, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWClass::GetWillSaveBonus(unsigned char)
+unsigned char CNWClass::GetWillSaveBonus(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080bf2e8, %eax");
@@ -147,49 +147,49 @@ int CNWClass::IsSkillUseable(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWClass::LoadAttackBonusTable(CExoString)
+void CNWClass::LoadAttackBonusTable(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080bd504, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWClass::LoadBonusFeatsTable(CExoString)
+void CNWClass::LoadBonusFeatsTable(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080be4c0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWClass::LoadFeatsTable(CExoString, CNWRules *)
+void CNWClass::LoadFeatsTable(CExoString, CNWRules *)
 {
 	asm("leave");
 	asm("mov $0x080bd7ec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWClass::LoadSavingThrowTable(CExoString)
+void CNWClass::LoadSavingThrowTable(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080bddec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWClass::LoadSkillsTable(CExoString)
+void CNWClass::LoadSkillsTable(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080be158, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWClass::LoadSpellGainTable(CExoString)
+void CNWClass::LoadSpellGainTable(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080be73c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWClass::LoadSpellKnownTable(CExoString)
+void CNWClass::LoadSpellKnownTable(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080beb1c, %eax");

@@ -1,34 +1,34 @@
 #include "CResGFF.h"
 
-int CResGFF::AddDataField(unsigned long, unsigned long, unsigned long)
+unsigned char * CResGFF::AddDataField(unsigned long, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082bb654, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::AddDataLayoutField(unsigned long, unsigned long, unsigned long)
+unsigned char * CResGFF::AddDataLayoutField(unsigned long, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082b93e8, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::AddDataLayoutList(unsigned long, unsigned long, unsigned long)
+unsigned char * CResGFF::AddDataLayoutList(unsigned long, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082b94a8, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::AddField(CResStruct *, char *, unsigned long)
+CResGFFField * CResGFF::AddField(CResStruct *, char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082b9164, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::AddLabel(char *)
+unsigned long CResGFF::AddLabel(char *)
 {
 	asm("leave");
 	asm("mov $0x082b92e0, %eax");
@@ -56,7 +56,7 @@ int CResGFF::AddStructToStruct(CResStruct *, CResStruct *, char *, unsigned long
 	asm("jmp *%eax");
 }
 
-int CResGFF::AddStruct(unsigned long)
+unsigned long CResGFF::AddStruct(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082b90a8, %eax");
@@ -119,21 +119,21 @@ int CResGFF::GetDataLayoutList(CResGFFField *, unsigned long &)
 	asm("jmp *%eax");
 }
 
-int CResGFF::GetElementType(CResStruct *)
+unsigned long CResGFF::GetElementType(CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x082bb760, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::GetFieldByLabel(CResStruct *, char *)
+unsigned long CResGFF::GetFieldByLabel(CResStruct *, char *)
 {
 	asm("leave");
 	asm("mov $0x082b8b9c, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::GetFieldCount(CResStruct *)
+unsigned long CResGFF::GetFieldCount(CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x082bb7b8, %eax");
@@ -182,7 +182,7 @@ int CResGFF::GetFieldType(CResStruct *, char *, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CResGFF::GetField(CResStruct *, unsigned long)
+CResGFFField * CResGFF::GetField(CResStruct *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082b8af8, %eax");
@@ -203,7 +203,7 @@ int CResGFF::GetFileData(char *)
 	asm("jmp *%eax");
 }
 
-int CResGFF::GetGFFFileInfo(CExoString *, CExoString *)
+void CResGFF::GetGFFFileInfo(CExoString *, CExoString *)
 {
 	asm("leave");
 	asm("mov $0x082bb70c, %eax");
@@ -224,7 +224,7 @@ int CResGFF::GetLabel(CResStruct *, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CResGFF::GetListCount(CResList *)
+unsigned long CResGFF::GetListCount(CResList *)
 {
 	asm("leave");
 	asm("mov $0x082bb990, %eax");
@@ -273,7 +273,7 @@ int CResGFF::GetTopLevelStruct(CResStruct *)
 	asm("jmp *%eax");
 }
 
-int CResGFF::GetTotalSize()
+unsigned long CResGFF::GetTotalSize()
 {
 	asm("leave");
 	asm("mov $0x082bc5c4, %eax");
@@ -294,7 +294,7 @@ int CResGFF::GetWastedListSpace()
 	asm("jmp *%eax");
 }
 
-int CResGFF::InitializeForWriting()
+void CResGFF::InitializeForWriting()
 {
 	asm("leave");
 	asm("mov $0x082b8d08, %eax");
@@ -329,42 +329,42 @@ int CResGFF::OnResourceServiced()
 	asm("jmp *%eax");
 }
 
-int CResGFF::Pack(unsigned char, unsigned long)
+void CResGFF::Pack(unsigned char, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082bb120, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::ReadFieldBYTE(CResStruct *, char *, int &, unsigned char)
+unsigned char CResGFF::ReadFieldBYTE(CResStruct *, char *, int &, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x082bba7c, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::ReadFieldCExoLocString(CResStruct *, char *, int &, CExoLocString const &)
+CExoLocString CResGFF::ReadFieldCExoLocString(CResStruct *, char *, int &, CExoLocString const &)
 {
 	asm("leave");
 	asm("mov $0x082b9ba8, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::ReadFieldCExoString(CResStruct *, char *, int &, CExoString const &)
+CExoString CResGFF::ReadFieldCExoString(CResStruct *, char *, int &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082b9aac, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::ReadFieldCHAR(CResStruct *, char *, int &, char)
+char CResGFF::ReadFieldCHAR(CResStruct *, char *, int &, char)
 {
 	asm("leave");
 	asm("mov $0x082bbadc, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::ReadFieldCResRef(CResStruct *, char *, int &, CResRef const &)
+CResRef CResGFF::ReadFieldCResRef(CResStruct *, char *, int &, CResRef const &)
 {
 	asm("leave");
 	asm("mov $0x082b99dc, %eax");
@@ -385,14 +385,14 @@ int CResGFF::ReadFieldDWORD64(CResStruct *, char *, int &, unsigned long long)
 	asm("jmp *%eax");
 }
 
-int CResGFF::ReadFieldDWORD(CResStruct *, char *, int &, unsigned long)
+unsigned long CResGFF::ReadFieldDWORD(CResStruct *, char *, int &, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082bbbfc, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::ReadFieldFLOAT(CResStruct *, char *, int &, float)
+float CResGFF::ReadFieldFLOAT(CResStruct *, char *, int &, float)
 {
 	asm("leave");
 	asm("mov $0x082bbcb4, %eax");
@@ -413,28 +413,28 @@ int CResGFF::ReadFieldINT(CResStruct *, char *, int &, int)
 	asm("jmp *%eax");
 }
 
-int CResGFF::ReadFieldSHORT(CResStruct *, char *, int &, short)
+short CResGFF::ReadFieldSHORT(CResStruct *, char *, int &, short)
 {
 	asm("leave");
 	asm("mov $0x082bbb9c, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::ReadFieldVOID(CResStruct *, void *, unsigned long, char *, int &, void *)
+void * CResGFF::ReadFieldVOID(CResStruct *, void *, unsigned long, char *, int &, void *)
 {
 	asm("leave");
 	asm("mov $0x082bbf1c, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::ReadFieldWORD(CResStruct *, char *, int &, unsigned short)
+unsigned short CResGFF::ReadFieldWORD(CResStruct *, char *, int &, unsigned short)
 {
 	asm("leave");
 	asm("mov $0x082bbb3c, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFF::ReleaseResource()
+void CResGFF::ReleaseResource()
 {
 	asm("leave");
 	asm("mov $0x082bb454, %eax");

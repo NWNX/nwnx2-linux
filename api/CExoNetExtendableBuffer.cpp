@@ -1,6 +1,6 @@
 #include "CExoNetExtendableBuffer.h"
 
-int CExoNetExtendableBuffer::ChangeFrameReference(unsigned short, int, int)
+unsigned long CExoNetExtendableBuffer::ChangeFrameReference(unsigned short, int, int)
 {
 	asm("leave");
 	asm("mov $0x082c57c4, %eax");
@@ -14,7 +14,7 @@ int CExoNetExtendableBuffer::GetCurrentUsage(unsigned long *, unsigned long *)
 	asm("jmp *%eax");
 }
 
-int CExoNetExtendableBuffer::GetFirstUsedFrame(int)
+unsigned short CExoNetExtendableBuffer::GetFirstUsedFrame(int)
 {
 	asm("leave");
 	asm("mov $0x082c5bac, %eax");
@@ -35,7 +35,7 @@ int CExoNetExtendableBuffer::GetFrameData(unsigned short, unsigned char **, unsi
 	asm("jmp *%eax");
 }
 
-int CExoNetExtendableBuffer::GetFramePointer(unsigned short, int)
+unsigned char * CExoNetExtendableBuffer::GetFramePointer(unsigned short, int)
 {
 	asm("leave");
 	asm("mov $0x082c5c00, %eax");
@@ -56,7 +56,7 @@ int CExoNetExtendableBuffer::GetMaximumUsage(unsigned long *, unsigned long *)
 	asm("jmp *%eax");
 }
 
-int CExoNetExtendableBuffer::GetUnusedFrame(int)
+unsigned short CExoNetExtendableBuffer::GetUnusedFrame(int)
 {
 	asm("leave");
 	asm("mov $0x082c54e8, %eax");

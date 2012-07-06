@@ -5,7 +5,7 @@
 class CExoNetFrameBuffer
 {
 public:
-	int ChangeRefCount(unsigned char, int);
+	unsigned long ChangeRefCount(unsigned char, int);
 	int GetFrameConnectionId(unsigned char);
 	int GetFrameData(unsigned char, unsigned char **, unsigned long *, unsigned long *, unsigned char *);
 	int GetFramePointer(unsigned char);

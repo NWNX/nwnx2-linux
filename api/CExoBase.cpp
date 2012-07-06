@@ -21,21 +21,21 @@ int CExoBase::GetDirectoryList(CExoArrayList<CExoString> *, CExoString, unsigned
 	asm("jmp *%eax");
 }
 
-int CExoBase::GetResTypeFromExtension(CExoString const &)
+unsigned short CExoBase::GetResTypeFromExtension(CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082c8df0, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoBase::GetResourceExtension(unsigned short)
+CExoString const & CExoBase::GetResourceExtension(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x082c8dd4, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoBase::LoadAliases(CExoString)
+void CExoBase::LoadAliases(CExoString)
 {
 	asm("leave");
 	asm("mov $0x082c8e08, %eax");

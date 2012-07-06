@@ -2,6 +2,7 @@
 #define _CNETLAYERINTERNAL_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "nwnstructs.h"
 #include "CExoArrayList.h"
 #include "CServerExoApp.h"
 #include "CNetLayerWindow.h"
@@ -16,7 +17,7 @@ public:
 	int CRCBuildTable();
 	int CRCEncodeFrame(unsigned char *, unsigned long);
 	int CRCVerifyFrame(unsigned char *, unsigned long);
-	int CheckMasterServerTimeouts();
+	void CheckMasterServerTimeouts();
 	int CleanUpEnumerateSpecific();
 	int ClearSessionInfoChanged(unsigned long);
 	int CloseStandardConnection(int);
@@ -36,27 +37,27 @@ public:
 	int FindPlayerName(CExoString, unsigned long);
 	int GetConnectionError();
 	int GetExoApp();
-	int GetGameMasterPassword();
+	CExoString GetGameMasterPassword();
 	int GetIPBySessionId(unsigned long, CExoString *);
-	int GetInternetAddressTranslationStatus(unsigned char *);
+	unsigned long GetInternetAddressTranslationStatus(unsigned char *);
 	int GetLocalAdapterString(unsigned long, unsigned long);
 	int GetLocalPrivileges(unsigned long);
 	int GetMessageFromStandardConnection(int *, char **, int *);
 	int GetNumberLocalAdapters(unsigned long);
 	int GetPasswordRequired();
 	int GetPlayerAddressData(unsigned long, unsigned long *, unsigned char **, unsigned char **, unsigned long *);
-	int GetPlayerAddress(unsigned long);
-	int GetPlayerPassword();
+	CExoString GetPlayerAddress(unsigned long);
+	CExoString GetPlayerPassword();
 	int GetPortBySessionId(unsigned long);
-	int GetSendUDPSocket();
-	int GetServerAdminPassword();
+	unsigned long GetSendUDPSocket();
+	CExoString GetServerAdminPassword();
 	int GetServerConnected();
 	int GetServerNetworkAddress();
 	int GetServerPlayerCount();
 	int GetSessionInfo(unsigned long);
-	int GetSessionMaxPlayers();
-	int GetSessionName();
-	int GetUDPRecievePort();
+	unsigned long GetSessionMaxPlayers();
+	CExoString GetSessionName();
+	unsigned long GetUDPRecievePort();
 	int GetWindowSendIdByReceiveId(unsigned long, unsigned long *);
 	int HandleBNCRMessage(unsigned long, unsigned char *, unsigned long);
 	int HandleBNCSMessage(unsigned long, unsigned char *, unsigned long);
@@ -83,13 +84,13 @@ public:
 	int PlacePacketInSendQueues(unsigned long, int, unsigned char *, unsigned long, int);
 	int PlayerIdToConnectionId(unsigned long, unsigned long *);
 	int PlayerIdToSlidingWindow(unsigned long, unsigned long *);
-	int ProcessReceivedFrames(int);
+	void ProcessReceivedFrames(int);
 	int PurgeConnections();
 	int RequestExtendedServerInfo(unsigned long, int, int);
 	int SendBNCRMessage(unsigned long, unsigned char, unsigned long);
 	int SendBNCSMessage(unsigned long, unsigned char, int, int, CExoString const &, CExoString const &, unsigned long &);
 	int SendBNDMMessage();
-	int SendBNDPMessage(unsigned long, unsigned long);
+	void SendBNDPMessage(unsigned long, unsigned long);
 	int SendBNDSMessage(unsigned long);
 	int SendBNLMMessage(unsigned long, unsigned long);
 	int SendBNVRMessage(unsigned long, unsigned char);
@@ -99,14 +100,14 @@ public:
 	int SendMessageToPlayer(unsigned long, unsigned char *, unsigned long, unsigned long);
 	int SendMessageToStandardConnection(int, char *, int);
 	int SetGameMasterPassword(CExoString);
-	int SetMasterServerInternetAddress(unsigned char const *, unsigned long);
+	void SetMasterServerInternetAddress(unsigned char const *, unsigned long);
 	int SetNetworkAddressData(unsigned long, unsigned char *, unsigned char *, unsigned long);
-	int SetPlayerConnected(unsigned long);
+	void SetPlayerConnected(unsigned long);
 	int SetPlayerPassword(CExoString);
 	int SetServerAdminPassword(CExoString);
-	int SetServerLanguage(int);
-	int SetSessionMaxPlayers(unsigned long);
-	int SetSessionName(CExoString);
+	void SetServerLanguage(int);
+	void SetSessionMaxPlayers(unsigned long);
+	void SetSessionName(CExoString);
 	int SetSlidingWindow(unsigned long, unsigned long, unsigned long *);
 	int SetUpPlayBackConnection();
 	int ShutDownClientInterfaceWithReason(unsigned long);
@@ -117,7 +118,7 @@ public:
 	int StartPing(unsigned long);
 	int StartProtocol(unsigned long, unsigned long, unsigned long, unsigned long);
 	int StartServerMode(CExoString, unsigned long);
-	int StoreMessage(unsigned char *, unsigned long);
+	void StoreMessage(unsigned char *, unsigned long);
 	int UncompressMessage(unsigned long, unsigned char *, unsigned long);
 	int UpdateStatusLoop(unsigned long);
 	int ValidatePlayerAgainstLastSuccessfulLogin(CExoString, CExoString);

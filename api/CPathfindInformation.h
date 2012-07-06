@@ -1,26 +1,27 @@
 #ifndef _CPATHFINDINFORMATION_H_
 #define _CPATHFINDINFORMATION_H_
 #include "nwndef.h"
+#include "CPathfindInfoIntraTileSuccessors.h"
 
 class CPathfindInformation
 {
 public:
-	int ComputeStepTolerance();
-	int CreateFirstTileFValueAlternatives(int);
-	int DeleteFirstTileFValueAlternatives();
-	int FlipStartEndPoints();
-	int FlipTempEndPoints();
+	void ComputeStepTolerance();
+	void CreateFirstTileFValueAlternatives(int);
+	void DeleteFirstTileFValueAlternatives();
+	void FlipStartEndPoints();
+	void FlipTempEndPoints();
 	int GetFirstTileFValueAlternatives(int, int *, int *, CPathfindInfoIntraTileSuccessors **);
-	int Initialize();
-	int ResetAtEndOfPath();
-	int ResetGridSearchData();
-	int ResetInterAreaPathSearchData();
-	int ResetInterAreaSearchData();
-	int ResetInterTileSearchData();
+	void Initialize();
+	void ResetAtEndOfPath();
+	void ResetGridSearchData();
+	void ResetInterAreaPathSearchData();
+	void ResetInterAreaSearchData();
+	void ResetInterTileSearchData();
 	int ResetIntraTileSearchData();
-	int ResetWayPointData();
-	int SetFirstTileFValueAlternatives(int, int, int, CPathfindInfoIntraTileSuccessors *);
-	int Shutdown();
+	void ResetWayPointData();
+	void SetFirstTileFValueAlternatives(int, int, int, CPathfindInfoIntraTileSuccessors *);
+	void Shutdown();
 	~CPathfindInformation();
 	CPathfindInformation();
 

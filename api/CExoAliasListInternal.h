@@ -6,11 +6,11 @@
 class CExoAliasListInternal
 {
 public:
-	int Add(CExoString, CExoString);
+	void Add(CExoString, CExoString);
 	int Clear();
-	int Delete(CExoString);
-	int GetAliasPath(CExoString const &, int) const;
-	int ResolveFileName(CExoString const &, unsigned short) const;
+	void Delete(CExoString);
+	CExoString const & GetAliasPath(CExoString const &, int) const;
+	CExoString ResolveFileName(CExoString const &, unsigned short) const;
 	~CExoAliasListInternal();
 	CExoAliasListInternal();
 

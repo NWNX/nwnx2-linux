@@ -14,7 +14,7 @@ int CCombatInformation::SaveData(CResGFF *, CResStruct *)
 	asm("jmp *%eax");
 }
 
-int CCombatInformation::operator=(CCombatInformation &)
+CCombatInformation & CCombatInformation::operator=(CCombatInformation &)
 {
 	asm("leave");
 	asm("mov $0x080c5fa4, %eax");

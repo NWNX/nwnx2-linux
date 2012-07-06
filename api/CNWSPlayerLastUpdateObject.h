@@ -5,27 +5,27 @@
 class CNWSPlayerLastUpdateObject
 {
 public:
-	int AddKnownSpell(unsigned char, unsigned char, unsigned long);
-	int ClearActionQueue();
-	int ClearAutoMapData();
+	void AddKnownSpell(unsigned char, unsigned char, unsigned long);
+	void ClearActionQueue();
+	void ClearAutoMapData();
 	int ClearEffectIcons();
-	int ClearKnownSpellUsesLeft();
-	int ClearKnownSpells();
-	int ClearMemorizedSpells();
-	int ClearSpellAddDeleteLists();
-	int ClearVisibilityList();
+	void ClearKnownSpellUsesLeft();
+	void ClearKnownSpells();
+	void ClearMemorizedSpells();
+	void ClearSpellAddDeleteLists();
+	void ClearVisibilityList();
 	int GetIsDomainSpell(unsigned char, unsigned char, unsigned char);
-	int GetKnownSpellUsesLeft(unsigned char, unsigned char);
-	int GetKnownSpell(unsigned char, unsigned char, unsigned char);
-	int GetMemorizedSpellMetaType(unsigned char, unsigned char, unsigned char);
+	unsigned char GetKnownSpellUsesLeft(unsigned char, unsigned char);
+	unsigned long GetKnownSpell(unsigned char, unsigned char, unsigned char);
+	unsigned char GetMemorizedSpellMetaType(unsigned char, unsigned char, unsigned char);
 	int GetMemorizedSpellReadied(unsigned char, unsigned char, unsigned char);
-	int GetMemorizedSpell(unsigned char, unsigned char, unsigned char);
+	unsigned long GetMemorizedSpell(unsigned char, unsigned char, unsigned char);
 	int InitializeAutoMapData();
-	int ResetAutoMapData(unsigned long);
-	int SetKnownSpellUsesLeft(unsigned char, unsigned char, unsigned char);
-	int SetMemorizedSpellReadied(unsigned char, unsigned char, unsigned char, int);
-	int SetMemorizedSpellSlot(unsigned char, unsigned char, unsigned char, unsigned long, int, unsigned char);
-	int SetNumberMemorizedSpellSlots(unsigned char, unsigned char, unsigned char);
+	void ResetAutoMapData(unsigned long);
+	void SetKnownSpellUsesLeft(unsigned char, unsigned char, unsigned char);
+	void SetMemorizedSpellReadied(unsigned char, unsigned char, unsigned char, int);
+	void SetMemorizedSpellSlot(unsigned char, unsigned char, unsigned char, unsigned long, int, unsigned char);
+	void SetNumberMemorizedSpellSlots(unsigned char, unsigned char, unsigned char);
 	~CNWSPlayerLastUpdateObject();
 	CNWSPlayerLastUpdateObject();
 

@@ -1,29 +1,35 @@
 #ifndef _CNWSSTORE_H_
 #define _CNWSSTORE_H_
 #include "nwndef.h"
-#include "CResRef.h"
-#include "CExoLocString.h"
+#include "CNWSItem.h"
+#include "CNWSPlayer.h"
+#include "CNWSArea.h"
 #include "CExoString.h"
+#include "CExoLocString.h"
+#include "CResRef.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
+#include "CNWSCreature.h"
 #include "CNWSObject.h"
 
 class CNWSStore
 {
 public:
-	int AIUpdate();
+	void AIUpdate();
 	int AcquireItem(CNWSItem *, int, unsigned char, unsigned char);
-	int AddCustomer(CNWSPlayer *, char, char);
+	void AddCustomer(CNWSPlayer *, char, char);
 	int AddGold(int);
 	int AddItemToInventory(CNWSItem **, unsigned char, unsigned char, unsigned char);
-	int AddToArea(CNWSArea *, float, float, float, int);
-	int AsNWSStore();
+	void AddToArea(CNWSArea *, float, float, float, int);
+	CNWSStore * AsNWSStore();
 	int CalculateItemBuyPrice(CNWSItem *, unsigned long);
 	int CalculateItemSellPrice(CNWSItem *, unsigned long);
-	int EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
+	void EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
 	int GetAppropriateListId(unsigned long);
 	int GetBlackMarketMarkDown();
 	int GetBlackMarket();
-	int GetCustomerBuyRate(unsigned long, int);
-	int GetCustomerSellRate(unsigned long);
+	unsigned char GetCustomerBuyRate(unsigned long, int);
+	short GetCustomerSellRate(unsigned long);
 	int GetCustomer(unsigned long);
 	int GetGold();
 	int GetIdentifyCost();
@@ -35,7 +41,7 @@ public:
 	int GetMarkDown();
 	int GetMarkUp();
 	int GetMaxBuyPrice();
-	int GetName();
+	CExoLocString GetName();
 	int GetRepositoryArrayIndex();
 	int GetRepositoryListNumber();
 	int GetRepository(unsigned char);
@@ -46,11 +52,11 @@ public:
 	int GetWillOnlyBuyListSize();
 	int LoadFromTemplate(CResRef, CExoString *);
 	int LoadStore(CResGFF *, CResStruct *, CExoString *);
-	int RemoveCustomer(CNWSPlayer *);
+	void RemoveCustomer(CNWSPlayer *);
 	int RemoveFromArea();
 	int RemoveGold(int);
 	int RemoveItemFromInventory(CNWSItem *, unsigned char);
-	int RemoveItem(CNWSItem *);
+	void RemoveItem(CNWSItem *);
 	int SaveStore(CResGFF *, CResStruct *);
 	int SellItem(CNWSItem *, CNWSCreature *, unsigned char, unsigned char);
 	int SetBlackMarketMarkDown(int);
@@ -62,10 +68,10 @@ public:
 	int SetMarkDown(int);
 	int SetMarkUp(int);
 	int SetMaxBuyPrice(int);
-	int SetName(CExoLocString);
+	void SetName(CExoLocString);
 	int SetRepositoryArrayIndex(unsigned short);
 	int SetRepositoryListNumber(unsigned char);
-	int SetScriptName(int, CExoString);
+	void SetScriptName(int, CExoString);
 	~CNWSStore();
 	CNWSStore(unsigned long);
 

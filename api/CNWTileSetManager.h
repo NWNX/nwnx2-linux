@@ -1,18 +1,20 @@
 #ifndef _CNWTILESETMANAGER_H_
 #define _CNWTILESETMANAGER_H_
 #include "nwndef.h"
+#include "nwnstructs.h"
 #include "CResRef.h"
+#include "CNWTileSet.h"
 
 class CNWTileSetManager
 {
 public:
-	int ClearTilePathNodes();
+	void ClearTilePathNodes();
 	int ComputePathNodeInformation(unsigned char, int, int &, int &, float **, float **, int **);
 	int ComputePathNodeRotation(int, float *, float *);
-	int GetTilePathNode(unsigned char, unsigned char);
+	CNWTilePathNode * GetTilePathNode(unsigned char, unsigned char);
 	int InitializeTilePathNodes();
-	int RegisterTileSet(CResRef);
-	int UnregisterTileSet(CNWTileSet *);
+	CNWTileSet * RegisterTileSet(CResRef);
+	void UnregisterTileSet(CNWTileSet *);
 	~CNWTileSetManager();
 	CNWTileSetManager();
 

@@ -2,76 +2,95 @@
 #define _CSERVEREXOAPPINTERNAL_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "CNWSPlayer.h"
+#include "CExoLinkedList.h"
+#include "CWorldTimer.h"
+#include "CNWSArea.h"
+#include "CNWSAreaOfEffectObject.h"
+#include "CNWSClient.h"
+#include "CNWSCreature.h"
+#include "CNWSDoor.h"
+#include "CNWSEncounter.h"
+#include "CExtendedServerInfo.h"
+#include "CGameObject.h"
+#include "CNWSItem.h"
+#include "CNWSModule.h"
+#include "CNWSPlaceable.h"
+#include "CNWSSoundObject.h"
+#include "CNWSStore.h"
+#include "CNWSTrigger.h"
+#include "CNWSWaypoint.h"
 #include "CResRef.h"
 #include "nwnstructs.h"
 #include "CNetLayer.h"
+#include "CFactionManager.h"
 
 class CServerExoAppInternal
 {
 public:
-	int AddCDKeyToBannedList(CExoString);
-	int AddCharListRequest(unsigned long);
-	int AddIPToBannedList(CExoString);
+	void AddCDKeyToBannedList(CExoString);
+	void AddCharListRequest(unsigned long);
+	void AddIPToBannedList(CExoString);
 	int AddPendingAuthorization(unsigned long);
-	int AddPlayerNameToBannedList(CExoString);
+	void AddPlayerNameToBannedList(CExoString);
 	int AddSubNetProfileRecvSize(unsigned long, unsigned long);
-	int AddSubNetProfileSendSize(unsigned long, unsigned long);
-	int AddSubNetProfile(unsigned long, CExoString, CExoString);
-	int AddToExclusionList(unsigned long, unsigned char);
+	void AddSubNetProfileSendSize(unsigned long, unsigned long);
+	void AddSubNetProfile(unsigned long, CExoString, CExoString);
+	void AddToExclusionList(unsigned long, unsigned char);
 	int AdmitNetworkAddress(unsigned long, CExoString);
 	int AdmitPlayerName(CExoString);
-	int CheckMasterServerTranslation();
-	int ConnectionLibMainLoop();
+	void CheckMasterServerTranslation();
+	void ConnectionLibMainLoop();
 	int ContinueMessageProcessing();
 	int CopyModuleToCurrentGame(CExoString &, CExoString &, unsigned short);
 	int CreateServerVaultLostAndFound();
-	int DealWithLoadGameError(unsigned long);
+	void DealWithLoadGameError(unsigned long);
 	int EndGame(CExoString const &);
 	int ExportAllPlayers();
 	int ExportPlayer(CNWSPlayer *);
-	int GetActiveExclusionList();
-	int GetActivePauseState();
-	int GetActiveTimer(unsigned long);
-	int GetAreaByGameObjectID(unsigned long);
-	int GetAreaOfEffectByGameObjectID(unsigned long);
-	int GetBannedListString();
-	int GetClientObjectByObjectId(unsigned long);
-	int GetClientObjectByPlayerId(unsigned long, unsigned char);
-	int GetCreatureByGameObjectID(unsigned long);
+	CExoLinkedList<unsigned long> * GetActiveExclusionList();
+	unsigned char GetActivePauseState();
+	CWorldTimer * GetActiveTimer(unsigned long);
+	CNWSArea * GetAreaByGameObjectID(unsigned long);
+	CNWSAreaOfEffectObject * GetAreaOfEffectByGameObjectID(unsigned long);
+	CExoString GetBannedListString();
+	CNWSPlayer * GetClientObjectByObjectId(unsigned long);
+	CNWSClient * GetClientObjectByPlayerId(unsigned long, unsigned char);
+	CNWSCreature * GetCreatureByGameObjectID(unsigned long);
 	int GetDifficultyOption(int);
-	int GetDoorByGameObjectID(unsigned long);
-	int GetEncounterByGameObjectID(unsigned long);
-	int GetExtendedServerInfo(CExtendedServerInfo *);
+	CNWSDoor * GetDoorByGameObjectID(unsigned long);
+	CNWSEncounter * GetEncounterByGameObjectID(unsigned long);
+	void GetExtendedServerInfo(CExtendedServerInfo *);
 	int GetFactionOfObject(unsigned long, int *);
-	int GetFirstPCObject();
-	int GetGameObject(unsigned long);
+	unsigned long GetFirstPCObject();
+	CGameObject * GetGameObject(unsigned long);
 	int GetIsCDKeyOnBannedList(CExoString);
 	int GetIsIPOnBannedList(CExoString);
 	int GetIsPlayerNameOnBannedList(CExoString);
-	int GetItemByGameObjectID(unsigned long);
-	int GetModuleByGameObjectID(unsigned long);
+	CNWSItem * GetItemByGameObjectID(unsigned long);
+	CNWSModule * GetModuleByGameObjectID(unsigned long);
 	int GetModuleExists(CExoString const &);
 	int GetModuleLanguage();
-	int GetModuleName();
-	int GetModule();
-	int GetNextPCObject();
+	CExoString GetModuleName();
+	CNWSModule * GetModule();
+	unsigned long GetNextPCObject();
 	int GetPauseState(unsigned char);
-	int GetPlaceableByGameObjectID(unsigned long);
+	CNWSPlaceable * GetPlaceableByGameObjectID(unsigned long);
 	int GetPlayerAddressData(unsigned long, unsigned long *, unsigned char **, unsigned char **, unsigned long *);
-	int GetPlayerIDByGameObjectID(unsigned long);
+	unsigned long GetPlayerIDByGameObjectID(unsigned long);
 	int GetPlayerLanguage(unsigned long);
-	int GetPlayerListString();
-	int GetPortalListString();
-	int GetServerInfoFromIniFile();
-	int GetSoundObjectByGameObjectID(unsigned long);
-	int GetStoreByGameObjectID(unsigned long);
-	int GetTriggerByGameObjectID(unsigned long);
-	int GetWaypointByGameObjectID(unsigned long);
-	int HandleGameSpyToServerMessage(int, void *, int);
+	CExoString GetPlayerListString();
+	CExoString GetPortalListString();
+	void GetServerInfoFromIniFile();
+	CNWSSoundObject * GetSoundObjectByGameObjectID(unsigned long);
+	CNWSStore * GetStoreByGameObjectID(unsigned long);
+	CNWSTrigger * GetTriggerByGameObjectID(unsigned long);
+	CNWSWaypoint * GetWaypointByGameObjectID(unsigned long);
+	void HandleGameSpyToServerMessage(int, void *, int);
 	int HandleMessage(unsigned long, unsigned char *, unsigned long, int);
-	int InitializeNetLayer();
+	void InitializeNetLayer();
 	int Initialize();
-	int InitiateModuleForPlayer(void *);
+	void InitiateModuleForPlayer(void *);
 	int IsOnActiveExclusionList(unsigned long);
 	int IsOnExclusionList(unsigned long);
 	int LoadCharacterFinish(CNWSPlayer *, int, int);
@@ -81,24 +100,24 @@ public:
 	int LoadPrimaryPlayer(CNWSPlayer *);
 	int MainLoop();
 	int MarkUpdateClientsForObject(unsigned long);
-	int MovePlayerToArea(void *);
+	void MovePlayerToArea(void *);
 	int OnCDChange();
 	int OnExit();
 	int OnGainFocus();
 	int OnLostFocus();
 	int OnVideoChange();
-	int PlayerListChange(unsigned long, int, int);
-	int PushMessageOverWall(unsigned char *, unsigned long);
-	int ReadBannedLists();
-	int RemoveCDKeyFromBannedList(CExoString);
-	int RemoveFromExclusionList(unsigned long, unsigned char);
-	int RemoveIPFromBannedList(CExoString);
-	int RemovePCFromWorld(CNWSPlayer *);
+	void PlayerListChange(unsigned long, int, int);
+	void PushMessageOverWall(unsigned char *, unsigned long);
+	void ReadBannedLists();
+	void RemoveCDKeyFromBannedList(CExoString);
+	void RemoveFromExclusionList(unsigned long, unsigned char);
+	void RemoveIPFromBannedList(CExoString);
+	void RemovePCFromWorld(CNWSPlayer *);
 	int RemovePendingAuthorization(unsigned long);
-	int RemovePlayerNameFromBannedList(CExoString);
-	int RemoveSubNetProfile(unsigned long);
+	void RemovePlayerNameFromBannedList(CExoString);
+	void RemoveSubNetProfile(unsigned long);
 	int ReprocessExclusionListActions(unsigned char);
-	int ResolvePlayerByFirstName(CExoString const &);
+	unsigned long ResolvePlayerByFirstName(CExoString const &);
 	int RestartNetLayer();
 	int RunModule();
 	int SaveGame(unsigned long, CExoString &, CExoString &, CNWSPlayer *, int, CExoString &);
@@ -107,26 +126,26 @@ public:
 	int SendExitingStartNewModuleMessage(int);
 	int SendHeartbeatToMasterServer();
 	int SendStartStallEvent(unsigned long);
-	int SetEstimatedSaveSize(CExoString const &, unsigned short);
+	void SetEstimatedSaveSize(CExoString const &, unsigned short);
 	int SetGameSpyReporting(int);
 	int SetNetworkAddressBan(unsigned long, CExoString, int);
-	int SetPauseState(unsigned char, int);
+	void SetPauseState(unsigned char, int);
 	int ShutdownNetLayer();
-	int ShutdownServerProfiles();
-	int Shutdown(int, int);
-	int StallEventSaveGame();
+	void ShutdownServerProfiles();
+	void Shutdown(int, int);
+	void StallEventSaveGame();
 	int StartNewModule(CExoString &);
-	int StartServices();
+	void StartServices();
 	int StartShutdownTimer(unsigned long long, unsigned long long);
-	int StopServices();
+	void StopServices();
 	int StorePlayerCharacters();
 	int StripColorTokens(CExoString &);
 	int Test_Unit_Script_Compile();
 	int Test_Unit_Script_Run();
-	int TogglePauseState(unsigned char);
-	int Uninitialize();
+	void TogglePauseState(unsigned char);
+	void Uninitialize();
 	int UnloadModule();
-	int UnlockBiowareModule(CNWSModule *);
+	void UnlockBiowareModule(CNWSModule *);
 	int UpdateAutoSaveTimer();
 	int UpdateClientGameObjectsForPlayer(CNWSPlayer *, int, unsigned long long);
 	int UpdateClientGameObjects(int);
@@ -134,10 +153,10 @@ public:
 	int UpdateLogHeartbeatTimer(unsigned long long);
 	int UpdateShutdownTimer(unsigned long long);
 	int UpdateWindowTitle();
-	int ValidateCreateServerCharacter(CNWSPlayer *, void *, unsigned long);
+	unsigned long ValidateCreateServerCharacter(CNWSPlayer *, void *, unsigned long);
 	int ValidatePlayerLogin(void *);
-	int VomitServerOptionsToLog();
-	int WriteServerInfoToIniFile();
+	void VomitServerOptionsToLog();
+	void WriteServerInfoToIniFile();
 	~CServerExoAppInternal();
 	CServerExoAppInternal();
 
@@ -172,7 +191,7 @@ public:
 	/* 0x10068/65640 */ unsigned long WorldTimer1;
 	/* 0x1006C/65644 */ unsigned long WorldTimer2;
 	/* 0x10070/65648 */ unsigned long WorldTimer3;
-	/* 0x10074/65652 */ unsigned long m_FactionManager;
+	/* 0x10074/65652 */ CFactionManager *m_FactionManager;
 	/* 0x10078/65656 */ unsigned long m_ConnectionLib;
 	/* 0x1007C/65660 */ unsigned long field_1007C;
 	/* 0x10080/65664 */ unsigned long m_GameObjectArray;

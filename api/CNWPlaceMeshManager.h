@@ -1,12 +1,13 @@
 #ifndef _CNWPLACEMESHMANAGER_H_
 #define _CNWPLACEMESHMANAGER_H_
 #include "nwndef.h"
+#include "CNWPlaceableSurfaceMesh.h"
 
 class CNWPlaceMeshManager
 {
 public:
-	int ClearWalkMeshes();
-	int GetWalkMesh(int);
+	void ClearWalkMeshes();
+	CNWPlaceableSurfaceMesh * GetWalkMesh(int);
 	int InitializeWalkMeshes(int);
 	~CNWPlaceMeshManager();
 	CNWPlaceMeshManager();

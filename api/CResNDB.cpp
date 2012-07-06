@@ -1,13 +1,13 @@
 #include "CResNDB.h"
 
-int CResNDB::GetNDBDataPtr()
+unsigned char * CResNDB::GetNDBDataPtr()
 {
 	asm("leave");
 	asm("mov $0x0826a85c, %eax");
 	asm("jmp *%eax");
 }
 
-int CResNDB::GetNDBSize()
+unsigned long CResNDB::GetNDBSize()
 {
 	asm("leave");
 	asm("mov $0x0826a868, %eax");

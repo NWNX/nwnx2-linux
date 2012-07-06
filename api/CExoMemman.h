@@ -1,6 +1,7 @@
 #ifndef _CEXOMEMMAN_H_
 #define _CEXOMEMMAN_H_
 #include "nwndef.h"
+#include "CMemRecord.h"
 
 class CExoMemman
 {
@@ -8,7 +9,7 @@ public:
 	int AddFreeRecord(unsigned long);
 	int Alloc(unsigned long, int);
 	int CheckHeaps();
-	int Clear();
+	void Clear();
 	int Destroy();
 	int DoHeapWalk();
 	int FillRecordPtrArray();
@@ -16,7 +17,7 @@ public:
 	int Free(void *);
 	int GetFreeRecord();
 	int GetHeaps();
-	int OutputTypeTrackingReport();
+	void OutputTypeTrackingReport();
 	int PopType(unsigned long);
 	int PushType(unsigned long);
 	int ReportEntry(CMemRecord &);

@@ -1,23 +1,26 @@
 #ifndef _CNWSAREAOFEFFECTOBJECT_H_
 #define _CNWSAREAOFEFFECTOBJECT_H_
 #include "nwndef.h"
+#include "CNWSArea.h"
 #include "Vector.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 #include "CExoString.h"
 
 class CNWSAreaOfEffectObject
 {
 public:
-	int AIUpdate();
-	int AddToArea(CNWSArea *, float, float, float, int);
-	int AsNWSAreaOfEffectObject();
-	int EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
+	void AIUpdate();
+	void AddToArea(CNWSArea *, float, float, float, int);
+	CNWSAreaOfEffectObject * AsNWSAreaOfEffectObject();
+	void EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
 	int GetAreaEffectId();
 	int GetCreator();
-	int GetEffectSpellId();
+	unsigned long GetEffectSpellId();
 	int GetLastEntered();
 	int GetLastLeft();
 	int GetObjectArrayIndex();
-	int GetPosition();
+	Vector GetPosition();
 	int GetRadius();
 	int GetScriptName(int);
 	int GetShape();
@@ -25,23 +28,23 @@ public:
 	int GetSpellSaveDC();
 	int GetTargetObjID();
 	int InAreaOfEffect(Vector);
-	int JumpToPoint(CNWSArea *, Vector const &);
+	void JumpToPoint(CNWSArea *, Vector const &);
 	int LineSegmentIntersectAreaOfEffect(Vector, Vector);
-	int LoadAreaEffect(int);
+	void LoadAreaEffect(int);
 	int LoadEffect(CResGFF *, CResStruct *);
-	int RemoveFromArea();
-	int RemoveFromSubAreas(int);
+	void RemoveFromArea();
+	void RemoveFromSubAreas(int);
 	int SaveEffect(CResGFF *, CResStruct *);
-	int SetCreator(unsigned long);
-	int SetDuration(unsigned char, float);
-	int SetEffectSpellId(unsigned long);
+	void SetCreator(unsigned long);
+	void SetDuration(unsigned char, float);
+	void SetEffectSpellId(unsigned long);
 	int SetLastEntered(unsigned long);
 	int SetLastLeft(unsigned long);
 	int SetObjectArrayIndex(unsigned short);
-	int SetScriptName(int, CExoString);
+	void SetScriptName(int, CExoString);
 	int SetShape(unsigned char, float, float);
-	int SetTargetObjID(unsigned long);
-	int UpdateSubAreas(Vector *);
+	void SetTargetObjID(unsigned long);
+	void UpdateSubAreas(Vector *);
 	~CNWSAreaOfEffectObject();
 	CNWSAreaOfEffectObject(unsigned long);
 

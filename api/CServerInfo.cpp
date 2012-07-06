@@ -7,7 +7,7 @@ int CServerInfo::FindOptionIndex(CExoString, CExoString)
 	asm("jmp *%eax");
 }
 
-int CServerInfo::SetDifficultyLevel(int, int)
+void CServerInfo::SetDifficultyLevel(int, int)
 {
 	asm("leave");
 	asm("mov $0x080b3bc4, %eax");

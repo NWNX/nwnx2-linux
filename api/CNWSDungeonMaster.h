@@ -6,8 +6,8 @@
 class CNWSDungeonMaster
 {
 public:
-	int AsNWSDungeonMaster();
-	int PossessCreature(unsigned long, unsigned char);
+	CNWSDungeonMaster * AsNWSDungeonMaster();
+	void PossessCreature(unsigned long, unsigned char);
 	~CNWSDungeonMaster();
 	CNWSDungeonMaster(unsigned long);
 

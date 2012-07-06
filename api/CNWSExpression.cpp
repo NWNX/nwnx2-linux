@@ -1,6 +1,6 @@
 #include "CNWSExpression.h"
 
-int CNWSExpression::ClearAlternate(CNWSExpressionNode *)
+void CNWSExpression::ClearAlternate(CNWSExpressionNode *)
 {
 	asm("leave");
 	asm("mov $0x082401cc, %eax");
@@ -14,7 +14,7 @@ int CNWSExpression::ClearGraph()
 	asm("jmp *%eax");
 }
 
-int CNWSExpression::NewNode(int)
+CNWSExpressionNode * CNWSExpression::NewNode(int)
 {
 	asm("leave");
 	asm("mov $0x082400cc, %eax");

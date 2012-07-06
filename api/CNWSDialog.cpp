@@ -1,6 +1,6 @@
 #include "CNWSDialog.h"
 
-int CNWSDialog::AddJournalEntry(CExoString const &, unsigned long, unsigned long)
+void CNWSDialog::AddJournalEntry(CExoString const &, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0823ceec, %eax");
@@ -14,7 +14,7 @@ int CNWSDialog::CheckScript(CNWSObject *, CResRef const &)
 	asm("jmp *%eax");
 }
 
-int CNWSDialog::Cleanup()
+void CNWSDialog::Cleanup()
 {
 	asm("leave");
 	asm("mov $0x0823ada4, %eax");
@@ -28,7 +28,7 @@ int CNWSDialog::ClearDialogOwnerInObject(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSDialog::GetSpeaker(CNWSObject *, CExoString const &)
+CNWSObject * CNWSDialog::GetSpeaker(CNWSObject *, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x0823c5e4, %eax");
@@ -42,7 +42,7 @@ int CNWSDialog::GetStartEntryOneLiner(CNWSObject *, CExoLocString &, CResRef &, 
 	asm("jmp *%eax");
 }
 
-int CNWSDialog::GetStartEntry(CNWSObject *)
+unsigned long CNWSDialog::GetStartEntry(CNWSObject *)
 {
 	asm("leave");
 	asm("mov $0x0823cb94, %eax");
@@ -77,7 +77,7 @@ int CNWSDialog::RemovePlayer(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSDialog::RunScript(CNWSObject *, CResRef const &)
+void CNWSDialog::RunScript(CNWSObject *, CResRef const &)
 {
 	asm("leave");
 	asm("mov $0x0823e5f0, %eax");
@@ -98,7 +98,7 @@ int CNWSDialog::SendDialogReplies(CNWSObject *, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSDialog::SetDialogDelay(CNWSObject *, CExoLocString, unsigned long, int)
+float CNWSDialog::SetDialogDelay(CNWSObject *, CExoLocString, unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x0823cd70, %eax");

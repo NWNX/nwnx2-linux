@@ -1,41 +1,41 @@
 #include "CNWSSoundObject.h"
 
-int CNWSSoundObject::AIUpdate()
+void CNWSSoundObject::AIUpdate()
 {
 	asm("leave");
 	asm("mov $0x081e9994, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSSoundObject::AddToArea(CNWSArea *, int)
+void CNWSSoundObject::AddToArea(CNWSArea *, int)
 {
 	asm("leave");
 	asm("mov $0x081e99a4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSSoundObject::AsNWSSoundObject()
+CNWSSoundObject * CNWSSoundObject::AsNWSSoundObject()
 {
 	asm("leave");
 	asm("mov $0x081e9b28, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSSoundObject::ChangePosition(Vector)
+void CNWSSoundObject::ChangePosition(Vector)
 {
 	asm("leave");
 	asm("mov $0x081e97b4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSSoundObject::ChangeVolume(int)
+void CNWSSoundObject::ChangeVolume(int)
 {
 	asm("leave");
 	asm("mov $0x081e96bc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSSoundObject::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSSoundObject::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081e999c, %eax");
@@ -189,14 +189,14 @@ int CNWSSoundObject::Load(CResGFF *, CResStruct *)
 	asm("jmp *%eax");
 }
 
-int CNWSSoundObject::PackIntoMessage(CNWSMessage *)
+void CNWSSoundObject::PackIntoMessage(CNWSMessage *)
 {
 	asm("leave");
 	asm("mov $0x081e929c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSSoundObject::Play()
+void CNWSSoundObject::Play()
 {
 	asm("leave");
 	asm("mov $0x081e9524, %eax");
@@ -210,7 +210,7 @@ int CNWSSoundObject::RemoveFromArea()
 	asm("jmp *%eax");
 }
 
-int CNWSSoundObject::Save(CResGFF *, CResStruct *)
+void CNWSSoundObject::Save(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081e8fd4, %eax");
@@ -343,7 +343,7 @@ int CNWSSoundObject::SetVolume(int)
 	asm("jmp *%eax");
 }
 
-int CNWSSoundObject::Stop()
+void CNWSSoundObject::Stop()
 {
 	asm("leave");
 	asm("mov $0x081e95f0, %eax");

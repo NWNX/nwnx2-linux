@@ -7,7 +7,7 @@ int CScriptSourceFile::LoadScript(CExoString const &, char **, unsigned long *)
 	asm("jmp *%eax");
 }
 
-int CScriptSourceFile::UnloadScript()
+void CScriptSourceFile::UnloadScript()
 {
 	asm("leave");
 	asm("mov $0x08247bac, %eax");

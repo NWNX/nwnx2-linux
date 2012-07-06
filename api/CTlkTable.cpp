@@ -1,13 +1,13 @@
 #include "CTlkTable.h"
 
-int CTlkTable::ClearCustomTokens()
+void CTlkTable::ClearCustomTokens()
 {
 	asm("leave");
 	asm("mov $0x082b636c, %eax");
 	asm("jmp *%eax");
 }
 
-int CTlkTable::CloseFileAlternate()
+void CTlkTable::CloseFileAlternate()
 {
 	asm("leave");
 	asm("mov $0x082b62e4, %eax");
@@ -35,21 +35,21 @@ int CTlkTable::FetchInternal(unsigned long, STR_RES &, int)
 	asm("jmp *%eax");
 }
 
-int CTlkTable::GetLanguageVersion()
+unsigned long CTlkTable::GetLanguageVersion()
 {
 	asm("leave");
 	asm("mov $0x082b63c8, %eax");
 	asm("jmp *%eax");
 }
 
-int CTlkTable::GetSimpleString(unsigned long)
+CExoString CTlkTable::GetSimpleString(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082b4af8, %eax");
 	asm("jmp *%eax");
 }
 
-int CTlkTable::GetTokenValue(CTlkTableToken const &, CExoString &)
+void CTlkTable::GetTokenValue(CTlkTableToken const &, CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082b6474, %eax");
@@ -77,7 +77,7 @@ int CTlkTable::OpenFile(CExoString const &, CTlkFile **)
 	asm("jmp *%eax");
 }
 
-int CTlkTable::ParseStr(CExoString &)
+void CTlkTable::ParseStr(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082b5b24, %eax");
@@ -91,7 +91,7 @@ int CTlkTable::RemapFontName(char *)
 	asm("jmp *%eax");
 }
 
-int CTlkTable::SetCustomToken(int, CExoString const &)
+void CTlkTable::SetCustomToken(int, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082b58d4, %eax");

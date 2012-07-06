@@ -28,7 +28,7 @@ int CNWTileSurfaceMesh::ClearLineOfSight(int, Vector, Vector, Vector *)
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::ClearSubdivision()
+void CNWTileSurfaceMesh::ClearSubdivision()
 {
 	asm("leave");
 	asm("mov $0x0808b5fc, %eax");
@@ -49,28 +49,28 @@ int CNWTileSurfaceMesh::ComputeClippedLineSegment(CNWTile *, float, float, float
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::ComputeHeight(Vector)
+float CNWTileSurfaceMesh::ComputeHeight(Vector)
 {
 	asm("leave");
 	asm("mov $0x0808b410, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::ComputePathNodes()
+void CNWTileSurfaceMesh::ComputePathNodes()
 {
 	asm("leave");
 	asm("mov $0x08093620, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::ComputeTriangleAdjacency()
+void CNWTileSurfaceMesh::ComputeTriangleAdjacency()
 {
 	asm("leave");
 	asm("mov $0x0808bd98, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::ConvertToTileOrientation(int)
+unsigned char CNWTileSurfaceMesh::ConvertToTileOrientation(int)
 {
 	asm("leave");
 	asm("mov $0x08093e64, %eax");
@@ -140,7 +140,7 @@ int CNWTileSurfaceMesh::GetExit(int, float *, float *, int *)
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::GetLOSMaterials()
+int * CNWTileSurfaceMesh::GetLOSMaterials()
 {
 	asm("leave");
 	asm("mov $0x0808a6d0, %eax");
@@ -161,7 +161,7 @@ int CNWTileSurfaceMesh::GetPathNodeOrientation()
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::GetPathNode()
+unsigned char CNWTileSurfaceMesh::GetPathNode()
 {
 	asm("leave");
 	asm("mov $0x08093794, %eax");
@@ -203,21 +203,21 @@ int CNWTileSurfaceMesh::GetTotalExits()
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::GetTriangleAdjacency(int, int, int *, int *, int *)
+void CNWTileSurfaceMesh::GetTriangleAdjacency(int, int, int *, int *, int *)
 {
 	asm("leave");
 	asm("mov $0x08093958, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::GetTriangleCentroid(int, float *, float *, float *)
+void CNWTileSurfaceMesh::GetTriangleCentroid(int, float *, float *, float *)
 {
 	asm("leave");
 	asm("mov $0x080939c0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::GetTriangleVertices(int, int, int *, int *, int *)
+void CNWTileSurfaceMesh::GetTriangleVertices(int, int, int *, int *, int *)
 {
 	asm("leave");
 	asm("mov $0x08093a44, %eax");
@@ -287,7 +287,7 @@ int CNWTileSurfaceMesh::IntraTileDFS(CNWTile *, CNWArea *, CPathfindInformation 
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::LoadDefaultWalkMesh()
+void CNWTileSurfaceMesh::LoadDefaultWalkMesh()
 {
 	asm("leave");
 	asm("mov $0x0808fd50, %eax");
@@ -315,7 +315,7 @@ int CNWTileSurfaceMesh::NoNonWalkPolysOnTile(float, float, float, float, float, 
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::PlotIntraTilePath(CNWTile *, CNWArea *, CPathfindInformation *, float, float, float, float, unsigned long, int)
+unsigned long CNWTileSurfaceMesh::PlotIntraTilePath(CNWTile *, CNWArea *, CPathfindInformation *, float, float, float, float, unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x080929e8, %eax");
@@ -336,7 +336,7 @@ int CNWTileSurfaceMesh::PrintAABBTreeToPrintLog(CNWTileSurfaceMeshAABBNode *, in
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::RunSubdivision(int *, int, float *, int, int *, int *, int, float *, int, int *)
+void CNWTileSurfaceMesh::RunSubdivision(int *, int, float *, int, int *, int *, int, float *, int, int *)
 {
 	asm("leave");
 	asm("mov $0x08092f88, %eax");
@@ -364,7 +364,7 @@ int CNWTileSurfaceMesh::SetPathNodeOrientation(int)
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::SetPathNode(unsigned char)
+void CNWTileSurfaceMesh::SetPathNode(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08093e54, %eax");
@@ -385,7 +385,7 @@ int CNWTileSurfaceMesh::SetVisibilityNode(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::SetWalkMesh(CResRef)
+void CNWTileSurfaceMesh::SetWalkMesh(CResRef)
 {
 	asm("leave");
 	asm("mov $0x08093ed8, %eax");
@@ -399,7 +399,7 @@ int CNWTileSurfaceMesh::SetWalkTileHashTable(CNWTileSurfaceMeshHashTableEntry *)
 	asm("jmp *%eax");
 }
 
-int CNWTileSurfaceMesh::Subdivide()
+void CNWTileSurfaceMesh::Subdivide()
 {
 	asm("leave");
 	asm("mov $0x0809329c, %eax");

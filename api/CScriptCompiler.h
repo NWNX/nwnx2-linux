@@ -2,6 +2,8 @@
 #define _CSCRIPTCOMPILER_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "nwnstructs.h"
+#include "CExoStringList.h"
 
 class CScriptCompiler
 {

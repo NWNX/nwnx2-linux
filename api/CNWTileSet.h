@@ -1,6 +1,7 @@
 #ifndef _CNWTILESET_H_
 #define _CNWTILESET_H_
 #include "nwndef.h"
+#include "CNWTileData.h"
 #include "CResRef.h"
 
 class CNWTileSet
@@ -15,8 +16,8 @@ public:
 	int GetGrassHeight();
 	int GetGrassTexture();
 	int GetHasGrass();
-	int GetHeightTransition();
-	int GetTileData(int);
+	float GetHeightTransition();
+	CNWTileData * GetTileData(int);
 	int GetTileSetName();
 	int LoadTileSet();
 	int ParseLine(char *);

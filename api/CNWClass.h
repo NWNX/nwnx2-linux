@@ -2,38 +2,39 @@
 #define _CNWCLASS_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "CNWRules.h"
 
 class CNWClass
 {
 public:
-	int GetAttackBonus(unsigned char);
-	int GetBonusFeats(unsigned char);
+	unsigned char GetAttackBonus(unsigned char);
+	unsigned char GetBonusFeats(unsigned char);
 	int GetClassFeat(unsigned short);
 	int GetDescriptionText();
-	int GetFortSaveBonus(unsigned char);
+	unsigned char GetFortSaveBonus(unsigned char);
 	int GetIsAlignmentAllowed(unsigned char, unsigned char);
 	int GetLevelFeatGranted(unsigned short);
 	int GetLevelGranted(unsigned short);
 	int GetNameLowerText();
 	int GetNamePluralText();
 	int GetNameText();
-	int GetRefSaveBonus(unsigned char);
-	int GetSpellGain(unsigned char, unsigned char);
-	int GetSpellsKnownPerLevel(unsigned char, unsigned char, unsigned char, unsigned short, unsigned char);
-	int GetWillSaveBonus(unsigned char);
+	unsigned char GetRefSaveBonus(unsigned char);
+	unsigned char GetSpellGain(unsigned char, unsigned char);
+	unsigned char GetSpellsKnownPerLevel(unsigned char, unsigned char, unsigned char, unsigned short, unsigned char);
+	unsigned char GetWillSaveBonus(unsigned char);
 	int IsBonusFeat(unsigned short);
 	int IsFeatUseable(unsigned short);
 	int IsGrantedFeat(unsigned short, unsigned char &);
 	int IsNormalFeat(unsigned short);
 	int IsSkillClassSkill(unsigned short);
 	int IsSkillUseable(unsigned short);
-	int LoadAttackBonusTable(CExoString);
-	int LoadBonusFeatsTable(CExoString);
-	int LoadFeatsTable(CExoString, CNWRules *);
-	int LoadSavingThrowTable(CExoString);
-	int LoadSkillsTable(CExoString);
-	int LoadSpellGainTable(CExoString);
-	int LoadSpellKnownTable(CExoString);
+	void LoadAttackBonusTable(CExoString);
+	void LoadBonusFeatsTable(CExoString);
+	void LoadFeatsTable(CExoString, CNWRules *);
+	void LoadSavingThrowTable(CExoString);
+	void LoadSkillsTable(CExoString);
+	void LoadSpellGainTable(CExoString);
+	void LoadSpellKnownTable(CExoString);
 	~CNWClass();
 	CNWClass();
 

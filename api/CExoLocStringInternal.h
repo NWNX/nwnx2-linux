@@ -2,15 +2,16 @@
 #define _CEXOLOCSTRINGINTERNAL_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "CExoLocString.h"
 
 class CExoLocStringInternal
 {
 public:
 	int AddString(int, CExoString);
 	int Assign(CExoLocStringInternal *);
-	int ClearLocString();
+	void ClearLocString();
 	int Compare(CExoLocString &);
-	int GetStringCount();
+	unsigned long GetStringCount();
 	int GetStringLength(unsigned long);
 	int GetString(unsigned long, int *, CExoString *);
 	int GetString(int, CExoString *);

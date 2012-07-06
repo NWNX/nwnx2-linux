@@ -14,14 +14,14 @@ int CBWCMD5::Decrypt(unsigned char *, unsigned long, unsigned char *, unsigned l
 	asm("jmp *%eax");
 }
 
-int CBWCMD5::EncryptBlock(unsigned long const *)
+void CBWCMD5::EncryptBlock(unsigned long const *)
 {
 	asm("leave");
 	asm("mov $0x083086b8, %eax");
 	asm("jmp *%eax");
 }
 
-int CBWCMD5::EncryptFinalBlock(unsigned long const *, unsigned long)
+void CBWCMD5::EncryptFinalBlock(unsigned long const *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08308f80, %eax");
@@ -42,14 +42,14 @@ int CBWCMD5::Encrypt(unsigned char *, unsigned long, unsigned char *, unsigned l
 	asm("jmp *%eax");
 }
 
-int CBWCMD5::F(unsigned long, unsigned long, unsigned long)
+unsigned long CBWCMD5::F(unsigned long, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08309090, %eax");
 	asm("jmp *%eax");
 }
 
-int CBWCMD5::G(unsigned long, unsigned long, unsigned long)
+unsigned long CBWCMD5::G(unsigned long, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x083090a4, %eax");
@@ -84,21 +84,21 @@ int CBWCMD5::GetState(void *)
 	asm("jmp *%eax");
 }
 
-int CBWCMD5::H(unsigned long, unsigned long, unsigned long)
+unsigned long CBWCMD5::H(unsigned long, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x083090b8, %eax");
 	asm("jmp *%eax");
 }
 
-int CBWCMD5::I(unsigned long, unsigned long, unsigned long)
+unsigned long CBWCMD5::I(unsigned long, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x083090c8, %eax");
 	asm("jmp *%eax");
 }
 
-int CBWCMD5::Reset()
+void CBWCMD5::Reset()
 {
 	asm("leave");
 	asm("mov $0x08308ef0, %eax");

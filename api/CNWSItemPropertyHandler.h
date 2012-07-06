@@ -1,6 +1,9 @@
 #ifndef _CNWSITEMPROPERTYHANDLER_H_
 #define _CNWSITEMPROPERTYHANDLER_H_
 #include "nwndef.h"
+#include "CNWSItem.h"
+#include "nwnstructs.h"
+#include "CNWSCreature.h"
 
 class CNWSItemPropertyHandler
 {
@@ -46,7 +49,7 @@ public:
 	int ApplyTrueSeeing(CNWSItem *, CNWItemProperty *, CNWSCreature *, unsigned long, int);
 	int ApplyTurnResistance(CNWSItem *, CNWItemProperty *, CNWSCreature *, unsigned long, int);
 	int ApplyUnlimitedAmmo(CNWSItem *, CNWItemProperty *, CNWSCreature *, unsigned long, int);
-	int InitializeItemProperties();
+	void InitializeItemProperties();
 	int OnItemPropertyApplied(CNWSItem *, CNWItemProperty *, CNWSCreature *, unsigned long, int);
 	int OnItemPropertyRemoved(CNWSItem *, CNWItemProperty *, CNWSCreature *, unsigned long);
 	int RemoveACBonus(CNWSItem *, CNWItemProperty *, CNWSCreature *, unsigned long);

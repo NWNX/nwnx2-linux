@@ -1,20 +1,20 @@
 #include "CBWCBlowFish.h"
 
-int CBWCBlowFish::BlockToBytes(CBWCBlowFishBlock const &, unsigned char *)
+void CBWCBlowFish::BlockToBytes(CBWCBlowFishBlock const &, unsigned char *)
 {
 	asm("leave");
 	asm("mov $0x08308520, %eax");
 	asm("jmp *%eax");
 }
 
-int CBWCBlowFish::BytesToBlock(unsigned char const *, CBWCBlowFishBlock &)
+void CBWCBlowFish::BytesToBlock(unsigned char const *, CBWCBlowFishBlock &)
 {
 	asm("leave");
 	asm("mov $0x083084d4, %eax");
 	asm("jmp *%eax");
 }
 
-int CBWCBlowFish::DecryptBlock(CBWCBlowFishBlock &)
+void CBWCBlowFish::DecryptBlock(CBWCBlowFishBlock &)
 {
 	asm("leave");
 	asm("mov $0x08307c6c, %eax");
@@ -35,7 +35,7 @@ int CBWCBlowFish::Decrypt(unsigned char *, unsigned long, unsigned char *, unsig
 	asm("jmp *%eax");
 }
 
-int CBWCBlowFish::EncryptBlock(CBWCBlowFishBlock &)
+void CBWCBlowFish::EncryptBlock(CBWCBlowFishBlock &)
 {
 	asm("leave");
 	asm("mov $0x08307b60, %eax");
@@ -56,7 +56,7 @@ int CBWCBlowFish::Encrypt(unsigned char *, unsigned long, unsigned char *, unsig
 	asm("jmp *%eax");
 }
 
-int CBWCBlowFish::F(unsigned long)
+unsigned long CBWCBlowFish::F(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x083085d0, %eax");
@@ -77,7 +77,7 @@ int CBWCBlowFish::GetEncryptedSize(unsigned long, unsigned long &)
 	asm("jmp *%eax");
 }
 
-int CBWCBlowFish::GetLowOrderByte(unsigned long)
+unsigned char CBWCBlowFish::GetLowOrderByte(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x083085c8, %eax");

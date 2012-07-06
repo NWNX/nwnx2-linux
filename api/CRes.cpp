@@ -7,21 +7,21 @@ int CRes::CancelRequest()
 	asm("jmp *%eax");
 }
 
-int CRes::Demand()
+void * CRes::Demand()
 {
 	asm("leave");
 	asm("mov $0x082b36f0, %eax");
 	asm("jmp *%eax");
 }
 
-int CRes::Dump(int)
+void CRes::Dump(int)
 {
 	asm("leave");
 	asm("mov $0x082b372c, %eax");
 	asm("jmp *%eax");
 }
 
-int CRes::GetData()
+void * CRes::GetData()
 {
 	asm("leave");
 	asm("mov $0x082b3748, %eax");

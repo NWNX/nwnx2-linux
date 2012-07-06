@@ -1,314 +1,314 @@
 #include "CNWSCreature.h"
 
-int CNWSCreature::AIActionAnimalEmpathy(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionAnimalEmpathy(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x08108afc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionAppear(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionAppear(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x0810a23c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionAreaWait(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionAreaWait(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x08112f04, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionAttackObject(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionAttackObject(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080e5928, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionBarter(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionBarter(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080f93d8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionCastSpell(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionCastSpell(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080faba8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionChangeFacingObject(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionChangeFacingObject(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080fd69c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionChangeFacingPoint(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionChangeFacingPoint(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080fd83c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionCheckForceFollowObject(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionCheckForceFollowObject(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x08112fd4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionCheckInterAreaPathfinding(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionCheckInterAreaPathfinding(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080fdeac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionCheckMoveAwayFromLocation(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionCheckMoveAwayFromLocation(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080fdc8c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionCheckMoveAwayFromObject(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionCheckMoveAwayFromObject(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080fd924, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionCheckMoveToObjectRadius(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionCheckMoveToObjectRadius(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080fe368, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionCheckMoveToObject(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionCheckMoveToObject(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080fe128, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionCheckMoveToPointRadius(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionCheckMoveToPointRadius(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080feac0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionCheckMoveToPoint(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionCheckMoveToPoint(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080fe884, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionCounterSpell(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionCounterSpell(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x0810c250, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionDisappear(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionDisappear(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x0810a318, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionDisarmTrap(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionDisarmTrap(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080f7070, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionDrive(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionDrive(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081052c0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionDropItem(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionDropItem(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x0810735c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionEncounterCreatureDestroySelf()
+unsigned long CNWSCreature::AIActionEncounterCreatureDestroySelf()
 {
 	asm("leave");
 	asm("mov $0x080fecb4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionEquipItem(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionEquipItem(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081001b8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionExamineTrap(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionExamineTrap(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080f7b78, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionExamine(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionExamine(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080f9648, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionFlagTrap(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionFlagTrap(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080f5d3c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionForceFollowObject(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionForceFollowObject(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081069c8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionHeal(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionHeal(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x0810b3f8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionItemCastSpell(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionItemCastSpell(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080f9c88, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionJumpToObject(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionJumpToObject(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x0810031c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionJumpToPoint(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionJumpToPoint(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x08100ba4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionMoveToPoint(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionMoveToPoint(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x08101e4c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionOrientCamera(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionOrientCamera(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x0811309c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionPickPocket(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionPickPocket(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x0810a3f4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionPickUpItem(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionPickUpItem(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x08106bb0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionRandomWalk(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionRandomWalk(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x08101a10, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionRecoverTrap(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionRecoverTrap(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080f63a8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionRepositoryMove(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionRepositoryMove(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x08101194, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionRest(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionRest(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x08109114, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionSetTrap(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionSetTrap(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x080f8174, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionSit(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionSit(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x0810bddc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionTaunt(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionTaunt(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x08109bec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionUnequipItem(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionUnequipItem(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x08107fb4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIActionWaitForEndOfRound(CNWSObjectActionNode *)
+unsigned long CNWSCreature::AIActionWaitForEndOfRound(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x08113118, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AIUpdate()
+void CNWSCreature::AIUpdate()
 {
 	asm("leave");
 	asm("mov $0x08119108, %eax");
@@ -322,14 +322,14 @@ int CNWSCreature::AcquireItem(CNWSItem **, unsigned long, unsigned long, unsigne
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ActionManager(unsigned long)
+void CNWSCreature::ActionManager(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0813bb24, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ActivityManager(unsigned long)
+void CNWSCreature::ActivityManager(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0813bba0, %eax");
@@ -357,7 +357,7 @@ int CNWSCreature::AddAreaOfEffect(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AddAssociate(unsigned long, unsigned short)
+void CNWSCreature::AddAssociate(unsigned long, unsigned short)
 {
 	asm("leave");
 	asm("mov $0x0810c620, %eax");
@@ -413,7 +413,7 @@ int CNWSCreature::AddEquipItemActions(CNWSItem *, unsigned long, int, int, unsig
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AddGold(int, int)
+void CNWSCreature::AddGold(int, int)
 {
 	asm("leave");
 	asm("mov $0x081317a0, %eax");
@@ -490,49 +490,49 @@ int CNWSCreature::AddTauntActions(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AddToArea(CNWSArea *, float, float, float, int)
+void CNWSCreature::AddToArea(CNWSArea *, float, float, float, int)
 {
 	asm("leave");
 	asm("mov $0x08118d20, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AddToAssociateList(unsigned long)
+void CNWSCreature::AddToAssociateList(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08113254, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AddToInvitationsIgnored(unsigned long)
+void CNWSCreature::AddToInvitationsIgnored(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081136bc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AddToInvitationsOffered(unsigned long)
+void CNWSCreature::AddToInvitationsOffered(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081135ac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AddToPVPList(unsigned long)
+void CNWSCreature::AddToPVPList(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0811387c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AddToPersonalReputationList(unsigned long, int, int, float)
+void CNWSCreature::AddToPersonalReputationList(unsigned long, int, int, float)
 {
 	asm("leave");
 	asm("mov $0x0810897c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AddToVisibleList(unsigned long, int, int, unsigned char, int)
+void CNWSCreature::AddToVisibleList(unsigned long, int, int, unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x08108824, %eax");
@@ -567,14 +567,14 @@ int CNWSCreature::AddUseTalentOnObjectActions(int, int, unsigned long, unsigned 
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AdjustReputation(int, int)
+void CNWSCreature::AdjustReputation(int, int)
 {
 	asm("leave");
 	asm("mov $0x081083a4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyDeathExperience()
+void CNWSCreature::ApplyDeathExperience()
 {
 	asm("leave");
 	asm("mov $0x0812385c, %eax");
@@ -588,70 +588,70 @@ int CNWSCreature::ApplyDiseasePayload(CGameEffect *, unsigned long, unsigned lon
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitAbilityDamage(CNWSObject *, CNWItemProperty *)
+void CNWSCreature::ApplyOnHitAbilityDamage(CNWSObject *, CNWItemProperty *)
 {
 	asm("leave");
 	asm("mov $0x080f4c4c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitBlindness(CNWSObject *, int)
+void CNWSCreature::ApplyOnHitBlindness(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080f19d4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitCastSpell(CNWSObject *, CNWItemProperty *, CNWSItem *)
+void CNWSCreature::ApplyOnHitCastSpell(CNWSObject *, CNWItemProperty *, CNWSItem *)
 {
 	asm("leave");
 	asm("mov $0x080eccf8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitConfusion(CNWSObject *, int)
+void CNWSCreature::ApplyOnHitConfusion(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080f1c60, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitDaze(CNWSObject *, int)
+void CNWSCreature::ApplyOnHitDaze(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080f1f58, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitDeafness(CNWSObject *, int)
+void CNWSCreature::ApplyOnHitDeafness(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080f2250, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitDeathAttack(CNWSObject *, int)
+void CNWSCreature::ApplyOnHitDeathAttack(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080f34d8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitDisease(CNWSObject *, CNWItemProperty *)
+void CNWSCreature::ApplyOnHitDisease(CNWSObject *, CNWItemProperty *)
 {
 	asm("leave");
 	asm("mov $0x080f4e88, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitDispelMagic(CNWSObject *, CNWItemProperty *)
+void CNWSCreature::ApplyOnHitDispelMagic(CNWSObject *, CNWItemProperty *)
 {
 	asm("leave");
 	asm("mov $0x080f4dc4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitDispelMagic(CNWSObject *, unsigned long)
+void CNWSCreature::ApplyOnHitDispelMagic(CNWSObject *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080f447c, %eax");
@@ -665,133 +665,133 @@ int CNWSCreature::ApplyOnHitDominate(CNWSObject *, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitDoom(CNWSObject *, int)
+void CNWSCreature::ApplyOnHitDoom(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080f27c8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitFear(CNWSObject *, int)
+void CNWSCreature::ApplyOnHitFear(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080f2df0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitGreaterDispel(CNWSObject *, unsigned long)
+void CNWSCreature::ApplyOnHitGreaterDispel(CNWSObject *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080f45f8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitHold(CNWSObject *, int)
+void CNWSCreature::ApplyOnHitHold(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080f30d8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitKnock(CNWSObject *, unsigned long)
+void CNWSCreature::ApplyOnHitKnock(CNWSObject *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080f4774, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitLesserDispel(CNWSObject *, unsigned long)
+void CNWSCreature::ApplyOnHitLesserDispel(CNWSObject *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080f4954, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitLevelDrain(CNWSObject *, CNWItemProperty *)
+void CNWSCreature::ApplyOnHitLevelDrain(CNWSObject *, CNWItemProperty *)
 {
 	asm("leave");
 	asm("mov $0x080f4f48, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitMordysDisjunction(CNWSObject *, unsigned long)
+void CNWSCreature::ApplyOnHitMordysDisjunction(CNWSObject *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080f4ad0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitPoison(CNWSObject *, CNWItemProperty *)
+void CNWSCreature::ApplyOnHitPoison(CNWSObject *, CNWItemProperty *)
 {
 	asm("leave");
 	asm("mov $0x080f50d0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitSilence(CNWSObject *, int)
+void CNWSCreature::ApplyOnHitSilence(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080f38e4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitSlayAlignmentGroup(CNWSObject *, CNWItemProperty *)
+void CNWSCreature::ApplyOnHitSlayAlignmentGroup(CNWSObject *, CNWItemProperty *)
 {
 	asm("leave");
 	asm("mov $0x080f54a0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitSlayAlignment(CNWSObject *, CNWItemProperty *)
+void CNWSCreature::ApplyOnHitSlayAlignment(CNWSObject *, CNWItemProperty *)
 {
 	asm("leave");
 	asm("mov $0x080f525c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitSlayRacialGroup(CNWSObject *, CNWItemProperty *)
+void CNWSCreature::ApplyOnHitSlayRacialGroup(CNWSObject *, CNWItemProperty *)
 {
 	asm("leave");
 	asm("mov $0x080f564c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitSleep(CNWSObject *, int)
+void CNWSCreature::ApplyOnHitSleep(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080f3b64, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitSlow(CNWSObject *, int)
+void CNWSCreature::ApplyOnHitSlow(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080f3f04, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitStun(CNWSObject *, int)
+void CNWSCreature::ApplyOnHitStun(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080f4184, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitVampiricRegeneration(CNWSObject *, CNWItemProperty *)
+void CNWSCreature::ApplyOnHitVampiricRegeneration(CNWSObject *, CNWItemProperty *)
 {
 	asm("leave");
 	asm("mov $0x080f5988, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitVorpal(CNWSObject *, CNWItemProperty *)
+void CNWSCreature::ApplyOnHitVorpal(CNWSObject *, CNWItemProperty *)
 {
 	asm("leave");
 	asm("mov $0x080f58c8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ApplyOnHitWounding(CNWSObject *, CNWItemProperty *)
+void CNWSCreature::ApplyOnHitWounding(CNWSObject *, CNWItemProperty *)
 {
 	asm("leave");
 	asm("mov $0x080f57dc, %eax");
@@ -812,21 +812,21 @@ int CNWSCreature::ApplyWounding(CGameEffect *)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AsNWSCreature()
+CNWSCreature * CNWSCreature::AsNWSCreature()
 {
 	asm("leave");
 	asm("mov $0x0813d6ac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::AutoCloseGUIPanels(int)
+void CNWSCreature::AutoCloseGUIPanels(int)
 {
 	asm("leave");
 	asm("mov $0x08135404, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BringAssociatesToNewFaction(int)
+void CNWSCreature::BringAssociatesToNewFaction(int)
 {
 	asm("leave");
 	asm("mov $0x08113778, %eax");
@@ -840,84 +840,84 @@ int CNWSCreature::BroadcastAssociateCommand(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BroadcastAttackDataToParty(CNWCCMessageData *, CNWSCombatAttackData *, CNWSCreature *)
+void CNWSCreature::BroadcastAttackDataToParty(CNWCCMessageData *, CNWSCombatAttackData *, CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x08126b58, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BroadcastAttackOfOpportunity(unsigned long, int)
+void CNWSCreature::BroadcastAttackOfOpportunity(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x08128ea8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BroadcastBattleCry()
+void CNWSCreature::BroadcastBattleCry()
 {
 	asm("leave");
 	asm("mov $0x08128864, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BroadcastCombatStateToParty()
+void CNWSCreature::BroadcastCombatStateToParty()
 {
 	asm("leave");
 	asm("mov $0x08128d34, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BroadcastDamageDataToParty(CNWCCMessageData *, CNWSCreature *)
+void CNWSCreature::BroadcastDamageDataToParty(CNWCCMessageData *, CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x08126dd4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BroadcastDeathDataToParty(CNWCCMessageData *, CNWSCreature *)
+void CNWSCreature::BroadcastDeathDataToParty(CNWCCMessageData *, CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x08127014, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BroadcastFloatyData(CNWCCMessageData *)
+void CNWSCreature::BroadcastFloatyData(CNWCCMessageData *)
 {
 	asm("leave");
 	asm("mov $0x081272dc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BroadcastSavingThrowData(CNWCCMessageData *)
+void CNWSCreature::BroadcastSavingThrowData(CNWCCMessageData *)
 {
 	asm("leave");
 	asm("mov $0x08127584, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BroadcastSkillData(CNWCCMessageData *)
+void CNWSCreature::BroadcastSkillData(CNWCCMessageData *)
 {
 	asm("leave");
 	asm("mov $0x0812742c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BroadcastSpellCast(unsigned long, unsigned char, unsigned short)
+void CNWSCreature::BroadcastSpellCast(unsigned long, unsigned char, unsigned short)
 {
 	asm("leave");
 	asm("mov $0x08127cec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BroadcastVoiceChat(unsigned char)
+void CNWSCreature::BroadcastVoiceChat(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081289cc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::BroadcastWhirlwindAttack(int)
+void CNWSCreature::BroadcastWhirlwindAttack(int)
 {
 	asm("leave");
 	asm("mov $0x0813b55c, %eax");
@@ -931,14 +931,14 @@ int CNWSCreature::BumpFriends(CNWSCreature *, Vector const &, Vector const &)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CalculateDamagePower(CNWSObject *, int)
+unsigned char CNWSCreature::CalculateDamagePower(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x0812eb24, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CalculateDeathExperience(int, int)
+float CNWSCreature::CalculateDeathExperience(int, int)
 {
 	asm("leave");
 	asm("mov $0x08123e0c, %eax");
@@ -973,35 +973,35 @@ int CNWSCreature::CalculateSpellSaveDC(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CanEquipItem(CNWSItem *, unsigned long *, int, int, int, CNWSPlayer *)
+unsigned char CNWSCreature::CanEquipItem(CNWSItem *, unsigned long *, int, int, int, CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x080ff978, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CanEquipMiscellaneous(CNWSItem *, unsigned long *, int, int)
+unsigned char CNWSCreature::CanEquipMiscellaneous(CNWSItem *, unsigned long *, int, int)
 {
 	asm("leave");
 	asm("mov $0x080ff8c0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CanEquipShield(CNWSItem *, int, int)
+unsigned char CNWSCreature::CanEquipShield(CNWSItem *, int, int)
 {
 	asm("leave");
 	asm("mov $0x080ff798, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CanEquipWeapon(CNWSItem *, unsigned long *, int, int, CNWSPlayer *)
+unsigned char CNWSCreature::CanEquipWeapon(CNWSItem *, unsigned long *, int, int, CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x080fed6c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CanUnEquipWeapon(CNWSItem *)
+unsigned char CNWSCreature::CanUnEquipWeapon(CNWSItem *)
 {
 	asm("leave");
 	asm("mov $0x08107e78, %eax");
@@ -1022,21 +1022,21 @@ int CNWSCreature::CancelAction(unsigned short, unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CancelGoldTransfer(unsigned long)
+void CNWSCreature::CancelGoldTransfer(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0813c7d8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CancelRest(unsigned short)
+void CNWSCreature::CancelRest(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x0812d888, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CheckInventoryForPlotItems()
+void CNWSCreature::CheckInventoryForPlotItems()
 {
 	asm("leave");
 	asm("mov $0x081399c4, %eax");
@@ -1064,7 +1064,7 @@ int CNWSCreature::CheckItemRaceRestrictions(CNWSItem *)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CheckMasterIsValid(unsigned long, unsigned long)
+void CNWSCreature::CheckMasterIsValid(unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08130120, %eax");
@@ -1092,14 +1092,14 @@ int CNWSCreature::CheckVisibleList(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CleanInvitationLists(int)
+void CNWSCreature::CleanInvitationLists(int)
 {
 	asm("leave");
 	asm("mov $0x08111c24, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CleanOutPersonalReputationList()
+void CNWSCreature::CleanOutPersonalReputationList()
 {
 	asm("leave");
 	asm("mov $0x08112ab8, %eax");
@@ -1113,7 +1113,7 @@ int CNWSCreature::ClearAction(CNWSObjectActionNode *, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ClearActivities(int)
+void CNWSCreature::ClearActivities(int)
 {
 	asm("leave");
 	asm("mov $0x08115528, %eax");
@@ -1127,56 +1127,56 @@ int CNWSCreature::ClearAutoMapData()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ClearHostileActionsVersus(CNWSCreature *)
+void CNWSCreature::ClearHostileActionsVersus(CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x08137f50, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ClearPersonalReputation(unsigned long)
+void CNWSCreature::ClearPersonalReputation(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08108a6c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ClearVisibleList()
+void CNWSCreature::ClearVisibleList()
 {
 	asm("leave");
 	asm("mov $0x081088a0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ComputeAIStateOnAction(int, unsigned long)
+void CNWSCreature::ComputeAIStateOnAction(int, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0811d974, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ComputeAIState()
+void CNWSCreature::ComputeAIState()
 {
 	asm("leave");
 	asm("mov $0x0813c184, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ComputeArmourClass(CNWSItem *, int, int)
+void CNWSCreature::ComputeArmourClass(CNWSItem *, int, int)
 {
 	asm("leave");
 	asm("mov $0x081298b0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ComputeModifiedMovementRate()
+void CNWSCreature::ComputeModifiedMovementRate()
 {
 	asm("leave");
 	asm("mov $0x081391ac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ComputeSpellRange(CExoString, unsigned long)
+float CNWSCreature::ComputeSpellRange(CExoString, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08115864, %eax");
@@ -1190,7 +1190,7 @@ int CNWSCreature::ComputeTotalEquippedWeight()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ComputeTotalWalkDistance()
+float CNWSCreature::ComputeTotalWalkDistance()
 {
 	asm("leave");
 	asm("mov $0x08103f60, %eax");
@@ -1204,14 +1204,14 @@ int CNWSCreature::ComputeTotalWeightCarried()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ConvertModeToggleQuickButton(CNWSQuickbarButton *)
+void CNWSCreature::ConvertModeToggleQuickButton(CNWSQuickbarButton *)
 {
 	asm("leave");
 	asm("mov $0x0813c2dc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CopyQuickButtonsFromDM(CNWSPlayer *)
+void CNWSCreature::CopyQuickButtonsFromDM(CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x08123698, %eax");
@@ -1225,7 +1225,7 @@ int CNWSCreature::CreateDefaultQuickButtonsDM()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CreateDefaultQuickButtons_AddFeat(unsigned char &, unsigned short, int)
+void CNWSCreature::CreateDefaultQuickButtons_AddFeat(unsigned char &, unsigned short, int)
 {
 	asm("leave");
 	asm("mov $0x08122f80, %eax");
@@ -1239,28 +1239,28 @@ int CNWSCreature::CreateDefaultQuickButtons_CheckItem(CNWSItem *, unsigned long 
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CreateDefaultQuickButtons()
+void CNWSCreature::CreateDefaultQuickButtons()
 {
 	asm("leave");
 	asm("mov $0x08122494, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::CutWaypointPath()
+void CNWSCreature::CutWaypointPath()
 {
 	asm("leave");
 	asm("mov $0x0813cf74, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::DMClearScripts(int)
+void CNWSCreature::DMClearScripts(int)
 {
 	asm("leave");
 	asm("mov $0x0810e920, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::DMResetClearedScripts(int)
+void CNWSCreature::DMResetClearedScripts(int)
 {
 	asm("leave");
 	asm("mov $0x0810f198, %eax");
@@ -1274,35 +1274,35 @@ int CNWSCreature::DecrementSpellReadyCount(unsigned long, unsigned char, unsigne
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::DesiredAttackRange(unsigned long, int)
+float CNWSCreature::DesiredAttackRange(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x0811d858, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::DestroyEquippedItems()
+void CNWSCreature::DestroyEquippedItems()
 {
 	asm("leave");
 	asm("mov $0x0813bfcc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::DisplayFloatyDataToSelf(unsigned long)
+void CNWSCreature::DisplayFloatyDataToSelf(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0813a60c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::DoCombatStep(unsigned char, int, unsigned long)
+void CNWSCreature::DoCombatStep(unsigned char, int, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080f0008, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::DoDamage(int)
+void CNWSCreature::DoDamage(int)
 {
 	asm("leave");
 	asm("mov $0x0812e998, %eax");
@@ -1316,7 +1316,7 @@ int CNWSCreature::DoListenDetection(CNWSCreature *, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::DoPerceptionUpdateOnCreature(CNWSCreature *, int)
+void CNWSCreature::DoPerceptionUpdateOnCreature(CNWSCreature *, int)
 {
 	asm("leave");
 	asm("mov $0x08125164, %eax");
@@ -1337,14 +1337,14 @@ int CNWSCreature::DoStealthDetection(CNWSCreature *, int, int *, int *, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::DriveUpdateLocation(int)
+unsigned long CNWSCreature::DriveUpdateLocation(int)
 {
 	asm("leave");
 	asm("mov $0x08106580, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::DumpToLog()
+void CNWSCreature::DumpToLog()
 {
 	asm("leave");
 	asm("mov $0x0813a6f0, %eax");
@@ -1393,21 +1393,21 @@ int CNWSCreature::EvaluateLock(CNWSObject *, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSCreature::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0811c160, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ExternalResolveAttack(unsigned long, int)
+void CNWSCreature::ExternalResolveAttack(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x080f5c50, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::FailedOpenInformAssociates()
+void CNWSCreature::FailedOpenInformAssociates()
 {
 	asm("leave");
 	asm("mov $0x08113820, %eax");
@@ -1505,7 +1505,7 @@ int CNWSCreature::GetAnimalCompanionId()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetAnimalCompanionName()
+CExoString CNWSCreature::GetAnimalCompanionName()
 {
 	asm("leave");
 	asm("mov $0x0813e4c0, %eax");
@@ -1526,14 +1526,14 @@ int CNWSCreature::GetAreaOfEffectObjects()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetArmorClass()
+short CNWSCreature::GetArmorClass()
 {
 	asm("leave");
 	asm("mov $0x0812e19c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetAssociateId(unsigned short, int)
+unsigned long CNWSCreature::GetAssociateId(unsigned short, int)
 {
 	asm("leave");
 	asm("mov $0x0810f9b4, %eax");
@@ -1596,7 +1596,7 @@ int CNWSCreature::GetAutoMapTileData()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetBarterInfo(int)
+CNWSBarter * CNWSCreature::GetBarterInfo(int)
 {
 	asm("leave");
 	asm("mov $0x0813c8fc, %eax");
@@ -1617,7 +1617,7 @@ int CNWSCreature::GetBlindsightDistance()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetBodyBagAppearance()
+unsigned short CNWSCreature::GetBodyBagAppearance()
 {
 	asm("leave");
 	asm("mov $0x08139850, %eax");
@@ -1750,7 +1750,7 @@ int CNWSCreature::GetDMCharacter()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetDamageFlags()
+unsigned short CNWSCreature::GetDamageFlags()
 {
 	asm("leave");
 	asm("mov $0x0813c760, %eax");
@@ -1799,7 +1799,7 @@ int CNWSCreature::GetDesiredCombatMode()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetDetectMode()
+unsigned char CNWSCreature::GetDetectMode()
 {
 	asm("leave");
 	asm("mov $0x0813c850, %eax");
@@ -1813,7 +1813,7 @@ int CNWSCreature::GetDialogInterruptable()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetDialogResref()
+CResRef CNWSCreature::GetDialogResref()
 {
 	asm("leave");
 	asm("mov $0x0813dcb4, %eax");
@@ -1827,14 +1827,14 @@ int CNWSCreature::GetDisarmable()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetDisplayName()
+CExoString CNWSCreature::GetDisplayName()
 {
 	asm("leave");
 	asm("mov $0x0813dd7c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetDominatedCreatureId()
+unsigned long CNWSCreature::GetDominatedCreatureId()
 {
 	asm("leave");
 	asm("mov $0x0811353c, %eax");
@@ -1869,7 +1869,7 @@ int CNWSCreature::GetEffectIcons()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetEffectSpellId()
+unsigned long CNWSCreature::GetEffectSpellId()
 {
 	asm("leave");
 	asm("mov $0x0813e808, %eax");
@@ -1925,7 +1925,7 @@ int CNWSCreature::GetFactionId()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetFaction()
+CNWSFaction * CNWSCreature::GetFaction()
 {
 	asm("leave");
 	asm("mov $0x08113178, %eax");
@@ -1946,21 +1946,21 @@ int CNWSCreature::GetFamiliarId()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetFamiliarName()
+CExoString CNWSCreature::GetFamiliarName()
 {
 	asm("leave");
 	asm("mov $0x0813e5f8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetFilteredEffectList(unsigned char)
+CExoArrayList<CGameEffect *> CNWSCreature::GetFilteredEffectList(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08131d1c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetFirstName()
+CExoLocString & CNWSCreature::GetFirstName()
 {
 	asm("leave");
 	asm("mov $0x0813dd3c, %eax");
@@ -2002,7 +2002,7 @@ int CNWSCreature::GetFreeWill()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetGender()
+unsigned char CNWSCreature::GetGender()
 {
 	asm("leave");
 	asm("mov $0x0813dd18, %eax");
@@ -2247,7 +2247,7 @@ int CNWSCreature::GetItemContainerArrayIndex()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetItemCount(int)
+unsigned long CNWSCreature::GetItemCount(int)
 {
 	asm("leave");
 	asm("mov $0x0812e0bc, %eax");
@@ -2261,7 +2261,7 @@ int CNWSCreature::GetItemRepository()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetJournal()
+CNWSJournal * CNWSCreature::GetJournal()
 {
 	asm("leave");
 	asm("mov $0x0813c89c, %eax");
@@ -2359,7 +2359,7 @@ int CNWSCreature::GetLastMoveSilentlyRoll()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetLastName()
+CExoLocString & CNWSCreature::GetLastName()
 {
 	asm("leave");
 	asm("mov $0x0813dd5c, %eax");
@@ -2443,7 +2443,7 @@ int CNWSCreature::GetLastTrapDetected()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetListenCheckDistance()
+float CNWSCreature::GetListenCheckDistance()
 {
 	asm("leave");
 	asm("mov $0x0813d180, %eax");
@@ -2457,7 +2457,7 @@ int CNWSCreature::GetLockAnimationPlayed()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetLockOrientationToObject()
+unsigned long CNWSCreature::GetLockOrientationToObject()
 {
 	asm("leave");
 	asm("mov $0x0813dc04, %eax");
@@ -2499,7 +2499,7 @@ int CNWSCreature::GetMasterId()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetMaxHitPoints(int)
+short CNWSCreature::GetMaxHitPoints(int)
 {
 	asm("leave");
 	asm("mov $0x0812e25c, %eax");
@@ -2513,21 +2513,21 @@ int CNWSCreature::GetMode(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetModelType()
+CExoString CNWSCreature::GetModelType()
 {
 	asm("leave");
 	asm("mov $0x0813db94, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetMovementRateFactor()
+float CNWSCreature::GetMovementRateFactor()
 {
 	asm("leave");
 	asm("mov $0x08123fd8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetNearestEnemy(float, unsigned long, int, int)
+unsigned long CNWSCreature::GetNearestEnemy(float, unsigned long, int, int)
 {
 	asm("leave");
 	asm("mov $0x0812c188, %eax");
@@ -2702,7 +2702,7 @@ int CNWSCreature::GetPonyRide()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetPortrait()
+CResRef CNWSCreature::GetPortrait()
 {
 	asm("leave");
 	asm("mov $0x0813eb44, %eax");
@@ -2744,7 +2744,7 @@ int CNWSCreature::GetPreferredAttackDistance()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetQuickbarButton(unsigned char)
+CNWSQuickbarButton * CNWSCreature::GetQuickbarButton(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0813d370, %eax");
@@ -2786,7 +2786,7 @@ int CNWSCreature::GetReputationList()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetRunRate()
+float CNWSCreature::GetRunRate()
 {
 	asm("leave");
 	asm("mov $0x0813c484, %eax");
@@ -2849,7 +2849,7 @@ int CNWSCreature::GetSpellTarget()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetSpotCheckDistance()
+float CNWSCreature::GetSpotCheckDistance()
 {
 	asm("leave");
 	asm("mov $0x0813d160, %eax");
@@ -2863,7 +2863,7 @@ int CNWSCreature::GetStandardFactionReputation(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetStats()
+CNWSCreatureStats * CNWSCreature::GetStats()
 {
 	asm("leave");
 	asm("mov $0x0813d4c8, %eax");
@@ -3010,7 +3010,7 @@ int CNWSCreature::GetVisibilityList()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetVisibleListElement(unsigned long)
+CNWVisibilityNode * CNWSCreature::GetVisibleListElement(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081131fc, %eax");
@@ -3031,7 +3031,7 @@ int CNWSCreature::GetWalkAnimation()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::GetWalkRate()
+float CNWSCreature::GetWalkRate()
 {
 	asm("leave");
 	asm("mov $0x0813c458, %eax");
@@ -3059,14 +3059,14 @@ int CNWSCreature::HandleSubAreaStateChanges(CExoArrayList<unsigned long> *, CExo
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::InitialisePVPList()
+void CNWSCreature::InitialisePVPList()
 {
 	asm("leave");
 	asm("mov $0x08112694, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::InitializeQuickbar()
+void CNWSCreature::InitializeQuickbar()
 {
 	asm("leave");
 	asm("mov $0x0813b2d8, %eax");
@@ -3094,14 +3094,14 @@ int CNWSCreature::LearnScroll(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::LoadAssociateList(CResGFF *, CResStruct *)
+void CNWSCreature::LoadAssociateList(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x0811fc20, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::LoadAutoMapData(CResGFF *, CResStruct *)
+void CNWSCreature::LoadAutoMapData(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x08121630, %eax");
@@ -3122,7 +3122,7 @@ int CNWSCreature::LoadFromTemplate(CResRef, CExoString *)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::LoadPersonalReputationList(CResGFF *, CResStruct *)
+void CNWSCreature::LoadPersonalReputationList(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x0811f7bc, %eax");
@@ -3136,56 +3136,56 @@ int CNWSCreature::LoadPolymorphData(CResGFF *, CResStruct *, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::LoadQuickBarHack(CExoString)
+void CNWSCreature::LoadQuickBarHack(CExoString)
 {
 	asm("leave");
 	asm("mov $0x081394f4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::LoadQuickButtons(CResGFF *, CResStruct *)
+void CNWSCreature::LoadQuickButtons(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x08121788, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::MaxAttackRange(unsigned long, int, int)
+float CNWSCreature::MaxAttackRange(unsigned long, int, int)
 {
 	asm("leave");
 	asm("mov $0x0813c114, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::MergeItem(CNWSItem *, CNWSItem *)
+void CNWSCreature::MergeItem(CNWSItem *, CNWSItem *)
 {
 	asm("leave");
 	asm("mov $0x0811a014, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::NotifyAssociateActionToggle(int)
+void CNWSCreature::NotifyAssociateActionToggle(int)
 {
 	asm("leave");
 	asm("mov $0x0813b454, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::PacifyCreature()
+void CNWSCreature::PacifyCreature()
 {
 	asm("leave");
 	asm("mov $0x08137ca8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::PacifyCreature(unsigned long)
+void CNWSCreature::PacifyCreature(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08137dc4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::PayToIdentifyItem(unsigned long, unsigned long)
+void CNWSCreature::PayToIdentifyItem(unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08131984, %eax");
@@ -3199,105 +3199,105 @@ int CNWSCreature::Polymorph(int, CGameEffect *, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::PossessCreatureDM(unsigned long, unsigned char)
+void CNWSCreature::PossessCreatureDM(unsigned long, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081133b0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::PossessCreature(unsigned long)
+void CNWSCreature::PossessCreature(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0810e658, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::PossessFamiliar()
+void CNWSCreature::PossessFamiliar()
 {
 	asm("leave");
 	asm("mov $0x0810de48, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::PostProcess()
+void CNWSCreature::PostProcess()
 {
 	asm("leave");
 	asm("mov $0x0812430c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ProcessMasterDeathForAssociates()
+void CNWSCreature::ProcessMasterDeathForAssociates()
 {
 	asm("leave");
 	asm("mov $0x08110ae8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ProcessPendingCombatActions()
+void CNWSCreature::ProcessPendingCombatActions()
 {
 	asm("leave");
 	asm("mov $0x0813a4c0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::QuickbarButton_RemoveItem(unsigned long)
+void CNWSCreature::QuickbarButton_RemoveItem(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0813029c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::QuickbarButton_RemoveSpell(unsigned long)
+void CNWSCreature::QuickbarButton_RemoveSpell(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0813034c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ReadItemsFromGff(CResGFF *, CResStruct *, int, int)
+void CNWSCreature::ReadItemsFromGff(CResGFF *, CResStruct *, int, int)
 {
 	asm("leave");
 	asm("mov $0x0811eee0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ReadScriptsFromGff(CResGFF *, CResStruct *)
+void CNWSCreature::ReadScriptsFromGff(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x0811e768, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RealizeAssociateList()
+void CNWSCreature::RealizeAssociateList()
 {
 	asm("leave");
 	asm("mov $0x0811ffd4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ReceiveAssociateCommand(int)
+void CNWSCreature::ReceiveAssociateCommand(int)
 {
 	asm("leave");
 	asm("mov $0x0810cdc0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RecomputeAmbientAnimationState()
+void CNWSCreature::RecomputeAmbientAnimationState()
 {
 	asm("leave");
 	asm("mov $0x08128ca0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RelayQuickChatCommandToAssociates(unsigned short)
+void CNWSCreature::RelayQuickChatCommandToAssociates(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x08113308, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RemoveAllAssociates()
+void CNWSCreature::RemoveAllAssociates()
 {
 	asm("leave");
 	asm("mov $0x08112a28, %eax");
@@ -3311,14 +3311,14 @@ int CNWSCreature::RemoveAreaOfEffect(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RemoveAssociate(unsigned long)
+void CNWSCreature::RemoveAssociate(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0810c8f4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RemoveBadEffects()
+void CNWSCreature::RemoveBadEffects()
 {
 	asm("leave");
 	asm("mov $0x0812dfb8, %eax");
@@ -3339,7 +3339,7 @@ int CNWSCreature::RemoveCharmEffectsByOBJECTID(unsigned long, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RemoveCombatInvisibilityEffects()
+void CNWSCreature::RemoveCombatInvisibilityEffects()
 {
 	asm("leave");
 	asm("mov $0x081374d0, %eax");
@@ -3353,14 +3353,14 @@ int CNWSCreature::RemoveDominationEffect()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RemoveDomination()
+void CNWSCreature::RemoveDomination()
 {
 	asm("leave");
 	asm("mov $0x081134cc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RemoveFromArea(int)
+void CNWSCreature::RemoveFromArea(int)
 {
 	asm("leave");
 	asm("mov $0x0811b87c, %eax");
@@ -3381,21 +3381,21 @@ int CNWSCreature::RemoveFromInvitationsOffered(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RemoveFromPVPList(unsigned long)
+void CNWSCreature::RemoveFromPVPList(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08113924, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RemoveFromVisibleList(unsigned long)
+void CNWSCreature::RemoveFromVisibleList(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0810890c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RemoveGold(int, int)
+void CNWSCreature::RemoveGold(int, int)
 {
 	asm("leave");
 	asm("mov $0x081318a0, %eax");
@@ -3416,21 +3416,21 @@ int CNWSCreature::RemoveItem(CNWSItem *, int, int, int, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RemoveSleepEffects()
+void CNWSCreature::RemoveSleepEffects()
 {
 	asm("leave");
 	asm("mov $0x0812de6c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RemoveSpellActionFromRound()
+void CNWSCreature::RemoveSpellActionFromRound()
 {
 	asm("leave");
 	asm("mov $0x0813a424, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RemoveWoundingEffects()
+void CNWSCreature::RemoveWoundingEffects()
 {
 	asm("leave");
 	asm("mov $0x0812e04c, %eax");
@@ -3444,7 +3444,7 @@ int CNWSCreature::ReplyToInvitation(int, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ReprocessAssociateList()
+void CNWSCreature::ReprocessAssociateList()
 {
 	asm("leave");
 	asm("mov $0x0810c55c, %eax");
@@ -3465,70 +3465,70 @@ int CNWSCreature::RequestSell(unsigned long, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResetItemPossessor()
+void CNWSCreature::ResetItemPossessor()
 {
 	asm("leave");
 	asm("mov $0x081111d8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResetPCDominatedScripts()
+void CNWSCreature::ResetPCDominatedScripts()
 {
 	asm("leave");
 	asm("mov $0x08110268, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResetUpdateTimes(unsigned long, unsigned long)
+void CNWSCreature::ResetUpdateTimes(unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0813bf90, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveAmmunition(unsigned long)
+void CNWSCreature::ResolveAmmunition(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080e7754, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveAttackRoll(CNWSObject *)
+void CNWSCreature::ResolveAttackRoll(CNWSObject *)
 {
 	asm("leave");
 	asm("mov $0x080eb190, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveAttack(unsigned long, int, int)
+void CNWSCreature::ResolveAttack(unsigned long, int, int)
 {
 	asm("leave");
 	asm("mov $0x080e6c44, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveCachedSpecialAttacks()
+void CNWSCreature::ResolveCachedSpecialAttacks()
 {
 	asm("leave");
 	asm("mov $0x080ec390, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveDamageShields(CNWSCreature *)
+void CNWSCreature::ResolveDamageShields(CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x080efcac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveDamage(CNWSObject *)
+void CNWSCreature::ResolveDamage(CNWSObject *)
 {
 	asm("leave");
 	asm("mov $0x080ec5b4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveDeathAttack(CNWSCreature *)
+void CNWSCreature::ResolveDeathAttack(CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x080ebdfc, %eax");
@@ -3549,140 +3549,140 @@ int CNWSCreature::ResolveElementalDamage(CNWSObject *)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveInitiative()
+void CNWSCreature::ResolveInitiative()
 {
 	asm("leave");
 	asm("mov $0x08128b18, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveItemCastSpell(CNWSObject *)
+void CNWSCreature::ResolveItemCastSpell(CNWSObject *)
 {
 	asm("leave");
 	asm("mov $0x080ecb18, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveMeleeAnimations(int, int, CNWSObject *, int)
+void CNWSCreature::ResolveMeleeAnimations(int, int, CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080eaa18, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveMeleeAttack(CNWSObject *, int, int)
+void CNWSCreature::ResolveMeleeAttack(CNWSObject *, int, int)
 {
 	asm("leave");
 	asm("mov $0x080e9930, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveMeleeSpecialAttack(int, int, CNWSObject *, int)
+void CNWSCreature::ResolveMeleeSpecialAttack(int, int, CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080e9a98, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveOnHitEffect(CNWSObject *, int, int)
+void CNWSCreature::ResolveOnHitEffect(CNWSObject *, int, int)
 {
 	asm("leave");
 	asm("mov $0x080ee6c0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveOnHitVisuals(CNWSObject *)
+void CNWSCreature::ResolveOnHitVisuals(CNWSObject *)
 {
 	asm("leave");
 	asm("mov $0x080ee4d4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolvePostMeleeDamage(CNWSObject *)
+void CNWSCreature::ResolvePostMeleeDamage(CNWSObject *)
 {
 	asm("leave");
 	asm("mov $0x080ecf80, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolvePostRangedDamage(CNWSObject *)
+void CNWSCreature::ResolvePostRangedDamage(CNWSObject *)
 {
 	asm("leave");
 	asm("mov $0x080ed7e4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveRangedAnimations(CNWSObject *, int)
+void CNWSCreature::ResolveRangedAnimations(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080e7fe8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveRangedAttack(CNWSObject *, int, int)
+void CNWSCreature::ResolveRangedAttack(CNWSObject *, int, int)
 {
 	asm("leave");
 	asm("mov $0x080e6fe4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveRangedMiss(CNWSObject *)
+void CNWSCreature::ResolveRangedMiss(CNWSObject *)
 {
 	asm("leave");
 	asm("mov $0x080e8530, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveRangedSpecialAttack(CNWSObject *, int)
+void CNWSCreature::ResolveRangedSpecialAttack(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080e71d4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveSafeProjectile(unsigned long, int)
+void CNWSCreature::ResolveSafeProjectile(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x080e7630, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveSituationalModifiers(CNWSObject *)
+void CNWSCreature::ResolveSituationalModifiers(CNWSObject *)
 {
 	asm("leave");
 	asm("mov $0x080ec480, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ResolveSneakAttack(CNWSCreature *)
+void CNWSCreature::ResolveSneakAttack(CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x080eb720, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::Rest(int, int)
+void CNWSCreature::Rest(int, int)
 {
 	asm("leave");
 	asm("mov $0x0812d45c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RestoreCutsceneVars()
+void CNWSCreature::RestoreCutsceneVars()
 {
 	asm("leave");
 	asm("mov $0x0813d444, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RestoreItemPropertiesInRepository(CItemRepository *)
+void CNWSCreature::RestoreItemPropertiesInRepository(CItemRepository *)
 {
 	asm("leave");
 	asm("mov $0x0812bc00, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::RestoreItemProperties()
+void CNWSCreature::RestoreItemProperties()
 {
 	asm("leave");
 	asm("mov $0x0813c600, %eax");
@@ -3703,14 +3703,14 @@ int CNWSCreature::RunUnequip(unsigned long, unsigned long, unsigned char, unsign
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SaveAssociateList(CResGFF *, CResStruct *)
+void CNWSCreature::SaveAssociateList(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x0811faa0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SaveAutoMapData(CResGFF *, CResStruct *)
+void CNWSCreature::SaveAutoMapData(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x0813c224, %eax");
@@ -3724,49 +3724,49 @@ int CNWSCreature::SaveCreature(CResGFF *, CResStruct *, int, int, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SavePersonalReputationList(CResGFF *, CResStruct *)
+void CNWSCreature::SavePersonalReputationList(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x0811f558, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SaveQuickBarHack(CExoString)
+void CNWSCreature::SaveQuickBarHack(CExoString)
 {
 	asm("leave");
 	asm("mov $0x0813960c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SaveQuickButtons(CResGFF *, CResStruct *)
+void CNWSCreature::SaveQuickButtons(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081230f4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SavingThrowRoll(unsigned char, unsigned short, unsigned char, unsigned long, int, unsigned short, int)
+unsigned char CNWSCreature::SavingThrowRoll(unsigned char, unsigned short, unsigned char, unsigned long, int, unsigned short, int)
 {
 	asm("leave");
 	asm("mov $0x080f0a90, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SawTrapInformAssociates(unsigned long)
+void CNWSCreature::SawTrapInformAssociates(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081124a0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SendFeedbackMessage(unsigned short, CNWCCMessageData *, CNWSPlayer *)
+void CNWSCreature::SendFeedbackMessage(unsigned short, CNWCCMessageData *, CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x0813533c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SendFeedbackString(CExoString, CNWSPlayer *)
+void CNWSCreature::SendFeedbackString(CExoString, CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x0813cecc, %eax");
@@ -3794,7 +3794,7 @@ int CNWSCreature::SetActivityLocked(unsigned long, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetActivity(int, int)
+void CNWSCreature::SetActivity(int, int)
 {
 	asm("leave");
 	asm("mov $0x081152e8, %eax");
@@ -3808,7 +3808,7 @@ int CNWSCreature::SetAlive()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetAllTilesExplored(unsigned long, int)
+void CNWSCreature::SetAllTilesExplored(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x08124d7c, %eax");
@@ -3836,35 +3836,35 @@ int CNWSCreature::SetAnimalCompanionCreatureType(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetAnimalCompanionName(CExoString)
+void CNWSCreature::SetAnimalCompanionName(CExoString)
 {
 	asm("leave");
 	asm("mov $0x0813e3f4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetAnimation(int)
+void CNWSCreature::SetAnimation(int)
 {
 	asm("leave");
 	asm("mov $0x0811b544, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetAssociateListenPatterns()
+void CNWSCreature::SetAssociateListenPatterns()
 {
 	asm("leave");
 	asm("mov $0x0810cb90, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetAssociateType(unsigned short)
+void CNWSCreature::SetAssociateType(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x0813d388, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetAssociatesToForgetAggression(unsigned long)
+void CNWSCreature::SetAssociatesToForgetAggression(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08112c00, %eax");
@@ -3934,14 +3934,14 @@ int CNWSCreature::SetCalculateNPCWeight(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetCombatMode(unsigned char, int)
+void CNWSCreature::SetCombatMode(unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x080f982c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetCombatState(int)
+void CNWSCreature::SetCombatState(int)
 {
 	asm("leave");
 	asm("mov $0x0813c524, %eax");
@@ -4018,7 +4018,7 @@ int CNWSCreature::SetDecayTime(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetDefensiveCastingMode(unsigned char)
+void CNWSCreature::SetDefensiveCastingMode(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08112eb0, %eax");
@@ -4053,7 +4053,7 @@ int CNWSCreature::SetDesiredCombatMode(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetDetectMode(unsigned char)
+void CNWSCreature::SetDetectMode(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08112e84, %eax");
@@ -4067,7 +4067,7 @@ int CNWSCreature::SetDisarmable(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetDisplayName(CExoString)
+void CNWSCreature::SetDisplayName(CExoString)
 {
 	asm("leave");
 	asm("mov $0x0813dda4, %eax");
@@ -4095,7 +4095,7 @@ int CNWSCreature::SetDropItemAnimationPlayed(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetEffectSpellId(unsigned long)
+void CNWSCreature::SetEffectSpellId(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0813e818, %eax");
@@ -4130,7 +4130,7 @@ int CNWSCreature::SetEquippedWeight(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetExcitedState(unsigned char)
+void CNWSCreature::SetExcitedState(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0812d29c, %eax");
@@ -4165,7 +4165,7 @@ int CNWSCreature::SetFamiliarCreatureType(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetFamiliarName(CExoString)
+void CNWSCreature::SetFamiliarName(CExoString)
 {
 	asm("leave");
 	asm("mov $0x0813e52c, %eax");
@@ -4193,7 +4193,7 @@ int CNWSCreature::SetGoingToBeAttackedBy(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetGold(int)
+void CNWSCreature::SetGold(int)
 {
 	asm("leave");
 	asm("mov $0x0813ce38, %eax");
@@ -4228,14 +4228,14 @@ int CNWSCreature::SetHealAnimationPlayed(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetId(unsigned long)
+void CNWSCreature::SetId(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0813bae8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetInTransit(int)
+void CNWSCreature::SetInTransit(int)
 {
 	asm("leave");
 	asm("mov $0x0813d024, %eax");
@@ -4263,7 +4263,7 @@ int CNWSCreature::SetInvitedToPartyBy(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetInvitedToParty(int)
+void CNWSCreature::SetInvitedToParty(int)
 {
 	asm("leave");
 	asm("mov $0x0813d298, %eax");
@@ -4494,7 +4494,7 @@ int CNWSCreature::SetLockAnimationPlayed(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetLockOrientationToObject(unsigned long)
+void CNWSCreature::SetLockOrientationToObject(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0812c8bc, %eax");
@@ -4550,21 +4550,21 @@ int CNWSCreature::SetMaxSpotCheckDistance(float)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetMode(unsigned char, int)
+void CNWSCreature::SetMode(unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x0813c66c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetModelType(CExoString)
+void CNWSCreature::SetModelType(CExoString)
 {
 	asm("leave");
 	asm("mov $0x0813db3c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetMovementRateFactor(float)
+void CNWSCreature::SetMovementRateFactor(float)
 {
 	asm("leave");
 	asm("mov $0x08124130, %eax");
@@ -4606,14 +4606,14 @@ int CNWSCreature::SetOriginalFactionId(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetPCDominatedScripts()
+void CNWSCreature::SetPCDominatedScripts()
 {
 	asm("leave");
 	asm("mov $0x0810fa40, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetPVPPlayerLikesMe(unsigned long, int, int)
+void CNWSCreature::SetPVPPlayerLikesMe(unsigned long, int, int)
 {
 	asm("leave");
 	asm("mov $0x081125b4, %eax");
@@ -4669,14 +4669,14 @@ int CNWSCreature::SetPonyRide(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetPortraitId(unsigned short)
+void CNWSCreature::SetPortraitId(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x0812e7f4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetPortrait(CResRef)
+void CNWSCreature::SetPortrait(CResRef)
 {
 	asm("leave");
 	asm("mov $0x0813eb90, %eax");
@@ -4718,105 +4718,105 @@ int CNWSCreature::SetPreferredAttackDistance(float)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_AssociateCommand(unsigned char, int, unsigned short, unsigned long)
+void CNWSCreature::SetQuickbarButton_AssociateCommand(unsigned char, int, unsigned short, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0813ca38, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_CommandLine(unsigned char, CExoString const &, CExoString const &)
+void CNWSCreature::SetQuickbarButton_CommandLine(unsigned char, CExoString const &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x0813cd20, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_DM_General_ResRefParam(unsigned char, unsigned char, CResRef const &)
+void CNWSCreature::SetQuickbarButton_DM_General_ResRefParam(unsigned char, unsigned char, CResRef const &)
 {
 	asm("leave");
 	asm("mov $0x0813cd8c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_DungeonMaster_CreateCreature(unsigned char, CResRef const &, CExoString const &)
+void CNWSCreature::SetQuickbarButton_DungeonMaster_CreateCreature(unsigned char, CResRef const &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x0813ca80, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_DungeonMaster_CreateEncounter(unsigned char, CResRef const &, CExoString const &)
+void CNWSCreature::SetQuickbarButton_DungeonMaster_CreateEncounter(unsigned char, CResRef const &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x0813cb40, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_DungeonMaster_CreateItem(unsigned char, CResRef const &, CExoString const &)
+void CNWSCreature::SetQuickbarButton_DungeonMaster_CreateItem(unsigned char, CResRef const &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x0813cae0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_DungeonMaster_CreatePlaceable(unsigned char, CResRef const &, CExoString const &)
+void CNWSCreature::SetQuickbarButton_DungeonMaster_CreatePlaceable(unsigned char, CResRef const &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x0813ccc0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_DungeonMaster_CreatePortal(unsigned char, CResRef const &, CExoString const &)
+void CNWSCreature::SetQuickbarButton_DungeonMaster_CreatePortal(unsigned char, CResRef const &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x0813cc60, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_DungeonMaster_CreateTrigger(unsigned char, CResRef const &, CExoString const &)
+void CNWSCreature::SetQuickbarButton_DungeonMaster_CreateTrigger(unsigned char, CResRef const &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x0813cc00, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_DungeonMaster_CreateWaypoint(unsigned char, CResRef const &, CExoString const &)
+void CNWSCreature::SetQuickbarButton_DungeonMaster_CreateWaypoint(unsigned char, CResRef const &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x0813cba0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_GeneralINTParam(unsigned char, unsigned char, int)
+void CNWSCreature::SetQuickbarButton_GeneralINTParam(unsigned char, unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x0813ce00, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_GeneralNoParam(unsigned char, unsigned char)
+void CNWSCreature::SetQuickbarButton_GeneralNoParam(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0813cdd4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_Item(unsigned char, unsigned long, int, unsigned long)
+void CNWSCreature::SetQuickbarButton_Item(unsigned char, unsigned long, int, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0813c960, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_SpellLikeAbility(unsigned char, unsigned long, unsigned char)
+void CNWSCreature::SetQuickbarButton_SpellLikeAbility(unsigned char, unsigned long, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0813c9fc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetQuickbarButton_Spell(unsigned char, unsigned char, unsigned long, unsigned char, unsigned char)
+void CNWSCreature::SetQuickbarButton_Spell(unsigned char, unsigned char, unsigned long, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0813c9a0, %eax");
@@ -4837,7 +4837,7 @@ int CNWSCreature::SetReputation(CExoArrayList<int> *)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetScriptName(int, CExoString)
+void CNWSCreature::SetScriptName(int, CExoString)
 {
 	asm("leave");
 	asm("mov $0x0813d720, %eax");
@@ -4886,7 +4886,7 @@ int CNWSCreature::SetSpotCheckDistance(float)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetStandardFactionReputation(int, int)
+void CNWSCreature::SetStandardFactionReputation(int, int)
 {
 	asm("leave");
 	asm("mov $0x08112938, %eax");
@@ -4907,7 +4907,7 @@ int CNWSCreature::SetStealAttemptDetected(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetStealthMode(unsigned char)
+void CNWSCreature::SetStealthMode(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080f975c, %eax");
@@ -4942,7 +4942,7 @@ int CNWSCreature::SetTaunt(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SetTileExplored(unsigned long, int, int)
+void CNWSCreature::SetTileExplored(unsigned long, int, int)
 {
 	asm("leave");
 	asm("mov $0x08124e4c, %eax");
@@ -4998,28 +4998,28 @@ int CNWSCreature::SetWeaponScale(float)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SignalMeleeDamage(CNWSObject *, int)
+void CNWSCreature::SignalMeleeDamage(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080eacac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SignalRangedDamage(CNWSObject *, int)
+void CNWSCreature::SignalRangedDamage(CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080e94dc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SpawnInHeartbeatPerception(int)
+void CNWSCreature::SpawnInHeartbeatPerception(int)
 {
 	asm("leave");
 	asm("mov $0x0811972c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SplitItem(CNWSItem *, int)
+void CNWSCreature::SplitItem(CNWSItem *, int)
 {
 	asm("leave");
 	asm("mov $0x0811a1d0, %eax");
@@ -5033,42 +5033,42 @@ int CNWSCreature::StartBarter(unsigned long, unsigned long, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::StartGuiTimingBar(unsigned long, unsigned char)
+void CNWSCreature::StartGuiTimingBar(unsigned long, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0813d1a0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::StopGuiTimingBar()
+void CNWSCreature::StopGuiTimingBar()
 {
 	asm("leave");
 	asm("mov $0x0813d224, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::StoreCutsceneVars()
+void CNWSCreature::StoreCutsceneVars()
 {
 	asm("leave");
 	asm("mov $0x0813d424, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SummonAnimalCompanion()
+void CNWSCreature::SummonAnimalCompanion()
 {
 	asm("leave");
 	asm("mov $0x0810d1c0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SummonAssociate(CResRef, CExoString, unsigned short)
+void CNWSCreature::SummonAssociate(CResRef, CExoString, unsigned short)
 {
 	asm("leave");
 	asm("mov $0x0810da28, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::SummonFamiliar()
+void CNWSCreature::SummonFamiliar()
 {
 	asm("leave");
 	asm("mov $0x0810d628, %eax");
@@ -5124,84 +5124,84 @@ int CNWSCreature::UnequipItem(CNWSItem *, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UnpossessCreatureDM()
+void CNWSCreature::UnpossessCreatureDM()
 {
 	asm("leave");
 	asm("mov $0x08113420, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UnpossessCreature()
+void CNWSCreature::UnpossessCreature()
 {
 	asm("leave");
 	asm("mov $0x0810e83c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UnpossessFamiliar()
+void CNWSCreature::UnpossessFamiliar()
 {
 	asm("leave");
 	asm("mov $0x0810e174, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UnsummonMyself()
+void CNWSCreature::UnsummonMyself()
 {
 	asm("leave");
 	asm("mov $0x0810cf84, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UpdateActionQueue()
+void CNWSCreature::UpdateActionQueue()
 {
 	asm("leave");
 	asm("mov $0x08139ca4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UpdateAppearanceDependantInfo()
+void CNWSCreature::UpdateAppearanceDependantInfo()
 {
 	asm("leave");
 	asm("mov $0x0812f900, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UpdateAppearanceForEquippedItems()
+void CNWSCreature::UpdateAppearanceForEquippedItems()
 {
 	asm("leave");
 	asm("mov $0x0812efa0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UpdateAttributesOnEffect(CGameEffect *, int)
+void CNWSCreature::UpdateAttributesOnEffect(CGameEffect *, int)
 {
 	asm("leave");
 	asm("mov $0x0811e0a8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UpdateAutoMap(unsigned long)
+void CNWSCreature::UpdateAutoMap(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08119e24, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UpdateCombatRoundTimer()
+void CNWSCreature::UpdateCombatRoundTimer()
 {
 	asm("leave");
 	asm("mov $0x0811d740, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UpdateEffectPtrs()
+void CNWSCreature::UpdateEffectPtrs()
 {
 	asm("leave");
 	asm("mov $0x0811dd04, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UpdateEncumbranceState(int)
+void CNWSCreature::UpdateEncumbranceState(int)
 {
 	asm("leave");
 	asm("mov $0x08111e94, %eax");
@@ -5215,7 +5215,7 @@ int CNWSCreature::UpdateExcitedStateTimer()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UpdatePersonalSpace()
+void CNWSCreature::UpdatePersonalSpace()
 {
 	asm("leave");
 	asm("mov $0x0812f6b4, %eax");
@@ -5250,14 +5250,14 @@ int CNWSCreature::UpdateTrapCheckDM()
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UpdateTrapCheck()
+void CNWSCreature::UpdateTrapCheck()
 {
 	asm("leave");
 	asm("mov $0x0811a2f4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::UpdateVisibleList()
+void CNWSCreature::UpdateVisibleList()
 {
 	asm("leave");
 	asm("mov $0x08108500, %eax");
@@ -5292,7 +5292,7 @@ int CNWSCreature::UseSkill(unsigned char, unsigned char, unsigned long, Vector, 
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::ValidateCounterSpellData(unsigned long, unsigned char, unsigned char)
+void CNWSCreature::ValidateCounterSpellData(unsigned long, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08127c08, %eax");
@@ -5313,7 +5313,7 @@ int CNWSCreature::WalkUpdateLocationTestDistance(Vector, Vector)
 	asm("jmp *%eax");
 }
 
-int CNWSCreature::WalkUpdateLocation()
+unsigned long CNWSCreature::WalkUpdateLocation()
 {
 	asm("leave");
 	asm("mov $0x08104174, %eax");

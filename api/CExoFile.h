@@ -1,6 +1,7 @@
 #ifndef _CEXOFILE_H_
 #define _CEXOFILE_H_
 #include "nwndef.h"
+#include "CExoString.h"
 
 class CExoFile
 {
@@ -8,20 +9,20 @@ public:
 	int Eof();
 	int FileOpened();
 	int Flush();
-	int GetOffset();
+	unsigned long GetOffset();
 	int GetSize();
 	int ReadAsyncBytesRead();
 	int ReadAsyncComplete();
-	int ReadAsync(void *, unsigned long, unsigned long);
+	void ReadAsync(void *, unsigned long, unsigned long);
 	int ReadStringLineFromBuffer(unsigned char **, unsigned long *, unsigned char *, unsigned long);
-	int Read(void *, unsigned long, unsigned long);
-	int Read(CExoString &, unsigned long);
+	unsigned long Read(void *, unsigned long, unsigned long);
+	unsigned long Read(CExoString &, unsigned long);
 	int SeekBeginning();
 	int SeekEnd();
 	int Seek(int, int);
 	int Write(char const *);
-	int Write(void const *, unsigned long, unsigned long);
-	int Write(CExoString const &);
+	unsigned long Write(void const *, unsigned long, unsigned long);
+	unsigned long Write(CExoString const &);
 	~CExoFile();
 	CExoFile(CExoString const &, unsigned short, CExoString const &);
 

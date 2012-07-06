@@ -1,12 +1,13 @@
 #ifndef _CNWFEAT_H_
 #define _CNWFEAT_H_
 #include "nwndef.h"
+#include "CExoString.h"
 
 class CNWFeat
 {
 public:
 	int GetDescriptionText();
-	int GetNameText();
+	CExoString GetNameText();
 	~CNWFeat();
 	CNWFeat();
 

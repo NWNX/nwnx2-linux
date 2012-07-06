@@ -1,11 +1,13 @@
 #ifndef _CSCRIPTLOCATION_H_
 #define _CSCRIPTLOCATION_H_
 #include "nwndef.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 
 class CScriptLocation
 {
 public:
-	int CopyScriptLocation(CScriptLocation *);
+	void CopyScriptLocation(CScriptLocation *);
 	int LoadLocation(CResGFF *, CResStruct *);
 	int SaveLocation(CResGFF *, CResStruct *);
 	~CScriptLocation();

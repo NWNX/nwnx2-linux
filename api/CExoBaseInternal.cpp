@@ -1,6 +1,6 @@
 #include "CExoBaseInternal.h"
 
-int CExoBaseInternal::AddAlias(CExoString, CExoString, CExoString)
+void CExoBaseInternal::AddAlias(CExoString, CExoString, CExoString)
 {
 	asm("leave");
 	asm("mov $0x082cd1b0, %eax");
@@ -14,7 +14,7 @@ int CExoBaseInternal::CheckForCD(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CExoBaseInternal::CreateResourceExtensionTable()
+void CExoBaseInternal::CreateResourceExtensionTable()
 {
 	asm("leave");
 	asm("mov $0x082cc7bc, %eax");
@@ -35,21 +35,21 @@ int CExoBaseInternal::GetDirectoryList(CExoArrayList<CExoString> *, CExoString, 
 	asm("jmp *%eax");
 }
 
-int CExoBaseInternal::GetResTypeFromExtension(CExoString const &)
+unsigned short CExoBaseInternal::GetResTypeFromExtension(CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082ce890, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoBaseInternal::GetResourceExtension(unsigned short)
+CExoString const & CExoBaseInternal::GetResourceExtension(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x082ce854, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoBaseInternal::LoadAliases(CExoString)
+void CExoBaseInternal::LoadAliases(CExoString)
 {
 	asm("leave");
 	asm("mov $0x082cde74, %eax");

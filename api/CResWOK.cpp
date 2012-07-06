@@ -1,13 +1,13 @@
 #include "CResWOK.h"
 
-int CResWOK::GetWOKDataPtr()
+unsigned char * CResWOK::GetWOKDataPtr()
 {
 	asm("leave");
 	asm("mov $0x080959ec, %eax");
 	asm("jmp *%eax");
 }
 
-int CResWOK::GetWOKSize()
+unsigned long CResWOK::GetWOKSize()
 {
 	asm("leave");
 	asm("mov $0x080959f8, %eax");

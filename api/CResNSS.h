@@ -5,8 +5,8 @@
 class CResNSS
 {
 public:
-	int GetNSSDataPtr();
-	int GetNSSSize();
+	unsigned char * GetNSSDataPtr();
+	unsigned long GetNSSSize();
 	int IsLoaded();
 	int OnResourceFreed();
 	int OnResourceServiced();

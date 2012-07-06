@@ -1,11 +1,13 @@
 #ifndef _CSCRIPTTALENT_H_
 #define _CSCRIPTTALENT_H_
 #include "nwndef.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 
 class CScriptTalent
 {
 public:
-	int CopyScriptTalent(CScriptTalent *);
+	void CopyScriptTalent(CScriptTalent *);
 	int Equals(CScriptTalent *);
 	int LoadTalent(CResGFF *, CResStruct *);
 	int SaveTalent(CResGFF *, CResStruct *);

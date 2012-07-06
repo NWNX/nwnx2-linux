@@ -9,8 +9,8 @@ class CNetLayerPlayerInfo
 public:
 	int AddCDKey(CExoString const &, CExoString const &);
 	int AllKeysAuthed(unsigned long &);
-	int Initialize();
-	int SetCDKey(int, CExoString const &, CExoString const &);
+	void Initialize();
+	void SetCDKey(int, CExoString const &, CExoString const &);
 	int StartMstTimer(unsigned long long);
 	int UpdateMstTimer(unsigned long long);
 	CNetLayerPlayerInfo();

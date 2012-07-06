@@ -1,27 +1,30 @@
 #ifndef _CNWSDIALOG_H_
 #define _CNWSDIALOG_H_
 #include "nwndef.h"
-#include "CExoLocString.h"
+#include "CExoString.h"
+#include "CNWSObject.h"
 #include "CResRef.h"
+#include "CExoLocString.h"
+#include "CResGFF.h"
 
 class CNWSDialog
 {
 public:
-	int AddJournalEntry(CExoString const &, unsigned long, unsigned long);
+	void AddJournalEntry(CExoString const &, unsigned long, unsigned long);
 	int CheckScript(CNWSObject *, CResRef const &);
-	int Cleanup();
+	void Cleanup();
 	int ClearDialogOwnerInObject(unsigned long);
-	int GetSpeaker(CNWSObject *, CExoString const &);
+	CNWSObject * GetSpeaker(CNWSObject *, CExoString const &);
 	int GetStartEntryOneLiner(CNWSObject *, CExoLocString &, CResRef &, CResRef &);
-	int GetStartEntry(CNWSObject *);
+	unsigned long GetStartEntry(CNWSObject *);
 	int HandleReply(unsigned long, CNWSObject *, unsigned long, int, unsigned long);
 	int IsPlayerInDialog(unsigned long);
 	int LoadDialog(CResGFF *, int);
 	int RemovePlayer(unsigned long);
-	int RunScript(CNWSObject *, CResRef const &);
+	void RunScript(CNWSObject *, CResRef const &);
 	int SendDialogEntry(CNWSObject *, unsigned long, unsigned long, int);
 	int SendDialogReplies(CNWSObject *, unsigned long);
-	int SetDialogDelay(CNWSObject *, CExoLocString, unsigned long, int);
+	float SetDialogDelay(CNWSObject *, CExoLocString, unsigned long, int);
 	~CNWSDialog();
 	CNWSDialog();
 

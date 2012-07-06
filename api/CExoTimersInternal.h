@@ -5,8 +5,8 @@
 class CExoTimersInternal
 {
 public:
-	int GetHighResolutionTimer();
-	int GetLowResolutionTimer();
+	unsigned __int64 GetHighResolutionTimer();
+	unsigned long GetLowResolutionTimer();
 	~CExoTimersInternal();
 	CExoTimersInternal();
 

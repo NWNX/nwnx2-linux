@@ -7,21 +7,21 @@ int CNWSPlayer::AddArea(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::AddDMAbilities(CNWSCreature *)
+void CNWSPlayer::AddDMAbilities(CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x08055758, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::AllocateAreas(int)
+void CNWSPlayer::AllocateAreas(int)
 {
 	asm("leave");
 	asm("mov $0x0805e8f0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::AsNWSPlayer()
+CNWSPlayer * CNWSPlayer::AsNWSPlayer()
 {
 	asm("leave");
 	asm("mov $0x0805eba4, %eax");
@@ -35,7 +35,7 @@ int CNWSPlayer::BackupServerCharacter(CExoString const &)
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::CleanMyTURDs()
+void CNWSPlayer::CleanMyTURDs()
 {
 	asm("leave");
 	asm("mov $0x0805e6c4, %eax");
@@ -49,28 +49,28 @@ int CNWSPlayer::ClearPlayerLastUpdateObject()
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::ClearPlayerOnDestroyGame()
+void CNWSPlayer::ClearPlayerOnDestroyGame()
 {
 	asm("leave");
 	asm("mov $0x08053e48, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::CreateNewPlayerLastUpdateObject()
+CNWSPlayerLastUpdateObject * CNWSPlayer::CreateNewPlayerLastUpdateObject()
 {
 	asm("leave");
 	asm("mov $0x0805e9dc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::DropTURD()
+void CNWSPlayer::DropTURD()
 {
 	asm("leave");
 	asm("mov $0x08054150, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::EatTURD(CNWSPlayerTURD *)
+void CNWSPlayer::EatTURD(CNWSPlayerTURD *)
 {
 	asm("leave");
 	asm("mov $0x08054468, %eax");
@@ -182,7 +182,7 @@ int CNWSPlayer::GetFromTURD()
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::GetGameObject()
+CNWSObject * CNWSPlayer::GetGameObject()
 {
 	asm("leave");
 	asm("mov $0x0805e8b8, %eax");
@@ -231,7 +231,7 @@ int CNWSPlayer::GetLastObjectControlled()
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::GetLastUpdateObject(unsigned long)
+CLastUpdateObject * CNWSPlayer::GetLastUpdateObject(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0805e710, %eax");
@@ -294,7 +294,7 @@ int CNWSPlayer::GetPlayerListIndex()
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::GetPlayerName()
+CExoString CNWSPlayer::GetPlayerName()
 {
 	asm("leave");
 	asm("mov $0x0805e980, %eax");
@@ -315,42 +315,42 @@ int CNWSPlayer::HasExpansionPack(unsigned char, int)
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::LoadCharacterFromIFO(unsigned long, int, int, int, int)
+CNWSCreature * CNWSPlayer::LoadCharacterFromIFO(unsigned long, int, int, int, int)
 {
 	asm("leave");
 	asm("mov $0x0805489c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::LoadCreatureData(CResRef, CNWSCreature *)
+unsigned long CNWSPlayer::LoadCreatureData(CResRef, CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x08055fec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::LoadDMCharacter()
+unsigned long CNWSPlayer::LoadDMCharacter()
 {
 	asm("leave");
 	asm("mov $0x08055514, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::LoadLocalCharacter()
+unsigned long CNWSPlayer::LoadLocalCharacter()
 {
 	asm("leave");
 	asm("mov $0x080547e0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::LoadServerCharacter(CResRef, int)
+unsigned long CNWSPlayer::LoadServerCharacter(CResRef, int)
 {
 	asm("leave");
 	asm("mov $0x080555f4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::LoadTURDInfoFromIFO(unsigned long)
+void CNWSPlayer::LoadTURDInfoFromIFO(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0805507c, %eax");
@@ -371,7 +371,7 @@ int CNWSPlayer::PermittedToDisplayCharacterSheet(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::RestoreCameraSettings()
+void CNWSPlayer::RestoreCameraSettings()
 {
 	asm("leave");
 	asm("mov $0x0805eb14, %eax");
@@ -392,7 +392,7 @@ int CNWSPlayer::SetAlwaysRun(int)
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::SetAreaTransitionBMP(int, CExoString)
+void CNWSPlayer::SetAreaTransitionBMP(int, CExoString)
 {
 	asm("leave");
 	asm("mov $0x0805e794, %eax");
@@ -420,7 +420,7 @@ int CNWSPlayer::SetCutsceneState(int)
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::SetFileName(CResRef)
+void CNWSPlayer::SetFileName(CResRef)
 {
 	asm("leave");
 	asm("mov $0x0805ed74, %eax");
@@ -448,7 +448,7 @@ int CNWSPlayer::SetFromTURD(int)
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::SetGameObject(CNWSObject *)
+void CNWSPlayer::SetGameObject(CNWSObject *)
 {
 	asm("leave");
 	asm("mov $0x0805df90, %eax");
@@ -518,21 +518,21 @@ int CNWSPlayer::SetPlayerListIndex(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::StoreCameraSettings()
+void CNWSPlayer::StoreCameraSettings()
 {
 	asm("leave");
 	asm("mov $0x0805eae8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::StripAllInvalidItemPropertiesInInventory(CNWSCreature *)
+void CNWSPlayer::StripAllInvalidItemPropertiesInInventory(CNWSCreature *)
 {
 	asm("leave");
 	asm("mov $0x0805e278, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::StripAllInvalidItemPropertiesOnItem(CNWSItem *)
+void CNWSPlayer::StripAllInvalidItemPropertiesOnItem(CNWSItem *)
 {
 	asm("leave");
 	asm("mov $0x0805e338, %eax");
@@ -546,7 +546,7 @@ int CNWSPlayer::ValidateCharacter_SetNormalBonusFlags(unsigned short, int &, int
 	asm("jmp *%eax");
 }
 
-int CNWSPlayer::ValidateCharacter(int *)
+unsigned long CNWSPlayer::ValidateCharacter(int *)
 {
 	asm("leave");
 	asm("mov $0x080580bc, %eax");

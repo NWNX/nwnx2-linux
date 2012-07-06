@@ -1,6 +1,10 @@
 #ifndef _CERFFILE_H_
 #define _CERFFILE_H_
 #include "nwndef.h"
+#include "CRes.h"
+#include "CExoString.h"
+#include "CERFString.h"
+#include "CERFRes.h"
 
 class CERFFile
 {
@@ -17,7 +21,7 @@ public:
 	int RemoveResource(CExoString &, unsigned short);
 	int Reset();
 	int SetNumEntries(unsigned long);
-	int SetVersion(char *);
+	void SetVersion(char *);
 	int WriteHeader();
 	int WriteResource(char *, unsigned short, CRes *, int);
 	int WriteStringTable();

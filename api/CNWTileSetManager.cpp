@@ -1,6 +1,6 @@
 #include "CNWTileSetManager.h"
 
-int CNWTileSetManager::ClearTilePathNodes()
+void CNWTileSetManager::ClearTilePathNodes()
 {
 	asm("leave");
 	asm("mov $0x08086cbc, %eax");
@@ -21,7 +21,7 @@ int CNWTileSetManager::ComputePathNodeRotation(int, float *, float *)
 	asm("jmp *%eax");
 }
 
-int CNWTileSetManager::GetTilePathNode(unsigned char, unsigned char)
+CNWTilePathNode * CNWTileSetManager::GetTilePathNode(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08088a44, %eax");
@@ -35,14 +35,14 @@ int CNWTileSetManager::InitializeTilePathNodes()
 	asm("jmp *%eax");
 }
 
-int CNWTileSetManager::RegisterTileSet(CResRef)
+CNWTileSet * CNWTileSetManager::RegisterTileSet(CResRef)
 {
 	asm("leave");
 	asm("mov $0x08086ba4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWTileSetManager::UnregisterTileSet(CNWTileSet *)
+void CNWTileSetManager::UnregisterTileSet(CNWTileSet *)
 {
 	asm("leave");
 	asm("mov $0x080889a8, %eax");

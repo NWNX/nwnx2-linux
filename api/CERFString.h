@@ -1,14 +1,16 @@
 #ifndef _CERFSTRING_H_
 #define _CERFSTRING_H_
 #include "nwndef.h"
+#include "CExoString.h"
+#include "CExoFile.h"
 
 class CERFString
 {
 public:
-	int GetText();
+	CExoString GetText();
 	int Read();
 	int Reset();
-	int SetText(CExoString &);
+	void SetText(CExoString &);
 	int Write(CExoFile &);
 	~CERFString();
 	CERFString();

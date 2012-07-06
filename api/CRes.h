@@ -7,9 +7,9 @@ class CRes
 {
 public:
 	int CancelRequest();
-	int Demand();
-	int Dump(int);
-	int GetData();
+	void * Demand();
+	void Dump(int);
+	void * GetData();
 	int GetDemands();
 	int GetFixedResourceDataOffset();
 	int GetFixedResourceSize();

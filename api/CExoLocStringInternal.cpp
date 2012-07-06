@@ -14,7 +14,7 @@ int CExoLocStringInternal::Assign(CExoLocStringInternal *)
 	asm("jmp *%eax");
 }
 
-int CExoLocStringInternal::ClearLocString()
+void CExoLocStringInternal::ClearLocString()
 {
 	asm("leave");
 	asm("mov $0x082d0ff4, %eax");
@@ -28,7 +28,7 @@ int CExoLocStringInternal::Compare(CExoLocString &)
 	asm("jmp *%eax");
 }
 
-int CExoLocStringInternal::GetStringCount()
+unsigned long CExoLocStringInternal::GetStringCount()
 {
 	asm("leave");
 	asm("mov $0x082d1130, %eax");

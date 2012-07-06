@@ -2,33 +2,53 @@
 #define _CNWSMESSAGE_H_
 #include "nwndef.h"
 #include "CNWMessage.h"
+#include "CNWSItem.h"
+#include "CNWSCreature.h"
+#include "CNWSAreaOfEffectObject.h"
+#include "CNWSDoor.h"
+#include "CNWSPlaceable.h"
+#include "CNWSTrigger.h"
 #include "CExoArrayList.h"
+#include "CNWSObject.h"
+#include "CLastUpdateObject.h"
+#include "CNWSPlayer.h"
+#include "CGameObjectArray.h"
+#include "nwnstructs.h"
+#include "CNWSPlayerInventoryGUI.h"
+#include "CNWSPlayerLastUpdateObject.h"
 #include "CExoLocString.h"
 #include "CExoString.h"
+#include "CGameObject.h"
+#include "CNWSArea.h"
 #include "Vector.h"
+#include "CNWCCMessageData.h"
+#include "CNWSCombatAttackData.h"
 #include "CResRef.h"
+#include "CItemRepository.h"
+#include "CNWSPlayerLUOInventory.h"
+#include "CNWSStore.h"
 
 class CNWSMessage : public CNWMessage
 {
 public:
-	int AddActiveItemPropertiesToMessage(CNWSItem *, CNWSCreature *);
+	void AddActiveItemPropertiesToMessage(CNWSItem *, CNWSCreature *);
 	int AddAreaOfEffectObjectToMessage(CNWSAreaOfEffectObject *);
 	int AddDoorAppearanceToMessage(CNWSDoor *);
-	int AddItemAppearanceToMessage(CNWSItem *);
-	int AddPlaceableAppearanceToMessage(CNWSPlaceable *);
+	void AddItemAppearanceToMessage(CNWSItem *);
+	void AddPlaceableAppearanceToMessage(CNWSPlaceable *);
 	int AddTriggerGeometryToMessage(CNWSTrigger *);
 	int AssignCreatureLists(CExoArrayList<unsigned long> *, CExoArrayList<unsigned long> *);
-	int AssignVisualEffectLists(CExoArrayList<CLoopingVisualEffect *> *, CExoArrayList<CLoopingVisualEffect *> *);
+	void AssignVisualEffectLists(CExoArrayList<CLoopingVisualEffect *> *, CExoArrayList<CLoopingVisualEffect *> *);
 	int CompareCreatureLists(CExoArrayList<unsigned long> *, CExoArrayList<unsigned long> *);
 	int CompareVisualEffectLists(CExoArrayList<CLoopingVisualEffect *> *, CExoArrayList<CLoopingVisualEffect *> *);
-	int ComputeAppearanceUpdateRequired(CNWSObject *, CLastUpdateObject *);
+	unsigned long ComputeAppearanceUpdateRequired(CNWSObject *, CLastUpdateObject *);
 	int ComputeGameObjectUpdateForCategory(unsigned long, unsigned long, CNWSPlayer *, CNWSObject *, CGameObjectArray *, CNWSPlayerLUOSortedObjectList *, int);
-	int ComputeGameObjectUpdateForObject(CNWSPlayer *, CNWSObject *, CGameObjectArray *, unsigned long);
+	void ComputeGameObjectUpdateForObject(CNWSPlayer *, CNWSObject *, CGameObjectArray *, unsigned long);
 	int ComputeGameObjectUpdateForYourselfToo(CNWSPlayer *, CNWSObject *, CGameObjectArray *, unsigned long);
 	int ComputeGameObjectUpdateForYourself(CNWSPlayer *, CNWSObject *, CGameObjectArray *, unsigned long);
 	int ComputeInventoryUpdateRequired(CNWSPlayer *, unsigned long, CNWSPlayerInventoryGUI *);
 	int ComputeLastUpdate_ActionQueue(CNWSCreature *, CNWSPlayerLastUpdateObject *);
-	int ComputeLastUpdate_AssociateState(CNWSCreature *);
+	unsigned short ComputeLastUpdate_AssociateState(CNWSCreature *);
 	int ComputeLastUpdate_AutoMap(CNWSCreature *, CNWSPlayerLastUpdateObject *);
 	int ComputeLastUpdate_CompareSpellLikeAbility(CNWSCreature *, CNWSPlayerLastUpdateObject *);
 	int ComputeLastUpdate_GuiEffectIcons(CNWSCreature *, CExoArrayList<CEffectIconObject *> *, int);
@@ -38,18 +58,18 @@ public:
 	int ComputeLastUpdate_GuiMemorizedSpells(CNWSCreature *, CNWSPlayerLastUpdateObject *);
 	int ComputeLastUpdate_GuiNumberMemorizedSpells(CNWSCreature *, CNWSPlayerLastUpdateObject *);
 	int ComputeLastUpdate_GuiSkills(CNWSCreature *);
-	int ComputeLastUpdate_PlayerState(CNWSCreature *);
-	int ComputeLastUpdate_StoreUpdateSpellLikeAbility(CNWSCreature *, CNWSPlayerLastUpdateObject *);
-	int ComputeLastUpdate_WriteSpellLikeAbility(CNWSCreature *, CNWSPlayerLastUpdateObject *);
-	int ComputeNumAutoMapUpdatesRequired(CNWSCreature *, CNWSPlayerLastUpdateObject *, unsigned long *);
+	unsigned long ComputeLastUpdate_PlayerState(CNWSCreature *);
+	void ComputeLastUpdate_StoreUpdateSpellLikeAbility(CNWSCreature *, CNWSPlayerLastUpdateObject *);
+	void ComputeLastUpdate_WriteSpellLikeAbility(CNWSCreature *, CNWSPlayerLastUpdateObject *);
+	unsigned long ComputeNumAutoMapUpdatesRequired(CNWSCreature *, CNWSPlayerLastUpdateObject *, unsigned long *);
 	int ComputeQuickbarItemUseCountUpdateRequired(CNWSObject *, CLastUpdateObject *);
 	int ComputeRepositoryUpdateRequired(CNWSPlayer *, CExoLinkedListNode *, CExoLinkedListNode *);
-	int ComputeUpdateRequired(CNWSPlayer *, CNWSObject *, CLastUpdateObject *, int);
+	unsigned long ComputeUpdateRequired(CNWSPlayer *, CNWSObject *, CLastUpdateObject *, int);
 	int ComputeVisibilityLists(CNWSCreature *, CNWSPlayerLastUpdateObject *);
-	int CreateNewLastUpdateObject(CNWSPlayer *, CNWSObject *, unsigned long *, unsigned long *);
-	int DeleteLastUpdateObjectsForObject(CNWSPlayer *, unsigned long);
-	int DeleteLastUpdateObjectsInOtherAreas(CNWSPlayer *);
-	int GetLocStringServer(unsigned long, CExoLocString, CExoLocString, CExoString &, float &, unsigned char);
+	CLastUpdateObject * CreateNewLastUpdateObject(CNWSPlayer *, CNWSObject *, unsigned long *, unsigned long *);
+	void DeleteLastUpdateObjectsForObject(CNWSPlayer *, unsigned long);
+	void DeleteLastUpdateObjectsInOtherAreas(CNWSPlayer *);
+	static int GetLocStringServer(unsigned long, CExoLocString, CExoLocString, CExoString &, float &, unsigned char);
 	int HandlePlayerToServerAreaMessage(CNWSPlayer *, unsigned char);
 	int HandlePlayerToServerBarter_AcceptTrade(CNWSPlayer *);
 	int HandlePlayerToServerBarter_AddItem(CNWSPlayer *);
@@ -109,8 +129,8 @@ public:
 	int ParseGetBool(unsigned char *, unsigned long, int &);
 	int ParseGetString(unsigned char *, unsigned long, CExoString &, unsigned long);
 	int ParseToken(char const *, unsigned char **, unsigned long &, int);
-	int ReadOBJECTIDServer();
-	int SelectCategoryForGameObject(CGameObject *, CNWSObject *);
+	unsigned long ReadOBJECTIDServer();
+	unsigned long SelectCategoryForGameObject(CGameObject *, CNWSObject *);
 	int SendPlayerToServerGuiInventory_Status(CNWSPlayer *, int, unsigned long);
 	int SendServerPlayerItemUpdate_DestroyItem(CNWSPlayer *, unsigned long);
 	int SendServerToAllPlayersCreatureUpdate_StripEquippedItems(unsigned long, int, int);
@@ -296,50 +316,50 @@ public:
 	int SendServerToPlayerVoiceChat_Play(CNWSPlayer *, unsigned long, unsigned char);
 	int SendServerToPlayerWhirlwindAttackDamage(CNWSPlayer *, CNWSCreature *);
 	int SendServerToPlayerWhirlwindAttack(CNWSPlayer *, CNWSCreature *);
-	int SendServerToServerAdminBannedList(unsigned long);
+	void SendServerToServerAdminBannedList(unsigned long);
 	int SendServerToServerAdminMessage(unsigned long, CExoString);
-	int SendServerToServerAdminModuleList(unsigned long);
-	int SendServerToServerAdminPlayerList(unsigned long);
-	int SendServerToServerAdminPortalList(unsigned long);
-	int SendServerToServerAdminSaveGameList(unsigned long);
-	int SendServerToServerAdminSaveStatus(unsigned long, unsigned char);
-	int SendServerToServerAdminServerSettings(unsigned long);
-	int SendServerToServerAdminServerStatus(unsigned long);
-	int SortObjectsForGameObjectUpdate(CNWSPlayer *, CNWSObject *, CGameObjectArray *, int *);
-	int StoreValuesInLastPlayerUpdateObject(CNWSPlayer *, CNWSPlayerLastUpdateObject *, CLastUpdateObject *, unsigned short);
+	void SendServerToServerAdminModuleList(unsigned long);
+	void SendServerToServerAdminPlayerList(unsigned long);
+	void SendServerToServerAdminPortalList(unsigned long);
+	void SendServerToServerAdminSaveGameList(unsigned long);
+	void SendServerToServerAdminSaveStatus(unsigned long, unsigned char);
+	void SendServerToServerAdminServerSettings(unsigned long);
+	void SendServerToServerAdminServerStatus(unsigned long);
+	CNWSPlayerLUOSortedObjectList * SortObjectsForGameObjectUpdate(CNWSPlayer *, CNWSObject *, CGameObjectArray *, int *);
+	void StoreValuesInLastPlayerUpdateObject(CNWSPlayer *, CNWSPlayerLastUpdateObject *, CLastUpdateObject *, unsigned short);
 	int StoreValuesInLastUpdateObject(CNWSPlayer *, CLastUpdateObject *, CNWSObject *, unsigned long, unsigned long);
-	int StoreValuesInLastUpdatePartyObject(CNWSCreature *, CLastUpdatePartyObject *, CNWSCreature *, unsigned long);
+	void StoreValuesInLastUpdatePartyObject(CNWSCreature *, CLastUpdatePartyObject *, CNWSCreature *, unsigned long);
 	int TestObjectUpdateDifferences(CNWSPlayer *, CNWSObject *, CLastUpdateObject **, unsigned long *, unsigned long *);
 	int TestObjectVisible(CNWSObject *, CNWSObject *);
 	int TestPartyObjectUpdateDifferences(CNWSPlayer *, CNWSCreature *, CLastUpdatePartyObject **, unsigned long *);
-	int TestPlayerUpdateDifferences(CNWSPlayer *, CNWSPlayerLastUpdateObject *, CLastUpdateObject *, unsigned short &);
-	int UpdateLastUpdateActionQueue(CNWSCreature *, CNWSPlayerLastUpdateObject *);
-	int UpdateLastUpdateAutoMap(CNWSCreature *, CNWSPlayerLastUpdateObject *);
-	int UpdateLastUpdateInventory(CNWSPlayer *, unsigned long, CNWSPlayerInventoryGUI *);
-	int UpdateLastUpdateObjectAppearance(CNWSObject *, CLastUpdateObject *, unsigned long);
-	int UpdateLastUpdateObject(CNWSPlayer *, CNWSObject *, CLastUpdateObject *, unsigned long);
-	int UpdateLastUpdateVisibilityList(CNWSCreature *, CNWSPlayerLastUpdateObject *);
-	int UpdateLastUpdate_GuiEffectIcons(CNWSCreature *, CExoArrayList<CEffectIconObject *> *, int);
-	int WriteCExoLocStringServer(CExoLocString &, unsigned char);
-	int WriteGameObjUpdate_CharacterSheet(CNWSPlayer *, unsigned long);
+	void TestPlayerUpdateDifferences(CNWSPlayer *, CNWSPlayerLastUpdateObject *, CLastUpdateObject *, unsigned short &);
+	void UpdateLastUpdateActionQueue(CNWSCreature *, CNWSPlayerLastUpdateObject *);
+	void UpdateLastUpdateAutoMap(CNWSCreature *, CNWSPlayerLastUpdateObject *);
+	void UpdateLastUpdateInventory(CNWSPlayer *, unsigned long, CNWSPlayerInventoryGUI *);
+	void UpdateLastUpdateObjectAppearance(CNWSObject *, CLastUpdateObject *, unsigned long);
+	void UpdateLastUpdateObject(CNWSPlayer *, CNWSObject *, CLastUpdateObject *, unsigned long);
+	void UpdateLastUpdateVisibilityList(CNWSCreature *, CNWSPlayerLastUpdateObject *);
+	void UpdateLastUpdate_GuiEffectIcons(CNWSCreature *, CExoArrayList<CEffectIconObject *> *, int);
+	void WriteCExoLocStringServer(CExoLocString &, unsigned char);
+	void WriteGameObjUpdate_CharacterSheet(CNWSPlayer *, unsigned long);
 	int WriteGameObjUpdate_DungeonMasterAIState(CNWSPlayer *);
-	int WriteGameObjUpdate_MajorGUIPanels_HenchmanInventoryData(CNWSPlayer *);
-	int WriteGameObjUpdate_MajorGUIPanels_Inventory(CNWSPlayer *, CNWSPlayerInventoryGUI *);
-	int WriteGameObjUpdate_MajorGUIPanels(CNWSPlayer *);
-	int WriteGameObjUpdate_MinorGUIPanels(CNWSPlayer *);
+	void WriteGameObjUpdate_MajorGUIPanels_HenchmanInventoryData(CNWSPlayer *);
+	void WriteGameObjUpdate_MajorGUIPanels_Inventory(CNWSPlayer *, CNWSPlayerInventoryGUI *);
+	void WriteGameObjUpdate_MajorGUIPanels(CNWSPlayer *);
+	void WriteGameObjUpdate_MinorGUIPanels(CNWSPlayer *);
 	int WriteGameObjUpdate_PartyAIState(CNWSPlayer *);
-	int WriteGameObjUpdate_PlayerUpdate(CNWSPlayer *, CNWSPlayerLastUpdateObject *, CLastUpdateObject *, unsigned short);
-	int WriteGameObjUpdate_UpdateAppearance(CNWSObject *, CLastUpdateObject *, unsigned long);
-	int WriteGameObjUpdate_UpdateObject(CNWSPlayer *, CNWSObject *, CLastUpdateObject *, unsigned long, unsigned long);
-	int WriteGameObjUpdate_UpdateQuickbarItemUseCount(CNWSObject *, CLastUpdateObject *);
+	void WriteGameObjUpdate_PlayerUpdate(CNWSPlayer *, CNWSPlayerLastUpdateObject *, CLastUpdateObject *, unsigned short);
+	void WriteGameObjUpdate_UpdateAppearance(CNWSObject *, CLastUpdateObject *, unsigned long);
+	void WriteGameObjUpdate_UpdateObject(CNWSPlayer *, CNWSObject *, CLastUpdateObject *, unsigned long, unsigned long);
+	void WriteGameObjUpdate_UpdateQuickbarItemUseCount(CNWSObject *, CLastUpdateObject *);
 	int WriteGameObjUpdate_WorkRemaining(CNWSObject *, CNWSArea *, int, int);
 	int WriteGameObjUpdate_WriteInventorySlotAdd(CNWSCreature *, CNWSItem *, unsigned long);
 	int WriteGameObjUpdate_WriteInventorySlotDelete(CNWSCreature *, unsigned long);
 	int WriteGameObjUpdate_WriteInventorySlotUpdate(unsigned long, unsigned long);
-	int WriteGuiEffectIconsUpdate(CNWSCreature *, CExoArrayList<CEffectIconObject *> *, int);
-	int WriteOBJECTIDServer(unsigned long);
-	int WriteRepositoryUpdate(CNWSPlayer *, CNWSObject *, CItemRepository *, CNWSPlayerLUOInventory *, unsigned char, char, unsigned char);
-	int WriteStoreInventoryUpdate(CNWSPlayer *, CNWSStore *);
+	void WriteGuiEffectIconsUpdate(CNWSCreature *, CExoArrayList<CEffectIconObject *> *, int);
+	void WriteOBJECTIDServer(unsigned long);
+	void WriteRepositoryUpdate(CNWSPlayer *, CNWSObject *, CItemRepository *, CNWSPlayerLUOInventory *, unsigned char, char, unsigned char);
+	void WriteStoreInventoryUpdate(CNWSPlayer *, CNWSStore *);
 	~CNWSMessage();
 	CNWSMessage();
 

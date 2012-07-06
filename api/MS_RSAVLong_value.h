@@ -6,18 +6,18 @@ class MS_RSAVLong_value
 {
 public:
 	MS_RSAVLong_value();
-	int add(MS_RSAVLong_value &);
-	int bits() const;
+	void add(MS_RSAVLong_value &);
+	unsigned int bits() const;
 	int cf(MS_RSAVLong_value &) const;
-	int copy(MS_RSAVLong_value &);
-	int divide(MS_RSAVLong_value &, MS_RSAVLong_value &, MS_RSAVLong_value &);
-	int init(unsigned int);
+	void copy(MS_RSAVLong_value &);
+	void divide(MS_RSAVLong_value &, MS_RSAVLong_value &, MS_RSAVLong_value &);
+	void init(unsigned int);
 	int is_zero() const;
-	int mul(MS_RSAVLong_value &, MS_RSAVLong_value &);
-	int shl();
-	int shr();
-	int shr(unsigned int);
-	int subtract(MS_RSAVLong_value &);
+	void mul(MS_RSAVLong_value &, MS_RSAVLong_value &);
+	void shl();
+	void shr();
+	void shr(unsigned int);
+	void subtract(MS_RSAVLong_value &);
 	int test(unsigned int) const;
 
 };

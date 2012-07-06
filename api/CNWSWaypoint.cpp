@@ -1,34 +1,34 @@
 #include "CNWSWaypoint.h"
 
-int CNWSWaypoint::AIUpdate()
+void CNWSWaypoint::AIUpdate()
 {
 	asm("leave");
 	asm("mov $0x081f5108, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSWaypoint::AddToArea(CNWSArea *, float, float, float, int)
+void CNWSWaypoint::AddToArea(CNWSArea *, float, float, float, int)
 {
 	asm("leave");
 	asm("mov $0x081f505c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSWaypoint::AsNWSWaypoint()
+CNWSWaypoint * CNWSWaypoint::AsNWSWaypoint()
 {
 	asm("leave");
 	asm("mov $0x081f521c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSWaypoint::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSWaypoint::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081f5110, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSWaypoint::GetFirstName()
+CExoLocString & CNWSWaypoint::GetFirstName()
 {
 	asm("leave");
 	asm("mov $0x081f52d4, %eax");
@@ -49,7 +49,7 @@ int CNWSWaypoint::GetMapNoteEnabled()
 	asm("jmp *%eax");
 }
 
-int CNWSWaypoint::GetMapNoteString()
+CExoLocString & CNWSWaypoint::GetMapNoteString()
 {
 	asm("leave");
 	asm("mov $0x081f52c4, %eax");

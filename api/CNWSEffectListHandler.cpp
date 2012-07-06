@@ -1,6 +1,6 @@
 #include "CNWSEffectListHandler.h"
 
-int CNWSEffectListHandler::InitializeEffects()
+void CNWSEffectListHandler::InitializeEffects()
 {
 	asm("leave");
 	asm("mov $0x0816b304, %eax");
@@ -1155,7 +1155,7 @@ int CNWSEffectListHandler::OnRemoveWounding(CNWSObject *, CGameEffect *)
 	asm("jmp *%eax");
 }
 
-int CNWSEffectListHandler::SendFloatyEffect(unsigned long, unsigned long)
+void CNWSEffectListHandler::SendFloatyEffect(unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0816c4d8, %eax");

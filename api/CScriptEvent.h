@@ -2,21 +2,23 @@
 #define _CSCRIPTEVENT_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 
 class CScriptEvent
 {
 public:
-	int CopyScriptEvent(CScriptEvent *);
-	int GetFloat(int);
+	void CopyScriptEvent(CScriptEvent *);
+	float GetFloat(int);
 	int GetInteger(int);
-	int GetObjectID(int);
-	int GetString(int);
+	unsigned long GetObjectID(int);
+	CExoString GetString(int);
 	int LoadEvent(CResGFF *, CResStruct *);
 	int SaveEvent(CResGFF *, CResStruct *);
-	int SetFloat(int, float);
-	int SetInteger(int, int);
-	int SetObjectID(int, unsigned long);
-	int SetString(int, CExoString);
+	void SetFloat(int, float);
+	void SetInteger(int, int);
+	void SetObjectID(int, unsigned long);
+	void SetString(int, CExoString);
 	~CScriptEvent();
 	CScriptEvent();
 	int operator==(CScriptEvent const &) const;

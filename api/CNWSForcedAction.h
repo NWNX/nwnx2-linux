@@ -1,6 +1,8 @@
 #ifndef _CNWSFORCEDACTION_H_
 #define _CNWSFORCEDACTION_H_
 #include "nwndef.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 
 class CNWSForcedAction
 {

@@ -1,6 +1,6 @@
 #include "CScriptLocation.h"
 
-int CScriptLocation::CopyScriptLocation(CScriptLocation *)
+void CScriptLocation::CopyScriptLocation(CScriptLocation *)
 {
 	asm("leave");
 	asm("mov $0x081d4394, %eax");

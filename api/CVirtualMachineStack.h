@@ -1,14 +1,16 @@
 #ifndef _CVIRTUALMACHINESTACK_H_
 #define _CVIRTUALMACHINESTACK_H_
 #include "nwndef.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 
 class CVirtualMachineStack
 {
 public:
-	int AddToTopOfStack(int);
-	int AssignLocationToLocation(int, int);
-	int ClearStack();
-	int CopyFromStack(CVirtualMachineStack *, int, int);
+	void AddToTopOfStack(int);
+	void AssignLocationToLocation(int, int);
+	void ClearStack();
+	void CopyFromStack(CVirtualMachineStack *, int, int);
 	int GetBasePointer();
 	int GetStackPointer();
 	int InitializeStack();
@@ -16,7 +18,7 @@ public:
 	int ModifyIntegerAtLocation(int, int);
 	int SaveStack(CResGFF *, CResStruct *);
 	int SetBasePointer(int);
-	int SetStackPointer(int);
+	void SetStackPointer(int);
 	~CVirtualMachineStack();
 	CVirtualMachineStack();
 

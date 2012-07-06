@@ -1,6 +1,6 @@
 #include "CERFString.h"
 
-int CERFString::GetText()
+CExoString CERFString::GetText()
 {
 	asm("leave");
 	asm("mov $0x082b7fa8, %eax");
@@ -21,7 +21,7 @@ int CERFString::Reset()
 	asm("jmp *%eax");
 }
 
-int CERFString::SetText(CExoString &)
+void CERFString::SetText(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082b7fd0, %eax");

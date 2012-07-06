@@ -1,13 +1,13 @@
 #include "CNWSPlaceable.h"
 
-int CNWSPlaceable::AIActionCastSpell(CNWSObjectActionNode *)
+unsigned long CNWSPlaceable::AIActionCastSpell(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081e16b8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::AIUpdate()
+void CNWSPlaceable::AIUpdate()
 {
 	asm("leave");
 	asm("mov $0x081e0614, %eax");
@@ -21,7 +21,7 @@ int CNWSPlaceable::AcquireItem(CNWSItem **, unsigned long, unsigned char, unsign
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::AcquireItemsFromObject(unsigned long, int)
+unsigned long CNWSPlaceable::AcquireItemsFromObject(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081e0a0c, %eax");
@@ -35,42 +35,42 @@ int CNWSPlaceable::AddCastSpellActions(unsigned long, int, Vector, unsigned long
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::AddToArea(CNWSArea *, float, float, float, int)
+void CNWSPlaceable::AddToArea(CNWSArea *, float, float, float, int)
 {
 	asm("leave");
 	asm("mov $0x081df174, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::AsNWSPlaceable()
+CNWSPlaceable * CNWSPlaceable::AsNWSPlaceable()
 {
 	asm("leave");
 	asm("mov $0x081e1e6c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::CalculateActionPoints()
+void CNWSPlaceable::CalculateActionPoints()
 {
 	asm("leave");
 	asm("mov $0x081df588, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::CloseInventory(unsigned long, int)
+void CNWSPlaceable::CloseInventory(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081e11d0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::ClosePlaceableForAllPlayers()
+void CNWSPlaceable::ClosePlaceableForAllPlayers()
 {
 	asm("leave");
 	asm("mov $0x081e1b48, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::DoDamage(int)
+void CNWSPlaceable::DoDamage(int)
 {
 	asm("leave");
 	asm("mov $0x081e1c94, %eax");
@@ -84,7 +84,7 @@ int CNWSPlaceable::DropItemsIntoArea()
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSPlaceable::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081df88c, %eax");
@@ -126,7 +126,7 @@ int CNWSPlaceable::GetBearing()
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::GetBodyBagAppearance()
+unsigned short CNWSPlaceable::GetBodyBagAppearance()
 {
 	asm("leave");
 	asm("mov $0x081e1958, %eax");
@@ -161,14 +161,14 @@ int CNWSPlaceable::GetCurrentItemContainer()
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::GetDescriptionOverride()
+CExoString CNWSPlaceable::GetDescriptionOverride()
 {
 	asm("leave");
 	asm("mov $0x081e2084, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::GetDescription()
+CExoLocString & CNWSPlaceable::GetDescription()
 {
 	asm("leave");
 	asm("mov $0x081e201c, %eax");
@@ -189,7 +189,7 @@ int CNWSPlaceable::GetDetectable()
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::GetDialogResref()
+CResRef CNWSPlaceable::GetDialogResref()
 {
 	asm("leave");
 	asm("mov $0x081e272c, %eax");
@@ -217,14 +217,14 @@ int CNWSPlaceable::GetDisarmable()
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::GetDisplayName()
+CExoString CNWSPlaceable::GetDisplayName()
 {
 	asm("leave");
 	asm("mov $0x081e1f00, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::GetEffectSpellId()
+unsigned long CNWSPlaceable::GetEffectSpellId()
 {
 	asm("leave");
 	asm("mov $0x081e28dc, %eax");
@@ -238,7 +238,7 @@ int CNWSPlaceable::GetFactionId()
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::GetFirstName()
+CExoLocString & CNWSPlaceable::GetFirstName()
 {
 	asm("leave");
 	asm("mov $0x081e1e98, %eax");
@@ -294,7 +294,7 @@ int CNWSPlaceable::GetItemContainerArrayIndex()
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::GetItemCount(int)
+unsigned long CNWSPlaceable::GetItemCount(int)
 {
 	asm("leave");
 	asm("mov $0x081e1ab4, %eax");
@@ -315,7 +315,7 @@ int CNWSPlaceable::GetKeyName()
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::GetKeyRequiredFeedbackMessage()
+CExoString CNWSPlaceable::GetKeyRequiredFeedbackMessage()
 {
 	asm("leave");
 	asm("mov $0x081e2214, %eax");
@@ -420,7 +420,7 @@ int CNWSPlaceable::GetLootableCreatureId()
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::GetNearestActionPoint(Vector const &)
+Vector CNWSPlaceable::GetNearestActionPoint(Vector const &)
 {
 	asm("leave");
 	asm("mov $0x081e142c, %eax");
@@ -455,7 +455,7 @@ int CNWSPlaceable::GetPickable()
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::GetPortalInfo()
+CExoString CNWSPlaceable::GetPortalInfo()
 {
 	asm("leave");
 	asm("mov $0x081e28b4, %eax");
@@ -581,21 +581,21 @@ int CNWSPlaceable::LoadPlaceable(CResGFF *, CResStruct *, CExoString *)
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::OpenInventory(unsigned long)
+void CNWSPlaceable::OpenInventory(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081e0ff0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::PostProcess()
+void CNWSPlaceable::PostProcess()
 {
 	asm("leave");
 	asm("mov $0x081defbc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::RemoveFromArea()
+void CNWSPlaceable::RemoveFromArea()
 {
 	asm("leave");
 	asm("mov $0x081df7c0, %eax");
@@ -672,14 +672,14 @@ int CNWSPlaceable::SetCurrentItemContainer(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::SetDescriptionOverride(CExoString)
+void CNWSPlaceable::SetDescriptionOverride(CExoString)
 {
 	asm("leave");
 	asm("mov $0x081e20ac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::SetDescription(CExoLocString)
+void CNWSPlaceable::SetDescription(CExoLocString)
 {
 	asm("leave");
 	asm("mov $0x081e202c, %eax");
@@ -700,7 +700,7 @@ int CNWSPlaceable::SetDetectable(int)
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::SetDialogResref(CResRef)
+void CNWSPlaceable::SetDialogResref(CResRef)
 {
 	asm("leave");
 	asm("mov $0x081e2750, %eax");
@@ -728,14 +728,14 @@ int CNWSPlaceable::SetDisarmable(int)
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::SetDisplayName(CExoString)
+void CNWSPlaceable::SetDisplayName(CExoString)
 {
 	asm("leave");
 	asm("mov $0x081e1f28, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::SetEffectSpellId(unsigned long)
+void CNWSPlaceable::SetEffectSpellId(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081e28ec, %eax");
@@ -749,7 +749,7 @@ int CNWSPlaceable::SetFactionId(int)
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::SetFirstName(CExoLocString)
+void CNWSPlaceable::SetFirstName(CExoLocString)
 {
 	asm("leave");
 	asm("mov $0x081e1ea8, %eax");
@@ -812,7 +812,7 @@ int CNWSPlaceable::SetKeyName(CExoString const &)
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::SetKeyRequiredFeedbackMessage(CExoString)
+void CNWSPlaceable::SetKeyRequiredFeedbackMessage(CExoString)
 {
 	asm("leave");
 	asm("mov $0x081e21bc, %eax");
@@ -882,7 +882,7 @@ int CNWSPlaceable::SetLastUser(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::SetLightIsOn(int)
+void CNWSPlaceable::SetLightIsOn(int)
 {
 	asm("leave");
 	asm("mov $0x081e1cc8, %eax");
@@ -938,7 +938,7 @@ int CNWSPlaceable::SetOpenLockDC(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::SetOrientation(Vector)
+void CNWSPlaceable::SetOrientation(Vector)
 {
 	asm("leave");
 	asm("mov $0x081df084, %eax");
@@ -952,7 +952,7 @@ int CNWSPlaceable::SetPickable(int)
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::SetPortalInfo(CExoString)
+void CNWSPlaceable::SetPortalInfo(CExoString)
 {
 	asm("leave");
 	asm("mov $0x081e285c, %eax");
@@ -980,7 +980,7 @@ int CNWSPlaceable::SetRepositoryArrayIndex(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::SetScriptName(int, CExoString)
+void CNWSPlaceable::SetScriptName(int, CExoString)
 {
 	asm("leave");
 	asm("mov $0x081e23e4, %eax");
@@ -1001,7 +1001,7 @@ int CNWSPlaceable::SetStaticObject(int)
 	asm("jmp *%eax");
 }
 
-int CNWSPlaceable::SetTemplateResRef(CResRef)
+void CNWSPlaceable::SetTemplateResRef(CResRef)
 {
 	asm("leave");
 	asm("mov $0x081e2838, %eax");

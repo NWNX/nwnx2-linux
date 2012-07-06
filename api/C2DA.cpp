@@ -252,7 +252,7 @@ int C2DA::SkipNewLines(char **, unsigned long *)
 	asm("jmp *%eax");
 }
 
-int C2DA::Unload2DArray()
+void C2DA::Unload2DArray()
 {
 	asm("leave");
 	asm("mov $0x082bea88, %eax");

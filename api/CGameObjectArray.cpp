@@ -14,14 +14,14 @@ int CGameObjectArray::AddExternalObject(unsigned long &, CGameObject *, int)
 	asm("jmp *%eax");
 }
 
-int CGameObjectArray::AddInternalObject(unsigned long &, CGameObject *, int)
+unsigned char CGameObjectArray::AddInternalObject(unsigned long &, CGameObject *, int)
 {
 	asm("leave");
 	asm("mov $0x080bb04c, %eax");
 	asm("jmp *%eax");
 }
 
-int CGameObjectArray::AddObjectAtPos(unsigned long, CGameObject *)
+unsigned char CGameObjectArray::AddObjectAtPos(unsigned long, CGameObject *)
 {
 	asm("leave");
 	asm("mov $0x080bad30, %eax");
@@ -35,7 +35,7 @@ int CGameObjectArray::Clean(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CGameObjectArray::Delete(unsigned long)
+unsigned char CGameObjectArray::Delete(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080bb200, %eax");

@@ -1,20 +1,20 @@
 #include "CNWSCreatureStats.h"
 
-int CNWSCreatureStats::AddExperience(unsigned long)
+void CNWSCreatureStats::AddExperience(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08152478, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::AddFeat(unsigned short)
+void CNWSCreatureStats::AddFeat(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x08153b14, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::AddKnownSpell(unsigned char, unsigned long)
+void CNWSCreatureStats::AddKnownSpell(unsigned char, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08155118, %eax");
@@ -28,14 +28,14 @@ int CNWSCreatureStats::AddSpellLikeAbilityToList(unsigned long, int, unsigned ch
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::AdjustAlignment(unsigned char, short, unsigned long)
+void CNWSCreatureStats::AdjustAlignment(unsigned char, short, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081497d0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::AdjustSpellUsesPerDay()
+void CNWSCreatureStats::AdjustSpellUsesPerDay()
 {
 	asm("leave");
 	asm("mov $0x08160088, %eax");
@@ -56,7 +56,7 @@ int CNWSCreatureStats::CalcLevelUpNumberFeats(unsigned char, unsigned char, unsi
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::CalcStatModifier(unsigned char)
+char CNWSCreatureStats::CalcStatModifier(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08164554, %eax");
@@ -91,21 +91,21 @@ int CNWSCreatureStats::ClearFeats()
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::ClearMemorizedSpellSlot(unsigned char, unsigned char, unsigned char)
+void CNWSCreatureStats::ClearMemorizedSpellSlot(unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081648d0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::ComputeFeatBonuses(CExoArrayList<unsigned short> *, int, int)
+void CNWSCreatureStats::ComputeFeatBonuses(CExoArrayList<unsigned short> *, int, int)
 {
 	asm("leave");
 	asm("mov $0x08162c14, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::ComputeNumberKnownSpellsLeft(unsigned char, unsigned char)
+unsigned char CNWSCreatureStats::ComputeNumberKnownSpellsLeft(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0815e24c, %eax");
@@ -119,14 +119,14 @@ int CNWSCreatureStats::ConfirmDomainSpell(unsigned char, unsigned char, unsigned
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::DecrementFeatRemainingUses(unsigned short)
+void CNWSCreatureStats::DecrementFeatRemainingUses(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x081646ec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::DecrementSpellsPerDayLeft(unsigned char, unsigned char)
+void CNWSCreatureStats::DecrementSpellsPerDayLeft(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08164d04, %eax");
@@ -154,7 +154,7 @@ int CNWSCreatureStats::FeatRequirementsMet(unsigned short, CExoArrayList<unsigne
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetACNaturalBase(int)
+char CNWSCreatureStats::GetACNaturalBase(int)
 {
 	asm("leave");
 	asm("mov $0x0815e684, %eax");
@@ -168,7 +168,7 @@ int CNWSCreatureStats::GetAlignmentString()
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetArmorClassVersus(CNWSCreature *, int)
+short CNWSCreatureStats::GetArmorClassVersus(CNWSCreature *, int)
 {
 	asm("leave");
 	asm("mov $0x0814088c, %eax");
@@ -182,7 +182,7 @@ int CNWSCreatureStats::GetAttackModifierVersus(CNWSCreature *)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetAttacksPerRound()
+unsigned char CNWSCreatureStats::GetAttacksPerRound()
 {
 	asm("leave");
 	asm("mov $0x08163d18, %eax");
@@ -196,42 +196,42 @@ int CNWSCreatureStats::GetBaseAttackBonus(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetBaseFortSavingThrow()
+char CNWSCreatureStats::GetBaseFortSavingThrow()
 {
 	asm("leave");
 	asm("mov $0x081529f0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetBaseReflexSavingThrow()
+char CNWSCreatureStats::GetBaseReflexSavingThrow()
 {
 	asm("leave");
 	asm("mov $0x08152cc0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetBaseWillSavingThrow()
+char CNWSCreatureStats::GetBaseWillSavingThrow()
 {
 	asm("leave");
 	asm("mov $0x08152b4c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetBonusFeat(unsigned short)
+unsigned short CNWSCreatureStats::GetBonusFeat(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x08165550, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetCHAStat()
+unsigned char CNWSCreatureStats::GetCHAStat()
 {
 	asm("leave");
 	asm("mov $0x081641ac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetCONStat()
+unsigned char CNWSCreatureStats::GetCONStat()
 {
 	asm("leave");
 	asm("mov $0x08164020, %eax");
@@ -266,21 +266,21 @@ int CNWSCreatureStats::GetCasterLevel(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetClassInfo(unsigned char)
+CNWSCreatureStats_ClassInfo * CNWSCreatureStats::GetClassInfo(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08163dd0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetClassLevel(unsigned char, int)
+unsigned char CNWSCreatureStats::GetClassLevel(unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x08163e50, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetClassNegativeLevels(unsigned char)
+unsigned char CNWSCreatureStats::GetClassNegativeLevels(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08163e9c, %eax");
@@ -294,21 +294,21 @@ int CNWSCreatureStats::GetClassString(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetClass(unsigned char)
+unsigned char CNWSCreatureStats::GetClass(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08163da4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetCreatureDamageDice(unsigned char)
+unsigned char CNWSCreatureStats::GetCreatureDamageDice(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0814425c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetCreatureDamageDie(unsigned char)
+unsigned char CNWSCreatureStats::GetCreatureDamageDie(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08144368, %eax");
@@ -392,14 +392,14 @@ int CNWSCreatureStats::GetCriticalHitRoll(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetDEXMod(int)
+char CNWSCreatureStats::GetDEXMod(int)
 {
 	asm("leave");
 	asm("mov $0x08151868, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetDEXStat()
+unsigned char CNWSCreatureStats::GetDEXStat()
 {
 	asm("leave");
 	asm("mov $0x081517b8, %eax");
@@ -420,14 +420,14 @@ int CNWSCreatureStats::GetDamageRoll(CNWSObject *, int, int, int, int, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetDomain1(unsigned char)
+unsigned char CNWSCreatureStats::GetDomain1(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08164e60, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetDomain2(unsigned char)
+unsigned char CNWSCreatureStats::GetDomain2(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08164eac, %eax");
@@ -441,7 +441,7 @@ int CNWSCreatureStats::GetEffectImmunity(unsigned char, CNWSCreature *)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetEffectiveCRForPotentialLevel()
+unsigned char CNWSCreatureStats::GetEffectiveCRForPotentialLevel()
 {
 	asm("leave");
 	asm("mov $0x0815284c, %eax");
@@ -476,7 +476,7 @@ int CNWSCreatureStats::GetEpicWeaponSpecialization(CNWSItem *)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetExpNeededForLevelUp()
+unsigned long CNWSCreatureStats::GetExpNeededForLevelUp()
 {
 	asm("leave");
 	asm("mov $0x08152718, %eax");
@@ -490,42 +490,42 @@ int CNWSCreatureStats::GetFavoredEnemyBonus(CNWSCreature *)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetFeatRemainingUses(unsigned short)
+unsigned char CNWSCreatureStats::GetFeatRemainingUses(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x08153e00, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetFeatSourceClass(unsigned short)
+unsigned char CNWSCreatureStats::GetFeatSourceClass(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x081623f4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetFeatTotalUses(unsigned short)
+unsigned char CNWSCreatureStats::GetFeatTotalUses(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x0815479c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetFeat(unsigned short)
+unsigned short CNWSCreatureStats::GetFeat(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x08165520, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetFortSavingThrow(int)
+char CNWSCreatureStats::GetFortSavingThrow(int)
 {
 	asm("leave");
 	asm("mov $0x08164f40, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetFullName()
+CExoString CNWSCreatureStats::GetFullName()
 {
 	asm("leave");
 	asm("mov $0x08163c20, %eax");
@@ -553,28 +553,28 @@ int CNWSCreatureStats::GetHasStilledSpell(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetHighestLevelKnown()
+unsigned long CNWSCreatureStats::GetHighestLevelKnown()
 {
 	asm("leave");
 	asm("mov $0x08164bcc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetHighestLevelOfFeat(unsigned short)
+unsigned short CNWSCreatureStats::GetHighestLevelOfFeat(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x0816562c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetHitDie(unsigned char, unsigned char)
+unsigned char CNWSCreatureStats::GetHitDie(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081578d8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetINTStat()
+unsigned char CNWSCreatureStats::GetINTStat()
 {
 	asm("leave");
 	asm("mov $0x081640a4, %eax");
@@ -588,7 +588,7 @@ int CNWSCreatureStats::GetIsClassAvailable(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetIsClass(unsigned char)
+unsigned char CNWSCreatureStats::GetIsClass(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08163dfc, %eax");
@@ -630,7 +630,7 @@ int CNWSCreatureStats::GetIsWeaponOfChoice(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetKnownSpell(unsigned char, unsigned char, unsigned char)
+unsigned long CNWSCreatureStats::GetKnownSpell(unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0816491c, %eax");
@@ -644,14 +644,14 @@ int CNWSCreatureStats::GetLargePortrait()
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetLevelStats(unsigned char)
+CNWLevelStats * CNWSCreatureStats::GetLevelStats(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08163ec8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetLevel(int)
+unsigned char CNWSCreatureStats::GetLevel(int)
 {
 	asm("leave");
 	asm("mov $0x08163cc8, %eax");
@@ -679,35 +679,35 @@ int CNWSCreatureStats::GetMeleeDamageBonus(int, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetMemorizedSpellInSlotMetaType(unsigned char, unsigned char, unsigned char)
+unsigned char CNWSCreatureStats::GetMemorizedSpellInSlotMetaType(unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08164b00, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetMemorizedSpellInSlotReady(unsigned char, unsigned char, unsigned char)
+unsigned char CNWSCreatureStats::GetMemorizedSpellInSlotReady(unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08164a08, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetMemorizedSpellInSlot(unsigned char, unsigned char, unsigned char)
+unsigned long CNWSCreatureStats::GetMemorizedSpellInSlot(unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08164984, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetMemorizedSpellReadyCount(unsigned char, unsigned long, unsigned char *, unsigned char *)
+unsigned char CNWSCreatureStats::GetMemorizedSpellReadyCount(unsigned char, unsigned long, unsigned char *, unsigned char *)
 {
 	asm("leave");
 	asm("mov $0x08165360, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetMemorizedSpellReadyCount(unsigned char, unsigned long, unsigned char)
+unsigned char CNWSCreatureStats::GetMemorizedSpellReadyCount(unsigned char, unsigned long, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081653b0, %eax");
@@ -735,28 +735,28 @@ int CNWSCreatureStats::GetNumLevelsOfClass(unsigned char, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetNumberKnownSpells(unsigned char, unsigned char)
+unsigned short CNWSCreatureStats::GetNumberKnownSpells(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08164b8c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetNumberMemorizedSpellSlots(unsigned char, unsigned char)
+unsigned char CNWSCreatureStats::GetNumberMemorizedSpellSlots(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08164c34, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetPotentialLevel()
+unsigned char CNWSCreatureStats::GetPotentialLevel()
 {
 	asm("leave");
 	asm("mov $0x08152794, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetPrimaryMod(unsigned char)
+unsigned char CNWSCreatureStats::GetPrimaryMod(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0815d778, %eax");
@@ -784,42 +784,42 @@ int CNWSCreatureStats::GetRangedDamageBonus()
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetReflexSavingThrow(int)
+char CNWSCreatureStats::GetReflexSavingThrow(int)
 {
 	asm("leave");
 	asm("mov $0x0815db54, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSTRStat()
+unsigned char CNWSCreatureStats::GetSTRStat()
 {
 	asm("leave");
 	asm("mov $0x08163f9c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSchool(unsigned char)
+unsigned char CNWSCreatureStats::GetSchool(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08164e14, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSimpleAlignmentGoodEvil()
+unsigned char CNWSCreatureStats::GetSimpleAlignmentGoodEvil()
 {
 	asm("leave");
 	asm("mov $0x08163f74, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSimpleAlignmentLawChaos()
+unsigned char CNWSCreatureStats::GetSimpleAlignmentLawChaos()
 {
 	asm("leave");
 	asm("mov $0x08163f4c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSkillRank(unsigned char, CNWSObject *, int)
+char CNWSCreatureStats::GetSkillRank(unsigned char, CNWSObject *, int)
 {
 	asm("leave");
 	asm("mov $0x08152f5c, %eax");
@@ -833,28 +833,28 @@ int CNWSCreatureStats::GetSmallPortrait()
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSpellFailure(unsigned char)
+unsigned char CNWSCreatureStats::GetSpellFailure(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0816569c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSpellGainWithBonusAfterLevelUp(unsigned char, unsigned char, CNWLevelStats *, unsigned char, int)
+unsigned char CNWSCreatureStats::GetSpellGainWithBonusAfterLevelUp(unsigned char, unsigned char, CNWLevelStats *, unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x08161ab4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSpellGainWithBonus(unsigned char, unsigned char)
+unsigned char CNWSCreatureStats::GetSpellGainWithBonus(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08140520, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSpellLikeAbilityCasterLevel(unsigned long)
+unsigned char CNWSCreatureStats::GetSpellLikeAbilityCasterLevel(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081655c8, %eax");
@@ -868,42 +868,42 @@ int CNWSCreatureStats::GetSpellMinAbilityMet(unsigned char, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSpellResistance()
+char CNWSCreatureStats::GetSpellResistance()
 {
 	asm("leave");
 	asm("mov $0x0815e3b0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSpellUsesLeft(unsigned long, unsigned char, unsigned char, unsigned char)
+unsigned char CNWSCreatureStats::GetSpellUsesLeft(unsigned long, unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08156f80, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSpellsOfLevelReady(unsigned char, unsigned char)
+unsigned char CNWSCreatureStats::GetSpellsOfLevelReady(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081624bc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetSpellsPerDayLeft(unsigned char, unsigned char)
+unsigned char CNWSCreatureStats::GetSpellsPerDayLeft(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08164cc4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetStatBonusesFromFeats(CExoArrayList<unsigned short> *, int *, unsigned char)
+void CNWSCreatureStats::GetStatBonusesFromFeats(CExoArrayList<unsigned short> *, int *, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0816260c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetStatById(int)
+float CNWSCreatureStats::GetStatById(int)
 {
 	asm("leave");
 	asm("mov $0x0815dc00, %eax");
@@ -917,35 +917,35 @@ int CNWSCreatureStats::GetTag()
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetTotalACSkillMod()
+char CNWSCreatureStats::GetTotalACSkillMod()
 {
 	asm("leave");
 	asm("mov $0x081656d8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetTotalCHABonus()
+char CNWSCreatureStats::GetTotalCHABonus()
 {
 	asm("leave");
 	asm("mov $0x08165334, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetTotalCONBonus()
+char CNWSCreatureStats::GetTotalCONBonus()
 {
 	asm("leave");
 	asm("mov $0x081652b0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetTotalDEXBonus()
+char CNWSCreatureStats::GetTotalDEXBonus()
 {
 	asm("leave");
 	asm("mov $0x08165284, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetTotalINTBonus()
+char CNWSCreatureStats::GetTotalINTBonus()
 {
 	asm("leave");
 	asm("mov $0x081652dc, %eax");
@@ -959,28 +959,28 @@ int CNWSCreatureStats::GetTotalNegativeLevels()
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetTotalSTRBonus()
+char CNWSCreatureStats::GetTotalSTRBonus()
 {
 	asm("leave");
 	asm("mov $0x08165258, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetTotalWISBonus()
+char CNWSCreatureStats::GetTotalWISBonus()
 {
 	asm("leave");
 	asm("mov $0x08165308, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetUnarmedDamageDice()
+unsigned char CNWSCreatureStats::GetUnarmedDamageDice()
 {
 	asm("leave");
 	asm("mov $0x08143f88, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetUnarmedDamageDie()
+unsigned char CNWSCreatureStats::GetUnarmedDamageDie()
 {
 	asm("leave");
 	asm("mov $0x0814408c, %eax");
@@ -1001,7 +1001,7 @@ int CNWSCreatureStats::GetUseMonkAttackTables(int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetWISStat()
+unsigned char CNWSCreatureStats::GetWISStat()
 {
 	asm("leave");
 	asm("mov $0x08164128, %eax");
@@ -1036,7 +1036,7 @@ int CNWSCreatureStats::GetWeaponSpecialization(CNWSItem *)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::GetWillSavingThrow(int)
+char CNWSCreatureStats::GetWillSavingThrow(int)
 {
 	asm("leave");
 	asm("mov $0x08164fdc, %eax");
@@ -1050,7 +1050,7 @@ int CNWSCreatureStats::HasFeat(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::IncrementFeatRemainingUses(unsigned short)
+void CNWSCreatureStats::IncrementFeatRemainingUses(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x08164734, %eax");
@@ -1064,7 +1064,7 @@ int CNWSCreatureStats::IncrementSpellsPerDayLeft(unsigned char, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::LevelDown(CNWLevelStats *)
+void CNWSCreatureStats::LevelDown(CNWLevelStats *)
 {
 	asm("leave");
 	asm("mov $0x08159870, %eax");
@@ -1078,7 +1078,7 @@ int CNWSCreatureStats::LevelUpAutomatic(unsigned char, int, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::LevelUp(CNWLevelStats *, unsigned char, unsigned char, unsigned char, int)
+void CNWSCreatureStats::LevelUp(CNWLevelStats *, unsigned char, unsigned char, unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x081590f0, %eax");
@@ -1092,28 +1092,28 @@ int CNWSCreatureStats::ModifyAlignment(short, short)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::ReadSpellsFromGff(CResGFF *, CResStruct *, int)
+void CNWSCreatureStats::ReadSpellsFromGff(CResGFF *, CResStruct *, int)
 {
 	asm("leave");
 	asm("mov $0x0814f8dc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::ReadStatsFromGff(CResGFF *, CResStruct *, CNWSCreatureAppearanceInfo *, int, int, int)
+unsigned long CNWSCreatureStats::ReadStatsFromGff(CResGFF *, CResStruct *, CNWSCreatureAppearanceInfo *, int, int, int)
 {
 	asm("leave");
 	asm("mov $0x0814c578, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::ReadySpellLevel(unsigned char)
+void CNWSCreatureStats::ReadySpellLevel(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08157398, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::RemoveFeat(unsigned short)
+void CNWSCreatureStats::RemoveFeat(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x08164788, %eax");
@@ -1127,14 +1127,14 @@ int CNWSCreatureStats::RemoveKnownSpell(unsigned char, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::ResetFeatRemainingUses()
+void CNWSCreatureStats::ResetFeatRemainingUses()
 {
 	asm("leave");
 	asm("mov $0x081646ac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::ResetSpellLikeAbilities()
+void CNWSCreatureStats::ResetSpellLikeAbilities()
 {
 	asm("leave");
 	asm("mov $0x081651a8, %eax");
@@ -1162,35 +1162,35 @@ int CNWSCreatureStats::ResolveSpecialAttackDamageBonus(CNWSCreature *)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SaveClassInfo(CResGFF *, CResStruct *)
+void CNWSCreatureStats::SaveClassInfo(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x08150964, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SaveStats(CResGFF *, CResStruct *)
+void CNWSCreatureStats::SaveStats(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x0814fc8c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetArcaneSpellFailure(char)
+void CNWSCreatureStats::SetArcaneSpellFailure(char)
 {
 	asm("leave");
 	asm("mov $0x081654cc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetCHABase(unsigned char)
+void CNWSCreatureStats::SetCHABase(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08151c64, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetCONBase(unsigned char, int)
+void CNWSCreatureStats::SetCONBase(unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x081519f0, %eax");
@@ -1204,7 +1204,7 @@ int CNWSCreatureStats::SetClassLevel(unsigned char, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetClassNegativeLevels(unsigned char, unsigned char)
+void CNWSCreatureStats::SetClassNegativeLevels(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08164518, %eax");
@@ -1218,7 +1218,7 @@ int CNWSCreatureStats::SetClass(unsigned char, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetDEXBase(unsigned char)
+void CNWSCreatureStats::SetDEXBase(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0816446c, %eax");
@@ -1239,14 +1239,14 @@ int CNWSCreatureStats::SetDomain2(unsigned char, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetExperience(unsigned long, int)
+void CNWSCreatureStats::SetExperience(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x08152084, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetFeatRemainingUses(unsigned short, unsigned char)
+void CNWSCreatureStats::SetFeatRemainingUses(unsigned short, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08153d14, %eax");
@@ -1260,7 +1260,7 @@ int CNWSCreatureStats::SetHasLostClassAbilities(unsigned char, int)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetINTBase(unsigned char)
+void CNWSCreatureStats::SetINTBase(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08151afc, %eax");
@@ -1281,7 +1281,7 @@ int CNWSCreatureStats::SetMemorizedSpellSlot(unsigned char, unsigned char, unsig
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetMovementRate(int)
+void CNWSCreatureStats::SetMovementRate(int)
 {
 	asm("leave");
 	asm("mov $0x0815d81c, %eax");
@@ -1295,7 +1295,7 @@ int CNWSCreatureStats::SetNormalBonusFlags(unsigned short, int &, int &)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetNumberBonusSpells(unsigned char, unsigned char, unsigned char)
+void CNWSCreatureStats::SetNumberBonusSpells(unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0815fd64, %eax");
@@ -1309,7 +1309,7 @@ int CNWSCreatureStats::SetNumberMemorizedSpellSlots(unsigned char, unsigned char
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetSTRBase(unsigned char)
+void CNWSCreatureStats::SetSTRBase(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0815193c, %eax");
@@ -1330,7 +1330,7 @@ int CNWSCreatureStats::SetSkillRank(unsigned char, char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetSpellFailure(unsigned char, unsigned char)
+void CNWSCreatureStats::SetSpellFailure(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081656bc, %eax");
@@ -1344,21 +1344,21 @@ int CNWSCreatureStats::SetSpellLikeAbilityReady(unsigned long, int, unsigned cha
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetSpellResistancePenalty(char)
+void CNWSCreatureStats::SetSpellResistancePenalty(char)
 {
 	asm("leave");
 	asm("mov $0x08165504, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetSpellResistance(char)
+void CNWSCreatureStats::SetSpellResistance(char)
 {
 	asm("leave");
 	asm("mov $0x081654e8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetStatById(int, float)
+void CNWSCreatureStats::SetStatById(int, float)
 {
 	asm("leave");
 	asm("mov $0x0815dcd4, %eax");
@@ -1372,7 +1372,7 @@ int CNWSCreatureStats::SetTag(CExoString const &)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::SetWISBase(unsigned char)
+void CNWSCreatureStats::SetWISBase(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08151bb0, %eax");
@@ -1386,7 +1386,7 @@ int CNWSCreatureStats::UnReadySpell(unsigned long, unsigned char, unsigned char,
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::UpdateCombatInformation()
+void CNWSCreatureStats::UpdateCombatInformation()
 {
 	asm("leave");
 	asm("mov $0x08142134, %eax");
@@ -1400,14 +1400,14 @@ int CNWSCreatureStats::UpdateLastStatsObject(unsigned long long, CNWCreatureStat
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::UpdateNumberMemorizedSpellSlots()
+void CNWSCreatureStats::UpdateNumberMemorizedSpellSlots()
 {
 	asm("leave");
 	asm("mov $0x08151d18, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats::ValidateLevelUp(CNWLevelStats *, unsigned char, unsigned char, unsigned char)
+unsigned long CNWSCreatureStats::ValidateLevelUp(CNWLevelStats *, unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081579cc, %eax");

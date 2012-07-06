@@ -1,44 +1,48 @@
 #ifndef _CNWSPLAYERTURD_H_
 #define _CNWSPLAYERTURD_H_
 #include "nwndef.h"
+#include "CNWSArea.h"
 #include "CExoArrayList.h"
-#include "CNWSObject.h"
 #include "CExoString.h"
+#include "CExoLocString.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
+#include "CNWSObject.h"
 
 class CNWSPlayerTURD
 {
 public:
-	int AIUpdate();
-	int AddToArea(CNWSArea *, int);
-	int AsNWSPlayerTURD();
+	void AIUpdate();
+	void AddToArea(CNWSArea *, int);
+	CNWSPlayerTURD * AsNWSPlayerTURD();
 	int ClearAutomapData();
 	int CopyAutomapData(int, CExoArrayList<unsigned long> *, unsigned char **);
-	int CopyEffectList(CExoArrayList<CGameEffect *> *);
-	int EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
+	void CopyEffectList(CExoArrayList<CGameEffect *> *);
+	void EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
 	int GetAutoMapAreasList();
 	int GetAutoMapTileData();
 	int GetCalendarDay();
 	int GetCalendarTimeOfDay();
-	int GetCommunityName();
-	int GetFirstName();
-	int GetLastName();
+	CExoString GetCommunityName();
+	CExoLocString & GetFirstName();
+	CExoLocString & GetLastName();
 	int GetNumAutoMapAreas();
 	int GetPersonalReputation();
 	int GetPlayerID();
 	int GetReputation();
-	int LoadAutoMapData(CResGFF *, CResStruct *);
+	void LoadAutoMapData(CResGFF *, CResStruct *);
 	int LoadTURD(CResGFF *, CResStruct *);
-	int RemoveFromArea();
+	void RemoveFromArea();
 	int SaveAutoMapData(CResGFF *, CResStruct *);
-	int SaveTURD(CResGFF *, CResStruct *);
+	void SaveTURD(CResGFF *, CResStruct *);
 	int SetCalendarDay(unsigned long);
 	int SetCalendarTimeOfDay(unsigned long);
 	int SetCommunityName(CExoString const &);
 	int SetFirstName(CExoLocString const &);
 	int SetLastName(CExoLocString const &);
-	int SetPersonalReputation(CExoArrayList<CNWSPersonalReputation> *);
+	void SetPersonalReputation(CExoArrayList<CNWSPersonalReputation> *);
 	int SetPlayerID(unsigned long);
-	int SetReputation(CExoArrayList<int> *);
+	void SetReputation(CExoArrayList<int> *);
 	~CNWSPlayerTURD();
 	CNWSPlayerTURD(unsigned long);
 

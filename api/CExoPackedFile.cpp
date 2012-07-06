@@ -1,13 +1,13 @@
 #include "CExoPackedFile.h"
 
-int CExoPackedFile::GetAsyncFile()
+CExoFile * CExoPackedFile::GetAsyncFile()
 {
 	asm("leave");
 	asm("mov $0x082c46cc, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoPackedFile::GetFile()
+CExoFile * CExoPackedFile::GetFile()
 {
 	asm("leave");
 	asm("mov $0x082c46c0, %eax");

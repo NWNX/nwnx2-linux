@@ -1,13 +1,13 @@
 #include "CResPWK.h"
 
-int CResPWK::GetPWKDataPtr()
+unsigned char * CResPWK::GetPWKDataPtr()
 {
 	asm("leave");
 	asm("mov $0x0824062c, %eax");
 	asm("jmp *%eax");
 }
 
-int CResPWK::GetPWKSize()
+unsigned long CResPWK::GetPWKSize()
 {
 	asm("leave");
 	asm("mov $0x08240638, %eax");

@@ -2,6 +2,11 @@
 #define _CEXORESMAN_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "CRes.h"
+#include "CResRef.h"
+#include "CExoKeyTable.h"
+#include "nwnstructs.h"
+#include "CExoStringList.h"
 
 class CExoResMan
 {
@@ -14,7 +19,7 @@ public:
 	int CancelRequest(CRes *);
 	int CleanDirectory(CExoString, int, int);
 	int CreateDirectory(CExoString);
-	int Demand(CRes *);
+	void * Demand(CRes *);
 	int DumpAll();
 	int Dump(CRes *, int);
 	int Exists(CResRef const &, unsigned short, unsigned long *);
@@ -27,13 +32,13 @@ public:
 	int GetKeyEntry(CResRef const &, unsigned short, CExoKeyTable **, CKeyTableEntry **);
 	int GetNewResRef(CResRef const &, unsigned short, CResRef &);
 	int GetResID(CResRef const &, unsigned short);
-	int GetResObject(CResRef const &, unsigned short);
-	int GetResOfType(unsigned short, CRes *);
+	CRes * GetResObject(CResRef const &, unsigned short);
+	CExoStringList * GetResOfType(unsigned short, CRes *);
 	int GetResOfType(unsigned short, int);
-	int GetResRefFromFile(CResRef &, CExoString const &);
-	int GetResTypeFromFile(CExoString const &);
+	void GetResRefFromFile(CResRef &, CExoString const &);
+	unsigned short GetResTypeFromFile(CExoString const &);
 	int GetTableCount(CRes *, int);
-	int GetTable(CRes *);
+	CExoKeyTable * GetTable(CRes *);
 	int GetTotalPhysicalMemory();
 	int Malloc(CRes *);
 	int NukeDirectory(CExoString, int, int);
@@ -58,7 +63,7 @@ public:
 	int ServiceFromImage(CRes *, int);
 	int ServiceFromResFileRaw(CRes *, int, char *);
 	int ServiceFromResFile(CRes *, int);
-	int SetResObject(CResRef const &, unsigned short, CRes *);
+	void SetResObject(CResRef const &, unsigned short, CRes *);
 	int SetTotalResourceMemory(int);
 	int SuspendServicing();
 	int UpdateEncapsulatedResourceFile(CExoString const &);

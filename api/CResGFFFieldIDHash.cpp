@@ -1,13 +1,13 @@
 #include "CResGFFFieldIDHash.h"
 
-int CResGFFFieldIDHash::Hash(char const *, unsigned long)
+unsigned long CResGFFFieldIDHash::Hash(char const *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c5270, %eax");
 	asm("jmp *%eax");
 }
 
-int CResGFFFieldIDHash::Initialize()
+void CResGFFFieldIDHash::Initialize()
 {
 	asm("leave");
 	asm("mov $0x082c5234, %eax");

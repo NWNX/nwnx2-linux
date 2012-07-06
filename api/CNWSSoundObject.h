@@ -1,18 +1,21 @@
 #ifndef _CNWSSOUNDOBJECT_H_
 #define _CNWSSOUNDOBJECT_H_
 #include "nwndef.h"
+#include "CNWSArea.h"
 #include "Vector.h"
+#include "CResGFF.h"
 #include "nwnstructs.h"
+#include "CNWSMessage.h"
 
 class CNWSSoundObject
 {
 public:
-	int AIUpdate();
-	int AddToArea(CNWSArea *, int);
-	int AsNWSSoundObject();
-	int ChangePosition(Vector);
-	int ChangeVolume(int);
-	int EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
+	void AIUpdate();
+	void AddToArea(CNWSArea *, int);
+	CNWSSoundObject * AsNWSSoundObject();
+	void ChangePosition(Vector);
+	void ChangeVolume(int);
+	void EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
 	int GetContinuous();
 	int GetHours();
 	int GetIntervalVariance();
@@ -34,10 +37,10 @@ public:
 	int GetVolumeVariation();
 	int GetVolume();
 	int Load(CResGFF *, CResStruct *);
-	int PackIntoMessage(CNWSMessage *);
-	int Play();
+	void PackIntoMessage(CNWSMessage *);
+	void Play();
 	int RemoveFromArea();
-	int Save(CResGFF *, CResStruct *);
+	void Save(CResGFF *, CResStruct *);
 	int SetContinuous(int);
 	int SetHours(unsigned long);
 	int SetIntervalVariance(unsigned long);
@@ -56,7 +59,7 @@ public:
 	int SetTimeofDay(CNWSSoundObjectTimeOfDay);
 	int SetVolumeVariation(int);
 	int SetVolume(int);
-	int Stop();
+	void Stop();
 	~CNWSSoundObject();
 	CNWSSoundObject(unsigned long);
 

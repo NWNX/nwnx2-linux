@@ -1,6 +1,6 @@
 #include "CScriptTalent.h"
 
-int CScriptTalent::CopyScriptTalent(CScriptTalent *)
+void CScriptTalent::CopyScriptTalent(CScriptTalent *)
 {
 	asm("leave");
 	asm("mov $0x081d44a8, %eax");

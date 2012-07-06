@@ -8,15 +8,15 @@ public:
 	~MS_RSAVLong();
 	MS_RSAVLong(MS_RSAVLong const &);
 	MS_RSAVLong(unsigned int);
-	int operator-=(MS_RSAVLong const &);
-	int operator+=(MS_RSAVLong const &);
-	int operator=(MS_RSAVLong const &);
+	MS_RSAVLong & operator-=(MS_RSAVLong const &);
+	MS_RSAVLong & operator+=(MS_RSAVLong const &);
+	MS_RSAVLong & operator=(MS_RSAVLong const &);
 	int cf(MS_RSAVLong const &) const;
-	int docopy();
+	void docopy();
 	int is_negative() const;
 	int is_zero() const;
-	int shiftLeft32();
-	int shiftRight32();
+	void shiftLeft32();
+	void shiftRight32();
 
 };
 #endif

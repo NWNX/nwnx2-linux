@@ -1,34 +1,34 @@
 #include "CResRef.h"
 
-int CResRef::CopyToString(char *) const
+void CResRef::CopyToString(char *) const
 {
 	asm("leave");
 	asm("mov $0x082b3338, %eax");
 	asm("jmp *%eax");
 }
 
-int CResRef::CopyToString(CExoString &) const
+void CResRef::CopyToString(CExoString &) const
 {
 	asm("leave");
 	asm("mov $0x082b3304, %eax");
 	asm("jmp *%eax");
 }
 
-int CResRef::GetLength() const
+unsigned char CResRef::GetLength() const
 {
 	asm("leave");
 	asm("mov $0x082b3398, %eax");
 	asm("jmp *%eax");
 }
 
-int CResRef::GetResRefStr() const
+char * CResRef::GetResRefStr() const
 {
 	asm("leave");
 	asm("mov $0x082b3360, %eax");
 	asm("jmp *%eax");
 }
 
-int CResRef::GetResRef() const
+char * CResRef::GetResRef() const
 {
 	asm("leave");
 	asm("mov $0x082b3358, %eax");
@@ -63,21 +63,21 @@ int CResRef::operator=(unsigned char *)
 	asm("jmp *%eax");
 }
 
-int CResRef::operator=(char *)
+CResRef CResRef::operator=(char *)
 {
 	asm("leave");
 	asm("mov $0x082b3544, %eax");
 	asm("jmp *%eax");
 }
 
-int CResRef::operator=(CExoString const &)
+CResRef CResRef::operator=(CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082aea8c, %eax");
 	asm("jmp *%eax");
 }
 
-int CResRef::operator=(CResRef const &)
+CResRef CResRef::operator=(CResRef const &)
 {
 	asm("leave");
 	asm("mov $0x082b347c, %eax");

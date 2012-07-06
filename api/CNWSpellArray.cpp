@@ -1,13 +1,13 @@
 #include "CNWSpellArray.h"
 
-int CNWSpellArray::GetSpell(int) const
+CNWSpell * CNWSpellArray::GetSpell(int) const
 {
 	asm("leave");
 	asm("mov $0x081db8c4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSpellArray::Load()
+void CNWSpellArray::Load()
 {
 	asm("leave");
 	asm("mov $0x081d8af0, %eax");

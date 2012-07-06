@@ -1,20 +1,20 @@
 #include "CExoRand.h"
 
-int CExoRand::GetString(unsigned short)
+CExoString CExoRand::GetString(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x082ca278, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoRand::Rand()
+unsigned long CExoRand::Rand()
 {
 	asm("leave");
 	asm("mov $0x082ca264, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoRand::SignalEvent()
+void CExoRand::SignalEvent()
 {
 	asm("leave");
 	asm("mov $0x082ca2a0, %eax");

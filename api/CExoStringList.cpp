@@ -1,13 +1,13 @@
 #include "CExoStringList.h"
 
-int CExoStringList::AddSorted(CExoString *)
+void CExoStringList::AddSorted(CExoString *)
 {
 	asm("leave");
 	asm("mov $0x082ca2c8, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoStringList::Add(CExoString *)
+void CExoStringList::Add(CExoString *)
 {
 	asm("leave");
 	asm("mov $0x082ca5d4, %eax");
@@ -56,7 +56,7 @@ int CExoStringList::GetSorted()
 	asm("jmp *%eax");
 }
 
-int CExoStringList::GetString(int)
+CExoString * CExoStringList::GetString(int)
 {
 	asm("leave");
 	asm("mov $0x082cacc8, %eax");
@@ -70,7 +70,7 @@ int CExoStringList::Insert(CExoString *, int)
 	asm("jmp *%eax");
 }
 
-int CExoStringList::Introduce(CExoString *, int)
+void CExoStringList::Introduce(CExoString *, int)
 {
 	asm("leave");
 	asm("mov $0x082caad0, %eax");

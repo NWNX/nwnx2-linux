@@ -1,13 +1,13 @@
 #include "CNWPlaceMeshManager.h"
 
-int CNWPlaceMeshManager::ClearWalkMeshes()
+void CNWPlaceMeshManager::ClearWalkMeshes()
 {
 	asm("leave");
 	asm("mov $0x080c460c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWPlaceMeshManager::GetWalkMesh(int)
+CNWPlaceableSurfaceMesh * CNWPlaceMeshManager::GetWalkMesh(int)
 {
 	asm("leave");
 	asm("mov $0x080c434c, %eax");

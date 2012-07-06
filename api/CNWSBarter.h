@@ -1,17 +1,18 @@
 #ifndef _CNWSBARTER_H_
 #define _CNWSBARTER_H_
 #include "nwndef.h"
+#include "CNWSCreature.h"
 
 class CNWSBarter
 {
 public:
 	int AddItem(unsigned long, unsigned char &, unsigned char &);
-	int CleanUp();
-	int GetState();
+	void CleanUp();
+	unsigned char GetState();
 	int MoveItem(unsigned long, unsigned char &, unsigned char &);
 	int PullItemOut(unsigned long);
 	int RemoveItem(unsigned long, unsigned char &, unsigned char &);
-	int Reset(unsigned long, int);
+	void Reset(unsigned long, int);
 	int SetListAccepted(int);
 	int SetListLocked(int);
 	~CNWSBarter();

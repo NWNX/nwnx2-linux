@@ -7,7 +7,7 @@ int CNWRules::CompareFeatName(void const *, void const *)
 	asm("jmp *%eax");
 }
 
-int CNWRules::Get2DArrays()
+CTwoDimArrays * CNWRules::Get2DArrays()
 {
 	asm("leave");
 	asm("mov $0x080cbba8, %eax");
@@ -21,7 +21,7 @@ int CNWRules::GetBaseItem(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWRules::GetClassExpansionLevel(unsigned char)
+unsigned char CNWRules::GetClassExpansionLevel(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080cb9a8, %eax");
@@ -49,7 +49,7 @@ int CNWRules::GetDifficultyOption(int, int)
 	asm("jmp *%eax");
 }
 
-int CNWRules::GetDomain(unsigned short)
+CNWDomain * CNWRules::GetDomain(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x080cb750, %eax");
@@ -63,21 +63,21 @@ int CNWRules::GetExperienceLevel(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWRules::GetFamiliarExpansionLevel(unsigned char, int)
+unsigned char CNWRules::GetFamiliarExpansionLevel(unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x080cb9d8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWRules::GetFeatExpansionLevel(unsigned short)
+unsigned char CNWRules::GetFeatExpansionLevel(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x080cb8b4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWRules::GetFeat(unsigned short)
+CNWFeat * CNWRules::GetFeat(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x080cb718, %eax");
@@ -105,14 +105,14 @@ int CNWRules::GetMasterFeatIcon(char)
 	asm("jmp *%eax");
 }
 
-int CNWRules::GetMasterFeatNameText(char)
+CExoString CNWRules::GetMasterFeatNameText(char)
 {
 	asm("leave");
 	asm("mov $0x080c8444, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWRules::GetMetaMagicLevelCost(unsigned char)
+unsigned char CNWRules::GetMetaMagicLevelCost(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080cb6f0, %eax");
@@ -175,7 +175,7 @@ int CNWRules::GetRace(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWRules::GetSkillExpansionLevel(unsigned short)
+unsigned char CNWRules::GetSkillExpansionLevel(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x080cb91c, %eax");
@@ -196,7 +196,7 @@ int CNWRules::GetSortedFeatID(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWRules::GetSpellExpansionLevel(unsigned long)
+unsigned char CNWRules::GetSpellExpansionLevel(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080cb944, %eax");
@@ -238,56 +238,56 @@ int CNWRules::IsFeatUseable(unsigned char, unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWRules::LoadClassInfo()
+void CNWRules::LoadClassInfo()
 {
 	asm("leave");
 	asm("mov $0x080c8918, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWRules::LoadDifficultyInfo()
+void CNWRules::LoadDifficultyInfo()
 {
 	asm("leave");
 	asm("mov $0x080cb440, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWRules::LoadDomainInfo()
+void CNWRules::LoadDomainInfo()
 {
 	asm("leave");
 	asm("mov $0x080caef0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWRules::LoadFeatInfo()
+void CNWRules::LoadFeatInfo()
 {
 	asm("leave");
 	asm("mov $0x080c6dd8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWRules::LoadRaceInfo()
+void CNWRules::LoadRaceInfo()
 {
 	asm("leave");
 	asm("mov $0x080c9d58, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWRules::LoadSkillInfo()
+void CNWRules::LoadSkillInfo()
 {
 	asm("leave");
 	asm("mov $0x080ca75c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWRules::ReloadAll()
+void CNWRules::ReloadAll()
 {
 	asm("leave");
 	asm("mov $0x080c6aa0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWRules::RollDice(unsigned char, unsigned char)
+unsigned short CNWRules::RollDice(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080cb6b0, %eax");
@@ -301,7 +301,7 @@ int CNWRules::SortFeats()
 	asm("jmp *%eax");
 }
 
-int CNWRules::UnloadAll()
+void CNWRules::UnloadAll()
 {
 	asm("leave");
 	asm("mov $0x080c680c, %eax");

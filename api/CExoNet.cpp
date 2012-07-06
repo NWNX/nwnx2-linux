@@ -1,13 +1,13 @@
 #include "CExoNet.h"
 
-int CExoNet::AddressTranslationAvailable()
+unsigned long CExoNet::AddressTranslationAvailable()
 {
 	asm("leave");
 	asm("mov $0x082c63ac, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoNet::ClearNetworkAddressProtect()
+void CExoNet::ClearNetworkAddressProtect()
 {
 	asm("leave");
 	asm("mov $0x082c62b4, %eax");
@@ -42,7 +42,7 @@ int CExoNet::CompareToSpecificInternetAddress(unsigned char *)
 	asm("jmp *%eax");
 }
 
-int CExoNet::EndAddressTranslation()
+void CExoNet::EndAddressTranslation()
 {
 	asm("leave");
 	asm("mov $0x082c63d4, %eax");
@@ -63,7 +63,7 @@ int CExoNet::FetchIncomingMessage(unsigned long *, unsigned char **, unsigned lo
 	asm("jmp *%eax");
 }
 
-int CExoNet::GetAddressTranslation(unsigned char *)
+void CExoNet::GetAddressTranslation(unsigned char *)
 {
 	asm("leave");
 	asm("mov $0x082c63c0, %eax");
@@ -84,7 +84,7 @@ int CExoNet::GetNetworkAddressData(unsigned long, unsigned long *, unsigned char
 	asm("jmp *%eax");
 }
 
-int CExoNet::GetNetworkAddressString(unsigned long)
+CExoString CExoNet::GetNetworkAddressString(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c6220, %eax");
@@ -105,7 +105,7 @@ int CExoNet::GetProtocolInitialized(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CExoNet::GetProtocolReceivePort(unsigned long)
+unsigned long CExoNet::GetProtocolReceivePort(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c6140, %eax");
@@ -119,14 +119,14 @@ int CExoNet::GetProtocolSendPort(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CExoNet::GetSendUDPSocket()
+unsigned long CExoNet::GetSendUDPSocket()
 {
 	asm("leave");
 	asm("mov $0x082c6474, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoNet::GetSpecificInternetAddress(unsigned char *, unsigned short *)
+void CExoNet::GetSpecificInternetAddress(unsigned char *, unsigned short *)
 {
 	asm("leave");
 	asm("mov $0x082c640c, %eax");
@@ -182,14 +182,14 @@ int CExoNet::SendTCPMessage(int, char *, int)
 	asm("jmp *%eax");
 }
 
-int CExoNet::SetMasterServerInternetAddress(unsigned char const *, unsigned long)
+void CExoNet::SetMasterServerInternetAddress(unsigned char const *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c6460, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoNet::SetNetworkAddressData(unsigned long, unsigned char *, unsigned char *, unsigned long)
+unsigned long CExoNet::SetNetworkAddressData(unsigned long, unsigned char *, unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c6284, %eax");
@@ -217,7 +217,7 @@ int CExoNet::ShutDownProtocol(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CExoNet::StartAddressTranslation(CExoString, unsigned long)
+void CExoNet::StartAddressTranslation(CExoString, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c6344, %eax");
@@ -231,7 +231,7 @@ int CExoNet::StartIncomingMessageProcessing()
 	asm("jmp *%eax");
 }
 
-int CExoNet::StoreMessage(unsigned char *, unsigned long, unsigned long)
+void CExoNet::StoreMessage(unsigned char *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c61b4, %eax");

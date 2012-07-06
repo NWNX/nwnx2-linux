@@ -7,42 +7,42 @@ int CNWSScriptVarTable::DeleteIndex(CExoString &, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::DestroyFloat(CExoString &)
+void CNWSScriptVarTable::DestroyFloat(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081f4320, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::DestroyInt(CExoString &)
+void CNWSScriptVarTable::DestroyInt(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081f362c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::DestroyLocation(CExoString &)
+void CNWSScriptVarTable::DestroyLocation(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081f4458, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::DestroyObject(CExoString &)
+void CNWSScriptVarTable::DestroyObject(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081f43f0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::DestroyString(CExoString &)
+void CNWSScriptVarTable::DestroyString(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081f4388, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::GetFloat(CExoString &)
+float CNWSScriptVarTable::GetFloat(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081f3ff0, %eax");
@@ -56,77 +56,77 @@ int CNWSScriptVarTable::GetInt(CExoString &)
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::GetLocation(CExoString &)
+CScriptLocation CNWSScriptVarTable::GetLocation(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081f40e8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::GetObject(CExoString &)
+unsigned long CNWSScriptVarTable::GetObject(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081f40bc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::GetString(CExoString &)
+CExoString CNWSScriptVarTable::GetString(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081f4020, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::LoadVarTable(CResGFF *, CResStruct *)
+void CNWSScriptVarTable::LoadVarTable(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081f3740, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::MatchIndex(CExoString &, unsigned long, int)
+CNWSScriptVar * CNWSScriptVarTable::MatchIndex(CExoString &, unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081f32b4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::SaveVarTable(CResGFF *, CResStruct *)
+void CNWSScriptVarTable::SaveVarTable(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081f3b3c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::SetFloat(CExoString &, float)
+void CNWSScriptVarTable::SetFloat(CExoString &, float)
 {
 	asm("leave");
 	asm("mov $0x081f4190, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::SetInt(CExoString &, int, int)
+void CNWSScriptVarTable::SetInt(CExoString &, int, int)
 {
 	asm("leave");
 	asm("mov $0x081f3454, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::SetLocation(CExoString &, CScriptLocation)
+void CNWSScriptVarTable::SetLocation(CExoString &, CScriptLocation)
 {
 	asm("leave");
 	asm("mov $0x081f4204, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::SetObject(CExoString &, unsigned long)
+void CNWSScriptVarTable::SetObject(CExoString &, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081f41e0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSScriptVarTable::SetString(CExoString &, CExoString &)
+void CNWSScriptVarTable::SetString(CExoString &, CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081f41b4, %eax");

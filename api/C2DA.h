@@ -44,7 +44,7 @@ public:
 	int SetINTEntry(int, CExoString, int);
 	int SetINTEntry(int, int, int);
 	int SkipNewLines(char **, unsigned long *);
-	int Unload2DArray();
+	void Unload2DArray();
 	~C2DA();
 	C2DA();
 	C2DA(CResRef, int);

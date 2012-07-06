@@ -1,13 +1,13 @@
 #include "CScriptEvent.h"
 
-int CScriptEvent::CopyScriptEvent(CScriptEvent *)
+void CScriptEvent::CopyScriptEvent(CScriptEvent *)
 {
 	asm("leave");
 	asm("mov $0x08061164, %eax");
 	asm("jmp *%eax");
 }
 
-int CScriptEvent::GetFloat(int)
+float CScriptEvent::GetFloat(int)
 {
 	asm("leave");
 	asm("mov $0x080619a4, %eax");
@@ -21,14 +21,14 @@ int CScriptEvent::GetInteger(int)
 	asm("jmp *%eax");
 }
 
-int CScriptEvent::GetObjectID(int)
+unsigned long CScriptEvent::GetObjectID(int)
 {
 	asm("leave");
 	asm("mov $0x08061a10, %eax");
 	asm("jmp *%eax");
 }
 
-int CScriptEvent::GetString(int)
+CExoString CScriptEvent::GetString(int)
 {
 	asm("leave");
 	asm("mov $0x08061a80, %eax");
@@ -49,28 +49,28 @@ int CScriptEvent::SaveEvent(CResGFF *, CResStruct *)
 	asm("jmp *%eax");
 }
 
-int CScriptEvent::SetFloat(int, float)
+void CScriptEvent::SetFloat(int, float)
 {
 	asm("leave");
 	asm("mov $0x080619d0, %eax");
 	asm("jmp *%eax");
 }
 
-int CScriptEvent::SetInteger(int, int)
+void CScriptEvent::SetInteger(int, int)
 {
 	asm("leave");
 	asm("mov $0x08061964, %eax");
 	asm("jmp *%eax");
 }
 
-int CScriptEvent::SetObjectID(int, unsigned long)
+void CScriptEvent::SetObjectID(int, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08061a40, %eax");
 	asm("jmp *%eax");
 }
 
-int CScriptEvent::SetString(int, CExoString)
+void CScriptEvent::SetString(int, CExoString)
 {
 	asm("leave");
 	asm("mov $0x08061ac8, %eax");

@@ -1,21 +1,23 @@
 #ifndef _CAPPMANAGER_H_
 #define _CAPPMANAGER_H_
 #include "nwndef.h"
+#include "CExoString.h"
+#include "CObjectTableManager.h"
 #include "CServerExoApp.h"
 #include "nwnstructs.h"
 
 class CAppManager
 {
 public:
-	int CreateServer();
-	int DestroyScriptDebuggerPopup();
-	int DestroyServer();
-	int DisplayScriptDebuggerPopup();
-	int DoSaveGameScreenShot(CExoString &);
+	void CreateServer();
+	void DestroyScriptDebuggerPopup();
+	void DestroyServer();
+	void DisplayScriptDebuggerPopup();
+	void DoSaveGameScreenShot(CExoString &);
 	int GetDungeonMasterEXERunning();
-	int GetObjectTableManager(unsigned long);
-	int GetProgressFromCodeword(CExoString &);
-	int ReadProgressFromINI(unsigned char);
+	CObjectTableManager * GetObjectTableManager(unsigned long);
+	unsigned char GetProgressFromCodeword(CExoString &);
+	unsigned char ReadProgressFromINI(unsigned char);
 	int SetDungeonMasterEXERunning(int);
 	int ShowServerMem();
 	int SpawnExternalScriptDebugger();

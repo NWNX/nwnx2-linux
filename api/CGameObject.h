@@ -2,38 +2,52 @@
 #define _CGAMEOBJECT_H_
 #include "nwndef.h"
 #include "nwnstructs.h"
+#include "CNWSAreaOfEffectObject.h"
+#include "CNWSArea.h"
+#include "CNWSCreature.h"
+#include "CNWSDoor.h"
+#include "CNWSEncounter.h"
+#include "CNWSItem.h"
+#include "CNWSModule.h"
+#include "CNWSObject.h"
+#include "CNWSPlaceable.h"
+#include "CNWSPlayerTURD.h"
+#include "CNWSSoundObject.h"
+#include "CNWSStore.h"
+#include "CNWSTrigger.h"
+#include "CNWSWaypoint.h"
 
 class CGameObject
 {
 public:
-	int AsNWCAreaOfEffectObject();
-	int AsNWCArea();
-	int AsNWCCreature();
-	int AsNWCDoor();
-	int AsNWCItem();
-	int AsNWCModule();
-	int AsNWCObject();
-	int AsNWCPlaceable();
-	int AsNWCProjectile();
-	int AsNWCSoundObject();
-	int AsNWCStore();
-	int AsNWCTrigger();
-	int AsNWSAreaOfEffectObject();
-	int AsNWSArea();
-	int AsNWSCreature();
-	int AsNWSDoor();
-	int AsNWSEncounter();
-	int AsNWSItem();
-	int AsNWSModule();
-	int AsNWSObject();
-	int AsNWSPlaceable();
-	int AsNWSPlayerTURD();
-	int AsNWSSoundObject();
-	int AsNWSStore();
-	int AsNWSTrigger();
-	int AsNWSWaypoint();
-	int ResetUpdateTimes(unsigned long, unsigned long);
-	int SetId(unsigned long);
+	CNWCAreaOfEffectObject * AsNWCAreaOfEffectObject();
+	CNWCArea * AsNWCArea();
+	CNWCCreature * AsNWCCreature();
+	CNWCDoor * AsNWCDoor();
+	CNWCItem * AsNWCItem();
+	CNWCModule * AsNWCModule();
+	CNWCObject * AsNWCObject();
+	CNWCPlaceable * AsNWCPlaceable();
+	CNWCProjectile * AsNWCProjectile();
+	CNWCSoundObject * AsNWCSoundObject();
+	CNWCStore * AsNWCStore();
+	CNWCTrigger * AsNWCTrigger();
+	CNWSAreaOfEffectObject * AsNWSAreaOfEffectObject();
+	CNWSArea * AsNWSArea();
+	CNWSCreature * AsNWSCreature();
+	CNWSDoor * AsNWSDoor();
+	CNWSEncounter * AsNWSEncounter();
+	CNWSItem * AsNWSItem();
+	CNWSModule * AsNWSModule();
+	CNWSObject * AsNWSObject();
+	CNWSPlaceable * AsNWSPlaceable();
+	CNWSPlayerTURD * AsNWSPlayerTURD();
+	CNWSSoundObject * AsNWSSoundObject();
+	CNWSStore * AsNWSStore();
+	CNWSTrigger * AsNWSTrigger();
+	CNWSWaypoint * AsNWSWaypoint();
+	void ResetUpdateTimes(unsigned long, unsigned long);
+	void SetId(unsigned long);
 	~CGameObject();
 	CGameObject(unsigned char, unsigned long);
 

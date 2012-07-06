@@ -56,14 +56,14 @@ int CCodeBaseInternal::AddVector(CExoString &, CExoString &, CExoString &, Vecto
 	asm("jmp *%eax");
 }
 
-int CCodeBaseInternal::CloseAllFiles()
+void CCodeBaseInternal::CloseAllFiles()
 {
 	asm("leave");
 	asm("mov $0x082dac88, %eax");
 	asm("jmp *%eax");
 }
 
-int CCodeBaseInternal::CloseFile(int)
+void CCodeBaseInternal::CloseFile(int)
 {
 	asm("leave");
 	asm("mov $0x082da664, %eax");
@@ -77,28 +77,28 @@ int CCodeBaseInternal::DeleteVar(CExoString &, CExoString &, CExoString &)
 	asm("jmp *%eax");
 }
 
-int CCodeBaseInternal::DestroyDatabase(CExoString &)
+void CCodeBaseInternal::DestroyDatabase(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082da0c0, %eax");
 	asm("jmp *%eax");
 }
 
-int CCodeBaseInternal::GetBinaryData(CExoString &, CExoString &, CExoString &, char &, int &)
+void * CCodeBaseInternal::GetBinaryData(CExoString &, CExoString &, CExoString &, char &, int &)
 {
 	asm("leave");
 	asm("mov $0x082dada8, %eax");
 	asm("jmp *%eax");
 }
 
-int CCodeBaseInternal::GetFile(CExoString &, int)
+SCodeBaseData * CCodeBaseInternal::GetFile(CExoString &, int)
 {
 	asm("leave");
 	asm("mov $0x082da57c, %eax");
 	asm("jmp *%eax");
 }
 
-int CCodeBaseInternal::GetFloat(CExoString &, CExoString &, CExoString &)
+float CCodeBaseInternal::GetFloat(CExoString &, CExoString &, CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082dacb4, %eax");
@@ -112,28 +112,28 @@ int CCodeBaseInternal::GetInt(CExoString &, CExoString &, CExoString &)
 	asm("jmp *%eax");
 }
 
-int CCodeBaseInternal::GetLocation(CExoString &, CExoString &, CExoString &)
+CScriptLocation * CCodeBaseInternal::GetLocation(CExoString &, CExoString &, CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082d9d9c, %eax");
 	asm("jmp *%eax");
 }
 
-int CCodeBaseInternal::GetString(CExoString &, CExoString &, CExoString &)
+CExoString * CCodeBaseInternal::GetString(CExoString &, CExoString &, CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082d9e74, %eax");
 	asm("jmp *%eax");
 }
 
-int CCodeBaseInternal::GetVar(SCodeBaseData *, CExoString &, CExoString &)
+SRecord * CCodeBaseInternal::GetVar(SCodeBaseData *, CExoString &, CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082da6e0, %eax");
 	asm("jmp *%eax");
 }
 
-int CCodeBaseInternal::GetVector(CExoString &, CExoString &, CExoString &)
+Vector * CCodeBaseInternal::GetVector(CExoString &, CExoString &, CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082d9cf0, %eax");

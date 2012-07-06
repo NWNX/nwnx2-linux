@@ -49,35 +49,35 @@ int CNWTileData::GetPropertyMethodStringList(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWTileData::GetSurfaceMesh()
+CNWTileSurfaceMesh * CNWTileData::GetSurfaceMesh()
 {
 	asm("leave");
 	asm("mov $0x081f5bf4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWTileData::SetCornerType(unsigned char, CExoString, int)
+void CNWTileData::SetCornerType(unsigned char, CExoString, int)
 {
 	asm("leave");
 	asm("mov $0x081f5844, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWTileData::SetEdgeType(unsigned char, CExoString)
+void CNWTileData::SetEdgeType(unsigned char, CExoString)
 {
 	asm("leave");
 	asm("mov $0x081f5a60, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWTileData::SetMapIcon(CResRef)
+void CNWTileData::SetMapIcon(CResRef)
 {
 	asm("leave");
 	asm("mov $0x081f5ba8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWTileData::SetModelResRef(CResRef)
+void CNWTileData::SetModelResRef(CResRef)
 {
 	asm("leave");
 	asm("mov $0x081f59b8, %eax");

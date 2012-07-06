@@ -5,8 +5,8 @@
 class CResNDB
 {
 public:
-	int GetNDBDataPtr();
-	int GetNDBSize();
+	unsigned char * GetNDBDataPtr();
+	unsigned long GetNDBSize();
 	int IsLoaded();
 	int OnResourceFreed();
 	int OnResourceServiced();

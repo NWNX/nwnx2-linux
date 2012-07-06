@@ -1,20 +1,20 @@
 #include "CNWSPlayerLastUpdateObject.h"
 
-int CNWSPlayerLastUpdateObject::AddKnownSpell(unsigned char, unsigned char, unsigned long)
+void CNWSPlayerLastUpdateObject::AddKnownSpell(unsigned char, unsigned char, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081e43f4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::ClearActionQueue()
+void CNWSPlayerLastUpdateObject::ClearActionQueue()
 {
 	asm("leave");
 	asm("mov $0x081e4768, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::ClearAutoMapData()
+void CNWSPlayerLastUpdateObject::ClearAutoMapData()
 {
 	asm("leave");
 	asm("mov $0x081e47d8, %eax");
@@ -28,35 +28,35 @@ int CNWSPlayerLastUpdateObject::ClearEffectIcons()
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::ClearKnownSpellUsesLeft()
+void CNWSPlayerLastUpdateObject::ClearKnownSpellUsesLeft()
 {
 	asm("leave");
 	asm("mov $0x081e4670, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::ClearKnownSpells()
+void CNWSPlayerLastUpdateObject::ClearKnownSpells()
 {
 	asm("leave");
 	asm("mov $0x081e4314, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::ClearMemorizedSpells()
+void CNWSPlayerLastUpdateObject::ClearMemorizedSpells()
 {
 	asm("leave");
 	asm("mov $0x081e3928, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::ClearSpellAddDeleteLists()
+void CNWSPlayerLastUpdateObject::ClearSpellAddDeleteLists()
 {
 	asm("leave");
 	asm("mov $0x081e3bd8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::ClearVisibilityList()
+void CNWSPlayerLastUpdateObject::ClearVisibilityList()
 {
 	asm("leave");
 	asm("mov $0x081e4710, %eax");
@@ -70,21 +70,21 @@ int CNWSPlayerLastUpdateObject::GetIsDomainSpell(unsigned char, unsigned char, u
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::GetKnownSpellUsesLeft(unsigned char, unsigned char)
+unsigned char CNWSPlayerLastUpdateObject::GetKnownSpellUsesLeft(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081e46ac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::GetKnownSpell(unsigned char, unsigned char, unsigned char)
+unsigned long CNWSPlayerLastUpdateObject::GetKnownSpell(unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081e4430, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::GetMemorizedSpellMetaType(unsigned char, unsigned char, unsigned char)
+unsigned char CNWSPlayerLastUpdateObject::GetMemorizedSpellMetaType(unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081e45ac, %eax");
@@ -98,7 +98,7 @@ int CNWSPlayerLastUpdateObject::GetMemorizedSpellReadied(unsigned char, unsigned
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::GetMemorizedSpell(unsigned char, unsigned char, unsigned char)
+unsigned long CNWSPlayerLastUpdateObject::GetMemorizedSpell(unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081e4480, %eax");
@@ -112,35 +112,35 @@ int CNWSPlayerLastUpdateObject::InitializeAutoMapData()
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::ResetAutoMapData(unsigned long)
+void CNWSPlayerLastUpdateObject::ResetAutoMapData(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081e485c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::SetKnownSpellUsesLeft(unsigned char, unsigned char, unsigned char)
+void CNWSPlayerLastUpdateObject::SetKnownSpellUsesLeft(unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081e46e0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::SetMemorizedSpellReadied(unsigned char, unsigned char, unsigned char, int)
+void CNWSPlayerLastUpdateObject::SetMemorizedSpellReadied(unsigned char, unsigned char, unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x081e4610, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::SetMemorizedSpellSlot(unsigned char, unsigned char, unsigned char, unsigned long, int, unsigned char)
+void CNWSPlayerLastUpdateObject::SetMemorizedSpellSlot(unsigned char, unsigned char, unsigned char, unsigned long, int, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081e39d8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerLastUpdateObject::SetNumberMemorizedSpellSlots(unsigned char, unsigned char, unsigned char)
+void CNWSPlayerLastUpdateObject::SetNumberMemorizedSpellSlots(unsigned char, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081e3ad8, %eax");

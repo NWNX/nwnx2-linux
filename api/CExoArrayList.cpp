@@ -1,8 +1,24 @@
 #include "CExoArrayList.h"
 
 #include "CExoString.h"
+#include "CLoopingVisualEffect.h"
 #include "CNWSStats_SpellLikeAbility.h"
 #include "CResRef.h"
+#include "CGameEffect.h"
+#include "CGameObject.h"
+#include "CNWSFaction.h"
+#include "CNWLevelStats.h"
+#include "CNWSExpression.h"
+#include "CStoreCustomer.h"
+#include "CNWSStats_Spell.h"
+#include "CNWCCMessageData.h"
+#include "CNWSExpressionList.h"
+#include "CNWSExpressionNode.h"
+#include "CNWSSpellScriptData.h"
+#include "CVirtualMachineFile.h"
+#include "CCombatInformationNode.h"
+#include "CNWTileSurfaceMeshAABBNode.h"
+#include "CNWSItem.h"
 template <>
 int CExoArrayList<CExoString>::AddUnique(CExoString)
 {
@@ -12,7 +28,7 @@ int CExoArrayList<CExoString>::AddUnique(CExoString)
 }
 
 template <>
-int CExoArrayList<CExoString>::Add(CExoString)
+void CExoArrayList<CExoString>::Add(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080512cc, %eax");
@@ -20,7 +36,7 @@ int CExoArrayList<CExoString>::Add(CExoString)
 }
 
 template <>
-int CExoArrayList<CExoString>::Allocate(int)
+void CExoArrayList<CExoString>::Allocate(int)
 {
 	asm("leave");
 	asm("mov $0x080510b0, %eax");
@@ -44,7 +60,7 @@ int CExoArrayList<CExoString>::DelIndex(int)
 }
 
 template <>
-int CExoArrayList<CExoString>::Insert(CExoString, int)
+void CExoArrayList<CExoString>::Insert(CExoString, int)
 {
 	asm("leave");
 	asm("mov $0x082ceb9c, %eax");
@@ -52,7 +68,7 @@ int CExoArrayList<CExoString>::Insert(CExoString, int)
 }
 
 template <>
-int CExoArrayList<CExoString>::Remove(CExoString)
+void CExoArrayList<CExoString>::Remove(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080b17c8, %eax");
@@ -68,7 +84,7 @@ int CExoArrayList<CExoString>::SetSize(int)
 }
 
 template <>
-CExoString *CExoArrayList<CExoString>::operator[](int) const
+CExoString & CExoArrayList<CExoString>::operator[](int) const
 {
 	asm("leave");
 	asm("mov $0x082acf5c, %eax");
@@ -76,7 +92,7 @@ CExoString *CExoArrayList<CExoString>::operator[](int) const
 }
 
 template <>
-CExoString *CExoArrayList<CExoString>::operator[](int)
+CExoString & CExoArrayList<CExoString>::operator[](int)
 {
 	asm("leave");
 	asm("mov $0x08050fc4, %eax");
@@ -132,7 +148,7 @@ int CExoArrayList<CLoopingVisualEffect *>::SetSize(int)
 }
 
 template <>
-CLoopingVisualEffect **CExoArrayList<CLoopingVisualEffect *>::operator[](int)
+int CExoArrayList<CLoopingVisualEffect *>::operator[](int)
 {
 	asm("leave");
 	asm("mov $0x0813f0a0, %eax");
@@ -468,7 +484,7 @@ int CExoArrayList<CNWSPVPEntry>::operator[](int)
 }
 
 template <>
-int CExoArrayList<CNWSScriptVar>::Add(CNWSScriptVar)
+void CExoArrayList<CNWSScriptVar>::Add(CNWSScriptVar)
 {
 	asm("leave");
 	asm("mov $0x081f44f0, %eax");
@@ -500,7 +516,7 @@ int CExoArrayList<CNWSScriptVar>::operator[](int)
 }
 
 template <>
-int CExoArrayList<SJournalEntry>::Add(SJournalEntry)
+void CExoArrayList<SJournalEntry>::Add(SJournalEntry)
 {
 	asm("leave");
 	asm("mov $0x081b263c, %eax");
@@ -524,7 +540,7 @@ int CExoArrayList<SJournalEntry>::DelIndex(int)
 }
 
 template <>
-int CExoArrayList<SJournalEntry>::operator[](int)
+SJournalEntry & CExoArrayList<SJournalEntry>::operator[](int)
 {
 	asm("leave");
 	asm("mov $0x08083448, %eax");
@@ -540,7 +556,7 @@ int CExoArrayList<CNWItemProperty>::Add(CNWItemProperty)
 }
 
 template <>
-int CExoArrayList<CNWItemProperty>::Allocate(int)
+void CExoArrayList<CNWItemProperty>::Allocate(int)
 {
 	asm("leave");
 	asm("mov $0x081a74f8, %eax");
@@ -612,7 +628,7 @@ int CExoArrayList<SGameSpyRoomEntry>::operator[](int)
 }
 
 template <>
-int CExoArrayList<CWorldJournalEntry>::Add(CWorldJournalEntry)
+void CExoArrayList<CWorldJournalEntry>::Add(CWorldJournalEntry)
 {
 	asm("leave");
 	asm("mov $0x081c0d20, %eax");
@@ -692,7 +708,7 @@ int CExoArrayList<CNWSPersonalReputation>::Add(CNWSPersonalReputation)
 }
 
 template <>
-int CExoArrayList<CNWSPersonalReputation>::Allocate(int)
+void CExoArrayList<CNWSPersonalReputation>::Allocate(int)
 {
 	asm("leave");
 	asm("mov $0x08060f34, %eax");
@@ -716,7 +732,7 @@ int CExoArrayList<CNWSPersonalReputation>::operator[](int)
 }
 
 template <>
-int CExoArrayList<CNetLayerPlayerCDKeyInfo>::Add(CNetLayerPlayerCDKeyInfo)
+void CExoArrayList<CNetLayerPlayerCDKeyInfo>::Add(CNetLayerPlayerCDKeyInfo)
 {
 	asm("leave");
 	asm("mov $0x082acac4, %eax");
@@ -780,7 +796,7 @@ int CExoArrayList<CNWSStats_SpellLikeAbility>::operator[](int)
 }
 
 template <>
-int CExoArrayList<CNWSPlayerJournalQuestUpdates>::Add(CNWSPlayerJournalQuestUpdates)
+void CExoArrayList<CNWSPlayerJournalQuestUpdates>::Add(CNWSPlayerJournalQuestUpdates)
 {
 	asm("leave");
 	asm("mov $0x081b2754, %eax");
@@ -804,7 +820,7 @@ int CExoArrayList<CNWSPlayerJournalQuestUpdates>::SetSize(int)
 }
 
 template <>
-int CExoArrayList<CNWSPlayerJournalQuestUpdates>::operator[](int)
+CNWSPlayerJournalQuestUpdates & CExoArrayList<CNWSPlayerJournalQuestUpdates>::operator[](int)
 {
 	asm("leave");
 	asm("mov $0x08083464, %eax");
@@ -820,7 +836,7 @@ int CExoArrayList<NWPlayerCharacterListClass_st>::Add(NWPlayerCharacterListClass
 }
 
 template <>
-int CExoArrayList<NWPlayerCharacterListClass_st>::Allocate(int)
+void CExoArrayList<NWPlayerCharacterListClass_st>::Allocate(int)
 {
 	asm("leave");
 	asm("mov $0x08083620, %eax");
@@ -876,7 +892,7 @@ int CExoArrayList<CResRef>::operator[](int)
 }
 
 template <>
-int CExoArrayList<CFileInfo>::Add(CFileInfo)
+void CExoArrayList<CFileInfo>::Add(CFileInfo)
 {
 	asm("leave");
 	asm("mov $0x082ceae0, %eax");
@@ -892,7 +908,7 @@ int CExoArrayList<CFileInfo>::Allocate(int)
 }
 
 template <>
-int CExoArrayList<CFileInfo>::Insert(CFileInfo, int)
+void CExoArrayList<CFileInfo>::Insert(CFileInfo, int)
 {
 	asm("leave");
 	asm("mov $0x082ce994, %eax");
@@ -1884,7 +1900,7 @@ int CExoArrayList<char>::Add(char)
 }
 
 template <>
-int CExoArrayList<char>::Allocate(int)
+void CExoArrayList<char>::Allocate(int)
 {
 	asm("leave");
 	asm("mov $0x08083964, %eax");
@@ -1900,7 +1916,7 @@ int CExoArrayList<char>::operator[](int)
 }
 
 template <>
-int CExoArrayList<float>::Add(float)
+void CExoArrayList<float>::Add(float)
 {
 	asm("leave");
 	asm("mov $0x08061d34, %eax");
@@ -1908,7 +1924,7 @@ int CExoArrayList<float>::Add(float)
 }
 
 template <>
-int CExoArrayList<float>::Allocate(int)
+void CExoArrayList<float>::Allocate(int)
 {
 	asm("leave");
 	asm("mov $0x08061d74, %eax");
@@ -1940,7 +1956,7 @@ int CExoArrayList<float>::operator[](int)
 }
 
 template <>
-int CExoArrayList<int>::Add(int)
+void CExoArrayList<int>::Add(int)
 {
 	asm("leave");
 	asm("mov $0x08050eb4, %eax");
@@ -1948,7 +1964,7 @@ int CExoArrayList<int>::Add(int)
 }
 
 template <>
-int CExoArrayList<int>::Allocate(int)
+void CExoArrayList<int>::Allocate(int)
 {
 	asm("leave");
 	asm("mov $0x080511f4, %eax");
@@ -1980,7 +1996,7 @@ int CExoArrayList<int>::Pack()
 }
 
 template <>
-int CExoArrayList<int>::SetSize(int)
+void CExoArrayList<int>::SetSize(int)
 {
 	asm("leave");
 	asm("mov $0x08061bd8, %eax");

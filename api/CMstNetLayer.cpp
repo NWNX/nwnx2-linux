@@ -1,6 +1,6 @@
 #include "CMstNetLayer.h"
 
-int CMstNetLayer::GenerateCommunityNameResponse(CExoString const &, CExoString const &)
+CExoString CMstNetLayer::GenerateCommunityNameResponse(CExoString const &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082943d8, %eax");
@@ -14,7 +14,7 @@ int CMstNetLayer::GetCommunityNameStatus(CExoString const &, unsigned char **)
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::GetDigiDistInfo(CExoString &)
+SMstDigiDistInfo * CMstNetLayer::GetDigiDistInfo(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082988c8, %eax");
@@ -28,42 +28,42 @@ int CMstNetLayer::GetDigiDistModuleCipher(CExoString &, int)
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::GetKeyAuthDemand(CExoString &)
+CExoString CMstNetLayer::GetKeyAuthDemand(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x08297990, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::GetKeyCollision()
+CExoString CMstNetLayer::GetKeyCollision()
 {
 	asm("leave");
 	asm("mov $0x08297b0c, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::GetKeyRejectionReason(unsigned short)
+unsigned long CMstNetLayer::GetKeyRejectionReason(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x082987ac, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::GetKeyStatus(CExoString const &, unsigned short &)
+unsigned short CMstNetLayer::GetKeyStatus(CExoString const &, unsigned short &)
 {
 	asm("leave");
 	asm("mov $0x08297c78, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::GetMasterServerInternetName()
+CExoString CMstNetLayer::GetMasterServerInternetName()
 {
 	asm("leave");
 	asm("mov $0x08297fdc, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::GetMasterServerPort()
+unsigned long CMstNetLayer::GetMasterServerPort()
 {
 	asm("leave");
 	asm("mov $0x08298000, %eax");
@@ -77,77 +77,77 @@ int CMstNetLayer::GetNextBuddyEntry()
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleAddBuddyResponse(unsigned char *, unsigned long)
+void CMstNetLayer::HandleAddBuddyResponse(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08297560, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleAuthorizationResponse(unsigned char *, unsigned long)
+void CMstNetLayer::HandleAuthorizationResponse(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08296f08, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleCommunityNameAuthResponse(unsigned char *, unsigned long)
+void CMstNetLayer::HandleCommunityNameAuthResponse(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08297280, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleCreateAccountPartOne(unsigned char *, unsigned long)
+void CMstNetLayer::HandleCreateAccountPartOne(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082973c4, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleCreateAccountPartTwo(unsigned char *, unsigned long)
+void CMstNetLayer::HandleCreateAccountPartTwo(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082974a8, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleDemandAuthorization(unsigned char *, unsigned long)
+void CMstNetLayer::HandleDemandAuthorization(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0829688c, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleDemandHeartbeat(unsigned char *, unsigned long)
+void CMstNetLayer::HandleDemandHeartbeat(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08298544, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleDigiDistAuthResponse(unsigned char *, unsigned long)
+void CMstNetLayer::HandleDigiDistAuthResponse(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0829789c, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleGetAvailabilityResponse(unsigned char *, unsigned long)
+void CMstNetLayer::HandleGetAvailabilityResponse(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08298768, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleGetBuddyListResponse(unsigned char *, unsigned long)
+void CMstNetLayer::HandleGetBuddyListResponse(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08297700, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleMOTDResponse(unsigned char *, unsigned long)
+void CMstNetLayer::HandleMOTDResponse(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0829866c, %eax");
@@ -161,35 +161,35 @@ int CMstNetLayer::HandleMasterServerToGameMessage(unsigned char *, unsigned long
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleNotifyCollision(unsigned char *, unsigned long)
+void CMstNetLayer::HandleNotifyCollision(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08296c40, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleRemoveBuddyResponse(unsigned char *, unsigned long)
+void CMstNetLayer::HandleRemoveBuddyResponse(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08297630, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleSetAvailabilityResponse(unsigned char *, unsigned long)
+void CMstNetLayer::HandleSetAvailabilityResponse(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0829872c, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleStatusResponse(unsigned char *, unsigned long)
+void CMstNetLayer::HandleStatusResponse(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082985c8, %eax");
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::HandleVersionResponse(unsigned char *, unsigned long)
+void CMstNetLayer::HandleVersionResponse(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082986cc, %eax");
@@ -336,7 +336,7 @@ int CMstNetLayer::SendSetAvailabilityRequest(CExoString const &, unsigned short)
 	asm("jmp *%eax");
 }
 
-int CMstNetLayer::SetLanguage(int)
+void CMstNetLayer::SetLanguage(int)
 {
 	asm("leave");
 	asm("mov $0x08294290, %eax");

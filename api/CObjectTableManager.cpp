@@ -7,7 +7,7 @@ int CObjectTableManager::AddID(unsigned long, unsigned long *, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CObjectTableManager::ClearAll()
+void CObjectTableManager::ClearAll()
 {
 	asm("leave");
 	asm("mov $0x08094d18, %eax");

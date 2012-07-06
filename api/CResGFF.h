@@ -1,21 +1,25 @@
 #ifndef _CRESGFF_H_
 #define _CRESGFF_H_
 #include "nwndef.h"
+#include "nwnstructs.h"
+#include "CExoString.h"
 #include "CExoLocString.h"
+#include "CResRef.h"
+#include "CExoFile.h"
 #include "CRes.h"
 
 class CResGFF
 {
 public:
-	int AddDataField(unsigned long, unsigned long, unsigned long);
-	int AddDataLayoutField(unsigned long, unsigned long, unsigned long);
-	int AddDataLayoutList(unsigned long, unsigned long, unsigned long);
-	int AddField(CResStruct *, char *, unsigned long);
-	int AddLabel(char *);
+	unsigned char * AddDataField(unsigned long, unsigned long, unsigned long);
+	unsigned char * AddDataLayoutField(unsigned long, unsigned long, unsigned long);
+	unsigned char * AddDataLayoutList(unsigned long, unsigned long, unsigned long);
+	CResGFFField * AddField(CResStruct *, char *, unsigned long);
+	unsigned long AddLabel(char *);
 	int AddListElement(CResStruct *, CResList *, unsigned long);
 	int AddList(CResList *, CResStruct *, char *);
 	int AddStructToStruct(CResStruct *, CResStruct *, char *, unsigned long);
-	int AddStruct(unsigned long);
+	unsigned long AddStruct(unsigned long);
 	int CreateGFFFile(CResStruct *, CExoString const &, CExoString const &);
 	int GetDataFieldNum();
 	int GetDataField(CResGFFField *, unsigned long &);
@@ -24,52 +28,52 @@ public:
 	int GetDataLayoutField(CResGFFField *, unsigned long &);
 	int GetDataLayoutListNum();
 	int GetDataLayoutList(CResGFFField *, unsigned long &);
-	int GetElementType(CResStruct *);
-	int GetFieldByLabel(CResStruct *, char *);
-	int GetFieldCount(CResStruct *);
+	unsigned long GetElementType(CResStruct *);
+	unsigned long GetFieldByLabel(CResStruct *, char *);
+	unsigned long GetFieldCount(CResStruct *);
 	int GetFieldCount(CResGFFStruct *);
 	int GetFieldLabel(CResStruct *, unsigned long);
 	int GetFieldNum();
 	int GetFieldSize(CResStruct *, char *, unsigned long);
 	int GetFieldStringID(CResStruct *, unsigned long);
 	int GetFieldType(CResStruct *, char *, unsigned long);
-	int GetField(CResStruct *, unsigned long);
+	CResGFFField * GetField(CResStruct *, unsigned long);
 	int GetField(CResGFFStruct *, unsigned long);
 	int GetFileData(char *);
-	int GetGFFFileInfo(CExoString *, CExoString *);
+	void GetGFFFileInfo(CExoString *, CExoString *);
 	int GetLabelNum();
 	int GetLabel(CResStruct *, unsigned long);
-	int GetListCount(CResList *);
+	unsigned long GetListCount(CResList *);
 	int GetListElement(CResStruct *, CResList *, unsigned long);
 	int GetList(CResList *, CResStruct *, char *);
 	int GetStructFromStruct(CResStruct *, CResStruct *, char *);
 	int GetStructNum();
 	int GetStruct(CResStruct *);
 	int GetTopLevelStruct(CResStruct *);
-	int GetTotalSize();
+	unsigned long GetTotalSize();
 	int GetWastedFieldSpace();
 	int GetWastedListSpace();
-	int InitializeForWriting();
+	void InitializeForWriting();
 	int IsDataInPlace(unsigned long);
 	int IsLoaded();
 	int OnResourceFreed();
 	int OnResourceServiced();
-	int Pack(unsigned char, unsigned long);
-	int ReadFieldBYTE(CResStruct *, char *, int &, unsigned char);
-	int ReadFieldCExoLocString(CResStruct *, char *, int &, CExoLocString const &);
-	int ReadFieldCExoString(CResStruct *, char *, int &, CExoString const &);
-	int ReadFieldCHAR(CResStruct *, char *, int &, char);
-	int ReadFieldCResRef(CResStruct *, char *, int &, CResRef const &);
+	void Pack(unsigned char, unsigned long);
+	unsigned char ReadFieldBYTE(CResStruct *, char *, int &, unsigned char);
+	CExoLocString ReadFieldCExoLocString(CResStruct *, char *, int &, CExoLocString const &);
+	CExoString ReadFieldCExoString(CResStruct *, char *, int &, CExoString const &);
+	char ReadFieldCHAR(CResStruct *, char *, int &, char);
+	CResRef ReadFieldCResRef(CResStruct *, char *, int &, CResRef const &);
 	int ReadFieldDOUBLE(CResStruct *, char *, int &, double);
 	int ReadFieldDWORD64(CResStruct *, char *, int &, unsigned long long);
-	int ReadFieldDWORD(CResStruct *, char *, int &, unsigned long);
-	int ReadFieldFLOAT(CResStruct *, char *, int &, float);
+	unsigned long ReadFieldDWORD(CResStruct *, char *, int &, unsigned long);
+	float ReadFieldFLOAT(CResStruct *, char *, int &, float);
 	int ReadFieldINT64(CResStruct *, char *, int &, long long);
 	int ReadFieldINT(CResStruct *, char *, int &, int);
-	int ReadFieldSHORT(CResStruct *, char *, int &, short);
-	int ReadFieldVOID(CResStruct *, void *, unsigned long, char *, int &, void *);
-	int ReadFieldWORD(CResStruct *, char *, int &, unsigned short);
-	int ReleaseResource();
+	short ReadFieldSHORT(CResStruct *, char *, int &, short);
+	void * ReadFieldVOID(CResStruct *, void *, unsigned long, char *, int &, void *);
+	unsigned short ReadFieldWORD(CResStruct *, char *, int &, unsigned short);
+	void ReleaseResource();
 	int SetFileType(char *);
 	int SetReplaceExistingFields(int);
 	int WriteFieldBYTE(CResStruct *, unsigned char, char *);

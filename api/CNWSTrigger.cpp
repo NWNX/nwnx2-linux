@@ -1,20 +1,20 @@
 #include "CNWSTrigger.h"
 
-int CNWSTrigger::AIUpdate()
+void CNWSTrigger::AIUpdate()
 {
 	asm("leave");
 	asm("mov $0x081f2880, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::AddToArea(CNWSArea *, float, float, float, int)
+void CNWSTrigger::AddToArea(CNWSArea *, float, float, float, int)
 {
 	asm("leave");
 	asm("mov $0x081ee668, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::AsNWSTrigger()
+CNWSTrigger * CNWSTrigger::AsNWSTrigger()
 {
 	asm("leave");
 	asm("mov $0x081f2d5c, %eax");
@@ -28,28 +28,28 @@ int CNWSTrigger::CalculateNearestPoint(Vector, Vector *)
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::ComputeBoundingBox(float *, float *, float *, float *)
+void CNWSTrigger::ComputeBoundingBox(float *, float *, float *, float *)
 {
 	asm("leave");
 	asm("mov $0x081f2a80, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::CreateNewGeometry(float, Vector, CNWSArea *)
+void CNWSTrigger::CreateNewGeometry(float, Vector, CNWSArea *)
 {
 	asm("leave");
 	asm("mov $0x081f1d18, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::CreateNewGeometry(float, CScriptLocation *, CNWSArea *)
+void CNWSTrigger::CreateNewGeometry(float, CScriptLocation *, CNWSArea *)
 {
 	asm("leave");
 	asm("mov $0x081f1f94, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSTrigger::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081eedfc, %eax");
@@ -119,7 +119,7 @@ int CNWSTrigger::GetCustomScriptEventId()
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::GetDescriptionOverride()
+CExoString CNWSTrigger::GetDescriptionOverride()
 {
 	asm("leave");
 	asm("mov $0x081f2d74, %eax");
@@ -154,7 +154,7 @@ int CNWSTrigger::GetDisarmable()
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::GetFacingPosition()
+Vector CNWSTrigger::GetFacingPosition()
 {
 	asm("leave");
 	asm("mov $0x081f2948, %eax");
@@ -168,7 +168,7 @@ int CNWSTrigger::GetFactionId()
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::GetFirstName()
+CExoLocString & CNWSTrigger::GetFirstName()
 {
 	asm("leave");
 	asm("mov $0x081f3280, %eax");
@@ -231,14 +231,14 @@ int CNWSTrigger::GetLinkedFlags()
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::GetLinkedTo()
+CExoString CNWSTrigger::GetLinkedTo()
 {
 	asm("leave");
 	asm("mov $0x081f2fbc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::GetLoadScreenID()
+unsigned short CNWSTrigger::GetLoadScreenID()
 {
 	asm("leave");
 	asm("mov $0x081f32a4, %eax");
@@ -273,14 +273,14 @@ int CNWSTrigger::GetRecoverable()
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::GetScriptName(int)
+CExoString * CNWSTrigger::GetScriptName(int)
 {
 	asm("leave");
 	asm("mov $0x081f2cdc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::GetTargetArea()
+unsigned long CNWSTrigger::GetTargetArea()
 {
 	asm("leave");
 	asm("mov $0x081f29f8, %eax");
@@ -329,14 +329,14 @@ int CNWSTrigger::LoadTrigger(CResGFF *, CResStruct *)
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::OnEnterTrap(int)
+void CNWSTrigger::OnEnterTrap(int)
 {
 	asm("leave");
 	asm("mov $0x081f25cc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::RemoveFromArea()
+void CNWSTrigger::RemoveFromArea()
 {
 	asm("leave");
 	asm("mov $0x081f2418, %eax");
@@ -392,7 +392,7 @@ int CNWSTrigger::SetCustomScriptEventId(int)
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::SetDescriptionOverride(CExoString)
+void CNWSTrigger::SetDescriptionOverride(CExoString)
 {
 	asm("leave");
 	asm("mov $0x081f2d9c, %eax");
@@ -525,7 +525,7 @@ int CNWSTrigger::SetRecoverable(int)
 	asm("jmp *%eax");
 }
 
-int CNWSTrigger::SetScriptName(int, CExoString)
+void CNWSTrigger::SetScriptName(int, CExoString)
 {
 	asm("leave");
 	asm("mov $0x081f2df4, %eax");

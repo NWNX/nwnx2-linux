@@ -1,6 +1,7 @@
 #ifndef _CVIRTUALMACHINEFILE_H_
 #define _CVIRTUALMACHINEFILE_H_
 #include "nwndef.h"
+#include "CExoString.h"
 #include "CResNCS.h"
 #include "CResRef.h"
 

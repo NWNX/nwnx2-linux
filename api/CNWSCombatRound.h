@@ -1,68 +1,72 @@
 #ifndef _CNWSCOMBATROUND_H_
 #define _CNWSCOMBATROUND_H_
 #include "nwndef.h"
+#include "CNWSCombatRoundAction.h"
 #include "CNWSCombatAttackData.h"
+#include "CNWSItem.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 #include "CNWSCreature.h"
 
 class CNWSCombatRound
 {
 public:
 	int AddAction(CNWSCombatRoundAction *);
-	int AddAttackOfOpportunity(unsigned long);
-	int AddCircleKickAttack(unsigned long);
-	int AddCleaveAttack(unsigned long, int);
-	int AddCombatStepAction(unsigned long, unsigned long);
-	int AddEquipAction(unsigned long, unsigned long);
-	int AddParryAttack(unsigned long);
-	int AddParryIndex();
-	int AddReaction(int, int);
-	int AddSpecialAttack(unsigned short);
-	int AddSpellAction();
-	int AddUnequipAction(unsigned long, unsigned long, unsigned char, unsigned char);
-	int AddWhirlwindAttack(unsigned long, int);
+	void AddAttackOfOpportunity(unsigned long);
+	void AddCircleKickAttack(unsigned long);
+	void AddCleaveAttack(unsigned long, int);
+	void AddCombatStepAction(unsigned long, unsigned long);
+	void AddEquipAction(unsigned long, unsigned long);
+	void AddParryAttack(unsigned long);
+	void AddParryIndex();
+	void AddReaction(int, int);
+	void AddSpecialAttack(unsigned short);
+	void AddSpellAction();
+	void AddUnequipAction(unsigned long, unsigned long, unsigned char, unsigned char);
+	void AddWhirlwindAttack(unsigned long, int);
 	int CalculateOffHandAttacks();
 	int CheckActionLengthAtTime(unsigned long, int, int);
 	int CheckActionLength(unsigned long, int);
-	int ClearAllAttacks();
-	int ClearAllSpecialAttacks();
-	int DecrementPauseTimer(int);
-	int DecrementRoundLength(int, int);
-	int EndCombatRound();
+	void ClearAllAttacks();
+	void ClearAllSpecialAttacks();
+	void DecrementPauseTimer(int);
+	void DecrementRoundLength(int, int);
+	void EndCombatRound();
 	int GetActionPending();
-	int GetAction();
+	CNWSCombatRoundAction * GetAction();
 	int GetAttackActionPending();
-	int GetAttack(int);
+	CNWSCombatAttackData * GetAttack(int);
 	int GetCombatStepRequired(unsigned long);
-	int GetCurrentAttackWeapon(int);
+	CNWSItem * GetCurrentAttackWeapon(int);
 	int GetExtraAttack();
-	int GetNewAttackID();
+	unsigned short GetNewAttackID();
 	int GetNumSpecialAttacks();
 	int GetOffHandAttack();
-	int GetSpecialAttackID(int);
-	int GetSpecialAttack(int);
+	unsigned short GetSpecialAttackID(int);
+	unsigned short GetSpecialAttack(int);
 	int GetSpellActionPending();
-	int GetTotalAttacks();
+	unsigned char GetTotalAttacks();
 	int GetWeaponAttackType();
 	int HasCreatureWeapons();
-	int IncrementTimer(int);
-	int InitializeAttackActions(unsigned long);
+	void IncrementTimer(int);
+	void InitializeAttackActions(unsigned long);
 	int InitializeCombatModes();
-	int InitializeNumberOfAttacks();
+	void InitializeNumberOfAttacks();
 	int InsertSpecialAttack(unsigned short, int);
 	int LoadCombatRound(CResGFF *, CResStruct *);
-	int RecomputeRound();
-	int RemoveAllActions();
-	int RemoveSpecialAttack(int);
-	int RemoveSpellAction();
+	void RecomputeRound();
+	void RemoveAllActions();
+	void RemoveSpecialAttack(int);
+	void RemoveSpellAction();
 	int SaveCombatRound(CResGFF *, CResStruct *);
-	int SetCurrentAttack(unsigned char);
-	int SetDeflectArrow(int);
-	int SetPauseTimer(int, int);
-	int SetRoundPaused(int, unsigned long);
+	void SetCurrentAttack(unsigned char);
+	void SetDeflectArrow(int);
+	void SetPauseTimer(int, int);
+	void SetRoundPaused(int, unsigned long);
 	int SignalCombatRoundStarted();
-	int StartCombatRoundCast(unsigned long);
-	int StartCombatRound(unsigned long);
-	int UpdateAttackTargetForAllActions(unsigned long);
+	void StartCombatRoundCast(unsigned long);
+	void StartCombatRound(unsigned long);
+	void UpdateAttackTargetForAllActions(unsigned long);
 	~CNWSCombatRound();
 	CNWSCombatRound(CNWSCreature *);
 

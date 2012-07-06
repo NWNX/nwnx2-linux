@@ -1,27 +1,31 @@
 #ifndef _CNWRULES_H_
 #define _CNWRULES_H_
 #include "nwndef.h"
+#include "CTwoDimArrays.h"
+#include "CNWDomain.h"
+#include "CNWFeat.h"
+#include "CExoString.h"
 
 class CNWRules
 {
 public:
-	int CompareFeatName(void const *, void const *);
-	int Get2DArrays();
+	static int CompareFeatName(void const *, void const *);
+	CTwoDimArrays * Get2DArrays();
 	int GetBaseItem(unsigned long);
-	int GetClassExpansionLevel(unsigned char);
+	unsigned char GetClassExpansionLevel(unsigned char);
 	int GetClass(unsigned char);
 	int GetDamageIndexFromFlags(unsigned long);
 	int GetDifficultyOption(int, int);
-	int GetDomain(unsigned short);
+	CNWDomain * GetDomain(unsigned short);
 	int GetExperienceLevel(unsigned char);
-	int GetFamiliarExpansionLevel(unsigned char, int);
-	int GetFeatExpansionLevel(unsigned short);
-	int GetFeat(unsigned short);
+	unsigned char GetFamiliarExpansionLevel(unsigned char, int);
+	unsigned char GetFeatExpansionLevel(unsigned short);
+	CNWFeat * GetFeat(unsigned short);
 	int GetIsClassValid(unsigned char);
 	int GetMasterFeatDescriptionText(char);
 	int GetMasterFeatIcon(char);
-	int GetMasterFeatNameText(char);
-	int GetMetaMagicLevelCost(unsigned char);
+	CExoString GetMasterFeatNameText(char);
+	unsigned char GetMetaMagicLevelCost(unsigned char);
 	int GetNumClasses();
 	int GetNumDomains();
 	int GetNumFeats();
@@ -30,25 +34,25 @@ public:
 	int GetNumSortedFeats();
 	int GetNumSpells();
 	int GetRace(unsigned short);
-	int GetSkillExpansionLevel(unsigned short);
+	unsigned char GetSkillExpansionLevel(unsigned short);
 	int GetSkill(unsigned short);
 	int GetSortedFeatID(unsigned short);
-	int GetSpellExpansionLevel(unsigned long);
+	unsigned char GetSpellExpansionLevel(unsigned long);
 	int GetSpellRange(int);
 	int GetSpell(unsigned long);
 	int GetWeightedDamageAmount(int, int, int, int, int);
 	int IsArcaneClass(unsigned char);
 	int IsFeatUseable(unsigned char, unsigned short);
-	int LoadClassInfo();
-	int LoadDifficultyInfo();
-	int LoadDomainInfo();
-	int LoadFeatInfo();
-	int LoadRaceInfo();
-	int LoadSkillInfo();
-	int ReloadAll();
-	int RollDice(unsigned char, unsigned char);
+	void LoadClassInfo();
+	void LoadDifficultyInfo();
+	void LoadDomainInfo();
+	void LoadFeatInfo();
+	void LoadRaceInfo();
+	void LoadSkillInfo();
+	void ReloadAll();
+	unsigned short RollDice(unsigned char, unsigned char);
 	int SortFeats();
-	int UnloadAll();
+	void UnloadAll();
 	~CNWRules();
 	CNWRules();
 

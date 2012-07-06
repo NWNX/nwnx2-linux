@@ -14,14 +14,14 @@ int CExoDebug::CloseLogFiles()
 	asm("jmp *%eax");
 }
 
-int CExoDebug::FlushErrorFile()
+void CExoDebug::FlushErrorFile()
 {
 	asm("leave");
 	asm("mov $0x082c90a4, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoDebug::FlushLogFile()
+void CExoDebug::FlushLogFile()
 {
 	asm("leave");
 	asm("mov $0x082c90ac, %eax");
@@ -42,7 +42,7 @@ int CExoDebug::GetCurrentMemoryAllocations()
 	asm("jmp *%eax");
 }
 
-int CExoDebug::GetCurrentTimestamp(CExoString &)
+void CExoDebug::GetCurrentTimestamp(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082c9198, %eax");
@@ -63,35 +63,35 @@ int CExoDebug::GetTotalMemoryAllocations()
 	asm("jmp *%eax");
 }
 
-int CExoDebug::OpenLogFiles(CExoString, int)
+void CExoDebug::OpenLogFiles(CExoString, int)
 {
 	asm("leave");
 	asm("mov $0x082c90ec, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoDebug::SetRotateLogFile(int)
+void CExoDebug::SetRotateLogFile(int)
 {
 	asm("leave");
 	asm("mov $0x082c91bc, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoDebug::Warning(int, char *, char const *)
+void CExoDebug::Warning(int, char *, char const *)
 {
 	asm("leave");
 	asm("mov $0x082c9164, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoDebug::WriteToErrorFile(CExoString const &)
+void CExoDebug::WriteToErrorFile(CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082c916c, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoDebug::WriteToLogFile(CExoString const &)
+void CExoDebug::WriteToLogFile(CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082c9174, %eax");

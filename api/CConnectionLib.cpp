@@ -84,7 +84,7 @@ int CConnectionLib::GSClientSetBuildFilter(CExoString const &)
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::GenerateCommunityNameResponse(CExoString const &, CExoString const &)
+CExoString CConnectionLib::GenerateCommunityNameResponse(CExoString const &, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082726c0, %eax");
@@ -168,49 +168,49 @@ int CConnectionLib::GetGroupIdFromGameType(int)
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::GetKeyAuthDemand(CExoString &)
+CExoString CConnectionLib::GetKeyAuthDemand(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x08272634, %eax");
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::GetKeyCollision()
+CExoString CConnectionLib::GetKeyCollision()
 {
 	asm("leave");
 	asm("mov $0x08272658, %eax");
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::GetKeyRejectionReason(unsigned short)
+unsigned long CConnectionLib::GetKeyRejectionReason(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x08272690, %eax");
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::GetKeyStatus(CExoString const &, unsigned short &)
+unsigned short CConnectionLib::GetKeyStatus(CExoString const &, unsigned short &)
 {
 	asm("leave");
 	asm("mov $0x0827267c, %eax");
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::GetMasterServerInternetName()
+CExoString CConnectionLib::GetMasterServerInternetName()
 {
 	asm("leave");
 	asm("mov $0x08272208, %eax");
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::GetMasterServerPort()
+unsigned long CConnectionLib::GetMasterServerPort()
 {
 	asm("leave");
 	asm("mov $0x0827222c, %eax");
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::GetMasterServerStatus()
+unsigned short CConnectionLib::GetMasterServerStatus()
 {
 	asm("leave");
 	asm("mov $0x08272778, %eax");
@@ -224,7 +224,7 @@ int CConnectionLib::GetMessageOfTheDay()
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::GetMessagesIn()
+unsigned long CConnectionLib::GetMessagesIn()
 {
 	asm("leave");
 	asm("mov $0x08272610, %eax");
@@ -238,7 +238,7 @@ int CConnectionLib::GetNetConnectionUp()
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::GetNetLayer()
+CNetLayer * CConnectionLib::GetNetLayer()
 {
 	asm("leave");
 	asm("mov $0x08272524, %eax");
@@ -252,14 +252,14 @@ int CConnectionLib::GetNextBuddyEntry()
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::GetPublicPartFromCDKey(CExoString const &)
+CExoString CConnectionLib::GetPublicPartFromCDKey(CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082721c8, %eax");
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::GetStrrefFromGameType(int)
+unsigned long CConnectionLib::GetStrrefFromGameType(int)
 {
 	asm("leave");
 	asm("mov $0x08272c24, %eax");
@@ -287,7 +287,7 @@ int CConnectionLib::GetVersion()
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::HandleGameSpyToServerMessage(int, void *, int)
+void CConnectionLib::HandleGameSpyToServerMessage(int, void *, int)
 {
 	asm("leave");
 	asm("mov $0x08272154, %eax");
@@ -308,7 +308,7 @@ int CConnectionLib::HandleServerGameSpyMessage(unsigned long, unsigned char *, u
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::InitializeGameSpyRooms()
+void CConnectionLib::InitializeGameSpyRooms()
 {
 	asm("leave");
 	asm("mov $0x08271e04, %eax");
@@ -329,7 +329,7 @@ int CConnectionLib::RemoveServer(void *)
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::ResetMessagesInFlag(unsigned long)
+void CConnectionLib::ResetMessagesInFlag(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08272620, %eax");
@@ -511,14 +511,14 @@ int CConnectionLib::SetGameFilters(unsigned long, CExoString *)
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::SetLanguage(int)
+void CConnectionLib::SetLanguage(int)
 {
 	asm("leave");
 	asm("mov $0x08272010, %eax");
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::SetNetConnectionUp(int)
+void CConnectionLib::SetNetConnectionUp(int)
 {
 	asm("leave");
 	asm("mov $0x08272034, %eax");
@@ -532,7 +532,7 @@ int CConnectionLib::ShutDownClientGameSpyConnection()
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::ShutDownServerGameSpyConnection()
+void CConnectionLib::ShutDownServerGameSpyConnection()
 {
 	asm("leave");
 	asm("mov $0x082720e4, %eax");
@@ -581,7 +581,7 @@ int CConnectionLib::UpdateGameSpyClient()
 	asm("jmp *%eax");
 }
 
-int CConnectionLib::UpdateGameSpyServer()
+void CConnectionLib::UpdateGameSpyServer()
 {
 	asm("leave");
 	asm("mov $0x08272110, %eax");

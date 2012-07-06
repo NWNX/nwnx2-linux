@@ -1,12 +1,13 @@
 #ifndef _CVIRTUALMACHINECACHE_H_
 #define _CVIRTUALMACHINECACHE_H_
 #include "nwndef.h"
+#include "CExoString.h"
 
 class CVirtualMachineCache
 {
 public:
-	int ClearAllFiles();
-	int PrecacheFile(CExoString const &);
+	void ClearAllFiles();
+	void PrecacheFile(CExoString const &);
 	~CVirtualMachineCache();
 
 };

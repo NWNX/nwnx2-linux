@@ -21,7 +21,7 @@ int CExoKeyTable::AddKeyTableContents(int)
 	asm("jmp *%eax");
 }
 
-int CExoKeyTable::AddKey(CResRef const &, unsigned short, unsigned long, int)
+CKeyTableEntry * CExoKeyTable::AddKey(CResRef const &, unsigned short, unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x082c0aac, %eax");
@@ -56,7 +56,7 @@ int CExoKeyTable::DeleteTableList(CExoLinkedList<CKeyTableInfo> *)
 	asm("jmp *%eax");
 }
 
-int CExoKeyTable::DestroyTable()
+void CExoKeyTable::DestroyTable()
 {
 	asm("leave");
 	asm("mov $0x082c21dc, %eax");
@@ -70,7 +70,7 @@ int CExoKeyTable::FindKey(CRes *)
 	asm("jmp *%eax");
 }
 
-int CExoKeyTable::FindKey(CResRef const &, unsigned short)
+CKeyTableEntry * CExoKeyTable::FindKey(CResRef const &, unsigned short)
 {
 	asm("leave");
 	asm("mov $0x082c23f4, %eax");
@@ -84,7 +84,7 @@ int CExoKeyTable::GetEntryCount(int)
 	asm("jmp *%eax");
 }
 
-int CExoKeyTable::GetKeysOfType(unsigned short)
+CExoStringList * CExoKeyTable::GetKeysOfType(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x082c2500, %eax");
@@ -133,7 +133,7 @@ int CExoKeyTable::LocateBifFile(CExoString const &)
 	asm("jmp *%eax");
 }
 
-int CExoKeyTable::RebuildTable(unsigned char *)
+void CExoKeyTable::RebuildTable(unsigned char *)
 {
 	asm("leave");
 	asm("mov $0x082c2640, %eax");

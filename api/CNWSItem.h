@@ -2,41 +2,44 @@
 #define _CNWSITEM_H_
 #include "nwndef.h"
 #include "nwnstructs.h"
-#include "CResRef.h"
+#include "CNWSArea.h"
+#include "CNWSCreature.h"
 #include "CExoString.h"
 #include "CExoLocString.h"
+#include "CResGFF.h"
+#include "CResRef.h"
 #include "CNWSObject.h"
 
 class CNWSItem
 {
 public:
-	int AIUpdate();
+	void AIUpdate();
 	int AcquireItem(CNWSItem **, unsigned long, unsigned char, unsigned char, int);
 	int ActiveProperty(unsigned short);
-	int AddActiveProperty(CNWItemProperty);
-	int AddPassiveProperty(CNWItemProperty);
-	int AddToArea(CNWSArea *, float, float, float, int);
-	int ApplyItemProperties(CNWSCreature *, unsigned long, int);
-	int AsNWSItem();
-	int CalculateBaseCosts();
-	int CalculatePassiveCost(CNWItemProperty *);
-	int CloseInventory(unsigned long, int);
-	int CloseItemForAllPlayers();
+	void AddActiveProperty(CNWItemProperty);
+	void AddPassiveProperty(CNWItemProperty);
+	void AddToArea(CNWSArea *, float, float, float, int);
+	void ApplyItemProperties(CNWSCreature *, unsigned long, int);
+	CNWSItem * AsNWSItem();
+	void CalculateBaseCosts();
+	float CalculatePassiveCost(CNWItemProperty *);
+	void CloseInventory(unsigned long, int);
+	void CloseItemForAllPlayers();
 	int CompareItem(CNWSItem *);
 	int ComputeArmorClass();
-	int ComputeWeight();
+	void ComputeWeight();
 	int CopyItem(CNWSItem *, int);
-	int EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
+	void EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
 	int GetActivePropertiesList();
-	int GetActiveProperty(int);
+	CNWItemProperty * GetActiveProperty(int);
 	int GetArmorModelPart(unsigned char);
 	int GetArmorValue();
-	int GetCost(int, int, int, int);
-	int GetDamageFlags();
-	int GetDescriptionOverride(int);
-	int GetDescription(int);
-	int GetDisplayName();
-	int GetFirstName();
+	unsigned long GetCost(int, int, int, int);
+	unsigned short GetDamageFlags();
+	CExoString GetDescriptionOverride(int);
+	CExoLocString GetDescription(int);
+	CExoString GetDisplayName();
+	CExoLocString & GetFirstName();
 	int GetIdentified();
 	int GetInfinite();
 	int GetIsCursed();
@@ -44,14 +47,14 @@ public:
 	int GetIsPickPocketable();
 	int GetLastUsedActiveProperties();
 	int GetLastUsedActivePropertyUsesLeft(unsigned char);
-	int GetMinEquipLevel();
+	unsigned char GetMinEquipLevel();
 	int GetModelPart(unsigned char);
-	int GetName();
+	CExoLocString GetName();
 	int GetNumActiveProperties();
 	int GetNumCharges();
 	int GetNumPassiveProperties();
 	int GetPassivePropertiesList();
-	int GetPassiveProperty(int);
+	CNWItemProperty * GetPassiveProperty(int);
 	int GetPossessor();
 	int GetPropertyByTypeExists(unsigned short, unsigned short);
 	int GetPropertyByType(CNWItemProperty **, unsigned short, unsigned short);
@@ -62,7 +65,7 @@ public:
 	int GetStolen();
 	int GetUnalteredArmorModelPart(unsigned char);
 	int GetUpdateDisplayName();
-	int GetUsedActivePropertyUsesLeft(unsigned char);
+	unsigned short GetUsedActivePropertyUsesLeft(unsigned char);
 	int GetVisualEffect();
 	int GetWeight();
 	int InitRepository(unsigned long);
@@ -70,46 +73,46 @@ public:
 	int LoadFromTemplate(CResRef, CExoString *);
 	int LoadItem(CResGFF *, CResStruct *, int);
 	int MergeItem(CNWSItem *);
-	int OpenInventory(unsigned long);
-	int ReadContainerItemsFromGff(CResGFF *, CResStruct *);
+	void OpenInventory(unsigned long);
+	void ReadContainerItemsFromGff(CResGFF *, CResStruct *);
 	int RemoveActiveProperty(int);
-	int RemoveFromArea();
-	int RemoveItemProperties(CNWSCreature *, unsigned long);
+	void RemoveFromArea();
+	void RemoveItemProperties(CNWSCreature *, unsigned long);
 	int RemovePassiveProperty(int);
-	int RestoreUsedActiveProperties(int);
-	int RestoreUsedActiveProperty(CNWItemProperty *, int);
+	void RestoreUsedActiveProperties(int);
+	void RestoreUsedActiveProperty(CNWItemProperty *, int);
 	int SaveContainerItems(CResGFF *, CResStruct *);
 	int SaveItemProperties(CResGFF *, CResStruct *);
 	int SaveItem(CResGFF *, CResStruct *, int);
 	int SetArmorModelPart(unsigned char, unsigned char);
 	int SetArmorValue(int);
 	int SetBarterOwner(unsigned long);
-	int SetDisplayName(CExoString);
+	void SetDisplayName(CExoString);
 	int SetFirstName(unsigned long);
-	int SetIdentifiedDescriptionOverride(CExoString);
-	int SetIdentifiedDescription(CExoLocString);
-	int SetIdentified(int);
+	void SetIdentifiedDescriptionOverride(CExoString);
+	void SetIdentifiedDescription(CExoLocString);
+	void SetIdentified(int);
 	int SetInfinite(int);
 	int SetIsCursed(int);
 	int SetIsDroppable(int);
 	int SetIsPickPocketable(int);
 	int SetModelPart(unsigned char, unsigned char);
-	int SetName(CExoLocString);
+	void SetName(CExoLocString);
 	int SetNumCharges(int);
-	int SetPossessor(unsigned long, int, int, int);
+	void SetPossessor(unsigned long, int, int, int);
 	int SetRecalculateCostFlag(int);
 	int SetRepositoryArrayIndex(unsigned short);
 	int SetRepositoryPosition(unsigned char, unsigned char);
 	int SetStackSize(int);
 	int SetStolen(int);
 	int SetUnalteredArmorModelPart(unsigned char, unsigned char);
-	int SetUnidentifiedDescriptionOverride(CExoString);
-	int SetUnidentifiedDescription(CExoLocString);
+	void SetUnidentifiedDescriptionOverride(CExoString);
+	void SetUnidentifiedDescription(CExoLocString);
 	int SetUpdateDisplayName(int);
 	int SetWeight(int);
-	int SplitItem(int);
-	int UpdateUsedActiveProperties(int);
-	int UpdateVisualEffect();
+	CNWSItem * SplitItem(int);
+	void UpdateUsedActiveProperties(int);
+	void UpdateVisualEffect();
 	~CNWSItem();
 	CNWSItem(unsigned long);
 

@@ -1,6 +1,6 @@
 #include "CExoNetFrameBuffer.h"
 
-int CExoNetFrameBuffer::ChangeRefCount(unsigned char, int)
+unsigned long CExoNetFrameBuffer::ChangeRefCount(unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x082c5ea8, %eax");

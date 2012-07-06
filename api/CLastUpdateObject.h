@@ -6,7 +6,7 @@
 class CLastUpdateObject
 {
 public:
-	int InitializeQuickbar();
+	void InitializeQuickbar();
 	~CLastUpdateObject();
 	CLastUpdateObject();
 

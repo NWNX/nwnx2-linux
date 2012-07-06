@@ -1,20 +1,20 @@
 #include "CNWSPlayerTURD.h"
 
-int CNWSPlayerTURD::AIUpdate()
+void CNWSPlayerTURD::AIUpdate()
 {
 	asm("leave");
 	asm("mov $0x08060914, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerTURD::AddToArea(CNWSArea *, int)
+void CNWSPlayerTURD::AddToArea(CNWSArea *, int)
 {
 	asm("leave");
 	asm("mov $0x08060924, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerTURD::AsNWSPlayerTURD()
+CNWSPlayerTURD * CNWSPlayerTURD::AsNWSPlayerTURD()
 {
 	asm("leave");
 	asm("mov $0x08060ce4, %eax");
@@ -35,14 +35,14 @@ int CNWSPlayerTURD::CopyAutomapData(int, CExoArrayList<unsigned long> *, unsigne
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerTURD::CopyEffectList(CExoArrayList<CGameEffect *> *)
+void CNWSPlayerTURD::CopyEffectList(CExoArrayList<CGameEffect *> *)
 {
 	asm("leave");
 	asm("mov $0x080609d4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerTURD::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSPlayerTURD::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0806091c, %eax");
@@ -77,21 +77,21 @@ int CNWSPlayerTURD::GetCalendarTimeOfDay()
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerTURD::GetCommunityName()
+CExoString CNWSPlayerTURD::GetCommunityName()
 {
 	asm("leave");
 	asm("mov $0x08060cec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerTURD::GetFirstName()
+CExoLocString & CNWSPlayerTURD::GetFirstName()
 {
 	asm("leave");
 	asm("mov $0x08060d2c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerTURD::GetLastName()
+CExoLocString & CNWSPlayerTURD::GetLastName()
 {
 	asm("leave");
 	asm("mov $0x08060d54, %eax");
@@ -126,7 +126,7 @@ int CNWSPlayerTURD::GetReputation()
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerTURD::LoadAutoMapData(CResGFF *, CResStruct *)
+void CNWSPlayerTURD::LoadAutoMapData(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x080606f8, %eax");
@@ -140,7 +140,7 @@ int CNWSPlayerTURD::LoadTURD(CResGFF *, CResStruct *)
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerTURD::RemoveFromArea()
+void CNWSPlayerTURD::RemoveFromArea()
 {
 	asm("leave");
 	asm("mov $0x08060990, %eax");
@@ -154,7 +154,7 @@ int CNWSPlayerTURD::SaveAutoMapData(CResGFF *, CResStruct *)
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerTURD::SaveTURD(CResGFF *, CResStruct *)
+void CNWSPlayerTURD::SaveTURD(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x0805ff5c, %eax");
@@ -196,7 +196,7 @@ int CNWSPlayerTURD::SetLastName(CExoLocString const &)
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerTURD::SetPersonalReputation(CExoArrayList<CNWSPersonalReputation> *)
+void CNWSPlayerTURD::SetPersonalReputation(CExoArrayList<CNWSPersonalReputation> *)
 {
 	asm("leave");
 	asm("mov $0x080604f0, %eax");
@@ -210,7 +210,7 @@ int CNWSPlayerTURD::SetPlayerID(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSPlayerTURD::SetReputation(CExoArrayList<int> *)
+void CNWSPlayerTURD::SetReputation(CExoArrayList<int> *)
 {
 	asm("leave");
 	asm("mov $0x08060430, %eax");

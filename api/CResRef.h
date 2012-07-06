@@ -1,15 +1,16 @@
 #ifndef _CRESREF_H_
 #define _CRESREF_H_
 #include "nwndef.h"
+#include "CExoString.h"
 
 class CResRef
 {
 public:
-	int CopyToString(char *) const;
-	int CopyToString(CExoString &) const;
-	int GetLength() const;
-	int GetResRefStr() const;
-	int GetResRef() const;
+	void CopyToString(char *) const;
+	void CopyToString(CExoString &) const;
+	unsigned char GetLength() const;
+	char * GetResRefStr() const;
+	char * GetResRef() const;
 	int GetResRef(unsigned char *) const;
 	int IsValid() const;
 	CResRef();
@@ -19,9 +20,9 @@ public:
 	CResRef(CExoString const &);
 	int operator+=(CExoString const &);
 	int operator=(unsigned char *);
-	int operator=(char *);
-	int operator=(CExoString const &);
-	int operator=(CResRef const &);
+	CResRef operator=(char *);
+	CResRef operator=(CExoString const &);
+	CResRef operator=(CResRef const &);
 	int operator==(char *) const;
 	int operator==(CExoString const &) const;
 	int operator==(CResRef const &) const;

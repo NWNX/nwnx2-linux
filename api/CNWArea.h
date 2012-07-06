@@ -1,8 +1,9 @@
 #ifndef _CNWAREA_H_
 #define _CNWAREA_H_
 #include "nwndef.h"
-#include "CExoArrayList.h"
 #include "Vector.h"
+#include "CExoArrayList.h"
+#include "CPathfindInformation.h"
 
 class CNWArea
 {
@@ -24,19 +25,19 @@ public:
 	int GetSunFogColor();
 	int GetUseDayNightCycle();
 	int GetWidth();
-	int GrowStaticObjectArray();
-	int GrowStaticObjectTriangles(int);
-	int GrowStaticObjectVertices(int);
+	void GrowStaticObjectArray();
+	void GrowStaticObjectTriangles(int);
+	void GrowStaticObjectVertices(int);
 	int HandleTransparentDoors(float, float, float, float, float, float, float, unsigned long, unsigned long &, int, CExoArrayList<CGameObject *> *, int);
-	int InitializeStaticObjects();
+	void InitializeStaticObjects();
 	int IntersectLineSegments(float, float, float, float, float, float, float, float, float *, float *);
 	int NoCreaturesOnLine(float, float, float, float, CPathfindInformation *);
 	int NoNonWalkPolysDetailed(float, float, float, float, float, float, float, unsigned long, unsigned long &, int, CExoArrayList<CGameObject *> *, int);
 	int NoNonWalkPolysInDoors(float, float, float, float, float, float, float, unsigned long, unsigned long &, int, CExoArrayList<CGameObject *> *, int);
 	int NoNonWalkPolys(float, float, float, float, float, float, float, unsigned long);
 	int RemoveStaticBoundingBox(unsigned long);
-	int RemoveStaticObject(int);
-	int ReplaceStaticObject(int, unsigned long, Vector const &, Vector const &, int, Vector *, int, int *);
+	void RemoveStaticObject(int);
+	void ReplaceStaticObject(int, unsigned long, Vector const &, Vector const &, int, Vector *, int, int *);
 	int SetFog(int, Vector);
 	int SetIsNight(int);
 	int SetMoonFogAmount(unsigned char);

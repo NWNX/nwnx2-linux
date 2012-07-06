@@ -1,6 +1,8 @@
 #ifndef _CSERVERAIEVENTNODE_H_
 #define _CSERVERAIEVENTNODE_H_
 #include "nwndef.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 
 class CServerAIEventNode
 {

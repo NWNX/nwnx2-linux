@@ -1,43 +1,47 @@
 #ifndef _CNWSDOOR_H_
 #define _CNWSDOOR_H_
 #include "nwndef.h"
+#include "CNWSArea.h"
+#include "Vector.h"
 #include "CExoString.h"
 #include "CExoLocString.h"
 #include "CResRef.h"
 #include "CNWSObject.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 
 class CNWSDoor
 {
 public:
-	int AIUpdate();
-	int AddToArea(CNWSArea *, float, float, float, int);
-	int AsNWSDoor();
-	int DoDamage(int);
-	int EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
-	int GetActionPoint(int, unsigned char);
+	void AIUpdate();
+	void AddToArea(CNWSArea *, float, float, float, int);
+	CNWSDoor * AsNWSDoor();
+	void DoDamage(int);
+	void EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
+	Vector GetActionPoint(int, unsigned char);
 	int GetActive();
 	int GetAppearanceType();
 	int GetAutoRemoveKey();
 	int GetBaseType();
 	int GetBearing();
 	int GetCreatureList();
-	int GetDescriptionOverride();
-	int GetDescription();
+	CExoString GetDescriptionOverride();
+	CExoLocString & GetDescription();
 	int GetDetectDC();
 	int GetDetectable();
-	int GetDialogResref();
+	CResRef GetDialogResref();
 	int GetDisarmDC();
 	int GetDisarmable();
-	int GetDisplayName();
+	CExoString GetDisplayName();
 	int GetFactionId();
-	int GetFirstName();
+	CExoLocString & GetFirstName();
 	int GetFlagged();
 	int GetFortitudeSave();
 	int GetGenericType();
 	int GetHardness();
 	int GetIsLinked();
-	int GetKeyName();
-	int GetKeyRequiredFeedbackMessage();
+	CExoString * GetKeyName();
+	CExoString GetKeyRequiredFeedbackMessage();
 	int GetKeyRequired();
 	int GetLastClosed();
 	int GetLastDisarmed();
@@ -45,16 +49,16 @@ public:
 	int GetLastOpened();
 	int GetLastTriggered();
 	int GetLastUnlocked();
-	int GetLinkedObject();
-	int GetLinkedToTag();
-	int GetLoadScreenID();
+	CNWSObject * GetLinkedObject();
+	CExoString GetLinkedToTag();
+	unsigned short GetLoadScreenID();
 	int GetLockDC();
 	int GetLockable();
 	int GetLocked();
-	int GetNearestActionPoint(Vector const &, int);
+	Vector GetNearestActionPoint(Vector const &, int);
 	int GetOneShot();
 	int GetOpenLockDC();
-	int GetOpenState();
+	unsigned char GetOpenState();
 	int GetRecoverable();
 	int GetReflexSave();
 	int GetScriptName(int);
@@ -67,30 +71,30 @@ public:
 	int GetWillSave();
 	int LoadDoor(CResGFF *, CResStruct *);
 	int NoNonWalkPolysInDoor(float, float, float, float, float, float, float);
-	int PostProcess();
-	int RemoveFromArea();
+	void PostProcess();
+	void RemoveFromArea();
 	int SaveDoor(CResGFF *, CResStruct *);
 	int SetActive(int);
 	int SetAppearanceType(unsigned long);
 	int SetAutoRemoveKey(int);
 	int SetBaseType(unsigned char);
 	int SetBearing(float);
-	int SetDescriptionOverride(CExoString);
-	int SetDescription(CExoLocString);
+	void SetDescriptionOverride(CExoString);
+	void SetDescription(CExoLocString);
 	int SetDetectDC(unsigned char);
 	int SetDetectable(int);
 	int SetDialogResref(CResRef);
 	int SetDisarmDC(unsigned char);
 	int SetDisarmable(int);
-	int SetDisplayName(CExoString);
+	void SetDisplayName(CExoString);
 	int SetFactionId(int);
-	int SetFirstName(CExoLocString);
+	void SetFirstName(CExoLocString);
 	int SetFlagged(unsigned char);
 	int SetFortitudeSave(unsigned char);
 	int SetGenericType(unsigned long);
 	int SetHardness(unsigned char);
 	int SetKeyName(CExoString const &);
-	int SetKeyRequiredFeedbackMessage(CExoString);
+	void SetKeyRequiredFeedbackMessage(CExoString);
 	int SetKeyRequired(int);
 	int SetLastClosed(unsigned long);
 	int SetLastDisarmed(unsigned long);
@@ -99,16 +103,16 @@ public:
 	int SetLastTriggered(unsigned long);
 	int SetLastUnlocked(unsigned long);
 	int SetLinkedFlags(unsigned char);
-	int SetLinkedToTag(CExoString);
+	void SetLinkedToTag(CExoString);
 	int SetLockDC(unsigned char);
 	int SetLockable(int);
 	int SetLocked(int);
 	int SetOneShot(int);
 	int SetOpenLockDC(unsigned char);
-	int SetOpenState(unsigned char);
+	void SetOpenState(unsigned char);
 	int SetRecoverable(int);
 	int SetReflexSave(unsigned char);
-	int SetScriptName(int, CExoString);
+	void SetScriptName(int, CExoString);
 	int SetSecretDoorDC(unsigned char);
 	int SetTrapCreator(unsigned long);
 	int SetTrapFactionId(int);

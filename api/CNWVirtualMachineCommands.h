@@ -1,19 +1,22 @@
 #ifndef _CNWVIRTUALMACHINECOMMANDS_H_
 #define _CNWVIRTUALMACHINECOMMANDS_H_
 #include "nwndef.h"
+#include "CExoString.h"
+#include "C2DA.h"
+#include "CResGFF.h"
 #include "nwnstructs.h"
 
 class CNWVirtualMachineCommands
 {
 public:
-	int CopyGameDefinedStructure(int, void *);
-	int CreateGameDefinedStructure(int);
+	void * CopyGameDefinedStructure(int, void *);
+	void * CreateGameDefinedStructure(int);
 	int DebugGUIGetMessageFrom(char **, int *);
-	int DebugGUISendMessageTo(char *, int);
+	void DebugGUISendMessageTo(char *, int);
 	int DebugGUIStart();
-	int DebugGUIStop();
-	int DebugGUIUpdate();
-	int DestroyGameDefinedStructure(int, void *);
+	void DebugGUIStop();
+	void DebugGUIUpdate();
+	void DestroyGameDefinedStructure(int, void *);
 	int ExecuteCommandActionCounterSpell(int, int);
 	int ExecuteCommandActionDoCommand(int, int);
 	int ExecuteCommandActionEquipMostDamagingMelee(int, int);
@@ -575,16 +578,16 @@ public:
 	int ExecuteCommandVoiceChat(int, int);
 	int ExecuteCommandWait(int, int);
 	int ExecuteCommand(int, int);
-	int GetDebuggerLabelName(int);
+	CExoString GetDebuggerLabelName(int);
 	int GetEngineStructureWatchView(int, void *, int *, CExoString **, CExoString **);
 	int GetEqualGameDefinedStructure(int, void *, void *);
-	int GetGameDefinedStructureName(int);
+	CExoString GetGameDefinedStructureName(int);
 	int GetObjectWatchView(unsigned long, int *, CExoString **, CExoString **);
-	int GetTableFromArmorPart(int);
-	int InitializeCommands();
+	C2DA * GetTableFromArmorPart(int);
+	void InitializeCommands();
 	int LoadGameDefinedStructure(int, void **, CResGFF *, CResStruct *);
-	int ReportError(CExoString &, int);
-	int RunScriptCallback(CExoString &);
+	void ReportError(CExoString &, int);
+	void RunScriptCallback(CExoString &);
 	int SaveGameDefinedStructure(int, void *, CResGFF *, CResStruct *);
 	~CNWVirtualMachineCommands();
 

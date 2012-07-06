@@ -1,27 +1,27 @@
 #include "CNWSAreaOfEffectObject.h"
 
-int CNWSAreaOfEffectObject::AIUpdate()
+void CNWSAreaOfEffectObject::AIUpdate()
 {
 	asm("leave");
 	asm("mov $0x081ea1ec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::AddToArea(CNWSArea *, float, float, float, int)
+void CNWSAreaOfEffectObject::AddToArea(CNWSArea *, float, float, float, int)
 {
 	asm("leave");
 	asm("mov $0x081ea548, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::AsNWSAreaOfEffectObject()
+CNWSAreaOfEffectObject * CNWSAreaOfEffectObject::AsNWSAreaOfEffectObject()
 {
 	asm("leave");
 	asm("mov $0x081ece10, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSAreaOfEffectObject::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081ea450, %eax");
@@ -42,7 +42,7 @@ int CNWSAreaOfEffectObject::GetCreator()
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::GetEffectSpellId()
+unsigned long CNWSAreaOfEffectObject::GetEffectSpellId()
 {
 	asm("leave");
 	asm("mov $0x081ecf34, %eax");
@@ -70,7 +70,7 @@ int CNWSAreaOfEffectObject::GetObjectArrayIndex()
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::GetPosition()
+Vector CNWSAreaOfEffectObject::GetPosition()
 {
 	asm("leave");
 	asm("mov $0x081eccc8, %eax");
@@ -126,7 +126,7 @@ int CNWSAreaOfEffectObject::InAreaOfEffect(Vector)
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::JumpToPoint(CNWSArea *, Vector const &)
+void CNWSAreaOfEffectObject::JumpToPoint(CNWSArea *, Vector const &)
 {
 	asm("leave");
 	asm("mov $0x081ec87c, %eax");
@@ -140,7 +140,7 @@ int CNWSAreaOfEffectObject::LineSegmentIntersectAreaOfEffect(Vector, Vector)
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::LoadAreaEffect(int)
+void CNWSAreaOfEffectObject::LoadAreaEffect(int)
 {
 	asm("leave");
 	asm("mov $0x081eaeb0, %eax");
@@ -154,14 +154,14 @@ int CNWSAreaOfEffectObject::LoadEffect(CResGFF *, CResStruct *)
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::RemoveFromArea()
+void CNWSAreaOfEffectObject::RemoveFromArea()
 {
 	asm("leave");
 	asm("mov $0x081ecc2c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::RemoveFromSubAreas(int)
+void CNWSAreaOfEffectObject::RemoveFromSubAreas(int)
 {
 	asm("leave");
 	asm("mov $0x081ec928, %eax");
@@ -175,21 +175,21 @@ int CNWSAreaOfEffectObject::SaveEffect(CResGFF *, CResStruct *)
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::SetCreator(unsigned long)
+void CNWSAreaOfEffectObject::SetCreator(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081ecaf4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::SetDuration(unsigned char, float)
+void CNWSAreaOfEffectObject::SetDuration(unsigned char, float)
 {
 	asm("leave");
 	asm("mov $0x081ecd58, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::SetEffectSpellId(unsigned long)
+void CNWSAreaOfEffectObject::SetEffectSpellId(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081ecf44, %eax");
@@ -217,7 +217,7 @@ int CNWSAreaOfEffectObject::SetObjectArrayIndex(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::SetScriptName(int, CExoString)
+void CNWSAreaOfEffectObject::SetScriptName(int, CExoString)
 {
 	asm("leave");
 	asm("mov $0x081ece34, %eax");
@@ -231,14 +231,14 @@ int CNWSAreaOfEffectObject::SetShape(unsigned char, float, float)
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::SetTargetObjID(unsigned long)
+void CNWSAreaOfEffectObject::SetTargetObjID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081eade0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSAreaOfEffectObject::UpdateSubAreas(Vector *)
+void CNWSAreaOfEffectObject::UpdateSubAreas(Vector *)
 {
 	asm("leave");
 	asm("mov $0x081ebef8, %eax");

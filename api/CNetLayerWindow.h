@@ -1,28 +1,29 @@
 #ifndef _CNETLAYERWINDOW_H_
 #define _CNETLAYERWINDOW_H_
 #include "nwndef.h"
+#include "CNetLayerInternal.h"
 
 class CNetLayerWindow
 {
 public:
 	int AddToHighOutgoingQueue(unsigned short);
 	int AddToLowOutgoingQueue(unsigned short);
-	int CutOutgoingBufferSize();
+	void CutOutgoingBufferSize();
 	int DoubleOutgoingBufferSize();
 	int FauxNagle();
 	int FrameNumberBetween(unsigned long, unsigned long, unsigned long);
 	int FrameReceive(unsigned char *, unsigned long);
-	int FrameSend(unsigned char, unsigned short, unsigned short);
+	void FrameSend(unsigned char, unsigned short, unsigned short);
 	int FrameTimeout(unsigned long);
-	int InitializeCompressionBuffers();
-	int Initialize(CNetLayerInternal *);
-	int LoadWindowWithFrames();
+	void InitializeCompressionBuffers();
+	void Initialize(CNetLayerInternal *);
+	void LoadWindowWithFrames();
 	int PlaceFrameInOutgoingBuffers(unsigned short);
 	int SetAckTimer();
 	int SetFauxNagleTimer();
 	int SetInFrameTimer();
 	int SetOutFrameTimer(unsigned long);
-	int ShutDown();
+	void ShutDown();
 	int TestAckTimer(unsigned long);
 	int TestFauxNagleTimer(unsigned long);
 	int TestInFrameTimer(unsigned long);

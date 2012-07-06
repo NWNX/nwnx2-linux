@@ -1,16 +1,17 @@
 #ifndef _CEXOFILEINTERNAL_H_
 #define _CEXOFILEINTERNAL_H_
 #include "nwndef.h"
+#include "CExoString.h"
 
 class CExoFileInternal
 {
 public:
-	int GetOffset();
+	unsigned long GetOffset();
 	int GetSize();
 	int ReadAsyncBytesRead();
 	int ReadAsyncComplete();
-	int ReadAsync(void *, unsigned long, unsigned long);
-	int Read(CExoString *, unsigned long);
+	void ReadAsync(void *, unsigned long, unsigned long);
+	unsigned long Read(CExoString *, unsigned long);
 	int Write(char const *);
 	~CExoFileInternal();
 	CExoFileInternal(CExoString const &, unsigned short, CExoString const &);

@@ -10,7 +10,7 @@ public:
 	int GetNextLine(unsigned long, unsigned long *);
 	int GetSETDataPtr();
 	int GetSETSize();
-	int GetSectionEntryValue(char *, char *, char *);
+	void GetSectionEntryValue(char *, char *, char *);
 	int IsLoaded();
 	int OnResourceFreed();
 	int OnResourceServiced();

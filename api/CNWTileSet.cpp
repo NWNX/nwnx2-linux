@@ -63,14 +63,14 @@ int CNWTileSet::GetHasGrass()
 	asm("jmp *%eax");
 }
 
-int CNWTileSet::GetHeightTransition()
+float CNWTileSet::GetHeightTransition()
 {
 	asm("leave");
 	asm("mov $0x08089fa8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWTileSet::GetTileData(int)
+CNWTileData * CNWTileSet::GetTileData(int)
 {
 	asm("leave");
 	asm("mov $0x08088cf8, %eax");

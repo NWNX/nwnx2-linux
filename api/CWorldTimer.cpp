@@ -1,13 +1,13 @@
 #include "CWorldTimer.h"
 
-int CWorldTimer::AddWorldTimes(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long *, unsigned long *)
+unsigned long CWorldTimer::AddWorldTimes(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long *, unsigned long *)
 {
 	asm("leave");
 	asm("mov $0x08241804, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::AdvanceToTime(int, int, int, int)
+void CWorldTimer::AdvanceToTime(int, int, int, int)
 {
 	asm("leave");
 	asm("mov $0x08240ce0, %eax");
@@ -21,21 +21,21 @@ int CWorldTimer::CompareWorldTimes(unsigned long, unsigned long, unsigned long, 
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::ConvertFromCalendarDay(unsigned long, unsigned long *, unsigned long *, unsigned long *)
+void CWorldTimer::ConvertFromCalendarDay(unsigned long, unsigned long *, unsigned long *, unsigned long *)
 {
 	asm("leave");
 	asm("mov $0x08241388, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::ConvertFromTimeOfDay(unsigned long, unsigned long *, unsigned long *, unsigned long *, unsigned long *)
+void CWorldTimer::ConvertFromTimeOfDay(unsigned long, unsigned long *, unsigned long *, unsigned long *, unsigned long *)
 {
 	asm("leave");
 	asm("mov $0x082413f8, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::ConvertToCalendarDay(unsigned long, unsigned long, unsigned long)
+unsigned long CWorldTimer::ConvertToCalendarDay(unsigned long, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082412a0, %eax");
@@ -49,21 +49,21 @@ int CWorldTimer::ConvertToTimeOfDay(unsigned long, unsigned long, unsigned long,
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::GetCalendarDayFromSeconds(float)
+unsigned long CWorldTimer::GetCalendarDayFromSeconds(float)
 {
 	asm("leave");
 	asm("mov $0x08241a8c, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::GetSnapshotTimeDifference()
+unsigned __int64 CWorldTimer::GetSnapshotTimeDifference()
 {
 	asm("leave");
 	asm("mov $0x08241284, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::GetSnapshotTime()
+unsigned __int64 CWorldTimer::GetSnapshotTime()
 {
 	asm("leave");
 	asm("mov $0x08241274, %eax");
@@ -77,7 +77,7 @@ int CWorldTimer::GetTimeDifferenceFromWorldTime(unsigned long, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::GetTimeOfDayFromSeconds(float)
+unsigned long CWorldTimer::GetTimeOfDayFromSeconds(float)
 {
 	asm("leave");
 	asm("mov $0x08241af0, %eax");
@@ -98,42 +98,42 @@ int CWorldTimer::GetWorldTimeCalendarDay()
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::GetWorldTimeDay()
+unsigned long CWorldTimer::GetWorldTimeDay()
 {
 	asm("leave");
 	asm("mov $0x0824196c, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::GetWorldTimeHour()
+unsigned long CWorldTimer::GetWorldTimeHour()
 {
 	asm("leave");
 	asm("mov $0x08241994, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::GetWorldTimeMillisecond()
+unsigned long CWorldTimer::GetWorldTimeMillisecond()
 {
 	asm("leave");
 	asm("mov $0x08241a3c, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::GetWorldTimeMinute()
+unsigned long CWorldTimer::GetWorldTimeMinute()
 {
 	asm("leave");
 	asm("mov $0x082419cc, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::GetWorldTimeMonth()
+unsigned long CWorldTimer::GetWorldTimeMonth()
 {
 	asm("leave");
 	asm("mov $0x08241934, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::GetWorldTimeSecond()
+unsigned long CWorldTimer::GetWorldTimeSecond()
 {
 	asm("leave");
 	asm("mov $0x08241a08, %eax");
@@ -154,28 +154,28 @@ int CWorldTimer::GetWorldTimeTimeOfDay()
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::GetWorldTimeYear()
+unsigned long CWorldTimer::GetWorldTimeYear()
 {
 	asm("leave");
 	asm("mov $0x082418f8, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::GetWorldTime(unsigned long *, unsigned long *)
+void CWorldTimer::GetWorldTime(unsigned long *, unsigned long *)
 {
 	asm("leave");
 	asm("mov $0x082416a4, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::PauseWorldTimer()
+void CWorldTimer::PauseWorldTimer()
 {
 	asm("leave");
 	asm("mov $0x082406dc, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::ResetTimer(CWorldTimer *)
+void CWorldTimer::ResetTimer(CWorldTimer *)
 {
 	asm("leave");
 	asm("mov $0x082417a0, %eax");
@@ -189,35 +189,35 @@ int CWorldTimer::SetFixedSnapshotRate(int, int)
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::SetMinutesPerHour(unsigned char)
+void CWorldTimer::SetMinutesPerHour(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x082411dc, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::SetSnapshotTime()
+void CWorldTimer::SetSnapshotTime()
 {
 	asm("leave");
 	asm("mov $0x0824121c, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::SetWorldTime(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, int)
+void CWorldTimer::SetWorldTime(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x08241478, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::SetWorldTime(unsigned long, unsigned long, int)
+void CWorldTimer::SetWorldTime(unsigned long, unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x08241590, %eax");
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::SubtractWorldTimes(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long *, unsigned long *)
+unsigned long CWorldTimer::SubtractWorldTimes(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long *, unsigned long *)
 {
 	asm("leave");
 	asm("mov $0x08241850, %eax");
@@ -231,7 +231,7 @@ int CWorldTimer::TranslateWorldTimeToString(unsigned long, unsigned long, CExoSt
 	asm("jmp *%eax");
 }
 
-int CWorldTimer::UnpauseWorldTimer()
+void CWorldTimer::UnpauseWorldTimer()
 {
 	asm("leave");
 	asm("mov $0x082407bc, %eax");

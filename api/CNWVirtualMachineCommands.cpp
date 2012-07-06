@@ -1,13 +1,13 @@
 #include "CNWVirtualMachineCommands.h"
 
-int CNWVirtualMachineCommands::CopyGameDefinedStructure(int, void *)
+void * CNWVirtualMachineCommands::CopyGameDefinedStructure(int, void *)
 {
 	asm("leave");
 	asm("mov $0x081fb82c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWVirtualMachineCommands::CreateGameDefinedStructure(int)
+void * CNWVirtualMachineCommands::CreateGameDefinedStructure(int)
 {
 	asm("leave");
 	asm("mov $0x081fbc2c, %eax");
@@ -21,7 +21,7 @@ int CNWVirtualMachineCommands::DebugGUIGetMessageFrom(char **, int *)
 	asm("jmp *%eax");
 }
 
-int CNWVirtualMachineCommands::DebugGUISendMessageTo(char *, int)
+void CNWVirtualMachineCommands::DebugGUISendMessageTo(char *, int)
 {
 	asm("leave");
 	asm("mov $0x08231c5c, %eax");
@@ -35,21 +35,21 @@ int CNWVirtualMachineCommands::DebugGUIStart()
 	asm("jmp *%eax");
 }
 
-int CNWVirtualMachineCommands::DebugGUIStop()
+void CNWVirtualMachineCommands::DebugGUIStop()
 {
 	asm("leave");
 	asm("mov $0x08231c2c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWVirtualMachineCommands::DebugGUIUpdate()
+void CNWVirtualMachineCommands::DebugGUIUpdate()
 {
 	asm("leave");
 	asm("mov $0x08231cec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWVirtualMachineCommands::DestroyGameDefinedStructure(int, void *)
+void CNWVirtualMachineCommands::DestroyGameDefinedStructure(int, void *)
 {
 	asm("leave");
 	asm("mov $0x08231b28, %eax");
@@ -3983,7 +3983,7 @@ int CNWVirtualMachineCommands::ExecuteCommand(int, int)
 	asm("jmp *%eax");
 }
 
-int CNWVirtualMachineCommands::GetDebuggerLabelName(int)
+CExoString CNWVirtualMachineCommands::GetDebuggerLabelName(int)
 {
 	asm("leave");
 	asm("mov $0x081fbd80, %eax");
@@ -4004,7 +4004,7 @@ int CNWVirtualMachineCommands::GetEqualGameDefinedStructure(int, void *, void *)
 	asm("jmp *%eax");
 }
 
-int CNWVirtualMachineCommands::GetGameDefinedStructureName(int)
+CExoString CNWVirtualMachineCommands::GetGameDefinedStructureName(int)
 {
 	asm("leave");
 	asm("mov $0x08231bb4, %eax");
@@ -4018,14 +4018,14 @@ int CNWVirtualMachineCommands::GetObjectWatchView(unsigned long, int *, CExoStri
 	asm("jmp *%eax");
 }
 
-int CNWVirtualMachineCommands::GetTableFromArmorPart(int)
+C2DA * CNWVirtualMachineCommands::GetTableFromArmorPart(int)
 {
 	asm("leave");
 	asm("mov $0x0822b2d0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWVirtualMachineCommands::InitializeCommands()
+void CNWVirtualMachineCommands::InitializeCommands()
 {
 	asm("leave");
 	asm("mov $0x081f5cc4, %eax");
@@ -4039,14 +4039,14 @@ int CNWVirtualMachineCommands::LoadGameDefinedStructure(int, void **, CResGFF *,
 	asm("jmp *%eax");
 }
 
-int CNWVirtualMachineCommands::ReportError(CExoString &, int)
+void CNWVirtualMachineCommands::ReportError(CExoString &, int)
 {
 	asm("leave");
 	asm("mov $0x081fb68c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWVirtualMachineCommands::RunScriptCallback(CExoString &)
+void CNWVirtualMachineCommands::RunScriptCallback(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081fb558, %eax");

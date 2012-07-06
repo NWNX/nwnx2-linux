@@ -5,8 +5,8 @@
 class CResWOK
 {
 public:
-	int GetWOKDataPtr();
-	int GetWOKSize();
+	unsigned char * GetWOKDataPtr();
+	unsigned long GetWOKSize();
 	int IsLoaded();
 	int OnResourceFreed();
 	int OnResourceServiced();

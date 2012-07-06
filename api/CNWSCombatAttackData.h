@@ -1,20 +1,22 @@
 #ifndef _CNWSCOMBATATTACKDATA_H_
 #define _CNWSCOMBATATTACKDATA_H_
 #include "nwndef.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 #include "CExoString.h"
 #include "CExoArrayList.h"
 
 class CNWSCombatAttackData
 {
 public:
-	int AddDamage(unsigned short, int);
-	int ClearAttackData();
-	int Copy(CNWSCombatAttackData *, int);
+	void AddDamage(unsigned short, int);
+	void ClearAttackData();
+	void Copy(CNWSCombatAttackData *, int);
 	int GetDamage(unsigned short);
 	int GetTotalDamage(int);
 	int LoadData(CResGFF *, CResStruct *);
 	int SaveData(CResGFF *, CResStruct *);
-	int SetBaseDamage(int);
+	void SetBaseDamage(int);
 	int SetDamage(unsigned short, int);
 	~CNWSCombatAttackData();
 	CNWSCombatAttackData();

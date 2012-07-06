@@ -2,6 +2,8 @@
 #define _CNETLAYER_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "CNetLayerPlayerInfo.h"
+#include "nwnstructs.h"
 #include "CNetLayerInternal.h"
 
 class CNetLayer
@@ -28,54 +30,54 @@ public:
 	int GetDisconnectStrref();
 	int GetExoApp();
 	int GetExoNet();
-	int GetExpansionPackReqd();
-	int GetGameMasterPassword();
+	unsigned short GetExpansionPackReqd();
+	CExoString GetGameMasterPassword();
 	int GetGameMasterPermision() const;
 	int GetIPBySessionId(unsigned long, CExoString *);
-	int GetInternetAddressTranslationStatus(unsigned char *);
+	unsigned long GetInternetAddressTranslationStatus(unsigned char *);
 	int GetLocalAdapterString(unsigned long, unsigned long);
 	int GetLocalPrivileges(unsigned long);
 	int GetMessageFromStandardConnection(int *, char **, int *);
 	int GetNumberLocalAdapters(unsigned long);
 	int GetPasswordRequired();
 	int GetPlayerAddressData(unsigned long, unsigned long *, unsigned char **, unsigned char **, unsigned long *);
-	int GetPlayerAddress(unsigned long);
-	int GetPlayerInfo(unsigned long);
-	int GetPlayerPassword();
+	CExoString GetPlayerAddress(unsigned long);
+	CNetLayerPlayerInfo * GetPlayerInfo(unsigned long);
+	CExoString GetPlayerPassword();
 	int GetPortBySessionId(unsigned long);
-	int GetSendUDPSocket();
-	int GetServerAdminPassword();
+	unsigned long GetSendUDPSocket();
+	CExoString GetServerAdminPassword();
 	int GetServerConnected();
 	int GetServerNetworkAddress();
 	int GetSessionInfoChanged(unsigned long);
 	int GetSessionInfo(unsigned long);
-	int GetSessionMaxPlayers();
-	int GetSessionName();
-	int GetUDPRecievePort();
+	unsigned long GetSessionMaxPlayers();
+	CExoString GetSessionName();
+	unsigned long GetUDPRecievePort();
 	int Initialize(CBaseExoApp *);
 	int IsConnectedToLocalhost();
 	int MessageArrived(unsigned long, unsigned long, unsigned long, int);
 	int OpenStandardConnection(int, CExoString, int);
 	int PlayerIdToConnectionId(unsigned long, unsigned long *);
-	int ProcessReceivedFrames(int);
+	void ProcessReceivedFrames(int);
 	int RequestExtendedServerInfo(unsigned long, int, int);
 	int RequestServerDetails(unsigned long);
 	int SendMessageToAddress(unsigned long, unsigned char *, unsigned long);
 	int SendMessageToPlayer(unsigned long, unsigned char *, unsigned long, unsigned long);
 	int SendMessageToStandardConnection(int, char *, int);
-	int SetConnectionsDisallowed(int);
-	int SetConnectionsMustBeValidated(int);
+	void SetConnectionsDisallowed(int);
+	void SetConnectionsMustBeValidated(int);
 	int SetDisconnectStrref(unsigned long);
-	int SetExpansionPackReqd(unsigned short);
+	void SetExpansionPackReqd(unsigned short);
 	int SetGameMasterPassword(CExoString);
-	int SetMasterServerInternetAddress(unsigned char const *, unsigned long);
+	void SetMasterServerInternetAddress(unsigned char const *, unsigned long);
 	int SetMstServerPassword(CExoString);
 	int SetPlayerPassword(CExoString);
 	int SetServerAdminPassword(CExoString);
-	int SetServerLanguage(int);
+	void SetServerLanguage(int);
 	int SetSessionInfoChanged(unsigned long, int);
-	int SetSessionMaxPlayers(unsigned long);
-	int SetSessionName(CExoString);
+	void SetSessionMaxPlayers(unsigned long);
+	void SetSessionName(CExoString);
 	int SetUpPlayBackConnection();
 	int ShutDownClientInterfaceWithReason(unsigned long);
 	int ShutDown();
@@ -85,7 +87,7 @@ public:
 	int StartPing(unsigned long);
 	int StartProtocol(unsigned long, unsigned long, unsigned long, unsigned long);
 	int StartServerMode(CExoString, unsigned long);
-	int StoreMessage(unsigned char *, unsigned long);
+	void StoreMessage(unsigned char *, unsigned long);
 	int TranslateAddressFromString(char *, unsigned long *, unsigned char *, unsigned char *, unsigned long *);
 	int UpdateStatusLoop(unsigned long);
 	~CNetLayer();

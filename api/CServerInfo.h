@@ -7,7 +7,7 @@ class CServerInfo
 {
 public:
 	int FindOptionIndex(CExoString, CExoString);
-	int SetDifficultyLevel(int, int);
+	void SetDifficultyLevel(int, int);
 	CServerInfo();
 
 };

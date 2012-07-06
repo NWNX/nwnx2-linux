@@ -7,7 +7,7 @@ int CNWSModule::AIUpdate()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::AddObjectToLimbo(unsigned long)
+void CNWSModule::AddObjectToLimbo(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081c09f8, %eax");
@@ -28,7 +28,7 @@ int CNWSModule::AddTURDsToWorld()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::AddToTURDList(CNWSPlayerTURD *)
+void CNWSModule::AddToTURDList(CNWSPlayerTURD *)
 {
 	asm("leave");
 	asm("mov $0x081bf7f8, %eax");
@@ -42,21 +42,21 @@ int CNWSModule::AddWorldJournalEntryStrref(unsigned long, unsigned long, unsigne
 	asm("jmp *%eax");
 }
 
-int CNWSModule::AddWorldJournalEntry(int, CExoString, CExoString, unsigned long, unsigned long)
+void CNWSModule::AddWorldJournalEntry(int, CExoString, CExoString, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081bf134, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::AsNWSModule()
+CNWSModule * CNWSModule::AsNWSModule()
 {
 	asm("leave");
 	asm("mov $0x081c103c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::CleanUpLimboList()
+void CNWSModule::CleanUpLimboList()
 {
 	asm("leave");
 	asm("mov $0x081c0aec, %eax");
@@ -84,42 +84,42 @@ int CNWSModule::DeleteWorldJournalAllEntries()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::DeleteWorldJournalEntryStrref(unsigned long)
+void CNWSModule::DeleteWorldJournalEntryStrref(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081bf658, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::DeleteWorldJournalEntry(int)
+void CNWSModule::DeleteWorldJournalEntry(int)
 {
 	asm("leave");
 	asm("mov $0x081bf568, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::DoUpdate()
+void CNWSModule::DoUpdate()
 {
 	asm("leave");
 	asm("mov $0x081c05fc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSModule::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081b3f0c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::FindObjectByTagOrdinal(CExoString const &, unsigned long)
+unsigned long CNWSModule::FindObjectByTagOrdinal(CExoString const &, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081bee08, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::FindObjectByTagTypeOrdinal(CExoString const &, int, unsigned long)
+unsigned long CNWSModule::FindObjectByTagTypeOrdinal(CExoString const &, int, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081bef74, %eax");
@@ -147,7 +147,7 @@ int CNWSModule::GetAreaByName(CExoString &)
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetAreaByTag(CExoString &)
+CNWSArea * CNWSModule::GetAreaByTag(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081b45e8, %eax");
@@ -161,14 +161,14 @@ int CNWSModule::GetAreaList()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetArea(CResRef)
+CNWSArea * CNWSModule::GetArea(CResRef)
 {
 	asm("leave");
 	asm("mov $0x081c0690, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetArea(unsigned long)
+CNWSArea * CNWSModule::GetArea(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081c0728, %eax");
@@ -203,7 +203,7 @@ int CNWSModule::GetEnableScriptDebugger()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetFullCipher(CExoString)
+unsigned char * CNWSModule::GetFullCipher(CExoString)
 {
 	asm("leave");
 	asm("mov $0x081bffd8, %eax");
@@ -357,7 +357,7 @@ int CNWSModule::GetLastPlayerChatMessageType()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetLastPlayerChatMessage()
+CExoString CNWSModule::GetLastPlayerChatMessage()
 {
 	asm("leave");
 	asm("mov $0x081c173c, %eax");
@@ -427,7 +427,7 @@ int CNWSModule::GetMinutesPerHour()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetModuleDescription()
+CExoLocString CNWSModule::GetModuleDescription()
 {
 	asm("leave");
 	asm("mov $0x081c1670, %eax");
@@ -441,14 +441,14 @@ int CNWSModule::GetModuleEntryInfo()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetModuleName()
+CExoLocString CNWSModule::GetModuleName()
 {
 	asm("leave");
 	asm("mov $0x081c1624, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetNWMResName()
+CExoString CNWSModule::GetNWMResName()
 {
 	asm("leave");
 	asm("mov $0x081c15fc, %eax");
@@ -483,7 +483,7 @@ int CNWSModule::GetPCItemLastUnequipped()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetPlayerIndexInPlayerList(CNWSPlayer *)
+unsigned long CNWSModule::GetPlayerIndexInPlayerList(CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x081be568, %eax");
@@ -497,14 +497,14 @@ int CNWSModule::GetPlayerPathfindRule()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetPlayerTURDFromList(CNWSPlayer *)
+CNWSPlayerTURD * CNWSModule::GetPlayerTURDFromList(CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x081bb068, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetPrimaryPlayerIndex()
+unsigned long CNWSModule::GetPrimaryPlayerIndex()
 {
 	asm("leave");
 	asm("mov $0x081c0864, %eax");
@@ -532,7 +532,7 @@ int CNWSModule::GetStartMovie()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetTag()
+CExoString CNWSModule::GetTag()
 {
 	asm("leave");
 	asm("mov $0x081c158c, %eax");
@@ -546,21 +546,21 @@ int CNWSModule::GetTimeOfDayState()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetTime(unsigned long *, unsigned long *, unsigned long *, unsigned long *, unsigned char *, unsigned long *)
+void CNWSModule::GetTime(unsigned long *, unsigned long *, unsigned long *, unsigned long *, unsigned char *, unsigned long *)
 {
 	asm("leave");
 	asm("mov $0x081c09a8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetWaypoint(CExoString const &)
+unsigned long CNWSModule::GetWaypoint(CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x081c0670, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::GetWorldJournalIndexUnique()
+unsigned long CNWSModule::GetWorldJournalIndexUnique()
 {
 	asm("leave");
 	asm("mov $0x081c0944, %eax");
@@ -588,7 +588,7 @@ int CNWSModule::IsObjectInLimbo(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSModule::IsOfficialCampaign()
+unsigned char CNWSModule::IsOfficialCampaign()
 {
 	asm("leave");
 	asm("mov $0x081bfda8, %eax");
@@ -602,84 +602,84 @@ int CNWSModule::LoadLimboCreatures(CResGFF *, CResStruct *, int)
 	asm("jmp *%eax");
 }
 
-int CNWSModule::LoadModuleFinish()
+unsigned long CNWSModule::LoadModuleFinish()
 {
 	asm("leave");
 	asm("mov $0x081b87b8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::LoadModuleInProgress(int, int)
+unsigned long CNWSModule::LoadModuleInProgress(int, int)
 {
 	asm("leave");
 	asm("mov $0x081b8584, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::LoadModuleStart(CExoString, int)
+unsigned long CNWSModule::LoadModuleStart(CExoString, int)
 {
 	asm("leave");
 	asm("mov $0x081b4a4c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::LoadTURDList(CResGFF *, CResStruct *)
+void CNWSModule::LoadTURDList(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081baf90, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::PackModuleIntoMessage(unsigned long)
+void CNWSModule::PackModuleIntoMessage(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081b8c84, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::PackPlayerCharacterListIntoMessage(CNWSPlayer *, CExoArrayList<NWPlayerCharacterList_st *> &)
+void CNWSModule::PackPlayerCharacterListIntoMessage(CNWSPlayer *, CExoArrayList<NWPlayerCharacterList_st *> &)
 {
 	asm("leave");
 	asm("mov $0x081be6b8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::PlotInterAreaPath(CPathfindInformation *, unsigned long)
+unsigned long CNWSModule::PlotInterAreaPath(CPathfindInformation *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081b8fb4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::PlotPathInArea(CPathfindInformation *, unsigned long)
+unsigned long CNWSModule::PlotPathInArea(CPathfindInformation *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081b91f0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::PlotPath(CPathfindInformation *, unsigned long)
+unsigned long CNWSModule::PlotPath(CPathfindInformation *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081b9124, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::PostProcess()
+void CNWSModule::PostProcess()
 {
 	asm("leave");
 	asm("mov $0x081b89f8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::RemoveFromTURDList(CNWSPlayer *)
+void CNWSModule::RemoveFromTURDList(CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x081bf97c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSModule::RemoveObjectFromLimbo(unsigned long)
+void CNWSModule::RemoveObjectFromLimbo(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081c0a58, %eax");
@@ -693,7 +693,7 @@ int CNWSModule::RemoveObjectFromLookupTable(CExoString, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSModule::SaveLimboCreatures(CResGFF *, CResStruct *)
+void CNWSModule::SaveLimboCreatures(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081be1d0, %eax");
@@ -735,7 +735,7 @@ int CNWSModule::SaveModuleInProgress()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::SaveModuleStart(CExoString &, CExoString &)
+void CNWSModule::SaveModuleStart(CExoString &, CExoString &)
 {
 	asm("leave");
 	asm("mov $0x081b9c90, %eax");
@@ -777,7 +777,7 @@ int CNWSModule::SetEnableScriptDebugger(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSModule::SetIntraAreaGoal(CPathfindInformation *)
+void CNWSModule::SetIntraAreaGoal(CPathfindInformation *)
 {
 	asm("leave");
 	asm("mov $0x081be92c, %eax");
@@ -1015,7 +1015,7 @@ int CNWSModule::SetPlayerPathfindRule(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSModule::SetScriptName(int, CExoString)
+void CNWSModule::SetScriptName(int, CExoString)
 {
 	asm("leave");
 	asm("mov $0x081c106c, %eax");
@@ -1029,7 +1029,7 @@ int CNWSModule::SetXPScale(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSModule::TimeStopSanityCheck()
+void CNWSModule::TimeStopSanityCheck()
 {
 	asm("leave");
 	asm("mov $0x081bfcdc, %eax");
@@ -1043,7 +1043,7 @@ int CNWSModule::UnloadModule()
 	asm("jmp *%eax");
 }
 
-int CNWSModule::UpdateTime(unsigned long, unsigned long, unsigned long)
+void CNWSModule::UpdateTime(unsigned long, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081bfaf8, %eax");

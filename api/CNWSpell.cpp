@@ -14,7 +14,7 @@ int CNWSpell::GetSpellHasVerbalComponent()
 	asm("jmp *%eax");
 }
 
-int CNWSpell::GetSpellLevel(unsigned char)
+unsigned char CNWSpell::GetSpellLevel(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081d8920, %eax");
@@ -28,7 +28,7 @@ int CNWSpell::GetSpellNameText()
 	asm("jmp *%eax");
 }
 
-int CNWSpell::GetSubRadialSpell(unsigned char)
+unsigned long CNWSpell::GetSubRadialSpell(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081db804, %eax");

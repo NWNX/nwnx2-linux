@@ -5,10 +5,10 @@
 class CNWLevelStats
 {
 public:
-	int AddFeat(unsigned short);
+	void AddFeat(unsigned short);
 	int ClearFeats();
-	int GetSkillRankChange(unsigned short);
-	int SetSkillRankChange(unsigned short, char);
+	char GetSkillRankChange(unsigned short);
+	void SetSkillRankChange(unsigned short, char);
 	~CNWLevelStats();
 	CNWLevelStats();
 

@@ -1,13 +1,13 @@
 #include "CVirtualMachine.h"
 
-int CVirtualMachine::Debugger(int *)
+void CVirtualMachine::Debugger(int *)
 {
 	asm("leave");
 	asm("mov $0x08263d98, %eax");
 	asm("jmp *%eax");
 }
 
-int CVirtualMachine::DeleteScriptSituation(void *)
+void CVirtualMachine::DeleteScriptSituation(void *)
 {
 	asm("leave");
 	asm("mov $0x08264550, %eax");
@@ -105,14 +105,14 @@ int CVirtualMachine::SaveScriptSituation_Internal(CVirtualMachineScript *, CResG
 	asm("jmp *%eax");
 }
 
-int CVirtualMachine::SetCommandImplementer(CVirtualMachineCmdImplementer *)
+void CVirtualMachine::SetCommandImplementer(CVirtualMachineCmdImplementer *)
 {
 	asm("leave");
 	asm("mov $0x082645cc, %eax");
 	asm("jmp *%eax");
 }
 
-int CVirtualMachine::SetDebugGUIFlag(int)
+void CVirtualMachine::SetDebugGUIFlag(int)
 {
 	asm("leave");
 	asm("mov $0x082645b8, %eax");

@@ -1,6 +1,6 @@
 #include "CNWSFaction.h"
 
-int CNWSFaction::AddMember(unsigned long, int)
+void CNWSFaction::AddMember(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081d6990, %eax");
@@ -21,14 +21,14 @@ int CNWSFaction::AttemptRemove(unsigned long, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::ChangeMemberId(unsigned long, unsigned long)
+void CNWSFaction::ChangeMemberId(unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081d7e48, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::ClearAllReputationsTowards(unsigned long)
+void CNWSFaction::ClearAllReputationsTowards(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081d84b0, %eax");
@@ -70,7 +70,7 @@ int CNWSFaction::GetAverageXP()
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::GetBestAC(unsigned long, int)
+unsigned long CNWSFaction::GetBestAC(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081d79f4, %eax");
@@ -91,7 +91,7 @@ int CNWSFaction::GetFactionManager()
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::GetFactionMember(int, int)
+unsigned long CNWSFaction::GetFactionMember(int, int)
 {
 	asm("leave");
 	asm("mov $0x081d83a0, %eax");
@@ -112,14 +112,14 @@ int CNWSFaction::GetIsInvited(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::GetLeader()
+unsigned long CNWSFaction::GetLeader()
 {
 	asm("leave");
 	asm("mov $0x081d7ba4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::GetLeastDamagedMember(unsigned long, int)
+unsigned long CNWSFaction::GetLeastDamagedMember(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081d7340, %eax");
@@ -133,7 +133,7 @@ int CNWSFaction::GetMemberList(unsigned long **)
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::GetMostDamagedMember(unsigned long, int)
+unsigned long CNWSFaction::GetMostDamagedMember(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081d7168, %eax");
@@ -154,21 +154,21 @@ int CNWSFaction::GetSingletonParty()
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::GetStrongestMember(unsigned long, int)
+unsigned long CNWSFaction::GetStrongestMember(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081d6fb8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::GetWeakestMember(unsigned long, int)
+unsigned long CNWSFaction::GetWeakestMember(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081d6e08, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::GetWorstAC(unsigned long, int)
+unsigned long CNWSFaction::GetWorstAC(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081d7844, %eax");
@@ -189,21 +189,21 @@ int CNWSFaction::InviteMember(unsigned long, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::RemoveMember(unsigned long)
+void CNWSFaction::RemoveMember(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081d6bc8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::SendChatMessage(unsigned long, CExoString)
+void CNWSFaction::SendChatMessage(unsigned long, CExoString)
 {
 	asm("leave");
 	asm("mov $0x081d7e90, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSFaction::SendFactionUpdateAdd(unsigned long)
+void CNWSFaction::SendFactionUpdateAdd(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081d7fcc, %eax");

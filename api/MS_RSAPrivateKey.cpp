@@ -7,7 +7,7 @@ int MS_RSAPrivateKey::create(MS_RSAVLong const &, MS_RSAVLong const &)
 	asm("jmp *%eax");
 }
 
-int MS_RSAPrivateKey::decryptDDCipher(unsigned char *, unsigned char const *)
+void MS_RSAPrivateKey::decryptDDCipher(unsigned char *, unsigned char const *)
 {
 	asm("leave");
 	asm("mov $0x0829a19c, %eax");
@@ -21,7 +21,7 @@ int MS_RSAPrivateKey::decryptHash(char *, unsigned char const *)
 	asm("jmp *%eax");
 }
 
-int MS_RSAPrivateKey::decrypt(MS_RSAVLong const &)
+MS_RSAVLong MS_RSAPrivateKey::decrypt(MS_RSAVLong const &)
 {
 	asm("leave");
 	asm("mov $0x0829a330, %eax");

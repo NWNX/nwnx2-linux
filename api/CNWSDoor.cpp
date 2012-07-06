@@ -1,41 +1,41 @@
 #include "CNWSDoor.h"
 
-int CNWSDoor::AIUpdate()
+void CNWSDoor::AIUpdate()
 {
 	asm("leave");
 	asm("mov $0x08166d64, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::AddToArea(CNWSArea *, float, float, float, int)
+void CNWSDoor::AddToArea(CNWSArea *, float, float, float, int)
 {
 	asm("leave");
 	asm("mov $0x081669bc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::AsNWSDoor()
+CNWSDoor * CNWSDoor::AsNWSDoor()
 {
 	asm("leave");
 	asm("mov $0x0816a9d8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::DoDamage(int)
+void CNWSDoor::DoDamage(int)
 {
 	asm("leave");
 	asm("mov $0x0816a8d4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSDoor::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08166e4c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetActionPoint(int, unsigned char)
+Vector CNWSDoor::GetActionPoint(int, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08169fe4, %eax");
@@ -84,14 +84,14 @@ int CNWSDoor::GetCreatureList()
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetDescriptionOverride()
+CExoString CNWSDoor::GetDescriptionOverride()
 {
 	asm("leave");
 	asm("mov $0x0816ac40, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetDescription()
+CExoLocString & CNWSDoor::GetDescription()
 {
 	asm("leave");
 	asm("mov $0x0816abd8, %eax");
@@ -112,7 +112,7 @@ int CNWSDoor::GetDetectable()
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetDialogResref()
+CResRef CNWSDoor::GetDialogResref()
 {
 	asm("leave");
 	asm("mov $0x0816a9e0, %eax");
@@ -133,7 +133,7 @@ int CNWSDoor::GetDisarmable()
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetDisplayName()
+CExoString CNWSDoor::GetDisplayName()
 {
 	asm("leave");
 	asm("mov $0x0816ad28, %eax");
@@ -147,7 +147,7 @@ int CNWSDoor::GetFactionId()
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetFirstName()
+CExoLocString & CNWSDoor::GetFirstName()
 {
 	asm("leave");
 	asm("mov $0x0816acc0, %eax");
@@ -189,14 +189,14 @@ int CNWSDoor::GetIsLinked()
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetKeyName()
+CExoString * CNWSDoor::GetKeyName()
 {
 	asm("leave");
 	asm("mov $0x0816ae38, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetKeyRequiredFeedbackMessage()
+CExoString CNWSDoor::GetKeyRequiredFeedbackMessage()
 {
 	asm("leave");
 	asm("mov $0x0816aec4, %eax");
@@ -252,21 +252,21 @@ int CNWSDoor::GetLastUnlocked()
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetLinkedObject()
+CNWSObject * CNWSDoor::GetLinkedObject()
 {
 	asm("leave");
 	asm("mov $0x0816a4e4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetLinkedToTag()
+CExoString CNWSDoor::GetLinkedToTag()
 {
 	asm("leave");
 	asm("mov $0x0816b190, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetLoadScreenID()
+unsigned short CNWSDoor::GetLoadScreenID()
 {
 	asm("leave");
 	asm("mov $0x0816b2f4, %eax");
@@ -294,7 +294,7 @@ int CNWSDoor::GetLocked()
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetNearestActionPoint(Vector const &, int)
+Vector CNWSDoor::GetNearestActionPoint(Vector const &, int)
 {
 	asm("leave");
 	asm("mov $0x0816a14c, %eax");
@@ -315,7 +315,7 @@ int CNWSDoor::GetOpenLockDC()
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::GetOpenState()
+unsigned char CNWSDoor::GetOpenState()
 {
 	asm("leave");
 	asm("mov $0x0816a908, %eax");
@@ -406,14 +406,14 @@ int CNWSDoor::NoNonWalkPolysInDoor(float, float, float, float, float, float, flo
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::PostProcess()
+void CNWSDoor::PostProcess()
 {
 	asm("leave");
 	asm("mov $0x08169c54, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::RemoveFromArea()
+void CNWSDoor::RemoveFromArea()
 {
 	asm("leave");
 	asm("mov $0x08169d3c, %eax");
@@ -462,14 +462,14 @@ int CNWSDoor::SetBearing(float)
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::SetDescriptionOverride(CExoString)
+void CNWSDoor::SetDescriptionOverride(CExoString)
 {
 	asm("leave");
 	asm("mov $0x0816ac68, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::SetDescription(CExoLocString)
+void CNWSDoor::SetDescription(CExoLocString)
 {
 	asm("leave");
 	asm("mov $0x0816abe8, %eax");
@@ -511,7 +511,7 @@ int CNWSDoor::SetDisarmable(int)
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::SetDisplayName(CExoString)
+void CNWSDoor::SetDisplayName(CExoString)
 {
 	asm("leave");
 	asm("mov $0x0816ad50, %eax");
@@ -525,7 +525,7 @@ int CNWSDoor::SetFactionId(int)
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::SetFirstName(CExoLocString)
+void CNWSDoor::SetFirstName(CExoLocString)
 {
 	asm("leave");
 	asm("mov $0x0816acd0, %eax");
@@ -567,7 +567,7 @@ int CNWSDoor::SetKeyName(CExoString const &)
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::SetKeyRequiredFeedbackMessage(CExoString)
+void CNWSDoor::SetKeyRequiredFeedbackMessage(CExoString)
 {
 	asm("leave");
 	asm("mov $0x0816ae6c, %eax");
@@ -630,7 +630,7 @@ int CNWSDoor::SetLinkedFlags(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::SetLinkedToTag(CExoString)
+void CNWSDoor::SetLinkedToTag(CExoString)
 {
 	asm("leave");
 	asm("mov $0x0816b1b8, %eax");
@@ -672,7 +672,7 @@ int CNWSDoor::SetOpenLockDC(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::SetOpenState(unsigned char)
+void CNWSDoor::SetOpenState(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0816a5b8, %eax");
@@ -693,7 +693,7 @@ int CNWSDoor::SetReflexSave(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSDoor::SetScriptName(int, CExoString)
+void CNWSDoor::SetScriptName(int, CExoString)
 {
 	asm("leave");
 	asm("mov $0x0816af58, %eax");

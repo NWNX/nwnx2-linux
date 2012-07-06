@@ -28,28 +28,28 @@ int CGameSpyServer::KeyListCallback(qr2_key_type, qr2_keybuffer_s *, void *)
 	asm("jmp *%eax");
 }
 
-int CGameSpyServer::PlayerTeamKeyCallback(int, int, qr2_buffer_s *, void *)
+void CGameSpyServer::PlayerTeamKeyCallback(int, int, qr2_buffer_s *, void *)
 {
 	asm("leave");
 	asm("mov $0x0827447c, %eax");
 	asm("jmp *%eax");
 }
 
-int CGameSpyServer::RegisterAllKeys()
+void CGameSpyServer::RegisterAllKeys()
 {
 	asm("leave");
 	asm("mov $0x08274374, %eax");
 	asm("jmp *%eax");
 }
 
-int CGameSpyServer::ServerKeyCallback(int, qr2_buffer_s *, void *)
+void CGameSpyServer::ServerKeyCallback(int, qr2_buffer_s *, void *)
 {
 	asm("leave");
 	asm("mov $0x08274460, %eax");
 	asm("jmp *%eax");
 }
 
-int CGameSpyServer::Update()
+void CGameSpyServer::Update()
 {
 	asm("leave");
 	asm("mov $0x082744e8, %eax");

@@ -35,21 +35,21 @@ int CDUtil::GenerateResponse(CExoString const &, CExoString const &, CExoString 
 	asm("jmp *%eax");
 }
 
-int CDUtil::InitializeBaseConvert()
+void CDUtil::InitializeBaseConvert()
 {
 	asm("leave");
 	asm("mov $0x08299208, %eax");
 	asm("jmp *%eax");
 }
 
-int CDUtil::InitializeCrc()
+void CDUtil::InitializeCrc()
 {
 	asm("leave");
 	asm("mov $0x0829912c, %eax");
 	asm("jmp *%eax");
 }
 
-int CDUtil::Initialize()
+void CDUtil::Initialize()
 {
 	asm("leave");
 	asm("mov $0x082940a0, %eax");
@@ -63,7 +63,7 @@ int CDUtil::ScrambleKey(char *, char const *, char const *, char const *, int)
 	asm("jmp *%eax");
 }
 
-int CDUtil::UnScrambleKey(char const *, char *, char *, char *)
+void CDUtil::UnScrambleKey(char const *, char *, char *, char *)
 {
 	asm("leave");
 	asm("mov $0x08298fa8, %eax");

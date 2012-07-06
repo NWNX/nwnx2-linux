@@ -21,21 +21,21 @@ int CNWSArea::AddSubArea(CGameObject *)
 	asm("jmp *%eax");
 }
 
-int CNWSArea::ApplyEffect(CGameEffect *, Vector, Vector)
+void CNWSArea::ApplyEffect(CGameEffect *, Vector, Vector)
 {
 	asm("leave");
 	asm("mov $0x080d3af0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::AsNWSArea()
+CNWSArea * CNWSArea::AsNWSArea()
 {
 	asm("leave");
 	asm("mov $0x080d55bc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::BudgeCreatures(Vector const &, Vector const &, Vector const &, unsigned long, int)
+void CNWSArea::BudgeCreatures(Vector const &, Vector const &, Vector const &, unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x080d4468, %eax");
@@ -49,7 +49,7 @@ int CNWSArea::ClearLineOfSight(Vector, Vector, Vector *, unsigned long *, unsign
 	asm("jmp *%eax");
 }
 
-int CNWSArea::ComputeAwayVector(Vector, Vector, float, CPathfindInformation *)
+Vector CNWSArea::ComputeAwayVector(Vector, Vector, float, CPathfindInformation *)
 {
 	asm("leave");
 	asm("mov $0x080d5e48, %eax");
@@ -63,7 +63,7 @@ int CNWSArea::ComputeBestCorner(float, float, float, float, float, float, float,
 	asm("jmp *%eax");
 }
 
-int CNWSArea::ComputeHeight(Vector)
+float CNWSArea::ComputeHeight(Vector)
 {
 	asm("leave");
 	asm("mov $0x080d65fc, %eax");
@@ -112,14 +112,14 @@ int CNWSArea::CountVisibleToPlayers(Vector, int)
 	asm("jmp *%eax");
 }
 
-int CNWSArea::DecreaseAILevelPriority()
+void CNWSArea::DecreaseAILevelPriority()
 {
 	asm("leave");
 	asm("mov $0x080cdf18, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::DecrementPlayersInArea()
+void CNWSArea::DecrementPlayersInArea()
 {
 	asm("leave");
 	asm("mov $0x080d48cc, %eax");
@@ -133,7 +133,7 @@ int CNWSArea::EvaluateOverlappingTargets(CPathfindInformation *, Vector, unsigne
 	asm("jmp *%eax");
 }
 
-int CNWSArea::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSArea::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080cc5f0, %eax");
@@ -196,7 +196,7 @@ int CNWSArea::GetCustomScriptEventId()
 	asm("jmp *%eax");
 }
 
-int CNWSArea::GetDoorCrossed(Vector, Vector)
+unsigned long CNWSArea::GetDoorCrossed(Vector, Vector)
 {
 	asm("leave");
 	asm("mov $0x080d412c, %eax");
@@ -252,7 +252,7 @@ int CNWSArea::GetLastLeft()
 	asm("jmp *%eax");
 }
 
-int CNWSArea::GetLoadScreenID()
+unsigned short CNWSArea::GetLoadScreenID()
 {
 	asm("leave");
 	asm("mov $0x080d5a1c, %eax");
@@ -301,7 +301,7 @@ int CNWSArea::GetOverrideWeather()
 	asm("jmp *%eax");
 }
 
-int CNWSArea::GetPVPSetting()
+unsigned char CNWSArea::GetPVPSetting()
 {
 	asm("leave");
 	asm("mov $0x080d5234, %eax");
@@ -336,7 +336,7 @@ int CNWSArea::GetSurfaceMaterial(Vector)
 	asm("jmp *%eax");
 }
 
-int CNWSArea::GetTag()
+CExoString CNWSArea::GetTag()
 {
 	asm("leave");
 	asm("mov $0x080d5744, %eax");
@@ -350,7 +350,7 @@ int CNWSArea::GetTileSetResRef()
 	asm("jmp *%eax");
 }
 
-int CNWSArea::GetTile(Vector)
+CNWSTile * CNWSArea::GetTile(Vector)
 {
 	asm("leave");
 	asm("mov $0x080cdcc8, %eax");
@@ -406,7 +406,7 @@ int CNWSArea::GridDFSTransTableInitialize()
 	asm("jmp *%eax");
 }
 
-int CNWSArea::GridDFSTransTablePut(int, int, int, int)
+void CNWSArea::GridDFSTransTablePut(int, int, int, int)
 {
 	asm("leave");
 	asm("mov $0x080deabc, %eax");
@@ -434,21 +434,21 @@ int CNWSArea::InSubAreas(Vector, CExoArrayList<unsigned long> *)
 	asm("jmp *%eax");
 }
 
-int CNWSArea::IncreaseAILevelPriority()
+void CNWSArea::IncreaseAILevelPriority()
 {
 	asm("leave");
 	asm("mov $0x080cdda8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::IncrementPlayersInArea()
+void CNWSArea::IncrementPlayersInArea()
 {
 	asm("leave");
 	asm("mov $0x080d489c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::InterTileDFSExploreArea(unsigned char *, int, int, int, float, float)
+void CNWSArea::InterTileDFSExploreArea(unsigned char *, int, int, int, float, float)
 {
 	asm("leave");
 	asm("mov $0x080d7fa4, %eax");
@@ -595,7 +595,7 @@ int CNWSArea::LoadWaypoints(CResGFF *, CResStruct *, int)
 	asm("jmp *%eax");
 }
 
-int CNWSArea::NWAreaAsNWSArea()
+CNWSArea * CNWSArea::NWAreaAsNWSArea()
 {
 	asm("leave");
 	asm("mov $0x080d55c4, %eax");
@@ -623,7 +623,7 @@ int CNWSArea::PackAreaIntoMessage(int, int, int, CNWSPlayer *)
 	asm("jmp *%eax");
 }
 
-int CNWSArea::PlayVisualEffect(unsigned short, Vector)
+void CNWSArea::PlayVisualEffect(unsigned short, Vector)
 {
 	asm("leave");
 	asm("mov $0x080d2e54, %eax");
@@ -679,7 +679,7 @@ int CNWSArea::RemoveSubArea(CGameObject *)
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SaveAreaEffects(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
+void CNWSArea::SaveAreaEffects(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
 {
 	asm("leave");
 	asm("mov $0x080d507c, %eax");
@@ -693,42 +693,42 @@ int CNWSArea::SaveArea(CERFFile *, CExoString &)
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SaveCreatures(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
+void CNWSArea::SaveCreatures(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
 {
 	asm("leave");
 	asm("mov $0x080d2ae4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SaveDoors(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
+void CNWSArea::SaveDoors(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
 {
 	asm("leave");
 	asm("mov $0x080d4ae8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SaveEncounters(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
+void CNWSArea::SaveEncounters(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
 {
 	asm("leave");
 	asm("mov $0x080d4c80, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SaveGIT(CERFFile *, CExoString &, CExoArrayList<unsigned long> &)
+void CNWSArea::SaveGIT(CERFFile *, CExoString &, CExoArrayList<unsigned long> &)
 {
 	asm("leave");
 	asm("mov $0x080d2238, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SaveItems(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
+void CNWSArea::SaveItems(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
 {
 	asm("leave");
 	asm("mov $0x080d4a04, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SavePlaceables(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
+void CNWSArea::SavePlaceables(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
 {
 	asm("leave");
 	asm("mov $0x080d4ee4, %eax");
@@ -742,35 +742,35 @@ int CNWSArea::SaveProperties(CResGFF *, CResStruct *)
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SaveSounds(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
+void CNWSArea::SaveSounds(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
 {
 	asm("leave");
 	asm("mov $0x080d4e18, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SaveStores(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
+void CNWSArea::SaveStores(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
 {
 	asm("leave");
 	asm("mov $0x080d4fb0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SaveTriggers(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
+void CNWSArea::SaveTriggers(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
 {
 	asm("leave");
 	asm("mov $0x080d4bb4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SaveWaypoints(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
+void CNWSArea::SaveWaypoints(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &)
 {
 	asm("leave");
 	asm("mov $0x080d4d4c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SetCurrentWeather(unsigned char, int)
+void CNWSArea::SetCurrentWeather(unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x080d42e4, %eax");
@@ -840,7 +840,7 @@ int CNWSArea::SetPVPSetting(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSArea::SetScriptName(int, CExoString)
+void CNWSArea::SetScriptName(int, CExoString)
 {
 	asm("leave");
 	asm("mov $0x080d55e8, %eax");
@@ -910,14 +910,14 @@ int CNWSArea::TestSafeLocationPoint(Vector, CPathfindInformation *)
 	asm("jmp *%eax");
 }
 
-int CNWSArea::UnloadArea()
+void CNWSArea::UnloadArea()
 {
 	asm("leave");
 	asm("mov $0x080d2c48, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSArea::UpdatePlayerAutomaps()
+void CNWSArea::UpdatePlayerAutomaps()
 {
 	asm("leave");
 	asm("mov $0x080d9378, %eax");

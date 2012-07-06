@@ -447,6 +447,9 @@ struct CNWItemProperty
 struct CNWSQuickbarButton
 {
 };
+struct CNWVisibilityNode
+{
+};
 struct CExoLinkedListNode
 {
 };
@@ -492,13 +495,19 @@ struct NWPlayerListItem_st
 struct NWModuleExpansion_st
 {
 };
+struct EncapsulatedResListEntry_st
+{
+};
 struct SCodeBaseData
 {
 };
-struct CResList
+struct SRecord
 {
 };
 struct CResGFFField
+{
+};
+struct CResList
 {
 };
 struct CResGFFStruct
@@ -579,7 +588,40 @@ struct CEffectIconObject
 struct CFeatUseListEntry
 {
 };
-struct CNWVisibilityNode
+struct CNWCAreaOfEffectObject
+{
+};
+struct CNWCArea
+{
+};
+struct CNWCCreature
+{
+};
+struct CNWCDoor
+{
+};
+struct CNWCItem
+{
+};
+struct CNWCModule
+{
+};
+struct CNWCObject
+{
+};
+struct CNWCPlaceable
+{
+};
+struct CNWCProjectile
+{
+};
+struct CNWCSoundObject
+{
+};
+struct CNWCStore
+{
+};
+struct CNWCTrigger
 {
 };
 struct PEERBool
@@ -598,6 +640,9 @@ struct STR_RES
 {
 };
 struct CTlkTableToken
+{
+};
+struct CNWTilePathNode
 {
 };
 struct CVirtualMachineDebuggingContext

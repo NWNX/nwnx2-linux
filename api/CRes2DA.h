@@ -6,9 +6,9 @@
 class CRes2DA
 {
 public:
-	int Get2DADataPtr();
+	unsigned char * Get2DADataPtr();
 	int Get2DAHeaderPtr();
-	int Get2DASize();
+	unsigned long Get2DASize();
 	int IsLoaded();
 	int OnResourceFreed();
 	int OnResourceServiced();

@@ -1,12 +1,13 @@
 #ifndef _CEXOPACKEDFILE_H_
 #define _CEXOPACKEDFILE_H_
 #include "nwndef.h"
+#include "CExoFile.h"
 
 class CExoPackedFile
 {
 public:
-	int GetAsyncFile();
-	int GetFile();
+	CExoFile * GetAsyncFile();
+	CExoFile * GetFile();
 	~CExoPackedFile();
 	CExoPackedFile();
 

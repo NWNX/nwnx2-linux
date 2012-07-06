@@ -119,21 +119,21 @@ int CNWArea::GetWidth()
 	asm("jmp *%eax");
 }
 
-int CNWArea::GrowStaticObjectArray()
+void CNWArea::GrowStaticObjectArray()
 {
 	asm("leave");
 	asm("mov $0x080bb768, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWArea::GrowStaticObjectTriangles(int)
+void CNWArea::GrowStaticObjectTriangles(int)
 {
 	asm("leave");
 	asm("mov $0x080bcde0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWArea::GrowStaticObjectVertices(int)
+void CNWArea::GrowStaticObjectVertices(int)
 {
 	asm("leave");
 	asm("mov $0x080bb8ac, %eax");
@@ -147,7 +147,7 @@ int CNWArea::HandleTransparentDoors(float, float, float, float, float, float, fl
 	asm("jmp *%eax");
 }
 
-int CNWArea::InitializeStaticObjects()
+void CNWArea::InitializeStaticObjects()
 {
 	asm("leave");
 	asm("mov $0x080bce68, %eax");
@@ -196,14 +196,14 @@ int CNWArea::RemoveStaticBoundingBox(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWArea::RemoveStaticObject(int)
+void CNWArea::RemoveStaticObject(int)
 {
 	asm("leave");
 	asm("mov $0x080bca58, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWArea::ReplaceStaticObject(int, unsigned long, Vector const &, Vector const &, int, Vector *, int, int *)
+void CNWArea::ReplaceStaticObject(int, unsigned long, Vector const &, Vector const &, int, Vector *, int, int *)
 {
 	asm("leave");
 	asm("mov $0x080bcce0, %eax");

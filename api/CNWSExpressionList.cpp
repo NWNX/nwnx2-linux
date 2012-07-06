@@ -7,14 +7,14 @@ int CNWSExpressionList::AddNodeToHead(CNWSExpressionNode *)
 	asm("jmp *%eax");
 }
 
-int CNWSExpressionList::AddNode(CNWSExpressionNode *)
+void CNWSExpressionList::AddNode(CNWSExpressionNode *)
 {
 	asm("leave");
 	asm("mov $0x08240050, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSExpressionList::DeleteAlternate(CNWSExpressionNode *)
+void CNWSExpressionList::DeleteAlternate(CNWSExpressionNode *)
 {
 	asm("leave");
 	asm("mov $0x0823ffe8, %eax");

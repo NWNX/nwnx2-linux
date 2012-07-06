@@ -13,7 +13,7 @@ public:
 	int GetNamePluralText();
 	int GetNameText();
 	int IsFirstLevelGrantedFeat(unsigned short);
-	int LoadFeatsTable(CExoString);
+	void LoadFeatsTable(CExoString);
 	~CNWRace();
 	CNWRace();
 

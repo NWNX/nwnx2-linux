@@ -1,6 +1,7 @@
 #ifndef _MS_RSAPUBLICKEY_H_
 #define _MS_RSAPUBLICKEY_H_
 #include "nwndef.h"
+#include "MS_RSAVLong.h"
 
 class MS_RSAPublicKey
 {

@@ -1,13 +1,13 @@
 #include "CResDWK.h"
 
-int CResDWK::GetDWKDataPtr()
+unsigned char * CResDWK::GetDWKDataPtr()
 {
 	asm("leave");
 	asm("mov $0x08240504, %eax");
 	asm("jmp *%eax");
 }
 
-int CResDWK::GetDWKSize()
+unsigned long CResDWK::GetDWKSize()
 {
 	asm("leave");
 	asm("mov $0x08240510, %eax");

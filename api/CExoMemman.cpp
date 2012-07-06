@@ -21,7 +21,7 @@ int CExoMemman::CheckHeaps()
 	asm("jmp *%eax");
 }
 
-int CExoMemman::Clear()
+void CExoMemman::Clear()
 {
 	asm("leave");
 	asm("mov $0x082adbf4, %eax");
@@ -77,7 +77,7 @@ int CExoMemman::GetHeaps()
 	asm("jmp *%eax");
 }
 
-int CExoMemman::OutputTypeTrackingReport()
+void CExoMemman::OutputTypeTrackingReport()
 {
 	asm("leave");
 	asm("mov $0x082ae298, %eax");

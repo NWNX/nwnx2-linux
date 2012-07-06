@@ -7,15 +7,15 @@ class CExoDebugInternal
 {
 public:
 	int Assert(int, char *, char const *);
-	int CloseLogFiles();
+	void CloseLogFiles();
 	int CreateDirectory(CExoString);
 	int FlushErrorFile();
-	int FlushLogFile();
-	int GetCurrentTimestamp(CExoString &);
-	int OpenLogFiles(CExoString, int);
+	void FlushLogFile();
+	void GetCurrentTimestamp(CExoString &);
+	void OpenLogFiles(CExoString, int);
 	int Warning(int, char *, char const *);
 	int WriteToErrorFile(CExoString const &);
-	int WriteToLogFile(CExoString const &);
+	void WriteToLogFile(CExoString const &);
 	~CExoDebugInternal();
 	CExoDebugInternal();
 

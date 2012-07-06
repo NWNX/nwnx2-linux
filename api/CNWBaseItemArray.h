@@ -1,12 +1,13 @@
 #ifndef _CNWBASEITEMARRAY_H_
 #define _CNWBASEITEMARRAY_H_
 #include "nwndef.h"
+#include "CNWBaseItem.h"
 
 class CNWBaseItemArray
 {
 public:
-	int GetBaseItem(int) const;
-	int Load();
+	CNWBaseItem * GetBaseItem(int) const;
+	void Load();
 	~CNWBaseItemArray();
 	CNWBaseItemArray();
 

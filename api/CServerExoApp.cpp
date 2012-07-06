@@ -1,41 +1,41 @@
 #include "CServerExoApp.h"
 
-int CServerExoApp::AddCDKeyToBannedList(CExoString)
+void CServerExoApp::AddCDKeyToBannedList(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080b27b8, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::AddCharListRequest(unsigned long)
+void CServerExoApp::AddCharListRequest(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b26b0, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::AddIPToBannedList(CExoString)
+void CServerExoApp::AddIPToBannedList(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080b26f0, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::AddPlayerNameToBannedList(CExoString)
+void CServerExoApp::AddPlayerNameToBannedList(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080b2754, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::AddSubNetProfileSendSize(unsigned long, unsigned long)
+void CServerExoApp::AddSubNetProfileSendSize(unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b2b24, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::AddToExclusionList(unsigned long, unsigned char)
+void CServerExoApp::AddToExclusionList(unsigned long, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080b25e0, %eax");
@@ -70,91 +70,91 @@ int CServerExoApp::ExportAllPlayers()
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GSClientAddServer(void *, char *, char *, int, int, int, int, char *, int, int, char *, int, int, int, char *, char *, int, int, int, int, int, bool)
+void CServerExoApp::GSClientAddServer(void *, char *, char *, int, int, int, int, char *, int, int, char *, int, int, int, char *, char *, int, int, int, int, int, bool)
 {
 	asm("leave");
 	asm("mov $0x080b2c48, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GSClientChatMessage(int, CExoString, CExoString)
+void CServerExoApp::GSClientChatMessage(int, CExoString, CExoString)
 {
 	asm("leave");
 	asm("mov $0x080b2be4, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GSClientClearServers()
+void CServerExoApp::GSClientClearServers()
 {
 	asm("leave");
 	asm("mov $0x080b2c60, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GSClientGroupRoomAdded(int, unsigned long)
+void CServerExoApp::GSClientGroupRoomAdded(int, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b2bdc, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GSClientRemoveServer(void *)
+void CServerExoApp::GSClientRemoveServer(void *)
 {
 	asm("leave");
 	asm("mov $0x080b2c50, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GSClientUpdateConnectionPhase(unsigned char, CExoString const &)
+void CServerExoApp::GSClientUpdateConnectionPhase(unsigned char, CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x080b2c68, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GSClientUpdateServer(void *, char *, char *, int, int, int, int, char *, int, int, char *, int, int, int, char *, char *, int, int, int, int, int, bool)
+void CServerExoApp::GSClientUpdateServer(void *, char *, char *, int, int, int, int, char *, int, int, char *, int, int, int, char *, char *, int, int, int, int, int, bool)
 {
 	asm("leave");
 	asm("mov $0x080b2c58, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetActiveExclusionList()
+CExoLinkedList<unsigned long> * CServerExoApp::GetActiveExclusionList()
 {
 	asm("leave");
 	asm("mov $0x080b2618, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetActivePauseState()
+unsigned char CServerExoApp::GetActivePauseState()
 {
 	asm("leave");
 	asm("mov $0x080b25a8, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetActiveTimer(unsigned long)
+CWorldTimer * CServerExoApp::GetActiveTimer(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1fa4, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetApplicationId()
+unsigned long CServerExoApp::GetApplicationId()
 {
 	asm("leave");
 	asm("mov $0x080b26c8, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetAreaByGameObjectID(unsigned long)
+CNWSArea * CServerExoApp::GetAreaByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1e10, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetAreaOfEffectByGameObjectID(unsigned long)
+CNWSAreaOfEffectObject * CServerExoApp::GetAreaOfEffectByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1e70, %eax");
@@ -168,7 +168,7 @@ int CServerExoApp::GetAutoSavePending()
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetBannedListString()
+CExoString CServerExoApp::GetBannedListString()
 {
 	asm("leave");
 	asm("mov $0x080b22f0, %eax");
@@ -182,35 +182,35 @@ int CServerExoApp::GetCDKeys(CExoArrayList<CExoString> **)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetClientObjectByObjectId(unsigned long)
+CNWSPlayer * CServerExoApp::GetClientObjectByObjectId(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b24b8, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetClientObjectByPlayerId(unsigned long, unsigned char)
+CNWSClient * CServerExoApp::GetClientObjectByPlayerId(unsigned long, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080b24d0, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetCodeBase()
+CCodeBase * CServerExoApp::GetCodeBase()
 {
 	asm("leave");
 	asm("mov $0x080b2424, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetConnectionLib()
+CConnectionLib * CServerExoApp::GetConnectionLib()
 {
 	asm("leave");
 	asm("mov $0x080b2410, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetCreatureByGameObjectID(unsigned long)
+CNWSCreature * CServerExoApp::GetCreatureByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1de0, %eax");
@@ -238,14 +238,14 @@ int CServerExoApp::GetDifficultyOption(int)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetDoorByGameObjectID(unsigned long)
+CNWSDoor * CServerExoApp::GetDoorByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1e58, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetEncounterByGameObjectID(unsigned long)
+CNWSEncounter * CServerExoApp::GetEncounterByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1ea0, %eax");
@@ -273,21 +273,21 @@ int CServerExoApp::GetExportPlayersCharacter()
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetExtendedServerInfo()
+CExtendedServerInfo * CServerExoApp::GetExtendedServerInfo()
 {
 	asm("leave");
 	asm("mov $0x080b2bc8, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetExtendedServerInfo(CExtendedServerInfo *)
+void CServerExoApp::GetExtendedServerInfo(CExtendedServerInfo *)
 {
 	asm("leave");
 	asm("mov $0x080b1ac4, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetFPS()
+float CServerExoApp::GetFPS()
 {
 	asm("leave");
 	asm("mov $0x080b2bd0, %eax");
@@ -301,14 +301,14 @@ int CServerExoApp::GetFactionOfObject(unsigned long, int *)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetFirstPCObject()
+unsigned long CServerExoApp::GetFirstPCObject()
 {
 	asm("leave");
 	asm("mov $0x080b2a8c, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetGameObject(unsigned long)
+CGameObject * CServerExoApp::GetGameObject(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1d98, %eax");
@@ -364,7 +364,7 @@ int CServerExoApp::GetIsPlayerNameOnBannedList(CExoString)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetItemByGameObjectID(unsigned long)
+CNWSItem * CServerExoApp::GetItemByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1dc8, %eax");
@@ -378,14 +378,14 @@ int CServerExoApp::GetLoadingModule()
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetModuleByGameObjectID(unsigned long)
+CNWSModule * CServerExoApp::GetModuleByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1df8, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetModuleDescription()
+CExoLocString CServerExoApp::GetModuleDescription()
 {
 	asm("leave");
 	asm("mov $0x080b18f4, %eax");
@@ -399,14 +399,14 @@ int CServerExoApp::GetModuleLanguage()
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetModuleName()
+CExoString CServerExoApp::GetModuleName()
 {
 	asm("leave");
 	asm("mov $0x080b1af4, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetModule()
+void * CServerExoApp::GetModule()
 {
 	asm("leave");
 	asm("mov $0x080b1adc, %eax");
@@ -434,28 +434,28 @@ int CServerExoApp::GetMultiplayerEnabled()
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetNWSMessage()
+void * CServerExoApp::GetNWSMessage()
 {
 	asm("leave");
 	asm("mov $0x080b1f54, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetNetLayer()
+CNetLayer * CServerExoApp::GetNetLayer()
 {
 	asm("leave");
 	asm("mov $0x080b1f40, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetNextPCObject()
+unsigned long CServerExoApp::GetNextPCObject()
 {
 	asm("leave");
 	asm("mov $0x080b2aa4, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetObjectArray()
+CGameObjectArray * CServerExoApp::GetObjectArray()
 {
 	asm("leave");
 	asm("mov $0x080b1d84, %eax");
@@ -469,21 +469,21 @@ int CServerExoApp::GetPauseState(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetPauseTimer()
+CWorldTimer * CServerExoApp::GetPauseTimer()
 {
 	asm("leave");
 	asm("mov $0x080b1fe4, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetPlaceMeshManager()
+CNWPlaceMeshManager * CServerExoApp::GetPlaceMeshManager()
 {
 	asm("leave");
 	asm("mov $0x080b1f90, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetPlaceableByGameObjectID(unsigned long)
+CNWSPlaceable * CServerExoApp::GetPlaceableByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1e40, %eax");
@@ -497,7 +497,7 @@ int CServerExoApp::GetPlayerAddressData(unsigned long, unsigned long *, unsigned
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetPlayerIDByGameObjectID(unsigned long)
+unsigned long CServerExoApp::GetPlayerIDByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1ed0, %eax");
@@ -511,21 +511,21 @@ int CServerExoApp::GetPlayerLanguage(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetPlayerListString()
+CExoString CServerExoApp::GetPlayerListString()
 {
 	asm("leave");
 	asm("mov $0x080b22cc, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetPlayerList()
+void * CServerExoApp::GetPlayerList()
 {
 	asm("leave");
 	asm("mov $0x080b1f2c, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetPortalListString()
+CExoString CServerExoApp::GetPortalListString()
 {
 	asm("leave");
 	asm("mov $0x080b2314, %eax");
@@ -539,77 +539,77 @@ int CServerExoApp::GetReloadModuleWhenEmpty()
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetServerAIMaster()
+void * CServerExoApp::GetServerAIMaster()
 {
 	asm("leave");
 	asm("mov $0x080b1f18, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetServerInfo()
+CServerInfo * CServerExoApp::GetServerInfo()
 {
 	asm("leave");
 	asm("mov $0x080b1ab0, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetServerMode()
+short CServerExoApp::GetServerMode()
 {
 	asm("leave");
 	asm("mov $0x080b1f7c, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetSoundObjectByGameObjectID(unsigned long)
+CNWSSoundObject * CServerExoApp::GetSoundObjectByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1eb8, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetStoreByGameObjectID(unsigned long)
+CNWSStore * CServerExoApp::GetStoreByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1db0, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetSysAdminList()
+void * CServerExoApp::GetSysAdminList()
 {
 	asm("leave");
 	asm("mov $0x080b1f68, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetTimestopTimer()
+CWorldTimer * CServerExoApp::GetTimestopTimer()
 {
 	asm("leave");
 	asm("mov $0x080b1fd0, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetTriggerByGameObjectID(unsigned long)
+CNWSTrigger * CServerExoApp::GetTriggerByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1e28, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetWaypointByGameObjectID(unsigned long)
+CNWSWaypoint * CServerExoApp::GetWaypointByGameObjectID(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1e88, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::GetWorldTimer()
+CWorldTimer * CServerExoApp::GetWorldTimer()
 {
 	asm("leave");
 	asm("mov $0x080b1fbc, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::HandleGameSpyToServerMessage(int, void *, int)
+void CServerExoApp::HandleGameSpyToServerMessage(int, void *, int)
 {
 	asm("leave");
 	asm("mov $0x080b23f8, %eax");
@@ -630,7 +630,7 @@ int CServerExoApp::Initialize()
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::InitiateModuleForPlayer(void *)
+void CServerExoApp::InitiateModuleForPlayer(void *)
 {
 	asm("leave");
 	asm("mov $0x080b2504, %eax");
@@ -693,7 +693,7 @@ int CServerExoApp::MainLoop()
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::MovePlayerToArea(void *)
+void CServerExoApp::MovePlayerToArea(void *)
 {
 	asm("leave");
 	asm("mov $0x080b251c, %eax");
@@ -735,35 +735,35 @@ int CServerExoApp::OnVideoChange()
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::PlayerListChange(unsigned long, int, int)
+void CServerExoApp::PlayerListChange(unsigned long, int, int)
 {
 	asm("leave");
 	asm("mov $0x080b21b4, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::PushMessageOverWall(unsigned char *, unsigned long)
+void CServerExoApp::PushMessageOverWall(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b2abc, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::RemoveCDKeyFromBannedList(CExoString)
+void CServerExoApp::RemoveCDKeyFromBannedList(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080b28e4, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::RemoveFromExclusionList(unsigned long, unsigned char)
+void CServerExoApp::RemoveFromExclusionList(unsigned long, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080b25fc, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::RemoveIPFromBannedList(CExoString)
+void CServerExoApp::RemoveIPFromBannedList(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080b281c, %eax");
@@ -777,14 +777,14 @@ int CServerExoApp::RemovePCFromWorld(CNWSPlayer *)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::RemovePlayerNameFromBannedList(CExoString)
+void CServerExoApp::RemovePlayerNameFromBannedList(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080b2880, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::ResolvePlayerByFirstName(CExoString const &)
+unsigned long CServerExoApp::ResolvePlayerByFirstName(CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x080b2648, %eax");
@@ -819,49 +819,49 @@ int CServerExoApp::SendCharacterQuery(CNWSPlayer *)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetApplicationIdsMatch(int)
+void CServerExoApp::SetApplicationIdsMatch(int)
 {
 	asm("leave");
 	asm("mov $0x080b2c70, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetAutoSavePending(int)
+void CServerExoApp::SetAutoSavePending(int)
 {
 	asm("leave");
 	asm("mov $0x080b1cdc, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetDebugMode(int)
+void CServerExoApp::SetDebugMode(int)
 {
 	asm("leave");
 	asm("mov $0x080b1ff8, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetEndGamePending(int)
+void CServerExoApp::SetEndGamePending(int)
 {
 	asm("leave");
 	asm("mov $0x080b1bf0, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetEndGameString(CExoString &)
+void CServerExoApp::SetEndGameString(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x080b1c04, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetExportCharacterPending(int)
+void CServerExoApp::SetExportCharacterPending(int)
 {
 	asm("leave");
 	asm("mov $0x080b1c38, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetExportPlayersCharacter(unsigned long)
+void CServerExoApp::SetExportPlayersCharacter(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080b1c4c, %eax");
@@ -875,7 +875,7 @@ int CServerExoApp::SetForceUpdate()
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetGameSpyEnabled(int)
+void CServerExoApp::SetGameSpyEnabled(int)
 {
 	asm("leave");
 	asm("mov $0x080b2ae4, %eax");
@@ -889,28 +889,28 @@ int CServerExoApp::SetGameSpyReporting(int)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetImportingChar(int)
+void CServerExoApp::SetImportingChar(int)
 {
 	asm("leave");
 	asm("mov $0x080b1cc8, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetLoadingModule(int)
+void CServerExoApp::SetLoadingModule(int)
 {
 	asm("leave");
 	asm("mov $0x080b1ca0, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetMoveToModulePending(int)
+void CServerExoApp::SetMoveToModulePending(int)
 {
 	asm("leave");
 	asm("mov $0x080b1b80, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetMoveToModuleString(CExoString &)
+void CServerExoApp::SetMoveToModuleString(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x080b1ba8, %eax");
@@ -924,28 +924,28 @@ int CServerExoApp::SetNetworkAddressBan(unsigned long, CExoString, int)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetPauseState(unsigned char, int)
+void CServerExoApp::SetPauseState(unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x080b25c0, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetReloadModuleWhenEmpty(int)
+void CServerExoApp::SetReloadModuleWhenEmpty(int)
 {
 	asm("leave");
 	asm("mov $0x080b2670, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::SetWeGotDisconnected()
+void CServerExoApp::SetWeGotDisconnected()
 {
 	asm("leave");
 	asm("mov $0x080b2c80, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::ShutDownToMainMenu()
+void CServerExoApp::ShutDownToMainMenu()
 {
 	asm("leave");
 	asm("mov $0x080b2bc0, %eax");
@@ -959,7 +959,7 @@ int CServerExoApp::ShutdownNetLayer()
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::Shutdown(int, int)
+void CServerExoApp::Shutdown(int, int)
 {
 	asm("leave");
 	asm("mov $0x080b2214, %eax");
@@ -973,14 +973,14 @@ int CServerExoApp::StartNewModule(CExoString &)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::StartServices()
+void CServerExoApp::StartServices()
 {
 	asm("leave");
 	asm("mov $0x080b2458, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::StopServices()
+void CServerExoApp::StopServices()
 {
 	asm("leave");
 	asm("mov $0x080b24a0, %eax");
@@ -994,14 +994,14 @@ int CServerExoApp::StripColorTokens(CExoString &)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::TogglePauseState(unsigned char)
+void CServerExoApp::TogglePauseState(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080b2570, %eax");
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::Uninitialize()
+void CServerExoApp::Uninitialize()
 {
 	asm("leave");
 	asm("mov $0x080b23c8, %eax");
@@ -1022,7 +1022,7 @@ int CServerExoApp::ValidatePlayerLogin(void *)
 	asm("jmp *%eax");
 }
 
-int CServerExoApp::VomitServerOptionsToLog()
+void CServerExoApp::VomitServerOptionsToLog()
 {
 	asm("leave");
 	asm("mov $0x080b21cc, %eax");

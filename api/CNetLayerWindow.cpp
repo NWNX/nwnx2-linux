@@ -14,7 +14,7 @@ int CNetLayerWindow::AddToLowOutgoingQueue(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNetLayerWindow::CutOutgoingBufferSize()
+void CNetLayerWindow::CutOutgoingBufferSize()
 {
 	asm("leave");
 	asm("mov $0x0829f4cc, %eax");
@@ -49,7 +49,7 @@ int CNetLayerWindow::FrameReceive(unsigned char *, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNetLayerWindow::FrameSend(unsigned char, unsigned short, unsigned short)
+void CNetLayerWindow::FrameSend(unsigned char, unsigned short, unsigned short)
 {
 	asm("leave");
 	asm("mov $0x0829e8bc, %eax");
@@ -63,21 +63,21 @@ int CNetLayerWindow::FrameTimeout(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNetLayerWindow::InitializeCompressionBuffers()
+void CNetLayerWindow::InitializeCompressionBuffers()
 {
 	asm("leave");
 	asm("mov $0x0829e6ac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNetLayerWindow::Initialize(CNetLayerInternal *)
+void CNetLayerWindow::Initialize(CNetLayerInternal *)
 {
 	asm("leave");
 	asm("mov $0x0829e390, %eax");
 	asm("jmp *%eax");
 }
 
-int CNetLayerWindow::LoadWindowWithFrames()
+void CNetLayerWindow::LoadWindowWithFrames()
 {
 	asm("leave");
 	asm("mov $0x0829e7b0, %eax");
@@ -119,7 +119,7 @@ int CNetLayerWindow::SetOutFrameTimer(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNetLayerWindow::ShutDown()
+void CNetLayerWindow::ShutDown()
 {
 	asm("leave");
 	asm("mov $0x0829e4cc, %eax");

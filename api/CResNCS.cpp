@@ -1,13 +1,13 @@
 #include "CResNCS.h"
 
-int CResNCS::GetNCSDataPtr()
+unsigned char * CResNCS::GetNCSDataPtr()
 {
 	asm("leave");
 	asm("mov $0x0826a73c, %eax");
 	asm("jmp *%eax");
 }
 
-int CResNCS::GetNCSSize()
+unsigned long CResNCS::GetNCSSize()
 {
 	asm("leave");
 	asm("mov $0x0826a748, %eax");

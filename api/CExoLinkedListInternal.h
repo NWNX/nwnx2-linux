@@ -1,20 +1,21 @@
 #ifndef _CEXOLINKEDLISTINTERNAL_H_
 #define _CEXOLINKEDLISTINTERNAL_H_
 #include "nwndef.h"
+#include "nwnstructs.h"
 
 class CExoLinkedListInternal
 {
 public:
-	int AddAfter(void *, CExoLinkedListNode *);
-	int AddBefore(void *, CExoLinkedListNode *);
-	int AddHead(void *);
-	int AddTail(void *);
-	int GetAtPos(CExoLinkedListNode *);
+	CExoLinkedListNode * AddAfter(void *, CExoLinkedListNode *);
+	CExoLinkedListNode * AddBefore(void *, CExoLinkedListNode *);
+	CExoLinkedListNode * AddHead(void *);
+	CExoLinkedListNode * AddTail(void *);
+	void * GetAtPos(CExoLinkedListNode *);
 	int GetNext(CExoLinkedListNode *&);
 	int GetPrev(CExoLinkedListNode *&);
-	int RemoveHead();
-	int RemoveTail();
-	int Remove(CExoLinkedListNode *);
+	void * RemoveHead();
+	void * RemoveTail();
+	void * Remove(CExoLinkedListNode *);
 	~CExoLinkedListInternal();
 
 	/* 0x0/0 */ void *FirstElement;

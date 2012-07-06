@@ -1,13 +1,13 @@
 #include "CExoResFile.h"
 
-int CExoResFile::AddAsyncRefCount()
+void CExoResFile::AddAsyncRefCount()
 {
 	asm("leave");
 	asm("mov $0x082c4754, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoResFile::AddRefCount()
+void CExoResFile::AddRefCount()
 {
 	asm("leave");
 	asm("mov $0x082c4724, %eax");
@@ -28,21 +28,21 @@ int CExoResFile::CloseFile()
 	asm("jmp *%eax");
 }
 
-int CExoResFile::DeleteAsyncRefCount()
+void CExoResFile::DeleteAsyncRefCount()
 {
 	asm("leave");
 	asm("mov $0x082c4888, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoResFile::DeleteRefCount()
+void CExoResFile::DeleteRefCount()
 {
 	asm("leave");
 	asm("mov $0x082c4858, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoResFile::GetResourceSize(unsigned long)
+unsigned long CExoResFile::GetResourceSize(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c48b8, %eax");
@@ -84,14 +84,14 @@ int CExoResFile::OpenFile(unsigned char *)
 	asm("jmp *%eax");
 }
 
-int CExoResFile::ReadResourceAsync(unsigned long, void *, unsigned long, unsigned long)
+void CExoResFile::ReadResourceAsync(unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c49c4, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoResFile::ReadResource(unsigned long, void *, unsigned long, unsigned long)
+unsigned long CExoResFile::ReadResource(unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c4940, %eax");

@@ -1,13 +1,13 @@
 #include "CExoTimers.h"
 
-int CExoTimers::GetHighResolutionTimer()
+unsigned __int64 CExoTimers::GetHighResolutionTimer()
 {
 	asm("leave");
 	asm("mov $0x082cc7a8, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoTimers::GetLowResolutionTimer()
+unsigned long CExoTimers::GetLowResolutionTimer()
 {
 	asm("leave");
 	asm("mov $0x082cc794, %eax");

@@ -5,8 +5,8 @@
 class CResGFFFieldIDHash
 {
 public:
-	int Hash(char const *, unsigned long);
-	int Initialize();
+	static unsigned long Hash(char const *, unsigned long);
+	static void Initialize();
 
 };
 #endif

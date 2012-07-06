@@ -7,7 +7,7 @@ int CNWFeat::GetDescriptionText()
 	asm("jmp *%eax");
 }
 
-int CNWFeat::GetNameText()
+CExoString CNWFeat::GetNameText()
 {
 	asm("leave");
 	asm("mov $0x08238f78, %eax");

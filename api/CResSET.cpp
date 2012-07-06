@@ -35,7 +35,7 @@ int CResSET::GetSETSize()
 	asm("jmp *%eax");
 }
 
-int CResSET::GetSectionEntryValue(char *, char *, char *)
+void CResSET::GetSectionEntryValue(char *, char *, char *)
 {
 	asm("leave");
 	asm("mov $0x080957f4, %eax");

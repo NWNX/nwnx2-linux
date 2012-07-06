@@ -1,13 +1,13 @@
 #include "CNWSClient.h"
 
-int CNWSClient::AsNWSDungeonMaster()
+CNWSDungeonMaster * CNWSClient::AsNWSDungeonMaster()
 {
 	asm("leave");
 	asm("mov $0x080e0098, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSClient::AsNWSPlayer()
+CNWSPlayer * CNWSClient::AsNWSPlayer()
 {
 	asm("leave");
 	asm("mov $0x080e00a0, %eax");
@@ -21,7 +21,7 @@ int CNWSClient::GetLanguage()
 	asm("jmp *%eax");
 }
 
-int CNWSClient::GetPlayerId()
+unsigned long CNWSClient::GetPlayerId()
 {
 	asm("leave");
 	asm("mov $0x080e0070, %eax");

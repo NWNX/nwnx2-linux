@@ -1,29 +1,30 @@
 #ifndef _CEXORESOURCEIMAGEFILE_H_
 #define _CEXORESOURCEIMAGEFILE_H_
 #include "nwndef.h"
+#include "nwnstructs.h"
 
 class CExoResourceImageFile
 {
 public:
-	int AddAsyncRefCount();
-	int AddRefCount();
+	void AddAsyncRefCount();
+	void AddRefCount();
 	int CloseAsyncFile();
 	int CloseFile();
-	int DeleteAsyncRefCount();
-	int DeleteRefCount();
+	void DeleteAsyncRefCount();
+	void DeleteRefCount();
 	int GetHeader();
 	int GetKeyListEntry(unsigned long);
 	int GetKeyList();
-	int GetResourceListEntry(unsigned long);
-	int GetResourceSize(unsigned long);
-	int GetResource(unsigned long);
+	EncapsulatedResListEntry_st * GetResourceListEntry(unsigned long);
+	unsigned long GetResourceSize(unsigned long);
+	void * GetResource(unsigned long);
 	int Initialize();
 	int LoadHeader(unsigned char);
 	int OpenAsyncFile();
 	int OpenFile();
 	int OpenFile(unsigned char *);
-	int ReadResourceAsync(unsigned long, void *, unsigned long, unsigned long);
-	int ReadResource(unsigned long, void *, unsigned long, unsigned long);
+	void ReadResourceAsync(unsigned long, void *, unsigned long, unsigned long);
+	unsigned long ReadResource(unsigned long, void *, unsigned long, unsigned long);
 	int UnloadHeader();
 	~CExoResourceImageFile();
 	CExoResourceImageFile();

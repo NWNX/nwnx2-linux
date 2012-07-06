@@ -1,6 +1,6 @@
 #include "CNWSStore.h"
 
-int CNWSStore::AIUpdate()
+void CNWSStore::AIUpdate()
 {
 	asm("leave");
 	asm("mov $0x08085bb8, %eax");
@@ -14,7 +14,7 @@ int CNWSStore::AcquireItem(CNWSItem *, int, unsigned char, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSStore::AddCustomer(CNWSPlayer *, char, char)
+void CNWSStore::AddCustomer(CNWSPlayer *, char, char)
 {
 	asm("leave");
 	asm("mov $0x08085da0, %eax");
@@ -35,14 +35,14 @@ int CNWSStore::AddItemToInventory(CNWSItem **, unsigned char, unsigned char, uns
 	asm("jmp *%eax");
 }
 
-int CNWSStore::AddToArea(CNWSArea *, float, float, float, int)
+void CNWSStore::AddToArea(CNWSArea *, float, float, float, int)
 {
 	asm("leave");
 	asm("mov $0x08085b0c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSStore::AsNWSStore()
+CNWSStore * CNWSStore::AsNWSStore()
 {
 	asm("leave");
 	asm("mov $0x08086144, %eax");
@@ -63,7 +63,7 @@ int CNWSStore::CalculateItemSellPrice(CNWSItem *, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSStore::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSStore::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080852cc, %eax");
@@ -91,14 +91,14 @@ int CNWSStore::GetBlackMarket()
 	asm("jmp *%eax");
 }
 
-int CNWSStore::GetCustomerBuyRate(unsigned long, int)
+unsigned char CNWSStore::GetCustomerBuyRate(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x08085f88, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSStore::GetCustomerSellRate(unsigned long)
+short CNWSStore::GetCustomerSellRate(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08085f0c, %eax");
@@ -182,7 +182,7 @@ int CNWSStore::GetMaxBuyPrice()
 	asm("jmp *%eax");
 }
 
-int CNWSStore::GetName()
+CExoLocString CNWSStore::GetName()
 {
 	asm("leave");
 	asm("mov $0x08086300, %eax");
@@ -259,7 +259,7 @@ int CNWSStore::LoadStore(CResGFF *, CResStruct *, CExoString *)
 	asm("jmp *%eax");
 }
 
-int CNWSStore::RemoveCustomer(CNWSPlayer *)
+void CNWSStore::RemoveCustomer(CNWSPlayer *)
 {
 	asm("leave");
 	asm("mov $0x08085e28, %eax");
@@ -287,7 +287,7 @@ int CNWSStore::RemoveItemFromInventory(CNWSItem *, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSStore::RemoveItem(CNWSItem *)
+void CNWSStore::RemoveItem(CNWSItem *)
 {
 	asm("leave");
 	asm("mov $0x08085cd8, %eax");
@@ -371,7 +371,7 @@ int CNWSStore::SetMaxBuyPrice(int)
 	asm("jmp *%eax");
 }
 
-int CNWSStore::SetName(CExoLocString)
+void CNWSStore::SetName(CExoLocString)
 {
 	asm("leave");
 	asm("mov $0x080862a8, %eax");
@@ -392,7 +392,7 @@ int CNWSStore::SetRepositoryListNumber(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSStore::SetScriptName(int, CExoString)
+void CNWSStore::SetScriptName(int, CExoString)
 {
 	asm("leave");
 	asm("mov $0x0808614c, %eax");

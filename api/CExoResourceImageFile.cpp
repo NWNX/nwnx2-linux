@@ -1,13 +1,13 @@
 #include "CExoResourceImageFile.h"
 
-int CExoResourceImageFile::AddAsyncRefCount()
+void CExoResourceImageFile::AddAsyncRefCount()
 {
 	asm("leave");
 	asm("mov $0x082c5028, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoResourceImageFile::AddRefCount()
+void CExoResourceImageFile::AddRefCount()
 {
 	asm("leave");
 	asm("mov $0x082c4df4, %eax");
@@ -28,14 +28,14 @@ int CExoResourceImageFile::CloseFile()
 	asm("jmp *%eax");
 }
 
-int CExoResourceImageFile::DeleteAsyncRefCount()
+void CExoResourceImageFile::DeleteAsyncRefCount()
 {
 	asm("leave");
 	asm("mov $0x082c503c, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoResourceImageFile::DeleteRefCount()
+void CExoResourceImageFile::DeleteRefCount()
 {
 	asm("leave");
 	asm("mov $0x082c4e6c, %eax");
@@ -63,21 +63,21 @@ int CExoResourceImageFile::GetKeyList()
 	asm("jmp *%eax");
 }
 
-int CExoResourceImageFile::GetResourceListEntry(unsigned long)
+EncapsulatedResListEntry_st * CExoResourceImageFile::GetResourceListEntry(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c4ee8, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoResourceImageFile::GetResourceSize(unsigned long)
+unsigned long CExoResourceImageFile::GetResourceSize(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c4f24, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoResourceImageFile::GetResource(unsigned long)
+void * CExoResourceImageFile::GetResource(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c4f40, %eax");
@@ -119,14 +119,14 @@ int CExoResourceImageFile::OpenFile(unsigned char *)
 	asm("jmp *%eax");
 }
 
-int CExoResourceImageFile::ReadResourceAsync(unsigned long, void *, unsigned long, unsigned long)
+void CExoResourceImageFile::ReadResourceAsync(unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c5004, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoResourceImageFile::ReadResource(unsigned long, void *, unsigned long, unsigned long)
+unsigned long CExoResourceImageFile::ReadResource(unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082c4fac, %eax");

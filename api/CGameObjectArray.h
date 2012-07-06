@@ -1,16 +1,17 @@
 #ifndef _CGAMEOBJECTARRAY_H_
 #define _CGAMEOBJECTARRAY_H_
 #include "nwndef.h"
+#include "CGameObject.h"
 
 class CGameObjectArray
 {
 public:
 	int AddCharacterObjectAtPos(unsigned long, CGameObject *);
 	int AddExternalObject(unsigned long &, CGameObject *, int);
-	int AddInternalObject(unsigned long &, CGameObject *, int);
-	int AddObjectAtPos(unsigned long, CGameObject *);
+	unsigned char AddInternalObject(unsigned long &, CGameObject *, int);
+	unsigned char AddObjectAtPos(unsigned long, CGameObject *);
 	int Clean(unsigned short);
-	int Delete(unsigned long);
+	unsigned char Delete(unsigned long);
 	int Delete(unsigned long, CGameObject **);
 	int GetGameObject(unsigned long, CGameObject **);
 	~CGameObjectArray();

@@ -1,6 +1,6 @@
 #include "CRes2DA.h"
 
-int CRes2DA::Get2DADataPtr()
+unsigned char * CRes2DA::Get2DADataPtr()
 {
 	asm("leave");
 	asm("mov $0x082c5338, %eax");
@@ -14,7 +14,7 @@ int CRes2DA::Get2DAHeaderPtr()
 	asm("jmp *%eax");
 }
 
-int CRes2DA::Get2DASize()
+unsigned long CRes2DA::Get2DASize()
 {
 	asm("leave");
 	asm("mov $0x082c5344, %eax");

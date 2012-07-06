@@ -287,7 +287,7 @@ int CNWSItemPropertyHandler::ApplyUnlimitedAmmo(CNWSItem *, CNWItemProperty *, C
 	asm("jmp *%eax");
 }
 
-int CNWSItemPropertyHandler::InitializeItemProperties()
+void CNWSItemPropertyHandler::InitializeItemProperties()
 {
 	asm("leave");
 	asm("mov $0x081a757c, %eax");

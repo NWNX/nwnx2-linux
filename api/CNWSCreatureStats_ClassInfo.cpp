@@ -7,14 +7,14 @@ int CNWSCreatureStats_ClassInfo::AddKnownSpell(unsigned char, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats_ClassInfo::ClearMemorizedKnownSpells(unsigned long)
+void CNWSCreatureStats_ClassInfo::ClearMemorizedKnownSpells(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0813f528, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats_ClassInfo::ClearMemorizedSpellSlot(unsigned char, unsigned char)
+void CNWSCreatureStats_ClassInfo::ClearMemorizedSpellSlot(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0813f4b4, %eax");
@@ -42,7 +42,7 @@ int CNWSCreatureStats_ClassInfo::GetIsDomainSpell(unsigned char, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats_ClassInfo::GetKnownSpell(unsigned char, unsigned char)
+unsigned long CNWSCreatureStats_ClassInfo::GetKnownSpell(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08163790, %eax");
@@ -56,14 +56,14 @@ int CNWSCreatureStats_ClassInfo::GetMaxSpellsPerDayLeft(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats_ClassInfo::GetMemorizedSpellInSlotDetails(unsigned char, unsigned char)
+CNWSStats_Spell * CNWSCreatureStats_ClassInfo::GetMemorizedSpellInSlotDetails(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08163884, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats_ClassInfo::GetMemorizedSpellInSlotMetaType(unsigned char, unsigned char)
+unsigned char CNWSCreatureStats_ClassInfo::GetMemorizedSpellInSlotMetaType(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08163a14, %eax");
@@ -77,14 +77,14 @@ int CNWSCreatureStats_ClassInfo::GetMemorizedSpellInSlotReady(unsigned char, uns
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats_ClassInfo::GetMemorizedSpellInSlot(unsigned char, unsigned char)
+unsigned long CNWSCreatureStats_ClassInfo::GetMemorizedSpellInSlot(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081637d0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats_ClassInfo::GetMemorizedSpellReadyCount(unsigned long, unsigned char *, unsigned char *, unsigned char)
+unsigned char CNWSCreatureStats_ClassInfo::GetMemorizedSpellReadyCount(unsigned long, unsigned char *, unsigned char *, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0813f738, %eax");
@@ -112,7 +112,7 @@ int CNWSCreatureStats_ClassInfo::GetNumberKnownSpells(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats_ClassInfo::GetNumberMemorizedSpellSlots(unsigned char)
+unsigned char CNWSCreatureStats_ClassInfo::GetNumberMemorizedSpellSlots(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x08163b74, %eax");
@@ -133,7 +133,7 @@ int CNWSCreatureStats_ClassInfo::IncrementSpellsPerDayLeft(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats_ClassInfo::RemoveKnownSpell(unsigned char, unsigned long)
+void CNWSCreatureStats_ClassInfo::RemoveKnownSpell(unsigned char, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x08163764, %eax");
@@ -154,14 +154,14 @@ int CNWSCreatureStats_ClassInfo::SetMaxSpellsPerDayLeft(unsigned char, unsigned 
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats_ClassInfo::SetMemorizedSpellInSlotReady(unsigned char, unsigned char, int)
+void CNWSCreatureStats_ClassInfo::SetMemorizedSpellInSlotReady(unsigned char, unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x08163930, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats_ClassInfo::SetMemorizedSpellSlot(unsigned char, unsigned char, unsigned long, int, unsigned char)
+void CNWSCreatureStats_ClassInfo::SetMemorizedSpellSlot(unsigned char, unsigned char, unsigned long, int, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0813f3d4, %eax");
@@ -175,7 +175,7 @@ int CNWSCreatureStats_ClassInfo::SetNumberBonusSpells(unsigned char, unsigned ch
 	asm("jmp *%eax");
 }
 
-int CNWSCreatureStats_ClassInfo::SetNumberMemorizedSpellSlots(unsigned char, unsigned char)
+void CNWSCreatureStats_ClassInfo::SetNumberMemorizedSpellSlots(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x0813f688, %eax");

@@ -49,7 +49,7 @@ int CNWRace::IsFirstLevelGrantedFeat(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWRace::LoadFeatsTable(CExoString)
+void CNWRace::LoadFeatsTable(CExoString)
 {
 	asm("leave");
 	asm("mov $0x080c4ad8, %eax");

@@ -8,8 +8,8 @@ class CExoLocString
 {
 public:
 	int AddString(int, CExoString, unsigned char);
-	int ClearLocString();
-	int GetStringCount();
+	void ClearLocString();
+	unsigned long GetStringCount();
 	int GetStringInternal(int, CExoString *);
 	int GetStringLength(unsigned long);
 	int GetStringLoc(int, CExoString *, unsigned char);
@@ -20,7 +20,7 @@ public:
 	~CExoLocString();
 	CExoLocString();
 	CExoLocString(CExoLocString const &);
-	int operator=(CExoLocString const &);
+	CExoLocString & operator=(CExoLocString const &);
 	int operator==(CExoLocString &);
 	int operator!=(CExoLocString &);
 

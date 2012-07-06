@@ -5,13 +5,13 @@
 class CNetworkProfiler
 {
 public:
-	int AddMessageToFrameProfile(unsigned char, unsigned long);
-	int AddMessageToProfile(unsigned char, unsigned char, unsigned char, unsigned long);
+	void AddMessageToFrameProfile(unsigned char, unsigned long);
+	void AddMessageToProfile(unsigned char, unsigned char, unsigned char, unsigned long);
 	int GetFrameLastTime();
 	int GetFrameStartTime();
 	int GetLastTime();
 	int GetStartTime();
-	int OutputReport();
+	void OutputReport();
 	int SetOutputFilename(char *);
 	int SetState(int);
 	~CNetworkProfiler();

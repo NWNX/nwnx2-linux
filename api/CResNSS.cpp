@@ -1,13 +1,13 @@
 #include "CResNSS.h"
 
-int CResNSS::GetNSSDataPtr()
+unsigned char * CResNSS::GetNSSDataPtr()
 {
 	asm("leave");
 	asm("mov $0x0826a97c, %eax");
 	asm("jmp *%eax");
 }
 
-int CResNSS::GetNSSSize()
+unsigned long CResNSS::GetNSSSize()
 {
 	asm("leave");
 	asm("mov $0x0826a988, %eax");

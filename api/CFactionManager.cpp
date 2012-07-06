@@ -1,20 +1,20 @@
 #include "CFactionManager.h"
 
-int CFactionManager::CreateDefaultFactions()
+void CFactionManager::CreateDefaultFactions()
 {
 	asm("leave");
 	asm("mov $0x080ba230, %eax");
 	asm("jmp *%eax");
 }
 
-int CFactionManager::DeleteFaction(int)
+void CFactionManager::DeleteFaction(int)
 {
 	asm("leave");
 	asm("mov $0x080bab0c, %eax");
 	asm("jmp *%eax");
 }
 
-int CFactionManager::GetDefaultPCReputation()
+CExoArrayList<int> * CFactionManager::GetDefaultPCReputation()
 {
 	asm("leave");
 	asm("mov $0x080b9c68, %eax");
@@ -28,7 +28,7 @@ int CFactionManager::GetFactionIdByName(CExoString const &)
 	asm("jmp *%eax");
 }
 
-int CFactionManager::GetFaction(int)
+CNWSFaction * CFactionManager::GetFaction(int)
 {
 	asm("leave");
 	asm("mov $0x080ba9a0, %eax");
@@ -77,7 +77,7 @@ int CFactionManager::SaveReputations(CResGFF *, CResList *)
 	asm("jmp *%eax");
 }
 
-int CFactionManager::SetNPCFactionReputation(int, int, int)
+void CFactionManager::SetNPCFactionReputation(int, int, int)
 {
 	asm("leave");
 	asm("mov $0x080ba9d0, %eax");

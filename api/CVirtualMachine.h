@@ -1,8 +1,11 @@
 #ifndef _CVIRTUALMACHINE_H_
 #define _CVIRTUALMACHINE_H_
 #include "nwndef.h"
-#include "Vector.h"
 #include "nwnstructs.h"
+#include "CExoString.h"
+#include "CResGFF.h"
+#include "CVirtualMachineCmdImplementer.h"
+#include "Vector.h"
 #include "CVirtualMachineStack.h"
 #include "CNWVirtualMachineCommands.h"
 #include "CVirtualMachineFile.h"
@@ -10,8 +13,8 @@
 class CVirtualMachine
 {
 public:
-	int Debugger(int *);
-	int DeleteScriptSituation(void *);
+	void Debugger(int *);
+	void DeleteScriptSituation(void *);
 	int DeleteScript(CVirtualMachineScript *);
 	int ExecuteCode(int *, char *, int, CVirtualMachineDebuggingContext *);
 	int GetRunScriptReturnValue(int *, void **);
@@ -25,8 +28,8 @@ public:
 	int RunScriptSituation(void *, unsigned long, int);
 	int RunScript(CExoString *, unsigned long, int);
 	int SaveScriptSituation_Internal(CVirtualMachineScript *, CResGFF *, CResStruct *);
-	int SetCommandImplementer(CVirtualMachineCmdImplementer *);
-	int SetDebugGUIFlag(int);
+	void SetCommandImplementer(CVirtualMachineCmdImplementer *);
+	void SetDebugGUIFlag(int);
 	int SetUpScriptSituation(CVirtualMachineScript *);
 	int StackPopCommand_Internal(CVirtualMachineScript **);
 	int StackPopEngineStructure(int, void **);

@@ -1,27 +1,27 @@
 #include "CNWMessage.h"
 
-int CNWMessage::ClearReadMessage()
+void CNWMessage::ClearReadMessage()
 {
 	asm("leave");
 	asm("mov $0x080c33a8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::CreateWriteMessage(unsigned long, unsigned long, int)
+void CNWMessage::CreateWriteMessage(unsigned long, unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x080c3aec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::ExtendWriteBuffer(unsigned long)
+void CNWMessage::ExtendWriteBuffer(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080c3b50, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::ExtendWriteFragmentsBuffer(unsigned long)
+void CNWMessage::ExtendWriteFragmentsBuffer(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080c3ba0, %eax");
@@ -63,7 +63,7 @@ int CNWMessage::MessageReadUnderflow(int)
 	asm("jmp *%eax");
 }
 
-int CNWMessage::PeekAtWriteMessageSize()
+unsigned long CNWMessage::PeekAtWriteMessageSize()
 {
 	asm("leave");
 	asm("mov $0x080c42d8, %eax");
@@ -77,7 +77,7 @@ int CNWMessage::ReadBOOL()
 	asm("jmp *%eax");
 }
 
-int CNWMessage::ReadBYTE(int)
+unsigned char CNWMessage::ReadBYTE(int)
 {
 	asm("leave");
 	asm("mov $0x080c3588, %eax");
@@ -91,28 +91,28 @@ int CNWMessage::ReadBit(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWMessage::ReadBits(int)
+__int64 CNWMessage::ReadBits(int)
 {
 	asm("leave");
 	asm("mov $0x080c33f0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::ReadCExoString(int)
+CExoString CNWMessage::ReadCExoString(int)
 {
 	asm("leave");
 	asm("mov $0x080c2954, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::ReadCHAR(int)
+char CNWMessage::ReadCHAR(int)
 {
 	asm("leave");
 	asm("mov $0x080c35d4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::ReadCResRef(int)
+CResRef CNWMessage::ReadCResRef(int)
 {
 	asm("leave");
 	asm("mov $0x080c39d4, %eax");
@@ -140,7 +140,7 @@ int CNWMessage::ReadDWORD64(int)
 	asm("jmp *%eax");
 }
 
-int CNWMessage::ReadDWORD(int)
+unsigned long CNWMessage::ReadDWORD(int)
 {
 	asm("leave");
 	asm("mov $0x080c36cc, %eax");
@@ -154,7 +154,7 @@ int CNWMessage::ReadFLOAT(float, float, int)
 	asm("jmp *%eax");
 }
 
-int CNWMessage::ReadFLOAT(float, int)
+float CNWMessage::ReadFLOAT(float, int)
 {
 	asm("leave");
 	asm("mov $0x080c37fc, %eax");
@@ -189,49 +189,49 @@ int CNWMessage::ReadSigned(int)
 	asm("jmp *%eax");
 }
 
-int CNWMessage::ReadUnsigned(int)
+unsigned __int64 CNWMessage::ReadUnsigned(int)
 {
 	asm("leave");
 	asm("mov $0x080c2640, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::ReadVOIDPtr(int)
+void * CNWMessage::ReadVOIDPtr(int)
 {
 	asm("leave");
 	asm("mov $0x080c3a40, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::ReadWORD(int)
+unsigned short CNWMessage::ReadWORD(int)
 {
 	asm("leave");
 	asm("mov $0x080c362c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::SetReadMessage(unsigned char *, unsigned long, unsigned long, int)
+void CNWMessage::SetReadMessage(unsigned char *, unsigned long, unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x080c3328, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteBOOL(int)
+void CNWMessage::WriteBOOL(int)
 {
 	asm("leave");
 	asm("mov $0x080c3c08, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteBYTE(unsigned char, int)
+void CNWMessage::WriteBYTE(unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x080c3c24, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteBit(unsigned char)
+void CNWMessage::WriteBit(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x080c3484, %eax");
@@ -245,21 +245,21 @@ int CNWMessage::WriteBits(unsigned long long, int)
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteCExoString(CExoString, int)
+void CNWMessage::WriteCExoString(CExoString, int)
 {
 	asm("leave");
 	asm("mov $0x080c2d04, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteCHAR(char, int)
+void CNWMessage::WriteCHAR(char, int)
 {
 	asm("leave");
 	asm("mov $0x080c3cb4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteCResRef(CResRef, int)
+void CNWMessage::WriteCResRef(CResRef, int)
 {
 	asm("leave");
 	asm("mov $0x080c2c74, %eax");
@@ -287,21 +287,21 @@ int CNWMessage::WriteDWORD64(unsigned long long, int)
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteDWORD(unsigned long, int)
+void CNWMessage::WriteDWORD(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x080c3e74, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteFLOAT(float, float, float, int)
+void CNWMessage::WriteFLOAT(float, float, float, int)
 {
 	asm("leave");
 	asm("mov $0x080c2a44, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteFLOAT(float, float, int)
+void CNWMessage::WriteFLOAT(float, float, int)
 {
 	asm("leave");
 	asm("mov $0x080c40c8, %eax");
@@ -315,14 +315,14 @@ int CNWMessage::WriteINT64(long long, int)
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteINT(int, int)
+void CNWMessage::WriteINT(int, int)
 {
 	asm("leave");
 	asm("mov $0x080c3f00, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteSHORT(short, int)
+void CNWMessage::WriteSHORT(short, int)
 {
 	asm("leave");
 	asm("mov $0x080c3ddc, %eax");
@@ -343,14 +343,14 @@ int CNWMessage::WriteUnsigned(unsigned long long, int)
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteVOIDPtr(void *, int)
+void CNWMessage::WriteVOIDPtr(void *, int)
 {
 	asm("leave");
 	asm("mov $0x080c4258, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWMessage::WriteWORD(unsigned short, int)
+void CNWMessage::WriteWORD(unsigned short, int)
 {
 	asm("leave");
 	asm("mov $0x080c3d44, %eax");

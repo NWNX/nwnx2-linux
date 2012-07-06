@@ -1,11 +1,19 @@
 #ifndef _CNWSAREA_H_
 #define _CNWSAREA_H_
 #include "nwndef.h"
+#include "CGameObject.h"
+#include "CGameEffect.h"
 #include "Vector.h"
+#include "CPathfindInformation.h"
+#include "CNWSCreature.h"
 #include "CExoArrayList.h"
 #include "CExoString.h"
+#include "CNWSTile.h"
+#include "nwnstructs.h"
+#include "CResGFF.h"
+#include "CNWSPlayer.h"
+#include "CERFFile.h"
 #include "CResRef.h"
-#include "CGameObject.h"
 #include "CExoLocString.h"
 
 class CNWSArea
@@ -14,23 +22,23 @@ public:
 	int AIUpdate();
 	int AddObjectToArea(unsigned long, int);
 	int AddSubArea(CGameObject *);
-	int ApplyEffect(CGameEffect *, Vector, Vector);
-	int AsNWSArea();
-	int BudgeCreatures(Vector const &, Vector const &, Vector const &, unsigned long, int);
+	void ApplyEffect(CGameEffect *, Vector, Vector);
+	CNWSArea * AsNWSArea();
+	void BudgeCreatures(Vector const &, Vector const &, Vector const &, unsigned long, int);
 	int ClearLineOfSight(Vector, Vector, Vector *, unsigned long *, unsigned long, unsigned long, int);
-	int ComputeAwayVector(Vector, Vector, float, CPathfindInformation *);
+	Vector ComputeAwayVector(Vector, Vector, float, CPathfindInformation *);
 	int ComputeBestCorner(float, float, float, float, float, float, float, float, float *, float *, float *, float *);
-	int ComputeHeight(Vector);
+	float ComputeHeight(Vector);
 	int ComputeNonVisibleLocation(Vector, CPathfindInformation *, int, Vector *, float);
 	int ComputePathDistance(int, float *);
 	int ComputeSafeLocationInDirection(Vector, Vector, float, CPathfindInformation *, int, Vector *);
 	int ComputeSafeLocation(Vector, float, CPathfindInformation *, int, Vector *);
 	int CountAreaTransitionTriggers(unsigned long *, int, unsigned long *);
 	int CountVisibleToPlayers(Vector, int);
-	int DecreaseAILevelPriority();
-	int DecrementPlayersInArea();
+	void DecreaseAILevelPriority();
+	void DecrementPlayersInArea();
 	int EvaluateOverlappingTargets(CPathfindInformation *, Vector, unsigned long, float, float, float, int, int, unsigned long *);
-	int EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
+	void EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
 	int ExploreArea(CNWSCreature *, int, int, int);
 	int GenerateInterTilePath(int *, int, int, int);
 	int GetAmbientSound();
@@ -39,7 +47,7 @@ public:
 	int GetAreaSpotCheckModifier();
 	int GetCurrentWeather();
 	int GetCustomScriptEventId();
-	int GetDoorCrossed(Vector, Vector);
+	unsigned long GetDoorCrossed(Vector, Vector);
 	int GetFirstObjectInArea(unsigned long &);
 	int GetFirstObjectIndiceByX(int *, float);
 	int GetGameObjectsArray();
@@ -47,21 +55,21 @@ public:
 	int GetIsIDInExcludeList(unsigned long, CExoArrayList<CGameObject *> *);
 	int GetLastEntered();
 	int GetLastLeft();
-	int GetLoadScreenID();
+	unsigned short GetLoadScreenID();
 	int GetMapSize();
 	int GetNextObjectInArea(unsigned long &);
 	int GetNumPlayersInArea();
 	int GetObjectByNameIndex();
 	int GetObjectsArrayPosition();
 	int GetOverrideWeather();
-	int GetPVPSetting();
+	unsigned char GetPVPSetting();
 	int GetScriptName(int);
 	int GetScriptVarTable();
 	int GetSoundPathInformation();
 	int GetSurfaceMaterial(Vector);
-	int GetTag();
+	CExoString GetTag();
 	int GetTileSetResRef();
-	int GetTile(Vector);
+	CNWSTile * GetTile(Vector);
 	int GetTile(int, int);
 	int GetTrapList();
 	int GoalMoveDenied(int, int, int);
@@ -69,13 +77,13 @@ public:
 	int GridDFSTransTableGet(int, int, int *, int *);
 	int GridDFSTransTableHash(int, int);
 	int GridDFSTransTableInitialize();
-	int GridDFSTransTablePut(int, int, int, int);
+	void GridDFSTransTablePut(int, int, int, int);
 	int GridDFSearch(int, int, int, int, int, int);
 	int HandleTransparentDoors(float, float, float, float, float, float, float, unsigned long, unsigned long &, int, CExoArrayList<CGameObject *> *, int);
 	int InSubAreas(Vector, CExoArrayList<unsigned long> *);
-	int IncreaseAILevelPriority();
-	int IncrementPlayersInArea();
-	int InterTileDFSExploreArea(unsigned char *, int, int, int, float, float);
+	void IncreaseAILevelPriority();
+	void IncrementPlayersInArea();
+	void InterTileDFSExploreArea(unsigned char *, int, int, int, float, float);
 	int InterTileDFSGenerateSuccessors(int, int, int, int);
 	int InterTileDFSSoundPath(unsigned char *, int, int, int, int);
 	int InterTileDFS(int, int, int, int, int);
@@ -96,11 +104,11 @@ public:
 	int LoadTileSetInfo(CResStruct *);
 	int LoadTriggers(CResGFF *, CResStruct *, int);
 	int LoadWaypoints(CResGFF *, CResStruct *, int);
-	int NWAreaAsNWSArea();
+	CNWSArea * NWAreaAsNWSArea();
 	int NoCreaturesOnLine(float, float, float, float, CPathfindInformation *, int, int, unsigned long *, int);
 	int NoNoneWalkPolysInStaticObject(unsigned long, float, float, float, float, float, float, float, unsigned long, int);
 	int PackAreaIntoMessage(int, int, int, CNWSPlayer *);
-	int PlayVisualEffect(unsigned short, Vector);
+	void PlayVisualEffect(unsigned short, Vector);
 	int PlotGridPath(CPathfindInformation *, unsigned long long);
 	int PlotPath(CPathfindInformation *, unsigned long long);
 	int PlotSoundPath(CPathfindInformation *);
@@ -108,20 +116,20 @@ public:
 	int RemoveInterTileExit(int, int, int, int);
 	int RemoveObjectFromArea(unsigned long);
 	int RemoveSubArea(CGameObject *);
-	int SaveAreaEffects(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
+	void SaveAreaEffects(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
 	int SaveArea(CERFFile *, CExoString &);
-	int SaveCreatures(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
-	int SaveDoors(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
-	int SaveEncounters(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
-	int SaveGIT(CERFFile *, CExoString &, CExoArrayList<unsigned long> &);
-	int SaveItems(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
-	int SavePlaceables(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
+	void SaveCreatures(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
+	void SaveDoors(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
+	void SaveEncounters(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
+	void SaveGIT(CERFFile *, CExoString &, CExoArrayList<unsigned long> &);
+	void SaveItems(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
+	void SavePlaceables(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
 	int SaveProperties(CResGFF *, CResStruct *);
-	int SaveSounds(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
-	int SaveStores(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
-	int SaveTriggers(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
-	int SaveWaypoints(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
-	int SetCurrentWeather(unsigned char, int);
+	void SaveSounds(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
+	void SaveStores(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
+	void SaveTriggers(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
+	void SaveWaypoints(CResGFF *, CResStruct *, CExoArrayList<unsigned long> &);
+	void SetCurrentWeather(unsigned char, int);
 	int SetCustomScriptEventId(int);
 	int SetInterAreaDFSVisited(int);
 	int SetLastEntered(unsigned long);
@@ -131,7 +139,7 @@ public:
 	int SetObjectsArrayPosition(int);
 	int SetOverrideWeather(unsigned char);
 	int SetPVPSetting(unsigned char);
-	int SetScriptName(int, CExoString);
+	void SetScriptName(int, CExoString);
 	int SetSearchInfo(CPathfindInformation *);
 	int SetTag(CExoString);
 	int SmoothCornerOptimize(int, float *, int *, float **);
@@ -141,8 +149,8 @@ public:
 	int TestDirectLine(float, float, float, float, float, float, int);
 	int TestLineWalkable(float, float, float, float, float);
 	int TestSafeLocationPoint(Vector, CPathfindInformation *);
-	int UnloadArea();
-	int UpdatePlayerAutomaps();
+	void UnloadArea();
+	void UpdatePlayerAutomaps();
 	int UpdatePositionInObjectsArray(CGameObject *);
 	~CNWSArea();
 	CNWSArea(CResRef, int, unsigned long);

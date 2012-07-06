@@ -1,6 +1,6 @@
 #include "CExoString.h"
 
-int CExoString::AsFLOAT() const
+float CExoString::AsFLOAT() const
 {
 	asm("leave");
 	asm("mov $0x082cb150, %eax");
@@ -14,14 +14,14 @@ int CExoString::AsINT() const
 	asm("jmp *%eax");
 }
 
-int CExoString::AsTAG() const
+CExoString CExoString::AsTAG() const
 {
 	asm("leave");
 	asm("mov $0x082cbe58, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoString::CStr() const
+char * CExoString::CStr() const
 {
 	asm("leave");
 	asm("mov $0x082cc550, %eax");
@@ -70,7 +70,7 @@ int CExoString::GetLength() const
 	asm("jmp *%eax");
 }
 
-int CExoString::Insert(CExoString const &, int)
+void CExoString::Insert(CExoString const &, int)
 {
 	asm("leave");
 	asm("mov $0x082cb330, %eax");
@@ -84,21 +84,21 @@ int CExoString::IsEmpty() const
 	asm("jmp *%eax");
 }
 
-int CExoString::Left(int) const
+CExoString CExoString::Left(int) const
 {
 	asm("leave");
 	asm("mov $0x082cb3e4, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoString::LowerCase() const
+CExoString CExoString::LowerCase() const
 {
 	asm("leave");
 	asm("mov $0x082cb548, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoString::Right(int) const
+CExoString CExoString::Right(int) const
 {
 	asm("leave");
 	asm("mov $0x082cb6e0, %eax");
@@ -112,28 +112,28 @@ int CExoString::StripNonAlphaNumeric(int, int, int)
 	asm("jmp *%eax");
 }
 
-int CExoString::SubString(int, int) const
+CExoString CExoString::SubString(int, int) const
 {
 	asm("leave");
 	asm("mov $0x082cb85c, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoString::UpperCase() const
+CExoString CExoString::UpperCase() const
 {
 	asm("leave");
 	asm("mov $0x082cb9ec, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoString::operator=(char const *)
+CExoString & CExoString::operator=(char const *)
 {
 	asm("leave");
 	asm("mov $0x082cae0c, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoString::operator=(CExoString const &)
+CExoString & CExoString::operator=(CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x082cad34, %eax");
@@ -224,14 +224,14 @@ int CExoString::operator!=(CExoString const &) const
 	asm("jmp *%eax");
 }
 
-int CExoString::operator+(CExoString const &) const
+CExoString CExoString::operator+(CExoString const &) const
 {
 	asm("leave");
 	asm("mov $0x082caec0, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoString::operator[](int) const
+char CExoString::operator[](int) const
 {
 	asm("leave");
 	asm("mov $0x082cc51c, %eax");

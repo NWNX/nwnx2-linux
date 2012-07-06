@@ -2,6 +2,7 @@
 #define _CNWTILEDATA_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "CNWTileSurfaceMesh.h"
 #include "CResRef.h"
 
 class CNWTileData
@@ -14,11 +15,11 @@ public:
 	int GetModelResRef();
 	int GetNumDoors();
 	int GetPropertyMethodStringList(unsigned long);
-	int GetSurfaceMesh();
-	int SetCornerType(unsigned char, CExoString, int);
-	int SetEdgeType(unsigned char, CExoString);
-	int SetMapIcon(CResRef);
-	int SetModelResRef(CResRef);
+	CNWTileSurfaceMesh * GetSurfaceMesh();
+	void SetCornerType(unsigned char, CExoString, int);
+	void SetEdgeType(unsigned char, CExoString);
+	void SetMapIcon(CResRef);
+	void SetModelResRef(CResRef);
 	int SetNumDoors(unsigned char);
 	~CNWTileData();
 	CNWTileData();

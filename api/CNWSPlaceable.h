@@ -2,49 +2,54 @@
 #define _CNWSPLACEABLE_H_
 #include "nwndef.h"
 #include "CNWSObject.h"
+#include "CNWSObjectActionNode.h"
+#include "CNWSItem.h"
 #include "Vector.h"
-#include "CResRef.h"
+#include "CNWSArea.h"
 #include "CExoString.h"
 #include "CExoLocString.h"
+#include "CResRef.h"
+#include "CResGFF.h"
+#include "nwnstructs.h"
 
 class CNWSPlaceable : public CNWSObject
 {
 public:
-	int AIActionCastSpell(CNWSObjectActionNode *);
-	int AIUpdate();
+	unsigned long AIActionCastSpell(CNWSObjectActionNode *);
+	void AIUpdate();
 	int AcquireItem(CNWSItem **, unsigned long, unsigned char, unsigned char, int);
-	int AcquireItemsFromObject(unsigned long, int);
+	unsigned long AcquireItemsFromObject(unsigned long, int);
 	int AddCastSpellActions(unsigned long, int, Vector, unsigned long, int, unsigned char);
-	int AddToArea(CNWSArea *, float, float, float, int);
-	int AsNWSPlaceable();
-	int CalculateActionPoints();
-	int CloseInventory(unsigned long, int);
-	int ClosePlaceableForAllPlayers();
-	int DoDamage(int);
+	void AddToArea(CNWSArea *, float, float, float, int);
+	CNWSPlaceable * AsNWSPlaceable();
+	void CalculateActionPoints();
+	void CloseInventory(unsigned long, int);
+	void ClosePlaceableForAllPlayers();
+	void DoDamage(int);
 	int DropItemsIntoArea();
-	int EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
+	void EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long);
 	int GetActive();
 	int GetAppearance();
 	int GetAutoRemoveKey();
 	int GetBaseType();
 	int GetBearing();
-	int GetBodyBagAppearance();
+	unsigned short GetBodyBagAppearance();
 	int GetBodyBag();
 	int GetCloseLockDC();
 	int GetCreatureList();
 	int GetCurrentItemContainer();
-	int GetDescriptionOverride();
-	int GetDescription();
+	CExoString GetDescriptionOverride();
+	CExoLocString & GetDescription();
 	int GetDetectDC();
 	int GetDetectable();
-	int GetDialogResref();
+	CResRef GetDialogResref();
 	int GetDieWhenEmpty();
 	int GetDisarmDC();
 	int GetDisarmable();
-	int GetDisplayName();
-	int GetEffectSpellId();
+	CExoString GetDisplayName();
+	unsigned long GetEffectSpellId();
 	int GetFactionId();
-	int GetFirstName();
+	CExoLocString & GetFirstName();
 	int GetFlagged();
 	int GetFortSave();
 	int GetHardness();
@@ -52,10 +57,10 @@ public:
 	int GetIsBodyBag();
 	int GetIsGroundPile();
 	int GetItemContainerArrayIndex();
-	int GetItemCount(int);
+	unsigned long GetItemCount(int);
 	int GetItemRepository();
 	int GetKeyName();
-	int GetKeyRequiredFeedbackMessage();
+	CExoString GetKeyRequiredFeedbackMessage();
 	int GetKeyRequired();
 	int GetLastClosed();
 	int GetLastDefaultClickedBy();
@@ -70,12 +75,12 @@ public:
 	int GetLockable();
 	int GetLocked();
 	int GetLootableCreatureId();
-	int GetNearestActionPoint(Vector const &);
+	Vector GetNearestActionPoint(Vector const &);
 	int GetNeverMakeIntoStaticObject();
 	int GetOneShot();
 	int GetOpenLockDC();
 	int GetPickable();
-	int GetPortalInfo();
+	CExoString GetPortalInfo();
 	int GetRecoverable();
 	int GetReflexSave();
 	int GetRepositoryArrayIndex();
@@ -93,9 +98,9 @@ public:
 	int LoadBodyBag(unsigned short);
 	int LoadFromTemplate(CResRef, CExoString *);
 	int LoadPlaceable(CResGFF *, CResStruct *, CExoString *);
-	int OpenInventory(unsigned long);
-	int PostProcess();
-	int RemoveFromArea();
+	void OpenInventory(unsigned long);
+	void PostProcess();
+	void RemoveFromArea();
 	int RemoveItem(CNWSItem *, int);
 	int SavePlaceable(CResGFF *, CResStruct *);
 	int SetActive(int);
@@ -106,18 +111,18 @@ public:
 	int SetBodyBag(unsigned char);
 	int SetCloseLockDC(unsigned char);
 	int SetCurrentItemContainer(unsigned long);
-	int SetDescriptionOverride(CExoString);
-	int SetDescription(CExoLocString);
+	void SetDescriptionOverride(CExoString);
+	void SetDescription(CExoLocString);
 	int SetDetectDC(unsigned char);
 	int SetDetectable(int);
-	int SetDialogResref(CResRef);
+	void SetDialogResref(CResRef);
 	int SetDieWhenEmpty(int);
 	int SetDisarmDC(unsigned char);
 	int SetDisarmable(int);
-	int SetDisplayName(CExoString);
-	int SetEffectSpellId(unsigned long);
+	void SetDisplayName(CExoString);
+	void SetEffectSpellId(unsigned long);
 	int SetFactionId(int);
-	int SetFirstName(CExoLocString);
+	void SetFirstName(CExoLocString);
 	int SetFlagged(unsigned char);
 	int SetFortSave(unsigned char);
 	int SetHardness(unsigned char);
@@ -126,7 +131,7 @@ public:
 	int SetIsGroundPile(int);
 	int SetItemContainerArrayIndex(unsigned short);
 	int SetKeyName(CExoString const &);
-	int SetKeyRequiredFeedbackMessage(CExoString);
+	void SetKeyRequiredFeedbackMessage(CExoString);
 	int SetKeyRequired(int);
 	int SetLastClosed(unsigned long);
 	int SetLastDefaultClickedBy(unsigned long);
@@ -136,7 +141,7 @@ public:
 	int SetLastTriggered(unsigned long);
 	int SetLastUnlocked(unsigned long);
 	int SetLastUser(unsigned long);
-	int SetLightIsOn(int);
+	void SetLightIsOn(int);
 	int SetLightStateChange(int);
 	int SetLockable(int);
 	int SetLocked(int);
@@ -144,16 +149,16 @@ public:
 	int SetNeverMakeIntoStaticObject(int);
 	int SetOneShot(int);
 	int SetOpenLockDC(unsigned char);
-	int SetOrientation(Vector);
+	void SetOrientation(Vector);
 	int SetPickable(int);
-	int SetPortalInfo(CExoString);
+	void SetPortalInfo(CExoString);
 	int SetRecoverable(int);
 	int SetReflexSave(unsigned char);
 	int SetRepositoryArrayIndex(unsigned short);
-	int SetScriptName(int, CExoString);
+	void SetScriptName(int, CExoString);
 	int SetSittingCreature(unsigned long);
 	int SetStaticObject(int);
-	int SetTemplateResRef(CResRef);
+	void SetTemplateResRef(CResRef);
 	int SetTrapCreator(unsigned long);
 	int SetTrapFaction(int);
 	int SetTrapped(int);

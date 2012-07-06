@@ -1,6 +1,6 @@
 #include "CExoFileInternal.h"
 
-int CExoFileInternal::GetOffset()
+unsigned long CExoFileInternal::GetOffset()
 {
 	asm("leave");
 	asm("mov $0x082d096c, %eax");
@@ -28,14 +28,14 @@ int CExoFileInternal::ReadAsyncComplete()
 	asm("jmp *%eax");
 }
 
-int CExoFileInternal::ReadAsync(void *, unsigned long, unsigned long)
+void CExoFileInternal::ReadAsync(void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082d0a54, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoFileInternal::Read(CExoString *, unsigned long)
+unsigned long CExoFileInternal::Read(CExoString *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082d09f0, %eax");

@@ -9,9 +9,9 @@ class CNWSpell
 public:
 	int GetSpellHasSomaticComponent();
 	int GetSpellHasVerbalComponent();
-	int GetSpellLevel(unsigned char);
+	unsigned char GetSpellLevel(unsigned char);
 	int GetSpellNameText();
-	int GetSubRadialSpell(unsigned char);
+	unsigned long GetSubRadialSpell(unsigned char);
 	int SetSubRadialSpellCount(unsigned char);
 	int SetSubRadialSpell(unsigned char, unsigned long);
 	~CNWSpell();

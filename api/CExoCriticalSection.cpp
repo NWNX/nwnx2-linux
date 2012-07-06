@@ -1,13 +1,13 @@
 #include "CExoCriticalSection.h"
 
-int CExoCriticalSection::EnterCriticalSection()
+void CExoCriticalSection::EnterCriticalSection()
 {
 	asm("leave");
 	asm("mov $0x082c8f38, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoCriticalSection::LeaveCriticalSection()
+void CExoCriticalSection::LeaveCriticalSection()
 {
 	asm("leave");
 	asm("mov $0x082c8f4c, %eax");

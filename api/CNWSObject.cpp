@@ -1,13 +1,13 @@
 #include "CNWSObject.h"
 
-int CNWSObject::AIActionCloseDoor(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionCloseDoor(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c4a58, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AIActionDialogObject(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionDialogObject(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c3204, %eax");
@@ -21,49 +21,49 @@ int CNWSObject::AIActionDoCommand(CNWSObjectActionNode *)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AIActionGiveItem(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionGiveItem(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c43b8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AIActionLockObject(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionLockObject(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c6398, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AIActionOpenDoor(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionOpenDoor(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c4d6c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AIActionPauseDialog(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionPauseDialog(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c3a7c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AIActionPlayAnimation(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionPlayAnimation(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c4014, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AIActionPlaySound(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionPlaySound(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c3e18, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AIActionResumeDialog(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionResumeDialog(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c3b88, %eax");
@@ -84,28 +84,28 @@ int CNWSObject::AIActionSpeakStrRef(CNWSObjectActionNode *)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AIActionSpeak(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionSpeak(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c3ce8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AIActionTakeItem(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionTakeItem(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c48b4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AIActionUnlockObject(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionUnlockObject(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c53d0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AIActionUseObject(CNWSObjectActionNode *)
+unsigned long CNWSObject::AIActionUseObject(CNWSObjectActionNode *)
 {
 	asm("leave");
 	asm("mov $0x081c7274, %eax");
@@ -119,28 +119,28 @@ int CNWSObject::AIActionWait(CNWSObjectActionNode *)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AddActionAfterFront(unsigned long, unsigned short, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *)
+void CNWSObject::AddActionAfterFront(unsigned long, unsigned short, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *)
 {
 	asm("leave");
 	asm("mov $0x081cadb0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AddActionNodeParameter(CNWSObjectActionNode *, unsigned long, unsigned long, void *)
+void CNWSObject::AddActionNodeParameter(CNWSObjectActionNode *, unsigned long, unsigned long, void *)
 {
 	asm("leave");
 	asm("mov $0x081d49e0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AddActionToFront(unsigned long, unsigned short, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *)
+void CNWSObject::AddActionToFront(unsigned long, unsigned short, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *)
 {
 	asm("leave");
 	asm("mov $0x081ca5c0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AddAction(unsigned long, unsigned short, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *)
+void CNWSObject::AddAction(unsigned long, unsigned short, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *, unsigned long, void *)
 {
 	asm("leave");
 	asm("mov $0x081c9384, %eax");
@@ -182,14 +182,14 @@ int CNWSObject::AddLockObjectAction(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AddLoopingVisualEffect(unsigned short, unsigned long, unsigned char)
+void CNWSObject::AddLoopingVisualEffect(unsigned short, unsigned long, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081d4e98, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AddMatchedExpressionString(CExoString const &)
+void CNWSObject::AddMatchedExpressionString(CExoString const &)
 {
 	asm("leave");
 	asm("mov $0x081d5254, %eax");
@@ -231,70 +231,70 @@ int CNWSObject::AnimationStationary(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::ApplyEffect(CGameEffect *, int, int)
+void CNWSObject::ApplyEffect(CGameEffect *, int, int)
 {
 	asm("leave");
 	asm("mov $0x081ce7d8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::AsNWSObject()
+CNWSObject * CNWSObject::AsNWSObject()
 {
 	asm("leave");
 	asm("mov $0x081d5838, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::BroadcastCounterSpellData(CNWSpell *, CNWCCMessageData *)
+void CNWSObject::BroadcastCounterSpellData(CNWSpell *, CNWCCMessageData *)
 {
 	asm("leave");
 	asm("mov $0x081d1cd4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::BroadcastDialog(CExoString, float)
+void CNWSObject::BroadcastDialog(CExoString, float)
 {
 	asm("leave");
 	asm("mov $0x081d1604, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::BroadcastFloatyDataSTRREF(unsigned long)
+void CNWSObject::BroadcastFloatyDataSTRREF(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081d5340, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::BroadcastFloatyData(CNWCCMessageData *)
+void CNWSObject::BroadcastFloatyData(CNWCCMessageData *)
 {
 	asm("leave");
 	asm("mov $0x081d5338, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::BroadcastSafeProjectile(unsigned long, unsigned long, Vector, Vector, unsigned long, unsigned char, unsigned long, unsigned char, unsigned char)
+void CNWSObject::BroadcastSafeProjectile(unsigned long, unsigned long, Vector, Vector, unsigned long, unsigned char, unsigned long, unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081d2390, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::BroadcastSpellData(CNWSpell *, CNWCCMessageData *)
+void CNWSObject::BroadcastSpellData(CNWSpell *, CNWCCMessageData *)
 {
 	asm("leave");
 	asm("mov $0x081d1fec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::CalculateLastSpellProjectileTime(unsigned char)
+void CNWSObject::CalculateLastSpellProjectileTime(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081d2cec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::CalculateSpellRangedMissTarget(unsigned long, unsigned long)
+Vector CNWSObject::CalculateSpellRangedMissTarget(unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081d2f9c, %eax");
@@ -308,42 +308,42 @@ int CNWSObject::ClearAction(CNWSObjectActionNode *, int)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::ClearAllActions()
+void CNWSObject::ClearAllActions()
 {
 	asm("leave");
 	asm("mov $0x081cb77c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::ClearAllPartyInvalidActions()
+void CNWSObject::ClearAllPartyInvalidActions()
 {
 	asm("leave");
 	asm("mov $0x081cb908, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::ClearMatchedExpressionStrings()
+void CNWSObject::ClearMatchedExpressionStrings()
 {
 	asm("leave");
 	asm("mov $0x081d52b0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::ClearSpellEffectsOnOthers()
+void CNWSObject::ClearSpellEffectsOnOthers()
 {
 	asm("leave");
 	asm("mov $0x081cff48, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::CopyScriptVars(CNWSScriptVarTable *)
+void CNWSObject::CopyScriptVars(CNWSScriptVarTable *)
 {
 	asm("leave");
 	asm("mov $0x081c9638, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::DeleteCurrentAIAction()
+void CNWSObject::DeleteCurrentAIAction()
 {
 	asm("leave");
 	asm("mov $0x081cb678, %eax");
@@ -371,7 +371,7 @@ int CNWSObject::DoDamageResistance(CNWSCreature *, int, unsigned short, int, int
 	asm("jmp *%eax");
 }
 
-int CNWSObject::DoDamage(int)
+void CNWSObject::DoDamage(int)
 {
 	asm("leave");
 	asm("mov $0x081d4d20, %eax");
@@ -413,14 +413,14 @@ int CNWSObject::GetAIPosList()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetAIStateReaction(unsigned long)
+unsigned char CNWSObject::GetAIStateReaction(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081c8154, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetAQActionIDByID(unsigned short, int)
+unsigned short CNWSObject::GetAQActionIDByID(unsigned short, int)
 {
 	asm("leave");
 	asm("mov $0x081c2d50, %eax");
@@ -476,7 +476,7 @@ int CNWSObject::GetAreaId()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetArea()
+CNWSArea * CNWSObject::GetArea()
 {
 	asm("leave");
 	asm("mov $0x081d5028, %eax");
@@ -497,7 +497,7 @@ int CNWSObject::GetConversationPlayHello()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetCurrentHitPoints(int)
+short CNWSObject::GetCurrentHitPoints(int)
 {
 	asm("leave");
 	asm("mov $0x081d4cf8, %eax");
@@ -511,21 +511,21 @@ int CNWSObject::GetCustomScriptEventId()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetDamageImmunityByFlags(unsigned short)
+char CNWSObject::GetDamageImmunityByFlags(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x081cdea4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetDamageImmunity(unsigned char)
+char CNWSObject::GetDamageImmunity(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081d4d50, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetDamageLevel()
+unsigned char CNWSObject::GetDamageLevel()
 {
 	asm("leave");
 	asm("mov $0x081ce6c8, %eax");
@@ -560,7 +560,7 @@ int CNWSObject::GetDialogPrivate()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetDialogResref()
+CResRef CNWSObject::GetDialogResref()
 {
 	asm("leave");
 	asm("mov $0x081d5a1c, %eax");
@@ -581,7 +581,7 @@ int CNWSObject::GetEffectArrayIndex()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetEffectSpellId()
+unsigned long CNWSObject::GetEffectSpellId()
 {
 	asm("leave");
 	asm("mov $0x081d5bbc, %eax");
@@ -609,14 +609,14 @@ int CNWSObject::GetExpressionStrings()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetFirstName()
+CExoLocString & CNWSObject::GetFirstName()
 {
 	asm("leave");
 	asm("mov $0x081d5a4c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetGender()
+unsigned char CNWSObject::GetGender()
 {
 	asm("leave");
 	asm("mov $0x081d509c, %eax");
@@ -630,7 +630,7 @@ int CNWSObject::GetHasFeatEffectApplied(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetIDByAQActionID(unsigned short)
+unsigned short CNWSObject::GetIDByAQActionID(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x081c305c, %eax");
@@ -700,7 +700,7 @@ int CNWSObject::GetLastAttacker()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetLastConversationResref()
+CExoString CNWSObject::GetLastConversationResref()
 {
 	asm("leave");
 	asm("mov $0x081d5c28, %eax");
@@ -742,7 +742,7 @@ int CNWSObject::GetLastHostileActor()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetLastName()
+CExoLocString & CNWSObject::GetLastName()
 {
 	asm("leave");
 	asm("mov $0x081d5a58, %eax");
@@ -847,7 +847,7 @@ int CNWSObject::GetLastWeaponAttackedWith()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetListenExpressionObj(int)
+CNWSExpression * CNWSObject::GetListenExpressionObj(int)
 {
 	asm("leave");
 	asm("mov $0x081d51fc, %eax");
@@ -861,7 +861,7 @@ int CNWSObject::GetListenExpressions()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetLockOrientationToObject()
+unsigned long CNWSObject::GetLockOrientationToObject()
 {
 	asm("leave");
 	asm("mov $0x081d5fdc, %eax");
@@ -882,7 +882,7 @@ int CNWSObject::GetMatchedPos()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetMaxHitPoints(int)
+short CNWSObject::GetMaxHitPoints(int)
 {
 	asm("leave");
 	asm("mov $0x081d5a64, %eax");
@@ -896,7 +896,7 @@ int CNWSObject::GetMaximumDamageResistanceVsDamageFlag(unsigned short, int *)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetNearestObjectByName(CExoString const &, float)
+unsigned long CNWSObject::GetNearestObjectByName(CExoString const &, float)
 {
 	asm("leave");
 	asm("mov $0x081d103c, %eax");
@@ -959,21 +959,21 @@ int CNWSObject::GetPlotObject()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetPortraitId()
+unsigned short CNWSObject::GetPortraitId()
 {
 	asm("leave");
 	asm("mov $0x081d60a4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetPortrait()
+CResRef CNWSObject::GetPortrait()
 {
 	asm("leave");
 	asm("mov $0x081d6064, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetPositionByGroupIndex(int)
+CExoLinkedListNode * CNWSObject::GetPositionByGroupIndex(int)
 {
 	asm("leave");
 	asm("mov $0x081d481c, %eax");
@@ -1015,7 +1015,7 @@ int CNWSObject::GetSavingThrowSpellId()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetScriptLocation()
+CScriptLocation CNWSObject::GetScriptLocation()
 {
 	asm("leave");
 	asm("mov $0x081d1b90, %eax");
@@ -1036,14 +1036,14 @@ int CNWSObject::GetSelectableWhenDead()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetTag()
+CExoString * CNWSObject::GetTag()
 {
 	asm("leave");
 	asm("mov $0x081d5f80, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::GetTemplate()
+CExoString * CNWSObject::GetTemplate()
 {
 	asm("leave");
 	asm("mov $0x081d5f8c, %eax");
@@ -1099,49 +1099,49 @@ int CNWSObject::IsPCInDialog()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::LoadActionQueue(CResGFF *, CResStruct *)
+void CNWSObject::LoadActionQueue(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081c98bc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::LoadEffectList(CResGFF *, CResStruct *)
+void CNWSObject::LoadEffectList(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081ca0a0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::LoadListenData(CResGFF *, CResStruct *)
+void CNWSObject::LoadListenData(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081ca264, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::LoadObjectState(CResGFF *, CResStruct *)
+void CNWSObject::LoadObjectState(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081d4b40, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::LoadVarTable(CResGFF *, CResStruct *)
+void CNWSObject::LoadVarTable(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081d4bc0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::PlaySoundSet(CNWSPlayer *, unsigned char)
+void CNWSObject::PlaySoundSet(CNWSPlayer *, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081d1384, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::RemoveEffectByCreator(unsigned long)
+void CNWSObject::RemoveEffectByCreator(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081d4f44, %eax");
@@ -1162,28 +1162,28 @@ int CNWSObject::RemoveEffectBySpellId(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::RemoveEffectTarget(unsigned long)
+void CNWSObject::RemoveEffectTarget(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081cfe84, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::RemoveEffect(CGameEffect *)
+void CNWSObject::RemoveEffect(CGameEffect *)
 {
 	asm("leave");
 	asm("mov $0x081cedb8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::RemoveGroup(unsigned short)
+void CNWSObject::RemoveGroup(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x081c91ec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::RemoveLoopingVisualEffect(unsigned short)
+void CNWSObject::RemoveLoopingVisualEffect(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x081d4ee0, %eax");
@@ -1197,7 +1197,7 @@ int CNWSObject::RemoveObjectFromDialog(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::RemoveSomeEffectsOfDurationType(unsigned short)
+void CNWSObject::RemoveSomeEffectsOfDurationType(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x081d4fb0, %eax");
@@ -1211,7 +1211,7 @@ int CNWSObject::ReplyDialog(unsigned long, unsigned long, int, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::ReportOverflow(int, int, int, int)
+void CNWSObject::ReportOverflow(int, int, int, int)
 {
 	asm("leave");
 	asm("mov $0x081d3ea4, %eax");
@@ -1232,35 +1232,35 @@ int CNWSObject::RunDialogOneLiner(CExoString const &, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SaveActionQueue(CResGFF *, CResStruct *)
+void CNWSObject::SaveActionQueue(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081c9e44, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SaveEffectList(CResGFF *, CResStruct *)
+void CNWSObject::SaveEffectList(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081ca198, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SaveListenData(CResGFF *, CResStruct *)
+void CNWSObject::SaveListenData(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081d4bf0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SaveObjectState(CResGFF *, CResStruct *)
+void CNWSObject::SaveObjectState(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081d4b80, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SaveVarTable(CResGFF *, CResStruct *)
+void CNWSObject::SaveVarTable(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081d4bd8, %eax");
@@ -1316,7 +1316,7 @@ int CNWSObject::SetAnimationSpeed(float)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetAnimation(int)
+void CNWSObject::SetAnimation(int)
 {
 	asm("leave");
 	asm("mov $0x081d4ce4, %eax");
@@ -1337,7 +1337,7 @@ int CNWSObject::SetAreaId(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetArea(CNWSArea *)
+void CNWSObject::SetArea(CNWSArea *)
 {
 	asm("leave");
 	asm("mov $0x081d5078, %eax");
@@ -1379,7 +1379,7 @@ int CNWSObject::SetCustomScriptEventId(int)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetDamageImmunity(unsigned short, int)
+void CNWSObject::SetDamageImmunity(unsigned short, int)
 {
 	asm("leave");
 	asm("mov $0x081d4d84, %eax");
@@ -1393,14 +1393,14 @@ int CNWSObject::SetDialogAnimation(int)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetDialogDelay(float)
+void CNWSObject::SetDialogDelay(float)
 {
 	asm("leave");
 	asm("mov $0x081d0104, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetDialogOwner(unsigned long)
+void CNWSObject::SetDialogOwner(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081d51ac, %eax");
@@ -1421,7 +1421,7 @@ int CNWSObject::SetEffectArrayIndex(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetEffectSpellId(unsigned long)
+void CNWSObject::SetEffectSpellId(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081d5bc8, %eax");
@@ -1435,7 +1435,7 @@ int CNWSObject::SetExecutingAIAction(CNWSObjectActionNode *)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetGroupInterruptable(unsigned short, int)
+void CNWSObject::SetGroupInterruptable(unsigned short, int)
 {
 	asm("leave");
 	asm("mov $0x081d4aa4, %eax");
@@ -1505,7 +1505,7 @@ int CNWSObject::SetLastAttacker(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetLastConversationResref(CExoString)
+void CNWSObject::SetLastConversationResref(CExoString)
 {
 	asm("leave");
 	asm("mov $0x081d5c50, %eax");
@@ -1540,7 +1540,7 @@ int CNWSObject::SetLastGroupID(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetLastHostileActor(unsigned long, int)
+void CNWSObject::SetLastHostileActor(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081d40a0, %eax");
@@ -1659,7 +1659,7 @@ int CNWSObject::SetListening(int)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetLockOrientationToObject(unsigned long)
+void CNWSObject::SetLockOrientationToObject(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081d5fd4, %eax");
@@ -1680,7 +1680,7 @@ int CNWSObject::SetOpenDoorAnimationPlayed(int)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetOrientation(Vector)
+void CNWSObject::SetOrientation(Vector)
 {
 	asm("leave");
 	asm("mov $0x081d4e10, %eax");
@@ -1701,21 +1701,21 @@ int CNWSObject::SetPlotObject(int)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetPortraitId(unsigned short)
+void CNWSObject::SetPortraitId(unsigned short)
 {
 	asm("leave");
 	asm("mov $0x081ca41c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetPortrait(CResRef)
+void CNWSObject::SetPortrait(CResRef)
 {
 	asm("leave");
 	asm("mov $0x081d6084, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetPosition(Vector, int)
+void CNWSObject::SetPosition(Vector, int)
 {
 	asm("leave");
 	asm("mov $0x081d4e30, %eax");
@@ -1750,7 +1750,7 @@ int CNWSObject::SetStartActionTimer(unsigned long, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SetTag(CExoString)
+void CNWSObject::SetTag(CExoString)
 {
 	asm("leave");
 	asm("mov $0x081d5ee8, %eax");
@@ -1771,14 +1771,14 @@ int CNWSObject::SetTemporaryHitPoints(int)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SpawnBodyBag()
+void CNWSObject::SpawnBodyBag()
 {
 	asm("leave");
 	asm("mov $0x081d3aa8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::SpellCastAndImpact(unsigned long, Vector, unsigned long, unsigned char, unsigned long, int, int, unsigned char, int)
+void CNWSObject::SpellCastAndImpact(unsigned long, Vector, unsigned long, unsigned char, unsigned long, int, int, unsigned char, int)
 {
 	asm("leave");
 	asm("mov $0x081d261c, %eax");
@@ -1820,7 +1820,7 @@ int CNWSObject::TestListenExpression(CExoString)
 	asm("jmp *%eax");
 }
 
-int CNWSObject::UpdateAttributesOnEffect(CGameEffect *, int)
+void CNWSObject::UpdateAttributesOnEffect(CGameEffect *, int)
 {
 	asm("leave");
 	asm("mov $0x081d6320, %eax");
@@ -1834,14 +1834,14 @@ int CNWSObject::UpdateDialog()
 	asm("jmp *%eax");
 }
 
-int CNWSObject::UpdateEffectList(unsigned long, unsigned long)
+void CNWSObject::UpdateEffectList(unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081cf014, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSObject::UpdateEffectPtrs()
+void CNWSObject::UpdateEffectPtrs()
 {
 	asm("leave");
 	asm("mov $0x081d6318, %eax");

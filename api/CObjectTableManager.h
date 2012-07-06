@@ -6,7 +6,7 @@ class CObjectTableManager
 {
 public:
 	int AddID(unsigned long, unsigned long *, unsigned long);
-	int ClearAll();
+	void ClearAll();
 	int CreateNewPlayer(unsigned long);
 	int GetIDFromIndex(unsigned long, unsigned long);
 	int GetIndexFromID(unsigned long, unsigned long);

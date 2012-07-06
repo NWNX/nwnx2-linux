@@ -1,6 +1,6 @@
 #include "CExoAliasListInternal.h"
 
-int CExoAliasListInternal::Add(CExoString, CExoString)
+void CExoAliasListInternal::Add(CExoString, CExoString)
 {
 	asm("leave");
 	asm("mov $0x082cfe54, %eax");
@@ -14,21 +14,21 @@ int CExoAliasListInternal::Clear()
 	asm("jmp *%eax");
 }
 
-int CExoAliasListInternal::Delete(CExoString)
+void CExoAliasListInternal::Delete(CExoString)
 {
 	asm("leave");
 	asm("mov $0x082d00f0, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoAliasListInternal::GetAliasPath(CExoString const &, int) const
+CExoString const & CExoAliasListInternal::GetAliasPath(CExoString const &, int) const
 {
 	asm("leave");
 	asm("mov $0x082d07f0, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoAliasListInternal::ResolveFileName(CExoString const &, unsigned short) const
+CExoString CExoAliasListInternal::ResolveFileName(CExoString const &, unsigned short) const
 {
 	asm("leave");
 	asm("mov $0x082d0260, %eax");

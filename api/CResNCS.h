@@ -6,8 +6,8 @@
 class CResNCS
 {
 public:
-	int GetNCSDataPtr();
-	int GetNCSSize();
+	unsigned char * GetNCSDataPtr();
+	unsigned long GetNCSSize();
 	int IsLoaded();
 	int OnResourceFreed();
 	int OnResourceServiced();

@@ -1,27 +1,27 @@
 #include "CVirtualMachineStack.h"
 
-int CVirtualMachineStack::AddToTopOfStack(int)
+void CVirtualMachineStack::AddToTopOfStack(int)
 {
 	asm("leave");
 	asm("mov $0x0825e5c4, %eax");
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineStack::AssignLocationToLocation(int, int)
+void CVirtualMachineStack::AssignLocationToLocation(int, int)
 {
 	asm("leave");
 	asm("mov $0x0825e738, %eax");
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineStack::ClearStack()
+void CVirtualMachineStack::ClearStack()
 {
 	asm("leave");
 	asm("mov $0x0825efd0, %eax");
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineStack::CopyFromStack(CVirtualMachineStack *, int, int)
+void CVirtualMachineStack::CopyFromStack(CVirtualMachineStack *, int, int)
 {
 	asm("leave");
 	asm("mov $0x0825e89c, %eax");
@@ -77,7 +77,7 @@ int CVirtualMachineStack::SetBasePointer(int)
 	asm("jmp *%eax");
 }
 
-int CVirtualMachineStack::SetStackPointer(int)
+void CVirtualMachineStack::SetStackPointer(int)
 {
 	asm("leave");
 	asm("mov $0x08263eec, %eax");

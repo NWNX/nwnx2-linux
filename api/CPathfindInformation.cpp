@@ -1,34 +1,34 @@
 #include "CPathfindInformation.h"
 
-int CPathfindInformation::ComputeStepTolerance()
+void CPathfindInformation::ComputeStepTolerance()
 {
 	asm("leave");
 	asm("mov $0x082427a0, %eax");
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::CreateFirstTileFValueAlternatives(int)
+void CPathfindInformation::CreateFirstTileFValueAlternatives(int)
 {
 	asm("leave");
 	asm("mov $0x0824269c, %eax");
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::DeleteFirstTileFValueAlternatives()
+void CPathfindInformation::DeleteFirstTileFValueAlternatives()
 {
 	asm("leave");
 	asm("mov $0x0824227c, %eax");
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::FlipStartEndPoints()
+void CPathfindInformation::FlipStartEndPoints()
 {
 	asm("leave");
 	asm("mov $0x08242724, %eax");
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::FlipTempEndPoints()
+void CPathfindInformation::FlipTempEndPoints()
 {
 	asm("leave");
 	asm("mov $0x0824275c, %eax");
@@ -42,42 +42,42 @@ int CPathfindInformation::GetFirstTileFValueAlternatives(int, int *, int *, CPat
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::Initialize()
+void CPathfindInformation::Initialize()
 {
 	asm("leave");
 	asm("mov $0x08241cb4, %eax");
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::ResetAtEndOfPath()
+void CPathfindInformation::ResetAtEndOfPath()
 {
 	asm("leave");
 	asm("mov $0x082423ac, %eax");
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::ResetGridSearchData()
+void CPathfindInformation::ResetGridSearchData()
 {
 	asm("leave");
 	asm("mov $0x0824251c, %eax");
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::ResetInterAreaPathSearchData()
+void CPathfindInformation::ResetInterAreaPathSearchData()
 {
 	asm("leave");
 	asm("mov $0x08242494, %eax");
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::ResetInterAreaSearchData()
+void CPathfindInformation::ResetInterAreaSearchData()
 {
 	asm("leave");
 	asm("mov $0x08242430, %eax");
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::ResetInterTileSearchData()
+void CPathfindInformation::ResetInterTileSearchData()
 {
 	asm("leave");
 	asm("mov $0x082421d4, %eax");
@@ -91,21 +91,21 @@ int CPathfindInformation::ResetIntraTileSearchData()
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::ResetWayPointData()
+void CPathfindInformation::ResetWayPointData()
 {
 	asm("leave");
 	asm("mov $0x082420ec, %eax");
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::SetFirstTileFValueAlternatives(int, int, int, CPathfindInfoIntraTileSuccessors *)
+void CPathfindInformation::SetFirstTileFValueAlternatives(int, int, int, CPathfindInfoIntraTileSuccessors *)
 {
 	asm("leave");
 	asm("mov $0x08242664, %eax");
 	asm("jmp *%eax");
 }
 
-int CPathfindInformation::Shutdown()
+void CPathfindInformation::Shutdown()
 {
 	asm("leave");
 	asm("mov $0x08241fc0, %eax");

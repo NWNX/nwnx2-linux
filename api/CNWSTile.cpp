@@ -7,7 +7,7 @@ int CNWSTile::AddDoor(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSTile::AddTrigger(unsigned long)
+void CNWSTile::AddTrigger(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081ed9cc, %eax");
@@ -35,7 +35,7 @@ int CNWSTile::ComputeClippedLineSegment(Vector, Vector, Vector *, Vector *)
 	asm("jmp *%eax");
 }
 
-int CNWSTile::ComputeHeight(Vector)
+float CNWSTile::ComputeHeight(Vector)
 {
 	asm("leave");
 	asm("mov $0x081edb30, %eax");
@@ -126,7 +126,7 @@ int CNWSTile::GetSurfaceMaterial(Vector)
 	asm("jmp *%eax");
 }
 
-int CNWSTile::GetTileData()
+CNWTileData * CNWSTile::GetTileData()
 {
 	asm("leave");
 	asm("mov $0x081edd70, %eax");
@@ -182,7 +182,7 @@ int CNWSTile::NoNonWalkPolysOnTile(float, float, float, float, float, float, flo
 	asm("jmp *%eax");
 }
 
-int CNWSTile::PlotIntraTilePath(CNWArea *, CPathfindInformation *, float, float, float, float, unsigned long)
+unsigned long CNWSTile::PlotIntraTilePath(CNWArea *, CPathfindInformation *, float, float, float, float, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081ed634, %eax");
@@ -217,7 +217,7 @@ int CNWSTile::SetMainLightColorChange(int)
 	asm("jmp *%eax");
 }
 
-int CNWSTile::SetMainLightColor(unsigned char, unsigned char)
+void CNWSTile::SetMainLightColor(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081ee000, %eax");
@@ -231,14 +231,14 @@ int CNWSTile::SetSourceLightColorChange(int)
 	asm("jmp *%eax");
 }
 
-int CNWSTile::SetSourceLightColor(unsigned char, unsigned char)
+void CNWSTile::SetSourceLightColor(unsigned char, unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081ee02c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSTile::SetTileData(CNWTileData *)
+void CNWSTile::SetTileData(CNWTileData *)
 {
 	asm("leave");
 	asm("mov $0x081edff0, %eax");

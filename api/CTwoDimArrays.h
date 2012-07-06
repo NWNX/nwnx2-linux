@@ -2,18 +2,19 @@
 #define _CTWODIMARRAYS_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "C2DA.h"
 #include "CExoLinkedList.h"
 
 class CTwoDimArrays
 {
 public:
-	int ClearCached2DAs();
-	int GetCached2DA(CExoString, int);
-	int GetEpicAttackBonus(unsigned char);
-	int GetEpicFortSaveBonus(unsigned char);
-	int GetEpicRefSaveBonus(unsigned char);
-	int GetEpicWillSaveBonus(unsigned char);
-	int GetIPRPCostTable(unsigned char);
+	void ClearCached2DAs();
+	C2DA * GetCached2DA(CExoString, int);
+	unsigned char GetEpicAttackBonus(unsigned char);
+	unsigned char GetEpicFortSaveBonus(unsigned char);
+	unsigned char GetEpicRefSaveBonus(unsigned char);
+	unsigned char GetEpicWillSaveBonus(unsigned char);
+	C2DA * GetIPRPCostTable(unsigned char);
 	int Load2DArrays();
 	int LoadEpicAttacks();
 	int LoadEpicSaves();

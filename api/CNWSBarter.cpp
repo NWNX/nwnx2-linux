@@ -7,14 +7,14 @@ int CNWSBarter::AddItem(unsigned long, unsigned char &, unsigned char &)
 	asm("jmp *%eax");
 }
 
-int CNWSBarter::CleanUp()
+void CNWSBarter::CleanUp()
 {
 	asm("leave");
 	asm("mov $0x080dee24, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSBarter::GetState()
+unsigned char CNWSBarter::GetState()
 {
 	asm("leave");
 	asm("mov $0x080dfe18, %eax");
@@ -42,7 +42,7 @@ int CNWSBarter::RemoveItem(unsigned long, unsigned char &, unsigned char &)
 	asm("jmp *%eax");
 }
 
-int CNWSBarter::Reset(unsigned long, int)
+void CNWSBarter::Reset(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x080dff24, %eax");

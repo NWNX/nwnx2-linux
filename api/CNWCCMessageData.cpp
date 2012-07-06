@@ -7,7 +7,7 @@ int CNWCCMessageData::ClearData()
 	asm("jmp *%eax");
 }
 
-int CNWCCMessageData::CopyTo(CNWCCMessageData *)
+void CNWCCMessageData::CopyTo(CNWCCMessageData *)
 {
 	asm("leave");
 	asm("mov $0x080c212c, %eax");
@@ -28,14 +28,14 @@ int CNWCCMessageData::GetInteger(int)
 	asm("jmp *%eax");
 }
 
-int CNWCCMessageData::GetObjectID(int)
+unsigned long CNWCCMessageData::GetObjectID(int)
 {
 	asm("leave");
 	asm("mov $0x080c30c0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWCCMessageData::GetString(int)
+CExoString CNWCCMessageData::GetString(int)
 {
 	asm("leave");
 	asm("mov $0x080c3130, %eax");
@@ -63,21 +63,21 @@ int CNWCCMessageData::SetFloat(int, float)
 	asm("jmp *%eax");
 }
 
-int CNWCCMessageData::SetInteger(int, int)
+void CNWCCMessageData::SetInteger(int, int)
 {
 	asm("leave");
 	asm("mov $0x080c3014, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWCCMessageData::SetObjectID(int, unsigned long)
+void CNWCCMessageData::SetObjectID(int, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x080c30f0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWCCMessageData::SetString(int, CExoString)
+void CNWCCMessageData::SetString(int, CExoString)
 {
 	asm("leave");
 	asm("mov $0x080c3178, %eax");

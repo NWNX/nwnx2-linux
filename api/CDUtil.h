@@ -1,6 +1,7 @@
 #ifndef _CDUTIL_H_
 #define _CDUTIL_H_
 #include "nwndef.h"
+#include "CExoString.h"
 
 class CDUtil
 {
@@ -10,11 +11,11 @@ public:
 	int DecodeBase(char *, int);
 	int EncodeBase(unsigned long long, char *, int);
 	int GenerateResponse(CExoString const &, CExoString const &, CExoString &, CExoString &);
-	int InitializeBaseConvert();
-	int InitializeCrc();
-	int Initialize();
+	void InitializeBaseConvert();
+	void InitializeCrc();
+	void Initialize();
 	int ScrambleKey(char *, char const *, char const *, char const *, int);
-	int UnScrambleKey(char const *, char *, char *, char *);
+	void UnScrambleKey(char const *, char *, char *, char *);
 	int ValidateKey(char *);
 
 };

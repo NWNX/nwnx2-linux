@@ -35,7 +35,7 @@ int CNetLayerInternal::CRCVerifyFrame(unsigned char *, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::CheckMasterServerTimeouts()
+void CNetLayerInternal::CheckMasterServerTimeouts()
 {
 	asm("leave");
 	asm("mov $0x082aab20, %eax");
@@ -175,7 +175,7 @@ int CNetLayerInternal::GetExoApp()
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::GetGameMasterPassword()
+CExoString CNetLayerInternal::GetGameMasterPassword()
 {
 	asm("leave");
 	asm("mov $0x082abd6c, %eax");
@@ -189,7 +189,7 @@ int CNetLayerInternal::GetIPBySessionId(unsigned long, CExoString *)
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::GetInternetAddressTranslationStatus(unsigned char *)
+unsigned long CNetLayerInternal::GetInternetAddressTranslationStatus(unsigned char *)
 {
 	asm("leave");
 	asm("mov $0x082ac5bc, %eax");
@@ -238,14 +238,14 @@ int CNetLayerInternal::GetPlayerAddressData(unsigned long, unsigned long *, unsi
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::GetPlayerAddress(unsigned long)
+CExoString CNetLayerInternal::GetPlayerAddress(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082ac4d4, %eax");
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::GetPlayerPassword()
+CExoString CNetLayerInternal::GetPlayerPassword()
 {
 	asm("leave");
 	asm("mov $0x082abca0, %eax");
@@ -259,14 +259,14 @@ int CNetLayerInternal::GetPortBySessionId(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::GetSendUDPSocket()
+unsigned long CNetLayerInternal::GetSendUDPSocket()
 {
 	asm("leave");
 	asm("mov $0x082ac798, %eax");
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::GetServerAdminPassword()
+CExoString CNetLayerInternal::GetServerAdminPassword()
 {
 	asm("leave");
 	asm("mov $0x082abe38, %eax");
@@ -301,21 +301,21 @@ int CNetLayerInternal::GetSessionInfo(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::GetSessionMaxPlayers()
+unsigned long CNetLayerInternal::GetSessionMaxPlayers()
 {
 	asm("leave");
 	asm("mov $0x082ac204, %eax");
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::GetSessionName()
+CExoString CNetLayerInternal::GetSessionName()
 {
 	asm("leave");
 	asm("mov $0x082ac230, %eax");
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::GetUDPRecievePort()
+unsigned long CNetLayerInternal::GetUDPRecievePort()
 {
 	asm("leave");
 	asm("mov $0x082ac2b0, %eax");
@@ -504,7 +504,7 @@ int CNetLayerInternal::PlayerIdToSlidingWindow(unsigned long, unsigned long *)
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::ProcessReceivedFrames(int)
+void CNetLayerInternal::ProcessReceivedFrames(int)
 {
 	asm("leave");
 	asm("mov $0x082a0640, %eax");
@@ -546,7 +546,7 @@ int CNetLayerInternal::SendBNDMMessage()
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::SendBNDPMessage(unsigned long, unsigned long)
+void CNetLayerInternal::SendBNDPMessage(unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082aa1f4, %eax");
@@ -616,7 +616,7 @@ int CNetLayerInternal::SetGameMasterPassword(CExoString)
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::SetMasterServerInternetAddress(unsigned char const *, unsigned long)
+void CNetLayerInternal::SetMasterServerInternetAddress(unsigned char const *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082ac780, %eax");
@@ -630,7 +630,7 @@ int CNetLayerInternal::SetNetworkAddressData(unsigned long, unsigned char *, uns
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::SetPlayerConnected(unsigned long)
+void CNetLayerInternal::SetPlayerConnected(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082a9d88, %eax");
@@ -651,21 +651,21 @@ int CNetLayerInternal::SetServerAdminPassword(CExoString)
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::SetServerLanguage(int)
+void CNetLayerInternal::SetServerLanguage(int)
 {
 	asm("leave");
 	asm("mov $0x082abb34, %eax");
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::SetSessionMaxPlayers(unsigned long)
+void CNetLayerInternal::SetSessionMaxPlayers(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082ac214, %eax");
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::SetSessionName(CExoString)
+void CNetLayerInternal::SetSessionName(CExoString)
 {
 	asm("leave");
 	asm("mov $0x082ac258, %eax");
@@ -742,7 +742,7 @@ int CNetLayerInternal::StartServerMode(CExoString, unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNetLayerInternal::StoreMessage(unsigned char *, unsigned long)
+void CNetLayerInternal::StoreMessage(unsigned char *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x082ac1e4, %eax");

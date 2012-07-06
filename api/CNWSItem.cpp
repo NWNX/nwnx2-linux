@@ -1,6 +1,6 @@
 #include "CNWSItem.h"
 
-int CNWSItem::AIUpdate()
+void CNWSItem::AIUpdate()
 {
 	asm("leave");
 	asm("mov $0x081a6648, %eax");
@@ -21,63 +21,63 @@ int CNWSItem::ActiveProperty(unsigned short)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::AddActiveProperty(CNWItemProperty)
+void CNWSItem::AddActiveProperty(CNWItemProperty)
 {
 	asm("leave");
 	asm("mov $0x081a6784, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::AddPassiveProperty(CNWItemProperty)
+void CNWSItem::AddPassiveProperty(CNWItemProperty)
 {
 	asm("leave");
 	asm("mov $0x081a67ec, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::AddToArea(CNWSArea *, float, float, float, int)
+void CNWSItem::AddToArea(CNWSArea *, float, float, float, int)
 {
 	asm("leave");
 	asm("mov $0x081a65d0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::ApplyItemProperties(CNWSCreature *, unsigned long, int)
+void CNWSItem::ApplyItemProperties(CNWSCreature *, unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081a68ac, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::AsNWSItem()
+CNWSItem * CNWSItem::AsNWSItem()
 {
 	asm("leave");
 	asm("mov $0x081a6ca0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::CalculateBaseCosts()
+void CNWSItem::CalculateBaseCosts()
 {
 	asm("leave");
 	asm("mov $0x081a5794, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::CalculatePassiveCost(CNWItemProperty *)
+float CNWSItem::CalculatePassiveCost(CNWItemProperty *)
 {
 	asm("leave");
 	asm("mov $0x081a54b0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::CloseInventory(unsigned long, int)
+void CNWSItem::CloseInventory(unsigned long, int)
 {
 	asm("leave");
 	asm("mov $0x081a4e14, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::CloseItemForAllPlayers()
+void CNWSItem::CloseItemForAllPlayers()
 {
 	asm("leave");
 	asm("mov $0x081a5e90, %eax");
@@ -98,7 +98,7 @@ int CNWSItem::ComputeArmorClass()
 	asm("jmp *%eax");
 }
 
-int CNWSItem::ComputeWeight()
+void CNWSItem::ComputeWeight()
 {
 	asm("leave");
 	asm("mov $0x081a137c, %eax");
@@ -112,7 +112,7 @@ int CNWSItem::CopyItem(CNWSItem *, int)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
+void CNWSItem::EventHandler(unsigned long, unsigned long, void *, unsigned long, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x0819fb08, %eax");
@@ -126,7 +126,7 @@ int CNWSItem::GetActivePropertiesList()
 	asm("jmp *%eax");
 }
 
-int CNWSItem::GetActiveProperty(int)
+CNWItemProperty * CNWSItem::GetActiveProperty(int)
 {
 	asm("leave");
 	asm("mov $0x081a6854, %eax");
@@ -147,42 +147,42 @@ int CNWSItem::GetArmorValue()
 	asm("jmp *%eax");
 }
 
-int CNWSItem::GetCost(int, int, int, int)
+unsigned long CNWSItem::GetCost(int, int, int, int)
 {
 	asm("leave");
 	asm("mov $0x081a53a8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::GetDamageFlags()
+unsigned short CNWSItem::GetDamageFlags()
 {
 	asm("leave");
 	asm("mov $0x081a5ca0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::GetDescriptionOverride(int)
+CExoString CNWSItem::GetDescriptionOverride(int)
 {
 	asm("leave");
 	asm("mov $0x081a6fcc, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::GetDescription(int)
+CExoLocString CNWSItem::GetDescription(int)
 {
 	asm("leave");
 	asm("mov $0x081a6f98, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::GetDisplayName()
+CExoString CNWSItem::GetDisplayName()
 {
 	asm("leave");
 	asm("mov $0x081a704c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::GetFirstName()
+CExoLocString & CNWSItem::GetFirstName()
 {
 	asm("leave");
 	asm("mov $0x081a7028, %eax");
@@ -238,7 +238,7 @@ int CNWSItem::GetLastUsedActivePropertyUsesLeft(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::GetMinEquipLevel()
+unsigned char CNWSItem::GetMinEquipLevel()
 {
 	asm("leave");
 	asm("mov $0x081a5de4, %eax");
@@ -252,7 +252,7 @@ int CNWSItem::GetModelPart(unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::GetName()
+CExoLocString CNWSItem::GetName()
 {
 	asm("leave");
 	asm("mov $0x081a7000, %eax");
@@ -287,7 +287,7 @@ int CNWSItem::GetPassivePropertiesList()
 	asm("jmp *%eax");
 }
 
-int CNWSItem::GetPassiveProperty(int)
+CNWItemProperty * CNWSItem::GetPassiveProperty(int)
 {
 	asm("leave");
 	asm("mov $0x081a6880, %eax");
@@ -364,7 +364,7 @@ int CNWSItem::GetUpdateDisplayName()
 	asm("jmp *%eax");
 }
 
-int CNWSItem::GetUsedActivePropertyUsesLeft(unsigned char)
+unsigned short CNWSItem::GetUsedActivePropertyUsesLeft(unsigned char)
 {
 	asm("leave");
 	asm("mov $0x081a28f0, %eax");
@@ -420,14 +420,14 @@ int CNWSItem::MergeItem(CNWSItem *)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::OpenInventory(unsigned long)
+void CNWSItem::OpenInventory(unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081a4c00, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::ReadContainerItemsFromGff(CResGFF *, CResStruct *)
+void CNWSItem::ReadContainerItemsFromGff(CResGFF *, CResStruct *)
 {
 	asm("leave");
 	asm("mov $0x081a160c, %eax");
@@ -441,14 +441,14 @@ int CNWSItem::RemoveActiveProperty(int)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::RemoveFromArea()
+void CNWSItem::RemoveFromArea()
 {
 	asm("leave");
 	asm("mov $0x081a669c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::RemoveItemProperties(CNWSCreature *, unsigned long)
+void CNWSItem::RemoveItemProperties(CNWSCreature *, unsigned long)
 {
 	asm("leave");
 	asm("mov $0x081a2cc0, %eax");
@@ -462,14 +462,14 @@ int CNWSItem::RemovePassiveProperty(int)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::RestoreUsedActiveProperties(int)
+void CNWSItem::RestoreUsedActiveProperties(int)
 {
 	asm("leave");
 	asm("mov $0x081a670c, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::RestoreUsedActiveProperty(CNWItemProperty *, int)
+void CNWSItem::RestoreUsedActiveProperty(CNWItemProperty *, int)
 {
 	asm("leave");
 	asm("mov $0x081a2a0c, %eax");
@@ -518,7 +518,7 @@ int CNWSItem::SetBarterOwner(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::SetDisplayName(CExoString)
+void CNWSItem::SetDisplayName(CExoString)
 {
 	asm("leave");
 	asm("mov $0x081a7074, %eax");
@@ -532,21 +532,21 @@ int CNWSItem::SetFirstName(unsigned long)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::SetIdentifiedDescriptionOverride(CExoString)
+void CNWSItem::SetIdentifiedDescriptionOverride(CExoString)
 {
 	asm("leave");
 	asm("mov $0x081a6e90, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::SetIdentifiedDescription(CExoLocString)
+void CNWSItem::SetIdentifiedDescription(CExoLocString)
 {
 	asm("leave");
 	asm("mov $0x081a6de0, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::SetIdentified(int)
+void CNWSItem::SetIdentified(int)
 {
 	asm("leave");
 	asm("mov $0x081a6bd8, %eax");
@@ -588,7 +588,7 @@ int CNWSItem::SetModelPart(unsigned char, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::SetName(CExoLocString)
+void CNWSItem::SetName(CExoLocString)
 {
 	asm("leave");
 	asm("mov $0x081a6f40, %eax");
@@ -602,7 +602,7 @@ int CNWSItem::SetNumCharges(int)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::SetPossessor(unsigned long, int, int, int)
+void CNWSItem::SetPossessor(unsigned long, int, int, int)
 {
 	asm("leave");
 	asm("mov $0x0819f23c, %eax");
@@ -651,14 +651,14 @@ int CNWSItem::SetUnalteredArmorModelPart(unsigned char, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::SetUnidentifiedDescriptionOverride(CExoString)
+void CNWSItem::SetUnidentifiedDescriptionOverride(CExoString)
 {
 	asm("leave");
 	asm("mov $0x081a6ee8, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::SetUnidentifiedDescription(CExoLocString)
+void CNWSItem::SetUnidentifiedDescription(CExoLocString)
 {
 	asm("leave");
 	asm("mov $0x081a6e38, %eax");
@@ -679,21 +679,21 @@ int CNWSItem::SetWeight(int)
 	asm("jmp *%eax");
 }
 
-int CNWSItem::SplitItem(int)
+CNWSItem * CNWSItem::SplitItem(int)
 {
 	asm("leave");
 	asm("mov $0x081a3230, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::UpdateUsedActiveProperties(int)
+void CNWSItem::UpdateUsedActiveProperties(int)
 {
 	asm("leave");
 	asm("mov $0x081a2770, %eax");
 	asm("jmp *%eax");
 }
 
-int CNWSItem::UpdateVisualEffect()
+void CNWSItem::UpdateVisualEffect()
 {
 	asm("leave");
 	asm("mov $0x081a61c8, %eax");

@@ -8,18 +8,18 @@ class CExoDebug
 public:
 	int Assert(int, char *, char const *);
 	int CloseLogFiles();
-	int FlushErrorFile();
-	int FlushLogFile();
+	void FlushErrorFile();
+	void FlushLogFile();
 	int GetCurrentAllocatedMemory();
 	int GetCurrentMemoryAllocations();
-	int GetCurrentTimestamp(CExoString &);
+	void GetCurrentTimestamp(CExoString &);
 	int GetMaxAllocatedMemory();
 	int GetTotalMemoryAllocations();
-	int OpenLogFiles(CExoString, int);
-	int SetRotateLogFile(int);
-	int Warning(int, char *, char const *);
-	int WriteToErrorFile(CExoString const &);
-	int WriteToLogFile(CExoString const &);
+	void OpenLogFiles(CExoString, int);
+	void SetRotateLogFile(int);
+	void Warning(int, char *, char const *);
+	void WriteToErrorFile(CExoString const &);
+	void WriteToLogFile(CExoString const &);
 	~CExoDebug();
 	CExoDebug();
 

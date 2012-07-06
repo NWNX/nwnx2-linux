@@ -7,14 +7,14 @@ int CExoLocString::AddString(int, CExoString, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CExoLocString::ClearLocString()
+void CExoLocString::ClearLocString()
 {
 	asm("leave");
 	asm("mov $0x082ca0c0, %eax");
 	asm("jmp *%eax");
 }
 
-int CExoLocString::GetStringCount()
+unsigned long CExoLocString::GetStringCount()
 {
 	asm("leave");
 	asm("mov $0x082ca148, %eax");
@@ -70,7 +70,7 @@ int CExoLocString::RemoveString(int, unsigned char)
 	asm("jmp *%eax");
 }
 
-int CExoLocString::operator=(CExoLocString const &)
+CExoLocString & CExoLocString::operator=(CExoLocString const &)
 {
 	asm("leave");
 	asm("mov $0x082ca010, %eax");

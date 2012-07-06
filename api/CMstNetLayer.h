@@ -1,39 +1,42 @@
 #ifndef _CMSTNETLAYER_H_
 #define _CMSTNETLAYER_H_
 #include "nwndef.h"
+#include "CExoString.h"
+#include "nwnstructs.h"
 #include "CExoArrayList.h"
+#include "CConnectionLib.h"
 
 class CMstNetLayer
 {
 public:
-	int GenerateCommunityNameResponse(CExoString const &, CExoString const &);
+	CExoString GenerateCommunityNameResponse(CExoString const &, CExoString const &);
 	int GetCommunityNameStatus(CExoString const &, unsigned char **);
-	int GetDigiDistInfo(CExoString &);
+	SMstDigiDistInfo * GetDigiDistInfo(CExoString &);
 	int GetDigiDistModuleCipher(CExoString &, int);
-	int GetKeyAuthDemand(CExoString &);
-	int GetKeyCollision();
-	int GetKeyRejectionReason(unsigned short);
-	int GetKeyStatus(CExoString const &, unsigned short &);
-	int GetMasterServerInternetName();
-	int GetMasterServerPort();
+	CExoString GetKeyAuthDemand(CExoString &);
+	CExoString GetKeyCollision();
+	unsigned long GetKeyRejectionReason(unsigned short);
+	unsigned short GetKeyStatus(CExoString const &, unsigned short &);
+	CExoString GetMasterServerInternetName();
+	unsigned long GetMasterServerPort();
 	int GetNextBuddyEntry();
-	int HandleAddBuddyResponse(unsigned char *, unsigned long);
-	int HandleAuthorizationResponse(unsigned char *, unsigned long);
-	int HandleCommunityNameAuthResponse(unsigned char *, unsigned long);
-	int HandleCreateAccountPartOne(unsigned char *, unsigned long);
-	int HandleCreateAccountPartTwo(unsigned char *, unsigned long);
-	int HandleDemandAuthorization(unsigned char *, unsigned long);
-	int HandleDemandHeartbeat(unsigned char *, unsigned long);
-	int HandleDigiDistAuthResponse(unsigned char *, unsigned long);
-	int HandleGetAvailabilityResponse(unsigned char *, unsigned long);
-	int HandleGetBuddyListResponse(unsigned char *, unsigned long);
-	int HandleMOTDResponse(unsigned char *, unsigned long);
+	void HandleAddBuddyResponse(unsigned char *, unsigned long);
+	void HandleAuthorizationResponse(unsigned char *, unsigned long);
+	void HandleCommunityNameAuthResponse(unsigned char *, unsigned long);
+	void HandleCreateAccountPartOne(unsigned char *, unsigned long);
+	void HandleCreateAccountPartTwo(unsigned char *, unsigned long);
+	void HandleDemandAuthorization(unsigned char *, unsigned long);
+	void HandleDemandHeartbeat(unsigned char *, unsigned long);
+	void HandleDigiDistAuthResponse(unsigned char *, unsigned long);
+	void HandleGetAvailabilityResponse(unsigned char *, unsigned long);
+	void HandleGetBuddyListResponse(unsigned char *, unsigned long);
+	void HandleMOTDResponse(unsigned char *, unsigned long);
 	int HandleMasterServerToGameMessage(unsigned char *, unsigned long);
-	int HandleNotifyCollision(unsigned char *, unsigned long);
-	int HandleRemoveBuddyResponse(unsigned char *, unsigned long);
-	int HandleSetAvailabilityResponse(unsigned char *, unsigned long);
-	int HandleStatusResponse(unsigned char *, unsigned long);
-	int HandleVersionResponse(unsigned char *, unsigned long);
+	void HandleNotifyCollision(unsigned char *, unsigned long);
+	void HandleRemoveBuddyResponse(unsigned char *, unsigned long);
+	void HandleSetAvailabilityResponse(unsigned char *, unsigned long);
+	void HandleStatusResponse(unsigned char *, unsigned long);
+	void HandleVersionResponse(unsigned char *, unsigned long);
 	int SendAddBuddyRequest(CExoString const &, CExoString const &);
 	int SendClientToMasterCreateAccountPartOne(CExoString const &);
 	int SendClientToMasterCreateAccountPartTwo(CExoString const &, CExoString const &, CExoString const &, unsigned char *, CExoString const &);
@@ -54,7 +57,7 @@ public:
 	int SendGetBuddyListRequest(CExoString const &);
 	int SendRemoveBuddyRequest(CExoString const &, CExoString const &);
 	int SendSetAvailabilityRequest(CExoString const &, unsigned short);
-	int SetLanguage(int);
+	void SetLanguage(int);
 	int StartHeartbeatTimer(unsigned long long);
 	int StartSystemUpdateTimer(unsigned long long);
 	int StartTimeOutTimer(unsigned long long);

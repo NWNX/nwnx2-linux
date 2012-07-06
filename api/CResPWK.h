@@ -5,8 +5,8 @@
 class CResPWK
 {
 public:
-	int GetPWKDataPtr();
-	int GetPWKSize();
+	unsigned char * GetPWKDataPtr();
+	unsigned long GetPWKSize();
 	int IsLoaded();
 	int OnResourceFreed();
 	int OnResourceServiced();

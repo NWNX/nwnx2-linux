@@ -56,21 +56,21 @@ int CCodeBase::DeleteVar(CExoString &, CExoString &, CExoString &)
 	asm("jmp *%eax");
 }
 
-int CCodeBase::DestroyDatabase(CExoString &)
+void CCodeBase::DestroyDatabase(CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082d9ccc, %eax");
 	asm("jmp *%eax");
 }
 
-int CCodeBase::GetBinaryData(CExoString &, CExoString &, CExoString &, char &, int &)
+void * CCodeBase::GetBinaryData(CExoString &, CExoString &, CExoString &, char &, int &)
 {
 	asm("leave");
 	asm("mov $0x082d9b60, %eax");
 	asm("jmp *%eax");
 }
 
-int CCodeBase::GetFloat(CExoString &, CExoString &, CExoString &)
+float CCodeBase::GetFloat(CExoString &, CExoString &, CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082d9aac, %eax");
@@ -84,21 +84,21 @@ int CCodeBase::GetInt(CExoString &, CExoString &, CExoString &)
 	asm("jmp *%eax");
 }
 
-int CCodeBase::GetLocation(CExoString &, CExoString &, CExoString &)
+CScriptLocation * CCodeBase::GetLocation(CExoString &, CExoString &, CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082d9b18, %eax");
 	asm("jmp *%eax");
 }
 
-int CCodeBase::GetString(CExoString &, CExoString &, CExoString &)
+CExoString * CCodeBase::GetString(CExoString &, CExoString &, CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082d9b3c, %eax");
 	asm("jmp *%eax");
 }
 
-int CCodeBase::GetVector(CExoString &, CExoString &, CExoString &)
+Vector * CCodeBase::GetVector(CExoString &, CExoString &, CExoString &)
 {
 	asm("leave");
 	asm("mov $0x082d9af4, %eax");
