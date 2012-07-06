@@ -68,10 +68,13 @@ AC_ARG_WITH(extraplugins,
   [  --with-extraplugins="list of plugins"  config and compile other plugins ])
 # echo "** with_extraplugins = $with_extraplugins"
 if test -n "$with_extraplugins"; then
-	extraplugindirs=$with_extraplugins
+	for i in $with_extraplugins; do
+		extraplugindirs="$extraplugindirs plugins/$i"
+	done
+	#extraplugindirs=$with_extraplugins
 	# plugin1/Makefile plugin2/Makefile plugin3/Makefile ...
 	for i in $extraplugindirs; do
-		extraplugins="plugins/$extraplugins$i/Makefile "
+		extraplugins="$extraplugins$i/Makefile "
 	done
 fi
 
