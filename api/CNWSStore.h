@@ -1,15 +1,9 @@
 #ifndef _CNWSSTORE_H_
 #define _CNWSSTORE_H_
 #include "nwndef.h"
-#include "CNWSItem.h"
-#include "CNWSPlayer.h"
-#include "CNWSArea.h"
-#include "CExoString.h"
 #include "CExoLocString.h"
 #include "CResRef.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
-#include "CNWSCreature.h"
+#include "CExoString.h"
 #include "CNWSObject.h"
 
 class CNWSStore

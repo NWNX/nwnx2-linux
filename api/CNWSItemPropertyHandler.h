@@ -1,9 +1,6 @@
 #ifndef _CNWSITEMPROPERTYHANDLER_H_
 #define _CNWSITEMPROPERTYHANDLER_H_
 #include "nwndef.h"
-#include "CNWSItem.h"
-#include "nwnstructs.h"
-#include "CNWSCreature.h"
 
 class CNWSItemPropertyHandler
 {

@@ -1,7 +1,6 @@
 #ifndef _CEXOMEMMAN_H_
 #define _CEXOMEMMAN_H_
 #include "nwndef.h"
-#include "CMemRecord.h"
 
 class CExoMemman
 {

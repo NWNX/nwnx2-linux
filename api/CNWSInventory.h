@@ -1,7 +1,6 @@
 #ifndef _CNWSINVENTORY_H_
 #define _CNWSINVENTORY_H_
 #include "nwndef.h"
-#include "CNWSItem.h"
 
 class CNWSInventory
 {

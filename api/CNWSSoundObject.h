@@ -1,11 +1,8 @@
 #ifndef _CNWSSOUNDOBJECT_H_
 #define _CNWSSOUNDOBJECT_H_
 #include "nwndef.h"
-#include "CNWSArea.h"
 #include "Vector.h"
-#include "CResGFF.h"
 #include "nwnstructs.h"
-#include "CNWSMessage.h"
 
 class CNWSSoundObject
 {

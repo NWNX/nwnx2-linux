@@ -1,11 +1,7 @@
 #ifndef _CNWSCOMBATROUND_H_
 #define _CNWSCOMBATROUND_H_
 #include "nwndef.h"
-#include "CNWSCombatRoundAction.h"
 #include "CNWSCombatAttackData.h"
-#include "CNWSItem.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
 #include "CNWSCreature.h"
 
 class CNWSCombatRound

@@ -1,8 +1,6 @@
 #ifndef _CTLKTABLE_H_
 #define _CTLKTABLE_H_
 #include "nwndef.h"
-#include "CTlkFile.h"
-#include "nwnstructs.h"
 #include "CExoString.h"
 
 class CTlkTable

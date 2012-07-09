@@ -1,8 +1,6 @@
 #ifndef _CNWSCLIENT_H_
 #define _CNWSCLIENT_H_
 #include "nwndef.h"
-#include "CNWSDungeonMaster.h"
-#include "CNWSPlayer.h"
 
 class CNWSClient
 {

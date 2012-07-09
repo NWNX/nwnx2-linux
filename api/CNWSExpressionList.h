@@ -1,7 +1,6 @@
 #ifndef _CNWSEXPRESSIONLIST_H_
 #define _CNWSEXPRESSIONLIST_H_
 #include "nwndef.h"
-#include "CNWSExpressionNode.h"
 
 class CNWSExpressionList
 {

@@ -2,8 +2,6 @@
 #define _CNWVIRTUALMACHINECOMMANDS_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "C2DA.h"
-#include "CResGFF.h"
 #include "nwnstructs.h"
 
 class CNWVirtualMachineCommands

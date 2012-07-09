@@ -2,10 +2,7 @@
 #define _CNWSTILE_H_
 #include "nwndef.h"
 #include "Vector.h"
-#include "CNWTileData.h"
 #include "CExoArrayList.h"
-#include "CNWArea.h"
-#include "CPathfindInformation.h"
 
 class CNWSTile
 {

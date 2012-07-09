@@ -1,7 +1,6 @@
 #ifndef _CPATHFINDINFORMATION_H_
 #define _CPATHFINDINFORMATION_H_
 #include "nwndef.h"
-#include "CPathfindInfoIntraTileSuccessors.h"
 
 class CPathfindInformation
 {

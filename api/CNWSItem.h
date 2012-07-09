@@ -2,11 +2,8 @@
 #define _CNWSITEM_H_
 #include "nwndef.h"
 #include "nwnstructs.h"
-#include "CNWSArea.h"
-#include "CNWSCreature.h"
 #include "CExoString.h"
 #include "CExoLocString.h"
-#include "CResGFF.h"
 #include "CResRef.h"
 #include "CNWSObject.h"
 

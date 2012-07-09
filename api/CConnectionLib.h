@@ -2,9 +2,7 @@
 #define _CCONNECTIONLIB_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "CNetLayer.h"
 #include "CExoArrayList.h"
-#include "nwnstructs.h"
 
 class CConnectionLib
 {

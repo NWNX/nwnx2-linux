@@ -1,7 +1,6 @@
 #ifndef _CEXOINI_H_
 #define _CEXOINI_H_
 #include "nwndef.h"
-#include "CExoString.h"
 
 class CExoIni
 {

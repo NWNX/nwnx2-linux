@@ -1,7 +1,6 @@
 #ifndef _CVIRTUALMACHINEDEBUGLOADER_H_
 #define _CVIRTUALMACHINEDEBUGLOADER_H_
 #include "nwndef.h"
-#include "CExoString.h"
 
 class CVirtualMachineDebugLoader
 {

@@ -1,16 +1,11 @@
 #ifndef _CNWSPLAYER_H_
 #define _CNWSPLAYER_H_
 #include "nwndef.h"
-#include "CNWSCreature.h"
 #include "CExoString.h"
-#include "CNWSPlayerLastUpdateObject.h"
-#include "CNWSPlayerTURD.h"
-#include "CNWSObject.h"
-#include "CLastUpdateObject.h"
 #include "CResRef.h"
-#include "CNWSItem.h"
 #include "CNWSClient.h"
 #include "CExoLinkedList.h"
+#include "CLastUpdateObject.h"
 #include "CNWSPlayerInventoryGUI.h"
 
 class CNWSPlayer

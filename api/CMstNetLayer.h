@@ -2,9 +2,7 @@
 #define _CMSTNETLAYER_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "nwnstructs.h"
 #include "CExoArrayList.h"
-#include "CConnectionLib.h"
 
 class CMstNetLayer
 {

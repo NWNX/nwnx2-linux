@@ -2,7 +2,6 @@
 #define _CNETLAYERINTERNAL_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "nwnstructs.h"
 #include "CExoArrayList.h"
 #include "CServerExoApp.h"
 #include "CNetLayerWindow.h"

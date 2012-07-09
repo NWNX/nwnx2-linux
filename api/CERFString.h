@@ -2,7 +2,6 @@
 #define _CERFSTRING_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "CExoFile.h"
 
 class CERFString
 {

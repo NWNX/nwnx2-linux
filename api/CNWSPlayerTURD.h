@@ -1,12 +1,8 @@
 #ifndef _CNWSPLAYERTURD_H_
 #define _CNWSPLAYERTURD_H_
 #include "nwndef.h"
-#include "CNWSArea.h"
 #include "CExoArrayList.h"
 #include "CExoString.h"
-#include "CExoLocString.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
 #include "CNWSObject.h"
 
 class CNWSPlayerTURD

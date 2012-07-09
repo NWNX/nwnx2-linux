@@ -1,10 +1,8 @@
 #ifndef _CNWSSCRIPTVARTABLE_H_
 #define _CNWSSCRIPTVARTABLE_H_
 #include "nwndef.h"
-#include "CExoString.h"
 #include "CScriptLocation.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
+#include "CExoString.h"
 
 class CNWSScriptVarTable
 {

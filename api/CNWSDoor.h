@@ -1,14 +1,11 @@
 #ifndef _CNWSDOOR_H_
 #define _CNWSDOOR_H_
 #include "nwndef.h"
-#include "CNWSArea.h"
 #include "Vector.h"
 #include "CExoString.h"
-#include "CExoLocString.h"
 #include "CResRef.h"
+#include "CExoLocString.h"
 #include "CNWSObject.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
 
 class CNWSDoor
 {

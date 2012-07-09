@@ -2,7 +2,6 @@
 #define _CTWODIMARRAYS_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "C2DA.h"
 #include "CExoLinkedList.h"
 
 class CTwoDimArrays

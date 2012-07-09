@@ -1,19 +1,11 @@
 #ifndef _CNWSAREA_H_
 #define _CNWSAREA_H_
 #include "nwndef.h"
-#include "CGameObject.h"
-#include "CGameEffect.h"
 #include "Vector.h"
-#include "CPathfindInformation.h"
-#include "CNWSCreature.h"
 #include "CExoArrayList.h"
 #include "CExoString.h"
-#include "CNWSTile.h"
-#include "nwnstructs.h"
-#include "CResGFF.h"
-#include "CNWSPlayer.h"
-#include "CERFFile.h"
 #include "CResRef.h"
+#include "CGameObject.h"
 #include "CExoLocString.h"
 
 class CNWSArea

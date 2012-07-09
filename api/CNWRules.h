@@ -1,9 +1,6 @@
 #ifndef _CNWRULES_H_
 #define _CNWRULES_H_
 #include "nwndef.h"
-#include "CTwoDimArrays.h"
-#include "CNWDomain.h"
-#include "CNWFeat.h"
 #include "CExoString.h"
 
 class CNWRules

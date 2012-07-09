@@ -2,7 +2,6 @@
 #define _CVIRTUALMACHINEDEBUGGERINSTANCE_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "CVirtualMachineDebugLoader.h"
 
 class CVirtualMachineDebuggerInstance
 {

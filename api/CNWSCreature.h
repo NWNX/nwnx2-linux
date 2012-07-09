@@ -1,28 +1,14 @@
 #ifndef _CNWSCREATURE_H_
 #define _CNWSCREATURE_H_
 #include "nwndef.h"
-#include "CNWSObjectActionNode.h"
-#include "CNWSItem.h"
 #include "Vector.h"
-#include "CNWSArea.h"
-#include "CGameEffect.h"
-#include "CNWSObject.h"
-#include "nwnstructs.h"
-#include "CNWCCMessageData.h"
-#include "CNWSCombatAttackData.h"
-#include "CNWSPlayer.h"
 #include "CExoString.h"
-#include "CNWSForcedAction.h"
-#include "CNWSBarter.h"
 #include "CResRef.h"
-#include "CNWSFaction.h"
 #include "CExoArrayList.h"
-#include "CExoLocString.h"
-#include "CNWSJournal.h"
-#include "CNWSCreatureStats.h"
-#include "CResGFF.h"
-#include "CItemRepository.h"
+#include "CNWSObject.h"
 #include "CNWSCombatRound.h"
+#include "nwnstructs.h"
+#include "CNWSCreatureStats.h"
 
 class CNWSCreature
 {

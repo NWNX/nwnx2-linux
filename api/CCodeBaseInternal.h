@@ -1,10 +1,6 @@
 #ifndef _CCODEBASEINTERNAL_H_
 #define _CCODEBASEINTERNAL_H_
 #include "nwndef.h"
-#include "CExoString.h"
-#include "CScriptLocation.h"
-#include "nwnstructs.h"
-#include "Vector.h"
 
 class CCodeBaseInternal
 {

@@ -1,7 +1,6 @@
 #ifndef _CNWBASEITEMARRAY_H_
 #define _CNWBASEITEMARRAY_H_
 #include "nwndef.h"
-#include "CNWBaseItem.h"
 
 class CNWBaseItemArray
 {

@@ -1,11 +1,8 @@
 #ifndef _CNWSDIALOG_H_
 #define _CNWSDIALOG_H_
 #include "nwndef.h"
-#include "CExoString.h"
-#include "CNWSObject.h"
-#include "CResRef.h"
 #include "CExoLocString.h"
-#include "CResGFF.h"
+#include "CResRef.h"
 
 class CNWSDialog
 {

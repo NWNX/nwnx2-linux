@@ -1,7 +1,6 @@
 #ifndef _CGAMEOBJECTARRAY_H_
 #define _CGAMEOBJECTARRAY_H_
 #include "nwndef.h"
-#include "CGameObject.h"
 
 class CGameObjectArray
 {

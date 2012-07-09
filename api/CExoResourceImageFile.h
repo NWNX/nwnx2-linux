@@ -1,7 +1,6 @@
 #ifndef _CEXORESOURCEIMAGEFILE_H_
 #define _CEXORESOURCEIMAGEFILE_H_
 #include "nwndef.h"
-#include "nwnstructs.h"
 
 class CExoResourceImageFile
 {

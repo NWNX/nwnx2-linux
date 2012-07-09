@@ -1,8 +1,6 @@
 #ifndef _CNWSSPELLSCRIPTDATA_H_
 #define _CNWSSPELLSCRIPTDATA_H_
 #include "nwndef.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
 #include "Vector.h"
 #include "CExoString.h"
 

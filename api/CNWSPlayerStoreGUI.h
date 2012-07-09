@@ -1,7 +1,6 @@
 #ifndef _CNWSPLAYERSTOREGUI_H_
 #define _CNWSPLAYERSTOREGUI_H_
 #include "nwndef.h"
-#include "CNWSPlayer.h"
 
 class CNWSPlayerStoreGUI
 {

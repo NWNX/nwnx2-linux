@@ -1,12 +1,6 @@
 #ifndef _CSERVERAIMASTER_H_
 #define _CSERVERAIMASTER_H_
 #include "nwndef.h"
-#include "CNWSObject.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
-#include "CGameEffect.h"
-#include "CNWSItem.h"
-#include "CNWSCreature.h"
 #include "CServerExoAppInternal.h"
 #include "CServerAIList.h"
 #include "CExoLinkedList.h"

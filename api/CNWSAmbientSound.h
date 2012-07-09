@@ -2,9 +2,6 @@
 #define _CNWSAMBIENTSOUND_H_
 #include "nwndef.h"
 #include "CExoArrayList.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
-#include "CNWSMessage.h"
 
 class CNWSAmbientSound
 {

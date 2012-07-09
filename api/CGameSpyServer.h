@@ -1,7 +1,6 @@
 #ifndef _CGAMESPYSERVER_H_
 #define _CGAMESPYSERVER_H_
 #include "nwndef.h"
-#include "CConnectionLib.h"
 
 class CGameSpyServer
 {

@@ -1,8 +1,6 @@
 #ifndef _CERFKEY_H_
 #define _CERFKEY_H_
 #include "nwndef.h"
-#include "CExoString.h"
-#include "CExoFile.h"
 
 class CERFKey
 {

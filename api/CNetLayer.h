@@ -2,8 +2,6 @@
 #define _CNETLAYER_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "CNetLayerPlayerInfo.h"
-#include "nwnstructs.h"
 #include "CNetLayerInternal.h"
 
 class CNetLayer

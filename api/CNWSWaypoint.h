@@ -1,12 +1,8 @@
 #ifndef _CNWSWAYPOINT_H_
 #define _CNWSWAYPOINT_H_
 #include "nwndef.h"
-#include "CNWSArea.h"
-#include "CExoLocString.h"
 #include "CResRef.h"
-#include "CExoString.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
+#include "CExoLocString.h"
 
 class CNWSWaypoint
 {

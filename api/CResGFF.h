@@ -1,11 +1,9 @@
 #ifndef _CRESGFF_H_
 #define _CRESGFF_H_
 #include "nwndef.h"
-#include "nwnstructs.h"
-#include "CExoString.h"
 #include "CExoLocString.h"
+#include "CExoString.h"
 #include "CResRef.h"
-#include "CExoFile.h"
 #include "CRes.h"
 
 class CResGFF

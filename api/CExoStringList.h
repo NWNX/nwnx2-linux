@@ -1,7 +1,6 @@
 #ifndef _CEXOSTRINGLIST_H_
 #define _CEXOSTRINGLIST_H_
 #include "nwndef.h"
-#include "CExoString.h"
 
 class CExoStringList
 {

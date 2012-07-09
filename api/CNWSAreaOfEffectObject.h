@@ -1,10 +1,7 @@
 #ifndef _CNWSAREAOFEFFECTOBJECT_H_
 #define _CNWSAREAOFEFFECTOBJECT_H_
 #include "nwndef.h"
-#include "CNWSArea.h"
 #include "Vector.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
 #include "CExoString.h"
 
 class CNWSAreaOfEffectObject

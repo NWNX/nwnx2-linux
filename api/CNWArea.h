@@ -1,9 +1,8 @@
 #ifndef _CNWAREA_H_
 #define _CNWAREA_H_
 #include "nwndef.h"
-#include "Vector.h"
 #include "CExoArrayList.h"
-#include "CPathfindInformation.h"
+#include "Vector.h"
 
 class CNWArea
 {

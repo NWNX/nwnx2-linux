@@ -1,7 +1,6 @@
 #ifndef _CNETLAYERWINDOW_H_
 #define _CNETLAYERWINDOW_H_
 #include "nwndef.h"
-#include "CNetLayerInternal.h"
 
 class CNetLayerWindow
 {

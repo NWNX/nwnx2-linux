@@ -1,7 +1,6 @@
 #ifndef _CEXOFILE_H_
 #define _CEXOFILE_H_
 #include "nwndef.h"
-#include "CExoString.h"
 
 class CExoFile
 {

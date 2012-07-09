@@ -1,12 +1,9 @@
 #ifndef _CEXOKEYTABLE_H_
 #define _CEXOKEYTABLE_H_
 #include "nwndef.h"
-#include "CResRef.h"
+#include "CExoLinkedList.h"
 #include "nwnstructs.h"
 #include "CExoString.h"
-#include "CExoLinkedList.h"
-#include "CRes.h"
-#include "CExoStringList.h"
 
 class CExoKeyTable
 {

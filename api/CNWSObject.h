@@ -1,24 +1,15 @@
 #ifndef _CNWSOBJECT_H_
 #define _CNWSOBJECT_H_
 #include "nwndef.h"
-#include "CNWSObjectActionNode.h"
 #include "CExoString.h"
-#include "CGameEffect.h"
-#include "CNWSpell.h"
-#include "CNWCCMessageData.h"
 #include "Vector.h"
-#include "CNWSScriptVarTable.h"
-#include "CNWSCreature.h"
-#include "CNWSArea.h"
 #include "CResRef.h"
-#include "CExoLocString.h"
-#include "CNWSExpression.h"
-#include "nwnstructs.h"
 #include "CScriptLocation.h"
-#include "CResGFF.h"
-#include "CNWSPlayer.h"
+#include "nwnstructs.h"
+#include "CExoLocString.h"
 #include "CNWSDialog.h"
 #include "CExoLinkedList.h"
+#include "CNWSObjectActionNode.h"
 
 class CNWSObject
 {

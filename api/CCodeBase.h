@@ -1,9 +1,6 @@
 #ifndef _CCODEBASE_H_
 #define _CCODEBASE_H_
 #include "nwndef.h"
-#include "CExoString.h"
-#include "CScriptLocation.h"
-#include "Vector.h"
 
 class CCodeBase
 {

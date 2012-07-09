@@ -2,11 +2,6 @@
 #define _CEXORESMAN_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "CRes.h"
-#include "CResRef.h"
-#include "CExoKeyTable.h"
-#include "nwnstructs.h"
-#include "CExoStringList.h"
 
 class CExoResMan
 {

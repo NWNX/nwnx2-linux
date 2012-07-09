@@ -2,7 +2,6 @@
 #define _CNWTILEDATA_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "CNWTileSurfaceMesh.h"
 #include "CResRef.h"
 
 class CNWTileData

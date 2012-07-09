@@ -1,8 +1,6 @@
 #ifndef _CNWSPLAYERLUOINVENTORY_H_
 #define _CNWSPLAYERLUOINVENTORY_H_
 #include "nwndef.h"
-#include "nwnstructs.h"
-#include "CNWSItem.h"
 
 class CNWSPlayerLUOInventory
 {

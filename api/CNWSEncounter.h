@@ -2,10 +2,7 @@
 #define _CNWSENCOUNTER_H_
 #include "nwndef.h"
 #include "nwnstructs.h"
-#include "CNWSArea.h"
-#include "CExoLocString.h"
 #include "Vector.h"
-#include "CResGFF.h"
 #include "CResRef.h"
 #include "CExoString.h"
 

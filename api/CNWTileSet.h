@@ -1,7 +1,6 @@
 #ifndef _CNWTILESET_H_
 #define _CNWTILESET_H_
 #include "nwndef.h"
-#include "CNWTileData.h"
 #include "CResRef.h"
 
 class CNWTileSet

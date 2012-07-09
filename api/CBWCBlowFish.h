@@ -1,7 +1,6 @@
 #ifndef _CBWCBLOWFISH_H_
 #define _CBWCBLOWFISH_H_
 #include "nwndef.h"
-#include "CBWCBlowFishBlock.h"
 
 class CBWCBlowFish
 {

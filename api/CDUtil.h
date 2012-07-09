@@ -1,7 +1,6 @@
 #ifndef _CDUTIL_H_
 #define _CDUTIL_H_
 #include "nwndef.h"
-#include "CExoString.h"
 
 class CDUtil
 {

@@ -1,9 +1,7 @@
 #ifndef _CNWTILESETMANAGER_H_
 #define _CNWTILESETMANAGER_H_
 #include "nwndef.h"
-#include "nwnstructs.h"
 #include "CResRef.h"
-#include "CNWTileSet.h"
 
 class CNWTileSetManager
 {

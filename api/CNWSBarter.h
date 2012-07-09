@@ -1,7 +1,6 @@
 #ifndef _CNWSBARTER_H_
 #define _CNWSBARTER_H_
 #include "nwndef.h"
-#include "CNWSCreature.h"
 
 class CNWSBarter
 {

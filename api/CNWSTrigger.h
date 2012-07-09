@@ -1,14 +1,9 @@
 #ifndef _CNWSTRIGGER_H_
 #define _CNWSTRIGGER_H_
 #include "nwndef.h"
-#include "CNWSArea.h"
 #include "Vector.h"
-#include "CScriptLocation.h"
 #include "CExoString.h"
-#include "CExoLocString.h"
 #include "CResRef.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
 #include "CNWSObject.h"
 
 class CNWSTrigger

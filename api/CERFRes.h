@@ -1,7 +1,6 @@
 #ifndef _CERFRES_H_
 #define _CERFRES_H_
 #include "nwndef.h"
-#include "CExoFile.h"
 
 class CERFRes
 {

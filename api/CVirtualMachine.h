@@ -1,11 +1,8 @@
 #ifndef _CVIRTUALMACHINE_H_
 #define _CVIRTUALMACHINE_H_
 #include "nwndef.h"
-#include "nwnstructs.h"
-#include "CExoString.h"
-#include "CResGFF.h"
-#include "CVirtualMachineCmdImplementer.h"
 #include "Vector.h"
+#include "nwnstructs.h"
 #include "CVirtualMachineStack.h"
 #include "CNWVirtualMachineCommands.h"
 #include "CVirtualMachineFile.h"

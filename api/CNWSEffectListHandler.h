@@ -1,8 +1,6 @@
 #ifndef _CNWSEFFECTLISTHANDLER_H_
 #define _CNWSEFFECTLISTHANDLER_H_
 #include "nwndef.h"
-#include "CNWSObject.h"
-#include "CGameEffect.h"
 
 class CNWSEffectListHandler
 {

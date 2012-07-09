@@ -1,7 +1,6 @@
 #ifndef _CEXOFILEINTERNAL_H_
 #define _CEXOFILEINTERNAL_H_
 #include "nwndef.h"
-#include "CExoString.h"
 
 class CExoFileInternal
 {

@@ -1,8 +1,6 @@
 #ifndef _CNWSCOMBATATTACKDATA_H_
 #define _CNWSCOMBATATTACKDATA_H_
 #include "nwndef.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
 #include "CExoString.h"
 #include "CExoArrayList.h"
 

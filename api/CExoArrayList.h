@@ -9,13 +9,13 @@ public:
 	int AddUnique(T);
 	void Add(T);
 	void Allocate(int);
-	T Contains(T);
+	int Contains(T);
 	int DelIndex(int);
 	int DerefContains(T);
-	T IndexOf(T);
-	int Insert(T, int);
+	int IndexOf(T);
+	void Insert(T, int);
 	T Pack();
-	int Remove(T);
+	void Remove(T);
 	int SetSize(int);
 	~CExoArrayList();
 	int operator=(CExoArrayList<T> const &);

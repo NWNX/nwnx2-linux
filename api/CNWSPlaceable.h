@@ -2,15 +2,10 @@
 #define _CNWSPLACEABLE_H_
 #include "nwndef.h"
 #include "CNWSObject.h"
-#include "CNWSObjectActionNode.h"
-#include "CNWSItem.h"
 #include "Vector.h"
-#include "CNWSArea.h"
 #include "CExoString.h"
-#include "CExoLocString.h"
 #include "CResRef.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
+#include "CExoLocString.h"
 
 class CNWSPlaceable : public CNWSObject
 {

@@ -2,20 +2,6 @@
 #define _CGAMEOBJECT_H_
 #include "nwndef.h"
 #include "nwnstructs.h"
-#include "CNWSAreaOfEffectObject.h"
-#include "CNWSArea.h"
-#include "CNWSCreature.h"
-#include "CNWSDoor.h"
-#include "CNWSEncounter.h"
-#include "CNWSItem.h"
-#include "CNWSModule.h"
-#include "CNWSObject.h"
-#include "CNWSPlaceable.h"
-#include "CNWSPlayerTURD.h"
-#include "CNWSSoundObject.h"
-#include "CNWSStore.h"
-#include "CNWSTrigger.h"
-#include "CNWSWaypoint.h"
 
 class CGameObject
 {

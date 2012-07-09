@@ -1,7 +1,6 @@
 #ifndef _CNWPLACEMESHMANAGER_H_
 #define _CNWPLACEMESHMANAGER_H_
 #include "nwndef.h"
-#include "CNWPlaceableSurfaceMesh.h"
 
 class CNWPlaceMeshManager
 {

@@ -2,8 +2,6 @@
 #define _CSCRIPTEVENT_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
 
 class CScriptEvent
 {

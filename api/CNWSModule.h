@@ -2,19 +2,12 @@
 #define _CNWSMODULE_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "CNWSPlayerTURD.h"
-#include "CPathfindInformation.h"
-#include "CNWSArea.h"
 #include "CResRef.h"
 #include "CExoLocString.h"
-#include "CNWSPlayer.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
 #include "CExoArrayList.h"
-#include "CERFFile.h"
-#include "Vector.h"
 #include "CGameObject.h"
 #include "CExoLinkedList.h"
+#include "CNWSPlayerTURD.h"
 
 class CNWSModule
 {

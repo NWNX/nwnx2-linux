@@ -1,10 +1,6 @@
 #ifndef _CERFFILE_H_
 #define _CERFFILE_H_
 #include "nwndef.h"
-#include "CRes.h"
-#include "CExoString.h"
-#include "CERFString.h"
-#include "CERFRes.h"
 
 class CERFFile
 {

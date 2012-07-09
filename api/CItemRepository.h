@@ -1,9 +1,6 @@
 #ifndef _CITEMREPOSITORY_H_
 #define _CITEMREPOSITORY_H_
 #include "nwndef.h"
-#include "CNWSItem.h"
-#include "CExoString.h"
-#include "nwnstructs.h"
 #include "CExoLinkedList.h"
 
 class CItemRepository

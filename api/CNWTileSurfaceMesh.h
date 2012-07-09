@@ -1,14 +1,8 @@
 #ifndef _CNWTILESURFACEMESH_H_
 #define _CNWTILESURFACEMESH_H_
 #include "nwndef.h"
-#include "CNWTileSurfaceMeshAABBNode.h"
 #include "Vector.h"
-#include "CNWTile.h"
-#include "CNWArea.h"
-#include "CPathfindInformation.h"
-#include "CPathfindInfoIntraTileSuccessors.h"
 #include "CResRef.h"
-#include "CNWTileSurfaceMeshHashTableEntry.h"
 
 class CNWTileSurfaceMesh
 {

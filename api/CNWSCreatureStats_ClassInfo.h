@@ -1,7 +1,6 @@
 #ifndef _CNWSCREATURESTATS_CLASSINFO_H_
 #define _CNWSCREATURESTATS_CLASSINFO_H_
 #include "nwndef.h"
-#include "CNWSStats_Spell.h"
 
 class CNWSCreatureStats_ClassInfo
 {

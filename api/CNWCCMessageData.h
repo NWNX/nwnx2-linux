@@ -2,8 +2,6 @@
 #define _CNWCCMESSAGEDATA_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
 #include "CExoArrayList.h"
 
 class CNWCCMessageData

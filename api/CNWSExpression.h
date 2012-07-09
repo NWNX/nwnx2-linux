@@ -1,7 +1,6 @@
 #ifndef _CNWSEXPRESSION_H_
 #define _CNWSEXPRESSION_H_
 #include "nwndef.h"
-#include "CNWSExpressionNode.h"
 #include "CExoString.h"
 
 class CNWSExpression

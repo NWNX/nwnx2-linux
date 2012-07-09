@@ -2,17 +2,8 @@
 #define _CNWSCREATURESTATS_H_
 #include "nwndef.h"
 #include "CExoArrayList.h"
-#include "CNWSpell.h"
-#include "CNWLevelStats.h"
-#include "CNWSCreature.h"
-#include "CNWSCreatureStats_ClassInfo.h"
-#include "CNWSObject.h"
-#include "CNWSItem.h"
 #include "CExoString.h"
-#include "CNWClass.h"
-#include "CResGFF.h"
-#include "nwnstructs.h"
-#include "CNWCreatureStatsUpdate.h"
+#include "CNWSCreature.h"
 #include "CExoLocString.h"
 #include "CResRef.h"
 
