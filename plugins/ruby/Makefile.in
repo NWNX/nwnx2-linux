@@ -12,7 +12,7 @@ NWNXDIR = ../..
 
 # CFLAGS = @CFLAGS@ -I$(NWNXDIR)
 # CXXFLAGS= @CXXFLAGS@ $(CFLAGS)
-CPPFLAGS = @CPPFLAGS@ -I$(NWNXDIR) -I/usr/include/ruby
+CPPFLAGS = @CPPFLAGS@ -I$(NWNXDIR) -I/usr/include/ruby -Iruby/
 
 NWNXBASE=$(NWNXDIR)/NWNXBase.o $(NWNXDIR)/gline.o 
 
