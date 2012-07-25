@@ -1,6 +1,9 @@
-NWNX Fixes 1.0.5
+NWNX Fixes 1.0.6
 
 This plugin is intended to provide various fixes and patches to NWServer.
+
+1.0.6 (18.07.2012, Ilerien)
+- Complete external server player list customization rework (now it uses 2.8 API - many thanks to virusman)
 
 1.0.5 (25.02.2009):
 - The plugin is now configurable - an example ini file has been added

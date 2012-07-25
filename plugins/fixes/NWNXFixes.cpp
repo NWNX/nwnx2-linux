@@ -65,7 +65,11 @@ bool CNWNXFixes::OnCreate(gline *config, const char *LogDir)
 		Log(0,"* Signature recognition failed. Some functions will be disabled.\n");
 		//return false;
 	}
-
+	
+	bHideCharList = GetConfInteger("hide_charlist_all");
+	bHideClasses = GetConfInteger("hide_charlist_levels");
+	bHidePortraits = GetConfInteger("hide_charlist_portraits");
+	bHideDMs = GetConfInteger("hide_charlist_dms");
 	return true;
 }
 

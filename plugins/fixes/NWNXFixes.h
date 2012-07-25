@@ -39,6 +39,7 @@ public:
 
 	StringMap pluginConfig;
 
+	int bHideCharList, bHidePortraits, bHideClasses, bHideDMs;
 private:
 
 };

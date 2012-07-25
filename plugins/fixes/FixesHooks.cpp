@@ -29,9 +29,11 @@
 #endif
 
 #include "FixesHooks.h"
+#include "FixesHooksNewApi.h"
 #include "NWNXFixes.h"
 #include "NWNStructures.h"
 #include "AssemblyHelper.cpp"
+
 
 extern CNWNXFixes fixes;
 AssemblyHelper asmhelp;
@@ -58,7 +60,7 @@ void *pClientClass = 0;
 void *pRules = 0;
 void *p2das = 0;
 
-void **g_pVirtualMachine = (void **) 0x0832F1EC;
+void **pVirtualMachine = (void **) 0x0832F1EC;
 //dword pScriptThis = 0;
 //dword oPC = 0;
 
@@ -200,7 +202,7 @@ void RunScript(char * sname, int ObjID)
 	script_name.Text = sname;
 	script_name.Length = strlen(sname);
 	scriptRun = 1;
-	pRunScript(*g_pVirtualMachine, &script_name, ObjID, 1);
+	pRunScript(*pVirtualMachine, &script_name, ObjID, 1);
 	scriptRun = 0;
 }
 
@@ -372,51 +374,6 @@ int FindHookFunctions()
 
 	*(dword*)&pRunScript = 0x08261F94;
 
-	char *pPlayModCharList = (char*)0x0819bcfc;
-	char *pPlayModCharListCode = (char*)"\xC2\x0C\x00";
-	char *pNoClassesHook = (char*)0x0807e586;
-	char *pNoClassesHookCode = (char*)"\xB0\x00\x90\x90\x90\x90";
-	char *pNoPortraitHook1 = (char*)0x0807e551;
-	char *pNoPortraitHook1Code = (char*)"\x6A\x10\x6A\x00\x68\x30\x32\x5F\x00\x68\x6F\x62\x6F\x64\x68\x70\x6F\x5F\x6E\xFF\x75\x08\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90";
-	char *pNoPortraitHook2 = (char*)0x0807e57f;
-	char *pNoPortraitHook2Code = (char*)"\x18";
-	char *pNoPortraitHook3 = (char*)0x0807e52c;
-	char *pNoPortraitHook3Code = (char*)"\x66\xB8\xFF\xFF\x83\xC4\x0C\x90\x90";
-	char *pNoDMHook = (char*)0x0807e4ab;
-
-	if (pPlayModCharList && pNoClassesHook && pNoPortraitHook1 && pNoPortraitHook2)
-	{
-		if (fixes.GetConfInteger("hide_charlist_all"))
-		{
-			d_enable_write((dword) pPlayModCharList);
-			memcpy(pPlayModCharList, pPlayModCharListCode, 3);
-			fixes.Log(2, "* Suppressing character list response.\n");
-		}
-
-		if (fixes.GetConfInteger("hide_charlist_levels"))
-		{
-			d_enable_write((dword) pNoClassesHook);
-			memcpy(pNoClassesHook, pNoClassesHookCode, 6);
-			fixes.Log(2, "* Suppressing classes in character list.\n");
-		}
-
-		if (fixes.GetConfInteger("hide_charlist_portraits"))
-		{
-			d_enable_write((dword) pNoPortraitHook1);
-			memcpy(pNoPortraitHook1, pNoPortraitHook1Code, 39);
-			memcpy(pNoPortraitHook2, pNoPortraitHook2Code, 1);
-			memcpy(pNoPortraitHook3, pNoPortraitHook3Code, 9);
-			fixes.Log(2, "* Disguising portraits in character list.\n");
-		}
-
-		if(fixes.GetConfInteger("hide_charlist_dms"))
-		{
-			d_enable_write((dword) pNoDMHook);
-			pNoDMHook[0] = (char)0xE9;
-			*((int*)(&pNoDMHook[1])) = (int)&PlayerListNoDMHook - (int)pNoDMHook - 5;
-		}
-	}
-
 	if(pSplitItem_Copy && fixes.GetConfInteger("copy_vars"))
 	{
 		fixes.Log(2, "copy_vars = 1\n");
@@ -576,6 +533,8 @@ int FindHookFunctions()
 	}
 	// end cap hooks
 
+	HookFunctions_NewApi();
+	
 	if(!(pGetIsMergeable && pSplitItem_Copy && pBuyItem && pMergeItems_RemoveItem))
 	{
 		fixes.Log(2, "Some of the functions could not be found\n");
