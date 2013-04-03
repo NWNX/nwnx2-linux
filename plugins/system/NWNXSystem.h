@@ -41,6 +41,7 @@ void Func_GetSystemTime                      (CGameObject *ob, char *value);
 void Func_GetTMILimit                        (CGameObject *ob, char *value);
 void Func_SetTMILimit                        (CGameObject *ob, char *value);
 void Func_ShutdownServer                     (CGameObject *ob, char *value);
+void Func_TrueRandom                         (CGameObject *ob, char *value);
 
 nwn_objid_t Func_IntToObject                 (CGameObject *ob);
 

@@ -45,6 +45,14 @@ void SetTMILimit (int nLimit);
  * force-killed in that number of seconds, in case it hangs during shutdown. */
 void ShutdownServer (int nForce=0);
 
+/* Returns random integer between 0 and nMax-1 directly from /dev/urandom
+Returns -1 on error
+It is strongly recommended not to use this function with large (>>1000)
+arguments. Int this case quality isn't guaranteed.
+I hope it will be better than bugged default NWN randomizer /Ilerien/
+*/
+int TrueRandom(int nMax);
+
 
 string DirList (string sDir) {
     object oMod = GetModule();
@@ -134,4 +142,10 @@ void SetTMILimit (int nLimit) {
 
 void ShutdownServer (int nForce) {
     SetLocalString(GetModule(), "NWNX!SYSTEM!SHUTDOWNSERVER", IntToString(nForce));
+}
+
+int TrueRandom(int nMax)
+{
+    SetLocalString(GetModule(), "NWNX!SYSTEM!TRUERANDOM", IntToString(nMax) + "          ");
+    return StringToInt(GetLocalString(GetModule(), "NWNX!SYSTEM!TRUERANDOM"));
 }

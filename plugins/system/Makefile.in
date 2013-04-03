@@ -50,6 +50,7 @@ OFILES  = \
     funcs/f_IntToObject.o                        \
     funcs/f_SetTMILimit.o                        \
     funcs/f_ShutdownServer.o                     \
+    funcs/f_TrueRandom.o                         \
     NWNXSystem.o                                 \
     plugin-system.o
 
@@ -87,3 +88,6 @@ clean:
 
 distclean: clean
 	$(RM) -f .depend SystemStrCmds.h SystemObjCmds.h
+
+install: nwnx_system.so
+	mkdir -p @prefix@/ ; install nwnx_system.so @prefix@/

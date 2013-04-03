@@ -46,6 +46,7 @@ GETSYSTEMTIME,                          Func_GetSystemTime
 GETTMILIMIT,                            Func_GetTMILimit
 SETTMILIMIT,                            Func_SetTMILimit
 SHUTDOWNSERVER,                         Func_ShutdownServer
+TRUERANDOM,                             Func_TrueRandom
 %%
 
 #ifdef __cplusplus
