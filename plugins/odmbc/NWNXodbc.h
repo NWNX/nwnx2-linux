@@ -46,8 +46,8 @@ public:
 	unsigned long OnRequestObject(char *gameObject, char *Request);
 	bool OnRelease();
 
-  int WriteSCO(const char * database, const char * key, const char * player, int flags, unsigned char * pData, int size);
-  unsigned char * ReadSCO(const char * database, const char * key, const char * player, int * arg4, int * size);
+  int WriteSCO(const char * database, const char * key, char * player, int flags, unsigned char * pData, int size);
+  unsigned char * ReadSCO(const char * database, const char * key, char * player, int * arg4, int * size);
 
 protected:
 	BOOL Connect();

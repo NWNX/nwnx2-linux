@@ -3,8 +3,8 @@
 
 typedef struct
 {
-	char* database;
-	char* key;
+	const char* database;
+	const char* key;
 	char* player;
 	unsigned char *pData;
 	int size;
