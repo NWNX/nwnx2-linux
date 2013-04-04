@@ -591,6 +591,18 @@ void USleep (int usec);
  * Returns .sec = 0 and .usec = 0 on failure. */
 struct Timeval GetTimeOfDay();
 
+//Sets oCreature's corpse decay time in milliseconds
+//Returns:
+//  1 on success
+//  0 on failure
+int SetCorpseDecayTime(object oCreature, int nTime);
+
+//Returns:
+//  oCreature's corpse decay time in milliseconds on success
+//  0 on failure
+int GetCorpseDecayTime(object oCreature);
+
+
 int NWNXFuncsZero (object oObject, string sFunc) {
     SetLocalString(oObject, sFunc, "          ");
     return StringToInt(GetLocalString(oObject, sFunc));
@@ -1443,6 +1455,20 @@ int SetIsCreatureDisarmable(object oCreature, int bDisarmable)
 {
     int nRet = NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETISCREATUREDISARMABLE", bDisarmable != FALSE);
     DeleteLocalString(oCreature, "NWNX!FUNCS!SETISCREATUREDISARMABLE");
+    return nRet;	
+}
+
+int SetCorpseDecayTime(object oCreature, int nTime)
+{
+    int nRet = NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETCORPSEDECAYTIME", nTime);
+    DeleteLocalString(oCreature, "NWNX!FUNCS!SETCORPSEDECAYTIME");
+    return nRet;
+}
+
+int GetCorpseDecayTime(object oCreature)
+{
+    int nRet = NWNXFuncsZero(oCreature, "NWNX!FUNCS!GETCORPSEDECAYTIME");
+    DeleteLocalString(oCreature, "NWNX!FUNCS!GETCORPSEDECAYTIME");
     return nRet;	
 }
 

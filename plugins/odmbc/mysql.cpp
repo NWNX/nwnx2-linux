@@ -99,43 +99,38 @@ BOOL CMySQL::Execute (const uchar* query)
 	return true;
 }
 
-uint CMySQL::Fetch (char* buffer, uint size)
+char * CMySQL::Fetch(char * buffer, unsigned int buffersize)
 {
-	uint totalbytes = 0;
-	ulong *lengths;
-	ulong i, total;
+	// Attempt to fetch a row and column lengths.
 	MYSQL_ROW row;
+	unsigned long * column_lengths;
+	if (!connection || !result || !(row = mysql_fetch_row(result)) || !(column_lengths = mysql_fetch_lengths(result)))
+		return NULL;
 
-	if (connection == NULL)
-		return (uint)-1;
-
-	buffer[0] = '\0';
-
-	// walk through the resultset
-	if (result == NULL) return (uint)-1;
-	row = mysql_fetch_row (result);
-	if (row)
+	// Calculate length of the row.
+	unsigned long row_length = 0;
+	for (unsigned int i = 0; i < NumCol; ++i)
 	{
-		lengths = mysql_fetch_lengths (result);
-		// add each column to buffer
-		for (i = 0; i < NumCol; i++)
-		{
-			//performance issue
-		    total = totalbytes + lengths[i];
-			if ((lengths[i] > 0) && (total < size))	{
-				memcpy (&buffer[totalbytes], row[i], lengths[i]);
-				totalbytes = total;
-	    	}
-
-			// add seperator as long we are not at last column
-			if ((i != NumCol - 1) && (totalbytes + 1 < size)) {
-				buffer[totalbytes] = '¬'; // ascii 170
-				totalbytes++;
-	    	}
-		}
-		buffer[totalbytes] = 0;
+		// We will need one more character per a column to act as a column separator and a NULL terminating character.
+		row_length += column_lengths[i] + 1;
 	}
-	return totalbytes;
+	if (row_length == 0)
+		return NULL;
+
+	// If the row length exceeds size of the SPACER buffer, allocate a new one.
+	// The SPACER will be deleted automatically in nwnx2lib.cpp.
+	char * result = row_length <= buffersize ? buffer : (char *)malloc(row_length);
+
+	// Copy content of the columns to the buffer.
+	for (unsigned int i = 0, pos = 0; i < NumCol; ++i)
+	{
+		strncpy(&result[pos], row[i], column_lengths[i]);
+		pos += column_lengths[i];
+		result[pos++] = '¬';
+	}
+	result[row_length-1] = '\0';
+
+	return result;
 }
 
 BOOL CMySQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
@@ -147,7 +142,7 @@ BOOL CMySQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 
 	len = mysql_real_escape_string (&mysql, Data + 1, (const char*)pData, Length);
 	Data[0] = Data[len + 1] = 39; //'
-	Data[len + 2] = 0x0; 
+	Data[len + 2] = 0x0;
 	sprintf(pSQL, SQL, Data);
 
 	MYSQL_RES *result = mysql_store_result (&mysql);
@@ -163,11 +158,11 @@ BOOL CMySQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 		return false;
 }
 
-BYTE* CMySQL::ReadScorcoData(char* SQL, char *param, BOOL* pSqlError, int *size)
+BYTE * CMySQL::ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size)
 {
 	MYSQL_RES *rcoresult;
 	if (strcmp(param, "FETCHMODE") != 0)
-	{	
+	{
 		if (mysql_query(&mysql, (const char *) SQL) != 0)
 		{
 			*pSqlError = true;
@@ -214,4 +209,10 @@ const char* CMySQL::GetErrorMessage ()
 {
 	// return the error message
 	return mysql_error (&mysql);
+}
+
+unsigned int CMySQL::GetErrorCode()
+{
+	// return the error code
+	return mysql_errno(&mysql);
 }

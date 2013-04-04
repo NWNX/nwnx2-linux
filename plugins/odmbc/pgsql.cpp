@@ -69,7 +69,7 @@ BOOL CPgSQL::Connect (const char *server, const char *user, const char *pass, co
 		free(connstring);
 		return false;
 	}
-	
+
 	free(connstring);
 
 	return true;
@@ -98,57 +98,46 @@ BOOL CPgSQL::Execute (const uchar* query)
 	{
 		return false;
 	}
-	
+
 	// successfull retreived the results from the SELECT
 	NumCol = PQnfields (result);
-	// Set the CurCol cursor to 0	 
+	// Set the CurCol cursor to 0
 	CurRow = 0;
 	return true;
 }
 
-uint CPgSQL::Fetch (char* buffer, uint size)
+char * CPgSQL::Fetch(char * buffer, unsigned int buffersize)
 {
-	uint totalbytes = 0;
-	ulong *lengths;
-	ulong i, total;
-	//MYSQL_ROW row;
 
-	if (PQstatus(pgsql) != CONNECTION_OK)
-		return (uint)-1;
+	if (PQstatus(pgsql) != CONNECTION_OK || PQresultStatus(result) != PGRES_TUPLES_OK || PQntuples(result) <= CurRow)
+		return NULL;
 
-	buffer[0] = '\0';
-
-	// walk through the resultset
-	if (result == NULL || PQresultStatus(result) == PGRES_FATAL_ERROR) return (uint)-1;
-
-	// Check for empty set
-	if (NumCol == 0 || PQntuples(result) == 0) {
-	  return (uint)-1;
-	}  
-
-
-	if (PQntuples(result) > CurRow)
+	// Calculate length of the row.
+	unsigned long row_length = 0;
+	for (unsigned int i = 0; i < NumCol; ++i)
 	{
-		// add each column to buffer
-		for (i = 0; i < NumCol; i++)
-		{
-			//performance issue
-		    total = totalbytes + PQgetlength(result, CurRow, i);
-			if ((PQgetlength(result, CurRow, i) > 0) && (total < size))	{
-				memcpy (&buffer[totalbytes], PQgetvalue(result, CurRow, i), PQgetlength(result, CurRow, i));
-				totalbytes = total;
-	    	}
-
-			// add seperator as long we are not at last column
-			if ((i != NumCol - 1) && (totalbytes + 1 < size)) {
-				buffer[totalbytes] = '¬'; // ascii 170
-				totalbytes++;
-	    	}
-		}
-		buffer[totalbytes] = 0;
+		// We will need one more character per a column to act as a column separator and a NULL terminating character.
+		row_length += PQgetlength(result, CurRow, i) + 1;
 	}
+	if (row_length == 0)
+		return NULL;
+
+	// If the row length exceeds size of the SPACER buffer, allocate a new one.
+	// The SPACER will be deleted automatically in nwnx2lib.cpp.
+	char * result = row_length <= buffersize ? buffer : (char *)malloc(row_length);
+
+	for (unsigned int i = 0, pos = 0; i < NumCol; ++i)
+	{
+		int length = PQgetlength(this->result, CurRow, i);
+		strncpy(&result[pos], PQgetvalue(this->result, CurRow, i), length);
+		pos += length;
+		result[pos++] = '¬';
+	}
+	result[row_length-1] = '\0';
+
 	CurRow++;
-	return totalbytes;
+
+	return result;
 }
 
 BOOL CPgSQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
@@ -162,7 +151,7 @@ BOOL CPgSQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 
 	//len = mysql_real_escape_string (&mysql, Data + 1, (const char*)pData, Length);
 	Data2 = PQescapeByteaConn(pgsql, pData, Length, &len);
-	
+
 	Data = new char[len + 4];
 	pSQL = new char[MAXSQL + len + 3];
 
@@ -178,9 +167,9 @@ BOOL CPgSQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 		res = 1;
 	else
 		res = 0;
-	
+
 	PQclear (sco_result);
-	
+
 	delete[] pSQL;
 	delete[] Data;
 	PQfreemem(Data2);
@@ -191,11 +180,11 @@ BOOL CPgSQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 		return false;
 }
 
-BYTE* CPgSQL::ReadScorcoData(char* SQL, char *param, BOOL* pSqlError, int *size)
+BYTE * CPgSQL::ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size)
 {
 	PGresult *rcoresult;
 	if (strcmp(param, "FETCHMODE") != 0)
-	{	
+	{
 		rcoresult = PQexec (pgsql, SQL);
 		if (rcoresult == NULL || PQresultStatus(rcoresult) == PGRES_FATAL_ERROR)
 		{

@@ -39,10 +39,13 @@ OFILES  = \
     funcs/f_GetACByType.o                        \
     funcs/f_GetACVersus.o                        \
     funcs/f_GetAllSpellImmunities.o              \
+    funcs/f_GetBaseSaveBonus.o                   \
     funcs/f_GetDefenseOption.o                   \
     funcs/f_GetEffectDamageReduction.o           \
     funcs/f_GetEffectDamageResistance.o          \
+    funcs/f_GetEffectSaveModifier.o              \
     funcs/f_GetHasSpellImmunity.o                \
+    funcs/f_GetSavingThrowFeat.o                 \
     funcs/f_GetSavingThrowVersus.o               \
     funcs/f_GetTotalDamageImmunityDecrease.o     \
     funcs/f_GetTrueDamageImmunity.o              \

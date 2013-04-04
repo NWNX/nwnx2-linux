@@ -49,10 +49,12 @@ GETBONUSSPELLSLOTS,                    Func_GetBonusSpellSlots
 GETCLASSBYLEVEL,                       Func_GetClassByLevel
 GETCLERICDOMAIN,                       Func_GetClericDomain
 GETCONVERSATION,                       Func_GetConversation
+GETCORPSEDECAYTIME,		       Func_GetCorpseDecayTime
 GETCREATUREEVENTHANDLER,               Func_GetCreatureEventHandler
 GETCRITICALHITMULTIPLIER,              Func_GetCriticalHitMultiplier
 GETCRITICALHITRANGE,                   Func_GetCriticalHitRange
 GETDAMAGEIMMUNITY,                     Func_GetDamageImmunity
+GETEFFECTSKILLMODIFIER,                Func_GetEffectSkillModifier
 GETENTIREITEMAPPEARANCE,               Func_GetEntireItemAppearance
 GETEVENTHANDLER,                       Func_GetEventHandler
 GETFACTIONID,                          Func_GetFactionId
@@ -116,6 +118,7 @@ SETALIGNMENTVALUE,                     Func_SetAlignmentValue
 SETBASEITEMTYPE,                       Func_SetBaseItemType
 SETCLERICDOMAIN,                       Func_SetClericDomain
 SETCONVERSATION,                       Func_SetConversation
+SETCORPSEDECAYTIME,                    Func_SetCorpseDecayTime
 SETCREATUREEVENTHANDLER,               Func_SetCreatureEventHandler
 SETCREATURESIZE,                       Func_SetCreatureSize
 SETCURRENTHITPOINTS,                   Func_SetCurrentHitPoints

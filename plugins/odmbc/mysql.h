@@ -1,3 +1,4 @@
+
 /***************************************************************************
     CMySQL.h: interface for the CMySQL class.
     Copyright (C) 2004 Jeroen Broekhuizen (nwnx@jengine.nl)
@@ -24,6 +25,7 @@
 #include "db.h"
 
 #include <mysql/mysql.h>
+#include <mysql/errmsg.h>
 
 class CMySQL : public CDB
 {
@@ -36,12 +38,14 @@ public:
 	void Disconnect ();
 
 	BOOL Execute (const uchar* query);
-	uint Fetch (char* buffer, uint size);
+	char * Fetch(char * buffer, unsigned int buffersize);
 	BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length);
-	BYTE* ReadScorcoData(char* SQL, char *param, BOOL* pSqlError, int *size);
+	BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size);
 	BOOL SetCharacterSet (const char *charset);
 
 	const char* GetErrorMessage ();
+
+	unsigned int GetErrorCode();
 
 private:
 	MYSQL mysql;

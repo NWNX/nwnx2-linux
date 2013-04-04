@@ -100,7 +100,6 @@ void NWNXChat_SuppressMessage()
     SetLocalString(GetModule(), "NWNX!CHAT!SUPRESS", "1");
     DeleteLocalString(GetModule(), "NWNX!CHAT!SUPRESS");
 }
-
 int NWNXChat_SendMessage(object oSender, int nChannel, string sMessage, object oRecipient=OBJECT_INVALID)
 {
     if (!GetIsObjectValid(oSender)) return FALSE;

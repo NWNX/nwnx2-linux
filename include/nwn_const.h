@@ -308,6 +308,28 @@
 #define SAVING_THROW_REFLEX                                2
 #define SAVING_THROW_WILL                                  3
 
+#define SAVING_THROW_TYPE_ALL                              0
+#define SAVING_THROW_TYPE_NONE                             0
+#define SAVING_THROW_TYPE_MIND_SPELLS                      1
+#define SAVING_THROW_TYPE_POISON                           2
+#define SAVING_THROW_TYPE_DISEASE                          3
+#define SAVING_THROW_TYPE_FEAR                             4
+#define SAVING_THROW_TYPE_SONIC                            5
+#define SAVING_THROW_TYPE_ACID                             6
+#define SAVING_THROW_TYPE_FIRE                             7
+#define SAVING_THROW_TYPE_ELECTRICITY                      8
+#define SAVING_THROW_TYPE_POSITIVE                         9
+#define SAVING_THROW_TYPE_NEGATIVE                         10
+#define SAVING_THROW_TYPE_DEATH                            11
+#define SAVING_THROW_TYPE_COLD                             12
+#define SAVING_THROW_TYPE_DIVINE                           13
+#define SAVING_THROW_TYPE_TRAP                             14
+#define SAVING_THROW_TYPE_SPELL                            15
+#define SAVING_THROW_TYPE_GOOD                             16
+#define SAVING_THROW_TYPE_EVIL                             17
+#define SAVING_THROW_TYPE_LAW                              18
+#define SAVING_THROW_TYPE_CHAOS                            19
+
 #define ABILITY_STRENGTH                                   0
 #define ABILITY_DEXTERITY                                  1
 #define ABILITY_CONSTITUTION                               2

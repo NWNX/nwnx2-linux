@@ -91,7 +91,7 @@ Vector FacingToOrientation(float fFacing)
 
 void ApplyInventoryLoadPatch(unsigned long pAddr, bool bEnabled)
 {
-	char *pCode = (char *) pAddr; //68 80 0A 31 08          push    offset aObjectid                ; "ObjectId"
+	unsigned char * pCode = (unsigned char *)pAddr;
 	d_enable_write((unsigned long)pCode);
 	if(bEnabled)
 	{
@@ -108,7 +108,7 @@ char *SaveObject(dword nObjectID, int &nSize)
 	if(!pServThis)
 		InitConstants();
 	int (*SaveObjectInternal)(CNWSObject *pObject, CResGFF *pGFF, CResStruct *pResStruct);
-	char *sGFFType = NULL;
+	const char * sGFFType = NULL;
 	odbc.Log(4, "SaveObject: %x\n", nObjectID);
 	CNWSObject *pObject = CServerExoApp__GetGameObject((void *)pServThis, nObjectID);
 	odbc.Log(4, "pObject: %08lx\n", pObject);
@@ -170,7 +170,11 @@ char *SaveObject(dword nObjectID, int &nSize)
 		nSize = 0;
 		return NULL;
 	}
-	return NULL;
+	else
+	{
+		nSize = 0;
+		return NULL;
+	}
 }
 
 /*char *SavePlaceable(CNWSPlaceable *pObject, int &pnSize)

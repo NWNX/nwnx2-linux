@@ -41,9 +41,9 @@ public:
 	virtual void Disconnect () = 0;
 
 	virtual BOOL Execute (const uchar* query) = 0;
-	virtual uint Fetch (char* buffer, uint size) = 0;
+	virtual char * Fetch(char * buffer, unsigned int buffersize) = 0;
 	virtual BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length) = 0;
-	virtual BYTE* ReadScorcoData(char* SQL, char *param, BOOL* pSqlError, int *size) = 0;
+	virtual BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size) = 0;
 
 	virtual const char* GetErrorMessage () = 0;
 

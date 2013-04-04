@@ -42,6 +42,7 @@ CNWNXODBC::CNWNXODBC()
 	db = 0;
 	dbType = dbNONE;
 	hookScorco = true;
+	bReconnectOnError = false;
 	memset (&p, 0, sizeof (PARAMETERS));
 }
 //============================================================================================================================
@@ -56,7 +57,6 @@ CNWNXODBC::~CNWNXODBC()
 bool CNWNXODBC::OnCreate (gline *config, const char* LogDir)
 {
 	char log[128];
-	bool validate = true, startServer = true;
 
 	// call the base class function
 	sprintf (log, "%s/nwnx_odbc.txt", LogDir);
@@ -64,7 +64,7 @@ bool CNWNXODBC::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX2 ODBC2 version 1.0.0 for Linux.\n");
+	Log (0, "NWNX2 ODBC2 version 1.0.1 for Linux.\n");
 	Log (0, "(c) 2005-2006 dumbo (dumbo@nm.ru)\n");
 	Log (0, "(c) 2006-2010 virusman (virusman@virusman.ru)\n");
 #ifdef SQLITE_SUPPORT
@@ -178,12 +178,36 @@ BOOL CNWNXODBC::Connect()
 }
 
 //============================================================================================================================
+BOOL CNWNXODBC::Reconnect()
+{
+	if(db)
+		db->Disconnect();
+
+	Log (1, "o Trying to reconnect...\n");
+
+
+	if(Connect())
+	{
+		Log (1, "o Reconnect successful\n");
+		//if(output != NULL)
+		//	snprintf(output, strlen(output), "%d", 1);
+		return true;
+	}
+
+	Log (1, "! Reconnect failed!\n");
+	//if(output != NULL)
+	//	snprintf(output, strlen(output), "%d", 0);
+
+	return false;
+}
+
+//============================================================================================================================
 char* CNWNXODBC::OnRequest (char* gameObject, char* Request, char* Parameters)
 {
 	if (strncmp (Request, "EXEC", 4) == 0)
 		Execute(Parameters);
 	else if (strncmp (Request, "FETCH", 5) == 0)
-		Fetch (Parameters, strlen (Parameters));
+		return Fetch(Parameters, strlen(Parameters));
 	else if (strncmp(Request, "SETSCORCOSQL", 12) == 0)
 		SetScorcoSQL(Parameters);
 	else if (strncmp(Request, "STOREOBJECT", 11) == 0)
@@ -229,6 +253,19 @@ unsigned long CNWNXODBC::OnRequestObject(char *gameObject, char *Request)
 }
 
 //============================================================================================================================
+unsigned long CNWNXODBC::OnRequestObject(char *, char * Request)
+{
+	if (strncmp(Request, "RETRIEVEOBJECT", 14) == 0)
+	{
+		return lastObjectID;
+	}
+	else
+	{
+		return 0x7F000000;
+	}
+}
+
+//============================================================================================================================
 void CNWNXODBC::Execute(char *request)
 {
 	if (!db) {
@@ -246,22 +283,32 @@ void CNWNXODBC::Execute(char *request)
 		return;
 	}
 
+
+	bool bSuccess = false;
+
 	// try to execute the SQL query
-	if (!db->Execute((const uchar*)request))
-	{
-		Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
-		request[0] = '0';
-		request[1] = 0;
-	}
+	if (db->Execute((const uchar*)request))
+		bSuccess = true;
 	else
 	{
-		request[0] = '1';
+		Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
+
+		if(
+			bReconnectOnError &&
+			dbType == dbMYSQL &&
+			reinterpret_cast<CMySQL*>(db)->GetErrorCode() == CR_SERVER_GONE_ERROR &&
+			Reconnect() &&
+			db->Execute((const uchar*)request)
+		  )
+			bSuccess = true;
+	}
+
+	request[0] = bSuccess ? '1' : '0';
 		request[1] = 0;
 	}
-}
 
 //============================================================================================================================
-void CNWNXODBC::Fetch(char *buffer, unsigned int buffersize)
+char * CNWNXODBC::Fetch(char * buffer, unsigned int buffersize)
 {
 	if (!db) {
 		Log (1, "! Error: Tried to execute SQL statement, but no support compiled in.\n");
@@ -269,15 +316,19 @@ void CNWNXODBC::Fetch(char *buffer, unsigned int buffersize)
 		return;
 	}
 
-	unsigned int totalbytes = 0;
-	buffer[0] = 0x0;
-	// fetch data from recordset
-	totalbytes = db->Fetch (buffer, buffersize);
-  // log what we received
-  if (totalbytes == -1)
-    Log (2, "o Empty set\n");
-  else
-    Log (2, "o Sent response (%d bytes): %s\n", totalbytes, buffer);
+	// Clear the SPACER buffer.
+	buffer[0] = '\0';
+
+	// Fetch a row from the database.
+	char * result = db->Fetch(buffer, buffersize);
+
+	// Print a row content to a log file.
+	if (result)
+		Log(2, "o Sent result: %s\n", result);
+	else
+		Log(2, "o No result\n");
+
+	return result;
 }
 
 //============================================================================================================================
@@ -317,7 +368,7 @@ bool CNWNXODBC::OnRelease ()
 }
 
 //============================================================================================================================
-int CNWNXODBC::WriteSCO(char* database, char* key, char* player, int flags, unsigned char * pData, int size)
+int CNWNXODBC::WriteSCO(const char * database, const char * key, const char * player, int flags, unsigned char * pData, int size)
 {
   Log(3, "o SCO: db='%s', key='%s', player='%s', flags=%08lX, pData=%08lX, size=%08lX\n", database, key, player, flags, pData, size);
 
@@ -329,16 +380,21 @@ int CNWNXODBC::WriteSCO(char* database, char* key, char* player, int flags, unsi
 		return 0;
 	}
 
-	  if (size > 0)
+	if (size > 0)
+	{
+		//Log ("o Writing scorco data.\n");
+		if (!db->WriteScorcoData(scorcoSQL, pData, size))
 		{
-			//Log ("o Writing scorco data.\n");
-			if (!db->WriteScorcoData(scorcoSQL, pData, size))
-	      Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
-	    else
-	      return 1;
+			Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
+			if(
+				bReconnectOnError &&
+				dbType == dbMYSQL &&
+				reinterpret_cast<CMySQL*>(db)->GetErrorCode() == CR_SERVER_GONE_ERROR &&
+				Reconnect() &&
+				db->WriteScorcoData(scorcoSQL, pData, size)
+		  	)
+				return 1;
 		}
-	  return 0;
-  }
   else
   {
 	  SCORCOStruct scoInfo = {
@@ -352,10 +408,12 @@ int CNWNXODBC::WriteSCO(char* database, char* key, char* player, int flags, unsi
 
 	  return 1;
   }
+  return 0;
 }
 
+
 //============================================================================================================================
-unsigned char* CNWNXODBC::ReadSCO(char* database, char* key, char* player, int* arg4, int* size)
+unsigned char * CNWNXODBC::ReadSCO(const char * database, const char * key, const char * player, int * arg4, int * size)
 {
   *arg4 = 0x4f;
 
@@ -379,10 +437,23 @@ unsigned char* CNWNXODBC::ReadSCO(char* database, char* key, char* player, int* 
 
   if (!sqlError && pData)
 		return pData;
-	else 
+	else
 	{
 		if (sqlError)
+		{
 			Log (1, "! SQL Error: %s\n", db->GetErrorMessage ());
+			if(
+				bReconnectOnError &&
+				dbType == dbMYSQL &&
+				reinterpret_cast<CMySQL*>(db)->GetErrorCode() == CR_SERVER_GONE_ERROR &&
+				Reconnect()
+		  	)
+			{
+				pData = db->ReadScorcoData(scorcoSQL, key, &sqlError, size);
+				if (!sqlError && pData)
+					return pData;
+			}
+		}
 	}
   return NULL;
   }
@@ -416,20 +487,20 @@ bool CNWNXODBC::LoadConfiguration ()
 	if(!nwnxConfig->exists(confKey)) {
 		Log (0, "o Critical Error: Section [%s] not found in nwnx2.ini\n", confKey);
 		return false;
-	}
+  }
 
   // see what mode should be used
 	strcpy(buffer, (char*)((*nwnxConfig)[confKey]["source"].c_str()));
 	dbType = dbNONE;
 
 #ifdef MYSQL_SUPPORT
-	if (strcasecmp (buffer, "MYSQL") == 0) {
+  if (strcasecmp (buffer, "MYSQL") == 0) {
 		// load in the settings for a direct mysql connection
 		p.server    = strdup((char*)((*nwnxConfig)[confKey]["server"].c_str()));
 		p.user      = strdup((char*)((*nwnxConfig)[confKey]["user"].c_str()));
 		p.pass      = strdup((char*)((*nwnxConfig)[confKey]["pass"].c_str()));
 		if(!*p.pass)
-			p.pass  = strdup((char*)((*nwnxConfig)[confKey]["pwd"].c_str()));
+		p.pass      = strdup((char*)((*nwnxConfig)[confKey]["pwd"].c_str()));
 		p.db        = strdup((char*)((*nwnxConfig)[confKey]["db"].c_str()));
 		p.port      = atoi((char*)((*nwnxConfig)[confKey]["port"].c_str()));
 		p.socket    = strdup((char*)((*nwnxConfig)[confKey]["socket"].c_str()));
@@ -458,10 +529,10 @@ bool CNWNXODBC::LoadConfiguration ()
 		  p.user	  = strdup((char*)((*nwnxConfig)[confKey]["user"].c_str()));
 		  p.pass	  = strdup((char*)((*nwnxConfig)[confKey]["pass"].c_str()));
 		  if(!*p.pass)
-			p.pass    = strdup((char*)((*nwnxConfig)[confKey]["pwd"].c_str()));
+		  p.pass	  = strdup((char*)((*nwnxConfig)[confKey]["pwd"].c_str()));
 		  p.db		  = strdup((char*)((*nwnxConfig)[confKey]["db"].c_str()));
 		  dbType = dbPGSQL;
-	}
+	  }
 #endif
 	if (dbType == dbNONE) {
 		p.db = NULL;
@@ -482,6 +553,12 @@ bool CNWNXODBC::LoadConfiguration ()
 	strcpy(buffer, (char*)((*nwnxConfig)[confKey]["hookscorco"].c_str()));
 	if (strcasecmp (buffer, "false") == 0)
 		hookScorco = false;
+
+	//check reconnect flag
+	strcpy(buffer, (char*)((*nwnxConfig)[confKey]["reconnectonerror"].c_str()));
+	if (strcasecmp (buffer, "true") == 0)
+		bReconnectOnError = true;
+
 
 	return true;
 }

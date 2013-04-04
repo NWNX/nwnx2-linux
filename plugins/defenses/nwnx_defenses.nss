@@ -129,12 +129,20 @@ string GetAllSpellImmunities (object oCreature) {
     return sImms;
 }
 
+int GetBaseSaveBonus (object oCreature, int nSave) {
+    return NWNXDefensesOne(oCreature, "NWNX!DEFENSES!GETBASESAVEBONUS", nSave); 
+}
+
 int GetEffectDamageReduction (object oCreature, int nDamPower, int nDurType=-1) {
     return NWNXDefensesTwo(oCreature, "NWNX!DEFENSES!GETEFFECTDAMAGEREDUCTION", nDamPower, nDurType);
 }
 
 int GetEffectDamageResistance (object oCreature, int nDamType, int nDurType=-1) {
     return NWNXDefensesTwo(oCreature, "NWNX!DEFENSES!GETEFFECTDAMAGERESISTANCE", nDamType, nDurType);
+}
+
+int GetEffectSaveModifier (object oCreature, int nSave, int nSaveType=SAVING_THROW_TYPE_ALL, int nDurType=-1) {
+    return NWNXDefensesThree(oCreature, "NWNX!DEFENSES!GETEFFECTSAVEMODIFIER", nSave, nSaveType, nDurType); 
 }
 
 int GetHasSpellImmunity (int nSpellId, object oCreature=OBJECT_SELF, int nSpellSchool=-1, int nSpellLevel=-1, int nDurType=-1) {

@@ -1,6 +1,6 @@
 /***************************************************************************
     NWNXBase.h: interface for the CNWNXBase class.
-    Copyright (C) 2003 Ingmar Stieger (Papillon, papillon@blackdagger.com) and 
+    Copyright (C) 2003 Ingmar Stieger (Papillon, papillon@blackdagger.com) and
 	Jeroen Broekhuizen (nwnx@jengine.nl)
 
     This program is free software; you can redistribute it and/or modify
@@ -81,7 +81,7 @@ public:
 	//  Example: Log ("Set array item %d with value %s.", iIndex, pcValue);
 	// Parameters:
 	//	debugPri	: message will only be sent to the log if this argument
-	//				  is >= the instance's debuglevel 
+	//				  is >= the instance's debuglevel
 	//	Msg			: the format string
 	//  [argument]	: optional arguments
 	void Log (int debugPri, const char* Msg, ...);
@@ -110,7 +110,7 @@ public:
 protected:
 	FILE* m_fFile;
 	gline* nwnxConfig;
-	char* confKey;
+	const char * confKey;
 	int debuglevel;
 
 private:

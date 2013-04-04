@@ -69,7 +69,7 @@ static int8_t Hook_GetSavingThrowAdjustment (CNWSCreatureStats *stats, int save,
     if (table != NULL) {
         int i;
 
-        for (i = 0; i < NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE; i += 2) {
+        for (i = 0; i < NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE * 2; i += 2) {
             if (table[i] != 0 && CNWSCreatureStats__HasFeat(stats, table[i]))
                 value += table[i + 1];
         }

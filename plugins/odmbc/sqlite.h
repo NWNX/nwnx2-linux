@@ -29,21 +29,22 @@
 class CSQLite : public CDB
 {
 public:
+	static const int lastErrorSize = 512;
 	CSQLite();
 	~CSQLite();
 
 	BOOL Connect();
-	BOOL Connect(char *db);
+	BOOL Connect(const char * db);
 	void Disconnect();
 
 	BOOL Execute(const uchar* query);
-	uint Fetch(char* buffer, uint size);
+	char * Fetch(char * buffer, unsigned int buffersize);
 	BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length);
-	BYTE* ReadScorcoData(char* SQL, char *param, BOOL* pSqlError, int *size);
+	BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size);
 
 	const char* GetErrorMessage();
-	char lastError[512];
-	
+	char lastError[lastErrorSize];
+
 private:
 	sqlite3 *sdb;
 	sqlite3_stmt* pStmt;

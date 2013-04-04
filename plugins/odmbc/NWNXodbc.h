@@ -46,13 +46,14 @@ public:
 	unsigned long OnRequestObject(char *gameObject, char *Request);
 	bool OnRelease();
 
-  int WriteSCO(char* database, char* key, char* player, int flags, unsigned char * pData, int size);
-  unsigned char* ReadSCO(char* database, char* key, char* player, int* arg4, int* size);
+  int WriteSCO(const char * database, const char * key, const char * player, int flags, unsigned char * pData, int size);
+  unsigned char * ReadSCO(const char * database, const char * key, const char * player, int * arg4, int * size);
 
 protected:
 	BOOL Connect();
+	BOOL Reconnect();
 	void Execute(char* request);
-	void Fetch(char* buffer, unsigned int buffersize);
+	char * Fetch(char * buffer, unsigned int buffersize);
 	void SetScorcoSQL(char *request);
 	bool LoadConfiguration ();
 
@@ -75,6 +76,7 @@ private:
 	unsigned int sqlerror_counter;
 
 	bool hookScorco;
+	bool bReconnectOnError;
 	char* scorcoSQL;
 	unsigned long lastObjectID;
 
