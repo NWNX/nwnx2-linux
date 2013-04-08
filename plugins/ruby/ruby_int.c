@@ -13,7 +13,7 @@ static VALUE NWScript_Random(VALUE self, VALUE nMaxInteger)
 
 static VALUE NWScript_PrintString(VALUE self, VALUE sString)
 {
-	StackPushString(rb_str2cstr(sString, NULL));
+	StackPushString(StringValue(sString));
 	VM_ExecuteCommand(1, 1);
 	return Qnil;
 }
@@ -93,7 +93,7 @@ static VALUE NWScript_DelayCommand(VALUE self, VALUE fSeconds, VALUE aActionToDe
 static VALUE NWScript_ExecuteScript(VALUE self, VALUE sScript, VALUE oTarget)
 {
 	StackPushObject(NUM2UINT(oTarget));
-	StackPushString(rb_str2cstr(sScript, NULL));
+	StackPushString(StringValue(sScript));
 	VM_ExecuteCommand(8, 2);
 	return Qnil;
 }
@@ -314,7 +314,7 @@ static VALUE NWScript_GetItemPossessor(VALUE self, VALUE oItem)
 
 static VALUE NWScript_GetItemPossessedBy(VALUE self, VALUE oCreature, VALUE sItemTag)
 {
-	StackPushString(rb_str2cstr(sItemTag, NULL));
+	StackPushString(StringValue(sItemTag));
 	StackPushObject(NUM2UINT(oCreature));
 	VM_ExecuteCommand(30, 2);
 	dword nRetVal;
@@ -337,10 +337,10 @@ static VALUE NWScript_CreateItemOnObject(int argc, VALUE *argv, VALUE self)
 	else nStackSize = INT2NUM(1);
 	if(argc>3) sNewTag = argv[3];
 	else sNewTag = rb_str_new2("");
-	StackPushString(rb_str2cstr(sNewTag, NULL));
+	StackPushString(StringValue(sNewTag));
 	StackPushInteger(NUM2INT(nStackSize));
 	StackPushObject(NUM2UINT(oTarget));
-	StackPushString(rb_str2cstr(sItemTemplate, NULL));
+	StackPushString(StringValue(sItemTemplate));
 	VM_ExecuteCommand(31, 4);
 	dword nRetVal;
 	StackPopObject(&nRetVal);
@@ -458,7 +458,7 @@ static VALUE NWScript_ActionSpeakString(int argc, VALUE *argv, VALUE self)
 	if(argc>1) nTalkVolume = argv[1];
 	else nTalkVolume = INT2NUM(TALKVOLUME_TALK);
 	StackPushInteger(NUM2INT(nTalkVolume));
-	StackPushString(rb_str2cstr(sStringToSpeak, NULL));
+	StackPushString(StringValue(sStringToSpeak));
 	VM_ExecuteCommand(39, 2);
 	return Qnil;
 }
@@ -540,7 +540,7 @@ static VALUE NWScript_SetCameraFacing(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_PlaySound(VALUE self, VALUE sSoundName)
 {
-	StackPushString(rb_str2cstr(sSoundName, NULL));
+	StackPushString(StringValue(sSoundName));
 	VM_ExecuteCommand(46, 1);
 	return Qnil;
 }
@@ -620,7 +620,7 @@ static VALUE NWScript_GetMaxHitPoints(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_GetLocalInt(VALUE self, VALUE oObject, VALUE sVarName)
 {
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(51, 2);
 	int nRetVal;
@@ -630,7 +630,7 @@ static VALUE NWScript_GetLocalInt(VALUE self, VALUE oObject, VALUE sVarName)
 
 static VALUE NWScript_GetLocalFloat(VALUE self, VALUE oObject, VALUE sVarName)
 {
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(52, 2);
 	float fRetVal;
@@ -640,7 +640,7 @@ static VALUE NWScript_GetLocalFloat(VALUE self, VALUE oObject, VALUE sVarName)
 
 static VALUE NWScript_GetLocalString(VALUE self, VALUE oObject, VALUE sVarName)
 {
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(53, 2);
 	char *sRetVal;
@@ -650,7 +650,7 @@ static VALUE NWScript_GetLocalString(VALUE self, VALUE oObject, VALUE sVarName)
 
 static VALUE NWScript_GetLocalObject(VALUE self, VALUE oObject, VALUE sVarName)
 {
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(54, 2);
 	dword nRetVal;
@@ -661,7 +661,7 @@ static VALUE NWScript_GetLocalObject(VALUE self, VALUE oObject, VALUE sVarName)
 static VALUE NWScript_SetLocalInt(VALUE self, VALUE oObject, VALUE sVarName, VALUE nValue)
 {
 	StackPushInteger(NUM2INT(nValue));
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(55, 3);
 	return Qnil;
@@ -670,7 +670,7 @@ static VALUE NWScript_SetLocalInt(VALUE self, VALUE oObject, VALUE sVarName, VAL
 static VALUE NWScript_SetLocalFloat(VALUE self, VALUE oObject, VALUE sVarName, VALUE fValue)
 {
 	StackPushFloat(NUM2DBL(fValue));
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(56, 3);
 	return Qnil;
@@ -678,8 +678,8 @@ static VALUE NWScript_SetLocalFloat(VALUE self, VALUE oObject, VALUE sVarName, V
 
 static VALUE NWScript_SetLocalString(VALUE self, VALUE oObject, VALUE sVarName, VALUE sValue)
 {
-	StackPushString(rb_str2cstr(sValue, NULL));
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sValue));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(57, 3);
 	return Qnil;
@@ -688,7 +688,7 @@ static VALUE NWScript_SetLocalString(VALUE self, VALUE oObject, VALUE sVarName, 
 static VALUE NWScript_SetLocalObject(VALUE self, VALUE oObject, VALUE sVarName, VALUE oValue)
 {
 	StackPushObject(NUM2UINT(oValue));
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(58, 3);
 	return Qnil;
@@ -696,7 +696,7 @@ static VALUE NWScript_SetLocalObject(VALUE self, VALUE oObject, VALUE sVarName, 
 
 static VALUE NWScript_GetStringLength(VALUE self, VALUE sString)
 {
-	StackPushString(rb_str2cstr(sString, NULL));
+	StackPushString(StringValue(sString));
 	VM_ExecuteCommand(59, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -705,7 +705,7 @@ static VALUE NWScript_GetStringLength(VALUE self, VALUE sString)
 
 static VALUE NWScript_GetStringUpperCase(VALUE self, VALUE sString)
 {
-	StackPushString(rb_str2cstr(sString, NULL));
+	StackPushString(StringValue(sString));
 	VM_ExecuteCommand(60, 1);
 	char *sRetVal;
 	StackPopString(&sRetVal);
@@ -714,7 +714,7 @@ static VALUE NWScript_GetStringUpperCase(VALUE self, VALUE sString)
 
 static VALUE NWScript_GetStringLowerCase(VALUE self, VALUE sString)
 {
-	StackPushString(rb_str2cstr(sString, NULL));
+	StackPushString(StringValue(sString));
 	VM_ExecuteCommand(61, 1);
 	char *sRetVal;
 	StackPopString(&sRetVal);
@@ -724,7 +724,7 @@ static VALUE NWScript_GetStringLowerCase(VALUE self, VALUE sString)
 static VALUE NWScript_GetStringRight(VALUE self, VALUE sString, VALUE nCount)
 {
 	StackPushInteger(NUM2INT(nCount));
-	StackPushString(rb_str2cstr(sString, NULL));
+	StackPushString(StringValue(sString));
 	VM_ExecuteCommand(62, 2);
 	char *sRetVal;
 	StackPopString(&sRetVal);
@@ -734,7 +734,7 @@ static VALUE NWScript_GetStringRight(VALUE self, VALUE sString, VALUE nCount)
 static VALUE NWScript_GetStringLeft(VALUE self, VALUE sString, VALUE nCount)
 {
 	StackPushInteger(NUM2INT(nCount));
-	StackPushString(rb_str2cstr(sString, NULL));
+	StackPushString(StringValue(sString));
 	VM_ExecuteCommand(63, 2);
 	char *sRetVal;
 	StackPopString(&sRetVal);
@@ -744,8 +744,8 @@ static VALUE NWScript_GetStringLeft(VALUE self, VALUE sString, VALUE nCount)
 static VALUE NWScript_InsertString(VALUE self, VALUE sDestination, VALUE sString, VALUE nPosition)
 {
 	StackPushInteger(NUM2INT(nPosition));
-	StackPushString(rb_str2cstr(sString, NULL));
-	StackPushString(rb_str2cstr(sDestination, NULL));
+	StackPushString(StringValue(sString));
+	StackPushString(StringValue(sDestination));
 	VM_ExecuteCommand(64, 3);
 	char *sRetVal;
 	StackPopString(&sRetVal);
@@ -756,7 +756,7 @@ static VALUE NWScript_GetSubString(VALUE self, VALUE sString, VALUE nStart, VALU
 {
 	StackPushInteger(NUM2INT(nCount));
 	StackPushInteger(NUM2INT(nStart));
-	StackPushString(rb_str2cstr(sString, NULL));
+	StackPushString(StringValue(sString));
 	VM_ExecuteCommand(65, 3);
 	char *sRetVal;
 	StackPopString(&sRetVal);
@@ -776,8 +776,8 @@ static VALUE NWScript_FindSubString(int argc, VALUE *argv, VALUE self)
 	if(argc>2) nStart = argv[2];
 	else nStart = INT2NUM(0);
 	StackPushInteger(NUM2INT(nStart));
-	StackPushString(rb_str2cstr(sSubString, NULL));
-	StackPushString(rb_str2cstr(sString, NULL));
+	StackPushString(StringValue(sSubString));
+	StackPushString(StringValue(sString));
 	VM_ExecuteCommand(66, 3);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -972,7 +972,7 @@ static VALUE NWScript_EffectSummonCreature(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nUseAppearAnimation));
 	StackPushFloat(NUM2DBL(fDelaySeconds));
 	StackPushInteger(NUM2INT(nVisualEffectId));
-	StackPushString(rb_str2cstr(sCreatureResref, NULL));
+	StackPushString(StringValue(sCreatureResref));
 	VM_ExecuteCommand(83, 4);
 	CGameEffect *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);
@@ -1611,6 +1611,7 @@ static VALUE NWScript_EventUserDefined(VALUE self, VALUE nUserDefinedEventNumber
 	StackPushInteger(NUM2INT(nUserDefinedEventNumber));
 	VM_ExecuteCommand(132, 1);
 //ERROR: Undefined variable type: event
+	return Qnil;
 }
 
 static VALUE NWScript_EffectDeath(int argc, VALUE *argv, VALUE self)
@@ -1878,7 +1879,7 @@ static VALUE NWScript_SetLocalLocation(VALUE self, VALUE oObject, VALUE sVarName
 	CScriptLocation *lValue_ptr;
 	Data_Get_Struct(lValue, CScriptLocation, lValue_ptr);
 	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lValue_ptr);
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(152, 3);
 	return Qnil;
@@ -1886,7 +1887,7 @@ static VALUE NWScript_SetLocalLocation(VALUE self, VALUE oObject, VALUE sVarName
 
 static VALUE NWScript_GetLocalLocation(VALUE self, VALUE oObject, VALUE sVarName)
 {
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(153, 2);
 	CScriptLocation *pRetVal;
@@ -2093,9 +2094,9 @@ static VALUE NWScript_EffectAreaOfEffect(int argc, VALUE *argv, VALUE self)
 	else sHeartbeatScript = rb_str_new2("");
 	if(argc>3) sOnExitScript = argv[3];
 	else sOnExitScript = rb_str_new2("");
-	StackPushString(rb_str2cstr(sOnExitScript, NULL));
-	StackPushString(rb_str2cstr(sHeartbeatScript, NULL));
-	StackPushString(rb_str2cstr(sOnEnterScript, NULL));
+	StackPushString(StringValue(sOnExitScript));
+	StackPushString(StringValue(sHeartbeatScript));
+	StackPushString(StringValue(sOnEnterScript));
 	StackPushInteger(NUM2INT(nAreaEffectId));
 	VM_ExecuteCommand(171, 4);
 	CGameEffect *pRetVal;
@@ -2160,7 +2161,7 @@ static VALUE NWScript_SetListenPattern(int argc, VALUE *argv, VALUE self)
 	if(argc>2) nNumber = argv[2];
 	else nNumber = INT2NUM(0);
 	StackPushInteger(NUM2INT(nNumber));
-	StackPushString(rb_str2cstr(sPattern, NULL));
+	StackPushString(StringValue(sPattern));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(176, 3);
 	return Qnil;
@@ -2168,8 +2169,8 @@ static VALUE NWScript_SetListenPattern(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_TestStringAgainstPattern(VALUE self, VALUE sPattern, VALUE sStringToTest)
 {
-	StackPushString(rb_str2cstr(sStringToTest, NULL));
-	StackPushString(rb_str2cstr(sPattern, NULL));
+	StackPushString(StringValue(sStringToTest));
+	StackPushString(StringValue(sPattern));
 	VM_ExecuteCommand(177, 2);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -2430,7 +2431,7 @@ static VALUE NWScript_ActionJumpToObject(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_GetWaypointByTag(VALUE self, VALUE sWaypointTag)
 {
-	StackPushString(rb_str2cstr(sWaypointTag, NULL));
+	StackPushString(StringValue(sWaypointTag));
 	VM_ExecuteCommand(197, 1);
 	dword nRetVal;
 	StackPopObject(&nRetVal);
@@ -2472,7 +2473,7 @@ static VALUE NWScript_GetObjectByTag(int argc, VALUE *argv, VALUE self)
 	if(argc>1) nNth = argv[1];
 	else nNth = INT2NUM(0);
 	StackPushInteger(NUM2INT(nNth));
-	StackPushString(rb_str2cstr(sTag, NULL));
+	StackPushString(StringValue(sTag));
 	VM_ExecuteCommand(200, 2);
 	dword nRetVal;
 	StackPopObject(&nRetVal);
@@ -2518,7 +2519,7 @@ static VALUE NWScript_SetAreaTransitionBMP(int argc, VALUE *argv, VALUE self)
 	nPredefinedAreaTransition = argv[0];
 	if(argc>1) sCustomAreaTransitionBMP = argv[1];
 	else sCustomAreaTransitionBMP = rb_str_new2("");
-	StackPushString(rb_str2cstr(sCustomAreaTransitionBMP, NULL));
+	StackPushString(StringValue(sCustomAreaTransitionBMP));
 	StackPushInteger(NUM2INT(nPredefinedAreaTransition));
 	VM_ExecuteCommand(203, 2);
 	return Qnil;
@@ -2541,7 +2542,7 @@ static VALUE NWScript_ActionStartConversation(int argc, VALUE *argv, VALUE self)
 	else bPlayHello = INT2NUM(TRUE);
 	StackPushInteger(NUM2INT(bPlayHello));
 	StackPushInteger(NUM2INT(bPrivateConversation));
-	StackPushString(rb_str2cstr(sDialogResRef, NULL));
+	StackPushString(StringValue(sDialogResRef));
 	StackPushObject(NUM2UINT(oObjectToConverseWith));
 	VM_ExecuteCommand(204, 4);
 	return Qnil;
@@ -2746,7 +2747,7 @@ static VALUE NWScript_SpeakString(int argc, VALUE *argv, VALUE self)
 	if(argc>1) nTalkVolume = argv[1];
 	else nTalkVolume = INT2NUM(TALKVOLUME_TALK);
 	StackPushInteger(NUM2INT(nTalkVolume));
-	StackPushString(rb_str2cstr(sStringToSpeak, NULL));
+	StackPushString(StringValue(sStringToSpeak));
 	VM_ExecuteCommand(221, 2);
 	return Qnil;
 }
@@ -2890,7 +2891,7 @@ static VALUE NWScript_GetNearestObjectByTag(int argc, VALUE *argv, VALUE self)
 	else nNth = INT2NUM(1);
 	StackPushInteger(NUM2INT(nNth));
 	StackPushObject(NUM2UINT(oTarget));
-	StackPushString(rb_str2cstr(sTag, NULL));
+	StackPushString(StringValue(sTag));
 	VM_ExecuteCommand(229, 3);
 	dword nRetVal;
 	StackPopObject(&nRetVal);
@@ -2917,7 +2918,7 @@ static VALUE NWScript_FloatToInt(VALUE self, VALUE fFloat)
 
 static VALUE NWScript_StringToInt(VALUE self, VALUE sNumber)
 {
-	StackPushString(rb_str2cstr(sNumber, NULL));
+	StackPushString(StringValue(sNumber));
 	VM_ExecuteCommand(232, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -2926,7 +2927,7 @@ static VALUE NWScript_StringToInt(VALUE self, VALUE sNumber)
 
 static VALUE NWScript_StringToFloat(VALUE self, VALUE sNumber)
 {
-	StackPushString(rb_str2cstr(sNumber, NULL));
+	StackPushString(StringValue(sNumber));
 	VM_ExecuteCommand(233, 1);
 	float fRetVal;
 	StackPopFloat(&fRetVal);
@@ -3104,12 +3105,12 @@ static VALUE NWScript_CreateObject(int argc, VALUE *argv, VALUE self)
 	else bUseAppearAnimation = INT2NUM(FALSE);
 	if(argc>4) sNewTag = argv[4];
 	else sNewTag = rb_str_new2("");
-	StackPushString(rb_str2cstr(sNewTag, NULL));
+	StackPushString(StringValue(sNewTag));
 	StackPushInteger(NUM2INT(bUseAppearAnimation));
 	CScriptLocation *lLocation_ptr;
 	Data_Get_Struct(lLocation, CScriptLocation, lLocation_ptr);
 	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, lLocation_ptr);
-	StackPushString(rb_str2cstr(sTemplate, NULL));
+	StackPushString(StringValue(sTemplate));
 	StackPushInteger(NUM2INT(nObjectType));
 	VM_ExecuteCommand(243, 5);
 	dword nRetVal;
@@ -3134,6 +3135,7 @@ static VALUE NWScript_EventSpellCastAt(int argc, VALUE *argv, VALUE self)
 	StackPushObject(NUM2UINT(oCaster));
 	VM_ExecuteCommand(244, 3);
 //ERROR: Undefined variable type: event
+	return Qnil;
 }
 
 static VALUE NWScript_GetLastSpellCaster(VALUE self)
@@ -3251,7 +3253,7 @@ static VALUE NWScript_BeginConversation(int argc, VALUE *argv, VALUE self)
 	if(argc>1) oObjectToDialog = argv[1];
 	else oObjectToDialog = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oObjectToDialog));
-	StackPushString(rb_str2cstr(sResRef, NULL));
+	StackPushString(StringValue(sResRef));
 	VM_ExecuteCommand(255, 2);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -3371,7 +3373,7 @@ static VALUE NWScript_GetAreaOfEffectCreator(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_DeleteLocalInt(VALUE self, VALUE oObject, VALUE sVarName)
 {
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(265, 2);
 	return Qnil;
@@ -3379,7 +3381,7 @@ static VALUE NWScript_DeleteLocalInt(VALUE self, VALUE oObject, VALUE sVarName)
 
 static VALUE NWScript_DeleteLocalFloat(VALUE self, VALUE oObject, VALUE sVarName)
 {
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(266, 2);
 	return Qnil;
@@ -3387,7 +3389,7 @@ static VALUE NWScript_DeleteLocalFloat(VALUE self, VALUE oObject, VALUE sVarName
 
 static VALUE NWScript_DeleteLocalString(VALUE self, VALUE oObject, VALUE sVarName)
 {
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(267, 2);
 	return Qnil;
@@ -3395,7 +3397,7 @@ static VALUE NWScript_DeleteLocalString(VALUE self, VALUE oObject, VALUE sVarNam
 
 static VALUE NWScript_DeleteLocalObject(VALUE self, VALUE oObject, VALUE sVarName)
 {
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(268, 2);
 	return Qnil;
@@ -3403,7 +3405,7 @@ static VALUE NWScript_DeleteLocalObject(VALUE self, VALUE oObject, VALUE sVarNam
 
 static VALUE NWScript_DeleteLocalLocation(VALUE self, VALUE oObject, VALUE sVarName)
 {
-	StackPushString(rb_str2cstr(sVarName, NULL));
+	StackPushString(StringValue(sVarName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(269, 2);
 	return Qnil;
@@ -3594,7 +3596,7 @@ static VALUE NWScript_GetModuleItemAcquiredFrom(VALUE self)
 
 static VALUE NWScript_SetCustomToken(VALUE self, VALUE nCustomTokenNumber, VALUE sTokenValue)
 {
-	StackPushString(rb_str2cstr(sTokenValue, NULL));
+	StackPushString(StringValue(sTokenValue));
 	StackPushInteger(NUM2INT(nCustomTokenNumber));
 	VM_ExecuteCommand(284, 2);
 	return Qnil;
@@ -3741,6 +3743,7 @@ static VALUE NWScript_EventConversation(VALUE self)
 {
 	VM_ExecuteCommand(295, 0);
 //ERROR: Undefined variable type: event
+	return Qnil;
 }
 
 static VALUE NWScript_SetEncounterDifficulty(int argc, VALUE *argv, VALUE self)
@@ -3842,6 +3845,7 @@ static VALUE NWScript_TalentSpell(VALUE self, VALUE nSpell)
 	StackPushInteger(NUM2INT(nSpell));
 	VM_ExecuteCommand(301, 1);
 //ERROR: Undefined variable type: talent
+	return Qnil;
 }
 
 static VALUE NWScript_TalentFeat(VALUE self, VALUE nFeat)
@@ -3849,6 +3853,7 @@ static VALUE NWScript_TalentFeat(VALUE self, VALUE nFeat)
 	StackPushInteger(NUM2INT(nFeat));
 	VM_ExecuteCommand(302, 1);
 //ERROR: Undefined variable type: talent
+	return Qnil;
 }
 
 static VALUE NWScript_TalentSkill(VALUE self, VALUE nSkill)
@@ -3856,6 +3861,7 @@ static VALUE NWScript_TalentSkill(VALUE self, VALUE nSkill)
 	StackPushInteger(NUM2INT(nSkill));
 	VM_ExecuteCommand(303, 1);
 //ERROR: Undefined variable type: talent
+	return Qnil;
 }
 
 static VALUE NWScript_GetHasSpellEffect(int argc, VALUE *argv, VALUE self)
@@ -3922,6 +3928,7 @@ static VALUE NWScript_GetCreatureTalentRandom(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nCategory));
 	VM_ExecuteCommand(307, 2);
 //ERROR: Undefined variable type: talent
+	return Qnil;
 }
 
 static VALUE NWScript_GetCreatureTalentBest(int argc, VALUE *argv, VALUE self)
@@ -3941,6 +3948,7 @@ static VALUE NWScript_GetCreatureTalentBest(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(nCategory));
 	VM_ExecuteCommand(308, 3);
 //ERROR: Undefined variable type: talent
+	return Qnil;
 }
 
 static VALUE NWScript_ActionUseTalentOnObject(VALUE self, VALUE tChosenTalent, VALUE oTarget)
@@ -4699,7 +4707,7 @@ static VALUE NWScript_AddJournalQuestEntry(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(bAllPartyMembers));
 	StackPushObject(NUM2UINT(oCreature));
 	StackPushInteger(NUM2INT(nState));
-	StackPushString(rb_str2cstr(szPlotID, NULL));
+	StackPushString(StringValue(szPlotID));
 	VM_ExecuteCommand(367, 6);
 	return Qnil;
 }
@@ -4721,7 +4729,7 @@ static VALUE NWScript_RemoveJournalQuestEntry(int argc, VALUE *argv, VALUE self)
 	StackPushInteger(NUM2INT(bAllPlayers));
 	StackPushInteger(NUM2INT(bAllPartyMembers));
 	StackPushObject(NUM2UINT(oCreature));
-	StackPushString(rb_str2cstr(szPlotID, NULL));
+	StackPushString(StringValue(szPlotID));
 	VM_ExecuteCommand(368, 4);
 	return Qnil;
 }
@@ -4781,7 +4789,7 @@ static VALUE NWScript_SetPCDislike(VALUE self, VALUE oPlayer, VALUE oTarget)
 
 static VALUE NWScript_SendMessageToPC(VALUE self, VALUE oPlayer, VALUE szMessage)
 {
-	StackPushString(rb_str2cstr(szMessage, NULL));
+	StackPushString(StringValue(szMessage));
 	StackPushObject(NUM2UINT(oPlayer));
 	VM_ExecuteCommand(374, 2);
 	return Qnil;
@@ -4937,7 +4945,7 @@ static VALUE NWScript_ActionForceMoveToObject(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_GetJournalQuestExperience(VALUE self, VALUE szPlotID)
 {
-	StackPushString(rb_str2cstr(szPlotID, NULL));
+	StackPushString(StringValue(szPlotID));
 	VM_ExecuteCommand(384, 1);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -5325,7 +5333,7 @@ static VALUE NWScript_SpeakOneLinerConversation(int argc, VALUE *argv, VALUE sel
 	if(argc>1) oTokenTarget = argv[1];
 	else oTokenTarget = INT2NUM(OBJECT_TYPE_INVALID);
 	StackPushObject(NUM2UINT(oTokenTarget));
-	StackPushString(rb_str2cstr(sDialogResRef, NULL));
+	StackPushString(StringValue(sDialogResRef));
 	VM_ExecuteCommand(417, 2);
 	return Qnil;
 }
@@ -5428,6 +5436,7 @@ static VALUE NWScript_EventActivateItem(int argc, VALUE *argv, VALUE self)
 	StackPushObject(NUM2UINT(oItem));
 	VM_ExecuteCommand(424, 3);
 //ERROR: Undefined variable type: event
+	return Qnil;
 }
 
 static VALUE NWScript_MusicBackgroundPlay(VALUE self, VALUE oArea)
@@ -6013,9 +6022,9 @@ static VALUE NWScript_ActivatePortal(int argc, VALUE *argv, VALUE self)
 	if(argc>4) bSeemless = argv[4];
 	else bSeemless = INT2NUM(FALSE);
 	StackPushInteger(NUM2INT(bSeemless));
-	StackPushString(rb_str2cstr(sWaypointTag, NULL));
-	StackPushString(rb_str2cstr(sPassword, NULL));
-	StackPushString(rb_str2cstr(sIPaddress, NULL));
+	StackPushString(StringValue(sWaypointTag));
+	StackPushString(StringValue(sPassword));
+	StackPushString(StringValue(sIPaddress));
 	StackPushObject(NUM2UINT(oTarget));
 	VM_ExecuteCommand(474, 5);
 	return Qnil;
@@ -6423,7 +6432,7 @@ static VALUE NWScript_GetLastRestEventType(VALUE self)
 
 static VALUE NWScript_StartNewModule(VALUE self, VALUE sModuleName)
 {
-	StackPushString(rb_str2cstr(sModuleName, NULL));
+	StackPushString(StringValue(sModuleName));
 	VM_ExecuteCommand(509, 1);
 	return Qnil;
 }
@@ -6444,10 +6453,10 @@ static VALUE NWScript_EffectSwarm(int argc, VALUE *argv, VALUE self)
 	else sCreatureTemplate3 = rb_str_new2("");
 	if(argc>4) sCreatureTemplate4 = argv[4];
 	else sCreatureTemplate4 = rb_str_new2("");
-	StackPushString(rb_str2cstr(sCreatureTemplate4, NULL));
-	StackPushString(rb_str2cstr(sCreatureTemplate3, NULL));
-	StackPushString(rb_str2cstr(sCreatureTemplate2, NULL));
-	StackPushString(rb_str2cstr(sCreatureTemplate1, NULL));
+	StackPushString(StringValue(sCreatureTemplate4));
+	StackPushString(StringValue(sCreatureTemplate3));
+	StackPushString(StringValue(sCreatureTemplate2));
+	StackPushString(StringValue(sCreatureTemplate1));
 	StackPushInteger(NUM2INT(nLooping));
 	VM_ExecuteCommand(510, 5);
 	CGameEffect *pRetVal;
@@ -6648,7 +6657,7 @@ static VALUE NWScript_FloatingTextStringOnCreature(int argc, VALUE *argv, VALUE 
 	else bBroadcastToFaction = INT2NUM(TRUE);
 	StackPushInteger(NUM2INT(bBroadcastToFaction));
 	StackPushObject(NUM2UINT(oCreatureToFloatAbove));
-	StackPushString(rb_str2cstr(sStringToDisplay, NULL));
+	StackPushString(StringValue(sStringToDisplay));
 	VM_ExecuteCommand(526, 3);
 	return Qnil;
 }
@@ -6950,7 +6959,7 @@ static VALUE NWScript_PopUpDeathGUIPanel(int argc, VALUE *argv, VALUE self)
 	else nHelpStringReference = INT2NUM(0);
 	if(argc>4) sHelpString = argv[4];
 	else sHelpString = rb_str_new2("");
-	StackPushString(rb_str2cstr(sHelpString, NULL));
+	StackPushString(StringValue(sHelpString));
 	StackPushInteger(NUM2INT(nHelpStringReference));
 	StackPushInteger(NUM2INT(bWaitForHelpButtonEnabled));
 	StackPushInteger(NUM2INT(bRespawnButtonEnabled));
@@ -7009,7 +7018,7 @@ static VALUE NWScript_MusicBackgroundGetNightTrack(VALUE self, VALUE oArea)
 
 static VALUE NWScript_WriteTimestampedLogEntry(VALUE self, VALUE sLogEntry)
 {
-	StackPushString(rb_str2cstr(sLogEntry, NULL));
+	StackPushString(StringValue(sLogEntry));
 	VM_ExecuteCommand(560, 1);
 	return Qnil;
 }
@@ -7033,14 +7042,14 @@ static VALUE NWScript_GetFactionLeader(VALUE self, VALUE oMemberOfFaction)
 
 static VALUE NWScript_SendMessageToAllDMs(VALUE self, VALUE szMessage)
 {
-	StackPushString(rb_str2cstr(szMessage, NULL));
+	StackPushString(StringValue(szMessage));
 	VM_ExecuteCommand(563, 1);
 	return Qnil;
 }
 
 static VALUE NWScript_EndGame(VALUE self, VALUE sEndMovie)
 {
-	StackPushString(rb_str2cstr(sEndMovie, NULL));
+	StackPushString(StringValue(sEndMovie));
 	VM_ExecuteCommand(564, 1);
 	return Qnil;
 }
@@ -7280,8 +7289,8 @@ static VALUE NWScript_SetCampaignFloat(int argc, VALUE *argv, VALUE self)
 	else oPlayer = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oPlayer));
 	StackPushFloat(NUM2DBL(flFloat));
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(589, 4);
 	return Qnil;
 }
@@ -7301,8 +7310,8 @@ static VALUE NWScript_SetCampaignInt(int argc, VALUE *argv, VALUE self)
 	else oPlayer = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oPlayer));
 	StackPushInteger(NUM2INT(nInt));
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(590, 4);
 	return Qnil;
 }
@@ -7324,8 +7333,8 @@ static VALUE NWScript_SetCampaignVector(int argc, VALUE *argv, VALUE self)
 	Vector *vVector_ptr;
 	Data_Get_Struct(vVector, Vector, vVector_ptr);
 	StackPushVector(*vVector_ptr);
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(591, 4);
 	return Qnil;
 }
@@ -7347,8 +7356,8 @@ static VALUE NWScript_SetCampaignLocation(int argc, VALUE *argv, VALUE self)
 	CScriptLocation *locLocation_ptr;
 	Data_Get_Struct(locLocation, CScriptLocation, locLocation_ptr);
 	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, locLocation_ptr);
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(592, 4);
 	return Qnil;
 }
@@ -7367,16 +7376,16 @@ static VALUE NWScript_SetCampaignString(int argc, VALUE *argv, VALUE self)
 	if(argc>3) oPlayer = argv[3];
 	else oPlayer = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oPlayer));
-	StackPushString(rb_str2cstr(sString, NULL));
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sString));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(593, 4);
 	return Qnil;
 }
 
 static VALUE NWScript_DestroyCampaignDatabase(VALUE self, VALUE sCampaignName)
 {
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(594, 1);
 	return Qnil;
 }
@@ -7394,8 +7403,8 @@ static VALUE NWScript_GetCampaignFloat(int argc, VALUE *argv, VALUE self)
 	if(argc>2) oPlayer = argv[2];
 	else oPlayer = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oPlayer));
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(595, 3);
 	float fRetVal;
 	StackPopFloat(&fRetVal);
@@ -7415,8 +7424,8 @@ static VALUE NWScript_GetCampaignInt(int argc, VALUE *argv, VALUE self)
 	if(argc>2) oPlayer = argv[2];
 	else oPlayer = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oPlayer));
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(596, 3);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -7436,8 +7445,8 @@ static VALUE NWScript_GetCampaignVector(int argc, VALUE *argv, VALUE self)
 	if(argc>2) oPlayer = argv[2];
 	else oPlayer = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oPlayer));
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(597, 3);
 	Vector *vRetVal = (Vector *) malloc(sizeof(Vector));
 	StackPopVector(vRetVal);
@@ -7457,8 +7466,8 @@ static VALUE NWScript_GetCampaignLocation(int argc, VALUE *argv, VALUE self)
 	if(argc>2) oPlayer = argv[2];
 	else oPlayer = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oPlayer));
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(598, 3);
 	CScriptLocation *pRetVal;
 	StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);
@@ -7478,8 +7487,8 @@ static VALUE NWScript_GetCampaignString(int argc, VALUE *argv, VALUE self)
 	if(argc>2) oPlayer = argv[2];
 	else oPlayer = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oPlayer));
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(599, 3);
 	char *sRetVal;
 	StackPopString(&sRetVal);
@@ -7500,7 +7509,7 @@ static VALUE NWScript_CopyObject(int argc, VALUE *argv, VALUE self)
 	else oOwner  = INT2NUM( OBJECT_INVALID);
 	if(argc>3) sNewTag  = argv[3];
 	else sNewTag  = rb_str_new2( "");
-	StackPushString(rb_str2cstr(sNewTag , NULL));
+	StackPushString(StringValue(sNewTag ));
 	StackPushObject(NUM2UINT(oOwner ));
 	CScriptLocation *locLocation_ptr;
 	Data_Get_Struct(locLocation, CScriptLocation, locLocation_ptr);
@@ -7525,8 +7534,8 @@ static VALUE NWScript_DeleteCampaignVariable(int argc, VALUE *argv, VALUE self)
 	if(argc>2) oPlayer = argv[2];
 	else oPlayer = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oPlayer));
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(601, 3);
 	return Qnil;
 }
@@ -7546,8 +7555,8 @@ static VALUE NWScript_StoreCampaignObject(int argc, VALUE *argv, VALUE self)
 	else oPlayer = INT2NUM(OBJECT_INVALID);
 	StackPushObject(NUM2UINT(oPlayer));
 	StackPushObject(NUM2UINT(oObject));
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(602, 4);
 	int nRetVal;
 	StackPopInteger(&nRetVal);
@@ -7574,8 +7583,8 @@ static VALUE NWScript_RetrieveCampaignObject(int argc, VALUE *argv, VALUE self)
 	CScriptLocation *locLocation_ptr;
 	Data_Get_Struct(locLocation, CScriptLocation, locLocation_ptr);
 	StackPushEngineStructure(ENGINE_STRUCTURE_LOCATION, locLocation_ptr);
-	StackPushString(rb_str2cstr(sVarName, NULL));
-	StackPushString(rb_str2cstr(sCampaignName, NULL));
+	StackPushString(StringValue(sVarName));
+	StackPushString(StringValue(sCampaignName));
 	VM_ExecuteCommand(603, 5);
 	dword nRetVal;
 	StackPopObject(&nRetVal);
@@ -8694,8 +8703,8 @@ static VALUE NWScript_DoWhirlwindAttack(int argc, VALUE *argv, VALUE self)
 static VALUE NWScript_Get2DAString(VALUE self, VALUE s2DA, VALUE sColumn, VALUE nRow)
 {
 	StackPushInteger(NUM2INT(nRow));
-	StackPushString(rb_str2cstr(sColumn, NULL));
-	StackPushString(rb_str2cstr(s2DA, NULL));
+	StackPushString(StringValue(sColumn));
+	StackPushString(StringValue(s2DA));
 	VM_ExecuteCommand(710, 3);
 	char *sRetVal;
 	StackPopString(&sRetVal);
@@ -8810,7 +8819,7 @@ static VALUE NWScript_PlaySoundByStrRef(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_SetSubRace(VALUE self, VALUE oCreature, VALUE sSubRace)
 {
-	StackPushString(rb_str2cstr(sSubRace, NULL));
+	StackPushString(StringValue(sSubRace));
 	StackPushObject(NUM2UINT(oCreature));
 	VM_ExecuteCommand(721, 2);
 	return Qnil;
@@ -8818,7 +8827,7 @@ static VALUE NWScript_SetSubRace(VALUE self, VALUE oCreature, VALUE sSubRace)
 
 static VALUE NWScript_SetDeity(VALUE self, VALUE oCreature, VALUE sDeity)
 {
-	StackPushString(rb_str2cstr(sDeity, NULL));
+	StackPushString(StringValue(sDeity));
 	StackPushObject(NUM2UINT(oCreature));
 	VM_ExecuteCommand(722, 2);
 	return Qnil;
@@ -9735,7 +9744,7 @@ static VALUE NWScript_SetLockKeyRequired(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_SetLockKeyTag(VALUE self, VALUE oObject, VALUE sNewKeyTag)
 {
-	StackPushString(rb_str2cstr(sNewKeyTag, NULL));
+	StackPushString(StringValue(sNewKeyTag));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(799, 2);
 	return Qnil;
@@ -9827,7 +9836,7 @@ static VALUE NWScript_SetTrapOneShot(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_SetTrapKeyTag(VALUE self, VALUE oTrapObject, VALUE sKeyTag)
 {
-	StackPushString(rb_str2cstr(sKeyTag, NULL));
+	StackPushString(StringValue(sKeyTag));
 	StackPushObject(NUM2UINT(oTrapObject));
 	VM_ExecuteCommand(806, 2);
 	return Qnil;
@@ -9869,10 +9878,10 @@ static VALUE NWScript_CreateTrapAtLocation(int argc, VALUE *argv, VALUE self)
 	else sOnDisarmScript = rb_str_new2("");
 	if(argc>6) sOnTrapTriggeredScript = argv[6];
 	else sOnTrapTriggeredScript = rb_str_new2("");
-	StackPushString(rb_str2cstr(sOnTrapTriggeredScript, NULL));
-	StackPushString(rb_str2cstr(sOnDisarmScript, NULL));
+	StackPushString(StringValue(sOnTrapTriggeredScript));
+	StackPushString(StringValue(sOnDisarmScript));
 	StackPushInteger(NUM2INT(nFaction));
-	StackPushString(rb_str2cstr(sTag, NULL));
+	StackPushString(StringValue(sTag));
 	StackPushFloat(NUM2DBL(fSize));
 	CScriptLocation *lLocation_ptr;
 	Data_Get_Struct(lLocation, CScriptLocation, lLocation_ptr);
@@ -9900,8 +9909,8 @@ static VALUE NWScript_CreateTrapOnObject(int argc, VALUE *argv, VALUE self)
 	else sOnDisarmScript = rb_str_new2("");
 	if(argc>4) sOnTrapTriggeredScript = argv[4];
 	else sOnTrapTriggeredScript = rb_str_new2("");
-	StackPushString(rb_str2cstr(sOnTrapTriggeredScript, NULL));
-	StackPushString(rb_str2cstr(sOnDisarmScript, NULL));
+	StackPushString(StringValue(sOnTrapTriggeredScript));
+	StackPushString(StringValue(sOnDisarmScript));
 	StackPushInteger(NUM2INT(nFaction));
 	StackPushObject(NUM2UINT(oObject));
 	StackPushInteger(NUM2INT(nTrapType));
@@ -9994,7 +10003,7 @@ static VALUE NWScript_GetKeyRequiredFeedback(VALUE self, VALUE oObject)
 
 static VALUE NWScript_SetKeyRequiredFeedback(VALUE self, VALUE oObject, VALUE sFeedbackMessage)
 {
-	StackPushString(rb_str2cstr(sFeedbackMessage, NULL));
+	StackPushString(StringValue(sFeedbackMessage));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(820, 2);
 	return Qnil;
@@ -10141,7 +10150,7 @@ static VALUE NWScript_SetName(int argc, VALUE *argv, VALUE self)
 	oObject = argv[0];
 	if(argc>1) sNewName = argv[1];
 	else sNewName = rb_str_new2("");
-	StackPushString(rb_str2cstr(sNewName, NULL));
+	StackPushString(StringValue(sNewName));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(830, 2);
 	return Qnil;
@@ -10191,7 +10200,7 @@ static VALUE NWScript_GetPortraitResRef(int argc, VALUE *argv, VALUE self)
 
 static VALUE NWScript_SetPortraitResRef(VALUE self, VALUE oTarget, VALUE sPortraitResRef)
 {
-	StackPushString(rb_str2cstr(sPortraitResRef, NULL));
+	StackPushString(StringValue(sPortraitResRef));
 	StackPushObject(NUM2UINT(oTarget));
 	VM_ExecuteCommand(834, 2);
 	return Qnil;
@@ -10241,7 +10250,7 @@ static VALUE NWScript_SetDescription(int argc, VALUE *argv, VALUE self)
 	if(argc>2) bIdentifiedDescription = argv[2];
 	else bIdentifiedDescription = INT2NUM(TRUE);
 	StackPushInteger(NUM2INT(bIdentifiedDescription));
-	StackPushString(rb_str2cstr(sNewDescription, NULL));
+	StackPushString(StringValue(sNewDescription));
 	StackPushObject(NUM2UINT(oObject));
 	VM_ExecuteCommand(837, 3);
 	return Qnil;
@@ -10281,7 +10290,7 @@ static VALUE NWScript_SetPCChatMessage(int argc, VALUE *argv, VALUE self)
 	}
 	if(argc>0) sNewChatMessage = argv[0];
 	else sNewChatMessage = rb_str_new2("");
-	StackPushString(rb_str2cstr(sNewChatMessage, NULL));
+	StackPushString(StringValue(sNewChatMessage));
 	VM_ExecuteCommand(841, 1);
 	return Qnil;
 }
