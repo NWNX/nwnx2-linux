@@ -69,15 +69,18 @@ add_module(funcs NWNXFuncs plugin-funcs
 	funcs/net/f_GetPCPort
 	funcs/other/f_DumpObject
 	funcs/other/f_GetACNaturalBase
+	funcs/other/f_GetCorpseDecayTime
 	funcs/other/f_GetDamageImmunity
 	funcs/other/f_GetPCBodyBag
 	funcs/other/f_GetPCFileName
 	funcs/other/f_GetPortrait
 	funcs/other/f_GetSoundset
+	funcs/other/f_GetTimeOfDay
 	funcs/other/f_IntToObject
 	funcs/other/f_JumpToLimbo
 	funcs/other/f_SetACNaturalBase
 	funcs/other/f_SetAlignmentValue
+	funcs/other/f_SetCorpseDecayTime
 	funcs/other/f_SetCreatureSize
 	funcs/other/f_SetGender
 	funcs/other/f_SetIsCreatureDisarmable
@@ -90,7 +93,6 @@ add_module(funcs NWNXFuncs plugin-funcs
 	funcs/other/f_SetTag
 	funcs/other/f_SetTrapCreator
 	funcs/other/f_USleep
-	funcs/other/f_GetTimeOfDay
 	funcs/placeable/f_GetIsStatic
 	funcs/placeable/f_SetPlaceableAppearance
 	funcs/quickbar/f_GetQuickBarSlot
@@ -102,6 +104,7 @@ add_module(funcs NWNXFuncs plugin-funcs
 	funcs/sabil/f_SetSpecialAbility
 	funcs/save/f_GetSavingThrowBonus
 	funcs/save/f_SetSavingThrowBonus
+	funcs/skill/f_GetEffectSkillModifier
 	funcs/skill/f_GetIsClassSkill
 	funcs/skill/f_GetPCSkillPoints
 	funcs/skill/f_GetSkillIncreaseByLevel
