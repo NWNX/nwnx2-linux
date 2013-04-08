@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'yaml'
-require 'build/fids'
+require './build/fids'
 
 $core_package = "org.nwnx.nwnx2.jvm"
 $core_classprefix = "org_nwnx_nwnx2_jvm_"
