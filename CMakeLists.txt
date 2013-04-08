@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(nwnx-core-2.8)
 
 # You can exclude plugins from being built here.
-set(dont_build_plugins connect)
+set(dont_build_plugins )
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 
