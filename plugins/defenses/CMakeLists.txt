@@ -10,10 +10,13 @@ add_module(defenses NWNXDefenses plugin-defenses
 	funcs/f_GetACByType
 	funcs/f_GetACVersus
 	funcs/f_GetAllSpellImmunities
+	funcs/f_GetBaseSaveBonus
 	funcs/f_GetDefenseOption
 	funcs/f_GetEffectDamageReduction
 	funcs/f_GetEffectDamageResistance
+	funcs/f_GetEffectSaveModifier
 	funcs/f_GetHasSpellImmunity
+	funcs/f_GetSavingThrowFeat
 	funcs/f_GetSavingThrowVersus
 	funcs/f_GetTotalDamageImmunityDecrease
 	funcs/f_GetTrueDamageImmunity

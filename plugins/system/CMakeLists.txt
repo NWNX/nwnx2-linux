@@ -21,6 +21,7 @@ add_module(system NWNXSystem plugin-system
 	funcs/f_IntToObject
 	funcs/f_SetTMILimit
 	funcs/f_ShutdownServer
+	funcs/f_TrueRandom
 )
 
 endif (gperf)
