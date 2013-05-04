@@ -1,6 +1,6 @@
 /***************************************************************************
     NWNXRuby.cpp - Implementation of the CNWNXRuby class.
-    (c) 2008 virusman (virusman@virusman.ru)
+    (c) 2008-2013 virusman (virusman@virusman.ru)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -52,8 +52,8 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 	if (!CNWNXBase::OnCreate(config,log))
 		return false;
 
-	Log(0,"NWNX Ruby V.1.0.0\n");
-	Log(0,"(c) by virusman, 2008\n");
+	Log(0,"NWNX Ruby V.1.1.0\n");
+	Log(0,"(c) by virusman, 2008-2013\n");
 
 	ruby_init();
 	
@@ -76,7 +76,10 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 	if (strlen(preload) > 0)
 	{
 		Log(0, "Preloading: %s\n", preload);
-		rb_require(preload);
+		int error;
+                rb_protect( (VALUE (*)(VALUE)) rb_require, (VALUE) preload, &error);
+                if(error)
+                    LogRubyError();
 	}
 	
 	cNWScript = RubyInt_InitNWScript();
@@ -96,6 +99,19 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 	}
 
 	return true;
+}
+
+void CNWNXRuby::LogRubyError()
+{
+    VALUE lasterr = rb_gv_get("$!");
+
+    // class
+    VALUE klass = rb_class_path(CLASS_OF(lasterr));
+    Log(2, "* Exception class: %s\n", StringValueCStr(klass)); 
+
+    // message
+    VALUE message = rb_obj_as_string(lasterr);
+    Log(2, "* Exception message: %s\n", StringValueCStr(message));
 }
 
 void CNWNXRuby::ExecuteCommand(char *value)
@@ -121,6 +137,7 @@ char *CNWNXRuby::Eval(char *value)
 		if(nError)
 		{
 			Log(0, "Error %d while evaluating a Ruby expression: %s\n", nError, value);
+                        LogRubyError();
 			return NULL;
 		}
 		if(retval!=Qnil)

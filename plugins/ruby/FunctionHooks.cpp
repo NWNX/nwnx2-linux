@@ -1,6 +1,6 @@
 /***************************************************************************
     Ruby plugin for NWNX  - hooks implementation
-    (c) 2008 virusman (virusman@virusman.ru)
+    (c) 2008-2013 virusman (virusman@virusman.ru)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

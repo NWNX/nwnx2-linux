@@ -10369,7 +10369,7 @@ VALUE RubyInt_InitNWScript()
 	rb_define_module_function(cNWScript, "FloatToString", NWScript_FloatToString, -1);
 	rb_define_module_function(cNWScript, "PrintInteger", NWScript_PrintInteger, 1);
 	rb_define_module_function(cNWScript, "PrintObject", NWScript_PrintObject, 1);
-	rb_define_module_function(cNWScript, "AssignCommand", NWScript_AssignCommand, 2);
+	//rb_define_module_function(cNWScript, "AssignCommand", NWScript_AssignCommand, 2);
 	rb_define_module_function(cNWScript, "DelayCommand", NWScript_DelayCommand, 2);
 	rb_define_module_function(cNWScript, "ExecuteScript", NWScript_ExecuteScript, 2);
 	rb_define_module_function(cNWScript, "ClearAllActions", NWScript_ClearAllActions, -1);
