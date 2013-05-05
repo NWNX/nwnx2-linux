@@ -142,8 +142,15 @@ char *CNWNXRuby::Eval(char *value)
 		}
 		if(retval!=Qnil)
 		{
+                    if(retval == Qtrue)
+                        c_retval = "1";
+                    else if(retval == Qfalse)
+                        c_retval = "0";
+                    else
+                    {
 			retval = rb_funcall(retval, rb_intern("to_s"), 0);
 			c_retval = rb_string_value_ptr(&retval);
+                    }
 			if(c_retval)
 			{
 				char *buf = (char *) malloc(strlen(c_retval)+1);
