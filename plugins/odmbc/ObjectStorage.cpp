@@ -293,9 +293,9 @@ dword LoadObject(const char *pData, int nSize, Location lLocation)
 		odbc.Log(4, "CNWSPlaceable__LoadPlaceable - done\n");
 		CNWSArea *pArea = CServerExoApp__GetAreaByGameObjectID((void *)pServThis, lLocation.AreaID);
 		odbc.Log(4, "pArea = %08lx\n", pArea);
-		odbc.Log(4, "AreaID = %08lx, area type = %d\n", lLocation.AreaID, pArea->GameObject.ObjectID);
 		if(pArea)
 		{
+			odbc.Log(4, "AreaID = %08lx, area type = %d\n", lLocation.AreaID, pArea->GameObject.ObjectID);
 			CNWSObject__SetPosition((CNWSObject *)pObject, lLocation.vect, 0);
 			odbc.Log(4, "CNWSObject__SetPosition - done\n");
 			CNWSPlaceable__SetOrientation(pObject, FacingToOrientation(lLocation.Facing));
@@ -320,9 +320,9 @@ dword LoadObject(const char *pData, int nSize, Location lLocation)
 		odbc.Log(4, "CNWSStore__LoadStore - done\n");
 		CNWSArea *pArea = CServerExoApp__GetAreaByGameObjectID((void *)pServThis, lLocation.AreaID);
 		odbc.Log(4, "pArea = %08lx\n", pArea);
-		odbc.Log(4, "AreaID = %08lx, area type = %d\n", lLocation.AreaID, pArea->GameObject.ObjectID);
 		if(pArea)
 		{
+			odbc.Log(4, "AreaID = %08lx, area type = %d\n", lLocation.AreaID, pArea->GameObject.ObjectID);
 			CNWSObject__SetPosition((CNWSObject *)pObject, lLocation.vect, 0);
 			odbc.Log(4, "CNWSObject__SetPosition - done\n");
 			CNWSObject__SetOrientation((CNWSObject *)pObject, FacingToOrientation(lLocation.Facing));
@@ -345,9 +345,9 @@ dword LoadObject(const char *pData, int nSize, Location lLocation)
 		odbc.Log(4, "CNWSTrigger__LoadTrigger - done\n");
 		CNWSArea *pArea = CServerExoApp__GetAreaByGameObjectID((void *)pServThis, lLocation.AreaID);
 		odbc.Log(4, "pArea = %08lx\n", pArea);
-		odbc.Log(4, "AreaID = %08lx, area type = %d\n", lLocation.AreaID, pArea->GameObject.ObjectID);
 		if(pArea)
 		{
+			odbc.Log(4, "AreaID = %08lx, area type = %d\n", lLocation.AreaID, pArea->GameObject.ObjectID);
 			CNWSObject__SetPosition((CNWSObject *)pObject, lLocation.vect, 0);
 			odbc.Log(4, "CNWSObject__SetPosition - done\n");
 			CNWSObject__SetOrientation((CNWSObject *)pObject, FacingToOrientation(lLocation.Facing));
