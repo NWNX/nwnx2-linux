@@ -258,6 +258,9 @@ dword LoadObject(const char *pData, int nSize, Location lLocation)
 	CExoString sVersion, sType;
 	if(!pServThis)
 		InitConstants();
+	if(lLocation.AreaID == 0x7F000000 || !CServerExoApp__GetAreaByGameObjectID((void *)pServThis, lLocation.AreaID))
+		return 0x7F000000;
+	
 	CResGFF *pGFF = new CResGFF;
 	CResStruct *pResStruct = new CResStruct;
 	odbc.Log(4, "Created structures\n");
