@@ -4,6 +4,11 @@ project(nwnx-core-2.8)
 # You can exclude plugins from being built here.
 set(dont_build_plugins )
 
+# Compatibility with cmake 2.8.9 and above.
+if(POLICY CMP0018)
+    cmake_policy(SET CMP0018 OLD)
+endif()
+
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 
 set(CMAKE_C_FLAGS "-mtune=i386 -m32 -Wall -Wno-unused -Wno-write-strings")

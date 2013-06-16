@@ -22,7 +22,7 @@ if [ "$@"x != "x" ]; then
 			echo "Cannot find plugin: $plugin"
 			exit 1
 		fi
-		extraplugins="$extraplugins plugins/$plugin"
+		extraplugins="$extraplugins $plugin"
 		echo "Building out-of-tree plugin: $plugin"
 	done
 	echo "Note that these plugins may require individual configuration not covered here."
@@ -93,8 +93,9 @@ make $MAKESTR
 
 cp -v ./nwnstartup.sh ./compiled/
 cp -v ./nwnx2.ini ./compiled/
+
 for p in plugins/*/; do
-	if [ -f $p/*.so ]; then
+	if ls $p*.so > /dev/null 2>&1; then
 		if [ -f $p/nwnx2.ini ]; then
 			echo ""  >> ./compiled/nwnx2.ini
 			echo ""  >> ./compiled/nwnx2.ini
