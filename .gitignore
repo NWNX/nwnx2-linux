@@ -8,3 +8,7 @@ cmake_install.cmake
 /plugins/*/*ObjCmds.h
 compiled/
 plugins/vaultster/vaultster-server
+autom4te.cache/
+config.h
+config.log
+config.status
