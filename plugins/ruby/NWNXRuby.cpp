@@ -55,7 +55,11 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
 	Log(0,"NWNX Ruby V.1.1.0\n");
 	Log(0,"(c) by virusman, 2008-2013\n");
 
+	RUBY_INIT_STACK;
 	ruby_init();
+	static char* args[] = { "ruby", "/dev/null" };
+	ruby_process_options(2, args);
+
 	
 	struct sigaction sa;
 	memset(&sa, 0, sizeof(struct sigaction));
