@@ -31,8 +31,8 @@ INSTALL	 = /usr/bin/install -c
 INCS	 = -I. -I.. -I../.. -I ../../include -I/usr/local/include
 LIBS	 = -L/usr/local/lib -lm -lz
 DEFS	 = -D_REENTRANT -D_THREAD_SAFE
-CFLAGS   = @CFLAGS@ -Wall -Werror $(DEFS) $(INCS)
-CPPFLAGS = @CPPFLAGS@ -Wall -Werror $(DEFS) $(INCS)
+CFLAGS   = @CFLAGS@ -Wall -Werror -Wno-error=unused-but-set-variable $(DEFS) $(INCS)
+CPPFLAGS = @CPPFLAGS@ -Wall -Werror -Wno-error=unused-but-set-variable $(DEFS) $(INCS)
 LFLAGS   = @LDFLAGS@ -w -fPIC -shared -rdynamic
 
 OFILES  = \
