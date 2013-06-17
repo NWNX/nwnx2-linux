@@ -192,10 +192,25 @@ ssize_t recvfrom (int fd, void *buf, size_t len, int flags,
 
 struct hostent *gethostbyname (const char *host) {
   static char *he_aliases[] = { NULL };
-  static char *he_gamespy_addrs[] = { "\xcf\x26\x0b\xae", NULL };
-  static char *he_bioware_addrs[] = { "\xcc\x32\xc7\x09", NULL };
 
+  // Gamespy is dead (for NWN), Visant's replacement project also seems dead, 
+  // so this could probably just be deleted at some point.
+  static char *he_gamespy_addrs[] = { "\xcf\x26\x0b\xae", NULL };
+
+  // Point bioware master address to Skywings master server: 199.193.152.27
+  static char ms_addr[] = "\xc7\xc1\x98\x1b";
+  static char *he_bioware_addrs[] = { NULL, NULL };
   static struct hostent *(*ghbn)(const char *) = NULL;
+
+  if (he_bioware_addrs[0] == NULL) {
+    char *env;
+    if ( (env = getenv("NWN_MASTER_ADDR")) && strlen(env) == 4) {
+      he_bioware_addrs[0] = strncpy(ms_addr, env, 4);
+    }
+    else {
+      he_bioware_addrs[0] = ms_addr;
+    }
+  }
 
   if (ghbn == NULL)
     ghbn = dlsym(RTLD_NEXT, "gethostbyname");
