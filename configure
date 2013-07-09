@@ -3758,6 +3758,9 @@ else
         CPPFLAGS="-mcpu=i386 -pipe $CPPFLAGS"
 fi
 
+CFLAGS="$CFLAGS -mno-accumulate-outgoing-args"
+CPPFLAGS="$CPPFLAGS -mno-accumulate-outgoing-args"
+
 # Check whether --enable-debug was given.
 if test "${enable_debug+set}" = set; then :
   enableval=$enable_debug;

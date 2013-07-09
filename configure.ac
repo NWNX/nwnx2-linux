@@ -48,6 +48,9 @@ else
         CPPFLAGS="-mcpu=i386 -pipe $CPPFLAGS"
 fi
 
+CFLAGS="$CFLAGS -mno-accumulate-outgoing-args"
+CPPFLAGS="$CPPFLAGS -mno-accumulate-outgoing-args"
+
 AC_ARG_ENABLE(debug,
   [  --enable-debug      compile with debugging symbols])
 if test "$enable_debug" = "yes"; then
