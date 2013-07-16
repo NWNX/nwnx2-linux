@@ -2387,6 +2387,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 # AC_CONFIG_SRCDIR([linnwnx2])
 ac_config_headers="$ac_config_headers config.h"
 
+CFLAGS="-g"
 
 
 
