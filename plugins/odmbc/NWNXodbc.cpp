@@ -181,9 +181,13 @@ BOOL CNWNXODBC::Connect()
 BOOL CNWNXODBC::Reconnect()
 {
 #ifdef MYSQL_SUPPORT
+	int error_code = reinterpret_cast<CMySQL*>(db)->GetErrorCode();
 	if (bReconnectOnError &&
 		dbType == dbMYSQL &&
-		reinterpret_cast<CMySQL*>(db)->GetErrorCode() == CR_SERVER_GONE_ERROR)
+		error_code == CR_SERVER_GONE_ERROR ||
+		error_code == CR_CONNECTION_ERROR ||
+		error_code == CR_CONN_HOST_ERROR
+		)
 	{
 		if(db)
 			db->Disconnect();
