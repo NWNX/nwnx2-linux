@@ -142,74 +142,84 @@ char * CPgSQL::Fetch(char * buffer, unsigned int buffersize)
 
 BOOL CPgSQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 {
-	int res;
-	PGresult *sco_result;
-	unsigned int len;
-	char* Data = NULL;
-	unsigned char *Data2 = NULL;
-	char* pSQL = NULL;
+	BOOL bWriteSuccess = true;
 
-	//len = mysql_real_escape_string (&mysql, Data + 1, (const char*)pData, Length);
-	Data2 = PQescapeByteaConn(pgsql, pData, Length, &len);
+	unsigned int escaped_data_len = 0;
+	char* escaped_data = (char*)PQescapeByteaConn(pgsql, pData, Length, &escaped_data_len);
 
-	Data = new char[len + 4];
-	pSQL = new char[MAXSQL + len + 3];
+	unsigned int full_query_len = (strlen(SQL) - 2) + (escaped_data_len + 4);
+	char* full_query = new char[full_query_len];
 
-	memcpy(Data + 2, Data2, len);
-	Data[0] = 'E';
-	Data[1] = Data[len+1] = 39; //'
-	Data[len + 2] = 0x0;
-	sprintf(pSQL, SQL, Data);
+	// Build the full query string. The SQL query must have a %s token to locate the 
+	// substituted escaped data. This loops through the original SQL writing it to the
+	// full query string until the %s is hit, then inserts the escaped data surrounded 
+	// by the proper escape syntax, then returns to write the remaining SQL.
+	char* fs_ptr = SQL;
+	char* fd_ptr = escaped_data;
+	char* tq_ptr = full_query;
+	bool tok_hit = false;
+	while (fs_ptr[0] != '\x00') {
+		if ( !tok_hit && (fs_ptr[0] == '%') && (fs_ptr[1] == 's')) {
+			tok_hit = true;
+			fs_ptr += 2;
+			*tq_ptr++ = 'E'; *tq_ptr++ = '\''; *tq_ptr++ = '\\';
+			while (fd_ptr[0] != '\x00') *tq_ptr++ = *fd_ptr++;
+			*tq_ptr++ = '\'';
+		} else {
+			*tq_ptr++ = *fs_ptr++;
+		}
+	}
+	*tq_ptr = '\x00';
+	if (!tok_hit) bWriteSuccess = false;
+	
+	PGresult* sco_result = PQexec(pgsql, full_query);
+	if ( PQresultStatus(sco_result) != PGRES_COMMAND_OK ) bWriteSuccess = false;
 
-	sco_result = PQexec (pgsql, pSQL);
-
-	if (sco_result == NULL || PQresultStatus(sco_result) == PGRES_FATAL_ERROR)
-		res = 1;
-	else
-		res = 0;
-
+	PQfreemem(escaped_data);
+	delete[] full_query;
 	PQclear (sco_result);
 
-	delete[] pSQL;
-	delete[] Data;
-	PQfreemem(Data2);
-
-	if (res == 0)
-		return true;
-	else
-		return false;
+	return bWriteSuccess;
 }
 
 BYTE * CPgSQL::ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size)
 {
-	PGresult *rcoresult;
-	if (strcmp(param, "FETCHMODE") != 0)
-	{
-		rcoresult = PQexec (pgsql, SQL);
-		if (rcoresult == NULL || PQresultStatus(rcoresult) == PGRES_FATAL_ERROR)
-		{
-			PQclear (rcoresult);
+	*pSqlError = false;
+	*size = 0;
+
+	PGresult* rco_result = NULL;
+	if ( strcmp(param, "FETCHMODE") != 0 ) {
+		// In normal mode (NOT in FETCHMODE), run the SQL query for a new result set
+		rco_result = PQexec(pgsql, SQL);
+	} else {
+		// In FETCHMODE, use the result set from previous call to EXEC of a SQL query.
+		rco_result = result;
+	}
+	if ( PQresultStatus(rco_result) != PGRES_TUPLES_OK ) {
+		PQclear(rco_result);
+		*pSqlError = true;
+		return NULL;
+	}
+	if ( PQntuples(rco_result) > 0 ) {
+		 // At lest one row left in the result set, assume it's the first field from the query,
+		 // unescape it (since PostgreSQL is being queried in text mode), and return it in a
+		 // heap allocated block of memory for the NWN VM to deallocate.
+		unsigned int one_field_len = PQgetlength(rco_result, 0, 0);
+		unsigned char* one_field = (unsigned char*)PQgetvalue(rco_result, 0, 0); // static do not deallocate !
+		unsigned int unesc_field_len = 0;
+		unsigned char *unesc_field = PQunescapeBytea(one_field, &unesc_field_len);
+		if (unesc_field == NULL) {
 			*pSqlError = true;
 			return NULL;
 		}
-	}
-	else rcoresult=result;
-
-	*pSqlError = false;
-
-	if(PQntuples(rcoresult) > 0)
-	{
-		unsigned char *buf = PQunescapeBytea((unsigned char *) PQgetvalue(rcoresult, 0, 0), (size_t *) size);
-		if(!buf) return NULL;
-
-		PQclear (rcoresult);
-		return (BYTE *)buf;
-	}
-	else
-	{
-		PQclear (rcoresult);
+		PQclear(rco_result);
+		*size = unesc_field_len;
+		return unesc_field;
+	} else {
+		PQclear (rco_result);
 		return NULL;
 	}
+
 	return NULL;
 }
 
