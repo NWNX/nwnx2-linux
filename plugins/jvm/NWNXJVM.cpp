@@ -417,11 +417,11 @@ int ReadSCO(WPARAM p, LPARAM a) {
 	if (ret == NULL)
 		return 0;
 
-	unsigned char* data = (unsigned char*) J(env, GetByteArrayElements(ret, NULL)); // xxx probably memleaks, test later
-
+	unsigned char* data = (unsigned char*) J(env, GetByteArrayElements(ret, NULL));
+	int sz = J(env, GetArrayLength(ret));
 	jvm_global->DetachCurrentThread();
 	s->pData = data;
-	s->size = strlen((const char*)data);
+	s->size = sz;
 	return 1;
 };
 
@@ -436,10 +436,10 @@ int DemandResource(WPARAM p, LPARAM a) {
 	if (ret == NULL)
 		return 0;
 
-	unsigned char* data = (unsigned char*) J(env, GetByteArrayElements(ret, NULL)); // xxx probably memleaks, test later
-
+	unsigned char* data = (unsigned char*) J(env, GetByteArrayElements(ret, NULL));
+	int sz = J(env, GetArrayLength(ret));
 	jvm_global->DetachCurrentThread();
 	s->pData = data;
-	s->size = strlen((const char*)data);
+	s->size = sz;
 	return 1;
 };

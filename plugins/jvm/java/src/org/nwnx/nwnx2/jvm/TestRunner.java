@@ -58,8 +58,8 @@ public class TestRunner {
 				System.out.println("event on " + objSelf.getObjectId() + ": " + event + ", name = " + name + ", type = " + objType);
 
 				String testResman = NWScript.get2DAString("resmantest", "A", 1);
-				if (testResman != "a1")
-					throw new RuntimeException("ResMan not working; expected 'a1', got '" + testResman + "'");
+				if (!testResman.equals("a2"))
+					throw new RuntimeException("ResMan not working; expected 'a2', got '" + testResman + "'");
 				System.out.println("Tested Resman hook: " + testResman);
 
 				if (objType == ObjectType.CREATURE) {
