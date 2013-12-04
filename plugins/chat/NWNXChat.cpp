@@ -87,7 +87,7 @@ bool CNWNXChat::OnCreate (gline *config, const char* LogDir)
   Log (1, "cc_script: %s\n", ccScript);
   Log (1, "max_msg_len: %d\n", maxMsgLen);
   Log (1, "processnpc: %d\n", processNPC);
-  Log (1, "ignore_silent: %d\n\n", processNPC);
+  Log (1, "ignore_silent: %d\n\n", ignore_silent);
 
   return (HookFunctions());
 }
