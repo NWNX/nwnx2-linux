@@ -251,16 +251,15 @@ BYTE * CSQLite::ReadScorcoData(const char * SQL, const char * param, BOOL * pSql
 	*pSqlError = false;
 	if (rc == SQLITE_ROW)
 	{
-		*size = sqlite3_column_bytes(pStmt, 0);
-		if (*size > MAXRESULT)
-		{
-			sprintf(lastError, "Critical error - object too large (>%d bytes).\n", MAXRESULT);
-			*pSqlError = true;
-			return NULL;
-		}
+		unsigned long length = sqlite3_column_bytes(pStmt, 0);
+		*size = length;
+		if (length == 0) return NULL;
+		char* buf = new char[length];
+		if (buf == NULL) return NULL;
 		pBlob = sqlite3_column_blob(pStmt, 0);
-		memcpy(pReturn, pBlob, *size);
-		return pReturn;	
+		if (pBlob == NULL) { delete [] buf; return NULL; }
+		memcpy(buf, pBlob, length);
+		return (BYTE*)buf; // NWN VM will delete this block of memory
 	}
 	else if (rc == SQLITE_DONE)
 	{
