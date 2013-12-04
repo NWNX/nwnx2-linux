@@ -62,9 +62,9 @@ hash_table scriptHash;
 
 int iColumn;
 int iCallDepth;
-unsigned int iScriptCounter;
-unsigned int iTotalRuntime;
-unsigned int iTotalLast;
+unsigned long ulScriptCounter;
+unsigned long ulTotalRuntime;
+unsigned long ulTotalLast;
 bool emptyScript;
 bool isScriptpart;
 char scriptName[MAX_CALLDEPTH][17];
@@ -90,7 +90,7 @@ void printer(char *string, void *data)
 	sScriptData* scriptData = (sScriptData*)data;
 	
 	int iLen = strlen(string);
-	int iMsec = (int)scriptData->dwElapsedTime / 1000;
+	unsigned long ulMsec = scriptData->dwElapsedTime / 1000;
 	profiler.Log(1, "%s", string);
 	if (iLen > 7 && iLen < 16)
 		profiler.Log(1, "\t");
@@ -98,9 +98,9 @@ void printer(char *string, void *data)
 		profiler.Log(1, "\t\t");
 
 	if (scriptData->updated)
-		profiler.Log(1, "%10d msec %6d calls *| ", iMsec, scriptData->ulCalls);
+		profiler.Log(1, "%10lu msec %6lu calls *| ", ulMsec, scriptData->ulCalls);
 	else
-	    profiler.Log(1, "%10d msec %6d calls  | ", iMsec, scriptData->ulCalls);
+	    profiler.Log(1, "%10lu msec %6lu calls  | ", ulMsec, scriptData->ulCalls);
 	if (iColumn == 1)
 	{
 		iColumn = 0;
@@ -109,7 +109,7 @@ void printer(char *string, void *data)
 	else
 		iColumn++;
 
-	iTotalRuntime += iMsec;
+	ulTotalRuntime += ulMsec;
 	scriptData->updated = FALSE;
 }
 
@@ -138,13 +138,13 @@ void FlushStatistics(DWORD dwStatisticMsec)
 		iColumn = 0;
 	}
 	profiler.Log(1, "-----------------------------------------------------------------------------------------------\n");
-	profiler.Log(1, "Elapsed time                : %d msec\n", dwStatisticMsec);
-	profiler.Log(1, "Runtime delta               : %d msec\n", iTotalRuntime - iTotalLast);
-	profiler.Log(1, "Total cumulative runtime    : %d msec\n", iTotalRuntime);
-	profiler.Log(1, "Total number of scriptcalls : %d\n", iScriptCounter);
+	profiler.Log(1, "Elapsed time                : %lu msec\n", dwStatisticMsec);
+	profiler.Log(1, "Runtime delta               : %lu msec\n", ulTotalRuntime - ulTotalLast);
+	profiler.Log(1, "Total cumulative runtime    : %lu msec\n", ulTotalRuntime);
+	profiler.Log(1, "Total number of scriptcalls : %lu\n", ulScriptCounter);
 	profiler.Log(1, "Current date is             : %s\n\n", strDate);
-	iTotalLast = iTotalRuntime;
-	iTotalRuntime = 0;
+	ulTotalLast = ulTotalRuntime;
+	ulTotalRuntime = 0;
 	//fflush(profiler.m_fFile);
 }
 
@@ -205,7 +205,7 @@ void myRunScript(char *str)
 		isScriptpart = false;
 		strncpy(scriptName[iCallDepth], str, 16);
 		scriptName[iCallDepth][16] = 0x0;
-		iScriptCounter++;
+		ulScriptCounter++;
 
 		if (profiler.m_LogLevel == profiler.logCallstack)
 		{
@@ -241,7 +241,7 @@ void myRunScriptPart(char *str)
 			strncpy(scriptName[iCallDepth], str, 16);
 			scriptName[iCallDepth][16] = 0x0;
 		}
-		iScriptCounter++;
+		ulScriptCounter++;
 
 		if (profiler.m_LogLevel == profiler.logCallstack)
 		{
@@ -349,7 +349,7 @@ void MyCrossArea(char *gameObject)
 		scriptName[iCallDepth][1] = 0x0;
 		strncat(scriptName[iCallDepth], tag, 15);
 		scriptName[iCallDepth][16] = 0x0;
-		iScriptCounter++;
+		ulScriptCounter++;
 
 		if (profiler.m_LogLevel == profiler.logCallstack)
 		{
@@ -465,7 +465,7 @@ void MyPathfind(const char *gameArea)
 		scriptName[iCallDepth][1] = 0x0;
 		strncat(scriptName[iCallDepth], tag, 15);
 		scriptName[iCallDepth][16] = 0x0;
-		iScriptCounter++;
+		ulScriptCounter++;
 
 		if (profiler.m_LogLevel == profiler.logCallstack)
 		{
@@ -777,9 +777,9 @@ void HookRunScript()
 
 	// Performance analysis variables
 	iColumn = 0;
-	iTotalRuntime = 0;
-	iTotalLast = 0;
-	iScriptCounter = 0;
+	ulTotalRuntime = 0;
+	ulTotalLast = 0;
+	ulScriptCounter = 0;
 	iCallDepth = -1;
 	construct_table(&scriptHash, 2048);
 	gettimeofday(&tvLastStatistic, NULL);
