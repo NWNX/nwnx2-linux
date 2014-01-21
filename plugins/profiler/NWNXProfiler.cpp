@@ -1,7 +1,7 @@
 /***************************************************************************
     NWNXProfiler.cpp - Implementation of the CNWNXProfiler class.
     Copyright (C) 2003 Ingmar Stieger (Papillon, papillon@blackdagger.com)
-	Linux port - (c) virusman (virusman@virusman.ru)
+    Linux port - (c) virusman (virusman@virusman.ru)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,6 +26,10 @@
 
 #include "NWNXProfiler.h"
 #include "HookRunScript.h"
+
+#define MAX_CALLDEPTH 128
+extern char  scriptName[MAX_CALLDEPTH][17];
+extern int   iCallDepth;
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -58,6 +62,21 @@ bool CNWNXProfiler::OnCreate(gline *config, const char* LogDir)
 
 char* CNWNXProfiler::OnRequest(char* gameObject, char* Request, char* Parameters)
 {
+
+    if (strncmp(Request, "CURRENTSCRIPT", 13) == 0) {
+        return strdup(scriptName[iCallDepth]);
+    }
+
+    if (strncmp(Request, "STACK", 5) == 0) {
+        char* stack = new char[128 * 17];
+        stack[0] = 0x0;
+        for (int i = 0; i <= iCallDepth; i++) {
+            if (i > 0) strcat(stack, ":");
+            strcat(stack, scriptName[iCallDepth - i]);
+        }
+        return stack;
+    }
+
     return NULL;
 }
 
