@@ -135,6 +135,43 @@ char *CNWNXChat::SendMessage(char* Parameters)
 	else return "0";
 }
 
+char *CNWNXChat::SendMessageSingle(char* Parameters)
+{
+  Log(3, "o SENDMSGSINGLE: %s, OID: %08lX\n", Parameters);
+  int oSendTo, mode, oSender;
+
+  int nParamLen = strlen(Parameters);
+  char *nLastDelimiter = strrchr(Parameters, '¬');
+  if (!nLastDelimiter || (nLastDelimiter-Parameters)<0)
+    {
+    Log(3, "o nLastDelimiter error\n");
+    return "0";
+    }
+  int nMessageLen = nParamLen-(nLastDelimiter-Parameters)+1;
+  char *sMessage = new char[nMessageLen];
+  if(sscanf(Parameters, "%d¬%x¬%x¬", &mode, &oSendTo, &oSender)<2)
+    {
+    Log(3, "o sscanf error\n");
+    delete[] sMessage;
+    return "0";
+    }
+
+  int nRecipientID = GetID(oSendTo);
+  if(oSendTo <= 0x7F000000) {
+    Log(3, "o oSendTo is not a PC\n");
+    delete[] sMessage;
+    return "0";
+  }
+
+  strncpy(sMessage, nLastDelimiter+1, nMessageLen-1);
+
+  Log(3, "o SendMsgSingle(%d, %d, %08lX, '%s', %d)\n", mode, nRecipientID, oSender, sMessage);
+  int nResult = SendMsgSingle(mode, nRecipientID, oSender, sMessage);
+  Log(3, "o Return value: %d\n", nResult); //return value for full message delivery acknowledgement
+  if(nResult) return "1";
+  else return "0";
+}
+
 char* CNWNXChat::OnRequest (char* gameObject, char* Request, char* Parameters)
 {
   if (strncmp(Request, "GETID", 5) == 0)
@@ -166,6 +203,13 @@ char* CNWNXChat::OnRequest (char* gameObject, char* Request, char* Parameters)
 	  strncpy(Parameters, sReturn, strlen(Parameters));
 	  Parameters[strlen(sReturn)] = 0;
 	  return NULL;
+  }
+  else if (strncmp(Request, "SENDMSGSINGLE", 13) == 0)
+  {
+    char *sReturn = SendMessageSingle(Parameters);
+    strncpy(Parameters, sReturn, strlen(Parameters));
+    Parameters[strlen(sReturn)] = 0;
+    return NULL;
   }
   
   if (!scriptRun) return NULL; // all following cmds - only in chat script
