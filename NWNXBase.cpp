@@ -81,6 +81,12 @@ void CNWNXBase::Log(int priority, const char *pcMsg, ...)
 		va_end(argList);
 
 		// log string in file
+		time_t rawtime; time(&rawtime);
+		struct tm* timeinfo = localtime (&rawtime);
+		char* timestr = asctime(timeinfo);
+		timestr[strlen(timestr)-1] = '\0'; // asctime returns with a newline at the end
+		fprintf(m_fFile, "[%s] ", timestr);
+
 		fputs (acBuffer, m_fFile);
 		fflush (m_fFile);
 	}
