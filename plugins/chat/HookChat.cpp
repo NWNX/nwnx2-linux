@@ -43,6 +43,14 @@ char *pChatThis = 0;
 dword * (*pGetPCobj)(dword someObj, dword OID);
 int (*pChat)(char * pthis, int mode, int id, char **msg, int to, char * xz);
 
+int (*CNWSMessage__SendServerToPlayerChat_Talk)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
+int (*CNWSMessage__SendServerToPlayerChat_Shout)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
+int (*CNWSMessage__SendServerToPlayerChat_Whisper)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
+int (*CNWSMessage__SendServerToPlayerChat_Party)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
+int (*CNWSMessage__SendServerToPlayerChat_DM_Talk)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
+int (*CNWSMessage__SendServerToPlayerChat_DM_Whisper)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
+void *(*pGetServerMessage)(void *pServerExo);
+
 char scriptRun = 0;
 char *lastMsg;
 char lastIDs[32];
@@ -238,6 +246,44 @@ int SendMsg(const int mode, const int id, char *msg, const int to)
 	return 0;
 }
 
+int SendMsgSingle(int mode, int conn, int speaker, char *msg) {
+    if(!pServThis)
+        InitConstants();
+
+    void *pMessage = pGetServerMessage((void *)pServerExo);
+    // printf("in SendMsgTalk: %d %x '%s'; pServThis=%p pMessage=%p pChatThis=%p\n", conn, speaker, msg, pServThis, pMessage, pChatThis);
+    if (!pMessage) {
+        printf("pMessage is nil? wtf.\n");
+        return 0;
+    }
+    CExoString str;
+
+    str.Text = strdup(msg);
+    str.Length = strlen(msg);
+    switch (mode) {
+        // Talk
+        case 1: return CNWSMessage__SendServerToPlayerChat_Talk(pMessage, conn, speaker, &str);
+        // Shout
+        case 2: return CNWSMessage__SendServerToPlayerChat_Shout(pMessage, conn, speaker, &str);
+        // Whisper
+        case 3: return CNWSMessage__SendServerToPlayerChat_Whisper(pMessage, conn, speaker, &str);
+        // Private
+        case 4: return 0;
+        // Server_Msg
+        case 5: return 0;
+        // Party
+        case 6: return CNWSMessage__SendServerToPlayerChat_Party(pMessage, conn, speaker, &str);
+        // Talk_DM
+        case 17: return CNWSMessage__SendServerToPlayerChat_DM_Talk(pMessage, conn, speaker, &str);
+        // Whisper_DM
+        case 19: return CNWSMessage__SendServerToPlayerChat_DM_Whisper(pMessage, conn, speaker, &str);
+        default:
+            // Unsupported.
+            return 0;
+    }
+
+}
+
 unsigned long * GetPCobj(dword OID)
 {
   asm("movl pServThis, %eax");
@@ -306,8 +352,14 @@ int HookFunctions()
 		d_redirect (org_SendServerToPlayerCCMessage, (unsigned long)SendServerToPlayerCCMessageHookProc, d_ret_code_cc, 12);
 	}
 
+    *(dword*)&pGetServerMessage = 0x080B1F54;
 	*(dword*)&CServerExoApp__GetClientObjectByPlayerId = 0x080B24D0;
-
+    *(dword*)&CNWSMessage__SendServerToPlayerChat_Talk = 0x807fe10;
+    *(dword*)&CNWSMessage__SendServerToPlayerChat_Shout = 0x8069710;
+    *(dword*)&CNWSMessage__SendServerToPlayerChat_Whisper = 0x808003c;
+    *(dword*)&CNWSMessage__SendServerToPlayerChat_Party = 0x8068fe4;
+    *(dword*)&CNWSMessage__SendServerToPlayerChat_DM_Talk = 0x8069248;
+    *(dword*)&CNWSMessage__SendServerToPlayerChat_DM_Whisper = 0x806a03c;
 
 	if (org_Run) {
 		*(dword*)&pRunScript = org_Run;

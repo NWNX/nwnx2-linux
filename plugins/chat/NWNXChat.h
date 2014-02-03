@@ -47,6 +47,7 @@ public:
   int CCMessage(const int objID, const int type, const int subtype, CNWCCMessageData* messageData);
 protected:
   char *SendMessage(char* Parameters);
+  char *SendMessageSingle(char* Parameters);
 };
 
 #endif

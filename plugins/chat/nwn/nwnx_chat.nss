@@ -8,6 +8,10 @@ const int CHAT_CHANNEL_PRIVATE     = 4;
 const int CHAT_CHANNEL_SERVER_MSG  = 5;
 const int CHAT_CHANNEL_PARTY       = 6;
 
+// Only for SendMessageSingle():
+const int CHAT_CHANNEL_DM_TALK     = 17;
+const int CHAT_CHANNEL_DM_WHISPER  = 19;
+
 struct chat_message
 {
     int    Mode;
@@ -18,6 +22,12 @@ struct chat_message
 //Send chat message
 //nChannel - CHAT_CHANNEL_*
 int NWNXChat_SendMessage(object oSender, int nChannel, string sMessage, object oRecipient=OBJECT_INVALID);
+
+//Send chat message
+//mode - CHAT_CHANNEL_* (not all work)
+//sendTo - player object to which to send to the message packet
+//oSender - speaker (player or non-player)
+int NWNXChat_SendMessageSingle(int mode, object sendTo, object oSender, string sMessage);
 
 
 string GetStringFrom(string s, int from = 1)
@@ -109,6 +119,20 @@ int NWNXChat_SendMessage(object oSender, int nChannel, string sMessage, object o
     if(GetLocalString(oSender, "NWNX!CHAT!SPEAK")=="1") return TRUE;
     else return FALSE;
 }
+
+int NWNXChat_SendMessageSingle(int mode, object sendTo, object oSender, string sMessage)
+{
+    if (!GetIsObjectValid(sendTo)) return FALSE;
+    if (!GetIsPC(sendTo)) return FALSE;
+    if (!GetIsObjectValid(oSender)) return FALSE;
+    if (FindSubString(sMessage, "¬")!=-1) return FALSE;
+    
+    SetLocalString(oSender, "NWNX!CHAT!SENDMSGSINGLE", IntToString(mode)+"¬"+ObjectToString(sendTo)+"¬"+ObjectToString(oSender)+"¬"+sMessage);
+    if(GetLocalString(oSender, "NWNX!CHAT!SENDMSGSINGLE")=="1") return TRUE;
+    else return FALSE;
+}
+
+
 
 void NWNXChat_SendMessageVoid(object oSender, int nChannel, string sMessage, object oRecipient=OBJECT_INVALID)
 {
