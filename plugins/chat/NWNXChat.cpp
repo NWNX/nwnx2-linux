@@ -156,12 +156,7 @@ char *CNWNXChat::SendMessageSingle(char* Parameters)
     return "0";
     }
 
-  int nRecipientID = GetID(oSendTo);
-  if(oSendTo <= 0x7F000000) {
-    Log(3, "o oSendTo is not a PC\n");
-    delete[] sMessage;
-    return "0";
-  }
+  int nRecipientID = oSendTo;
 
   strncpy(sMessage, nLastDelimiter+1, nMessageLen-1);
 
