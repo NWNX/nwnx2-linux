@@ -29,6 +29,12 @@ int NWNXChat_SendMessage(object oSender, int nChannel, string sMessage, object o
 //oSender - speaker (player or non-player)
 int NWNXChat_SendMessageSingle(int mode, object sendTo, object oSender, string sMessage);
 
+// Returns the actual game object for a client, for example possessed familiars.
+// Depends on you calling NWNXChat_PCEnter/Exit() appropriately.
+object NWNXChat_GetActualGameObjectForPC(object player);
+
+// Returns the actual game object for a client, for example possessed familiars.
+object NWNXChat_GetActualGameObjectForPlayerID(int playerId);
 
 string GetStringFrom(string s, int from = 1)
 {
@@ -149,4 +155,14 @@ int NWNXChat_GetCCMessagSubtype()
 {
     SetLocalString(GetModule(), "NWNX!CHAT!SUBTYPE", "  ");
     return StringToInt(GetLocalString(GetModule(), "NWNX!CHAT!SUBTYPE"));
+}
+
+object NWNXChat_GetActualGameObjectForPC(object player)
+{
+  return NWNXChat_GetActualGameObjectForPlayerID(GetLocalInt(player, PC_ID_NAME));
+}
+object NWNXChat_GetActualGameObjectForPlayerID(int playerId)
+{
+  SetLocalString(GetModule(), "NWNX!CHAT!GETGAMEOBJRQ", IntToString(playerId) + " ");
+  return GetLocalObject(GetModule(), "NWNX!CHAT!GETGAMEOBJ");
 }
