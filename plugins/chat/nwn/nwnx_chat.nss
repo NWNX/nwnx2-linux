@@ -124,10 +124,11 @@ int NWNXChat_SendMessageSingle(int mode, object sendTo, object oSender, string s
 {
     if (!GetIsObjectValid(sendTo)) return FALSE;
     if (!GetIsPC(sendTo)) return FALSE;
+    int nSendToID = NWNXChatGetPCID(sendTo);
     if (!GetIsObjectValid(oSender)) return FALSE;
     if (FindSubString(sMessage, "¬")!=-1) return FALSE;
     
-    SetLocalString(oSender, "NWNX!CHAT!SENDMSGSINGLE", IntToString(mode)+"¬"+ObjectToString(sendTo)+"¬"+ObjectToString(oSender)+"¬"+sMessage);
+    SetLocalString(oSender, "NWNX!CHAT!SENDMSGSINGLE", IntToString(mode)+"¬"+IntToString(nSendToID)+"¬"+ObjectToString(oSender)+"¬"+sMessage);
     if(GetLocalString(oSender, "NWNX!CHAT!SENDMSGSINGLE")=="1") return TRUE;
     else return FALSE;
 }
