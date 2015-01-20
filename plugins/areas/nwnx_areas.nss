@@ -49,6 +49,8 @@ void SetAreaName(object oArea, string sName)
     SetLocalString(oArea, "NWNX!AREAS!SET_AREA_NAME", sName);
 }
 
+// Call whenever someone joins the module.
+// This might sound expensive, but it will only reallocate memory if someone doesn't yet have all the dynamic areas.
 void CatchupAreas()
 {
     SetLocalString(GetModule(), "NWNX!AREAS!CATCHUP_AREAS", GetLocalString(GetModule(), DYN_AREA_POINTERS));
