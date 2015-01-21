@@ -255,6 +255,15 @@ void NWNXSetAreaName(CNWSArea *pArea, char *sNewName)
 	UpdateAreasForDMs();
 }
 
+void InitMiniMap(CNWSCreature *pObject, int nIndex, dword nAreaID)
+{
+	void *pMinimap = new char[0x80];
+	memset(pMinimap, 0, 0x80);
+	pObject->AreaMiniMaps[nIndex] = pMinimap;
+	CExoArrayList_unsigned_long___Add(&pObject->AreaList, nAreaID);
+	areas.Log(1, "(catchup) initialized minimap for area id: %x\n", nAreaID);
+}
+
 // catchup players who did not get the dynamically loaded areas due to being offline
 void NWNXCatchupAreas(void *vModule, dword *nAreaIDs, int nDynamicAreas)
 {
