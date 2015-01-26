@@ -1,7 +1,7 @@
 if (gperf)
 
-add_gperf_target(SystemStrCmds SystemStr SYSTEM STR)
-add_gperf_target(SystemObjCmds SystemObj SYSTEM OBJ)
+add_gperf_target(system SystemStrCmds SystemStr SYSTEM STR)
+add_gperf_target(system SystemObjCmds SystemObj SYSTEM OBJ)
 
 include_directories(.)
 add_module(system NWNXSystem plugin-system

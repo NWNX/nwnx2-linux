@@ -41,26 +41,8 @@ Press enter to begin.
 
 read x
 
-rm -r compiled || true
-
 cmake .
 make all
-
-mkdir -vp compiled/
-
-cp -v ./nwnstartup.sh ./compiled/
-cp -v ./nwnx2.ini ./compiled/
-for p in plugins/*/; do
-	if [ -f $p/*.so ]; then
-		if [ -f $p/nwnx2.ini ]; then
-			echo ""  >> ./compiled/nwnx2.ini
-			echo ""  >> ./compiled/nwnx2.ini
-			cat $p/nwnx2.ini >> ./compiled/nwnx2.ini
-		fi
-	fi
-done
-mv -v ./plugins/*/*.so ./compiled/
-mv -v ./nwnx2.so ./compiled/
 
 echo "
 =====

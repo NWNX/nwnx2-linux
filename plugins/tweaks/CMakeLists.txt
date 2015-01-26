@@ -1,7 +1,7 @@
 if (gperf)
 
-add_gperf_target(TweaksStrCmds TweaksStr TWEAKS STR)
-add_gperf_target(TweaksObjCmds TweaksObj TWEAKS OBJ)
+add_gperf_target(tweaks TweaksStrCmds TweaksStr TWEAKS STR)
+add_gperf_target(tweaks TweaksObjCmds TweaksObj TWEAKS OBJ)
 
 include_directories(.)
 add_module(tweaks NWNXTweaks plugin-tweaks
