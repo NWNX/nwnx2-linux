@@ -19,6 +19,9 @@ private:
     void bin_to_strhex(unsigned char *bin, size_t binsz, char **result);
     char *hash(hashid type, const char *input);
     char *hmac(hashid type, const char *password, const char *input);
+    char *keygen(keygenid keygenalg, hashid algorithm, size_t keylen,
+                 const char *salt,
+                 const char *password);
 };
 
 #endif /* NWNX_MHASH_H */
