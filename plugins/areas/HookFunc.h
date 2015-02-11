@@ -33,6 +33,7 @@ void AddAreaToAllCreatures(dword nAreaID);
 void NWNXCreateArea(void *pModule, char *sResRef);
 void NWNXDestroyArea(void *pModule, dword nAreaID);
 void NWNXSetAreaName(CNWSArea *pArea, char *sNewName);
+void NWNXCatchupAreas(void *pModule, dword *nAreaIDs, int nDynamicAreas);
 
 void InitConstants();
 

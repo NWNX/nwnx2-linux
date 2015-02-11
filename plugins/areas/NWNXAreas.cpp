@@ -58,6 +58,7 @@ bool CNWNXAreas::OnCreate (gline *config, const char* LogDir)
 
 char* CNWNXAreas::OnRequest (char* gameObject, char* Request, char* Parameters)
 {
+	int nDynamicAreas = 0;
 	this->pGameObject = gameObject;
 	this->nGameObjectID = *(dword *)(gameObject+0x4);
 	Log (2, "Request: %s\n", Request);
@@ -76,6 +77,31 @@ char* CNWNXAreas::OnRequest (char* gameObject, char* Request, char* Parameters)
 		NWNXSetAreaName((CNWSArea *)(gameObject-0xC4), Parameters);
 		return NULL;
 	}
+	else if (strncmp(Request, "CATCHUP_AREAS", 13) == 0) 
+	{
+		// expects Params to contain all loaded dynamic area pointers with no separators
+		// note that nwscript's ObjectToString strips leading 0's so they need to be padded
+		// TODO: just replace with a | separator?
+		Log (3, "Catchup Params: %s\n", Parameters);
+		nDynamicAreas = strlen(Parameters) / 8;
+		if ( nDynamicAreas > 0 )
+		{
+			dword *nAreaIds = (dword*)malloc(nDynamicAreas * 4);
+			char *ptr = (char*)malloc(9);
+			ptr[8] = '\0';
+			for ( int i=0; i<nDynamicAreas; i++ )
+			{
+				strncpy(ptr, Parameters, 8);
+				Parameters += 8;
+				nAreaIds[i] = strtol(ptr, (char **)NULL, 16);
+				Log(3, "Added area pointer: %x\n", nAreaIds[i]);
+			}		
+			NWNXCatchupAreas(gameObject, nAreaIds, nDynamicAreas);
+			free(nAreaIds);
+			free(ptr);
+		}
+		return NULL;
+        }
 	return NULL;
 }
 

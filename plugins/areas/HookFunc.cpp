@@ -255,6 +255,52 @@ void NWNXSetAreaName(CNWSArea *pArea, char *sNewName)
 	UpdateAreasForDMs();
 }
 
+void InitMiniMap(CNWSCreature *pObject, int nIndex, dword nAreaID)
+{
+	void *pMinimap = new char[0x80];
+	memset(pMinimap, 0, 0x80);
+	pObject->AreaMiniMaps[nIndex] = pMinimap;
+	CExoArrayList_unsigned_long___Add(&pObject->AreaList, nAreaID);
+	areas.Log(1, "(catchup) initialized minimap for area id: %x\n", nAreaID);
+}
+
+// catchup players who did not get the dynamically loaded areas due to being offline
+void NWNXCatchupAreas(void *vModule, dword *nAreaIDs, int nDynamicAreas)
+{
+	CNWSModule *pModule = (CNWSModule *)vModule;
+	if(!pServThis) InitConstants();
+	CGameObjectArray *pGameObjArray = CServerExoApp__GetObjectArray((void *)pServThis);
+	int nStaticAreas = pModule->Areas.Count - nDynamicAreas;
+	areas.Log(1, "(catchup) dynamic count: %d\n", nDynamicAreas);
+	if(!pGameObjArray) return;
+	for(int i=0; i<=0xFFF; i++)
+	{
+		CGameObjectArrayElement **pObjects = pGameObjArray->Objects;
+		CGameObjectArrayElement *pElement = pObjects[i];
+		if(!pElement) continue;
+		CNWSCreature *pObject = (CNWSCreature *) pElement->Object;
+		if(!pObject) continue;
+		if(pObject->Object.ObjectType == 5)
+		{
+			if(pObject->AreaMiniMaps)
+			{
+				if ( pObject->AreaCount < pModule->Areas.Count )
+				{
+					areas.Log(1, "Catchup for creature '%x'\n", pObject->Object.ObjectID);
+					pObject->AreaMiniMaps = (void **) realloc(pObject->AreaMiniMaps, pModule->Areas.Count * 4);
+					int nAreaDiff = pModule->Areas.Count - pObject->AreaCount;
+					for ( int i = pObject->AreaCount; i < pModule->Areas.Count; i++ )
+					{
+						int catchupIndex = i - nStaticAreas; // index into ordered dynamic area ids
+						InitMiniMap(pObject, i, nAreaIDs[catchupIndex]);
+					}
+					pObject->AreaCount = pModule->Areas.Count;
+				}
+			}	
+		}
+	}
+}
+
 int HookFunctions()
 {
 	ppServThis = 0x0832F1F4;
