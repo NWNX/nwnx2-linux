@@ -17,25 +17,12 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-#include <sys/types.h>
-#include <sys/mman.h>
-#include <dlfcn.h>
-#include <stdarg.h>
-
-#include <limits.h>		/* for PAGESIZE */
-#ifndef PAGESIZE
-#define PAGESIZE 4096
-#endif
-
 #include "HookFunc.h"
 #include "CGameObjectArray.h"
 #include "NWNStructures.h"
 #include "NWNXAreas.h"
-#include "AssemblyHelper.cpp"
 
 extern CNWNXAreas areas;
-AssemblyHelper asmhelp;
-
 
 CNWSModule *(*CServerExoApp__GetModule)(void *pServerExo);
 void (*CNWSArea__CNWSArea)(void *pArea, CResRef res, int a3, dword ObjID);
@@ -54,11 +41,26 @@ void *(*pGetServerMessage)(void *pServerExo);
 void (*SendServerToPlayerDungeonMasterAreaList)(void *pMessage, void *pPlayer);
 int (*CNWSArea__GetFirstObjectInArea)(CNWSArea *pArea, dword *pObjID);
 int (*CNWSArea__GetNextObjectInArea)(CNWSArea *pArea, dword *pObjID);
+void (*CNWSCreature__SetAutoMapData_orig)(CNWSCreature *cre, int32_t num_areas, uint32_t *areas, uint8_t **minimaps);
 
 dword ppServThis = 0;
 dword pServThis = 0; //g_pAppManager
 dword pScriptThis = 0;
 dword pServInternal = 0;
+
+// I'm not sure what CServerExoApp__GetModule actually returns, but I'm
+// positive that it's not CNWSModule.  So this looks up the module in
+// the game object array.  I think module object ID is always 0, but to
+// be safe...
+CNWSModule *GetModule() {
+    uint32_t *mod = (uint32_t *)CServerExoApp__GetModule((void *)pServThis);
+    uint32_t mod_id = mod[8];
+    CGameObject *pObject = (CGameObject *) CServerExoAppInternal__GetGameObject((void *)pServInternal, mod_id);
+    if (pObject) {
+        return (CNWSModule*)pObject;
+    }
+    return NULL;
+}
 
 CResRef *CResRef____as(CResRef *res, char *str)
 {
@@ -67,11 +69,71 @@ CResRef *CResRef____as(CResRef *res, char *str)
 	return res;
 }
 
+void AddAreaToCreature(CNWSModule *pModule, CNWSCreature *pObject, dword nAreaID) {
+    if(pObject->AreaMiniMaps) {
+        areas.Log(3, "Adding minimap for area '%x' to creature '%x'\n", nAreaID, pObject->Object.ObjectID);
+        pObject->AreaMiniMaps = (void **) realloc(pObject->AreaMiniMaps, pModule->Areas.Count * 4);
+        void *pMinimap = new char[0x80];
+        memset(pMinimap, 0, 0x80);
+        pObject->AreaMiniMaps[pObject->AreaCount] = pMinimap;
+        CExoArrayList_unsigned_long___Add(&pObject->AreaList, nAreaID);
+        pObject->AreaCount++;
+        areas.Log(3, "Object area count: %d\n", pObject->AreaCount);
+    }
+}
+
+void RemoveAreaFromCreature(CNWSCreature *pObject, dword nAreaID) {
+    if(pObject->AreaMiniMaps) {
+        //TODO: cleanup minimap data
+        areas.Log(3, "Removing minimaps for area '%x' creature '%x'\n", nAreaID, pObject->Object.ObjectID);
+        int nIndex = CExoArrayList_unsigned_long___IndexOf(&pObject->AreaList, nAreaID);
+        if(nIndex!=-1) {
+            free(pObject->AreaMiniMaps[nIndex]);
+            memcpy(&pObject->AreaMiniMaps[nIndex], &pObject->AreaMiniMaps[nIndex+1], (pObject->AreaCount - nIndex - 1)*4);
+            pObject->AreaMiniMaps = (void **) realloc(pObject->AreaMiniMaps, (pObject->AreaCount-1) * 4 );
+        }
+        CExoArrayList_unsigned_long___Remove(&pObject->AreaList, nAreaID);
+        pObject->AreaCount--;
+        areas.Log(3, "Object area count: %d\n", pObject->AreaCount);
+    }
+}
+
+void FixCreature(CNWSModule* mod, CNWSCreature* pObject) {
+    if(!pServThis) InitConstants();
+
+    dword *as = (dword *)pObject->AreaList.Array;
+    size_t i = 0;
+    while(i < pObject->AreaCount) {
+        if (CExoArrayList_unsigned_long___IndexOf(&mod->Areas, as[i]) == -1) {
+            RemoveAreaFromCreature(pObject, as[i]);
+        }
+        else {
+            ++i;
+        }
+    }
+
+    as = (dword *)mod->Areas.Array;
+    for(size_t i = 0; i < mod->Areas.Count; ++i) {
+        if(CExoArrayList_unsigned_long___IndexOf(&pObject->AreaList, as[i]) == -1) {
+            AddAreaToCreature(mod, pObject, as[i]);
+        }
+    }
+}
+
+void Hook_SetAutoMapData(CNWSCreature *cre, int32_t num_areas, uint32_t *arealist, uint8_t **minimaps) {
+    if(!pServThis) InitConstants();
+    CNWSCreature__SetAutoMapData_orig(cre, num_areas, arealist, minimaps);
+    CNWSModule *mod = GetModule();
+    if (mod) {
+        FixCreature(mod, cre);
+    }
+}
+
 void AddAreaToCreatures(CNWSModule *pModule, dword nAreaID)
 {
 	if(!pServThis) InitConstants();
 	CGameObjectArray *pGameObjArray = CServerExoApp__GetObjectArray((void *)pServThis);
-	
+
 	areas.Log(3, "Area count: %d\n", pModule->Areas.Count);
 	if(!pGameObjArray) return;
 	for(int i=0; i<=0xFFF; i++)
@@ -83,17 +145,7 @@ void AddAreaToCreatures(CNWSModule *pModule, dword nAreaID)
 		if(!pObject) continue;
 		if(pObject->Object.ObjectType == 5)
 		{
-			if(pObject->AreaMiniMaps)
-			{
-				areas.Log(3, "Adding minimap to creature '%x'\n", pObject->Object.ObjectID);
-				pObject->AreaMiniMaps = (void **) realloc(pObject->AreaMiniMaps, pModule->Areas.Count * 4);
-				void *pMinimap = new char[0x80];
-				memset(pMinimap, 0, 0x80);
-				pObject->AreaMiniMaps[pModule->Areas.Count - 1] = pMinimap;
-				CExoArrayList_unsigned_long___Add(&pObject->AreaList, nAreaID);
-				pObject->AreaCount++;
-				areas.Log(3, "Object area count: %d\n", pObject->AreaCount);
-			}
+            AddAreaToCreature(pModule, pObject, nAreaID);
 		}
 	}
 }
@@ -102,7 +154,7 @@ void RemoveAreaForCreatures(CNWSModule *pModule, dword nAreaID)
 {
 	if(!pServThis) InitConstants();
 	CGameObjectArray *pGameObjArray = CServerExoApp__GetObjectArray((void *)pServThis);
-	
+
 	areas.Log(3, "Area count: %d\n", pModule->Areas.Count);
 	if(!pGameObjArray) return;
 	for(int i=0; i<=0xFFF; i++)
@@ -114,22 +166,7 @@ void RemoveAreaForCreatures(CNWSModule *pModule, dword nAreaID)
 		if(!pObject) continue;
 		if(pObject->Object.ObjectType == 5)
 		{
-			if(pObject->AreaMiniMaps)
-			{
-				areas.Log(3, "Removing minimaps for creature '%x'\n", pObject->Object.ObjectID);
-				//TODO: cleanup minimap data
-				int nIndex = CExoArrayList_unsigned_long___IndexOf(&pObject->AreaList, nAreaID);
-				if(nIndex!=-1)
-				{
-					free(pObject->AreaMiniMaps[nIndex]);
-					memcpy(&pObject->AreaMiniMaps[nIndex], &pObject->AreaMiniMaps[nIndex+1], (pObject->AreaCount - nIndex - 1)*4);
-					pObject->AreaMiniMaps = (void **) realloc(pObject->AreaMiniMaps, (pObject->AreaCount-1) * 4 );
-				}
-				//pObject->AreaMiniMaps = (void **) realloc(pObject->AreaMiniMaps, pModule->Areas.Count * 4);
-				CExoArrayList_unsigned_long___Remove(&pObject->AreaList, nAreaID);
-				pObject->AreaCount--;
-				areas.Log(3, "Object area count: %d\n", pObject->AreaCount);
-			}
+            RemoveAreaFromCreature(pObject, nAreaID);
 		}
 	}
 	//Cleanup TURDs
@@ -141,11 +178,12 @@ void RemoveAreaForCreatures(CNWSModule *pModule, dword nAreaID)
 		if(pTURD) {
  			if(pTURD->MapAreasData && pTURD->MapNumAreas && pTURD->MapData){
 				int nIndex = -1;
-				for(int i=0; i<pTURD->MapNumAreas; i++) {
+				for(size_t i=0; i<pTURD->MapNumAreas; i++) {
 					if(pTURD->MapAreasData[i] == nAreaID){
 						nIndex = i;
 						break;
 					}
+
 				}
 				if(nIndex != -1) {
 					areas.Log(3, "Cleaning up TURD...\n");
@@ -230,7 +268,7 @@ void NWNXDestroyArea(void *pModule, dword nAreaID)
 		pDestructor(pObject, 3);
 	}
 	while(CNWSArea__GetNextObjectInArea(pArea, &nTmpObj));
-	
+
 	areas.Log(0, "Destroying area %08lX\n", nAreaID);
 	if(pArea->NumPlayers > 0)
 	{
@@ -278,6 +316,10 @@ int HookFunctions()
 
 	*(dword*)&CNWSArea__GetFirstObjectInArea = 0x080D4814;
 	*(dword*)&CNWSArea__GetNextObjectInArea = 0x080D4858;
+    *(void**)&CNWSCreature__SetAutoMapData_orig = nx_hook_function((void*)0x0813A86C,
+                                                                   (void*)Hook_SetAutoMapData,
+                                                                   5,
+                                                                   NX_HOOK_DIRECT | NX_HOOK_RETCODE);
 
     areas.Log(0, "pServThis = %08lX\n", pServThis);
 
@@ -289,4 +331,3 @@ void InitConstants()
 	pServThis = *((*(dword**)ppServThis) + 1);
 	pServInternal = *((dword*)pServThis + 1);
 }
-
