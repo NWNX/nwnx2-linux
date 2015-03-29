@@ -30,7 +30,7 @@ void Func_SetQuickBarSlot (CGameObject *ob, char *value) {
         !cre->cre_is_pc                               ||
         cre->cre_quickbar == NULL                     ||
         sscanf(value, "%d %d %d %d %d", &slot, &qb_type, &qb_class, &qb_id, &qb_meta) != 5 ||
-        slot < 0 || slot >= 36 || qb_type != QUICKBAR_TYPE_SPELL) {
+        slot < 0 || slot >= 36) {
 
         snprintf(value, strlen(value), "-1");
         return;
