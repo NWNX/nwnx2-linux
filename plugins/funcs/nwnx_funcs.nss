@@ -127,9 +127,21 @@ const int VARIABLE_TYPE_STRING                  = 3;
 const int VARIABLE_TYPE_OBJECT                  = 4;
 const int VARIABLE_TYPE_LOCATION                = 5;
 
-const int QUICKBAR_TYPE_ITEM                    = 1;
-const int QUICKBAR_TYPE_SPELL                   = 2;
-const int QUICKBAR_TYPE_FEAT                    = 4;
+const int QUICKBAR_TYPE_INVALID = 0;
+const int QUICKBAR_TYPE_ITEM = 1;
+const int QUICKBAR_TYPE_SPELL = 2;
+const int QUICKBAR_TYPE_SKILL = 3;
+const int QUICKBAR_TYPE_FEAT = 4;
+const int QUICKBAR_TYPE_TALKTO = 6;
+const int QUICKBAR_TYPE_ATTACK = 7;
+const int QUICKBAR_TYPE_EMOTE = 8;
+const int QUICKBAR_TYPE_MODE = 10;
+const int QUICKBAR_TYPE_MACRO = 18;
+const int QUICKBAR_TYPE_POSSESS = 38;
+const int QUICKBAR_TYPE_SUMMON = 39;
+const int QUICKBAR_TYPE_EXAMINE = 40;
+const int QUICKBAR_TYPE_BARTER = 41;
+const int QUICKBAR_TYPE_HENCH = 42;
 
 
 struct MemorizedSpellSlot {
@@ -752,34 +764,34 @@ int GetMeetsLevelUpFeatRequirements (object oCreature, int nFeat, int nClass, in
     SetLocalString(oCreature, "NWNX!FUNCS!GETMEETSFEATREQUIREMENTS", ">" + 
         IntToString(nFeat)          + " " +
         IntToString(nClass)         + " " +
-        IntToString(nAbility)       + " ¬" +
-        IntToString(sk.sk_aniemp)   + "¬" +
-        IntToString(sk.sk_conc)     + "¬" +
-        IntToString(sk.sk_distrap)  + "¬" +
-        IntToString(sk.sk_disc)     + "¬" +
-        IntToString(sk.sk_heal)     + "¬" +
-        IntToString(sk.sk_hide)     + "¬" +
-        IntToString(sk.sk_listen)   + "¬" +
-        IntToString(sk.sk_lore)     + "¬" +
-        IntToString(sk.sk_movesil)  + "¬" +
-        IntToString(sk.sk_openlock) + "¬" +
-        IntToString(sk.sk_parry)    + "¬" +
-        IntToString(sk.sk_perform)  + "¬" +
-        IntToString(sk.sk_persuade) + "¬" +
-        IntToString(sk.sk_ppocket)  + "¬" +
-        IntToString(sk.sk_search)   + "¬" +
-        IntToString(sk.sk_settrap)  + "¬" +
-        IntToString(sk.sk_spcraft)  + "¬" +
-        IntToString(sk.sk_spot)     + "¬" +
-        IntToString(sk.sk_taunt)    + "¬" +
-        IntToString(sk.sk_umd)      + "¬" +
-        IntToString(sk.sk_appraise) + "¬" +
-        IntToString(sk.sk_tumble)   + "¬" +
-        IntToString(sk.sk_ctrap)    + "¬" +
-        IntToString(sk.sk_bluff)    + "¬" +
-        IntToString(sk.sk_intim)    + "¬" +
-        IntToString(sk.sk_carmor)   + "¬" +
-        IntToString(sk.sk_cweapon)  + "¬" +
+        IntToString(nAbility)       + " ï¿½" +
+        IntToString(sk.sk_aniemp)   + "ï¿½" +
+        IntToString(sk.sk_conc)     + "ï¿½" +
+        IntToString(sk.sk_distrap)  + "ï¿½" +
+        IntToString(sk.sk_disc)     + "ï¿½" +
+        IntToString(sk.sk_heal)     + "ï¿½" +
+        IntToString(sk.sk_hide)     + "ï¿½" +
+        IntToString(sk.sk_listen)   + "ï¿½" +
+        IntToString(sk.sk_lore)     + "ï¿½" +
+        IntToString(sk.sk_movesil)  + "ï¿½" +
+        IntToString(sk.sk_openlock) + "ï¿½" +
+        IntToString(sk.sk_parry)    + "ï¿½" +
+        IntToString(sk.sk_perform)  + "ï¿½" +
+        IntToString(sk.sk_persuade) + "ï¿½" +
+        IntToString(sk.sk_ppocket)  + "ï¿½" +
+        IntToString(sk.sk_search)   + "ï¿½" +
+        IntToString(sk.sk_settrap)  + "ï¿½" +
+        IntToString(sk.sk_spcraft)  + "ï¿½" +
+        IntToString(sk.sk_spot)     + "ï¿½" +
+        IntToString(sk.sk_taunt)    + "ï¿½" +
+        IntToString(sk.sk_umd)      + "ï¿½" +
+        IntToString(sk.sk_appraise) + "ï¿½" +
+        IntToString(sk.sk_tumble)   + "ï¿½" +
+        IntToString(sk.sk_ctrap)    + "ï¿½" +
+        IntToString(sk.sk_bluff)    + "ï¿½" +
+        IntToString(sk.sk_intim)    + "ï¿½" +
+        IntToString(sk.sk_carmor)   + "ï¿½" +
+        IntToString(sk.sk_cweapon)  + "ï¿½" +
         IntToString(sk.sk_ride));
     return StringToInt(GetLocalString(oCreature, "NWNX!FUNCS!GETMEETSFEATREQUIREMENTS"));
 }
@@ -1078,7 +1090,7 @@ int RemoveSpecialAbility (object oCreature, int nIndex) {
 
 string GetRawQuickBarSlot (object oPC, int nSlot) {
     SetLocalString(oPC, "NWNX!FUNCS!GETQUICKBARSLOT",
-        IntToString(nSlot) + "                                                                                                                                ");
+                   IntToString(nSlot) + "                                                                                                                                                                                                ");
     return GetLocalString(oPC, "NWNX!FUNCS!GETQUICKBARSLOT");
 }
 
@@ -1283,7 +1295,7 @@ int SetPlaceableAppearance (object oPlace, int nApp) {
 
 float GetGroundHeight (object oArea, vector vPos) {
     SetLocalString(oArea, "NWNX!FUNCS!GETGROUNDHEIGHT",
-        FloatToString(vPos.x) + "¬" + FloatToString(vPos.y) + "¬" +
+        FloatToString(vPos.x) + "ï¿½" + FloatToString(vPos.y) + "ï¿½" +
         FloatToString(vPos.z) + "                    ");
     return StringToFloat(GetLocalString(oArea, "NWNX!FUNCS!GETGROUNDHEIGHT"));
 }
@@ -1294,7 +1306,7 @@ float GetGroundHeightFromLocation (location lLoc) {
 
 int GetIsWalkable (object oArea, vector vPos) {
     SetLocalString(oArea, "NWNX!FUNCS!GETISWALKABLE",
-        FloatToString(vPos.x) + "¬" + FloatToString(vPos.y) + "¬" +
+        FloatToString(vPos.x) + "ï¿½" + FloatToString(vPos.y) + "ï¿½" +
         FloatToString(vPos.z) + "                    ");
     return StringToInt(GetLocalString(oArea, "NWNX!FUNCS!GETISWALKABLE"));
 }
@@ -1312,9 +1324,9 @@ void ActionUseItem (object oItem, object oTarget, location lTarget, int nProp) {
         return;
 
     SetLocalString(OBJECT_SELF, "NWNX!FUNCS!ACTIONUSEITEM",
-        ObjectToString(oItem) + "¬" + ObjectToString(oTarget) + "¬" +
-        ObjectToString(oArea) + "¬" + FloatToString(vVec.x)   + "¬" +
-        FloatToString(vVec.y) + "¬" + FloatToString(vVec.z)   + "¬" +
+        ObjectToString(oItem) + "ï¿½" + ObjectToString(oTarget) + "ï¿½" +
+        ObjectToString(oArea) + "ï¿½" + FloatToString(vVec.x)   + "ï¿½" +
+        FloatToString(vVec.y) + "ï¿½" + FloatToString(vVec.z)   + "ï¿½" +
         IntToString(nProp));
 }
 
