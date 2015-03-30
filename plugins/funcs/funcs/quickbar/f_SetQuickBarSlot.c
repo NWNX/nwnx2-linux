@@ -26,6 +26,10 @@ void Func_SetQuickBarSlot (CGameObject *ob, char *value) {
     int slot, qb_type, qb_class, qb_id, qb_meta, qb_objid1, qb_objid2;
     CNWSCreature *cre;
     int iLenValue = strlen(value);
+    char *tok = value;
+    char *params[7];
+    char valuestr[iLenValue];
+    
     if (ob == NULL                                    ||
         (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
         !cre->cre_is_pc                               ||
@@ -33,11 +37,7 @@ void Func_SetQuickBarSlot (CGameObject *ob, char *value) {
     {
         snprintf(value, iLenValue, "-1");
     }
-    char *tok = value;
-    char *params[7];
-    char valuestr[iLenValue];
-
-    // Build an array out of the tokens
+    /* walk through other tokens */
     int i = 0;
     while ((tok = strtok(tok, "¬")) != NULL)
     {
@@ -45,16 +45,11 @@ void Func_SetQuickBarSlot (CGameObject *ob, char *value) {
         tok = NULL;
         i++;
     }
-
-    // If we didn't find 7 values then something went wrong
     if (i != 7)
     {
         snprintf(value, iLenValue, "-1");
         return;
     }
-
-    // Concat the first five values of the array into a string so we can sscanf them into
-    // their appropriate fields
     int pos = 0;
     int n = 5;
     int k;
@@ -63,8 +58,8 @@ void Func_SetQuickBarSlot (CGameObject *ob, char *value) {
     }
     int valuelen = strlen(valuestr);
     valuestr[valuelen - 1] = 0;
-
-    // Items take hex values so we use %x for the object ids
+    
+    // Special case for items
     if (strcmp(params[1],"1") == 0)
     {        
         if (sscanf(valuestr, "%d %d %x %d %x", &slot, &qb_type, &qb_objid1, &qb_id, &qb_objid2) != 5)
@@ -81,10 +76,10 @@ void Func_SetQuickBarSlot (CGameObject *ob, char *value) {
             return;
         }
     }
-
+    
     CNWSQuickbarButton *button = &cre->cre_quickbar[slot];
-
-    // If existing quickslot contained strings, free their memory first
+    
+    //if quickslot contains strings, free their memory first
     switch (button->qb_type) {
         case 18: {
             free(button->qb_label.text); button->qb_label.text = NULL;
@@ -97,53 +92,56 @@ void Func_SetQuickBarSlot (CGameObject *ob, char *value) {
             button->qb_label2.len = 0;
         } break;
     }
-
-    // Initialize some slot vars
+    
     button->qb_objid1 = 0x7F000000;
     button->qb_objid2 = 0x7F000000;
     button->qb_class = 0;
     button->qb_id = 0;
     button->qb_metamagic = 0;
 
-    // Set our special slot info
+    // put the new data in
     switch (qb_type) {
-        // Items
         case 1: {
             button->qb_type      = qb_type;
             button->qb_id        = qb_id;
             button->qb_objid1    = qb_objid1;
             button->qb_objid2    = qb_objid2;
         } break;
-        // DM Creatore vars
-        case 11: case 12: case 13: case 14: case 15: case 16: case 17: {
-            if (strlen(params[5]) > 0 && strlen(params[6]) > 0) {
-                sprintf(button->qb_resref, "%s", params[5]);
-                button->qb_label2.len = strlen(params[6])+1;
-                button->qb_label2.text = (char*)malloc(button->qb_label2.len);
-                sprintf(button->qb_label2.text, "%s", params[6]);
-            }
-            else {
-                qb_type = 0;
-            }
-        } break;
-        // Custom macros
+            
         case 18: {
             if (strlen(params[5]) > 0 && strlen(params[6]) > 0) {
-                button->qb_command.len = strlen(params[5])+1;
-                button->qb_command.text = (char*)malloc(button->qb_command.len);
-                sprintf(button->qb_command.text, "%s", params[5]);
                 button->qb_label.len = strlen(params[6])+1;
                 button->qb_label.text = (char*)malloc(button->qb_label.len);
                 sprintf(button->qb_label.text, "%s", params[6]);
+                
+                button->qb_command.len = strlen(params[5])+1;
+                button->qb_command.text = (char*)malloc(button->qb_command.len);
+                sprintf(button->qb_command.text, "%s", params[5]);
             }
             else {
                 qb_type = 0;
+                qb_class = 0;
+                qb_id = 0;
+                qb_meta = 0;
+            }
+        } break;
+        case 11: case 12: case 13: case 14: case 15: case 16: case 17: {
+            if (strlen(params[5]) > 0 && strlen(params[6]) > 0) {
+                button->qb_label2.len = strlen(params[6])+1;
+                button->qb_label2.text = (char*)malloc(button->qb_label2.len);
+                sprintf(button->qb_label2.text, "%s", params[6]);
+                
+                sprintf(button->qb_resref, "%s", params[5]);
+            }
+            else {
+                qb_type = 0;
+                qb_class = 0;
+                qb_id = 0;
+                qb_meta = 0;
             }
         } break;
     }
-
-    // Populate the other slots and the rest of the info unless we're done in the case of
-    // items.
+    
     if (qb_type != 1) 
     {
         button->qb_type      = qb_type;

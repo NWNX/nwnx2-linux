@@ -35,7 +35,6 @@ void Func_GetQuickBarSlot (CGameObject *ob, char *value) {
     }
 
     switch(cre->cre_quickbar[slot].qb_type) {
-        // Items, the hex qb_objids can be determined with StringToObject on the scripting side
         case 1: {
             snprintf(value, strlen(value), "%d|%x|%x|%d", 
                 cre->cre_quickbar[slot].qb_type,
@@ -45,25 +44,22 @@ void Func_GetQuickBarSlot (CGameObject *ob, char *value) {
             );
         } 
         break;
-        // DM drag and drop creator stuff
-        case 11: case 12: case 13: case 14: case 15: case 16: case 17: {
-            snprintf(value, strlen(value), "%d|%s|%s|0", 
-                     cre->cre_quickbar[slot].qb_type,
-                     cre->cre_quickbar[slot].qb_label2.text,
-                     cre->cre_quickbar[slot].qb_resref
-            );
-        } 
-        break;
-        // Custom macros
-        case 18: { 
+        case 18: {
             snprintf(value, strlen(value), "%d|%s|%s|0",
                 cre->cre_quickbar[slot].qb_type,
                 cre->cre_quickbar[slot].qb_label.text,
                 cre->cre_quickbar[slot].qb_command.text
             );
         } 
-        break; 
-        // Spells, feats, skills, talkto, attack, emotes, modes, summons, barter, henchmen etc
+        break;
+        case 11: case 12: case 13: case 14: case 15: case 16: case 17: {
+            snprintf(value, strlen(value), "%d|%s|%s|0", 
+                cre->cre_quickbar[slot].qb_type,
+                cre->cre_quickbar[slot].qb_label2.text,
+                cre->cre_quickbar[slot].qb_resref
+            );
+        } 
+        break;
         default: {
             snprintf(value, strlen(value), "%d|%d|%d|%d",
                 cre->cre_quickbar[slot].qb_type,
