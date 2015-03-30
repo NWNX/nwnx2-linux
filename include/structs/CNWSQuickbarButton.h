@@ -25,16 +25,20 @@
 #define _NX_NWN_STRUCT_CNWSQUICKBARBUTTON_
 
 struct CNWSQuickbarButton_s {
-    uint32_t            qb_objid1;      // Item on slot
-    uint32_t            qb_objid2;      // Second item on same slot
+    uint32_t            qb_objid1;
+    uint32_t            qb_objid2;
+
     uint8_t             qb_type;
-    uint8_t             qb_class;       // Class reference for spells when player is multiclass
-    char                qb_resref[17];  // For DM creator dropped slots, resref to object
-    CExoString          qb_label;       // Custom macro label
-    CExoString          qb_command;     // Custom macro command
-    CExoString          qb_label2;      // Label for DM creator dropped slots
-    uint32_t            qb_id;
-    uint32_t            qb_metamagic;
+    uint8_t             qb_class;
+    char		qb_resref[17];
+
+    CExoString		qb_label;		/* 0x1C */
+    CExoString		qb_command;		/* 0x24 */
+
+    CExoString          qb_label2;		/* 0x2C */	// for stuff dragged from the creator
+
+    uint32_t            qb_id;			/* 0x34 */
+    uint32_t            qb_metamagic;		/* 0x38 */
 
     uint32_t            field_3C;		/* 0x3C */
 };
