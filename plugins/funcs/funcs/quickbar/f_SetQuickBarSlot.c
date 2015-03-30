@@ -17,138 +17,29 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
-#include <string.h>
-#include <stdio.h>
+
 #include "NWNXFuncs.h"
 
 
 void Func_SetQuickBarSlot (CGameObject *ob, char *value) {
-    int slot, qb_type, qb_class, qb_id, qb_meta, qb_objid1, qb_objid2;
+    int slot, qb_type, qb_class, qb_id, qb_meta;
     CNWSCreature *cre;
-    int iLenValue = strlen(value);
-    char *tok = value;
-    char *params[7];
-    char valuestr[iLenValue];
-    
+
     if (ob == NULL                                    ||
         (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
         !cre->cre_is_pc                               ||
-        cre->cre_quickbar == NULL) 
-    {
-        snprintf(value, iLenValue, "-1");
-    }
-    /* walk through other tokens */
-    int i = 0;
-    while ((tok = strtok(tok, "¬")) != NULL)
-    {
-        params[i] = tok;
-        tok = NULL;
-        i++;
-    }
-    if (i != 7)
-    {
-        snprintf(value, iLenValue, "-1");
+        cre->cre_quickbar == NULL                     ||
+        sscanf(value, "%d %d %d %d %d", &slot, &qb_type, &qb_class, &qb_id, &qb_meta) != 5 ||
+        slot < 0 || slot >= 36 || qb_type != QUICKBAR_TYPE_SPELL) {
+
+        snprintf(value, strlen(value), "-1");
         return;
     }
-    int pos = 0;
-    int n = 5;
-    int k;
-    for (k=0; k < n; k++) {
-        pos += sprintf(&valuestr[pos], "%s ", params[k]);
-    }
-    int valuelen = strlen(valuestr);
-    valuestr[valuelen - 1] = 0;
-    
-    // Special case for items
-    if (strcmp(params[1],"1") == 0)
-    {        
-        if (sscanf(valuestr, "%d %d %x %d %x", &slot, &qb_type, &qb_objid1, &qb_id, &qb_objid2) != 5)
-        {
-            snprintf(value, iLenValue, "-1");
-            return;
-        }
-    } 
-    else 
-    {
-        if (sscanf(valuestr, "%d %d %d %d %d", &slot, &qb_type, &qb_class, &qb_id, &qb_meta) != 5)
-        {
-            snprintf(value, iLenValue, "-1");
-            return;
-        }
-    }
-    
-    CNWSQuickbarButton *button = &cre->cre_quickbar[slot];
-    
-    //if quickslot contains strings, free their memory first
-    switch (button->qb_type) {
-        case 18: {
-            free(button->qb_label.text); button->qb_label.text = NULL;
-            button->qb_label.len = 0;
-            free(button->qb_command.text); button->qb_command.text = NULL;
-            button->qb_command.len = 0;
-        } break;
-        case 11: case 12: case 13: case 14: case 15: case 16: case 17: {
-            free(button->qb_label2.text); button->qb_label2.text = NULL;
-            button->qb_label2.len = 0;
-        } break;
-    }
-    
-    button->qb_objid1 = 0x7F000000;
-    button->qb_objid2 = 0x7F000000;
-    button->qb_class = 0;
-    button->qb_id = 0;
-    button->qb_metamagic = 0;
 
-    // put the new data in
-    switch (qb_type) {
-        case 1: {
-            button->qb_type      = qb_type;
-            button->qb_id        = qb_id;
-            button->qb_objid1    = qb_objid1;
-            button->qb_objid2    = qb_objid2;
-        } break;
-            
-        case 18: {
-            if (strlen(params[5]) > 0 && strlen(params[6]) > 0) {
-                button->qb_label.len = strlen(params[6])+1;
-                button->qb_label.text = (char*)malloc(button->qb_label.len);
-                sprintf(button->qb_label.text, "%s", params[6]);
-                
-                button->qb_command.len = strlen(params[5])+1;
-                button->qb_command.text = (char*)malloc(button->qb_command.len);
-                sprintf(button->qb_command.text, "%s", params[5]);
-            }
-            else {
-                qb_type = 0;
-                qb_class = 0;
-                qb_id = 0;
-                qb_meta = 0;
-            }
-        } break;
-        case 11: case 12: case 13: case 14: case 15: case 16: case 17: {
-            if (strlen(params[5]) > 0 && strlen(params[6]) > 0) {
-                button->qb_label2.len = strlen(params[6])+1;
-                button->qb_label2.text = (char*)malloc(button->qb_label2.len);
-                sprintf(button->qb_label2.text, "%s", params[6]);
-                
-                sprintf(button->qb_resref, "%s", params[5]);
-            }
-            else {
-                qb_type = 0;
-                qb_class = 0;
-                qb_id = 0;
-                qb_meta = 0;
-            }
-        } break;
-    }
-    
-    if (qb_type != 1) 
-    {
-        button->qb_type      = qb_type;
-        button->qb_class     = qb_class;
-        button->qb_id        = qb_id;
-        button->qb_metamagic = qb_meta;
-    }
+    cre->cre_quickbar[slot].qb_type      = qb_type;
+    cre->cre_quickbar[slot].qb_class     = qb_class;
+    cre->cre_quickbar[slot].qb_id        = qb_id;
+    cre->cre_quickbar[slot].qb_metamagic = qb_meta;
 
     nwn_UpdateQuickBar(cre);
 }
