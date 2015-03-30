@@ -127,9 +127,21 @@ const int VARIABLE_TYPE_STRING                  = 3;
 const int VARIABLE_TYPE_OBJECT                  = 4;
 const int VARIABLE_TYPE_LOCATION                = 5;
 
-const int QUICKBAR_TYPE_ITEM                    = 1;
-const int QUICKBAR_TYPE_SPELL                   = 2;
-const int QUICKBAR_TYPE_FEAT                    = 4;
+const int QUICKBAR_TYPE_INVALID = 0;
+const int QUICKBAR_TYPE_ITEM = 1;
+const int QUICKBAR_TYPE_SPELL = 2;
+const int QUICKBAR_TYPE_SKILL = 3;
+const int QUICKBAR_TYPE_FEAT = 4;
+const int QUICKBAR_TYPE_TALKTO = 6;
+const int QUICKBAR_TYPE_ATTACK = 7;
+const int QUICKBAR_TYPE_EMOTE = 8;
+const int QUICKBAR_TYPE_MODE = 10;
+const int QUICKBAR_TYPE_MACRO = 18;
+const int QUICKBAR_TYPE_POSSESS = 38;
+const int QUICKBAR_TYPE_SUMMON = 39;
+const int QUICKBAR_TYPE_EXAMINE = 40;
+const int QUICKBAR_TYPE_BARTER = 41;
+const int QUICKBAR_TYPE_HENCH = 42;
 
 
 struct MemorizedSpellSlot {
@@ -729,7 +741,9 @@ int GetTotalFeatUses (object oCreature, int nFeat) {
 
 
 string GetAllRemainingFeatUses (object oCreature) {
-    string sFeats = GetLocalString(GetModule(), "NWNX!ODBC!SPACER");
+    string APS_WAYPOINT_TAG="WP_APS";
+    object oWP=GetObjectByTag(APS_WAYPOINT_TAG);
+    string sFeats = GetLocalString(oWP, "NWNX!ODBC!SPACER");
 
     SetLocalString(oCreature, "NWNX!FUNCS!GETALLREMAININGFEATUSES", sFeats + sFeats + sFeats + sFeats);
     sFeats = GetLocalString(oCreature, "NWNX!FUNCS!GETALLREMAININGFEATUSES");
@@ -1004,7 +1018,9 @@ int SetRemainingSpellSlots (object oCreature, int nClass, int nSpellLevel, int n
 
 
 string GetAllMemorizedSpells (object oCreature) {
-    string sSpells = GetLocalString(GetModule(), "NWNX!ODBC!SPACER");
+    string APS_WAYPOINT_TAG="WP_APS";
+    object oWP=GetObjectByTag(APS_WAYPOINT_TAG);
+    string sSpells = GetLocalString(oWP, "NWNX!ODBC!SPACER");
 
     SetLocalString(oCreature, "NWNX!FUNCS!GETALLMEMORIZEDSPELLS", sSpells + sSpells + sSpells + sSpells);
     sSpells = GetLocalString(oCreature, "NWNX!FUNCS!GETALLMEMORIZEDSPELLS");
@@ -1078,7 +1094,7 @@ int RemoveSpecialAbility (object oCreature, int nIndex) {
 
 string GetRawQuickBarSlot (object oPC, int nSlot) {
     SetLocalString(oPC, "NWNX!FUNCS!GETQUICKBARSLOT",
-        IntToString(nSlot) + "                                                                                                                                ");
+                   IntToString(nSlot) + "                                                                                                                                                                                                ");
     return GetLocalString(oPC, "NWNX!FUNCS!GETQUICKBARSLOT");
 }
 
