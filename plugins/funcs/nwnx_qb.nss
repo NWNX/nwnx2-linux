@@ -331,9 +331,9 @@ void RestoreQuickBar(object oPC, string sName)
             }
             if ((iItemTwo != 0) && (oItemFoundTwo == OBJECT_INVALID))
             {
-                oItem=GetItemInSlot(nSlot, oPC);
                 for (nSlot=0; nSlot<NUM_INVENTORY_SLOTS; nSlot++)
                 {
+                    oItem=GetItemInSlot(nSlot, oPC);
                     if (GetLocalString(oItem,"qb_equip") == sPCID+"-"+IntToString(iItemTwo))
                         oItemFoundTwo = oItem;
                 }
