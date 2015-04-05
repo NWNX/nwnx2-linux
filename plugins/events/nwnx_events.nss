@@ -13,6 +13,9 @@ const int EVENT_TYPE_TOGGLE_PAUSE       = 11;
 const int EVENT_TYPE_POSSESS_FAMILIAR   = 12;
 const int EVENT_TYPE_VALIDATE_CHARACTER = 13;
 const int EVENT_TYPE_DESTROY_OBJECT     = 14;
+const int EVENT_TYPE_MAP_PIN_ADDED      = 15;
+const int EVENT_TYPE_MAP_PIN_CHANGED    = 16;
+const int EVENT_TYPE_MAP_PIN_DESTROYED  = 17;
 
 // DEPRECATED
 // For backwards compatibility only - use above constants instead
