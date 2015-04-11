@@ -27,7 +27,7 @@
 struct CNWSModule_s {
     uint32_t                    field_00;
     uint32_t                    field_04;
-    uint32_t                    field_08;
+    uint32_t                    obj_type;
     uint32_t                    field_0C;
     uint32_t                    field_10;
     uint32_t                    field_14;
@@ -40,7 +40,7 @@ struct CNWSModule_s {
     uint32_t                    field_30;
     uint32_t                    field_34;
 
-    nwn_objid_t                *mod_areas;
+    nwn_objid_t                 *mod_areas;
     uint32_t                    mod_areas_len;
 
     uint32_t                    field_40;
@@ -62,14 +62,6 @@ struct CNWSModule_s {
     uint32_t                    field_80;
     uint32_t                    field_84;
     uint32_t                    field_88;
-    uint32_t                    field_8C;
-    uint32_t                    field_90;
-    uint32_t                    field_94;
-    uint32_t                    field_98;
-    uint32_t                    field_9C;
-    uint32_t                    field_A0;
-    uint32_t                    field_A4;
-
     CNWSScriptVarTable          mod_vartable;
 };
 
