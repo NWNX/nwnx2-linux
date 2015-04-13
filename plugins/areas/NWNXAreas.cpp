@@ -50,7 +50,7 @@ bool CNWNXAreas::OnCreate (gline *config, const char* LogDir)
 		return false;
 
 	// write copy information to the log file
-	Log (0, "NWNX Areas version 0.3.2 for Linux.\n");
+	Log (0, "NWNX Areas version 0.4 for Linux.\n");
 	Log (0, "(c) 2006-2010 by virusman (virusman@virusman.ru)\n");
 
 	return(HookFunctions());
@@ -61,17 +61,17 @@ char* CNWNXAreas::OnRequest (char* gameObject, char* Request, char* Parameters)
 	this->pGameObject = gameObject;
 	this->nGameObjectID = *(dword *)(gameObject+0x4);
 	Log (2, "Request: %s\n", Request);
-	if (strncmp(Request, "CREATE_AREA", 11) == 0) 	
+	if (strncmp(Request, "CREATE_AREA", 11) == 0)
 	{
 		NWNXCreateArea(gameObject, Parameters);
 		return NULL;
 	}
-	else if (strncmp(Request, "DESTROY_AREA", 12) == 0) 	
+	else if (strncmp(Request, "DESTROY_AREA", 12) == 0)
 	{
 		NWNXDestroyArea(gameObject, strtol(Parameters, (char **)NULL, 16));
 		return NULL;
 	}
-	else if (strncmp(Request, "SET_AREA_NAME", 13) == 0) 	
+	else if (strncmp(Request, "SET_AREA_NAME", 13) == 0)
 	{
 		NWNXSetAreaName((CNWSArea *)(gameObject-0xC4), Parameters);
 		return NULL;
