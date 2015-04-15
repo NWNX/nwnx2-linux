@@ -33,6 +33,7 @@ public:
   ~CNWNXChat();
   bool OnCreate(gline *config, const char* LogDir);
   char* OnRequest(char* gameObject, char* Request, char* Parameters);
+  unsigned long OnRequestObject(char *gameObject, char *Request);
   bool OnRelease();
   int supressMsg;
   int maxMsgLen;
@@ -48,6 +49,8 @@ public:
 protected:
   char *SendMessage(char* Parameters);
   char *SendMessageSingle(char* Parameters);
+private:
+  unsigned long resolveameObjectByIDReq;
 };
 
 #endif

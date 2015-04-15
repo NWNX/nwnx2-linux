@@ -39,6 +39,8 @@ CNWNXChat::CNWNXChat()
   processNPC = 0;
   ignore_silent = 0;
   maxMsgLen = 1024;
+
+  resolveameObjectByIDReq = OBJECT_INVALID;
 }
 
 CNWNXChat::~CNWNXChat()
@@ -180,6 +182,11 @@ char* CNWNXChat::OnRequest (char* gameObject, char* Request, char* Parameters)
     Log(3, "o GETID: oID='%s', ID=%s\n", Parameters, LastID);
     return LastID;
   }
+  else if (strncmp(Request, "GETGAMEOBJRQ", 12) == 0)
+  {
+    int pcID = atoi(Parameters);
+    resolveameObjectByIDReq = ResolveClientGameObjectByPCID(pcID);
+  }
   else if (strncmp(Request, "LOGNPC", 6) == 0)
   {
 	  Log(3, "o LOGNPC: %s\n", Parameters);
@@ -238,6 +245,15 @@ char* CNWNXChat::OnRequest (char* gameObject, char* Request, char* Parameters)
       supressMsg = 1;
   }
   return NULL;
+}
+
+unsigned long CNWNXChat::OnRequestObject(char *gameObject, char *Request)
+{
+  if (strncmp(Request, "GETGAMEOBJ", 10) == 0)
+  {
+    return resolveameObjectByIDReq;
+  }
+  return OBJECT_INVALID;
 }
 
 bool CNWNXChat::OnRelease ()

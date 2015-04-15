@@ -36,6 +36,8 @@ unsigned long GetID(dword OID);
 int SendMsg(const int mode, const int id, char *msg, const int to);
 int SendMsgSingle(const int mode, const int conn, const int speaker, char *msg);
 
+unsigned long ResolveClientGameObjectByPCID(int playerId);
+
 extern char scriptRun;
 extern char *lastMsg;
 extern char lastIDs[];

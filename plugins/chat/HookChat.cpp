@@ -50,6 +50,7 @@ int (*CNWSMessage__SendServerToPlayerChat_Party)(void* pCNWSMessage, int obj1, i
 int (*CNWSMessage__SendServerToPlayerChat_DM_Talk)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
 int (*CNWSMessage__SendServerToPlayerChat_DM_Whisper)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
 void *(*pGetServerMessage)(void *pServerExo);
+int (*CServerExoApp__GetClientObjectByObjectId)(void* pServerExo, unsigned long objectId);
 
 char scriptRun = 0;
 char *lastMsg;
@@ -301,6 +302,17 @@ unsigned long GetID(dword OID)
 	return *(pcObj);
 }
 
+
+unsigned long ResolveClientGameObjectByPCID(int nPlayerID)
+{
+    CNWSClient *pClient = (CNWSClient *) CServerExoApp__GetClientObjectByPlayerId(pServerExo, nPlayerID, 0);
+
+    if (!pClient)
+        return OBJECT_INVALID;
+
+    return pClient->GameObjectID;
+}
+
 void
 d_enable_write (unsigned long location)
 {
@@ -360,6 +372,8 @@ int HookFunctions()
     *(dword*)&CNWSMessage__SendServerToPlayerChat_Party = 0x8068fe4;
     *(dword*)&CNWSMessage__SendServerToPlayerChat_DM_Talk = 0x8069248;
     *(dword*)&CNWSMessage__SendServerToPlayerChat_DM_Whisper = 0x806a03c;
+
+    *(dword*)&CServerExoApp__GetClientObjectByObjectId = 0x080b24b8;
 
 	if (org_Run) {
 		*(dword*)&pRunScript = org_Run;
