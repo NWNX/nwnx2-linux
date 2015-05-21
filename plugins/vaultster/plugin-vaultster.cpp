@@ -3,8 +3,8 @@
 CNWNXVaultster vaultster;
 
 extern "C" {
-CNWNXBase* GetClassObject()
-{
-	return &vaultster;
-}
+    CNWNXBase* GetClassObject()
+    {
+        return &vaultster;
+    }
 }

@@ -33,64 +33,58 @@
 
 CNWNXAreas::CNWNXAreas()
 {
-	confKey = "AREAS";
+    confKey = "AREAS";
 }
 
 CNWNXAreas::~CNWNXAreas()
 {
 }
 
-bool CNWNXAreas::OnCreate (gline *config, const char* LogDir)
+bool CNWNXAreas::OnCreate(gline *config, const char* LogDir)
 {
-	char log[128];
+    char log[128];
 
-	// call the base class function
-	sprintf (log, "%s/nwnx_areas.txt", LogDir);
-	if (!CNWNXBase::OnCreate(config,log))
-		return false;
+    // call the base class function
+    sprintf(log, "%s/nwnx_areas.txt", LogDir);
+    if (!CNWNXBase::OnCreate(config, log))
+        return false;
 
-	// write copy information to the log file
-	Log (0, "NWNX Areas version 0.4 for Linux.\n");
-	Log (0, "(c) 2006-2010 by virusman (virusman@virusman.ru)\n");
+    // write copy information to the log file
+    Log(0, "NWNX Areas version 0.4 for Linux.\n");
+    Log(0, "(c) 2006-2010 by virusman (virusman@virusman.ru)\n");
 
-	return(HookFunctions());
+    return (HookFunctions());
 }
 
-char* CNWNXAreas::OnRequest (char* gameObject, char* Request, char* Parameters)
+char* CNWNXAreas::OnRequest(char* gameObject, char* Request, char* Parameters)
 {
-	this->pGameObject = gameObject;
-	this->nGameObjectID = *(dword *)(gameObject+0x4);
-	Log (2, "Request: %s\n", Request);
-	if (strncmp(Request, "CREATE_AREA", 11) == 0)
-	{
-		NWNXCreateArea(gameObject, Parameters);
-		return NULL;
-	}
-	else if (strncmp(Request, "DESTROY_AREA", 12) == 0)
-	{
-		NWNXDestroyArea(gameObject, strtol(Parameters, (char **)NULL, 16));
-		return NULL;
-	}
-	else if (strncmp(Request, "SET_AREA_NAME", 13) == 0)
-	{
-		NWNXSetAreaName((CNWSArea *)(gameObject-0xC4), Parameters);
-		return NULL;
-	}
-	return NULL;
+    this->pGameObject = gameObject;
+    this->nGameObjectID = *(dword *)(gameObject + 0x4);
+    Log(2, "Request: %s\n", Request);
+    if (strncmp(Request, "CREATE_AREA", 11) == 0) {
+        NWNXCreateArea(gameObject, Parameters);
+        return NULL;
+    } else if (strncmp(Request, "DESTROY_AREA", 12) == 0) {
+        NWNXDestroyArea(gameObject, strtol(Parameters, (char **)NULL, 16));
+        return NULL;
+    } else if (strncmp(Request, "SET_AREA_NAME", 13) == 0) {
+        NWNXSetAreaName((CNWSArea *)(gameObject - 0xC4), Parameters);
+        return NULL;
+    }
+    return NULL;
 }
 
-unsigned long CNWNXAreas::OnRequestObject (char *gameObject, char* Request)
+unsigned long CNWNXAreas::OnRequestObject(char *gameObject, char* Request)
 {
-	if (strncmp(Request, "GET_LAST_AREA_ID", 16) == 0)
-	{
-		return nLastAreaID;
-	}
-	return OBJECT_INVALID;
+    if (strncmp(Request, "GET_LAST_AREA_ID", 16) == 0) {
+        return nLastAreaID;
+    }
+    return OBJECT_INVALID;
 }
 
 
-bool CNWNXAreas::OnRelease ()
+bool CNWNXAreas::OnRelease()
 {
-	Log (0, "o Shutdown.\n");
-	return true;
+    Log(0, "o Shutdown.\n");
+    return true;
 }

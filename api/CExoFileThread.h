@@ -5,10 +5,10 @@
 class CExoFileThread
 {
 public:
-	int AsyncRead();
-	int Read(void *, unsigned long, unsigned long, _IO_FILE *);
-	~CExoFileThread();
-	CExoFileThread();
+    int AsyncRead();
+    int Read(void *, unsigned long, unsigned long, _IO_FILE *);
+    ~CExoFileThread();
+    CExoFileThread();
 
 };
 #endif

@@ -38,21 +38,21 @@ using namespace boost::asio;
 class CNWNXVaultster : public CNWNXBase
 {
 public:
-	CNWNXVaultster();
-	~CNWNXVaultster();
+    CNWNXVaultster();
+    ~CNWNXVaultster();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
-	char *OnRequest(char* gameObject, char* Request, char* Parameters);
-	// bool OnRelease();
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char *OnRequest(char* gameObject, char* Request, char* Parameters);
+    // bool OnRelease();
 
 protected:
-	bool Configure();
+    bool Configure();
 
 private:
-	string key_, pass_, path_;
-	int numclients_;
-	int lastclient_;
-	request *clients_;
+    string key_, pass_, path_;
+    int numclients_;
+    int lastclient_;
+    request *clients_;
 };
 
 #endif

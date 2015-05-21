@@ -22,7 +22,7 @@
 CNWNXFixes fixes;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &fixes;
+    return &fixes;
 }

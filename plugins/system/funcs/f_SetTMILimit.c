@@ -23,7 +23,8 @@
 extern unsigned char *Ref_TMILimit;
 
 
-void Func_SetTMILimit (CGameObject *ob, char *value) {
+void Func_SetTMILimit(CGameObject *ob, char *value)
+{
     int lim = atoi(value);
 
     if (lim < 16383)

@@ -62,15 +62,17 @@ static struct WeaponSignatureTable {
 };
 
 
-static void WeaponsSearchCallback (int id, void *addr) {
+static void WeaponsSearchCallback(int id, void *addr)
+{
     nx_log(NX_LOG_NOTICE, 0, "%s (%d) found at %p%s",
-        Table_WeaponSignatures[id].name, id, addr,
-        (*(void **)Table_WeaponSignatures[id].ref == NULL ? "" : " (duplicate)"));
+           Table_WeaponSignatures[id].name, id, addr,
+           (*(void **)Table_WeaponSignatures[id].ref == NULL ? "" : " (duplicate)"));
 
     *(void **)(Table_WeaponSignatures[id].ref) = addr;
 }
 
-static void WeaponsSearchSignatures (void) {
+static void WeaponsSearchSignatures(void)
+{
     int i;
 
     nx_sig_search_t *sig = nx_sig_search_create(WeaponsSearchCallback);
@@ -92,16 +94,19 @@ static void WeaponsSearchSignatures (void) {
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CNWNXWeapons::CNWNXWeapons() {
+CNWNXWeapons::CNWNXWeapons()
+{
     confKey = strdup("WEAPONS");
 }
 
 
-CNWNXWeapons::~CNWNXWeapons() {
+CNWNXWeapons::~CNWNXWeapons()
+{
 }
 
 
-char *CNWNXWeapons::OnRequest (char *gameObject, char *Request, char *Parameters) {
+char *CNWNXWeapons::OnRequest(char *gameObject, char *Request, char *Parameters)
+{
     const struct WeaponsStrCommand_s *cmd;
 
     Log(1, "StrReq: \"%s\"\nParams: \"%s\"\n", Request, Parameters);
@@ -117,7 +122,8 @@ char *CNWNXWeapons::OnRequest (char *gameObject, char *Request, char *Parameters
 }
 
 
-unsigned long CNWNXWeapons::OnRequestObject (char *gameObject, char *Request) {
+unsigned long CNWNXWeapons::OnRequestObject(char *gameObject, char *Request)
+{
     unsigned long ret = OBJECT_INVALID;
     const struct WeaponsObjCommand_s *cmd;
 
@@ -134,7 +140,8 @@ unsigned long CNWNXWeapons::OnRequestObject (char *gameObject, char *Request) {
 }
 
 
-bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
+bool CNWNXWeapons::OnCreate(gline *config, const char *LogDir)
+{
     char log[128];
 
     sprintf(log, "%s/nwnx_weapons.txt", LogDir);
@@ -148,33 +155,33 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
 
     /* replace weapon focus feats */
     nx_hook_function((void *)CNWSCreatureStats__GetWeaponFocus,
-        (void *)Hook_GetWeaponFocus, 5, NX_HOOK_DIRECT);
+                     (void *)Hook_GetWeaponFocus, 5, NX_HOOK_DIRECT);
     nx_hook_function((void *)CNWSCreatureStats__GetEpicWeaponFocus,
-        (void *)Hook_GetEpicWeaponFocus, 5, NX_HOOK_DIRECT);
+                     (void *)Hook_GetEpicWeaponFocus, 5, NX_HOOK_DIRECT);
 
     /* replace weapon specialization feats */
     nx_hook_function((void *)CNWSCreatureStats__GetWeaponSpecialization,
-        (void *)Hook_GetWeaponSpecialization, 5, NX_HOOK_DIRECT);
+                     (void *)Hook_GetWeaponSpecialization, 5, NX_HOOK_DIRECT);
     nx_hook_function((void *)CNWSCreatureStats__GetEpicWeaponSpecialization,
-        (void *)Hook_GetEpicWeaponSpecialization, 5, NX_HOOK_DIRECT);
+                     (void *)Hook_GetEpicWeaponSpecialization, 5, NX_HOOK_DIRECT);
 
     /* replace critical hit feats */
     nx_hook_function((void *)CNWSCreatureStats__GetWeaponImprovedCritical,
-        (void *)Hook_GetWeaponImprovedCritical, 5, NX_HOOK_DIRECT);
+                     (void *)Hook_GetWeaponImprovedCritical, 5, NX_HOOK_DIRECT);
     nx_hook_function((void *)CNWSCreatureStats__GetEpicWeaponOverwhelmingCritical,
-        (void *)Hook_GetEpicWeaponOverwhelmingCritical, 5, NX_HOOK_DIRECT);
+                     (void *)Hook_GetEpicWeaponOverwhelmingCritical, 5, NX_HOOK_DIRECT);
     nx_hook_function((void *)CNWSCreatureStats__GetEpicWeaponDevastatingCritical,
-        (void *)Hook_GetEpicWeaponDevastatingCritical, 5, NX_HOOK_DIRECT);
+                     (void *)Hook_GetEpicWeaponDevastatingCritical, 5, NX_HOOK_DIRECT);
 
     /* replace Weapon of Choice feats */
     nx_hook_function((void *)CNWSCreatureStats__GetIsWeaponOfChoice,
-        (void *)Hook_GetIsWeaponOfChoice, 5, NX_HOOK_DIRECT);
+                     (void *)Hook_GetIsWeaponOfChoice, 5, NX_HOOK_DIRECT);
 
     /* replace weapon finesse and monk weapon checks */
     nx_hook_function((void *)CNWSCreatureStats__GetWeaponFinesse,
-        (void *)Hook_GetWeaponFinesse, 5, NX_HOOK_DIRECT);
+                     (void *)Hook_GetWeaponFinesse, 5, NX_HOOK_DIRECT);
     nx_hook_function((void *)CNWSCreatureStats__GetUseMonkAttackTables,
-        (void *)Hook_GetUseMonkAttackTables, 5, NX_HOOK_DIRECT);
+                     (void *)Hook_GetUseMonkAttackTables, 5, NX_HOOK_DIRECT);
 
 
     /* hook critical hit range */
@@ -228,7 +235,7 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
                 nx_hook_function(p, (void *)Hook_GetABAbilityModifier, 5, NX_HOOK_DIRECT);
 
                 break;
-            } 
+            }
         }
 
         while (found == 1 && p++ < end) {
@@ -250,7 +257,7 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
     /* critical confirmation roll hook */
     if (Ref_CritConfirmationRoll != NULL) {
         extern volatile uintptr_t Hook_CCR_Return;
-        
+
         Hook_CCR_Return = (uintptr_t)(Ref_CritConfirmationRoll + 10);
         nx_hook_function(Ref_CritConfirmationRoll, (void *)Hook_GetCriticalConfirmationRoll, 5, NX_HOOK_DIRECT);
     }
@@ -263,7 +270,7 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
         nx_hook_enable_write(p, 128);
 
         *(unsigned long *)(p + 13) = (unsigned long)Hook_GetDamageBonusAdjustment -
-            (unsigned long)(p + 17);
+                                     (unsigned long)(p + 17);
 
         p[22] = 0x89;   /* MOV EDI <- EAX */
         p[23] = 0xC7;
@@ -284,7 +291,7 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
         nx_hook_enable_write(p, 128);
 
         *(unsigned long *)(p + 9) = (unsigned long)Hook_GetDamageBonusAdjustment -
-            (unsigned long)(p + 13);
+                                    (unsigned long)(p + 13);
 
         p[18] = 0x89;   /* MOV ESI <- EAX */
         p[19] = 0xC6;
@@ -305,7 +312,7 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
         nx_hook_enable_write(p, 128);
 
         *(unsigned long *)(p + 8) = (unsigned long)Hook_GetDamageBonusAdjustment -
-            (unsigned long)(p + 12);
+                                    (unsigned long)(p + 12);
 
         p[17] = 0x89;   /* MOV EDI <- EAX */
         p[18] = 0xC7;
@@ -330,15 +337,15 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
         nx_hook_enable_write(p, 128);
 
         *(unsigned long *)(p + 16) = (unsigned long)CNWSCreatureStats__GetAttacksPerRound -
-            (unsigned long)(p + 20);
+                                     (unsigned long)(p + 20);
 
         p += 22;
 
         while (p++ < end) {
-             if (p[0] == 0x88 && p[1] == 0x03 && p[2] == 0x83 && p[3] == 0xEC)
-                 break;
+            if (p[0] == 0x88 && p[1] == 0x03 && p[2] == 0x83 && p[3] == 0xEC)
+                break;
 
-             *p = 0x90;  /* NOP */
+            *p = 0x90;  /* NOP */
         }
     }
 #endif
@@ -379,7 +386,7 @@ bool CNWNXWeapons::OnCreate (gline *config, const char *LogDir) {
 
     /* fix offhand critical multiplier bug */
     if (Ref_OffhandCritMult1 != NULL && Ref_OffhandCritMult2 != NULL &&
-        Ref_OffhandCritMult3 != NULL && Ref_OffhandCritMult4 != NULL) {
+            Ref_OffhandCritMult3 != NULL && Ref_OffhandCritMult4 != NULL) {
 
         extern volatile uintptr_t Hook_OHCM1_Return;
         extern volatile uintptr_t Hook_OHCM2_Return;

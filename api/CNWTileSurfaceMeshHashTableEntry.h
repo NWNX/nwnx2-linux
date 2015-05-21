@@ -5,9 +5,9 @@
 class CNWTileSurfaceMeshHashTableEntry
 {
 public:
-	int Fetch(int);
-	int Store(int, float);
-	CNWTileSurfaceMeshHashTableEntry();
+    int Fetch(int);
+    int Store(int, float);
+    CNWTileSurfaceMeshHashTableEntry();
 
 };
 #endif

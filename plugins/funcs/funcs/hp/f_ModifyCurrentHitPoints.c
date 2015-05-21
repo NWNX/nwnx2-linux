@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_ModifyCurrentHitPoints (CGameObject *ob, char *value) {
+void Func_ModifyCurrentHitPoints(CGameObject *ob, char *value)
+{
     int mod;
     CNWSObject *obj;
 

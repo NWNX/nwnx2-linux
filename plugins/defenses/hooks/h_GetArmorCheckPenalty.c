@@ -28,7 +28,8 @@ volatile CNWSCreatureStats *Hook_ACP_Stats;
 
 
 __attribute__((noinline))
-static int Hook_GetArmorCheckPenaltyAdjustment (CNWSCreatureStats *stats, uint8_t skill) {
+static int Hook_GetArmorCheckPenaltyAdjustment(CNWSCreatureStats *stats, uint8_t skill)
+{
     int acp_armor, acp_shield;
 
     if (stats == NULL)
@@ -40,7 +41,8 @@ static int Hook_GetArmorCheckPenaltyAdjustment (CNWSCreatureStats *stats, uint8_
     return Local_GetArmorCheckPenaltyAdjustment(stats, skill, acp_armor, acp_shield);
 }
 
-void Hook_GetArmorCheckPenalty (void) {
+void Hook_GetArmorCheckPenalty(void)
+{
     asm("leave");
 
     /* copy creature being checked out */
@@ -50,7 +52,7 @@ void Hook_GetArmorCheckPenalty (void) {
     asm("mov %al, Hook_ACP_Skill");
 
     Hook_ACP_Penalty = Hook_GetArmorCheckPenaltyAdjustment(
-        (CNWSCreatureStats *)Hook_ACP_Stats, (uint8_t)Hook_ACP_Skill);
+                           (CNWSCreatureStats *)Hook_ACP_Stats, (uint8_t)Hook_ACP_Skill);
 
     /* the result of Hook_GetArmorCheckPenaltyAdjustment() is in %eax */
     asm("pushl Hook_ACP_Return");

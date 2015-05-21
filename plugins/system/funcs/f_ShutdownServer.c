@@ -22,7 +22,8 @@
 #include <signal.h>
 
 
-void Func_ShutdownServer (CGameObject *ob, char *value) {
+void Func_ShutdownServer(CGameObject *ob, char *value)
+{
     int force = atoi(value);
 
     if (force > 0)

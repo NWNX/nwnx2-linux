@@ -21,14 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetMovementRate (CGameObject *ob, char *value) {
+void Func_SetMovementRate(CGameObject *ob, char *value)
+{
     int rate;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        ((rate = atoi(value)) < 0) || rate > 255) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            ((rate = atoi(value)) < 0) || rate > 255) {
 
         snprintf(value, strlen(value), "-1");
         return;

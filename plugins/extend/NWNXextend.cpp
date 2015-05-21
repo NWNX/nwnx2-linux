@@ -36,52 +36,52 @@ CNWNXextend::~CNWNXextend()
 
 bool CNWNXextend::OnCreate(gline *config, const char *LogDir)
 {
-	char log[128];
-	sprintf (log, "%s/nwnx_extend.txt", LogDir);
+    char log[128];
+    sprintf(log, "%s/nwnx_extend.txt", LogDir);
 
-	// call the base class function
-	if (!CNWNXBase::OnCreate(config,log))
-		return false;
-	Log(0,"NWNX extend v0.1.5 by pZv!, 2010\n");
-	Log(0,"Visit http://www.nwnx.org\n\n");
+    // call the base class function
+    if (!CNWNXBase::OnCreate(config, log))
+        return false;
+    Log(0, "NWNX extend v0.1.5 by pZv!, 2010\n");
+    Log(0, "Visit http://www.nwnx.org\n\n");
 
-	pluginConfig = (*nwnxConfig)[confKey];
+    pluginConfig = (*nwnxConfig)[confKey];
 
-	if(!InitHooks()) {
-		Log(0,"* Failed to initialize hooks.\n");
-		return false;
-	}
+    if (!InitHooks()) {
+        Log(0, "* Failed to initialize hooks.\n");
+        return false;
+    }
 
-	Log(0,"* Module loaded successfully.\n");
+    Log(0, "* Module loaded successfully.\n");
 
-	return true;
+    return true;
 }
 
-char* CNWNXextend::OnRequest (char *gameObject, char* Request, char* Parameters)
+char* CNWNXextend::OnRequest(char *gameObject, char* Request, char* Parameters)
 {
-	this->pGameObject = gameObject+4;
+    this->pGameObject = gameObject + 4;
 
-	Log(2,"(S) Request: \"%s\"\n",Request);
-	Log(3,"(S) Params:  \"%s\"\n",Parameters);
+    Log(2, "(S) Request: \"%s\"\n", Request);
+    Log(3, "(S) Params:  \"%s\"\n", Parameters);
 
     if (strncmp(Request, "RESULT", 6) == 0) {
         this->ScriptResult = atoi(Parameters);
         return NULL;
     }
 
-	return NULL;
+    return NULL;
 }
 
-unsigned long CNWNXextend::OnRequestObject (char *gameObject, char* Request)
+unsigned long CNWNXextend::OnRequestObject(char *gameObject, char* Request)
 {
-	this->pGameObject = gameObject+4;
+    this->pGameObject = gameObject + 4;
 
-	Log(2,"(O) Request: \"%s\"\n",Request);
+    Log(2, "(O) Request: \"%s\"\n", Request);
 
-	return OBJECT_INVALID;
+    return OBJECT_INVALID;
 }
 
 int CNWNXextend::GetConfInteger(const char *key)
 {
-	return atoi(pluginConfig[key].c_str());
+    return atoi(pluginConfig[key].c_str());
 }

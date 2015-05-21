@@ -24,27 +24,26 @@ extern CNWNXSystem sys;
 const ssize_t RESULT_SIZE = sizeof(long);
 const char* FILE_DEV_URANDOM = "/dev/urandom";
 
-void Func_TrueRandom(CGameObject *ob, char *value) 
+void Func_TrueRandom(CGameObject *ob, char *value)
 {
-	long* nMax = (long*)malloc(RESULT_SIZE);
-	
-	long nResult = -1;
-	FILE* oFile;
+    long* nMax = (long*)malloc(RESULT_SIZE);
 
-	sscanf(value, "%ld ", nMax);
+    long nResult = -1;
+    FILE* oFile;
 
-	if(*nMax > 0 && (oFile = fopen(FILE_DEV_URANDOM, "r")) != NULL)
-	{	
-		long* nRand = (long*)malloc(RESULT_SIZE);
+    sscanf(value, "%ld ", nMax);
 
-		if(fread(nRand, RESULT_SIZE, 1, oFile) == 1)
-			nResult = abs(*nRand % *nMax);
+    if (*nMax > 0 && (oFile = fopen(FILE_DEV_URANDOM, "r")) != NULL) {
+        long* nRand = (long*)malloc(RESULT_SIZE);
 
-		fclose(oFile);
-		free(nRand);	
-	}	
+        if (fread(nRand, RESULT_SIZE, 1, oFile) == 1)
+            nResult = abs(*nRand % *nMax);
 
-	free(nMax);
+        fclose(oFile);
+        free(nRand);
+    }
 
-	snprintf(value, strlen(value), "%ld", nResult);  
+    free(nMax);
+
+    snprintf(value, strlen(value), "%ld", nResult);
 }

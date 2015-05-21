@@ -44,15 +44,17 @@ static struct SystemSignatureTable {
 };
 
 
-static void SystemSearchCallback (int id, void *addr) {
+static void SystemSearchCallback(int id, void *addr)
+{
     nx_log(NX_LOG_NOTICE, 0, "%s (%d) found at %p%s",
-        Table_SystemSignatures[id].name, id, addr,
-        (*(void **)Table_SystemSignatures[id].ref == NULL ? "" : " (duplicate)"));
+           Table_SystemSignatures[id].name, id, addr,
+           (*(void **)Table_SystemSignatures[id].ref == NULL ? "" : " (duplicate)"));
 
     *(void **)(Table_SystemSignatures[id].ref) = addr;
 }
 
-static void SystemSearchSignatures (void) {
+static void SystemSearchSignatures(void)
+{
     int i;
 
     nx_sig_search_t *sig = nx_sig_search_create(SystemSearchCallback);
@@ -74,16 +76,19 @@ static void SystemSearchSignatures (void) {
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CNWNXSystem::CNWNXSystem() {
+CNWNXSystem::CNWNXSystem()
+{
     confKey = strdup("SYSTEM");
 }
 
 
-CNWNXSystem::~CNWNXSystem() {
+CNWNXSystem::~CNWNXSystem()
+{
 }
 
 
-char *CNWNXSystem::OnRequest (char *gameObject, char *Request, char *Parameters) {
+char *CNWNXSystem::OnRequest(char *gameObject, char *Request, char *Parameters)
+{
     const struct SystemStrCommand_s *cmd;
 
     Log(1, "StrReq: \"%s\"\nParams: \"%s\"\n", Request, Parameters);
@@ -99,7 +104,8 @@ char *CNWNXSystem::OnRequest (char *gameObject, char *Request, char *Parameters)
 }
 
 
-unsigned long CNWNXSystem::OnRequestObject (char *gameObject, char *Request) {
+unsigned long CNWNXSystem::OnRequestObject(char *gameObject, char *Request)
+{
     unsigned long ret = OBJECT_INVALID;
     const struct SystemObjCommand_s *cmd;
 
@@ -116,7 +122,8 @@ unsigned long CNWNXSystem::OnRequestObject (char *gameObject, char *Request) {
 }
 
 
-bool CNWNXSystem::OnCreate (gline *config, const char *LogDir) {
+bool CNWNXSystem::OnCreate(gline *config, const char *LogDir)
+{
     char log[128];
 
     sprintf(log, "%s/nwnx_system.txt", LogDir);

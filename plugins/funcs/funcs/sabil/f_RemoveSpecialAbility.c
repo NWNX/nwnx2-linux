@@ -24,16 +24,17 @@ struct CExoArrayList_SA_s; typedef struct CExoArrayList_SA_s CExoArrayList_SA;
 NX_NWN_CEXOARRAYLIST(SA, CNWSStats_SpecAbil);
 
 
-void Func_RemoveSpecialAbility (CGameObject *ob, char *value) {
+void Func_RemoveSpecialAbility(CGameObject *ob, char *value)
+{
     int sa_idx;
     CExoArrayList_SA *sa;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        (sa = cre->cre_stats->cs_specabil) == NULL    ||
-        (sa_idx = atoi(value)) < 0 || sa_idx >= sa->len) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            (sa = cre->cre_stats->cs_specabil) == NULL    ||
+            (sa_idx = atoi(value)) < 0 || sa_idx >= sa->len) {
 
         snprintf(value, strlen(value), "-1");
         return;

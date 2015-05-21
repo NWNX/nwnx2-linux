@@ -25,16 +25,15 @@
 
 using namespace std;
 
-struct sigbyte
-{
-	char c;
-	unsigned char skip;
+struct sigbyte {
+    char c;
+    unsigned char skip;
 };
 
 class AssemblyHelper
 {
 public:
-	unsigned long FindFunctionBySignature(const char *pattern);
+    unsigned long FindFunctionBySignature(const char *pattern);
 };
 
 

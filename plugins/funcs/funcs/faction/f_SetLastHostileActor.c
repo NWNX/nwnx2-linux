@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetLastHostileActor (CGameObject *ob, char *value) {
+void Func_SetLastHostileActor(CGameObject *ob, char *value)
+{
     CNWSObject *obj;
 
     if (ob == NULL || (obj = ob->vtable->AsNWSObject(ob)) == NULL)

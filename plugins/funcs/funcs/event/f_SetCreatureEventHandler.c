@@ -21,17 +21,18 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetCreatureEventHandler (CGameObject *ob, char *value) {
+void Func_SetCreatureEventHandler(CGameObject *ob, char *value)
+{
     int ev;
     char *p;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        (p = strchr(value, ' ')) == NULL              ||
-        (ev = atoi(value)) < 0 || ev > 12             ||
-        strlen(++p) < 1 || strlen(p) > 16             ||
-        strspn(p, "abcdefghijklmnopqrstuvwxyz012345679_") != strlen(p)) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            (p = strchr(value, ' ')) == NULL              ||
+            (ev = atoi(value)) < 0 || ev > 12             ||
+            strlen(++p) < 1 || strlen(p) > 16             ||
+            strspn(p, "abcdefghijklmnopqrstuvwxyz012345679_") != strlen(p)) {
 
         *value = 0;
         return;

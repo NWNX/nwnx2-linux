@@ -23,7 +23,7 @@
 CNWNXLua lua;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &lua;
+    return &lua;
 }

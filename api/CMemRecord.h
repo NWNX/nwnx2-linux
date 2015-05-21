@@ -5,7 +5,7 @@
 class CMemRecord
 {
 public:
-	int Clear();
+    int Clear();
 
 };
 #endif

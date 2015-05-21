@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetLocalVariableByPosition (CGameObject *ob, char *value) {
+void Func_GetLocalVariableByPosition(CGameObject *ob, char *value)
+{
     int idx = atoi(value);
     CNWSScriptVarTable *vt;
 

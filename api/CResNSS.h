@@ -5,13 +5,13 @@
 class CResNSS
 {
 public:
-	unsigned char * GetNSSDataPtr();
-	unsigned long GetNSSSize();
-	int IsLoaded();
-	int OnResourceFreed();
-	int OnResourceServiced();
-	~CResNSS();
-	CResNSS();
+    unsigned char * GetNSSDataPtr();
+    unsigned long GetNSSSize();
+    int IsLoaded();
+    int OnResourceFreed();
+    int OnResourceServiced();
+    ~CResNSS();
+    CResNSS();
 
 };
 #endif

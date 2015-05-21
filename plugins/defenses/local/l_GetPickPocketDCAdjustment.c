@@ -20,11 +20,12 @@
 
 #include "NWNXDefenses.h"
 
-int Local_GetPickPocketDCAdjustment (CNWSCreature *thief, CNWSCreature *victim) {
+int Local_GetPickPocketDCAdjustment(CNWSCreature *thief, CNWSCreature *victim)
+{
 #ifdef NWNX_DEFENSES_HG
     if (victim == NULL             ||
-        victim->cre_stats == NULL  ||
-        victim->obj.obj_type != OBJECT_TYPE_CREATURE)
+            victim->cre_stats == NULL  ||
+            victim->obj.obj_type != OBJECT_TYPE_CREATURE)
         return 0;
 
     int spot = CNWSCreatureStats__GetSkillRank(victim->cre_stats, SKILL_SPOT, NULL, 0);

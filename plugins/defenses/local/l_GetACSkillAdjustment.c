@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-int Local_GetACSkillAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
+int Local_GetACSkillAdjustment(CNWSCreatureStats *stats, int touch, int adj)
+{
 #ifdef NWNX_DEFENSES_HG
     adj += CNWSCreatureStats__GetSkillRank(stats, SKILL_CRAFT_ARMOR, NULL, 0) / 40;
 #endif

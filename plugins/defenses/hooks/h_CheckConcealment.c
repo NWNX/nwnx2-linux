@@ -29,7 +29,8 @@ static volatile int Hook_CCONC_MissChance;
 
 
 __attribute__((noinline))
-static int Hook_GetConcealmentCheckResult (CNWSCreature *attacker, CNWSCreature *target, int concealment, int misschance) {
+static int Hook_GetConcealmentCheckResult(CNWSCreature *attacker, CNWSCreature *target, int concealment, int misschance)
+{
     int ret;
 
     if ((ret = Local_GetConcealmentCheckResult(attacker, target, concealment, misschance)) >= 0)
@@ -38,9 +39,9 @@ static int Hook_GetConcealmentCheckResult (CNWSCreature *attacker, CNWSCreature 
     if (misschance > 0) {
         if (random() % 100 < misschance) {
             if (attacker != NULL                               &&
-                attacker->obj.obj_type == OBJECT_TYPE_CREATURE && 
-                attacker->cre_stats != NULL                    &&
-                CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_BLIND_FIGHT)) {
+                    attacker->obj.obj_type == OBJECT_TYPE_CREATURE &&
+                    attacker->cre_stats != NULL                    &&
+                    CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_BLIND_FIGHT)) {
 
                 if (random() % 100 < misschance)
                     return misschance;
@@ -52,9 +53,9 @@ static int Hook_GetConcealmentCheckResult (CNWSCreature *attacker, CNWSCreature 
     if (concealment > 0) {
         if (random() % 100 < concealment) {
             if (attacker != NULL                               &&
-                attacker->obj.obj_type == OBJECT_TYPE_CREATURE && 
-                attacker->cre_stats != NULL                    &&
-                CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_BLIND_FIGHT)) {
+                    attacker->obj.obj_type == OBJECT_TYPE_CREATURE &&
+                    attacker->cre_stats != NULL                    &&
+                    CNWSCreatureStats__HasFeat(attacker->cre_stats, FEAT_BLIND_FIGHT)) {
 
                 if (random() % 100 < concealment)
                     return concealment;
@@ -67,7 +68,8 @@ static int Hook_GetConcealmentCheckResult (CNWSCreature *attacker, CNWSCreature 
 }
 
 
-void Hook_CheckConcealment (void) {
+void Hook_CheckConcealment(void)
+{
     asm("leave");
 
     /* copy attacker, concealment, and miss chance out */
@@ -84,9 +86,9 @@ void Hook_CheckConcealment (void) {
     asm("popl Hook_CCONC_MissChance");
 
     Hook_CCONC_Concealment = Hook_GetConcealmentCheckResult(
-        (CNWSCreature *)Hook_CCONC_Attacker,
-        (CNWSCreature *)Hook_CCONC_Target,
-        Hook_CCONC_Concealment, Hook_CCONC_MissChance);
+                                 (CNWSCreature *)Hook_CCONC_Attacker,
+                                 (CNWSCreature *)Hook_CCONC_Target,
+                                 Hook_CCONC_Concealment, Hook_CCONC_MissChance);
 
     if (Hook_CCONC_Concealment) {
         asm("pushl Hook_CCONC_Concealment");

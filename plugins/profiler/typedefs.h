@@ -17,6 +17,6 @@ typedef union _LARGE_INTEGER {
     LONG HighPart;
   } u;
   LONGLONG QuadPart;
-} LARGE_INTEGER, 
+} LARGE_INTEGER,
  *PLARGE_INTEGER;
 */

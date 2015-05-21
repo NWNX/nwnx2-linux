@@ -5,7 +5,7 @@
 class Matrix
 {
 public:
-	int getquaternion() const;
+    int getquaternion() const;
 
 };
 #endif

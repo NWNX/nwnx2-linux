@@ -26,12 +26,14 @@ static volatile CNWSCreature *Hook_PPDC_Thief, *Hook_PPDC_Victim;
 
 
 __attribute__((noinline))
-static int Hook_GetPickPocketDCAdjustment (CNWSCreature *thief, CNWSCreature *victim) {
+static int Hook_GetPickPocketDCAdjustment(CNWSCreature *thief, CNWSCreature *victim)
+{
     return Local_GetPickPocketDCAdjustment(thief, victim);
 }
 
 
-void Hook_PickPocketDC (void) {
+void Hook_PickPocketDC(void)
+{
     asm("leave");
 
     /* duplicate the work originally done */
@@ -49,8 +51,8 @@ void Hook_PickPocketDC (void) {
     asm("popl Hook_PPDC_Thief");
 
     Hook_PPDC_ExtraDC = Hook_GetPickPocketDCAdjustment(
-        (CNWSCreature *)Hook_PPDC_Thief,
-        (CNWSCreature *)Hook_PPDC_Victim);
+                            (CNWSCreature *)Hook_PPDC_Thief,
+                            (CNWSCreature *)Hook_PPDC_Victim);
 
     /* the result of Hook_GetPickPocketDCAdjustment() is in %eax */
     asm("add %eax, %edx");

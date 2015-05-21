@@ -6,10 +6,10 @@
 class CNWFeat
 {
 public:
-	int GetDescriptionText();
-	CExoString GetNameText();
-	~CNWFeat();
-	CNWFeat();
+    int GetDescriptionText();
+    CExoString GetNameText();
+    ~CNWFeat();
+    CNWFeat();
 
 };
 #endif

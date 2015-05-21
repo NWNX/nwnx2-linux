@@ -21,7 +21,8 @@
 #include "NWNXWeapons.h"
 
 
-void Func_GetWeaponGreaterFocusFeat (CGameObject *ob, char *value) {
+void Func_GetWeaponGreaterFocusFeat(CGameObject *ob, char *value)
+{
     int baseitem, feat = -1;
 
     baseitem = atoi(value);

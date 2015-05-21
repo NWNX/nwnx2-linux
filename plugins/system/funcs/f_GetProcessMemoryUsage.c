@@ -21,7 +21,8 @@
 #include "NWNXSystem.h"
 
 
-void Func_GetProcessMemoryUsage (CGameObject *ob, char *value) {
+void Func_GetProcessMemoryUsage(CGameObject *ob, char *value)
+{
     snprintf(value, strlen(value), "%lu", (unsigned long)sbrk(0) - 0x08000000);
 }
 

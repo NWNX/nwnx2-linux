@@ -5,10 +5,10 @@
 class CExoTimers
 {
 public:
-	unsigned __int64 GetHighResolutionTimer();
-	unsigned long GetLowResolutionTimer();
-	~CExoTimers();
-	CExoTimers();
+    unsigned __int64 GetHighResolutionTimer();
+    unsigned long GetLowResolutionTimer();
+    ~CExoTimers();
+    CExoTimers();
 
 };
 #endif

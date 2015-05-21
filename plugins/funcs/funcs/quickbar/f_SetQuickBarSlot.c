@@ -21,16 +21,17 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetQuickBarSlot (CGameObject *ob, char *value) {
+void Func_SetQuickBarSlot(CGameObject *ob, char *value)
+{
     int slot, qb_type, qb_class, qb_id, qb_meta;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        !cre->cre_is_pc                               ||
-        cre->cre_quickbar == NULL                     ||
-        sscanf(value, "%d %d %d %d %d", &slot, &qb_type, &qb_class, &qb_id, &qb_meta) != 5 ||
-        slot < 0 || slot >= 36 || qb_type != QUICKBAR_TYPE_SPELL) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            !cre->cre_is_pc                               ||
+            cre->cre_quickbar == NULL                     ||
+            sscanf(value, "%d %d %d %d %d", &slot, &qb_type, &qb_class, &qb_id, &qb_meta) != 5 ||
+            slot < 0 || slot >= 36 || qb_type != QUICKBAR_TYPE_SPELL) {
 
         snprintf(value, strlen(value), "-1");
         return;

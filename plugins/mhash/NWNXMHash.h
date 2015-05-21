@@ -9,16 +9,16 @@
 class CNWNXMHash : public CNWNXBase
 {
 public:
-	CNWNXMHash();
+    CNWNXMHash();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
-	char *OnRequest(char *gameObject, char *Request, char *Parameters);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char *OnRequest(char *gameObject, char *Request, char *Parameters);
 
 private:
-	hashid find_hashid_by_name(const char *name);
-	void bin_to_strhex(unsigned char *bin, size_t binsz, char **result);
-	char *hash(hashid type, const char *input);
-	char *hmac(hashid type, const char *password, const char *input);
+    hashid find_hashid_by_name(const char *name);
+    void bin_to_strhex(unsigned char *bin, size_t binsz, char **result);
+    char *hash(hashid type, const char *input);
+    char *hmac(hashid type, const char *password, const char *input);
 };
 
 #endif /* NWNX_MHASH_H */

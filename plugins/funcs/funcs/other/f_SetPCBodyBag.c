@@ -21,13 +21,14 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetPCBodyBag (CGameObject *ob, char *value) {
+void Func_SetPCBodyBag(CGameObject *ob, char *value)
+{
     int val;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        (val = atoi(value)) < 0 || val > 127) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            (val = atoi(value)) < 0 || val > 127) {
         snprintf(value, strlen(value), "-1");
         return;
     }

@@ -25,7 +25,8 @@ static int Area_Current = 0;
 static CNWSModule *Area_Module = NULL;
 
 
-nwn_objid_t Func_GetFirstArea (CGameObject *ob) {
+nwn_objid_t Func_GetFirstArea(CGameObject *ob)
+{
     if (Area_Module == NULL) {
         Area_Module = CServerExoAppInternal__GetModule((*NWN_AppManager)->app_server->srv_internal);
 
@@ -38,7 +39,8 @@ nwn_objid_t Func_GetFirstArea (CGameObject *ob) {
 }
 
 
-nwn_objid_t Func_GetNextArea (CGameObject *ob) {
+nwn_objid_t Func_GetNextArea(CGameObject *ob)
+{
     if (Area_Current >= Area_Module->mod_areas_len)
         return OBJECT_INVALID;
 

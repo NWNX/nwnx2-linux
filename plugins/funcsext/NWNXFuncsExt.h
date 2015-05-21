@@ -26,35 +26,35 @@
 class CNWNXFuncsExt : public CNWNXBase
 {
 public:
-	CNWNXFuncsExt();
-	virtual ~CNWNXFuncsExt();
+    CNWNXFuncsExt();
+    virtual ~CNWNXFuncsExt();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
-	char* OnRequest (char* gameObject, char* Request, char* Parameters);
-	unsigned long OnRequestObject (char *gameObject, char* Request);
-	bool bHooked;
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    unsigned long OnRequestObject(char *gameObject, char* Request);
+    bool bHooked;
 
-	//bool OnRelease ();
+    //bool OnRelease ();
 
 protected:
-	void SetScript(CGameObject *ob, char* value);
-	void GetScript(CGameObject *ob, char* value);
-	void Set_IsGenericTrigger(CGameObject *ob, char* value);
-	void Set_IsAreaTransition(CGameObject *ob, char* value);
-	void Get_SurfaceMaterial(CGameObject *ob, char* value);
-	void Get_Animation(CGameObject *ob, char* value);
-	void Start_GuiTimingBar(CGameObject *ob, char* value);
-	void Stop_GuiTimingBar(CGameObject *ob, char* value);
-	void Possess_Creature(CGameObject *ob, char* value);
-	void Unpossess_Creature(CGameObject *ob, char* value);
-	void Remove_Gold(CGameObject *ob, char* value);
-	void Remove_Item(CGameObject *ob, char* value);
-	void ApplyArea_VFX(CGameObject *ob, char* value);
-	void Get_FlatFooted(CGameObject *ob, char* value);
+    void SetScript(CGameObject *ob, char* value);
+    void GetScript(CGameObject *ob, char* value);
+    void Set_IsGenericTrigger(CGameObject *ob, char* value);
+    void Set_IsAreaTransition(CGameObject *ob, char* value);
+    void Get_SurfaceMaterial(CGameObject *ob, char* value);
+    void Get_Animation(CGameObject *ob, char* value);
+    void Start_GuiTimingBar(CGameObject *ob, char* value);
+    void Stop_GuiTimingBar(CGameObject *ob, char* value);
+    void Possess_Creature(CGameObject *ob, char* value);
+    void Unpossess_Creature(CGameObject *ob, char* value);
+    void Remove_Gold(CGameObject *ob, char* value);
+    void Remove_Item(CGameObject *ob, char* value);
+    void ApplyArea_VFX(CGameObject *ob, char* value);
+    void Get_FlatFooted(CGameObject *ob, char* value);
 
 
 private:
-	char* pGameObject;
+    char* pGameObject;
 };
 
 #endif

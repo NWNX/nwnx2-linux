@@ -5,10 +5,10 @@
 class CNWCreatureStatsUpdate
 {
 public:
-	void ClearEffectIcons();
-	void SetCombatInformation(CCombatInformation *);
-	~CNWCreatureStatsUpdate();
-	CNWCreatureStatsUpdate();
+    void ClearEffectIcons();
+    void SetCombatInformation(CCombatInformation *);
+    ~CNWCreatureStatsUpdate();
+    CNWCreatureStatsUpdate();
 
 };
 #endif

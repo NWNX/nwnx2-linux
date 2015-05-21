@@ -21,7 +21,8 @@
 #include "NWNXWeapons.h"
 
 
-int Hook_GetEpicWeaponDevastatingCritical (CNWSCreatureStats *info, CNWSItem *weapon) {
+int Hook_GetEpicWeaponDevastatingCritical(CNWSCreatureStats *info, CNWSItem *weapon)
+{
     int feat = 0;
 
     if (Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_DISABLE_ALL])

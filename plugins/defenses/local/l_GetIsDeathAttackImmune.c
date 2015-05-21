@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-int Local_GetIsDeathAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker) {
+int Local_GetIsDeathAttackImmune(CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker)
+{
     return -1;
 }
 

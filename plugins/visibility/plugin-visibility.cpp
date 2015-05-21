@@ -22,7 +22,7 @@
 CNWNXVisibility visibility;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &visibility;
+    return &visibility;
 }

@@ -2,8 +2,8 @@
 
 int CTlkFile::ReadHeader()
 {
-	asm("leave");
-	asm("mov $0x082b61f8, %eax");
-	asm("jmp *%eax");
+    asm("leave");
+    asm("mov $0x082b61f8, %eax");
+    asm("jmp *%eax");
 }
 

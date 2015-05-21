@@ -10,10 +10,9 @@
 #include "CExoLinkedList.h"
 #include "NWNStructures.h"
 
-struct CExoLocStringElement
-{
-	dword      LangID;
-	CExoString Text;
+struct CExoLocStringElement {
+    dword      LangID;
+    CExoString Text;
 };
 
 /*
@@ -22,12 +21,12 @@ http://nwn.bioware.com/developers/Bioware_Aurora_LocalizedStrings_Format.pdf
 
 class CExoLocString
 {
-	public:
-	CExoLinkedList *List;
-	dword           StrRef;
+public:
+    CExoLinkedList *List;
+    dword           StrRef;
 
-	char *GetStringText(dword nLocale);
-	CExoLocStringElement *GetLangEntry(dword nLocale);
+    char *GetStringText(dword nLocale);
+    CExoLocStringElement *GetLangEntry(dword nLocale);
 };
 
 #endif

@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetTag (CGameObject *ob, char *value) {
+void Func_SetTag(CGameObject *ob, char *value)
+{
     /* warning: leaks memory, but allows setting a longer tag than the original, plus
      * there appear to be some cases where rewriting the tag causes corruption
      */

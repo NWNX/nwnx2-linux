@@ -22,7 +22,7 @@
 CNWNXEvents events;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &events;
+    return &events;
 }

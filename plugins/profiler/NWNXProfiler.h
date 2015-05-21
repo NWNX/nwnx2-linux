@@ -28,18 +28,18 @@
 
 class CNWNXProfiler : public CNWNXBase
 {
-	
-public:
-	CNWNXProfiler();
-	virtual ~CNWNXProfiler();
-	bool OnCreate(gline *config, const char* LogDir);
-	char* OnRequest(char* gameObject, char* Request, char* Parameters);
-	void LoadConfiguration();
-	void WriteLogHeader();
 
-	enum ELogLevel {logNothing, logStats, logCallstack};
-	int	m_LogLevel;
-	int log_scriptparts;
+public:
+    CNWNXProfiler();
+    virtual ~CNWNXProfiler();
+    bool OnCreate(gline *config, const char* LogDir);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    void LoadConfiguration();
+    void WriteLogHeader();
+
+    enum ELogLevel {logNothing, logStats, logCallstack};
+    int	m_LogLevel;
+    int log_scriptparts;
 
 };
 

@@ -29,27 +29,27 @@
 class CSQLite : public CDB
 {
 public:
-	static const int lastErrorSize = 512;
-	CSQLite();
-	~CSQLite();
+    static const int lastErrorSize = 512;
+    CSQLite();
+    ~CSQLite();
 
-	BOOL Connect();
-	BOOL Connect(const char * db);
-	void Disconnect();
+    BOOL Connect();
+    BOOL Connect(const char * db);
+    void Disconnect();
 
-	BOOL Execute(const uchar* query);
-	char * Fetch(char * buffer, unsigned int buffersize);
-	BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length);
-	BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size);
+    BOOL Execute(const uchar* query);
+    char * Fetch(char * buffer, unsigned int buffersize);
+    BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length);
+    BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size);
 
-	const char* GetErrorMessage();
-	char lastError[lastErrorSize];
+    const char* GetErrorMessage();
+    char lastError[lastErrorSize];
 
 private:
-	sqlite3 *sdb;
-	sqlite3_stmt* pStmt;
-	bool firstFetch;
-	void finalizeStatement();
+    sqlite3 *sdb;
+    sqlite3_stmt* pStmt;
+    bool firstFetch;
+    void finalizeStatement();
 };
 
 #endif

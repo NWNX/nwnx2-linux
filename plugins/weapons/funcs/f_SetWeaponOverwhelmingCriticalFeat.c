@@ -21,13 +21,14 @@
 #include "NWNXWeapons.h"
 
 
-void Func_SetWeaponOverwhelmingCriticalFeat (CGameObject *ob, char *value) {
+void Func_SetWeaponOverwhelmingCriticalFeat(CGameObject *ob, char *value)
+{
     int baseitem, feat;
 
     if (sscanf(value, "%d %d", &baseitem, &feat) != 2 ||
-        feat > UINT16_MAX                             ||
-        baseitem < 0                                  ||
-        baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE) {
+            feat > UINT16_MAX                             ||
+            baseitem < 0                                  ||
+            baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE) {
 
         snprintf(value, strlen(value), "-1");
         return;

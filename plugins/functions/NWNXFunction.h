@@ -31,66 +31,66 @@
 class CNWNXFunction : public CNWNXBase
 {
 public:
-	CNWNXFunction();
-	virtual ~CNWNXFunction();
+    CNWNXFunction();
+    virtual ~CNWNXFunction();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
-	char* OnRequest (char* gameObject, char* Request, char* Parameters);
-	unsigned long OnRequestObject (char *gameObject, char* Request);
-	bool bHooked;
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    unsigned long OnRequestObject(char *gameObject, char* Request);
+    bool bHooked;
 
-	//bool OnRelease ();
+    //bool OnRelease ();
 
 protected:
-	void SetGoldPieceValue(char* value);
-	void SetTag(char* value);
-	void SetArmorAC(char* value);
-	void GetArmorAC(char* value);
-	void SetRacialType(char* value);
-	void GetDescriptionLength(char* value);
-	char *GetDescription(char* value);
-	void SetDescription(char* value);
-	void GetConversation(char *value);
-	void GetUndroppable(char* value);
-	void SetUndroppable(char* value);
-	void GetItemWeight(char *value);
-	void SetItemWeight(char *value);
-	void GetEventHandler(char* value);
-	void SetEventHandler(char* value);
-	void GetFactionID(char* value);
-	void SetFactionID(char* value);
-	char *GetGroundHeight(char *value);
-	void GetIsWalkableHL(char *value);
-	void ChangeBackgroundMusicForPlayer(char *value);
-	void Set2DAString(char* value);
-	void SetMovementRate(char* value);
-	void ActUseItem(char* value);
-	void GetPCPort(char* value);
-	void BootPC(char* value);
-	void ActJumpToLimbo(char* value);
-	char *GetFirstLocalVariable(char* value);
-	char *GetNextLocalVariable(char* value);
-	void GetItemCount_Ext(char* value);
-	void GetItemByPosition_SetPos(char* value);
-	void SetELC(char* value);
-	void SetILR(char* value);
-	void IntToObject(char* value);
-	void DebugMe(char* value);
-	void ObjDump(char* value);
+    void SetGoldPieceValue(char* value);
+    void SetTag(char* value);
+    void SetArmorAC(char* value);
+    void GetArmorAC(char* value);
+    void SetRacialType(char* value);
+    void GetDescriptionLength(char* value);
+    char *GetDescription(char* value);
+    void SetDescription(char* value);
+    void GetConversation(char *value);
+    void GetUndroppable(char* value);
+    void SetUndroppable(char* value);
+    void GetItemWeight(char *value);
+    void SetItemWeight(char *value);
+    void GetEventHandler(char* value);
+    void SetEventHandler(char* value);
+    void GetFactionID(char* value);
+    void SetFactionID(char* value);
+    char *GetGroundHeight(char *value);
+    void GetIsWalkableHL(char *value);
+    void ChangeBackgroundMusicForPlayer(char *value);
+    void Set2DAString(char* value);
+    void SetMovementRate(char* value);
+    void ActUseItem(char* value);
+    void GetPCPort(char* value);
+    void BootPC(char* value);
+    void ActJumpToLimbo(char* value);
+    char *GetFirstLocalVariable(char* value);
+    char *GetNextLocalVariable(char* value);
+    void GetItemCount_Ext(char* value);
+    void GetItemByPosition_SetPos(char* value);
+    void SetELC(char* value);
+    void SetILR(char* value);
+    void IntToObject(char* value);
+    void DebugMe(char* value);
+    void ObjDump(char* value);
 
-	//unsigned long GetObjectByID();
-	unsigned long GetFirstArea();
-	unsigned long GetNextArea();
-	unsigned long GetItemByPosition_Ext();
-	unsigned long IntToObject_ret();
+    //unsigned long GetObjectByID();
+    unsigned long GetFirstArea();
+    unsigned long GetNextArea();
+    unsigned long GetItemByPosition_Ext();
+    unsigned long IntToObject_ret();
 
 private:
-	char* pGameObject;
-	dword nCurrentAreaNum;
-	dword nTotalAreaCount;
-	int nCurrentVarNum;
-	dword nItemPosition;
-	dword nTempObjectID;
+    char* pGameObject;
+    dword nCurrentAreaNum;
+    dword nTotalAreaCount;
+    int nCurrentVarNum;
+    dword nItemPosition;
+    dword nTempObjectID;
 };
 
 #endif

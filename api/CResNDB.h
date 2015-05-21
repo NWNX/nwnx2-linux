@@ -5,13 +5,13 @@
 class CResNDB
 {
 public:
-	unsigned char * GetNDBDataPtr();
-	unsigned long GetNDBSize();
-	int IsLoaded();
-	int OnResourceFreed();
-	int OnResourceServiced();
-	~CResNDB();
-	CResNDB();
+    unsigned char * GetNDBDataPtr();
+    unsigned long GetNDBSize();
+    int IsLoaded();
+    int OnResourceFreed();
+    int OnResourceServiced();
+    ~CResNDB();
+    CResNDB();
 
 };
 #endif

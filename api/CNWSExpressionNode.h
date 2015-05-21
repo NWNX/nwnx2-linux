@@ -5,8 +5,8 @@
 class CNWSExpressionNode
 {
 public:
-	~CNWSExpressionNode();
-	CNWSExpressionNode();
+    ~CNWSExpressionNode();
+    CNWSExpressionNode();
 
 };
 #endif

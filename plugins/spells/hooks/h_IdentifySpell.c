@@ -29,7 +29,8 @@ volatile CNWSCreature *Hook_SPID_Viewer;
 
 
 __attribute__((noinline))
-int Hook_GetIdentifySpellcraftRanks (CNWSCreature *viewer, int32_t spell, int32_t ranks) {
+int Hook_GetIdentifySpellcraftRanks(CNWSCreature *viewer, int32_t spell, int32_t ranks)
+{
     if (viewer == NULL || !viewer->cre_is_pc)
         return ranks;
 
@@ -39,8 +40,8 @@ int Hook_GetIdentifySpellcraftRanks (CNWSCreature *viewer, int32_t spell, int32_
 
 #if 0
     if (viewer->cre_stats == NULL                 ||
-        !(viewer->cre_stats->cs_age & 0x80000000) ||
-        !NWNX_EXALT_GET_ENHANCED(viewer->cre_stats->cs_age))
+            !(viewer->cre_stats->cs_age & 0x80000000) ||
+            !NWNX_EXALT_GET_ENHANCED(viewer->cre_stats->cs_age))
         return 0;
 #endif
 
@@ -48,7 +49,8 @@ int Hook_GetIdentifySpellcraftRanks (CNWSCreature *viewer, int32_t spell, int32_
 }
 
 
-void Hook_IdentifySpell (void) {
+void Hook_IdentifySpell(void)
+{
     asm("leave");
 
     /* duplicate the work originally done */
@@ -63,9 +65,9 @@ void Hook_IdentifySpell (void) {
     asm("mov %ecx, Hook_SPID_Viewer");
 
     Hook_SPID_Skill = Hook_GetIdentifySpellcraftRanks(
-        (CNWSCreature *)Hook_SPID_Viewer,
-        (int32_t)Hook_SPID_Spell,
-        (int32_t)Hook_SPID_Skill);
+                          (CNWSCreature *)Hook_SPID_Viewer,
+                          (int32_t)Hook_SPID_Spell,
+                          (int32_t)Hook_SPID_Skill);
 
     /* the result of Hook_GetIdentifySpellcraftRanks() is in %eax */
 

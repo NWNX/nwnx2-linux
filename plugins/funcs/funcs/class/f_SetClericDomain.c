@@ -21,15 +21,16 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetClericDomain (CGameObject *ob, char *value) {
+void Func_SetClericDomain(CGameObject *ob, char *value)
+{
     int i, dom_idx, dom_val;
     CNWSCreature *cre;
 
     if (ob == NULL                                      ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL   ||
-        cre->cre_stats == NULL                          ||
-        sscanf(value, "%d %d", &dom_idx, &dom_val) != 2 ||
-        dom_idx < 1 || dom_idx > 2) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL   ||
+            cre->cre_stats == NULL                          ||
+            sscanf(value, "%d %d", &dom_idx, &dom_val) != 2 ||
+            dom_idx < 1 || dom_idx > 2) {
 
         snprintf(value, strlen(value), "-1");
         return;

@@ -3,17 +3,17 @@
 
 CExoLinkedListElement *CExoLinkedList::GetFirst()
 {
-	return this->ListHeader->FirstElement;
+    return this->ListHeader->FirstElement;
 }
 
 void *CExoLinkedList::GetAtPos(CExoLinkedListElement *Position)
 {
-	if(!Position) return NULL;
-	return Position->Data;
+    if (!Position) return NULL;
+    return Position->Data;
 }
 
 CExoLinkedListElement *CExoLinkedList::GetNext(CExoLinkedListElement *Position)
 {
-	if(!Position) return NULL;
-	return Position->NextElement;
+    if (!Position) return NULL;
+    return Position->NextElement;
 }

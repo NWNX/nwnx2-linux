@@ -3,8 +3,8 @@
 CNWNXmnx mnx;
 
 extern "C" {
-CNWNXBase* GetClassObject()
-{
-	return &mnx;
-}
+    CNWNXBase* GetClassObject()
+    {
+        return &mnx;
+    }
 }

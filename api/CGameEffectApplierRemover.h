@@ -5,7 +5,7 @@
 class CGameEffectApplierRemover
 {
 public:
-	~CGameEffectApplierRemover();
+    ~CGameEffectApplierRemover();
 
 };
 #endif

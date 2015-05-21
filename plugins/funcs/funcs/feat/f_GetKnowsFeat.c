@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetKnowsFeat (CGameObject *ob, char *value) {
+void Func_GetKnowsFeat(CGameObject *ob, char *value)
+{
     int feat = 0;
     const CNWSCreature *cre;
 

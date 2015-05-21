@@ -30,8 +30,8 @@
 
 CNWNXFixes::CNWNXFixes()
 {
-	confKey = "FIXES";
-	bHooked = 0;
+    confKey = "FIXES";
+    bHooked = 0;
 }
 
 CNWNXFixes::~CNWNXFixes()
@@ -41,57 +41,53 @@ CNWNXFixes::~CNWNXFixes()
 
 bool CNWNXFixes::OnCreate(gline *config, const char *LogDir)
 {
-	char log[128];
-	sprintf (log, "%s/nwnx_fixes.txt", LogDir);
+    char log[128];
+    sprintf(log, "%s/nwnx_fixes.txt", LogDir);
 
-	// call the base class function
-	if (!CNWNXBase::OnCreate(config,log))
-		return false;
-	Log(0,"NWNX Fixes 1.0.8\n");
-	Log(0,"(c) by virusman, 2007-2012\n");
-	Log(0,"visit us at http://www.nwnx.org\n\n");
+    // call the base class function
+    if (!CNWNXBase::OnCreate(config, log))
+        return false;
+    Log(0, "NWNX Fixes 1.0.8\n");
+    Log(0, "(c) by virusman, 2007-2012\n");
+    Log(0, "visit us at http://www.nwnx.org\n\n");
 
-	pluginConfig = (*nwnxConfig)[confKey];
-	
-	if (FindHookFunctions())
-	{
-		bHooked=1;
-		Log(0,"* Module loaded successfully.\n");
-	}		
-	else
-	{
-		bHooked=0;
-		Log(0,"* Module loaded successfully.\n");
-		Log(0,"* Signature recognition failed. Some functions will be disabled.\n");
-		//return false;
-	}
-	
-	bHideCharList = GetConfInteger("hide_charlist_all");
-	bHideClasses = GetConfInteger("hide_charlist_levels");
-	bHidePortraits = GetConfInteger("hide_charlist_portraits");
-	bHideDMs = GetConfInteger("hide_charlist_dms");
-	return true;
+    pluginConfig = (*nwnxConfig)[confKey];
+
+    if (FindHookFunctions()) {
+        bHooked = 1;
+        Log(0, "* Module loaded successfully.\n");
+    } else {
+        bHooked = 0;
+        Log(0, "* Module loaded successfully.\n");
+        Log(0, "* Signature recognition failed. Some functions will be disabled.\n");
+        //return false;
+    }
+
+    bHideCharList = GetConfInteger("hide_charlist_all");
+    bHideClasses = GetConfInteger("hide_charlist_levels");
+    bHidePortraits = GetConfInteger("hide_charlist_portraits");
+    bHideDMs = GetConfInteger("hide_charlist_dms");
+    return true;
 }
 
-char* CNWNXFixes::OnRequest (char *gameObject, char* Request, char* Parameters)
+char* CNWNXFixes::OnRequest(char *gameObject, char* Request, char* Parameters)
 {
-	Log(2,"Request: \"%s\"\n",Request);
-	Log(3,"Params:  \"%s\"\n",Parameters);
+    Log(2, "Request: \"%s\"\n", Request);
+    Log(3, "Params:  \"%s\"\n", Parameters);
 
-	if (strncmp(Request, "SETMINHPLIMIT", 13) == 0) 	
-	{
-	
-	}
-	return NULL;
+    if (strncmp(Request, "SETMINHPLIMIT", 13) == 0) {
+
+    }
+    return NULL;
 }
 
-unsigned long CNWNXFixes::OnRequestObject (char *gameObject, char* Request)
+unsigned long CNWNXFixes::OnRequestObject(char *gameObject, char* Request)
 {
-	return OBJECT_INVALID;
+    return OBJECT_INVALID;
 }
 
 int CNWNXFixes::GetConfInteger(const char *key)
 {
-	return atoi(pluginConfig[key].c_str());
+    return atoi(pluginConfig[key].c_str());
 }
 

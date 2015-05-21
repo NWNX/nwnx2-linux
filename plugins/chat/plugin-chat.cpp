@@ -23,7 +23,7 @@
 CNWNXChat chat;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &chat;
+    return &chat;
 }

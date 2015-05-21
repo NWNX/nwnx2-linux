@@ -21,13 +21,14 @@
 #include "NWNXDefenses.h"
 
 
-void Func_GetTrueDamageImmunity (CGameObject *ob, char *value) {
+void Func_GetTrueDamageImmunity(CGameObject *ob, char *value)
+{
     int damtype, percent = 0, idx = 0;
     const CNWSObject *obj;
 
     if (ob == NULL                                  ||
-        (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
-        obj->obj_damage_immunities == NULL) {
+            (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
+            obj->obj_damage_immunities == NULL) {
 
         snprintf(value, strlen(value), "0");
         return;

@@ -21,15 +21,16 @@
 #include "NWNXFuncs.h"
 
 
-void Func_ActionUseItem (CGameObject *ob, char *value) {
+void Func_ActionUseItem(CGameObject *ob, char *value)
+{
     int prop;
     Vector vec;
     nwn_objid_t item, target, area;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        sscanf(value, "%x¬%x¬%x¬%f¬%f¬%f¬%d", &item, &target, &area, &(vec.x), &(vec.y), &(vec.z), &prop) != 7) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            sscanf(value, "%x¬%x¬%x¬%f¬%f¬%f¬%d", &item, &target, &area, &(vec.x), &(vec.y), &(vec.z), &prop) != 7) {
 
         snprintf(value, strlen(value), "-1");
         return;

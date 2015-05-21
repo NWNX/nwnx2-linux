@@ -5,10 +5,10 @@
 class CExoIni
 {
 public:
-	int ReadIniEntry(CExoString &, CExoString const &, CExoString const &, CExoString const &);
-	int WriteIniEntry(CExoString const &, CExoString const &, CExoString const &, CExoString const &);
-	~CExoIni();
-	CExoIni();
+    int ReadIniEntry(CExoString &, CExoString const &, CExoString const &, CExoString const &);
+    int WriteIniEntry(CExoString const &, CExoString const &, CExoString const &, CExoString const &);
+    ~CExoIni();
+    CExoIni();
 
 };
 #endif

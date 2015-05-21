@@ -5,7 +5,7 @@
 class CNWSStats_Spell
 {
 public:
-	CNWSStats_Spell();
+    CNWSStats_Spell();
 
 };
 #endif

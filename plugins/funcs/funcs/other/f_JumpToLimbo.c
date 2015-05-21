@@ -21,17 +21,18 @@
 #include "NWNXFuncs.h"
 
 
-void Func_JumpToLimbo (CGameObject *ob, char *value) {
+void Func_JumpToLimbo(CGameObject *ob, char *value)
+{
     CNWSCreature *cre;
     CNWSModule *mod = CServerExoAppInternal__GetModule((*NWN_AppManager)->app_server->srv_internal);
 
     if (ob == NULL                                    ||
-        mod == NULL                                   ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        cre->cre_is_pc                                ||
-        cre->cre_stats->cs_is_pc                      ||
-        cre->cre_stats->cs_is_dm) {
+            mod == NULL                                   ||
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            cre->cre_is_pc                                ||
+            cre->cre_stats->cs_is_pc                      ||
+            cre->cre_stats->cs_is_dm) {
 
         snprintf(value, strlen(value), "-1");
         return;

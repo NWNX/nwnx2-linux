@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h> /* memset() */
-#include <sys/time.h> /* select() */ 
+#include <sys/time.h> /* select() */
 #include <errno.h>
 #include <signal.h>
 
@@ -40,8 +40,8 @@ using namespace::std;
 #include "NWNXBase.h"
 
 struct connection {
-	int sd;
-	struct sockaddr_in srvAddr;
+    int sd;
+    struct sockaddr_in srvAddr;
 };
 
 typedef map<string, connection> connectdict;
@@ -49,23 +49,23 @@ typedef map<string, connection> connectdict;
 class CNWNXmnx : public CNWNXBase
 {
 public:
-	CNWNXmnx();
-	~CNWNXmnx();
+    CNWNXmnx();
+    ~CNWNXmnx();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
-	char *OnRequest(char* gameObject, char* Request, char* Parameters);
-	// bool OnRelease();
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char *OnRequest(char* gameObject, char* Request, char* Parameters);
+    // bool OnRelease();
 
 protected:
-	bool ClientClose(const char *conn);
-	bool ClientInit(const char *conn,const char *dest);
-	bool SendMsg(const char *conn, const char *Request, char *Parameters);
-	bool Configure();
+    bool ClientClose(const char *conn);
+    bool ClientInit(const char *conn, const char *dest);
+    bool SendMsg(const char *conn, const char *Request, char *Parameters);
+    bool Configure();
 
 private:
-	
-	connectdict Connections;
-	char mnx_buf[2048];
+
+    connectdict Connections;
+    char mnx_buf[2048];
 };
 
 #endif

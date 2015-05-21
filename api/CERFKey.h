@@ -5,12 +5,12 @@
 class CERFKey
 {
 public:
-	int Read();
-	int Reset();
-	int SetName(CExoString &);
-	int Write(CExoFile &);
-	~CERFKey();
-	CERFKey();
+    int Read();
+    int Reset();
+    int SetName(CExoString &);
+    int Write(CExoFile &);
+    ~CERFKey();
+    CERFKey();
 
 };
 #endif

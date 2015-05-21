@@ -32,8 +32,8 @@ extern PLUGINLINK *pluginLink;
 
 CNWNXConnect::CNWNXConnect()
 {
-	confKey = "CONNECT";
-	bHooked = 0;
+    confKey = "CONNECT";
+    bHooked = 0;
 }
 
 CNWNXConnect::~CNWNXConnect()
@@ -43,49 +43,46 @@ CNWNXConnect::~CNWNXConnect()
 
 bool CNWNXConnect::OnCreate(gline *config, const char *LogDir)
 {
-	char log[128];
-	sprintf (log, "%s/nwnx_connect.txt", LogDir);
+    char log[128];
+    sprintf(log, "%s/nwnx_connect.txt", LogDir);
 
-	// call the base class function
-	if (!CNWNXBase::OnCreate(config,log))
-		return false;
-	Log(0,"NWNX Connect 1.0.0\n");
-	Log(0,"(c) by virusman, 2012\n");
-	Log(0,"visit us at http://www.nwnx.org\n\n");
+    // call the base class function
+    if (!CNWNXBase::OnCreate(config, log))
+        return false;
+    Log(0, "NWNX Connect 1.0.0\n");
+    Log(0, "(c) by virusman, 2012\n");
+    Log(0, "visit us at http://www.nwnx.org\n\n");
 
-	pluginConfig = (*nwnxConfig)[confKey];
-	
-	if (HookFunctions())
-	{
-		bHooked=1;
-		Log(0,"* Module loaded successfully.\n");
-	}		
-	else
-	{
-		bHooked=0;
-		Log(0,"* Module loaded successfully.\n");
-		Log(0,"* Signature recognition failed. Some functions will be disabled.\n");
-		//return false;
-	}
+    pluginConfig = (*nwnxConfig)[confKey];
 
-	return true;
+    if (HookFunctions()) {
+        bHooked = 1;
+        Log(0, "* Module loaded successfully.\n");
+    } else {
+        bHooked = 0;
+        Log(0, "* Module loaded successfully.\n");
+        Log(0, "* Signature recognition failed. Some functions will be disabled.\n");
+        //return false;
+    }
+
+    return true;
 }
 
-char* CNWNXConnect::OnRequest (char *gameObject, char* Request, char* Parameters)
+char* CNWNXConnect::OnRequest(char *gameObject, char* Request, char* Parameters)
 {
-	//Log(2,"Request: \"%s\"\n",Request);
-	//Log(3,"Params:  \"%s\"\n",Parameters);
+    //Log(2,"Request: \"%s\"\n",Request);
+    //Log(3,"Params:  \"%s\"\n",Parameters);
 
-	return NULL;
+    return NULL;
 }
 
-unsigned long CNWNXConnect::OnRequestObject (char *gameObject, char* Request)
+unsigned long CNWNXConnect::OnRequestObject(char *gameObject, char* Request)
 {
-	return OBJECT_INVALID;
+    return OBJECT_INVALID;
 }
 
 int CNWNXConnect::GetConfInteger(const char *key)
 {
-	return atoi(pluginConfig[key].c_str());
+    return atoi(pluginConfig[key].c_str());
 }
 

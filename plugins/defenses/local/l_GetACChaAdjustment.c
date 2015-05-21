@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-int Local_GetACChaAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
+int Local_GetACChaAdjustment(CNWSCreatureStats *stats, int touch, int adj)
+{
 #ifdef NWNX_DEFENSES_HG
 #endif
 

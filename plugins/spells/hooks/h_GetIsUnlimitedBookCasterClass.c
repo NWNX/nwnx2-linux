@@ -26,13 +26,15 @@ static volatile int Hook_SCU_Class;
 
 
 __attribute__((noinline))
-int Hook_GetIsUnlimitedBookCasterClass (int cl) {
+int Hook_GetIsUnlimitedBookCasterClass(int cl)
+{
     /* XXX: add a table for this */
     return !!Local_GetIsUnlimitedBookCasterClass(cl);
 }
 
 
-void Hook_GetIsUnlimitedBookCasterClass1 (void) {
+void Hook_GetIsUnlimitedBookCasterClass1(void)
+{
     asm("leave");
 
     asm("pushl %eax");

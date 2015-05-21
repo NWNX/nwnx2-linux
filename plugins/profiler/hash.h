@@ -12,8 +12,7 @@
 ** if there was one.
 */
 
-typedef struct bucket
-{
+typedef struct bucket {
     char *key;
     void *data;
     struct bucket *next;
@@ -27,8 +26,7 @@ typedef struct bucket
 ** times as many nodes have been inserted as the table was created with.
 */
 
-typedef struct hash_table 
-{
+typedef struct hash_table {
     size_t size;
     bucket **table;
 } hash_table;
@@ -36,7 +34,7 @@ typedef struct hash_table
 ** This is used to construct the table. If it doesn't succeed, it sets
 ** the table's size to 0, and the pointer to the table to NULL.
 */
-hash_table *construct_table(hash_table *table,size_t size);
+hash_table *construct_table(hash_table *table, size_t size);
 /*
 ** Hashes a string to produce an unsigned short, which should be
 ** sufficient for most purposes.
@@ -63,25 +61,25 @@ ub4 hash(char *key, register ub4 initval);
 ** key. Note that this makes a copy of the key, but NOT of the
 ** associated data.
 */
-void *insert(char *key,void *data,struct hash_table *table);
+void *insert(char *key, void *data, struct hash_table *table);
 /*
 ** Returns a pointer to the data associated with a key. If the key has
 ** not been inserted in the table, returns NULL.
 */
-void *lookup(char *key,struct hash_table *table);
+void *lookup(char *key, struct hash_table *table);
 /*
 ** Deletes an entry from the table. Returns a pointer to the data that
 ** was associated with the key so the calling code can dispose of it
 ** properly.
 */
-void *del(char *key,struct hash_table *table);
+void *del(char *key, struct hash_table *table);
 /*
 ** Goes through a hash table and calls the function passed to it
 ** for each node that has been inserted. The function is passed
 ** a pointer to the key, and a pointer to the data associated
 ** with it.
 */
-void enumerate(struct hash_table *table,void (*func)(char *,void *));
+void enumerate(struct hash_table *table, void (*func)(char *, void *));
 /*
 ** Frees a hash table. For each node that was inserted in the table,
 ** it calls the function whose address it was passed, with a pointer

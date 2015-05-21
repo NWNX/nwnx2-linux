@@ -26,13 +26,13 @@
 class CNWNXReset : public CNWNXBase
 {
 public:
-	CNWNXReset();
-	virtual ~CNWNXReset();
+    CNWNXReset();
+    virtual ~CNWNXReset();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
-	char* OnRequest (char* gameObject, char* Request, char* Parameters);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
 
-	//bool OnRelease ();
+    //bool OnRelease ();
 };
 
 #endif

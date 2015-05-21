@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetIsClassGrantedFeat (CGameObject *ob, char *value) {
+void Func_GetIsClassGrantedFeat(CGameObject *ob, char *value)
+{
     uint8_t level = 0;
     int ret, idx, feat;
 

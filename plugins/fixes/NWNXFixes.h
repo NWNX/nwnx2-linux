@@ -28,18 +28,18 @@
 class CNWNXFixes : public CNWNXBase
 {
 public:
-	CNWNXFixes();
-	virtual ~CNWNXFixes();
+    CNWNXFixes();
+    virtual ~CNWNXFixes();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
-	char* OnRequest (char* gameObject, char* Request, char* Parameters);
-	unsigned long OnRequestObject (char *gameObject, char* Request);
-	int GetConfInteger(const char *key);
-	bool bHooked;
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    unsigned long OnRequestObject(char *gameObject, char* Request);
+    int GetConfInteger(const char *key);
+    bool bHooked;
 
-	StringMap pluginConfig;
+    StringMap pluginConfig;
 
-	int bHideCharList, bHidePortraits, bHideClasses, bHideDMs;
+    int bHideCharList, bHidePortraits, bHideClasses, bHideDMs;
 private:
 
 };

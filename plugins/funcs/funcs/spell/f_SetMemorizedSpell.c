@@ -21,16 +21,17 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetMemorizedSpell (CGameObject *ob, char *value) {
+void Func_SetMemorizedSpell(CGameObject *ob, char *value)
+{
     int i, sp_class, sp_level, sp_idx, sp_spell, sp_meta, sp_flags;
     CNWSCreature *cre;
     CNWSStats_Spell *sp;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        sscanf(value, "%d %d %d %d %d %d", &sp_class, &sp_level, &sp_idx, &sp_spell, &sp_meta, &sp_flags) != 6 ||
-        sp_level < 0 || sp_level > 9 || sp_idx < 0) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            sscanf(value, "%d %d %d %d %d %d", &sp_class, &sp_level, &sp_idx, &sp_spell, &sp_meta, &sp_flags) != 6 ||
+            sp_level < 0 || sp_level > 9 || sp_idx < 0) {
 
         snprintf(value, strlen(value), "-1");
         return;
@@ -47,7 +48,7 @@ void Func_SetMemorizedSpell (CGameObject *ob, char *value) {
 
         if (sp_spell < 0) {
             if (cre->cre_stats->cs_classes[i].cl_spells_mem[sp_level].data[sp_idx] != NULL)
-                free(cre->cre_stats->cs_classes[i].cl_spells_mem[sp_level].data[sp_idx]); 
+                free(cre->cre_stats->cs_classes[i].cl_spells_mem[sp_level].data[sp_idx]);
 
             cre->cre_stats->cs_classes[i].cl_spells_mem[sp_level].data[sp_idx] = NULL;
         } else {

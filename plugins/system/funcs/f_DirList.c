@@ -30,7 +30,8 @@
     } while (0)
 
 
-void Func_DirList (CGameObject *ob, char *value) {
+void Func_DirList(CGameObject *ob, char *value)
+{
 }
 
 

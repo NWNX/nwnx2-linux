@@ -21,25 +21,26 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetQuickBarSlot (CGameObject *ob, char *value) {
+void Func_GetQuickBarSlot(CGameObject *ob, char *value)
+{
     int slot;
     const CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        !cre->cre_is_pc                               ||
-        cre->cre_quickbar == NULL                     ||
-        (slot = atoi(value)) < 0 || slot >= 36) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            !cre->cre_is_pc                               ||
+            cre->cre_quickbar == NULL                     ||
+            (slot = atoi(value)) < 0 || slot >= 36) {
 
         snprintf(value, strlen(value), "-1");
         return;
     }
 
     snprintf(value, strlen(value), "%d %d %d %d %d", slot,
-        cre->cre_quickbar[slot].qb_type,
-        cre->cre_quickbar[slot].qb_class,
-        cre->cre_quickbar[slot].qb_id,
-        cre->cre_quickbar[slot].qb_metamagic);
+             cre->cre_quickbar[slot].qb_type,
+             cre->cre_quickbar[slot].qb_class,
+             cre->cre_quickbar[slot].qb_id,
+             cre->cre_quickbar[slot].qb_metamagic);
 }
 
 

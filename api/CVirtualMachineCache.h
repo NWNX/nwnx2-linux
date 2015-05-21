@@ -5,9 +5,9 @@
 class CVirtualMachineCache
 {
 public:
-	void ClearAllFiles();
-	void PrecacheFile(CExoString const &);
-	~CVirtualMachineCache();
+    void ClearAllFiles();
+    void PrecacheFile(CExoString const &);
+    ~CVirtualMachineCache();
 
 };
 #endif

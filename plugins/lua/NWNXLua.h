@@ -37,27 +37,27 @@ extern "C" {
 class CNWNXLua : public CNWNXBase
 {
 public:
-	CNWNXLua();
-	~CNWNXLua();
+    CNWNXLua();
+    ~CNWNXLua();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
-	char* OnRequest (char* gameObject, char* Request, char* Parameters);
-        //unsigned long OnRequestObject (char *gameObject, char* Request);
-	bool OnRelease();
-	void Event(char *value);
-  void Token(char *value);
-	char *Eval(char *value);
-	int WriteSCO(char* database, char* key, char* player, int flags, unsigned char * pData, int size);
-	unsigned char* ReadSCO(char* database, char* key, char* player, int* arg4, int* size);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    //unsigned long OnRequestObject (char *gameObject, char* Request);
+    bool OnRelease();
+    void Event(char *value);
+    void Token(char *value);
+    char *Eval(char *value);
+    int WriteSCO(char* database, char* key, char* player, int flags, unsigned char * pData, int size);
+    unsigned char* ReadSCO(char* database, char* key, char* player, int* arg4, int* size);
 
-	bool bHooked;
-	lua_State *LuaInstance;
-	//int nError;
+    bool bHooked;
+    lua_State *LuaInstance;
+    //int nError;
 
-  char *rco_method;
-	char *sco_method;
-  char *event_method;
-  char *token_method;
+    char *rco_method;
+    char *sco_method;
+    char *event_method;
+    char *token_method;
 
 private:
 

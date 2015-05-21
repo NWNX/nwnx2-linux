@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetWizardSpecialization (CGameObject *ob, char *value) {
+void Func_GetWizardSpecialization(CGameObject *ob, char *value)
+{
     int i, ret = -1;
     const CNWSCreature *cre;
 

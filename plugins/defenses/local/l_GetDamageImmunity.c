@@ -24,7 +24,8 @@
 #ifdef NWNX_DEFENSES_HG
 #define NWNX_EXALT_GET_ABSTYPE(P)       ((P >> 12) & 0x0F)
 
-static inline bool Hook_MatchAbsoluteImmunityType (CNWSCreature *cre, int damtypeindex) {
+static inline bool Hook_MatchAbsoluteImmunityType(CNWSCreature *cre, int damtypeindex)
+{
     if (!(cre->cre_stats->cs_age & 0x80000000))
         return false;
 
@@ -54,7 +55,8 @@ static inline bool Hook_MatchAbsoluteImmunityType (CNWSCreature *cre, int damtyp
 #endif
 
 
-int Local_GetDamageImmunity (CNWSCreature *cre, int damtypeindex, int imm) {
+int Local_GetDamageImmunity(CNWSCreature *cre, int damtypeindex, int imm)
+{
 #ifdef NWNX_DEFENSES_HG
     if (cre->obj.obj_type == OBJECT_TYPE_CREATURE && cre->cre_stats != NULL) {
         int rdd = nwn_GetLevelByClass(cre->cre_stats, CLASS_TYPE_DRAGONDISCIPLE);
@@ -79,10 +81,10 @@ int Local_GetDamageImmunity (CNWSCreature *cre, int damtypeindex, int imm) {
         /* Barbarians receive (Str modifier / 2)% physical immunity in
          * legendary levels, and Dwarven Defenders receive (Str modifier)%. */
         if (cre->cre_is_pc                                                &&
-            cre->cre_lootable > 40                                        &&
-            (damtypeindex == 0 || damtypeindex == 1 || damtypeindex == 2) &&
-            (cre->cre_bodybag == CLASS_TYPE_BARBARIAN + 1 ||
-             cre->cre_bodybag == CLASS_TYPE_DWARVENDEFENDER + 1)) {
+                cre->cre_lootable > 40                                        &&
+                (damtypeindex == 0 || damtypeindex == 1 || damtypeindex == 2) &&
+                (cre->cre_bodybag == CLASS_TYPE_BARBARIAN + 1 ||
+                 cre->cre_bodybag == CLASS_TYPE_DWARVENDEFENDER + 1)) {
 
             int strmod = cre->cre_stats->cs_str_mod;
 

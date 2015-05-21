@@ -5,7 +5,7 @@
 class CPathfindInfoIntraTileSuccessors
 {
 public:
-	CPathfindInfoIntraTileSuccessors();
+    CPathfindInfoIntraTileSuccessors();
 
 };
 #endif

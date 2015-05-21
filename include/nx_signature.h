@@ -40,7 +40,7 @@ struct nx_sig_search_engine_s;
 typedef struct nx_sig_search_engine_s   nx_sig_search_t;
 
 typedef void (*nx_sig_callback_f)(int, void *);
-    
+
 
 
 
@@ -75,14 +75,14 @@ struct nx_sig_search_engine_s {
 extern "C" {
 #endif
 
-nx_sig_search_t *nx_sig_search_create (nx_sig_callback_f);
-void nx_sig_search_destroy (nx_sig_search_t *);
+nx_sig_search_t *nx_sig_search_create(nx_sig_callback_f);
+void nx_sig_search_destroy(nx_sig_search_t *);
 
-int nx_sig_search_add_signature (nx_sig_search_t *, int, const char *);
+int nx_sig_search_add_signature(nx_sig_search_t *, int, const char *);
 
-int nx_sig_search_run (nx_sig_search_t *);
+int nx_sig_search_run(nx_sig_search_t *);
 
-void *nx_sig_search (const char *);
+void *nx_sig_search(const char *);
 
 #ifdef __cplusplus
 }

@@ -21,14 +21,15 @@
 #include "NWNXDefenses.h"
 
 
-void Func_GetACVersus (CGameObject *ob, char *value) {
+void Func_GetACVersus(CGameObject *ob, char *value)
+{
     int ac;
     CGameObject *aob = nwn_GetObjectByStringID(value);
     CNWSCreature *attacker, *target;
 
     if (ob  == NULL || (target   = ob->vtable->AsNWSCreature(ob)) == NULL  ||
-        aob == NULL || (attacker = aob->vtable->AsNWSCreature(ob)) == NULL ||
-        attacker->cre_stats == NULL || target->cre_stats == NULL)
+            aob == NULL || (attacker = aob->vtable->AsNWSCreature(ob)) == NULL ||
+            attacker->cre_stats == NULL || target->cre_stats == NULL)
         ac = 0;
     else
         ac = CNWSCreatureStats__GetArmorClassVersus(target->cre_stats, attacker, 0);

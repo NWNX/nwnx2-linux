@@ -5,10 +5,10 @@
 class CScriptSourceFile
 {
 public:
-	int LoadScript(CExoString const &, char **, unsigned long *);
-	void UnloadScript();
-	~CScriptSourceFile();
-	CScriptSourceFile();
+    int LoadScript(CExoString const &, char **, unsigned long *);
+    void UnloadScript();
+    ~CScriptSourceFile();
+    CScriptSourceFile();
 
 };
 #endif

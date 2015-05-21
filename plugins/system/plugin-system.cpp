@@ -22,6 +22,7 @@
 
 CNWNXSystem sys;
 
-extern "C" CNWNXBase *GetClassObject() {
+extern "C" CNWNXBase *GetClassObject()
+{
     return &sys;
 }

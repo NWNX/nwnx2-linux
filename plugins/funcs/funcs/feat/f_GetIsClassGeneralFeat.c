@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetIsClassGeneralFeat (CGameObject *ob, char *value) {
+void Func_GetIsClassGeneralFeat(CGameObject *ob, char *value)
+{
     int ret, idx, feat;
 
     if (sscanf(value, "%d %d", &idx, &feat) != 2 || idx < 0 || idx >= (*NWN_Rules)->ru_classes_len) {

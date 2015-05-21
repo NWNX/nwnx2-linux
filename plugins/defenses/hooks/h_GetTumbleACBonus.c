@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-int Hook_GetTumbleACBonus (CNWSCreatureStats *stats) {
+int Hook_GetTumbleACBonus(CNWSCreatureStats *stats)
+{
     if (stats == NULL || stats->cs_skills[SKILL_TUMBLE] < 5)
         return 0;
 

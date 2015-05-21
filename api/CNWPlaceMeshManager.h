@@ -5,11 +5,11 @@
 class CNWPlaceMeshManager
 {
 public:
-	void ClearWalkMeshes();
-	CNWPlaceableSurfaceMesh * GetWalkMesh(int);
-	int InitializeWalkMeshes(int);
-	~CNWPlaceMeshManager();
-	CNWPlaceMeshManager();
+    void ClearWalkMeshes();
+    CNWPlaceableSurfaceMesh * GetWalkMesh(int);
+    int InitializeWalkMeshes(int);
+    ~CNWPlaceMeshManager();
+    CNWPlaceMeshManager();
 
 };
 #endif

@@ -26,7 +26,8 @@
 uint32_t nx__log_facility = 0;
 static FILE *nx_log_file = NULL;
 
-static void nx_log_varargs (uint32_t fac, uint16_t tags, const char *fmt, va_list vap) {
+static void nx_log_varargs(uint32_t fac, uint16_t tags, const char *fmt, va_list vap)
+{
     time_t t;
     struct tm tm;
 
@@ -41,14 +42,15 @@ static void nx_log_varargs (uint32_t fac, uint16_t tags, const char *fmt, va_lis
     localtime_r(&t, &tm);
 
     fprintf(nx_log_file, "[%04d-%02d-%02d %02d:%02d:%02d] ",
-        (1900 + tm.tm_year), (1 + tm.tm_mon), tm.tm_mday,
-        tm.tm_hour, tm.tm_min, tm.tm_sec);
+            (1900 + tm.tm_year), (1 + tm.tm_mon), tm.tm_mday,
+            tm.tm_hour, tm.tm_min, tm.tm_sec);
 
     vfprintf(nx_log_file, fmt, vap);
     fprintf(nx_log_file, "\n");
 }
 
-void nx__log (uint32_t fac, uint16_t tags, const char *fmt, ...) {
+void nx__log(uint32_t fac, uint16_t tags, const char *fmt, ...)
+{
     va_list vap;
 
     va_start(vap, fmt);
@@ -56,7 +58,8 @@ void nx__log (uint32_t fac, uint16_t tags, const char *fmt, ...) {
     va_end(vap);
 }
 
-void nx__log_error (uint32_t fac, const char *file, int line, const char *func, const char *fmt, ...) {
+void nx__log_error(uint32_t fac, const char *file, int line, const char *func, const char *fmt, ...)
+{
     char buf[1024];
     va_list vap;
 
@@ -67,7 +70,8 @@ void nx__log_error (uint32_t fac, const char *file, int line, const char *func, 
     va_end(vap);
 }
 
-uint32_t nx__log_init (const char *name, int facility, ...) {
+uint32_t nx__log_init(const char *name, int facility, ...)
+{
     if (nx_log_file == NULL)
         nx_log_file = fopen("logs.0/nwnx_core.txt", "a");
 

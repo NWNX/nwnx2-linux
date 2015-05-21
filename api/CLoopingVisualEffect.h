@@ -5,7 +5,7 @@
 class CLoopingVisualEffect
 {
 public:
-	int GetIsBeam();
+    int GetIsBeam();
 
 };
 #endif

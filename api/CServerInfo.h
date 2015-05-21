@@ -6,9 +6,9 @@
 class CServerInfo
 {
 public:
-	int FindOptionIndex(CExoString, CExoString);
-	void SetDifficultyLevel(int, int);
-	CServerInfo();
+    int FindOptionIndex(CExoString, CExoString);
+    void SetDifficultyLevel(int, int);
+    CServerInfo();
 
 };
 #endif

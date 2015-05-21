@@ -21,15 +21,16 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetKnownFeat (CGameObject *ob, char *value) {
+void Func_GetKnownFeat(CGameObject *ob, char *value)
+{
     int idx;
     const CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        (idx = atoi(value)) < 0                       ||
-        idx >= cre->cre_stats->cs_feats.len) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            (idx = atoi(value)) < 0                       ||
+            idx >= cre->cre_stats->cs_feats.len) {
 
         snprintf(value, strlen(value), "-1");
         return;

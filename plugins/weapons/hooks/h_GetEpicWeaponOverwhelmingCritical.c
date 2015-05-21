@@ -21,7 +21,8 @@
 #include "NWNXWeapons.h"
 
 
-int Hook_GetEpicWeaponOverwhelmingCritical (CNWSCreatureStats *info, CNWSItem *weapon) {
+int Hook_GetEpicWeaponOverwhelmingCritical(CNWSCreatureStats *info, CNWSItem *weapon)
+{
     int feat = 0;
 
     if (weapon == NULL)

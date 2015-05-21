@@ -28,13 +28,13 @@
 extern "C" {
 #endif
 
-void *nx_safe_calloc (size_t, size_t);
-void *nx_safe_malloc (size_t);
-void *nx_safe_realloc (void *, size_t);
+void *nx_safe_calloc(size_t, size_t);
+void *nx_safe_malloc(size_t);
+void *nx_safe_realloc(void *, size_t);
 
-void nx_safe_free (void *);
+void nx_safe_free(void *);
 
-char *nx_safe_strdup (const char *);
+char *nx_safe_strdup(const char *);
 
 #ifdef __cplusplus
 }

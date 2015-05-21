@@ -31,38 +31,38 @@
 class CNWNXJVM : public CNWNXBase
 {
 public:
-	CNWNXJVM();
-	virtual ~CNWNXJVM();
+    CNWNXJVM();
+    virtual ~CNWNXJVM();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
-	char* OnRequest (char* gameObject, char* Request, char* Parameters);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
 //	unsigned long OnRequestObject (char *gameObject, char* Request);
-	void ExecuteCommand(char *value);
-	char *Eval(char *value);
+    void ExecuteCommand(char *value);
+    char *Eval(char *value);
 
 
-	bool bHooked;
-	int nError;
+    bool bHooked;
+    int nError;
 
 private:
 
-	bool LaunchVM();
-	jint registerNWScriptNatives();
-	jint registerNWScriptAddonNatives();
+    bool LaunchVM();
+    jint registerNWScriptNatives();
+    jint registerNWScriptAddonNatives();
 
-	JavaVM *jvm;
-	JNIEnv *env;
+    JavaVM *jvm;
+    JNIEnv *env;
 
-	jclass cls_initListener;
-	jclass cls_eventListener;
-	jclass cls_tokenListener;
-	jclass cls_nwscript;
+    jclass cls_initListener;
+    jclass cls_eventListener;
+    jclass cls_tokenListener;
+    jclass cls_nwscript;
 
-	jmethodID jmethodJavaSetup;
-	jmethodID jmethodJavaInit;
-	jmethodID jmethodJavaShutdown;
-	jmethodID jmethodJavaEvent;
-	jmethodID jmethodJavaToken;
+    jmethodID jmethodJavaSetup;
+    jmethodID jmethodJavaInit;
+    jmethodID jmethodJavaShutdown;
+    jmethodID jmethodJavaEvent;
+    jmethodID jmethodJavaToken;
 };
 
 #endif

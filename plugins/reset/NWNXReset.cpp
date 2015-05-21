@@ -32,7 +32,7 @@
 
 CNWNXReset::CNWNXReset()
 {
-	confKey = "RESETPLUGIN";
+    confKey = "RESETPLUGIN";
 }
 
 CNWNXReset::~CNWNXReset()
@@ -41,26 +41,25 @@ CNWNXReset::~CNWNXReset()
 
 bool CNWNXReset::OnCreate(gline *config, const char *LogDir)
 {
-	char log[128];
-	sprintf (log, "%s/nwnx_reset.txt", LogDir);
+    char log[128];
+    sprintf(log, "%s/nwnx_reset.txt", LogDir);
 
-	// call the base class function
-	if (!CNWNXBase::OnCreate(config,log))
-		return false;
-	Log(0,"NWNX Reset Plugin V.0.1.\n");
-	Log(0,"By virusman (virusman@virusman.ru) \n");
-	Log(0,"Based on the Win32 version (c) 2005 by Fay Smith (Asmodae)\n");
-	Log(0,"visit us at http://www.avlis.org\n");
-	return true;
+    // call the base class function
+    if (!CNWNXBase::OnCreate(config, log))
+        return false;
+    Log(0, "NWNX Reset Plugin V.0.1.\n");
+    Log(0, "By virusman (virusman@virusman.ru) \n");
+    Log(0, "Based on the Win32 version (c) 2005 by Fay Smith (Asmodae)\n");
+    Log(0, "visit us at http://www.avlis.org\n");
+    return true;
 }
 
-char* CNWNXReset::OnRequest (char *gameObject, char* Request, char* Parameters)
+char* CNWNXReset::OnRequest(char *gameObject, char* Request, char* Parameters)
 {
-	if (strncmp(Request, "SHUTDOWN", 8) == 0) 	
-	{
-		Log(0, "* NWNXResetPlugin - Got request: %s.\n", Request);
-		int nPid = getpid();
-		kill(nPid, SIGTERM);
-	}
-	return NULL;
+    if (strncmp(Request, "SHUTDOWN", 8) == 0) {
+        Log(0, "* NWNXResetPlugin - Got request: %s.\n", Request);
+        int nPid = getpid();
+        kill(nPid, SIGTERM);
+    }
+    return NULL;
 }

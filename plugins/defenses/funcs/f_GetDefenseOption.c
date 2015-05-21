@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-void Func_GetDefenseOption (CGameObject *ob, char *value) {
+void Func_GetDefenseOption(CGameObject *ob, char *value)
+{
     int opt, val = -1;
 
     opt = atoi(value);

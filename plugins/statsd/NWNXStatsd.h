@@ -13,16 +13,16 @@ using namespace statsd;
 class CNWNXStatsd: public CNWNXBase
 {
 public:
-	CNWNXStatsd();
-	virtual ~ CNWNXStatsd();
+    CNWNXStatsd();
+    virtual ~ CNWNXStatsd();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
-	char *OnRequest(char *gameObject, char *Request, char *Parameters);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char *OnRequest(char *gameObject, char *Request, char *Parameters);
 
 private:
-	StatsdClient link;
+    StatsdClient link;
 
-	unordered_map<std::string, struct timespec> timings;
+    unordered_map<std::string, struct timespec> timings;
 
 };
 

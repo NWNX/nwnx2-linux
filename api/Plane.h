@@ -5,7 +5,7 @@
 class Plane
 {
 public:
-	int Transform(Vector const &, Quaternion const &);
+    int Transform(Vector const &, Quaternion const &);
 
 };
 #endif

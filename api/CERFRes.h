@@ -5,11 +5,11 @@
 class CERFRes
 {
 public:
-	int Read();
-	int Reset();
-	int Write(CExoFile &, unsigned long);
-	~CERFRes();
-	CERFRes();
+    int Read();
+    int Reset();
+    int Write(CExoFile &, unsigned long);
+    ~CERFRes();
+    CERFRes();
 
 };
 #endif

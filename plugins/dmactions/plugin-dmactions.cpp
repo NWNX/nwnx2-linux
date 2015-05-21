@@ -21,7 +21,7 @@
 CNWNXdmactions dmactions;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &dmactions;
+    return &dmactions;
 }

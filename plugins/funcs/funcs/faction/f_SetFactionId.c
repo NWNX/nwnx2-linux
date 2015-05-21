@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetFactionId (CGameObject *ob, char *value) {
+void Func_SetFactionId(CGameObject *ob, char *value)
+{
     CNWSFaction *fac;
 
     fac = CFactionManager__GetFaction((*NWN_AppManager)->app_server->srv_internal->srv_factions, atoi(value));

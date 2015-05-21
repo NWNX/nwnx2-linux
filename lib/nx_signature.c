@@ -26,7 +26,8 @@
 /*! Match a search expression against a byte
  *
  */
-static bool nx_sig_search_match (int p, uint32_t match) {
+static bool nx_sig_search_match(int p, uint32_t match)
+{
     if (match & NX_SIG_FLAG_WILD)
         return true;
 
@@ -45,7 +46,8 @@ static bool nx_sig_search_match (int p, uint32_t match) {
 /*! Create a new search engine
  *
  */
-nx_sig_search_t *nx_sig_search_create (nx_sig_callback_f cb) {
+nx_sig_search_t *nx_sig_search_create(nx_sig_callback_f cb)
+{
     nx_sig_search_t *eng;
 
     eng = nx_safe_calloc(1, sizeof(*eng));
@@ -60,13 +62,14 @@ nx_sig_search_t *nx_sig_search_create (nx_sig_callback_f cb) {
 /*! Destroy an existing search engine
  *
  */
-static int nx_sig_search_destroy_nodes (size_t count, struct nx_sig_search_node_s *nodes) {
+static int nx_sig_search_destroy_nodes(size_t count, struct nx_sig_search_node_s *nodes)
+{
     int i, total = 0;
 
     for (i = 0; i < count; i++) {
         if (nodes[i].nxsn_next->nxss_count > 0)
             total += nx_sig_search_destroy_nodes(nodes[i].nxsn_next->nxss_count,
-                nodes[i].nxsn_next->nxss_nodes);
+                                                 nodes[i].nxsn_next->nxss_nodes);
 
         nx_safe_free(nodes[i].nxsn_next);
     }
@@ -77,7 +80,8 @@ static int nx_sig_search_destroy_nodes (size_t count, struct nx_sig_search_node_
     return (total + count);
 }
 
-void nx_sig_search_destroy (nx_sig_search_t *eng) {
+void nx_sig_search_destroy(nx_sig_search_t *eng)
+{
     nx_sig_search_destroy_nodes(eng->nxse_root->nxss_count, eng->nxse_root->nxss_nodes);
     nx_safe_free(eng->nxse_root);
     nx_safe_free(eng);
@@ -87,7 +91,8 @@ void nx_sig_search_destroy (nx_sig_search_t *eng) {
 /*! Add a new signature to an existing search engine
  *
  */
-int nx_sig_search_add_signature (nx_sig_search_t *eng, int id, const char *sig) {
+int nx_sig_search_add_signature(nx_sig_search_t *eng, int id, const char *sig)
+{
     int i, j, b1, b2, b3, count;
     bool skip;
     char *p, *q, *r, *copy;
@@ -156,7 +161,8 @@ int nx_sig_search_add_signature (nx_sig_search_t *eng, int id, const char *sig) 
 /*! Run an existing search engine
  *
  */
-int nx_sig_search_run (nx_sig_search_t *eng) {
+int nx_sig_search_run(nx_sig_search_t *eng)
+{
     int i, j, k, matches = 0;
     size_t cursors = 1;
     unsigned char *p = (unsigned char *)NX_NWN_SEARCH_START;
@@ -228,7 +234,8 @@ int nx_sig_search_run (nx_sig_search_t *eng) {
 /*! Search for a single signature
  *
  */
-void *nx_sig_search (const char *sig) {
+void *nx_sig_search(const char *sig)
+{
     return NULL;
 }
 

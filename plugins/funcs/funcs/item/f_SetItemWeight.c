@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetItemWeight (CGameObject *ob, char *value) {
+void Func_SetItemWeight(CGameObject *ob, char *value)
+{
     CNWSItem *item;
 
     if (ob == NULL || (item = ob->vtable->AsNWSItem(ob)) == NULL) {

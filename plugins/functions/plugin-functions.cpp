@@ -23,7 +23,7 @@
 CNWNXFunction functions;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &functions;
+    return &functions;
 }

@@ -21,7 +21,8 @@
 #include "NWNXWeapons.h"
 
 
-void Func_GetWeaponImprovedCriticalFeat (CGameObject *ob, char *value) {
+void Func_GetWeaponImprovedCriticalFeat(CGameObject *ob, char *value)
+{
     int baseitem, feat = -1;
 
     baseitem = atoi(value);

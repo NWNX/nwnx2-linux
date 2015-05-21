@@ -25,8 +25,9 @@
 
 #include <sys/time.h>
 
-class CNWNXTMI:public CNWNXBase {
-  public:
+class CNWNXTMI: public CNWNXBase
+{
+public:
     CNWNXTMI();
     virtual ~ CNWNXTMI();
 
@@ -35,11 +36,11 @@ class CNWNXTMI:public CNWNXBase {
 
     // bool OnRelease ();
 
-  protected:
+protected:
     void GetTMILimit(char *value);
     void SetTMILimit(char *value);
 
-  private:
+private:
     long orig_TMI;
 };
 

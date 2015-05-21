@@ -127,16 +127,18 @@ struct {
     { NULL,                                              NULL },
 };
 
-static void nwn_hook_callback (int id, void *addr) {
+static void nwn_hook_callback(int id, void *addr)
+{
     nx_log(NX_LOG_NOTICE, 0, "%s (%d) found at %p%s",
-        nwn_hooks[id].name, id, addr,
-        (*(void **)(nwn_hooks[id].func) == NULL ? "" : " (duplicate)"));
+           nwn_hooks[id].name, id, addr,
+           (*(void **)(nwn_hooks[id].func) == NULL ? "" : " (duplicate)"));
 
     *(void **)(nwn_hooks[id].func) = addr;
 }
 
 
-static void nwn_hook_data (void) {
+static void nwn_hook_data(void)
+{
     unsigned char *p = (unsigned char *)NX_NWN_SEARCH_START, *end = p + 0x8000;
 
     while (p < end && !(*p == 0x89 && *(p + 1) == 0x1C && *(p + 2) == 0x24 && *(p + 3) == 0xE8))
@@ -169,7 +171,8 @@ static void nwn_hook_data (void) {
 }
 
 
-void nwn_hook_init (void) {
+void nwn_hook_init(void)
+{
     int i;
 
     nwn_hook_data();

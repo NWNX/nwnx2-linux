@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-int8_t Hook_GetDamageImmunity (CNWSCreature *cre, int damtypeindex) {
+int8_t Hook_GetDamageImmunity(CNWSCreature *cre, int damtypeindex)
+{
     int imm;
 
     if (cre->obj.obj_damage_immunities == NULL || damtypeindex < 0 || damtypeindex > DAMAGE_TYPE_LAST)
@@ -30,9 +31,9 @@ int8_t Hook_GetDamageImmunity (CNWSCreature *cre, int damtypeindex) {
 
 #ifndef NWNX_DEFENSES_HG
     if (damtypeindex == 8                         &&
-        cre->obj.obj_type == OBJECT_TYPE_CREATURE &&
-        cre->cre_stats != NULL                    &&
-        CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_DRAGON_IMMUNE_FIRE))
+            cre->obj.obj_type == OBJECT_TYPE_CREATURE &&
+            cre->cre_stats != NULL                    &&
+            CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_DRAGON_IMMUNE_FIRE))
         imm = 100;
 #endif
 

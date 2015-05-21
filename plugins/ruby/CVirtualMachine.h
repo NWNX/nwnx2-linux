@@ -17,16 +17,15 @@
 00000024 CVirtualMachineScript ends
 */
 
-typedef struct
-{
-	dword Stack;
-	dword StackSize;
-	dword InstructionPtr;
-	dword SecondaryPtr;
-	dword Code;
-	dword CodeSize;
-	CExoString Name;
-	dword field_20;
+typedef struct {
+    dword Stack;
+    dword StackSize;
+    dword InstructionPtr;
+    dword SecondaryPtr;
+    dword Code;
+    dword CodeSize;
+    CExoString Name;
+    dword field_20;
 } CVirtualMachineScript;
 
 /*
@@ -41,15 +40,14 @@ typedef struct
 0000001C CVirtualMachineStack ends
 */
 
-typedef struct
-{
-	dword  StackPointer;
-	dword  field_4;
-	dword  AllocatedSize;
-	byte  *VarTypes;
-	dword *Values;
-	dword  field_14;
-	dword  CurrentInstruction;
+typedef struct {
+    dword  StackPointer;
+    dword  field_4;
+    dword  AllocatedSize;
+    byte  *VarTypes;
+    dword *Values;
+    dword  field_14;
+    dword  CurrentInstruction;
 } CVirtualMachineStack;
 
 /*
@@ -81,19 +79,18 @@ typedef struct
 000003E8 CVirtualMachine ends
 */
 
-typedef struct
-{
-	dword field_0;
-	dword field_4;
-	dword field_8;
-	dword RecursionLevel;
-	CVirtualMachineScript Scripts[8];
-	dword LevelActive[8];
-	dword ObjectID[8];
-	CVirtualMachineStack Stack;
-	dword field_18C[8];
-	dword field_1AC[123];
-	void *Commands;	
+typedef struct {
+    dword field_0;
+    dword field_4;
+    dword field_8;
+    dword RecursionLevel;
+    CVirtualMachineScript Scripts[8];
+    dword LevelActive[8];
+    dword ObjectID[8];
+    CVirtualMachineStack Stack;
+    dword field_18C[8];
+    dword field_1AC[123];
+    void *Commands;
 } CVirtualMachine;
 
 #endif

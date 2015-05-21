@@ -22,7 +22,7 @@
 CNWNXRuby ruby;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &ruby;
+    return &ruby;
 }

@@ -20,30 +20,31 @@
 
 #include "NWNXFuncs.h"
 
-static int GetPlayerPort (void *pNetLayer, uint32_t nPlayerID) {
+static int GetPlayerPort(void *pNetLayer, uint32_t nPlayerID)
+{
     int i;
     uint32_t nNum;
     void *pClientStruct, *pNetLayerInternal, *pExoNet, *pExoNetInternal;
 
     pNetLayerInternal = *(void **)pNetLayer;
-    pExoNet = *(void **)((char*)pNetLayerInternal+0x4);
-        if(!pExoNet) return -1;
+    pExoNet = *(void **)((char*)pNetLayerInternal + 0x4);
+    if (!pExoNet) return -1;
     pExoNetInternal = *(void **)pExoNet;
-        if(!pExoNetInternal) return -2;
+    if (!pExoNetInternal) return -2;
 
     /* Yes, this is ugly. But I don't want to describe 4 or 5 nested structures. :) */
     for (i = 0; i < 0x60; i++) {
-        pClientStruct = (void *)((char *)pNetLayerInternal + 0xC + i*0x91C);
+        pClientStruct = (void *)((char *)pNetLayerInternal + 0xC + i * 0x91C);
 
-        if(*(uint32_t *)((char*)pClientStruct+0x8) == 1) {
-            if(*(uint32_t *)((char*)pClientStruct+0xC) == nPlayerID) {
-                nNum = *(uint32_t *)((char*)pClientStruct+0x14);
-                uint8_t *pFlagList = *(uint8_t **)((char*)pExoNetInternal+0x34);
-                if(!pFlagList || !pFlagList[nNum]) return -3;
+        if (*(uint32_t *)((char*)pClientStruct + 0x8) == 1) {
+            if (*(uint32_t *)((char*)pClientStruct + 0xC) == nPlayerID) {
+                nNum = *(uint32_t *)((char*)pClientStruct + 0x14);
+                uint8_t *pFlagList = *(uint8_t **)((char*)pExoNetInternal + 0x34);
+                if (!pFlagList || !pFlagList[nNum]) return -3;
 
-		char* pNetInfoBase = *(char**)((char*)pExoNetInternal+0x3c);
-		struct sockaddr_in *pIP = (struct sockaddr_in *)(pNetInfoBase+nNum*16);
-                if(!pIP) return -4;
+                char* pNetInfoBase = *(char**)((char*)pExoNetInternal + 0x3c);
+                struct sockaddr_in *pIP = (struct sockaddr_in *)(pNetInfoBase + nNum * 16);
+                if (!pIP) return -4;
 
                 return pIP->sin_port;
             }
@@ -52,7 +53,8 @@ static int GetPlayerPort (void *pNetLayer, uint32_t nPlayerID) {
     return -5;
 }
 
-void Func_GetPCPort (CGameObject *ob, char *value) {
+void Func_GetPCPort(CGameObject *ob, char *value)
+{
     CNWSPlayer *pl;
     CNWSCreature *cre;
 
@@ -69,7 +71,7 @@ void Func_GetPCPort (CGameObject *ob, char *value) {
 
     int port = GetPlayerPort((*NWN_AppManager)->app_server->srv_internal->srv_network, pl->pl_id);
     snprintf(value, strlen(value), "%d",
-        port);
+             port);
 
     /* TODO: describe all nested structures */
 }

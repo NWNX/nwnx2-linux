@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetLocalVariableCount (CGameObject *ob, char *value) {
+void Func_GetLocalVariableCount(CGameObject *ob, char *value)
+{
     int ret = 0;
 
     if (ob != NULL) {

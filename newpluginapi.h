@@ -30,38 +30,38 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define MAXMODULELABELLENGTH 64
 
 typedef struct {
-	int cbSize;
-	char *shortName;
-	DWORD version;
-	char *description; // [TRANSLATED-BY-CORE]
-	char *author;
-	char *authorEmail;
-	char *copyright;
-	char *homepage;
-	BYTE flags;	   // 
+    int cbSize;
+    char *shortName;
+    DWORD version;
+    char *description; // [TRANSLATED-BY-CORE]
+    char *author;
+    char *authorEmail;
+    char *copyright;
+    char *homepage;
+    BYTE flags;	   //
 } PLUGININFO;
 
 #ifndef MODULES_H_
-typedef int (*NWNXHOOK)(WPARAM,LPARAM);
-typedef int (*NWNXSERVICE)(WPARAM,LPARAM);
-typedef int (*NWNXSERVICEPARAM)(WPARAM,LPARAM,LPARAM);
+typedef int (*NWNXHOOK)(WPARAM, LPARAM);
+typedef int (*NWNXSERVICE)(WPARAM, LPARAM);
+typedef int (*NWNXSERVICEPARAM)(WPARAM, LPARAM, LPARAM);
 #define CALLSERVICE_NOTFOUND      ((int)0x80000000)
 #endif
 
 //see modules.h for what all this stuff is
 typedef struct {
-	HANDLE (*CreateHookableEvent)(const char *);
-	int (*DestroyHookableEvent)(HANDLE);
-	int (*NotifyEventHooks)(HANDLE,WPARAM,LPARAM);
-	HANDLE (*HookEvent)(const char *,NWNXHOOK);
-	HANDLE (*HookEventMessage)(const char *,HWND,UINT);
-	int (*UnhookEvent)(HANDLE);
-	HANDLE (*CreateServiceFunction)(const char *,NWNXSERVICE);
-	HANDLE (*CreateTransientServiceFunction)(const char *,NWNXSERVICE);
-	int (*DestroyServiceFunction)(HANDLE);
-	int (*CallService)(const char *,WPARAM,LPARAM);
-	int (*ServiceExists)(const char *);		  //v0.1.0.1+
-	int (*SetHookDefaultForHookableEvent) (HANDLE, NWNXHOOK); // v0.3.4 (2004/09/15)
+    HANDLE(*CreateHookableEvent)(const char *);
+    int (*DestroyHookableEvent)(HANDLE);
+    int (*NotifyEventHooks)(HANDLE, WPARAM, LPARAM);
+    HANDLE(*HookEvent)(const char *, NWNXHOOK);
+    HANDLE(*HookEventMessage)(const char *, HWND, UINT);
+    int (*UnhookEvent)(HANDLE);
+    HANDLE(*CreateServiceFunction)(const char *, NWNXSERVICE);
+    HANDLE(*CreateTransientServiceFunction)(const char *, NWNXSERVICE);
+    int (*DestroyServiceFunction)(HANDLE);
+    int (*CallService)(const char *, WPARAM, LPARAM);
+    int (*ServiceExists)(const char *);		  //v0.1.0.1+
+    int (*SetHookDefaultForHookableEvent)(HANDLE, NWNXHOOK);  // v0.3.4 (2004/09/15)
 } PLUGINLINK;
 
 #ifndef MODULES_H_

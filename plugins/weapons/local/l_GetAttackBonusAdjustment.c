@@ -21,22 +21,23 @@
 #include "NWNXWeapons.h"
 
 
-int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon,
-                                    int ranged, int ab_abil, int ab_feats) {
+int Local_GetAttackBonusAdjustment(CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon,
+                                   int ranged, int ab_abil, int ab_feats)
+{
 #ifdef NWNX_WEAPONS_HG
 #define NWNX_EXALT_GET_AB(P)            ((P >> 16) & 0xFF)
 
     int ab = 0, wm = 0, woc = 0;
 
     if ((attacker->cs_age & 0x80000000) &&
-        (ab = NWNX_EXALT_GET_AB(attacker->cs_age)) > 0 && ab < 130)
+            (ab = NWNX_EXALT_GET_AB(attacker->cs_age)) > 0 && ab < 130)
         ab_abil = ab;
 
     if (weapon != NULL) {
         int rogue = nwn_GetLevelByClass(attacker, CLASS_TYPE_ROGUE);
 
         if (attacker->cs_original != NULL &&
-            attacker->cs_original->cre_is_pc)
+                attacker->cs_original->cre_is_pc)
             wm = nwn_GetLevelByClass(attacker, CLASS_TYPE_WEAPON_MASTER);
 
         /* PC weapon masters get +1 AB at 10, +1 at 29, and +2 at 30 */
@@ -56,12 +57,12 @@ int Local_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *t
          * to attacks with light weapons (including slings, light crossbows,
          * and morningstars) capped by rogue level */
         if (rogue >= 25                                                        &&
-            attacker->cs_ac_armour_base <= 3                                   &&
-            CNWSCreatureStats__HasFeat(attacker, FEAT_OPPORTUNIST)             &&
-            (GetIsWeaponLight(attacker, weapon, 0)                             ||
-             weapon->it_baseitem == BASE_ITEM_LIGHTCROSSBOW                    ||
-             weapon->it_baseitem == BASE_ITEM_MORNINGSTAR                      ||
-             weapon->it_baseitem == BASE_ITEM_SLING)) {
+                attacker->cs_ac_armour_base <= 3                                   &&
+                CNWSCreatureStats__HasFeat(attacker, FEAT_OPPORTUNIST)             &&
+                (GetIsWeaponLight(attacker, weapon, 0)                             ||
+                 weapon->it_baseitem == BASE_ITEM_LIGHTCROSSBOW                    ||
+                 weapon->it_baseitem == BASE_ITEM_MORNINGSTAR                      ||
+                 weapon->it_baseitem == BASE_ITEM_SLING)) {
             int max = (rogue - 20) / 5;
             int intbonus = (attacker->cs_int - 10) / 2;
 

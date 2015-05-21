@@ -6,14 +6,14 @@
 class CServerAIList
 {
 public:
-	int AddObject(unsigned long);
-	int GetNextObject();
-	int RemoveObject(unsigned long);
-	~CServerAIList();
-	CServerAIList();
+    int AddObject(unsigned long);
+    int GetNextObject();
+    int RemoveObject(unsigned long);
+    ~CServerAIList();
+    CServerAIList();
 
-	/* (mtype:CExoArrayList<unsigned long>) */
-	/* 0x0/0 */ CExoArrayList<unsigned long> m_aoGameObjects;
-	/* 0xC/12 */ unsigned long m_nPosition;
+    /* (mtype:CExoArrayList<unsigned long>) */
+    /* 0x0/0 */ CExoArrayList<unsigned long> m_aoGameObjects;
+    /* 0xC/12 */ unsigned long m_nPosition;
 };
 #endif

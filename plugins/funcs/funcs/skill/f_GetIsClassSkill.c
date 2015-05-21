@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetIsClassSkill (CGameObject *ob, char *value) {
+void Func_GetIsClassSkill(CGameObject *ob, char *value)
+{
     int ret, idx, skill;
 
     if (sscanf(value, "%d %d", &idx, &skill) != 2 || idx < 0 || idx >= (*NWN_Rules)->ru_classes_len) {

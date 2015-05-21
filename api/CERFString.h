@@ -6,13 +6,13 @@
 class CERFString
 {
 public:
-	CExoString GetText();
-	int Read();
-	int Reset();
-	void SetText(CExoString &);
-	int Write(CExoFile &);
-	~CERFString();
-	CERFString();
+    CExoString GetText();
+    int Read();
+    int Reset();
+    void SetText(CExoString &);
+    int Write(CExoFile &);
+    ~CERFString();
+    CERFString();
 
 };
 #endif

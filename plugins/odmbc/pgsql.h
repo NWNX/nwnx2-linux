@@ -27,27 +27,27 @@
 class CPgSQL : public CDB
 {
 public:
-	CPgSQL();
-	~CPgSQL();
+    CPgSQL();
+    ~CPgSQL();
 
-	BOOL Connect ();
-	BOOL Connect (const char *server, const char *user, const char *pass, const char *db);
-	void Disconnect ();
+    BOOL Connect();
+    BOOL Connect(const char *server, const char *user, const char *pass, const char *db);
+    void Disconnect();
 
-	BOOL Execute (const uchar* query);
-	char * Fetch(char * buffer, unsigned int buffersize);
-	BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length);
-	BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size);
+    BOOL Execute(const uchar* query);
+    char * Fetch(char * buffer, unsigned int buffersize);
+    BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length);
+    BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size);
 
-	const char* GetErrorMessage ();
+    const char* GetErrorMessage();
 
 private:
     PGconn *pgsql;
     PGresult *result;
     unsigned long NumCol;
-	int CurRow;
+    int CurRow;
 
-	unsigned long version;
+    unsigned long version;
 };
 
 #endif

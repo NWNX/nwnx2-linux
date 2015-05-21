@@ -21,7 +21,8 @@
 #include "NWNXWeapons.h"
 
 
-int Hook_GetWeaponFinesse (CNWSCreatureStats *info, CNWSItem *weapon) {
+int Hook_GetWeaponFinesse(CNWSCreatureStats *info, CNWSItem *weapon)
+{
     if (!CNWSCreatureStats__HasFeat(info, FEAT_WEAPON_FINESSE))
         return 0;
 

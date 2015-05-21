@@ -21,13 +21,14 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetCreatureEventHandler (CGameObject *ob, char *value) {
+void Func_GetCreatureEventHandler(CGameObject *ob, char *value)
+{
     int ev;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        (ev = atoi(value)) < 0 || ev > 12) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            (ev = atoi(value)) < 0 || ev > 12) {
 
         *value = 0;
         return;

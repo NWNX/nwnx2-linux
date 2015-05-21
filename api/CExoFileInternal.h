@@ -5,15 +5,15 @@
 class CExoFileInternal
 {
 public:
-	unsigned long GetOffset();
-	int GetSize();
-	int ReadAsyncBytesRead();
-	int ReadAsyncComplete();
-	void ReadAsync(void *, unsigned long, unsigned long);
-	unsigned long Read(CExoString *, unsigned long);
-	int Write(char const *);
-	~CExoFileInternal();
-	CExoFileInternal(CExoString const &, unsigned short, CExoString const &);
+    unsigned long GetOffset();
+    int GetSize();
+    int ReadAsyncBytesRead();
+    int ReadAsyncComplete();
+    void ReadAsync(void *, unsigned long, unsigned long);
+    unsigned long Read(CExoString *, unsigned long);
+    int Write(char const *);
+    ~CExoFileInternal();
+    CExoFileInternal(CExoString const &, unsigned short, CExoString const &);
 
 };
 #endif

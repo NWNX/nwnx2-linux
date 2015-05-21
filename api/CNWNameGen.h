@@ -6,12 +6,12 @@
 class CNWNameGen
 {
 public:
-	CExoString GetRandomName();
-	CExoString GetRandomName(unsigned short, unsigned char);
-	int LoadNameTable(CExoString);
-	void UnloadNameTable();
-	~CNWNameGen();
-	CNWNameGen();
+    CExoString GetRandomName();
+    CExoString GetRandomName(unsigned short, unsigned char);
+    int LoadNameTable(CExoString);
+    void UnloadNameTable();
+    ~CNWNameGen();
+    CNWNameGen();
 
 };
 #endif

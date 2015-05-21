@@ -21,7 +21,8 @@
 #include "NWNXWeapons.h"
 
 
-void Func_GetWeaponLegendaryFocusFeat (CGameObject *ob, char *value) {
+void Func_GetWeaponLegendaryFocusFeat(CGameObject *ob, char *value)
+{
     int baseitem, feat = -1;
 
     baseitem = atoi(value);

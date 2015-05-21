@@ -21,12 +21,13 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetGroundHeight (CGameObject *ob, char *value) {
+void Func_GetGroundHeight(CGameObject *ob, char *value)
+{
     Vector vec;
     CNWSArea *area;
 
     if ((area = ob->vtable->AsNWSArea(ob)) == NULL ||
-        sscanf(value, "%f¬%f¬%f", &(vec.x), &(vec.y), &(vec.z)) != 3) {
+            sscanf(value, "%f¬%f¬%f", &(vec.x), &(vec.y), &(vec.z)) != 3) {
         snprintf(value, strlen(value), "-65535.0");
         return;
     }

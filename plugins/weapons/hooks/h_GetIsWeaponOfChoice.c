@@ -21,7 +21,8 @@
 #include "NWNXWeapons.h"
 
 
-int Hook_GetIsWeaponOfChoice (CNWSCreatureStats *info, int baseitem) {
+int Hook_GetIsWeaponOfChoice(CNWSCreatureStats *info, int baseitem)
+{
     int feat = 0;
 
     if (baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE)

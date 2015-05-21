@@ -21,14 +21,15 @@
 #include "NWNXSystem.h"
 
 
-void Func_GetProcessCPUUsage (CGameObject *ob, char *value) {
+void Func_GetProcessCPUUsage(CGameObject *ob, char *value)
+{
     struct rusage ru;
 
     getrusage(RUSAGE_SELF, &ru);
 
     snprintf(value, strlen(value), "%ld.%06ld %ld.%06ld",
-      (long)(ru.ru_utime.tv_sec), (long)(ru.ru_utime.tv_usec),
-      (long)(ru.ru_stime.tv_sec), (long)(ru.ru_stime.tv_usec));
+             (long)(ru.ru_utime.tv_sec), (long)(ru.ru_utime.tv_usec),
+             (long)(ru.ru_stime.tv_sec), (long)(ru.ru_stime.tv_usec));
 }
 
 

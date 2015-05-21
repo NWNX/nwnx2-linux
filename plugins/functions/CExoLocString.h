@@ -17,10 +17,9 @@ struct CExoString
 	dword Length;
 };
 */
-struct CExoLocStringElement
-{
-	dword      LangID;
-	CExoString Text;
+struct CExoLocStringElement {
+    dword      LangID;
+    CExoString Text;
 };
 
 /*
@@ -29,13 +28,13 @@ http://nwn.bioware.com/developers/Bioware_Aurora_LocalizedStrings_Format.pdf
 
 class CExoLocString
 {
-	public:
-	CExoLinkedList *List;
-	dword           StrRef;
+public:
+    CExoLinkedList *List;
+    dword           StrRef;
 
-	char                 *GetStringText(dword nLocale);
-	CExoLocStringElement *GetLangEntry(dword nLocale);
-	int                  AddString(dword nLocale, char *sString);
+    char                 *GetStringText(dword nLocale);
+    CExoLocStringElement *GetLangEntry(dword nLocale);
+    int                  AddString(dword nLocale, char *sString);
 };
 
 #endif

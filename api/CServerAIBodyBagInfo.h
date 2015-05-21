@@ -5,8 +5,8 @@
 class CServerAIBodyBagInfo
 {
 public:
-	int LoadBodyBag(CResGFF *, CResStruct *);
-	int SaveBodyBag(CResGFF *, CResStruct *);
+    int LoadBodyBag(CResGFF *, CResStruct *);
+    int SaveBodyBag(CResGFF *, CResStruct *);
 
 };
 #endif

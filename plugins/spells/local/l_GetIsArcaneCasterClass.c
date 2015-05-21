@@ -21,7 +21,8 @@
 #include "NWNXSpells.h"
 
 
-int Local_GetIsArcaneCasterClass (int cl) {
+int Local_GetIsArcaneCasterClass(int cl)
+{
     switch (cl) {
         case CLASS_TYPE_BARD:
         case CLASS_TYPE_SORCERER:

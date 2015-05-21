@@ -6,13 +6,13 @@
 class CNWSExpression
 {
 public:
-	void ClearAlternate(CNWSExpressionNode *);
-	int ClearGraph();
-	CNWSExpressionNode * NewNode(int);
-	int ParseString(CExoString);
-	int TestString(CExoString const &, int);
-	~CNWSExpression();
-	CNWSExpression();
+    void ClearAlternate(CNWSExpressionNode *);
+    int ClearGraph();
+    CNWSExpressionNode * NewNode(int);
+    int ParseString(CExoString);
+    int TestString(CExoString const &, int);
+    ~CNWSExpression();
+    CNWSExpression();
 
 };
 #endif

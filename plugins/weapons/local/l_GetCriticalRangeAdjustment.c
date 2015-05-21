@@ -21,18 +21,19 @@
 #include "NWNXWeapons.h"
 
 
-int Local_GetCriticalRangeAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon, int adj) {
+int Local_GetCriticalRangeAdjustment(CNWSCreatureStats *attacker, CNWSItem *weapon, int adj)
+{
 #ifdef NWNX_WEAPONS_HG
     if (adj == 0                                                     &&
-        weapon != NULL                                               &&
-        attacker->cs_ac_armour_base <= 3                             &&
-        nwn_GetLevelByClass(attacker, CLASS_TYPE_ROGUE) >= 30        &&
-        !CNWSCreatureStats__HasFeat(attacker, FEAT_KI_CRITICAL)      &&
-        CNWSCreatureStats__HasFeat(attacker, FEAT_CRIPPLING_STRIKE)  &&
-        (GetIsWeaponLight(attacker, weapon, false)      ||
-         weapon->it_baseitem == BASE_ITEM_LIGHTCROSSBOW ||
-         weapon->it_baseitem == BASE_ITEM_MORNINGSTAR   ||
-         weapon->it_baseitem == BASE_ITEM_SLING))
+            weapon != NULL                                               &&
+            attacker->cs_ac_armour_base <= 3                             &&
+            nwn_GetLevelByClass(attacker, CLASS_TYPE_ROGUE) >= 30        &&
+            !CNWSCreatureStats__HasFeat(attacker, FEAT_KI_CRITICAL)      &&
+            CNWSCreatureStats__HasFeat(attacker, FEAT_CRIPPLING_STRIKE)  &&
+            (GetIsWeaponLight(attacker, weapon, false)      ||
+             weapon->it_baseitem == BASE_ITEM_LIGHTCROSSBOW ||
+             weapon->it_baseitem == BASE_ITEM_MORNINGSTAR   ||
+             weapon->it_baseitem == BASE_ITEM_SLING))
         return 1;
 #endif
 

@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_RestoreReadyFeats (CGameObject *ob, char *value) {
+void Func_RestoreReadyFeats(CGameObject *ob, char *value)
+{
     int i, fu_feat, fu_used, fu_pct = 0, ret = 0;
     long val;
     char *end, *p = value;
@@ -37,7 +38,7 @@ void Func_RestoreReadyFeats (CGameObject *ob, char *value) {
         fu_pct = strtol(p + 1, &end, 10);
         p      = end;
     }
-    
+
     if (strlen(p) == 0 || (strlen(p) == 1 && *p == ' ')) {
         for (i = 0; i < cre->cre_stats->cs_featuses.len; i++) {
             if ((fu = CExoArrayList_ptr_get(&(cre->cre_stats->cs_featuses), i)) != NULL) {

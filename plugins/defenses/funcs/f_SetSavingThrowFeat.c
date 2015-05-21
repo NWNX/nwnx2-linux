@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-void Func_SetSavingThrowFeat (CGameObject *ob, char *value) {
+void Func_SetSavingThrowFeat(CGameObject *ob, char *value)
+{
     int save, idx, feat, mod;
     int16_t *table = NULL;
 
@@ -30,12 +31,12 @@ void Func_SetSavingThrowFeat (CGameObject *ob, char *value) {
         case SAVING_THROW_REFLEX: table = Table_DefenseSaveReflex; break;
         case SAVING_THROW_WILL:   table = Table_DefenseSaveWill;   break;
     }
-    
+
     if (table == NULL                                               ||
-        sscanf(value, "%d %d %d %d", &save, &idx, &feat, &mod) != 4 ||
-        idx < 0   || idx >= NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE      ||
-        feat < 0  || feat > INT16_MAX                               ||
-        mod < -20 || mod > 20) {
+            sscanf(value, "%d %d %d %d", &save, &idx, &feat, &mod) != 4 ||
+            idx < 0   || idx >= NWNX_DEFENSES_SAVEFEATS_TABLE_SIZE      ||
+            feat < 0  || feat > INT16_MAX                               ||
+            mod < -20 || mod > 20) {
 
         snprintf(value, strlen(value), "-1");
         return;

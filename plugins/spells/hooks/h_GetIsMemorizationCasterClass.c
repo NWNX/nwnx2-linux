@@ -29,13 +29,15 @@ static volatile int Hook_SCM_Class;
 
 
 __attribute__((noinline))
-int Hook_GetIsMemorizationCasterClass (int cl) {
+int Hook_GetIsMemorizationCasterClass(int cl)
+{
     /* XXX: add a table for this */
     return !!Local_GetIsMemorizationCasterClass(cl);
 }
 
 
-void Hook_GetIsMemorizationCasterClass1 (void) {
+void Hook_GetIsMemorizationCasterClass1(void)
+{
     asm("leave");
 
     asm("movzbl %dl, %eax");
@@ -51,7 +53,8 @@ void Hook_GetIsMemorizationCasterClass1 (void) {
 }
 
 
-void Hook_GetIsMemorizationCasterClass2 (void) {
+void Hook_GetIsMemorizationCasterClass2(void)
+{
     asm("leave");
 
     asm("movzbl %al, %eax");
@@ -67,7 +70,8 @@ void Hook_GetIsMemorizationCasterClass2 (void) {
 }
 
 
-void Hook_GetIsMemorizationCasterClass3 (void) {
+void Hook_GetIsMemorizationCasterClass3(void)
+{
     asm("leave");
 
     asm("movzbl %al, %eax");
@@ -83,7 +87,8 @@ void Hook_GetIsMemorizationCasterClass3 (void) {
 }
 
 
-void Hook_GetIsMemorizationCasterClass4 (void) {
+void Hook_GetIsMemorizationCasterClass4(void)
+{
     asm("leave");
 
     asm("movzbl %bl, %eax");

@@ -35,20 +35,20 @@ typedef unsigned char uchar;
 class CDB
 {
 public:
-  CDB() { }
+    CDB() { }
 
-	virtual BOOL Connect () = 0;
-	virtual void Disconnect () = 0;
+    virtual BOOL Connect() = 0;
+    virtual void Disconnect() = 0;
 
-	virtual BOOL Execute (const uchar* query) = 0;
-	virtual char * Fetch(char * buffer, unsigned int buffersize) = 0;
-	virtual BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length) = 0;
-	virtual BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size) = 0;
+    virtual BOOL Execute(const uchar* query) = 0;
+    virtual char * Fetch(char * buffer, unsigned int buffersize) = 0;
+    virtual BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length) = 0;
+    virtual BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size) = 0;
 
-	virtual const char* GetErrorMessage () = 0;
+    virtual const char* GetErrorMessage() = 0;
 
 protected:
-	BYTE pReturn[MAXRESULT]; // static buffer for data return
+    BYTE pReturn[MAXRESULT]; // static buffer for data return
 
 };
 

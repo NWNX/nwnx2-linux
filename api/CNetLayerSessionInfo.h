@@ -5,8 +5,8 @@
 class CNetLayerSessionInfo
 {
 public:
-	~CNetLayerSessionInfo();
-	CNetLayerSessionInfo();
+    ~CNetLayerSessionInfo();
+    CNetLayerSessionInfo();
 
 };
 #endif

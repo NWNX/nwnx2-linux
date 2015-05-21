@@ -34,9 +34,9 @@ restructuring modules.c for performance.
 */
 #define MAXMODULELABELLENGTH 64
 
-typedef int (*NWNXHOOK)(WPARAM,LPARAM);
-typedef int (*NWNXSERVICE)(WPARAM,LPARAM);
-typedef int (*NWNXSERVICEPARAM)(WPARAM,LPARAM,LPARAM);
+typedef int (*NWNXHOOK)(WPARAM, LPARAM);
+typedef int (*NWNXSERVICE)(WPARAM, LPARAM);
+typedef int (*NWNXSERVICEPARAM)(WPARAM, LPARAM, LPARAM);
 
 /**************************hook functions****************************/
 /* CreateHookableEvent
@@ -76,7 +76,7 @@ considerably slower than from the main thread, but will consume only slightly
 more actual CPU time, the rest will mostly be spent waiting for the main thread
 to return to the message loop so it can be interrupted neatly.
 */
-int NotifyEventHooks(HANDLE hEvent,WPARAM wParam,LPARAM lParam);
+int NotifyEventHooks(HANDLE hEvent, WPARAM wParam, LPARAM lParam);
 
 /*
 	hEvent : a HANDLE which has been returned by CreateHookableEvent()
@@ -105,7 +105,7 @@ to stop immediately. This abort value is returned to the caller of
 NotifyEventHooks() and should not be -1 since that is a special return code
 for NotifyEventHooks() (see above)
 */
-HANDLE HookEvent(const char *name,NWNXHOOK hookProc);
+HANDLE HookEvent(const char *name, NWNXHOOK hookProc);
 
 /* UnhookEvent
 Removes a hook from its event chain. It will no longer receive any events.
@@ -128,7 +128,7 @@ where the creator publishes the meanings of wParam, lParam and the return value
 Service functions must not return CALLSERVICE_NOTFOUND since that would confuse
 callers of CallService().
 */
-HANDLE CreateServiceFunction(const char *name,NWNXSERVICE serviceProc);
+HANDLE CreateServiceFunction(const char *name, NWNXSERVICE serviceProc);
 
 /* DestroyServiceFunction
 Removes the function associated with hService from the global service function
@@ -145,7 +145,7 @@ Returns CALLSERVICE_NOTFOUND if no service function called 'name' has been
 created, or the value the service function returned otherwise.
 */
 #define CALLSERVICE_NOTFOUND      ((int)0x80000000)
-int CallService(const char *name,WPARAM wParam,LPARAM lParam);
+int CallService(const char *name, WPARAM wParam, LPARAM lParam);
 
 /* ServiceExists
 Finds if a service with the given name exists

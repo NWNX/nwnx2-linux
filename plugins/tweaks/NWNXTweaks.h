@@ -31,12 +31,12 @@
 extern "C" {
 #endif
 
-void Func_GetTweakOption                     (CGameObject *ob, char *value);
-void Func_SetTweakOption                     (CGameObject *ob, char *value);
+void Func_GetTweakOption(CGameObject *ob, char *value);
+void Func_SetTweakOption(CGameObject *ob, char *value);
 
-nwn_objid_t Func_IntToObject (CGameObject *ob);
+nwn_objid_t Func_IntToObject(CGameObject *ob);
 
-void Hook_FixSendFeedbackMessage (void);
+void Hook_FixSendFeedbackMessage(void);
 
 extern uint16_t Table_TweakOptions[NWNX_TWEAKS_OPTIONS_TABLE_SIZE];
 
@@ -45,14 +45,15 @@ extern uint16_t Table_TweakOptions[NWNX_TWEAKS_OPTIONS_TABLE_SIZE];
 
 #include "NWNXBase.h"
 
-class CNWNXTweaks:public CNWNXBase {
-  public:
-    CNWNXTweaks ();
-    virtual ~ CNWNXTweaks ();
+class CNWNXTweaks: public CNWNXBase
+{
+public:
+    CNWNXTweaks();
+    virtual ~ CNWNXTweaks();
 
-    bool OnCreate (gline *nwnxConfig, const char *LogDir = NULL);
-    char *OnRequest (char *gameObject, char *Request, char *Parameters);
-    unsigned long OnRequestObject (char *gameObject, char *Request);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char *OnRequest(char *gameObject, char *Request, char *Parameters);
+    unsigned long OnRequestObject(char *gameObject, char *Request);
 
     // bool OnRelease  ();
 };

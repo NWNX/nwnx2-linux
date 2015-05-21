@@ -24,51 +24,47 @@
 #include "CExoLocString.h"
 #include "NWNStructures.h"
 
-struct CDialogEntryReply
-{
-	char  ConditionalScript[16];
-	dword Index;
-	dword DisplayInactive;
+struct CDialogEntryReply {
+    char  ConditionalScript[16];
+    dword Index;
+    dword DisplayInactive;
 };
 
 typedef CDialogEntryReply CDialogStartingEntry;
 
-struct CDialogEntry
-{
-	dword             *Speaker;
-	dword              SpeakerLen;
-	dword              Animation;
-	dword              AnimLoop;
-	CExoLocString      Text;
-	CDialogEntryReply *RepliesList;
-	dword              RepliesNum;
-	char               Script[16];
-	dword              Delay;
-	char               Sound[16];
-	dword              Quest;
-	dword              QuestLen;
-	dword              QuestEntry;
+struct CDialogEntry {
+    dword             *Speaker;
+    dword              SpeakerLen;
+    dword              Animation;
+    dword              AnimLoop;
+    CExoLocString      Text;
+    CDialogEntryReply *RepliesList;
+    dword              RepliesNum;
+    char               Script[16];
+    dword              Delay;
+    char               Sound[16];
+    dword              Quest;
+    dword              QuestLen;
+    dword              QuestEntry;
 };
 
-struct CDialogReplyEntry
-{
-	char  ConditionalScript[16];
-	dword Index;
+struct CDialogReplyEntry {
+    char  ConditionalScript[16];
+    dword Index;
 };
 
-struct CDialogReply
-{
-	dword              Animation;
-	dword              AnimLoop;
-	CExoLocString      Text;
-	CDialogReplyEntry *EntriesList;
-	dword              EntriesNum;
-	char               Script[16];
-	dword              Delay;
-	char               Sound[16];
-	dword              Quest;
-	dword              QuestLen;
-	dword              QuestEntry;
+struct CDialogReply {
+    dword              Animation;
+    dword              AnimLoop;
+    CExoLocString      Text;
+    CDialogReplyEntry *EntriesList;
+    dword              EntriesNum;
+    char               Script[16];
+    dword              Delay;
+    char               Sound[16];
+    dword              Quest;
+    dword              QuestLen;
+    dword              QuestEntry;
 };
 /*
 00000000 CNWSDialogClass struc ; (sizeof=0x74)
@@ -102,39 +98,37 @@ struct CDialogReply
 
 */
 
-struct CNWSDialogClass
-{
-	dword                 EntryListCount;
-	CDialogEntry         *EntryList;
-	dword                 ReplyListCount;
-	CDialogReply         *ReplyList;
-	dword                 StartingListCount;
-	CDialogStartingEntry *StartingList;
-	char                  EndScript[16];
-	char                  EndConverAbortScript[16];
-	dword                *ConvoPartiesList;
-	dword                 field_3C;
-	dword                 field_40;
-	dword                 CurrentNodeID;
-	dword                 field_48;
-	dword                 SpeakerLocale;
-	dword                 ConversationWith;
-	dword                 MeObjID;
-	dword                 field_58;
-	dword                 field_5C;
-	dword                 field_60;
-	dword                 field_64;
-	dword                 Me_again;
-	dword                 field_6C;
-	dword                 PreventZoomIn;
-	
+struct CNWSDialogClass {
+    dword                 EntryListCount;
+    CDialogEntry         *EntryList;
+    dword                 ReplyListCount;
+    CDialogReply         *ReplyList;
+    dword                 StartingListCount;
+    CDialogStartingEntry *StartingList;
+    char                  EndScript[16];
+    char                  EndConverAbortScript[16];
+    dword                *ConvoPartiesList;
+    dword                 field_3C;
+    dword                 field_40;
+    dword                 CurrentNodeID;
+    dword                 field_48;
+    dword                 SpeakerLocale;
+    dword                 ConversationWith;
+    dword                 MeObjID;
+    dword                 field_58;
+    dword                 field_5C;
+    dword                 field_60;
+    dword                 field_64;
+    dword                 Me_again;
+    dword                 field_6C;
+    dword                 PreventZoomIn;
+
 };
 
-struct CNWSVector
-{
-	float x;
-	float y;
-	float z;
+struct CNWSVector {
+    float x;
+    float y;
+    float z;
 };
 
 

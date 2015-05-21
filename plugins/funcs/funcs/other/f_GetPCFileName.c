@@ -21,15 +21,16 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetPCFileName (CGameObject *ob, char *value) {
+void Func_GetPCFileName(CGameObject *ob, char *value)
+{
     const CNWSPlayer *pl;
     const CNWSCreature *cre;
 
     if (strlen(value) < 17                            ||
-        ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        !cre->cre_is_pc                               ||
-        (pl = CServerExoApp__GetClientObjectByObjectId((*NWN_AppManager)->app_server, ob->id)) == NULL) {
+            ob == NULL                                    ||
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            !cre->cre_is_pc                               ||
+            (pl = CServerExoApp__GetClientObjectByObjectId((*NWN_AppManager)->app_server, ob->id)) == NULL) {
 
         *value = 0;
         return;

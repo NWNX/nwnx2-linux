@@ -31,7 +31,8 @@ static volatile nwn_objid_t Hook_SPR_Target;
 
 
 __attribute__((noinline))
-static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_objid_t target_id) {
+static float Hook_GetSpellRange(CNWSCreature *caster, CExoString *range, nwn_objid_t target_id)
+{
     float ret;
     bool no_bonus = false;
 #ifdef NWNX_SPELLS_HG
@@ -122,8 +123,8 @@ static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_ob
             }
 
             if (caster != NULL                               &&
-                caster->obj.obj_type == OBJECT_TYPE_CREATURE &&
-                caster->cre_stats != NULL) {
+                    caster->obj.obj_type == OBJECT_TYPE_CREATURE &&
+                    caster->cre_stats != NULL) {
 
                 if (CNWSCreatureStats__HasFeat(caster->cre_stats, feats[2]))
                     ret = 40.0;
@@ -149,10 +150,10 @@ static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_ob
     if (!no_bonus) {
         /* increase spell range with Extraordinary Spell Reach feat */
         if (caster != NULL                               &&
-            caster->obj.obj_type == OBJECT_TYPE_CREATURE &&
-            caster->cre_is_pc                            &&
-            caster->cre_stats != NULL                    &&
-            CNWSCreatureStats__HasFeat(caster->cre_stats, 2426)) {  /* HGFEAT_EXTRAORDINARY_SPELL_REACH */
+                caster->obj.obj_type == OBJECT_TYPE_CREATURE &&
+                caster->cre_is_pc                            &&
+                caster->cre_stats != NULL                    &&
+                CNWSCreatureStats__HasFeat(caster->cre_stats, 2426)) {  /* HGFEAT_EXTRAORDINARY_SPELL_REACH */
 
             if (ret >= 5.0 && ret <= 30.0)
                 ret *= 1.25;
@@ -160,13 +161,13 @@ static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_ob
 
         /* increase spell range when someone is hit by Targeting Ray */
         if (target_id != OBJECT_INVALID                      &&
-            (ob = nwn_GetObjectByID(target_id)) != NULL      &&
-            (target = ob->vtable->AsNWSCreature(ob)) != NULL &&
-            target->cre_stats != NULL) {
+                (ob = nwn_GetObjectByID(target_id)) != NULL      &&
+                (target = ob->vtable->AsNWSCreature(ob)) != NULL &&
+                target->cre_stats != NULL) {
 
 #if 0
             if (ret >= 5.0 &&
-                CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Z_TARGETING_RAY))
+                    CNWSCreatureStats__HasFeat(target->cre_stats, HGFEAT_Z_TARGETING_RAY))
                 ret *= 1.5;
 #endif
         }
@@ -177,7 +178,8 @@ static float Hook_GetSpellRange (CNWSCreature *caster, CExoString *range, nwn_ob
 }
 
 
-void Hook_ComputeSpellRange (void) {
+void Hook_ComputeSpellRange(void)
+{
     asm("leave");
 
     /* extract the caster, range descriptor, and target */
@@ -188,9 +190,9 @@ void Hook_ComputeSpellRange (void) {
     asm("mov %eax, Hook_SPR_Target");
 
     Hook_SPR_Value = Hook_GetSpellRange(
-        (CNWSCreature *)Hook_SPR_Caster,
-        (CExoString *)Hook_SPR_Range,
-        (nwn_objid_t)Hook_SPR_Target);
+                         (CNWSCreature *)Hook_SPR_Caster,
+                         (CExoString *)Hook_SPR_Range,
+                         (nwn_objid_t)Hook_SPR_Target);
 
     /* the result of Hook_GetSpellRange() is in Hook_SPR_Value */
     asm("flds Hook_SPR_Value");

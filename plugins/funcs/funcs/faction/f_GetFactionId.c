@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetFactionId (CGameObject *ob, char *value) {
+void Func_GetFactionId(CGameObject *ob, char *value)
+{
     int32_t fac;
 
     CServerExoAppInternal__GetFactionOfObject((*NWN_AppManager)->app_server->srv_internal, ob->id, &fac);

@@ -5,10 +5,10 @@
 class CCombatInformationNode
 {
 public:
-	CCombatInformationNode();
-	int operator=(CCombatInformationNode const &);
-	int operator==(CCombatInformationNode &);
-	int operator!=(CCombatInformationNode &);
+    CCombatInformationNode();
+    int operator=(CCombatInformationNode const &);
+    int operator==(CCombatInformationNode &);
+    int operator!=(CCombatInformationNode &);
 
 };
 #endif

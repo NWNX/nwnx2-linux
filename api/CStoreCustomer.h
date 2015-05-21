@@ -5,7 +5,7 @@
 class CStoreCustomer
 {
 public:
-	CStoreCustomer();
+    CStoreCustomer();
 
 };
 #endif

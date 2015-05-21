@@ -21,7 +21,8 @@
 #include "NWNXSystem.h"
 
 
-void Func_FileCopy (CGameObject *ob, char *value) {
+void Func_FileCopy(CGameObject *ob, char *value)
+{
 }
 
 

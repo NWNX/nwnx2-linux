@@ -5,10 +5,10 @@
 class CNWDomain
 {
 public:
-	int GetDescriptionText();
-	int GetNameText();
-	~CNWDomain();
-	CNWDomain();
+    int GetDescriptionText();
+    int GetNameText();
+    ~CNWDomain();
+    CNWDomain();
 
 };
 #endif

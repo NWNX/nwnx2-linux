@@ -25,21 +25,21 @@
 class C2DA
 {
 public:
-	dword field_0;
-	void *CRes2DA;
-	char Name[16];
-	void *C2DAClass;
-	dword field_1C;
-	dword field_20;
-	CExoString *IDList;
-	CExoString *ColumnNames;
-	CExoString **Rows;
-	dword RowCount;
-	dword ColumnCount;
-	dword field_38;
+    dword field_0;
+    void *CRes2DA;
+    char Name[16];
+    void *C2DAClass;
+    dword field_1C;
+    dword field_20;
+    CExoString *IDList;
+    CExoString *ColumnNames;
+    CExoString **Rows;
+    dword RowCount;
+    dword ColumnCount;
+    dword field_38;
 
-	int GetColumnID(char *sColumn);
-	int GetRowID(unsigned int nRow);
+    int GetColumnID(char *sColumn);
+    int GetRowID(unsigned int nRow);
 };
 
 #endif

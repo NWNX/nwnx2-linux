@@ -5,12 +5,12 @@
 class CScriptTalent
 {
 public:
-	void CopyScriptTalent(CScriptTalent *);
-	int Equals(CScriptTalent *);
-	int LoadTalent(CResGFF *, CResStruct *);
-	int SaveTalent(CResGFF *, CResStruct *);
-	~CScriptTalent();
-	CScriptTalent();
+    void CopyScriptTalent(CScriptTalent *);
+    int Equals(CScriptTalent *);
+    int LoadTalent(CResGFF *, CResStruct *);
+    int SaveTalent(CResGFF *, CResStruct *);
+    ~CScriptTalent();
+    CScriptTalent();
 
 };
 #endif

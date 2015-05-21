@@ -21,14 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetRacialType (CGameObject *ob, char *value) {
+void Func_SetRacialType(CGameObject *ob, char *value)
+{
     int race;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        ((race = atoi(value)) < 0) || race > 255) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            ((race = atoi(value)) < 0) || race > 255) {
 
         snprintf(value, strlen(value), "-1");
         return;

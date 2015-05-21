@@ -5,7 +5,7 @@
 class CNWTileSurfaceMeshAABBNode
 {
 public:
-	~CNWTileSurfaceMeshAABBNode();
+    ~CNWTileSurfaceMeshAABBNode();
 
 };
 #endif

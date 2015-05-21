@@ -15,5 +15,5 @@ typedef unsigned long DWORD;
 typedef unsigned char	BYTE;
 
 #define MAX_PATH          260
-#define CALLBACK 
+#define CALLBACK
 #endif

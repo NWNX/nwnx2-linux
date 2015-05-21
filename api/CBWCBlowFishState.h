@@ -6,12 +6,12 @@
 class CBWCBlowFishState
 {
 public:
-	int GetChain();
-	int ResetChain();
-	int SetChain(CBWCBlowFishBlock);
-	~CBWCBlowFishState();
-	CBWCBlowFishState(CBWCBlowFishBlock);
-	CBWCBlowFishState(CBWCBlowFishState const &);
+    int GetChain();
+    int ResetChain();
+    int SetChain(CBWCBlowFishBlock);
+    ~CBWCBlowFishState();
+    CBWCBlowFishState(CBWCBlowFishBlock);
+    CBWCBlowFishState(CBWCBlowFishState const &);
 
 };
 #endif

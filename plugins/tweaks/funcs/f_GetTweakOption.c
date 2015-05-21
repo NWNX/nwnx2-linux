@@ -21,7 +21,8 @@
 #include "NWNXTweaks.h"
 
 
-void Func_GetTweakOption (CGameObject *ob, char *value) {
+void Func_GetTweakOption(CGameObject *ob, char *value)
+{
     int opt, val = -1;
 
     opt = atoi(value);

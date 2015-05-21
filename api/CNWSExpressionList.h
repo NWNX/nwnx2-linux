@@ -5,12 +5,12 @@
 class CNWSExpressionList
 {
 public:
-	int AddNodeToHead(CNWSExpressionNode *);
-	void AddNode(CNWSExpressionNode *);
-	void DeleteAlternate(CNWSExpressionNode *);
-	int DeleteList();
-	~CNWSExpressionList();
-	CNWSExpressionList();
+    int AddNodeToHead(CNWSExpressionNode *);
+    void AddNode(CNWSExpressionNode *);
+    void DeleteAlternate(CNWSExpressionNode *);
+    int DeleteList();
+    ~CNWSExpressionList();
+    CNWSExpressionList();
 
 };
 #endif

@@ -21,7 +21,8 @@
 #include "NWNXWeapons.h"
 
 
-int Local_GetCriticalConfirmationAdjustment (CNWSCreature *attacker, CNWSCreature *target, CNWSItem *weapon, int roll, int bonus) {
+int Local_GetCriticalConfirmationAdjustment(CNWSCreature *attacker, CNWSCreature *target, CNWSItem *weapon, int roll, int bonus)
+{
     return (roll + bonus);
 }
 

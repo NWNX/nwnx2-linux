@@ -28,36 +28,37 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-void Func_DirList                            (CGameObject *ob, char *value);
-void Func_FileCopy                           (CGameObject *ob, char *value);
-void Func_FileDelete                         (CGameObject *ob, char *value);
-void Func_FileLink                           (CGameObject *ob, char *value);
-void Func_FileReadAll                        (CGameObject *ob, char *value);
-void Func_FileRename                         (CGameObject *ob, char *value);
-void Func_FileSymlink                        (CGameObject *ob, char *value);
-void Func_GetProcessCPUUsage                 (CGameObject *ob, char *value);
-void Func_GetProcessMemoryUsage              (CGameObject *ob, char *value);
-void Func_GetSystemTime                      (CGameObject *ob, char *value);
-void Func_GetTMILimit                        (CGameObject *ob, char *value);
-void Func_SetTMILimit                        (CGameObject *ob, char *value);
-void Func_ShutdownServer                     (CGameObject *ob, char *value);
-void Func_TrueRandom                         (CGameObject *ob, char *value);
+void Func_DirList(CGameObject *ob, char *value);
+void Func_FileCopy(CGameObject *ob, char *value);
+void Func_FileDelete(CGameObject *ob, char *value);
+void Func_FileLink(CGameObject *ob, char *value);
+void Func_FileReadAll(CGameObject *ob, char *value);
+void Func_FileRename(CGameObject *ob, char *value);
+void Func_FileSymlink(CGameObject *ob, char *value);
+void Func_GetProcessCPUUsage(CGameObject *ob, char *value);
+void Func_GetProcessMemoryUsage(CGameObject *ob, char *value);
+void Func_GetSystemTime(CGameObject *ob, char *value);
+void Func_GetTMILimit(CGameObject *ob, char *value);
+void Func_SetTMILimit(CGameObject *ob, char *value);
+void Func_ShutdownServer(CGameObject *ob, char *value);
+void Func_TrueRandom(CGameObject *ob, char *value);
 
-nwn_objid_t Func_IntToObject                 (CGameObject *ob);
+nwn_objid_t Func_IntToObject(CGameObject *ob);
 
 #ifdef __cplusplus
 }
 
 #include "NWNXBase.h"
 
-class CNWNXSystem:public CNWNXBase {
-  public:
-    CNWNXSystem ();
-    virtual ~ CNWNXSystem ();
+class CNWNXSystem: public CNWNXBase
+{
+public:
+    CNWNXSystem();
+    virtual ~ CNWNXSystem();
 
-    bool OnCreate (gline *nwnxConfig, const char *LogDir = NULL);
-    char *OnRequest (char *gameObject, char *Request, char *Parameters);
-    unsigned long OnRequestObject (char *gameObject, char *Request);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char *OnRequest(char *gameObject, char *Request, char *Parameters);
+    unsigned long OnRequestObject(char *gameObject, char *Request);
 
     // bool OnRelease  ();
 };
