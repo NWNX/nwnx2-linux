@@ -1,7 +1,7 @@
 if (gperf)
 
-add_gperf_target(StructsStrCmds StructsStr STRUCTS STR)
-add_gperf_target(StructsObjCmds StructsObj STRUCTS OBJ)
+add_gperf_target(structs StructsStrCmds StructsStr STRUCTS STR)
+add_gperf_target(structs StructsObjCmds StructsObj STRUCTS OBJ)
 
 include_directories(.)
 add_module(structs NWNXStructs plugin-structs
