@@ -61,7 +61,7 @@ int (*PathfindNextHook)(const char * pthis, const char * NWTile, const char * NW
 hash_table scriptHash;
 
 int iColumn;
-int iCallDepth;
+volatile int iCallDepth;
 unsigned long ulScriptCounter;
 unsigned long ulTotalRuntime;
 unsigned long ulTotalLast;
