@@ -42,7 +42,10 @@ LIBRARY = \
     lib/nx_log.o       \
     lib/nx_safe.o      \
     lib/nx_signature.o \
-    lib/NwnDefines.o
+    lib/NwnDefines.o   \
+    api/all.o          \
+    api/nwnsyms.o
+
 
 
 all: nwnx2.so subdirs override

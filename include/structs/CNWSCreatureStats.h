@@ -70,7 +70,7 @@ struct CNWSCreatureStats_s {
     uint8_t                     field_9A;
     uint8_t                     field_9B;
 
-    CNWSCreatureClass           cs_classes[3];          /* 00A4 */
+    CNWSCreatureStats_ClassInfo  cs_classes[3];          /* 00A4 */
 
     uint16_t                    cs_race;                /* 03EC */
     uint16_t                    field_3EE;

@@ -23,7 +23,7 @@
 
 void Func_GetMaxHitPointsByLevel(CGameObject *ob, char *value)
 {
-    CNWSStats_Level *ls;
+    CNWLevelStats *ls;
     const CNWSCreature *cre;
 
     if (ob == NULL                                    ||

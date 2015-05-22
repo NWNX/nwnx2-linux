@@ -49,7 +49,7 @@ struct CExoDebug_s;                       typedef struct CExoDebug_s            
 struct CExoFile_s;                        typedef struct CExoFile_s                        CExoFile;
 struct CExoIni_s;                         typedef struct CExoIni_s                         CExoIni;
 struct CExoKeyTable_s;                    typedef struct CExoKeyTable_s                    CExoKeyTable;
-struct CExoLinkedListHeader_s;            typedef struct CExoLinkedListHeader_s            CExoLinkedListHeader;
+struct CExoLinkedListInternal_s;          typedef struct CExoLinkedListInternal_s          CExoLinkedListInternal;
 struct CExoLinkedListNode_s;              typedef struct CExoLinkedListNode_s              CExoLinkedListNode;
 struct CExoLinkedList_s;                  typedef struct CExoLinkedList_s                  CExoLinkedList;
 struct CExoLocStringElement_s;            typedef struct CExoLocStringElement_s            CExoLocStringElement;
@@ -84,7 +84,7 @@ struct CNWMessage_s;                      typedef struct CNWMessage_s           
 struct CNWNameGen_s;                      typedef struct CNWNameGen_s                      CNWNameGen;
 struct CNWRace_s;                         typedef struct CNWRace_s                         CNWRace;
 struct CNWRules_s;                        typedef struct CNWRules_s                        CNWRules;
-struct CNWSAction_s;                      typedef struct CNWSAction_s                      CNWSAction;
+struct CNWSActionNode_s;                  typedef struct CNWSActionNode_s                      CNWSActionNode;
 struct CNWSAmbientSound_s;                typedef struct CNWSAmbientSound_s                CNWSAmbientSound;
 struct CNWSAreaGridSuccessors_s;          typedef struct CNWSAreaGridSuccessors_s          CNWSAreaGridSuccessors;
 struct CNWSAreaOfEffectObject_s;          typedef struct CNWSAreaOfEffectObject_s          CNWSAreaOfEffectObject;
@@ -95,7 +95,7 @@ struct CNWSCombatAttackData_s;            typedef struct CNWSCombatAttackData_s 
 struct CNWSCombatRoundAction_s;           typedef struct CNWSCombatRoundAction_s           CNWSCombatRoundAction;
 struct CNWSCombatRound_s;                 typedef struct CNWSCombatRound_s                 CNWSCombatRound;
 struct CNWSCreatureAppearanceInfo_s;      typedef struct CNWSCreatureAppearanceInfo_s      CNWSCreatureAppearanceInfo;
-struct CNWSCreatureClass_s;               typedef struct CNWSCreatureClass_s               CNWSCreatureClass;
+struct CNWSCreatureStats_ClassInfo_s;     typedef struct CNWSCreatureStats_ClassInfo_s     CNWSCreatureStats_ClassInfo;
 struct CNWSCreatureStats_s;               typedef struct CNWSCreatureStats_s               CNWSCreatureStats;
 struct CNWSCreature_s;                    typedef struct CNWSCreature_s                    CNWSCreature;
 struct CNWSDialog_s;                      typedef struct CNWSDialog_s                      CNWSDialog;
@@ -124,7 +124,7 @@ struct CNWSScriptVarTable_s;              typedef struct CNWSScriptVarTable_s   
 struct CNWSSoundObjectTimeOfDay_s;        typedef struct CNWSSoundObjectTimeOfDay_s        CNWSSoundObjectTimeOfDay;
 struct CNWSSoundObject_s;                 typedef struct CNWSSoundObject_s                 CNWSSoundObject;
 struct CNWSStats_FeatUses_s;              typedef struct CNWSStats_FeatUses_s              CNWSStats_FeatUses;
-struct CNWSStats_Level_s;                 typedef struct CNWSStats_Level_s                 CNWSStats_Level;
+struct CNWLevelStats_s;                   typedef struct CNWLevelStats_s                   CNWLevelStats;
 struct CNWSStats_SpecAbil_s;              typedef struct CNWSStats_SpecAbil_s              CNWSStats_SpecAbil;
 struct CNWSStats_Spell_s;                 typedef struct CNWSStats_Spell_s                 CNWSStats_Spell;
 struct CNWSStore_s;                       typedef struct CNWSStore_s                       CNWSStore;

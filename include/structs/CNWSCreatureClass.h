@@ -24,7 +24,7 @@
 #ifndef _NX_NWN_STRUCT_CNWSCREATURECLASS_
 #define _NX_NWN_STRUCT_CNWSCREATURECLASS_
 
-struct CNWSCreatureClass_s {
+struct CNWSCreatureStats_ClassInfo_s {
     CExoArrayList_uint32        cl_spells_known[10];
     CExoArrayList_ptr           cl_spells_mem[10];      /* CNWSStats_Spell * */
 

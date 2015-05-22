@@ -21,8 +21,6 @@
 #define ConnectHooks_h_
 
 #include <stdint.h>
-#include "../../api/all.h"
-#include "nx_hook.h"
 
 void RunScript(char * sname, int ObjID);
 int HookFunctions();

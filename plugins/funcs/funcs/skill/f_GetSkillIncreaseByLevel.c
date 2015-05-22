@@ -25,7 +25,7 @@ void Func_GetSkillIncreaseByLevel(CGameObject *ob, char *value)
 {
     int level, skill;
     CNWSCreature *cre;
-    CNWSStats_Level *ls;
+    CNWLevelStats *ls;
 
     if (ob == NULL                                    ||
             (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||

@@ -72,7 +72,7 @@ int nwn_GetLevelByClass(const CNWSCreatureStats *stats, int cl)
 }
 
 
-CNWSStats_Level *nwn_GetLevelStats(const CNWSCreatureStats *stats, int level)
+CNWLevelStats *nwn_GetLevelStats(const CNWSCreatureStats *stats, int level)
 {
     if (level < 1 || level > stats->cs_levelstat.len)
         return NULL;

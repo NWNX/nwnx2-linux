@@ -17,7 +17,7 @@ endif()
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 
 set(CMAKE_C_FLAGS "-mtune=i386 -m32 -mno-accumulate-outgoing-args -Wall -Wno-unused -Wno-write-strings")
-set(CMAKE_CXX_FLAGS "-mtune=i386 -m32 -mno-accumulate-outgoing-args -Wall -Wno-unused -Wno-write-strings")
+set(CMAKE_CXX_FLAGS "-mtune=i386 -m32 -mno-accumulate-outgoing-args -Wall -Wno-unused -Wno-write-strings -Wno-return-type")
 set(CMAKE_SHARED_LIBRARY_C_FLAGS "")
 set(CMAKE_SHARED_LIBRARY_CXX_FLAGS "")
 
@@ -41,6 +41,7 @@ add_library(nwnx2 SHARED nwnx2lib NWNXBase modules lists gline
 	lib/nwn_data lib/nwn_funcs lib/nwn_hooks
 	lib/nx_hook lib/nx_log lib/nx_safe lib/nx_signature
 	lib/NwnDefines
+	api/nwnsyms.S api/all
 )
 
 # Fake target to force recreating the compiled directory.

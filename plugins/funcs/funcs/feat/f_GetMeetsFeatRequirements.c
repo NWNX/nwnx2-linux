@@ -36,7 +36,7 @@ void Func_GetMeetsFeatRequirements(CGameObject *ob, char *value)
         char buf[512], *p, *end;
         uint16_t ls_feat;
         uint8_t ls_skills[SKILL_LAST + 1] = { [0] = 0 };
-        CNWSStats_Level ls = {
+        CNWLevelStats ls = {
             .ls_featlist.data  = &ls_feat,
             .ls_featlist.len   = 1,
             .ls_featlist.alloc = 1,

@@ -24,7 +24,7 @@
 #ifndef _NX_NWN_STRUCT_CEXOLINKEDLISTHEADER_
 #define _NX_NWN_STRUCT_CEXOLINKEDLISTHEADER_
 
-struct CExoLinkedListHeader_s {
+struct CExoLinkedListInternal_s {
     CExoLinkedListNode         *first;
     CExoLinkedListNode         *last;
     uint32_t                    len;

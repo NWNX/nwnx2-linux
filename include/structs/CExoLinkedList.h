@@ -25,7 +25,7 @@
 #define _NX_NWN_STRUCT_CEXOLINKEDLIST_
 
 struct CExoLinkedList_s {
-    CExoLinkedListHeader       *header;
+    CExoLinkedListInternal     *header;
     uint32_t                    len;
 
  /* 

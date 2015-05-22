@@ -189,7 +189,7 @@ struct CNWSObject_s {
     uint16_t            obj_last_spell_feat;            /* 01B0 */
     uint16_t            field_1B2;
 
-    CNWSAction         *obj_ai_action;                  /* 01B4 */
+    CNWSActionNode     *obj_ai_action;                  /* 01B4 */
     uint32_t            obj_effect_index;               /* 01B8 */
     uint32_t            obj_effect_postprocess;         /* 01BC */
 
