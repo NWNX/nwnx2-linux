@@ -18,6 +18,7 @@
 
 #include "NWNXVaultster.h"
 #include "constants.h"
+using namespace boost::asio;
 
 CNWNXVaultster::CNWNXVaultster(void)
 {

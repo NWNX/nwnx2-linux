@@ -20,7 +20,6 @@
 #include "client.h"
 #include "constants.h"
 
-using namespace std;
 using namespace boost::asio;
 using boost::asio::ip::tcp;
 
@@ -305,11 +304,11 @@ client::send(int length)
     async_write(socket_,
                 buffer(data_, length),
                 boost::bind(&client::handle_state, this,
-                            placeholders::error,
-                            placeholders::bytes_transferred));
+                            boost::asio::placeholders::error,
+                            boost::asio::placeholders::bytes_transferred));
     timer_.expires_from_now(boost::posix_time::seconds(timeout_sec));
     timer_.async_wait(boost::bind(&client::handle_timeout, this,
-                                  placeholders::error));
+                                  boost::asio::placeholders::error));
 }
 
 void
@@ -318,11 +317,11 @@ client::sendbuf(unsigned char *buf, int length)
     async_write(socket_,
                 buffer(buf, length),
                 boost::bind(&client::handle_state, this,
-                            placeholders::error,
-                            placeholders::bytes_transferred));
+                            boost::asio::placeholders::error,
+                            boost::asio::placeholders::bytes_transferred));
     timer_.expires_from_now(boost::posix_time::seconds(timeout_sec));
     timer_.async_wait(boost::bind(&client::handle_timeout, this,
-                                  placeholders::error));
+                                  boost::asio::placeholders::error));
 }
 
 void
@@ -331,11 +330,11 @@ client::recv(int length)
     async_read(socket_,
                buffer(data_, length),
                boost::bind(&client::handle_state, this,
-                           placeholders::error,
-                           placeholders::bytes_transferred));
+                           boost::asio::placeholders::error,
+                           boost::asio::placeholders::bytes_transferred));
     timer_.expires_from_now(boost::posix_time::seconds(timeout_sec));
     timer_.async_wait(boost::bind(&client::handle_timeout, this,
-                                  placeholders::error));
+                                  boost::asio::placeholders::error));
 }
 
 void
@@ -344,11 +343,11 @@ client::recvbuf(unsigned char *buf, int length)
     async_read(socket_,
                buffer(buf, length),
                boost::bind(&client::handle_state, this,
-                           placeholders::error,
-                           placeholders::bytes_transferred));
+                           boost::asio::placeholders::error,
+                           boost::asio::placeholders::bytes_transferred));
     timer_.expires_from_now(boost::posix_time::seconds(timeout_sec));
     timer_.async_wait(boost::bind(&client::handle_timeout, this,
-                                  placeholders::error));
+                                  boost::asio::placeholders::error));
 }
 
 bool

@@ -32,8 +32,6 @@
 #include "client.h"
 #include "NWNXLib.h"
 
-using namespace::std;
-using namespace boost::asio;
 
 class CNWNXVaultster : public CNWNXBase
 {
@@ -49,7 +47,7 @@ protected:
     bool Configure();
 
 private:
-    string key_, pass_, path_;
+    std::string key_, pass_, path_;
     int numclients_;
     int lastclient_;
     request *clients_;

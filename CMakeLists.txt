@@ -17,7 +17,7 @@ endif()
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 
 set(CMAKE_C_FLAGS "-mtune=i386 -m32 -mno-accumulate-outgoing-args -Wall -Wno-unused -Wno-write-strings")
-set(CMAKE_CXX_FLAGS "-mtune=i386 -m32 -mno-accumulate-outgoing-args -Wall -Wno-unused -Wno-write-strings")
+set(CMAKE_CXX_FLAGS "-mtune=i386 -m32 -mno-accumulate-outgoing-args -Wall -Wno-unused -Wno-write-strings -std=c++11")
 set(CMAKE_SHARED_LIBRARY_C_FLAGS "")
 set(CMAKE_SHARED_LIBRARY_CXX_FLAGS "")
 
