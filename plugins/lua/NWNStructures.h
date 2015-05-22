@@ -10,28 +10,26 @@
 #define TALENT "talent"
 #define ITEMPROPERTY "itemproperty"
 
-typedef struct
-{
-	char *Text;
-	dword Length;
+typedef struct {
+    char *Text;
+    dword Length;
 } CExoString;
 
-struct CNWSAmbientSound
-{
-	dword Enabled;
-	dword MusicDelay;
-	dword MusicDay;
-	dword MusicNight;
-	dword field_10;
-	dword MusicBattle;
-	dword field_18;
-	dword AmbientSndDay;
-	dword AmbientSndNight;
-	byte  AmbientSndDayVol;
-	byte  AmbientSndNitVol;
-	byte  field_26;
-	byte  field_27;
-	void *CNWSAmbientSoundClass;
+struct CNWSAmbientSound {
+    dword Enabled;
+    dword MusicDelay;
+    dword MusicDay;
+    dword MusicNight;
+    dword field_10;
+    dword MusicBattle;
+    dword field_18;
+    dword AmbientSndDay;
+    dword AmbientSndNight;
+    byte  AmbientSndDayVol;
+    byte  AmbientSndNitVol;
+    byte  field_26;
+    byte  field_27;
+    void *CNWSAmbientSoundClass;
 };
 
 /*
@@ -59,59 +57,54 @@ struct CNWSAmbientSound
 00000090 CGameEffect ends
 */
 
-typedef struct
-{
-	float X;
-	float Y;
-	float Z;
+typedef struct {
+    float X;
+    float Y;
+    float Z;
 } Vector;
 
-typedef struct
-{
-	dword ID;
-	dword field_4;
-	dword Type;
-	dword field_C;
-	dword ExpireDay;
-	dword ExpireTime;
-	dword CreatorId;
-	dword SpellId;
-	dword IsExposed;
-	dword IsIconShown;
-	dword field_28;
-	dword LinkEffectID;
-	dword Link2;
-	dword NumIntegers;
-	int  *IntList;
-	float FloatList[4];
-	CExoString StringList[6];
-	dword ObjectList[4];
-	dword SkipOnLoad;	
-}CGameEffect;
+typedef struct {
+    dword ID;
+    dword field_4;
+    dword Type;
+    dword field_C;
+    dword ExpireDay;
+    dword ExpireTime;
+    dword CreatorId;
+    dword SpellId;
+    dword IsExposed;
+    dword IsIconShown;
+    dword field_28;
+    dword LinkEffectID;
+    dword Link2;
+    dword NumIntegers;
+    int  *IntList;
+    float FloatList[4];
+    CExoString StringList[6];
+    dword ObjectList[4];
+    dword SkipOnLoad;
+} CGameEffect;
 
 
-typedef struct 
-{
-	float X;
-	float Y;
-	float Z;
-	float OrientationX;
-	float OrientationY;
-	float OrientationZ;
-	dword AreaID;
+typedef struct {
+    float X;
+    float Y;
+    float Z;
+    float OrientationX;
+    float OrientationY;
+    float OrientationZ;
+    dword AreaID;
 } CScriptLocation;
 
-typedef struct
-{
+typedef struct {
     CExoString sVarName;
     dword      nVarType;
     dword       nVarValue;
 } CNWObjectVarListElement;
 
-typedef struct
-{
-	CNWObjectVarListElement *VarList;
-	dword                    VarCount;
+typedef struct {
+    CNWObjectVarListElement *VarList;
+    dword                    VarCount;
 } CNWObjectVarList;
 
 #endif

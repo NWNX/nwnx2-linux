@@ -5,13 +5,13 @@
 class CCombatInformation
 {
 public:
-	int LoadData(CResGFF *, CResStruct *);
-	int SaveData(CResGFF *, CResStruct *);
-	~CCombatInformation();
-	CCombatInformation();
-	CCombatInformation & operator=(CCombatInformation &);
-	int operator==(CCombatInformation &);
-	int operator!=(CCombatInformation &);
+    int LoadData(CResGFF *, CResStruct *);
+    int SaveData(CResGFF *, CResStruct *);
+    ~CCombatInformation();
+    CCombatInformation();
+    CCombatInformation & operator=(CCombatInformation &);
+    int operator==(CCombatInformation &);
+    int operator!=(CCombatInformation &);
 
 };
 #endif

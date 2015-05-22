@@ -29,14 +29,14 @@
 using namespace std;
 
 enum OverrideType {
-	Default,
-	AlwaysVisible,
-	AlwaysInvisible
+    Default,
+    AlwaysVisible,
+    AlwaysInvisible
 };
 typedef map< unsigned int, unsigned int, less<unsigned int> > ObjectVisMap;
 struct ObjectEntry {
-	OverrideType eOverrideType;
-	ObjectVisMap vismap;
+    OverrideType eOverrideType;
+    ObjectVisMap vismap;
 };
 typedef map< unsigned int, ObjectEntry, less<unsigned int> > ObjectsMap;
 
@@ -44,19 +44,19 @@ class CNWNXVisibility : public CNWNXBase
 {
 
 public:
-	CNWNXVisibility();
-	~CNWNXVisibility();
-	bool OnCreate(gline *config, const char* LogDir);
-	char* OnRequest(char* gameObject, char* Request, char* Parameters);
-	bool OnRelease();
-	int TestVisibility(dword oObject1, dword oObject2, int &nResult);
-	ObjectsMap objects;
-	char *pGameObject;
-	dword nGameObjectID;
+    CNWNXVisibility();
+    ~CNWNXVisibility();
+    bool OnCreate(gline *config, const char* LogDir);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    bool OnRelease();
+    int TestVisibility(dword oObject1, dword oObject2, int &nResult);
+    ObjectsMap objects;
+    char *pGameObject;
+    dword nGameObjectID;
 
 protected:
-	void SetVisibilityOverride(dword oObject1, OverrideType eOverrideType);
-	void SetVisibility(dword oObject1, dword oObject2, unsigned int nValue);
+    void SetVisibilityOverride(dword oObject1, OverrideType eOverrideType);
+    void SetVisibility(dword oObject1, dword oObject2, unsigned int nValue);
 };
 
 #endif

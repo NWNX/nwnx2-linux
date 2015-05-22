@@ -6,16 +6,16 @@
 class CNWRace
 {
 public:
-	int GetConverNameLowerText();
-	int GetConverNameText();
-	int GetDefaultBiographyText();
-	int GetDescriptionText();
-	int GetNamePluralText();
-	int GetNameText();
-	int IsFirstLevelGrantedFeat(unsigned short);
-	void LoadFeatsTable(CExoString);
-	~CNWRace();
-	CNWRace();
+    int GetConverNameLowerText();
+    int GetConverNameText();
+    int GetDefaultBiographyText();
+    int GetDescriptionText();
+    int GetNamePluralText();
+    int GetNameText();
+    int IsFirstLevelGrantedFeat(unsigned short);
+    void LoadFeatsTable(CExoString);
+    ~CNWRace();
+    CNWRace();
 
 };
 #endif

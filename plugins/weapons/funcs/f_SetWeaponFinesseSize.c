@@ -21,13 +21,14 @@
 #include "NWNXWeapons.h"
 
 
-void Func_SetWeaponFinesseSize (CGameObject *ob, char *value) {
+void Func_SetWeaponFinesseSize(CGameObject *ob, char *value)
+{
     int baseitem, size;
 
     if (sscanf(value, "%d %d", &baseitem, &size) != 2 ||
-        size > UINT16_MAX                             ||
-        baseitem < 0                                  ||
-        baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE) {
+            size > UINT16_MAX                             ||
+            baseitem < 0                                  ||
+            baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE) {
 
         snprintf(value, strlen(value), "-1");
         return;

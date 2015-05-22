@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-int Hook_GetIsSneakAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker) {
+int Hook_GetIsSneakAttackImmune(CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker)
+{
     int ret = Local_GetIsSneakAttackImmune(target, immtype, attacker);
 
     if (ret == 0)
@@ -31,7 +32,7 @@ int Hook_GetIsSneakAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNW
         return 1;
 
     if (!Table_DefenseOptions[NWNX_DEFENSES_OPT_SNEAKATT_IGNORE_CRIT_IMM] &&
-        CNWSCreatureStats__GetEffectImmunity(target, IMMUNITY_TYPE_CRITICAL_HIT, attacker))
+            CNWSCreatureStats__GetEffectImmunity(target, IMMUNITY_TYPE_CRITICAL_HIT, attacker))
         return 1;
 
     if (CNWSCreatureStats__HasFeat(target, FEAT_DEATHLESS_MASTERY))

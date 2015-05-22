@@ -21,7 +21,8 @@
 #include "NWNXWeapons.h"
 
 
-int Hook_GetEpicWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon) {
+int Hook_GetEpicWeaponFocus(CNWSCreatureStats *info, CNWSItem *weapon)
+{
     int feat = 0;
 
     if (weapon == NULL)
@@ -30,7 +31,7 @@ int Hook_GetEpicWeaponFocus (CNWSCreatureStats *info, CNWSItem *weapon) {
         feat = Table_WeaponEpicFocus[weapon->it_baseitem];
 
     if (feat == FEAT_EPIC_WEAPON_FOCUS_CREATURE &&
-        CNWSCreatureStats__HasFeat(info, FEAT_EPIC_WEAPON_FOCUS_UNARMED))
+            CNWSCreatureStats__HasFeat(info, FEAT_EPIC_WEAPON_FOCUS_UNARMED))
         return 1;
 
     return (feat ? CNWSCreatureStats__HasFeat(info, feat) : 0);

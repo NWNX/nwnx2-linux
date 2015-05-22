@@ -5,15 +5,15 @@
 
 class CExoString
 {
-	public:
-		char *Text;
-		unsigned int Length;
+public:
+    char *Text;
+    unsigned int Length;
 
-		CExoString();
-		CExoString(const char *str);
-		bool operator==(const char *str);
-		CExoString *operator=(char const *str);
-		~CExoString();
+    CExoString();
+    CExoString(const char *str);
+    bool operator==(const char *str);
+    CExoString *operator=(char const *str);
+    ~CExoString();
 };
 
 #endif

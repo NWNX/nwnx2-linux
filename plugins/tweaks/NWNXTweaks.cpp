@@ -44,15 +44,17 @@ static struct TweakSignatureTable {
 };
 
 
-static void TweaksSearchCallback (int id, void *addr) {
+static void TweaksSearchCallback(int id, void *addr)
+{
     nx_log(NX_LOG_NOTICE, 0, "%s (%d) found at %p%s",
-        Table_TweakSignatures[id].name, id, addr,
-        (*(void **)Table_TweakSignatures[id].ref == NULL ? "" : " (duplicate)"));
+           Table_TweakSignatures[id].name, id, addr,
+           (*(void **)Table_TweakSignatures[id].ref == NULL ? "" : " (duplicate)"));
 
     *(void **)(Table_TweakSignatures[id].ref) = addr;
 }
 
-static void TweaksSearchSignatures (void) {
+static void TweaksSearchSignatures(void)
+{
     int i;
 
     nx_sig_search_t *sig = nx_sig_search_create(TweaksSearchCallback);
@@ -74,16 +76,19 @@ static void TweaksSearchSignatures (void) {
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CNWNXTweaks::CNWNXTweaks() {
+CNWNXTweaks::CNWNXTweaks()
+{
     confKey = strdup("TWEAKS");
 }
 
 
-CNWNXTweaks::~CNWNXTweaks() {
+CNWNXTweaks::~CNWNXTweaks()
+{
 }
 
 
-char *CNWNXTweaks::OnRequest (char *gameObject, char *Request, char *Parameters) {
+char *CNWNXTweaks::OnRequest(char *gameObject, char *Request, char *Parameters)
+{
     const struct TweaksStrCommand_s *cmd;
 
     Log(1, "StrReq: \"%s\"\nParams: \"%s\"\n", Request, Parameters);
@@ -99,7 +104,8 @@ char *CNWNXTweaks::OnRequest (char *gameObject, char *Request, char *Parameters)
 }
 
 
-unsigned long CNWNXTweaks::OnRequestObject (char *gameObject, char *Request) {
+unsigned long CNWNXTweaks::OnRequestObject(char *gameObject, char *Request)
+{
     unsigned long ret = OBJECT_INVALID;
     const struct TweaksObjCommand_s *cmd;
 
@@ -116,7 +122,8 @@ unsigned long CNWNXTweaks::OnRequestObject (char *gameObject, char *Request) {
 }
 
 
-bool CNWNXTweaks::OnCreate (gline *config, const char *LogDir) {
+bool CNWNXTweaks::OnCreate(gline *config, const char *LogDir)
+{
     char log[128];
 
     sprintf(log, "%s/nwnx_tweaks.txt", LogDir);

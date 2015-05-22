@@ -6,13 +6,13 @@
 class CNWSJournal
 {
 public:
-	void Destroy(CExoString);
-	void SetDate(CExoString, unsigned long, int);
-	void SetPicture(CExoString, int, int);
-	void SetState(CExoString, unsigned long, int);
-	void SetTime(CExoString, unsigned long, int);
-	~CNWSJournal();
-	CNWSJournal();
+    void Destroy(CExoString);
+    void SetDate(CExoString, unsigned long, int);
+    void SetPicture(CExoString, int, int);
+    void SetState(CExoString, unsigned long, int);
+    void SetTime(CExoString, unsigned long, int);
+    ~CNWSJournal();
+    CNWSJournal();
 
 };
 #endif

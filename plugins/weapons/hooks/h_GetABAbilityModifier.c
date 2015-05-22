@@ -28,7 +28,8 @@ volatile int Hook_ABAM_Ranged;
 
 
 __attribute__((noinline))
-int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon, int ranged) {
+int Hook_GetAttackBonusAdjustment(CNWSCreatureStats *attacker, CNWSCreature *target, CNWSItem *weapon, int ranged)
+{
     int baseitem, dexmod, ab_abil = 0, ab_feats = 0;
 
     if (attacker == NULL)
@@ -47,41 +48,41 @@ int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *ta
 
     /* check for ability modifier alteration feats (e.g. Zen Archery) */
     if (attacker->cs_str_mod > ab_abil                          &&
-        Table_WeaponAbility[baseitem][ABILITY_STRENGTH] > 0     && 
-        CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_STRENGTH]))
+            Table_WeaponAbility[baseitem][ABILITY_STRENGTH] > 0     &&
+            CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_STRENGTH]))
         ab_abil = attacker->cs_str_mod;
 
     if (dexmod > ab_abil                                        &&
-        Table_WeaponAbility[baseitem][ABILITY_DEXTERITY] > 0    && 
-        CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_DEXTERITY]))
+            Table_WeaponAbility[baseitem][ABILITY_DEXTERITY] > 0    &&
+            CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_DEXTERITY]))
         ab_abil = dexmod;
 
     if (attacker->cs_con_mod > ab_abil                          &&
-        Table_WeaponAbility[baseitem][ABILITY_CONSTITUTION] > 0 && 
-        CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_CONSTITUTION]))
+            Table_WeaponAbility[baseitem][ABILITY_CONSTITUTION] > 0 &&
+            CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_CONSTITUTION]))
         ab_abil = attacker->cs_con_mod;
 
     if (attacker->cs_int_mod > ab_abil                          &&
-        Table_WeaponAbility[baseitem][ABILITY_INTELLIGENCE] > 0 && 
-        CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_INTELLIGENCE]))
+            Table_WeaponAbility[baseitem][ABILITY_INTELLIGENCE] > 0 &&
+            CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_INTELLIGENCE]))
         ab_abil = attacker->cs_int_mod;
 
     if (attacker->cs_wis_mod > ab_abil                          &&
-        Table_WeaponAbility[baseitem][ABILITY_WISDOM] > 0       && 
-        CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_WISDOM]))
+            Table_WeaponAbility[baseitem][ABILITY_WISDOM] > 0       &&
+            CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_WISDOM]))
         ab_abil = attacker->cs_wis_mod;
 
     if (attacker->cs_cha_mod > ab_abil                          &&
-        Table_WeaponAbility[baseitem][ABILITY_CHARISMA] > 0     && 
-        CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_CHARISMA]))
+            Table_WeaponAbility[baseitem][ABILITY_CHARISMA] > 0     &&
+            CNWSCreatureStats__HasFeat(attacker, Table_WeaponAbility[baseitem][ABILITY_CHARISMA]))
         ab_abil = attacker->cs_cha_mod;
 
     if (Table_WeaponGreaterFocus[baseitem] > 0 &&
-        CNWSCreatureStats__HasFeat(attacker, Table_WeaponGreaterFocus[baseitem]))
+            CNWSCreatureStats__HasFeat(attacker, Table_WeaponGreaterFocus[baseitem]))
         ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_GRTFOCUS_AB_BONUS];
 
     if (Table_WeaponLegendaryFocus[baseitem] > 0 &&
-        CNWSCreatureStats__HasFeat(attacker, Table_WeaponLegendaryFocus[baseitem])) {
+            CNWSCreatureStats__HasFeat(attacker, Table_WeaponLegendaryFocus[baseitem])) {
 
         ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_LEGFOCUS_AB_BONUS];
 
@@ -90,7 +91,7 @@ int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *ta
     }
 
     if (Table_WeaponParagonFocus[baseitem] > 0 &&
-        CNWSCreatureStats__HasFeat(attacker, Table_WeaponParagonFocus[baseitem])) {
+            CNWSCreatureStats__HasFeat(attacker, Table_WeaponParagonFocus[baseitem])) {
 
         ab_feats += Table_WeaponOptions[NWNX_WEAPONS_OPT_PARFOCUS_AB_BONUS];
 
@@ -103,7 +104,8 @@ int Hook_GetAttackBonusAdjustment (CNWSCreatureStats *attacker, CNWSCreature *ta
 }
 
 
-void Hook_GetABAbilityModifier (void) {
+void Hook_GetABAbilityModifier(void)
+{
     asm("leave");
 
     /* copy attacker, target, weapon, and ranged flag out */

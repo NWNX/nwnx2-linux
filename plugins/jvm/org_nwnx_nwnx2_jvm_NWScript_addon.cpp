@@ -61,62 +61,70 @@ extern bool j_debugNWScriptCalls;
 	std::vector<jobject>::const_iterator it; int i = 0; \
 	for (it = tmp.begin(); it != tmp.end(); ++it) \
 		J(env, SetObjectArrayElement(ret, i++, *it)); \
+ 
+JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getPCs(JNIEnv * env, jclass klass)
+{
+    iterateFirstNextValid(jclassNWObject, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstPC,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getNextPC,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getIsObjectValid);
 
-JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getPCs(JNIEnv * env, jclass klass) {
-	iterateFirstNextValid(jclassNWObject, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstPC,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getNextPC,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getIsObjectValid);
-
-	return ret;
+    return ret;
 };
 
-JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getEffects(JNIEnv * env, jclass klass, jobject on) {
-	iterateFirstNextValid(jclassNWEffect, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstEffect,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getNextEffect,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getIsEffectValid, on);
-	return ret;
+JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getEffects(JNIEnv * env, jclass klass, jobject on)
+{
+    iterateFirstNextValid(jclassNWEffect, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstEffect,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getNextEffect,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getIsEffectValid, on);
+    return ret;
 };
 
-JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getItemProperties(JNIEnv * env, jclass klass, jobject on) {
-	iterateFirstNextValid(jclassNWItemProperty, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstItemProperty,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getNextItemProperty,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getIsItemPropertyValid, on);
-	return ret;
+JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getItemProperties(JNIEnv * env, jclass klass, jobject on)
+{
+    iterateFirstNextValid(jclassNWItemProperty, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstItemProperty,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getNextItemProperty,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getIsItemPropertyValid, on);
+    return ret;
 };
 
-JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getItemsInInventory(JNIEnv * env, jclass klass, jobject on) {
-	iterateFirstNextValid(jclassNWObject, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstItemInInventory,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getNextItemInInventory,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getIsObjectValid, on);
-	return ret;
+JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getItemsInInventory(JNIEnv * env, jclass klass, jobject on)
+{
+    iterateFirstNextValid(jclassNWObject, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstItemInInventory,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getNextItemInInventory,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getIsObjectValid, on);
+    return ret;
 };
 
-JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getObjectsInArea(JNIEnv * env, jclass klass, jobject on) {
-	iterateFirstNextValid(jclassNWObject, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstObjectInArea,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getNextObjectInArea,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getIsObjectValid, on);
-	return ret;
+JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getObjectsInArea(JNIEnv * env, jclass klass, jobject on)
+{
+    iterateFirstNextValid(jclassNWObject, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstObjectInArea,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getNextObjectInArea,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getIsObjectValid, on);
+    return ret;
 };
 
-JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getObjectsInShape(JNIEnv * env, jclass klass, jint nShapeType, jfloat fSize, jobject lTarget, jboolean bLineOfSight, jint nObjectFilter, jobject vOrigin) {
-	iterateFirstNextValid(jclassNWObject, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstObjectInShape,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getNextObjectInShape,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getIsObjectValid, nShapeType, fSize, lTarget, bLineOfSight, nObjectFilter, vOrigin);
-	return ret;
+JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getObjectsInShape(JNIEnv * env, jclass klass, jint nShapeType, jfloat fSize, jobject lTarget, jboolean bLineOfSight, jint nObjectFilter, jobject vOrigin)
+{
+    iterateFirstNextValid(jclassNWObject, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstObjectInShape,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getNextObjectInShape,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getIsObjectValid, nShapeType, fSize, lTarget, bLineOfSight, nObjectFilter, vOrigin);
+    return ret;
 };
 
-JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getFactionMembers(JNIEnv * env, jclass klass, jobject memberOf, jboolean bPConly) {
-	iterateFirstNextValid(jclassNWObject, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstFactionMember,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getNextFactionMember,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getIsObjectValid, memberOf, bPConly);
-	return ret;
+JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getFactionMembers(JNIEnv * env, jclass klass, jobject memberOf, jboolean bPConly)
+{
+    iterateFirstNextValid(jclassNWObject, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstFactionMember,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getNextFactionMember,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getIsObjectValid, memberOf, bPConly);
+    return ret;
 };
 
-JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getObjectsInPersistentObject(JNIEnv * env, jclass klass, jobject oPersistentObject, jint nResidentObjectType, jint nPersistentZone) {
-	iterateFirstNextValid(jclassNWObject, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstInPersistentObject,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getNextInPersistentObject,
-		Java_org_nwnx_nwnx2_jvm_NWScript_getIsObjectValid, oPersistentObject, nResidentObjectType, nPersistentZone);
-	return ret;
+JNIEXPORT jobjectArray JNICALL Java_org_nwnx_nwnx2_jvm_NWScript_addon_getObjectsInPersistentObject(JNIEnv * env, jclass klass, jobject oPersistentObject, jint nResidentObjectType, jint nPersistentZone)
+{
+    iterateFirstNextValid(jclassNWObject, Java_org_nwnx_nwnx2_jvm_NWScript_getFirstInPersistentObject,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getNextInPersistentObject,
+                          Java_org_nwnx_nwnx2_jvm_NWScript_getIsObjectValid, oPersistentObject, nResidentObjectType, nPersistentZone);
+    return ret;
 };
 
 #endif

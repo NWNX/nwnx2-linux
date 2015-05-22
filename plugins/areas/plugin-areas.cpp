@@ -22,7 +22,7 @@
 CNWNXAreas areas;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &areas;
+    return &areas;
 }

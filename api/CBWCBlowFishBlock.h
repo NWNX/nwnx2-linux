@@ -5,9 +5,9 @@
 class CBWCBlowFishBlock
 {
 public:
-	~CBWCBlowFishBlock();
-	CBWCBlowFishBlock(CBWCBlowFishBlock const &);
-	CBWCBlowFishBlock(unsigned long, unsigned long);
+    ~CBWCBlowFishBlock();
+    CBWCBlowFishBlock(CBWCBlowFishBlock const &);
+    CBWCBlowFishBlock(unsigned long, unsigned long);
 
 };
 #endif

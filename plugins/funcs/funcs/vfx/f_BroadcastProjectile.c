@@ -21,15 +21,16 @@
 #include "NWNXFuncs.h"
 
 
-void Func_BroadcastProjectile (CGameObject *ob, char *value) {
+void Func_BroadcastProjectile(CGameObject *ob, char *value)
+{
     int spell, projtime;
     nwn_objid_t target_id;
     Vector target_loc;
     CNWSObject *obj;
 
     if (ob == NULL                                  ||
-        (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
-        sscanf(value, "%x %f %f %f %d %d", &target_id, &(target_loc.x), &(target_loc.y), &(target_loc.z), &spell, &projtime) != 6) {
+            (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
+            sscanf(value, "%x %f %f %f %d %d", &target_id, &(target_loc.x), &(target_loc.y), &(target_loc.z), &spell, &projtime) != 6) {
         snprintf(value, strlen(value), "0");
         return;
     }

@@ -5,9 +5,9 @@
 class CScriptCompilerIdListEntry
 {
 public:
-	int ExpandParameterSpace();
-	~CScriptCompilerIdListEntry();
-	CScriptCompilerIdListEntry();
+    int ExpandParameterSpace();
+    ~CScriptCompilerIdListEntry();
+    CScriptCompilerIdListEntry();
 
 };
 #endif

@@ -23,7 +23,7 @@
 CNWNXReset reset;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &reset;
+    return &reset;
 }

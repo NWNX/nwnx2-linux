@@ -38,15 +38,14 @@ hash_table *construct_table(hash_table *table, size_t size)
     size_t i;
     bucket **temp;
     table -> size = size;
-    table -> table = (bucket * *)malloc(sizeof(bucket *) * size);
+    table -> table = (bucket **)malloc(sizeof(bucket *) * size);
     temp = table -> table;
-    if (temp == NULL)
-    {
+    if (temp == NULL) {
         table -> size = 0;
         return table;
     }
-    for (i=0; i<size; i++)
-	    temp[i] = NULL;
+    for (i = 0; i < size; i++)
+        temp[i] = NULL;
 
     return table;
 }
@@ -93,45 +92,43 @@ acceptable.  Do NOT use for cryptographic purposes.
 
 ub4 hash(char *key, register ub4 initval)
 {
-   register ub1 *k = (ub1*) key;
-   register ub4 a,b,c,len;
+    register ub1 *k = (ub1*) key;
+    register ub4 a, b, c, len;
 
-   /* Set up the internal state */
-   len = strlen((char*)k);
-   a = b = 0x9e3779b9;  /* the golden ratio; an arbitrary value */
-   c = initval;           /* the previous hash value */
+    /* Set up the internal state */
+    len = strlen((char*)k);
+    a = b = 0x9e3779b9;  /* the golden ratio; an arbitrary value */
+    c = initval;           /* the previous hash value */
 
-   /*---------------------------------------- handle most of the key */
-   while (len >= 12)
-   {
-      a += (k[0] +((ub4)k[1]<<8) +((ub4)k[2]<<16) +((ub4)k[3]<<24));
-      b += (k[4] +((ub4)k[5]<<8) +((ub4)k[6]<<16) +((ub4)k[7]<<24));
-      c += (k[8] +((ub4)k[9]<<8) +((ub4)k[10]<<16)+((ub4)k[11]<<24));
-      mix(a,b,c);
-      k += 12; len -= 12;
-   }
+    /*---------------------------------------- handle most of the key */
+    while (len >= 12) {
+        a += (k[0] + ((ub4)k[1] << 8) + ((ub4)k[2] << 16) + ((ub4)k[3] << 24));
+        b += (k[4] + ((ub4)k[5] << 8) + ((ub4)k[6] << 16) + ((ub4)k[7] << 24));
+        c += (k[8] + ((ub4)k[9] << 8) + ((ub4)k[10] << 16) + ((ub4)k[11] << 24));
+        mix(a, b, c);
+        k += 12; len -= 12;
+    }
 
-   /*------------------------------------- handle the last 11 bytes */
-   c += len;
-   switch(len)              /* all the case statements fall through */
-   {
-   case 11: c+=((ub4)k[10]<<24);
-   case 10: c+=((ub4)k[9]<<16);
-   case 9 : c+=((ub4)k[8]<<8);
-      /* the first byte of c is reserved for the length */
-   case 8 : b+=((ub4)k[7]<<24);
-   case 7 : b+=((ub4)k[6]<<16);
-   case 6 : b+=((ub4)k[5]<<8);
-   case 5 : b+=k[4];
-   case 4 : a+=((ub4)k[3]<<24);
-   case 3 : a+=((ub4)k[2]<<16);
-   case 2 : a+=((ub4)k[1]<<8);
-   case 1 : a+=k[0];
-     /* case 0: nothing left to add */
-   }
-   mix(a,b,c);
-   /*-------------------------------------------- report the result */
-   return c;
+    /*------------------------------------- handle the last 11 bytes */
+    c += len;
+    switch (len) {           /* all the case statements fall through */
+        case 11: c += ((ub4)k[10] << 24);
+        case 10: c += ((ub4)k[9] << 16);
+        case 9 : c += ((ub4)k[8] << 8);
+            /* the first byte of c is reserved for the length */
+        case 8 : b += ((ub4)k[7] << 24);
+        case 7 : b += ((ub4)k[6] << 16);
+        case 6 : b += ((ub4)k[5] << 8);
+        case 5 : b += k[4];
+        case 4 : a += ((ub4)k[3] << 24);
+        case 3 : a += ((ub4)k[2] << 16);
+        case 2 : a += ((ub4)k[1] << 8);
+        case 1 : a += k[0];
+            /* case 0: nothing left to add */
+    }
+    mix(a, b, c);
+    /*-------------------------------------------- report the result */
+    return c;
 }
 
 
@@ -150,11 +147,10 @@ void *insert(char *key, void *data, hash_table *table)
     ** allocate space for our new bucket and put our data there, with
     ** the table pointing at it.
     */
-    if ((table->table)[val] == NULL)
-    {
+    if ((table->table)[val] == NULL) {
         (table->table)[val] = (bucket *)malloc(sizeof(bucket));
         if ((table->table)[val] == NULL)
-	        return NULL;
+            return NULL;
         (table->table)[val]->key = strdup(key);
         (table->table)[val]->next = NULL;
         (table->table)[val]->data = data;
@@ -164,16 +160,14 @@ void *insert(char *key, void *data, hash_table *table)
     ** This spot in the table is already in use. See if the current string
     ** has already been inserted, and if so, increment its count.
     */
-    for (ptr = (table->table)[val]; ptr != NULL; ptr = ptr->next)
-	{
-		if (strcmp(key, ptr->key) == 0)
-        {
-			void *old_data;
-			old_data = ptr->data;
-			ptr->data = data;
-	        return old_data;
-	    }
-	}
+    for (ptr = (table->table)[val]; ptr != NULL; ptr = ptr->next) {
+        if (strcmp(key, ptr->key) == 0) {
+            void *old_data;
+            old_data = ptr->data;
+            ptr->data = data;
+            return old_data;
+        }
+    }
     /*
     ** This key must not be in the table yet. We'll add it to the head of
     ** the list at this spot in the hash table. Speed would be
@@ -184,7 +178,7 @@ void *insert(char *key, void *data, hash_table *table)
     */
     ptr = (bucket *)malloc(sizeof(bucket));
     if (ptr == NULL)
-	    return 0;
+        return 0;
     ptr->key = strdup(key);
     ptr->data = data;
     ptr->next = (table->table)[val];
@@ -200,12 +194,12 @@ void *lookup(char *key, hash_table *table)
     unsigned val = hash(key, 42) % table->size;
     bucket *ptr;
     if ((table->table)[val] == NULL)
-	    return NULL;
-    for (ptr = (table->table)[val]; ptr != NULL; ptr = ptr->next )
+        return NULL;
+    for (ptr = (table->table)[val]; ptr != NULL; ptr = ptr->next)
         if (strcmp(key, ptr->key) == 0)
-			return ptr->data;
+            return ptr->data;
 
-	return NULL;
+    return NULL;
 }
 /*
 ** Delete a key from the hash table and return associated
@@ -217,7 +211,7 @@ void *del(char *key, hash_table *table)
     void *data;
     bucket *ptr, *last = NULL;
     if ((table->table)[val] == NULL)
-	    return NULL;
+        return NULL;
     /*
     ** Traverse the list, keeping track of the previous node in the list.
     ** When we find the node to delete, we set the previous node's next
@@ -225,12 +219,9 @@ void *del(char *key, hash_table *table)
     ** the key from the present node, and return a pointer to the data it
     ** contains.
     */
-    for (last = NULL, ptr = (table->table)[val]; ptr != NULL; last = ptr, ptr = ptr->next)
-    {
-        if (strcmp(key, ptr -> key) == 0)
-        {
-            if (last != NULL )
-            {
+    for (last = NULL, ptr = (table->table)[val]; ptr != NULL; last = ptr, ptr = ptr->next) {
+        if (strcmp(key, ptr -> key) == 0) {
+            if (last != NULL) {
                 data = ptr->data;
                 last->next = ptr->next;
                 free(ptr->key);
@@ -244,8 +235,7 @@ void *del(char *key, hash_table *table)
             ** the head of the list. We then dispose of the current
             ** node as above.
             */
-            else
-            {
+            else {
                 data = ptr->data;
                 (table->table)[val] = ptr->next;
                 free(ptr->key);
@@ -271,9 +261,9 @@ static void free_node(char *key, void *data)
 {
     (void) data;
     if (function)
-	    function(del(key,the_table));
-    else 
-		del(key,the_table);
+        function(del(key, the_table));
+    else
+        del(key, the_table);
 }
 /*
 ** Frees a complete table by iterating over it and freeing each node.
@@ -286,7 +276,7 @@ void free_table(hash_table *table, void (*func)(void *))
 {
     function = func;
     the_table = table;
-    enumerate( table, free_node);
+    enumerate(table, free_node);
     free(table->table);
     table->table = NULL;
     table->size = 0;
@@ -297,11 +287,11 @@ void free_table(hash_table *table, void (*func)(void *))
 ** Simply invokes the function given as the second parameter for each
 ** node in the table, passing it the key and the associated data.
 */
-void enumerate( hash_table *table, void (*func)(char *, void *))
+void enumerate(hash_table *table, void (*func)(char *, void *))
 {
     unsigned i;
     bucket *temp;
-    for (i=0; i < table->size; i++)
+    for (i = 0; i < table->size; i++)
         if ((table->table)[i] != NULL)
             for (temp = (table->table)[i]; temp != NULL; temp = temp->next)
                 func(temp->key, temp->data);

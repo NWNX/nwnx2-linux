@@ -37,289 +37,250 @@ CNWNXEvents::CNWNXEvents()
     for (i = 0; i < NUM_EVENT_TYPES; i++)
         eventScripts[i] = strdup("vir_events");
 
-	confKey = "EVENTS";
+    confKey = "EVENTS";
 }
 
 CNWNXEvents::~CNWNXEvents()
 {
 }
 
-bool CNWNXEvents::OnCreate (gline *config, const char* LogDir)
+bool CNWNXEvents::OnCreate(gline *config, const char* LogDir)
 {
-	char log[128];
-	bool validate = true, startServer = true, enableUnsafe = false;
+    char log[128];
+    bool validate = true, startServer = true, enableUnsafe = false;
 
-	// call the base class function
-	sprintf (log, "%s/nwnx_events.txt", LogDir);
-	if (!CNWNXBase::OnCreate(config,log))
-		return false;
+    // call the base class function
+    sprintf(log, "%s/nwnx_events.txt", LogDir);
+    if (!CNWNXBase::OnCreate(config, log))
+        return false;
 
-	// write copy information to the log file
-	Log (0, "NWNX Events version 1.3.3 for Linux.\n");
-	Log (0, "(c) 2006-2011 by virusman (virusman@virusman.ru)\n");
+    // write copy information to the log file
+    Log(0, "NWNX Events version 1.3.3 for Linux.\n");
+    Log(0, "(c) 2006-2011 by virusman (virusman@virusman.ru)\n");
 
-	if(nwnxConfig->exists(confKey)) {
-            int i;
+    if (nwnxConfig->exists(confKey)) {
+        int i;
 
-            for (i = 0; i < NUM_EVENT_TYPES; i++) {
-                //if (eventScripts[i] != NULL)
-                //    free(eventScripts[i]);
-				if(strlen((*nwnxConfig)[confKey]["event_script"].c_str()))
-				{
-	                eventScripts[i]     = strdup((*nwnxConfig)[confKey]["event_script"].c_str());
-	                eventScripts[i][16] = 0;
-				}
+        for (i = 0; i < NUM_EVENT_TYPES; i++) {
+            //if (eventScripts[i] != NULL)
+            //    free(eventScripts[i]);
+            if (strlen((*nwnxConfig)[confKey]["event_script"].c_str())) {
+                eventScripts[i]     = strdup((*nwnxConfig)[confKey]["event_script"].c_str());
+                eventScripts[i][16] = 0;
             }
-			if(atoi((*nwnxConfig)[confKey]["enable_unsafe_events"].c_str()))
-				enableUnsafe = true;
-	}
+        }
+        if (atoi((*nwnxConfig)[confKey]["enable_unsafe_events"].c_str()))
+            enableUnsafe = true;
+    }
 
-	return(HookFunctions(enableUnsafe));
+    return (HookFunctions(enableUnsafe));
 }
 
-char* CNWNXEvents::OnRequest (char* gameObject, char* Request, char* Parameters)
+char* CNWNXEvents::OnRequest(char* gameObject, char* Request, char* Parameters)
 {
-	Log(2,"Request: \"%s\"\n",Request);
-	Log(2,"Params:  \"%s\"\n",Parameters);
-	this->pGameObject = gameObject;
-	this->nGameObjectID = *(dword *)(gameObject+0x4);
+    Log(2, "Request: \"%s\"\n", Request);
+    Log(2, "Params:  \"%s\"\n", Parameters);
+    this->pGameObject = gameObject;
+    this->nGameObjectID = *(dword *)(gameObject + 0x4);
 
-	if (strncmp(Request, "GET_SCRIPT_RETURN_VALUE", 23) == 0)
-	{
-		if (strlen(Parameters) > 2)
-			sprintf(Parameters, "%d", GetRunScriptReturnValue());
-		return NULL;
-	}
-	//TODO: make this accessible only from conditional scripts
-	if (ConditionalScriptRunning)
-	{
-		if (strncmp(Request, "GET_NODE_ID", 11) == 0)
-		{
-			if (strlen(Parameters) > 2)
-				sprintf(Parameters, "%d", nCurrentNodeID);
-			return NULL;
-		}
-		else if (strncmp(Request, "GET_ABSOLUTE_NODE_ID", 20) == 0)
-		{
-			if (strlen(Parameters) > 2)
-				sprintf(Parameters, "%d", nCurrentAbsoluteNodeID);
-			return NULL;
-		}
-		else if (strncmp(Request, "GET_NODE_TYPE", 13) == 0)
-		{
-			if (strlen(Parameters) > 1)
-				sprintf(Parameters, "%d", nNodeType);
-			return NULL;
-		}
-		else if (strncmp(Request, "GET_NODE_TEXT", 13) == 0)
-		{
-			if(!pConversation) return NULL;
-			int nLocaleID = atoi(Parameters);
-			const char *pText = NULL;
+    if (strncmp(Request, "GET_SCRIPT_RETURN_VALUE", 23) == 0) {
+        if (strlen(Parameters) > 2)
+            sprintf(Parameters, "%d", GetRunScriptReturnValue());
+        return NULL;
+    }
+    //TODO: make this accessible only from conditional scripts
+    if (ConditionalScriptRunning) {
+        if (strncmp(Request, "GET_NODE_ID", 11) == 0) {
+            if (strlen(Parameters) > 2)
+                sprintf(Parameters, "%d", nCurrentNodeID);
+            return NULL;
+        } else if (strncmp(Request, "GET_ABSOLUTE_NODE_ID", 20) == 0) {
+            if (strlen(Parameters) > 2)
+                sprintf(Parameters, "%d", nCurrentAbsoluteNodeID);
+            return NULL;
+        } else if (strncmp(Request, "GET_NODE_TYPE", 13) == 0) {
+            if (strlen(Parameters) > 1)
+                sprintf(Parameters, "%d", nNodeType);
+            return NULL;
+        } else if (strncmp(Request, "GET_NODE_TEXT", 13) == 0) {
+            if (!pConversation) return NULL;
+            int nLocaleID = atoi(Parameters);
+            const char *pText = NULL;
 
-			if(nNodeType == StartingNode || nNodeType == EntryNode)
-			{
-				CDialogEntry *pEntry = &pConversation->EntryList[nCurrentAbsoluteNodeID];
-				CExoLocString *pNodeText = &pEntry->Text;
-				pText = pNodeText->GetStringText(nLocaleID);
-			}
-			else if(nNodeType == ReplyNode)
-			{
-				CDialogReply *pReply = &pConversation->ReplyList[nCurrentAbsoluteNodeID];
-				CExoLocString *pNodeText = &pReply->Text;
-				pText = pNodeText->GetStringText(nLocaleID);
-			} 
-			else return NULL;
+            if (nNodeType == StartingNode || nNodeType == EntryNode) {
+                CDialogEntry *pEntry = &pConversation->EntryList[nCurrentAbsoluteNodeID];
+                CExoLocString *pNodeText = &pEntry->Text;
+                pText = pNodeText->GetStringText(nLocaleID);
+            } else if (nNodeType == ReplyNode) {
+                CDialogReply *pReply = &pConversation->ReplyList[nCurrentAbsoluteNodeID];
+                CExoLocString *pNodeText = &pReply->Text;
+                pText = pNodeText->GetStringText(nLocaleID);
+            } else return NULL;
 
-			if(!pText) return NULL;
-			int len = strlen(pText);
-			char *pNewText = (char *) malloc(len+1);
-			strncpy(pNewText, pText, len);
-			pNewText[len]=0;
-			return pNewText;
+            if (!pText) return NULL;
+            int len = strlen(pText);
+            char *pNewText = (char *) malloc(len + 1);
+            strncpy(pNewText, pText, len);
+            pNewText[len] = 0;
+            return pNewText;
 
-			return NULL;
-		}
-		else if (strncmp(Request, "SET_NODE_TEXT", 13) == 0)
-		{
-			if(!pConversation) return NULL;
-			int nLocaleID;
-			int nParamLen = strlen(Parameters);
-			//char *sNewText = (char *) malloc(nParamLen);
-			char *nLastDelimiter = strrchr(Parameters, '¬');
-			if (!nLastDelimiter || (nLastDelimiter-Parameters)<0)
-			{
-				Log(0, "o nLastDelimiter error\n");
-				//free(sNewText);
-				return NULL;
-			}
-			int nTextLen = nParamLen-(nLastDelimiter-Parameters)+1;
-			char *sNewText = (char *) malloc(nTextLen);
-			if(sscanf(Parameters, "%d¬", &nLocaleID)<1) 
-			{
-				Log(0, "o sscanf error\n");
-				free(sNewText);
-				return NULL;
-			}
-			strncpy(sNewText, nLastDelimiter+1, nTextLen-1);
+            return NULL;
+        } else if (strncmp(Request, "SET_NODE_TEXT", 13) == 0) {
+            if (!pConversation) return NULL;
+            int nLocaleID;
+            int nParamLen = strlen(Parameters);
+            //char *sNewText = (char *) malloc(nParamLen);
+            char *nLastDelimiter = strrchr(Parameters, '¬');
+            if (!nLastDelimiter || (nLastDelimiter - Parameters) < 0) {
+                Log(0, "o nLastDelimiter error\n");
+                //free(sNewText);
+                return NULL;
+            }
+            int nTextLen = nParamLen - (nLastDelimiter - Parameters) + 1;
+            char *sNewText = (char *) malloc(nTextLen);
+            if (sscanf(Parameters, "%d¬", &nLocaleID) < 1) {
+                Log(0, "o sscanf error\n");
+                free(sNewText);
+                return NULL;
+            }
+            strncpy(sNewText, nLastDelimiter + 1, nTextLen - 1);
 
-			CExoLocStringElement *pLangEntry=NULL;
+            CExoLocStringElement *pLangEntry = NULL;
 
-			if(nNodeType == StartingNode || nNodeType == EntryNode)
-			{
-				CDialogEntry *pEntry = &pConversation->EntryList[nCurrentAbsoluteNodeID];
-				CExoLocString *pNodeText = &pEntry->Text;
-				pLangEntry = pNodeText->GetLangEntry(nLocaleID);
+            if (nNodeType == StartingNode || nNodeType == EntryNode) {
+                CDialogEntry *pEntry = &pConversation->EntryList[nCurrentAbsoluteNodeID];
+                CExoLocString *pNodeText = &pEntry->Text;
+                pLangEntry = pNodeText->GetLangEntry(nLocaleID);
 
-			}
-			else if(nNodeType == ReplyNode)
-			{
-				CDialogReply *pReply = &pConversation->ReplyList[nCurrentAbsoluteNodeID];
-				CExoLocString *pNodeText = &pReply->Text;
-				pLangEntry = pNodeText->GetLangEntry(nLocaleID);
-			}
+            } else if (nNodeType == ReplyNode) {
+                CDialogReply *pReply = &pConversation->ReplyList[nCurrentAbsoluteNodeID];
+                CExoLocString *pNodeText = &pReply->Text;
+                pLangEntry = pNodeText->GetLangEntry(nLocaleID);
+            }
 
-			if(!pLangEntry){ free(sNewText); return NULL; } //do nothing if there is no text
-			if(pLangEntry->Text.Text)
-			{
-				free(pLangEntry->Text.Text);
-				pLangEntry->Text.Text = sNewText;
-				pLangEntry->Text.Length = strlen(sNewText)+1;
-			}
-			return NULL;
-		}
-	}
+            if (!pLangEntry) { free(sNewText); return NULL; } //do nothing if there is no text
+            if (pLangEntry->Text.Text) {
+                free(pLangEntry->Text.Text);
+                pLangEntry->Text.Text = sNewText;
+                pLangEntry->Text.Length = strlen(sNewText) + 1;
+            }
+            return NULL;
+        }
+    }
 
-	if (ActionScriptRunning)
-	{
-		if (strncmp(Request, "GET_SELECTED_NODE_ID", 20) == 0)
-		{
-			if (strlen(Parameters) > 1)
-				sprintf(Parameters, "%d", nSelectedNodeID);
-			return NULL;
-		}
-		else if (strncmp(Request, "GET_SELECTED_ABSOLUTE_NODE_ID", 29) == 0)
-		{
-			if (strlen(Parameters) > 1)
-				sprintf(Parameters, "%d", nSelectedAbsoluteNodeID);
-			return NULL;
-		}
-		else if (strncmp(Request, "GET_SELECTED_NODE_TEXT", 22) == 0)
-		{
-			if(!pConversation) return NULL;
-			int nLocaleID = atoi(Parameters);
-			CDialogReply *pReply = &pConversation->ReplyList[nSelectedAbsoluteNodeID];
-			CExoLocString *pNodeText = &pReply->Text;
-			const char *pText = pNodeText->GetStringText(nLocaleID);
-			if(!pText) return NULL;
-			int len = strlen(pText);
-			char *pNewText = (char *) malloc(len+1);
-			strncpy(pNewText, pText, len);
-			pNewText[len]=0;
-			return pNewText;
-		}
-	}
+    if (ActionScriptRunning) {
+        if (strncmp(Request, "GET_SELECTED_NODE_ID", 20) == 0) {
+            if (strlen(Parameters) > 1)
+                sprintf(Parameters, "%d", nSelectedNodeID);
+            return NULL;
+        } else if (strncmp(Request, "GET_SELECTED_ABSOLUTE_NODE_ID", 29) == 0) {
+            if (strlen(Parameters) > 1)
+                sprintf(Parameters, "%d", nSelectedAbsoluteNodeID);
+            return NULL;
+        } else if (strncmp(Request, "GET_SELECTED_NODE_TEXT", 22) == 0) {
+            if (!pConversation) return NULL;
+            int nLocaleID = atoi(Parameters);
+            CDialogReply *pReply = &pConversation->ReplyList[nSelectedAbsoluteNodeID];
+            CExoLocString *pNodeText = &pReply->Text;
+            const char *pText = pNodeText->GetStringText(nLocaleID);
+            if (!pText) return NULL;
+            int len = strlen(pText);
+            char *pNewText = (char *) malloc(len + 1);
+            strncpy(pNewText, pText, len);
+            pNewText[len] = 0;
+            return pNewText;
+        }
+    }
 
 
-	if (!scriptRun) {
-	    if (strncmp(Request, "SET_EVENT_HANDLER_", 18) == 0) {
-			int nHandler = atoi(Request + 18);
+    if (!scriptRun) {
+        if (strncmp(Request, "SET_EVENT_HANDLER_", 18) == 0) {
+            int nHandler = atoi(Request + 18);
 
-			if (nHandler < 0 || nHandler >= NUM_EVENT_TYPES) {
-				*Parameters = 0;
-			} else if (nHandler == EVENT_TYPE_ALL) {
-				int i;
+            if (nHandler < 0 || nHandler >= NUM_EVENT_TYPES) {
+                *Parameters = 0;
+            } else if (nHandler == EVENT_TYPE_ALL) {
+                int i;
 
-				for (i = 0; i < NUM_EVENT_TYPES; i++) {
-					if (eventScripts[i] != NULL)
-						free(eventScripts[i]);
+                for (i = 0; i < NUM_EVENT_TYPES; i++) {
+                    if (eventScripts[i] != NULL)
+                        free(eventScripts[i]);
 
-					if (strlen(Parameters) > 1 && strlen(Parameters) <= 16)
-						eventScripts[i] = strdup(Parameters);
-					else
-						eventScripts[i] = NULL;
-				}
-			} else {
-				if (eventScripts[nHandler] != NULL) {
-					free(eventScripts[nHandler]);
-					eventScripts[nHandler] = NULL;
-				}
+                    if (strlen(Parameters) > 1 && strlen(Parameters) <= 16)
+                        eventScripts[i] = strdup(Parameters);
+                    else
+                        eventScripts[i] = NULL;
+                }
+            } else {
+                if (eventScripts[nHandler] != NULL) {
+                    free(eventScripts[nHandler]);
+                    eventScripts[nHandler] = NULL;
+                }
 
-				if (strlen(Parameters) > 1 && strlen(Parameters) <= 16)
-					eventScripts[nHandler] = strdup(Parameters);
-				else
-					*Parameters = 0;
-			}
+                if (strlen(Parameters) > 1 && strlen(Parameters) <= 16)
+                    eventScripts[nHandler] = strdup(Parameters);
+                else
+                    *Parameters = 0;
+            }
         }
 
         return NULL;
     }
-            
-        //The following functions are accessible only from event script
-	if ((strncmp(Request, "GET_EVENT_ID", 12) && strncmp(Request, "GETEVENTID", 10)) == 0)
-	{
-		if (strlen(Parameters) > 1)
-			sprintf(Parameters, "%d", nEventID);
-		return NULL;
-	}
-	if (strncmp(Request, "GET_EVENT_SUBID", 15) == 0)
-	{
-		if (strlen(Parameters) > 1)
-			sprintf(Parameters, "%d", nEventSubID);
-		return NULL;
-	}
-	else if (strncmp(Request, "GET_EVENT_POSITION", 18) == 0)
-	{
-		if (strlen(Parameters) > 24)
-			snprintf(Parameters, strlen(Parameters), "%f¬%f¬%f", vPosition.x, vPosition.y, vPosition.z);
-	}
-	else if (strncmp(Request, "BYPASS", 6) == 0)
-	{
-		bBypass = atoi(Parameters);
-	}
-	else if (strncmp(Request, "RETURN", 6) == 0)
-	{
-		nReturnValue = atoi(Parameters);
-	}
-	return NULL;
+
+    //The following functions are accessible only from event script
+    if ((strncmp(Request, "GET_EVENT_ID", 12) && strncmp(Request, "GETEVENTID", 10)) == 0) {
+        if (strlen(Parameters) > 1)
+            sprintf(Parameters, "%d", nEventID);
+        return NULL;
+    }
+    if (strncmp(Request, "GET_EVENT_SUBID", 15) == 0) {
+        if (strlen(Parameters) > 1)
+            sprintf(Parameters, "%d", nEventSubID);
+        return NULL;
+    } else if (strncmp(Request, "GET_EVENT_POSITION", 18) == 0) {
+        if (strlen(Parameters) > 24)
+            snprintf(Parameters, strlen(Parameters), "%f¬%f¬%f", vPosition.x, vPosition.y, vPosition.z);
+    } else if (strncmp(Request, "BYPASS", 6) == 0) {
+        bBypass = atoi(Parameters);
+    } else if (strncmp(Request, "RETURN", 6) == 0) {
+        nReturnValue = atoi(Parameters);
+    }
+    return NULL;
 }
 
-unsigned long CNWNXEvents::OnRequestObject (char *gameObject, char* Request)
+unsigned long CNWNXEvents::OnRequestObject(char *gameObject, char* Request)
 {
-	Log(2,"ObjRequest: \"%s\"\n",Request);
-	this->pGameObject = gameObject;
-	this->nGameObjectID = *(dword *)(gameObject+0x4);
-	if (!scriptRun) return OBJECT_INVALID; //The following functions are accessible only from event script
-	if (strncmp(Request, "TARGET", 6) == 0)
-	{
-		return oTarget;
-	}
-	else if (strncmp(Request, "ITEM", 4) == 0)
-	{
-		return oItem;
-	}
-	return OBJECT_INVALID;
+    Log(2, "ObjRequest: \"%s\"\n", Request);
+    this->pGameObject = gameObject;
+    this->nGameObjectID = *(dword *)(gameObject + 0x4);
+    if (!scriptRun) return OBJECT_INVALID; //The following functions are accessible only from event script
+    if (strncmp(Request, "TARGET", 6) == 0) {
+        return oTarget;
+    } else if (strncmp(Request, "ITEM", 4) == 0) {
+        return oItem;
+    }
+    return OBJECT_INVALID;
 }
 
-bool CNWNXEvents::OnRelease ()
+bool CNWNXEvents::OnRelease()
 {
-	Log (0, "o Shutdown.\n");
-	return true;
+    Log(0, "o Shutdown.\n");
+    return true;
 }
 
 int CNWNXEvents::FireEvent(const int pObj, int nEvID)
 {
-	bBypass = 0;
-	nEventID = nEvID;
+    bBypass = 0;
+    nEventID = nEvID;
 
-        if (nEventID < 0 || nEventID >= NUM_EVENT_TYPES || eventScripts[nEventID] == NULL)
-            return 0;
+    if (nEventID < 0 || nEventID >= NUM_EVENT_TYPES || eventScripts[nEventID] == NULL)
+        return 0;
 
-	Log(3, "o EVENTS: Fired event %d (%08lX). Calling '%s'\n", nEventID, pObj, eventScripts[nEventID]);
-	RunScript(eventScripts[nEventID], pObj);
-	//deinitialize
-	oTarget = OBJECT_INVALID;
-	nEventID = 0;
-        nEventSubID = 0;
-	return bBypass;
+    Log(3, "o EVENTS: Fired event %d (%08lX). Calling '%s'\n", nEventID, pObj, eventScripts[nEventID]);
+    RunScript(eventScripts[nEventID], pObj);
+    //deinitialize
+    oTarget = OBJECT_INVALID;
+    nEventID = 0;
+    nEventSubID = 0;
+    return bBypass;
 }

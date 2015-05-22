@@ -1,23 +1,21 @@
 #ifndef NWNX_MODULES_H_
 #define NWNX_MODULES_H_
 
-typedef struct
-{
-	const char* database;
-	const char* key;
-	char* player;
-	unsigned char *pData;
-	int size;
+typedef struct {
+    const char* database;
+    const char* key;
+    char* player;
+    unsigned char *pData;
+    int size;
 }
-	SCORCOStruct;
+SCORCOStruct;
 
-typedef struct
-{
-	char* resref; // "whatever.uti"
-	unsigned char *pData;
-	int size;
+typedef struct {
+    char* resref; // "whatever.uti"
+    unsigned char *pData;
+    int size;
 }
-	ResManDemandResStruct;
+ResManDemandResStruct;
 
 
 #endif  // NWNX_MODULES_H_

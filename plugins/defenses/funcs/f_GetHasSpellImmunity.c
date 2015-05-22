@@ -21,14 +21,15 @@
 #include "NWNXDefenses.h"
 
 
-void Func_GetHasSpellImmunity (CGameObject *ob, char *value) {
+void Func_GetHasSpellImmunity(CGameObject *ob, char *value)
+{
     int i, spell, school, level, durtype;
     const CGameEffect *eff;
     const CNWSObject *obj;
 
     if (ob == NULL                                  ||
-        (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
-        sscanf(value, "%d %d %d %d", &spell, &school, &level, &durtype) != 4) {
+            (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
+            sscanf(value, "%d %d %d %d", &spell, &school, &level, &durtype) != 4) {
 
         snprintf(value, strlen(value), "0");
         return;

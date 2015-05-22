@@ -22,6 +22,7 @@
 
 CNWNXTweaks tweaks;
 
-extern "C" CNWNXBase *GetClassObject() {
+extern "C" CNWNXBase *GetClassObject()
+{
     return &tweaks;
 }

@@ -31,30 +31,31 @@ using namespace std;
 typedef map<string, string, less<string> > StringMap;
 typedef map<string, StringMap, less<string> > MetaStringMap;
 
-class gline {
+class gline
+{
 private:
-	// string section;
+    // string section;
 
 protected:
-	MetaStringMap config;
+    MetaStringMap config;
 
-	int parse(const char *fname);
+    int parse(const char *fname);
 
 public:
-	gline() {};
-	~gline() {};
+    gline() {};
+    ~gline() {};
 
-	// parse contents of file
-	int open(const char *fname);
+    // parse contents of file
+    int open(const char *fname);
 
-	// does section or section+key Exist
-	int exists(const char *section, const char *key=NULL);
+    // does section or section+key Exist
+    int exists(const char *section, const char *key = NULL);
 
-	StringMap &operator[](const char *key);
+    StringMap &operator[](const char *key);
 
-	// StringMap &operator[](string key);
+    // StringMap &operator[](string key);
 private:
-	void delete_spaces(string &str);
+    void delete_spaces(string &str);
 };
 
 #endif

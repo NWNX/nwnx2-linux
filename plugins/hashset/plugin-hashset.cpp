@@ -25,8 +25,8 @@
 CNWNXHashSet HashSet;
 
 extern "C" {
-CNWNXBase* GetClassObject ()
-{
-	return &HashSet;
-}
+    CNWNXBase* GetClassObject()
+    {
+        return &HashSet;
+    }
 }

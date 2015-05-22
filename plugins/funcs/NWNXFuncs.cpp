@@ -26,16 +26,19 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CNWNXFuncs::CNWNXFuncs() {
+CNWNXFuncs::CNWNXFuncs()
+{
     confKey = strdup("FUNCS");
 }
 
 
-CNWNXFuncs::~CNWNXFuncs() {
+CNWNXFuncs::~CNWNXFuncs()
+{
 }
 
 
-char *CNWNXFuncs::OnRequest (char *gameObject, char *Request, char *Parameters) {
+char *CNWNXFuncs::OnRequest(char *gameObject, char *Request, char *Parameters)
+{
     const struct FuncsStrCommand_s *cmd;
 
     Log(1, "StrReq: \"%s\"\nParams: \"%s\"\n", Request, Parameters);
@@ -51,7 +54,8 @@ char *CNWNXFuncs::OnRequest (char *gameObject, char *Request, char *Parameters) 
 }
 
 
-unsigned long CNWNXFuncs::OnRequestObject (char *gameObject, char *Request) {
+unsigned long CNWNXFuncs::OnRequestObject(char *gameObject, char *Request)
+{
     unsigned long ret = OBJECT_INVALID;
     const struct FuncsObjCommand_s *cmd;
 
@@ -68,7 +72,8 @@ unsigned long CNWNXFuncs::OnRequestObject (char *gameObject, char *Request) {
 }
 
 
-bool CNWNXFuncs::OnCreate (gline *config, const char *LogDir) {
+bool CNWNXFuncs::OnCreate(gline *config, const char *LogDir)
+{
     char log[128];
 
     sprintf(log, "%s/nwnx_funcs.txt", LogDir);

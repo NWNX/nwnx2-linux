@@ -27,7 +27,7 @@
 
 CServerExoApp *GetServerExoApp();
 long GetOIDByObj(void *pObject);
-int GetFaction(long ObjID,int *buf);
+int GetFaction(long ObjID, int *buf);
 void SetFaction(long ObjID, int nFaction);
 void *GetAreaByID(dword nAreaID);
 float GetZCoordinate(void *pArea, float X, float Y, float Z);

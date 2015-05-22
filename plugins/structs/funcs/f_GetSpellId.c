@@ -23,7 +23,8 @@
 extern volatile CGameEffect *Hook_Struct_Last;
 
 
-void Func_GetSpellId (CGameObject *ob, char *value) {
+void Func_GetSpellId(CGameObject *ob, char *value)
+{
     CGameEffect *eff = (CGameEffect *)Hook_Struct_Last;
 
     snprintf(value, strlen(value), "%d", eff->eff_spellid);

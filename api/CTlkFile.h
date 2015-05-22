@@ -6,8 +6,8 @@
 class CTlkFile
 {
 public:
-	int ReadHeader();
-	CTlkFile(CExoString);
+    int ReadHeader();
+    CTlkFile(CExoString);
 
 };
 #endif

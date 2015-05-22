@@ -5,9 +5,9 @@
 class CNWSPlayerStoreGUI
 {
 public:
-	void CloseStore(CNWSPlayer *, int);
-	void OpenStore(CNWSPlayer *, unsigned long, char, char);
-	CNWSPlayerStoreGUI();
+    void CloseStore(CNWSPlayer *, int);
+    void OpenStore(CNWSPlayer *, unsigned long, char, char);
+    CNWSPlayerStoreGUI();
 
 };
 #endif

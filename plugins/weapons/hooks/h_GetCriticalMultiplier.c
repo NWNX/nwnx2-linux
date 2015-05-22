@@ -25,11 +25,12 @@ volatile CNWSItem *Hook_GetCriticalMultiplier_Weapon;
 
 
 __attribute__((noinline))
-static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon) {
+static int Hook_GetCriticalMultiplierAdjustment(CNWSCreatureStats *attacker, CNWSItem *weapon)
+{
     int feat, bonus = 0, im = CNWSCreatureStats__HasFeat(attacker, FEAT_INCREASE_MULTIPLIER);
 
     if (Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_MULT_BONUS] &&
-        (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_MULT_STACK])) {
+            (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_MULT_STACK])) {
 
         if (weapon == NULL)
             feat = Table_WeaponPowerCritical[BASE_ITEM_GLOVES];
@@ -43,7 +44,7 @@ static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *attacker, CN
     }
 
     if (Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_MULT_BONUS] &&
-        (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_MULT_STACK])) {
+            (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_MULT_STACK])) {
 
         if (weapon == NULL)
             feat = Table_WeaponSuperiorCritical[BASE_ITEM_GLOVES];
@@ -57,7 +58,7 @@ static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *attacker, CN
     }
 
     if (Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_MULT_BONUS] &&
-        (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_MULT_STACK])) {
+            (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_MULT_STACK])) {
 
         if (weapon == NULL)
             feat = Table_WeaponOverwhelmingCritical[BASE_ITEM_GLOVES];
@@ -71,7 +72,7 @@ static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *attacker, CN
     }
 
     if (Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_MULT_BONUS] &&
-        (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_MULT_STACK])) {
+            (!im || Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_MULT_STACK])) {
 
         if (weapon == NULL)
             feat = Table_WeaponDevastatingCritical[BASE_ITEM_GLOVES];
@@ -88,7 +89,8 @@ static int Hook_GetCriticalMultiplierAdjustment (CNWSCreatureStats *attacker, CN
 }
 
 
-void Hook_GetCriticalMultiplier (void) {
+void Hook_GetCriticalMultiplier(void)
+{
     asm("leave");
 
     asm("movl %esi, Hook_GetCriticalMultiplier_Attacker");

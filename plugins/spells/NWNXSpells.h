@@ -33,29 +33,29 @@
 extern "C" {
 #endif
 
-void Func_GetSpellOption                     (CGameObject *ob, char *value);
-void Func_SetSpellOption                     (CGameObject *ob, char *value);
+void Func_GetSpellOption(CGameObject *ob, char *value);
+void Func_SetSpellOption(CGameObject *ob, char *value);
 
-nwn_objid_t Func_IntToObject (CGameObject *ob);
+nwn_objid_t Func_IntToObject(CGameObject *ob);
 
-void Hook_ComputeSpellRange (void);
-void Hook_GetCasterClassAbility1 (void);
-void Hook_GetIsMemorizationCasterClass1 (void);
-void Hook_GetIsMemorizationCasterClass2 (void);
-void Hook_GetIsMemorizationCasterClass3 (void);
-void Hook_GetIsMemorizationCasterClass4 (void);
-void Hook_GetIsUnlimitedBookCasterClass1 (void);
-void Hook_GetSpellLevel (void);
-void Hook_SpellSlotLoop1 (void);
-void Hook_SpellSlotLoop2 (void);
-void Hook_SpellSlotLoop3 (void);
+void Hook_ComputeSpellRange(void);
+void Hook_GetCasterClassAbility1(void);
+void Hook_GetIsMemorizationCasterClass1(void);
+void Hook_GetIsMemorizationCasterClass2(void);
+void Hook_GetIsMemorizationCasterClass3(void);
+void Hook_GetIsMemorizationCasterClass4(void);
+void Hook_GetIsUnlimitedBookCasterClass1(void);
+void Hook_GetSpellLevel(void);
+void Hook_SpellSlotLoop1(void);
+void Hook_SpellSlotLoop2(void);
+void Hook_SpellSlotLoop3(void);
 
-int Hook_GetSpellMinAbilityMet (CNWSCreatureStats *stats, int clpos, int level);
+int Hook_GetSpellMinAbilityMet(CNWSCreatureStats *stats, int clpos, int level);
 
-int Local_GetIsArcaneCasterClass (int cl);
-int Local_GetIsMemorizationCasterClass (int cl);
-int Local_GetIsSpontaneousCasterClass (int cl);
-int Local_GetIsUnlimitedBookCasterClass (int cl);
+int Local_GetIsArcaneCasterClass(int cl);
+int Local_GetIsMemorizationCasterClass(int cl);
+int Local_GetIsSpontaneousCasterClass(int cl);
+int Local_GetIsUnlimitedBookCasterClass(int cl);
 
 
 extern int8_t Table_SpellAbilities[NWNX_SPELLS_CLASS_TABLE_SIZE];
@@ -66,14 +66,15 @@ extern uint16_t Table_SpellOptions[NWNX_SPELLS_OPTIONS_TABLE_SIZE];
 
 #include "NWNXBase.h"
 
-class CNWNXSpells:public CNWNXBase {
-  public:
-    CNWNXSpells ();
-    virtual ~ CNWNXSpells ();
+class CNWNXSpells: public CNWNXBase
+{
+public:
+    CNWNXSpells();
+    virtual ~ CNWNXSpells();
 
-    bool OnCreate (gline *nwnxConfig, const char *LogDir = NULL);
-    char *OnRequest (char *gameObject, char *Request, char *Parameters);
-    unsigned long OnRequestObject (char *gameObject, char *Request);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char *OnRequest(char *gameObject, char *Request, char *Parameters);
+    unsigned long OnRequestObject(char *gameObject, char *Request);
 
     // bool OnRelease  ();
 };

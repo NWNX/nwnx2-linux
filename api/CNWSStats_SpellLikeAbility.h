@@ -5,7 +5,7 @@
 class CNWSStats_SpellLikeAbility
 {
 public:
-	CNWSStats_SpellLikeAbility();
+    CNWSStats_SpellLikeAbility();
 
 };
 #endif

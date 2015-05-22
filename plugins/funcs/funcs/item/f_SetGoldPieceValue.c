@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetGoldPieceValue (CGameObject *ob, char *value) {
+void Func_SetGoldPieceValue(CGameObject *ob, char *value)
+{
     CNWSItem *item;
 
     if (ob == NULL || (item = ob->vtable->AsNWSItem(ob)) == NULL) {

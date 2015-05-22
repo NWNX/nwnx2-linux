@@ -21,13 +21,14 @@
 #include "NWNXFuncs.h"
 
 
-void Func_RecalculateDexModifier (CGameObject *ob, char *value) {
+void Func_RecalculateDexModifier(CGameObject *ob, char *value)
+{
     int dex;
     CNWSCreature *cre = (CNWSCreature *)ob;
 
     if (ob == NULL                                     ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL  ||
-        cre->cre_stats == NULL) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL  ||
+            cre->cre_stats == NULL) {
 
         snprintf(value, strlen(value), "-1");
         return;

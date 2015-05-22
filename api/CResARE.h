@@ -5,7 +5,7 @@
 class CResARE
 {
 public:
-	~CResARE();
+    ~CResARE();
 
 };
 #endif

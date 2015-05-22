@@ -5,7 +5,7 @@
 class CVirtualMachineCmdImplementer
 {
 public:
-	~CVirtualMachineCmdImplementer();
+    ~CVirtualMachineCmdImplementer();
 
 };
 #endif

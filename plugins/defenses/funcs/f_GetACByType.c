@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-void Func_GetACByType (CGameObject *ob, char *value) {
+void Func_GetACByType(CGameObject *ob, char *value)
+{
     int ac = 0;
     const CNWSCreature *cre;
 

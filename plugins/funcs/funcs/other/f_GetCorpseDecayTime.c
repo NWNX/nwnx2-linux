@@ -24,13 +24,12 @@
 void Func_GetCorpseDecayTime(CGameObject *oObject, char *sValue)
 {
     CNWSCreature *oCreature;
-   
-    if(
-	oObject == NULL                                               ||
+
+    if (
+        oObject == NULL                                               ||
         (oCreature = oObject->vtable->AsNWSCreature(oObject)) == NULL ||
         oCreature->cre_stats == NULL
-      )
-    {
+    ) {
         snprintf(sValue, strlen(sValue), "0");
         return;
     }

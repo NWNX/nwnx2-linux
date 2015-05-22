@@ -8,17 +8,17 @@
 class CItemRepository
 {
 public:
-	byte unk1;
-	byte unk2;
-	byte align1;
-	byte align2;
-	dword unk3;
-	dword unk4;
-	dword ObjectID;
-	CExoLinkedList ItemList;
+    byte unk1;
+    byte unk2;
+    byte align1;
+    byte align2;
+    dword unk3;
+    dword unk4;
+    dword ObjectID;
+    CExoLinkedList ItemList;
 
-	dword GetItemCount();
-	dword GetItemByPosition(dword nPos);
+    dword GetItemCount();
+    dword GetItemByPosition(dword nPos);
 };
 
 #endif

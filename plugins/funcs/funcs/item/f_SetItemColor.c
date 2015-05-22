@@ -21,14 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetItemColor (CGameObject *ob, char *value) {
+void Func_SetItemColor(CGameObject *ob, char *value)
+{
     int idx, val;
     CNWSItem *item;
 
     if (ob == NULL                                 ||
-        (item = ob->vtable->AsNWSItem(ob)) == NULL ||
-        sscanf(value, "%d %d", &idx, &val) != 2    ||
-        idx < 0 || idx > 5 || val < 0 || val > 255) {
+            (item = ob->vtable->AsNWSItem(ob)) == NULL ||
+            sscanf(value, "%d %d", &idx, &val) != 2    ||
+            idx < 0 || idx > 5 || val < 0 || val > 255) {
 
         snprintf(value, strlen(value), "-1");
         return;

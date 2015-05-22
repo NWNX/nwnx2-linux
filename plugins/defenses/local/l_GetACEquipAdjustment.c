@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-int Local_GetACEquipAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
+int Local_GetACEquipAdjustment(CNWSCreatureStats *stats, int touch, int adj)
+{
 #ifdef NWNX_DEFENSES_HG
     if (!touch) {
         int i;

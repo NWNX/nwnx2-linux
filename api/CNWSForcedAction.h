@@ -5,10 +5,10 @@
 class CNWSForcedAction
 {
 public:
-	int LoadForcedAction(CResGFF *, CResStruct *);
-	int SaveForcedAction(CResGFF *, CResStruct *);
-	~CNWSForcedAction();
-	CNWSForcedAction();
+    int LoadForcedAction(CResGFF *, CResStruct *);
+    int SaveForcedAction(CResGFF *, CResStruct *);
+    ~CNWSForcedAction();
+    CNWSForcedAction();
 
 };
 #endif

@@ -5,7 +5,7 @@
 class CItemPropertyApplierRemover
 {
 public:
-	~CItemPropertyApplierRemover();
+    ~CItemPropertyApplierRemover();
 
 };
 #endif

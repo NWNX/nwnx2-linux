@@ -42,37 +42,37 @@
 class CNWNXdmactions : public CNWNXBase
 {
 public:
-	CNWNXdmactions();
-	virtual ~CNWNXdmactions();
+    CNWNXdmactions();
+    virtual ~CNWNXdmactions();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
-	char* OnRequest (char* gameObject, char* Request, char* Parameters);
-	unsigned long OnRequestObject (char *gameObject, char* Request);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    unsigned long OnRequestObject(char *gameObject, char* Request);
 
-	char *ActionsScripts[NUM_ACTIONS];
+    char *ActionsScripts[NUM_ACTIONS];
 
     int FireAction(nwn_objid_t pDM, int nAction);
 
-	bool InScript;
+    bool InScript;
     int bPrevent;
 
     int nActionID;
     dword oTarget1;
     dword oTarget2;
-	int nParam1;
-	int nParam2;
-	Vector vPos;
-	char sParam1[32];
+    int nParam1;
+    int nParam2;
+    Vector vPos;
+    char sParam1[32];
 
-	uint nCount;
-	uint nCurrent;
-	//bool OnRelease ();
+    uint nCount;
+    uint nCurrent;
+    //bool OnRelease ();
 
 
 //protected:
 
 private:
-	char* pGameObject;
+    char* pGameObject;
 };
 
 extern void nwn_ExecuteScript(const char *scr, nwn_objid_t oid);

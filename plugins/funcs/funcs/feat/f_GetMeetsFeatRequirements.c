@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetMeetsFeatRequirements (CGameObject *ob, char *value) {
+void Func_GetMeetsFeatRequirements(CGameObject *ob, char *value)
+{
     int ret;
     const CNWSCreature *cre;
 
@@ -43,7 +44,7 @@ void Func_GetMeetsFeatRequirements (CGameObject *ob, char *value) {
         };
 
         if (sscanf(value, ">%d %d %d %510s", &fr_feat, &fr_class, &fr_ability, buf) != 4 ||
-            strlen(buf) < (SKILL_LAST * 2)) {
+                strlen(buf) < (SKILL_LAST * 2)) {
             snprintf(value, strlen(value), "0");
             return;
         }

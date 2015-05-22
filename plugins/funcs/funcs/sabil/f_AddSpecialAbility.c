@@ -24,17 +24,18 @@ struct CExoArrayList_SA_s; typedef struct CExoArrayList_SA_s CExoArrayList_SA;
 NX_NWN_CEXOARRAYLIST(SA, CNWSStats_SpecAbil);
 
 
-void Func_AddSpecialAbility (CGameObject *ob, char *value) {
+void Func_AddSpecialAbility(CGameObject *ob, char *value)
+{
     int i, sa_spell, sa_level, sa_flags;
     CExoArrayList_SA *sa;
     CNWSStats_SpecAbil sa_new;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        (sa = cre->cre_stats->cs_specabil) == NULL    ||
-        sscanf(value, "%d %d %d", &sa_spell, &sa_level, &sa_flags) != 3) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            (sa = cre->cre_stats->cs_specabil) == NULL    ||
+            sscanf(value, "%d %d %d", &sa_spell, &sa_level, &sa_flags) != 3) {
 
         snprintf(value, strlen(value), "-1");
         return;

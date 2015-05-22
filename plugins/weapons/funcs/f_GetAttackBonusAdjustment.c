@@ -21,14 +21,15 @@
 #include "NWNXWeapons.h"
 
 
-void Func_GetAttackBonusAdjustment (CGameObject *ob, char *value) {
+void Func_GetAttackBonusAdjustment(CGameObject *ob, char *value)
+{
     int adj, ranged = atoi(value);
     CGameObject *wob;
     CNWSCreature *attacker;
 
     if (value[1] != ' '                                    ||
-        ob == NULL                                         ||
-        (attacker = ob->vtable->AsNWSCreature(ob)) == NULL) {
+            ob == NULL                                         ||
+            (attacker = ob->vtable->AsNWSCreature(ob)) == NULL) {
 
         adj = 0;
     } else {

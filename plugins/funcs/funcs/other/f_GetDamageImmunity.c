@@ -21,14 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetDamageImmunity (CGameObject *ob, char *value) {
+void Func_GetDamageImmunity(CGameObject *ob, char *value)
+{
     CNWSCreature *cre;
 
     if (ob == NULL || (cre = ob->vtable->AsNWSCreature(ob)) == NULL || cre->cre_stats == NULL) {
         snprintf(value, strlen(value), "0");
         return;
     }
-    
+
     snprintf(value, strlen(value), "%d", CNWSObject__GetDamageImmunityByFlags((CNWSObject *)ob, atoi(value)));
 }
 

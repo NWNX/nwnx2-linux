@@ -28,7 +28,8 @@ volatile uintptr_t Hook_SPSL3_Return;
 volatile uint32_t Hook_SpellSlotsSent = 0;
 
 
-void Hook_SpellSlotLoop1 (void) {
+void Hook_SpellSlotLoop1(void)
+{
     asm("leave");
 
     /* record that no spell slots have been sent yet */
@@ -40,7 +41,8 @@ void Hook_SpellSlotLoop1 (void) {
 }
 
 
-void Hook_SpellSlotLoop2 (void) {
+void Hook_SpellSlotLoop2(void)
+{
     asm("leave");
 
     asm("movl Hook_SpellSlotsSent, %esi");
@@ -51,7 +53,8 @@ void Hook_SpellSlotLoop2 (void) {
 }
 
 
-void Hook_SpellSlotLoop3 (void) {
+void Hook_SpellSlotLoop3(void)
+{
     asm("leave");
 
     asm("addl $1, Hook_SpellSlotsSent");

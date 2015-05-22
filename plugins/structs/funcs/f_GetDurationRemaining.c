@@ -23,7 +23,8 @@
 extern volatile CGameEffect *Hook_Struct_Last;
 
 
-void Func_GetDurationRemaining (CGameObject *ob, char *value) {
+void Func_GetDurationRemaining(CGameObject *ob, char *value)
+{
     CGameEffect *eff = (CGameEffect *)Hook_Struct_Last;
     int64_t current = nwn_GetWorldTime(NULL, NULL), expire = eff->eff_expire_day;
 

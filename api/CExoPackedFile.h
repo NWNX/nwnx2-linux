@@ -5,10 +5,10 @@
 class CExoPackedFile
 {
 public:
-	CExoFile * GetAsyncFile();
-	CExoFile * GetFile();
-	~CExoPackedFile();
-	CExoPackedFile();
+    CExoFile * GetAsyncFile();
+    CExoFile * GetFile();
+    ~CExoPackedFile();
+    CExoPackedFile();
 
 };
 #endif

@@ -21,28 +21,28 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetEventHandler (CGameObject *ob, char *value) {
+void Func_GetEventHandler(CGameObject *ob, char *value)
+{
     int ev;
 
     if (ob == NULL                                    ||
-        (ev = atoi(value)) < 0) {
+            (ev = atoi(value)) < 0) {
         *value = 0;
         return;
     }
 
-	CExoString *handlers = NULL;
-	int ev_count = 0;
+    CExoString *handlers = NULL;
+    int ev_count = 0;
 
-	if (ob->vtable->AsNWSCreature(ob)){
-		handlers = (CExoString *)&ob->vtable->AsNWSCreature(ob)->cre_eventhandlers;
-		ev_count = 13;
-	}
-	else if (ob->vtable->AsNWSPlaceable(ob)){
-		handlers = (CExoString *)&ob->vtable->AsNWSPlaceable(ob)->plc_event_scripts;
-		ev_count = 16;
-	}
+    if (ob->vtable->AsNWSCreature(ob)) {
+        handlers = (CExoString *)&ob->vtable->AsNWSCreature(ob)->cre_eventhandlers;
+        ev_count = 13;
+    } else if (ob->vtable->AsNWSPlaceable(ob)) {
+        handlers = (CExoString *)&ob->vtable->AsNWSPlaceable(ob)->plc_event_scripts;
+        ev_count = 16;
+    }
 
-	if (!handlers || ev>=ev_count || handlers[ev].text == NULL)
+    if (!handlers || ev >= ev_count || handlers[ev].text == NULL)
         *value = 0;
     else
         snprintf(value, strlen(value), "%s", handlers[ev].text);

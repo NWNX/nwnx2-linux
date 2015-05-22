@@ -4,9 +4,9 @@
 
 CNWSScriptVar *CNWSScriptVarTable::GetVarByPosition(dword nPosition)
 {
-	if(this->VarCount <= nPosition)
-		return NULL;
-	return &this->VarList[nPosition];
+    if (this->VarCount <= nPosition)
+        return NULL;
+    return &this->VarList[nPosition];
 }
 
 

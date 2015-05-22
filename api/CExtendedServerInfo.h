@@ -5,7 +5,7 @@
 class CExtendedServerInfo
 {
 public:
-	int operator=(CNetLayerSessionInfo &);
+    int operator=(CNetLayerSessionInfo &);
 
 };
 #endif

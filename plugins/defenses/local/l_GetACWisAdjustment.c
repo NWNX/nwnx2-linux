@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-int Local_GetACWisAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
+int Local_GetACWisAdjustment(CNWSCreatureStats *stats, int touch, int adj)
+{
 #ifdef NWNX_DEFENSES_HG
     int ranger;
 
@@ -47,7 +48,7 @@ int Local_GetACWisAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
 
         if (stats->cs_original != NULL && stats->cs_original->cre_equipment != NULL) {
             CNWSItem *weapon = CNWSInventory__GetItemInSlot(stats->cs_original->cre_equipment,
-                EQUIPMENT_SLOT_RIGHTHAND);
+                               EQUIPMENT_SLOT_RIGHTHAND);
 
             switch (weapon != NULL ? weapon->it_baseitem : -1) {
                 case BASE_ITEM_DIREMACE:
@@ -79,7 +80,7 @@ int Local_GetACWisAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
 
             if (ranger > 0) {
                 weapon = CNWSInventory__GetItemInSlot(stats->cs_original->cre_equipment,
-                    EQUIPMENT_SLOT_LEFTHAND);
+                                                      EQUIPMENT_SLOT_LEFTHAND);
 
                 if (weapon != NULL && weapon->it_baseitem == BASE_ITEM_DWARVENWARAXE)
                     ranger = 0;

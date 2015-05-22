@@ -21,14 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetItemCount (CGameObject *ob, char *value) {
+void Func_GetItemCount(CGameObject *ob, char *value)
+{
     int ret = 0;
     CNWSCreature *cre;
 
     if (ob != NULL                                    &&
-        (cre = ob->vtable->AsNWSCreature(ob)) != NULL &&
-        cre->cre_inventory != NULL                    &&
-        cre->cre_inventory->ir_list.header != NULL) {
+            (cre = ob->vtable->AsNWSCreature(ob)) != NULL &&
+            cre->cre_inventory != NULL                    &&
+            cre->cre_inventory->ir_list.header != NULL) {
 
         ret = cre->cre_inventory->ir_list.header->len;
     }

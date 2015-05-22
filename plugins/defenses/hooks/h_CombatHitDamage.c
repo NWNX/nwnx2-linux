@@ -28,11 +28,13 @@ static volatile CNWSCreature *Hook_CHD_Attacker;
 
 
 __attribute__((noinline))
-static void Hook_AdjustCombatHitDamage (CNWSCreature *target, int16_t *damages, int crit) {
+static void Hook_AdjustCombatHitDamage(CNWSCreature *target, int16_t *damages, int crit)
+{
     Local_AdjustCombatHitDamage((CNWSCreature *)Hook_CHD_Attacker, target, damages, crit);
 }
 
-void Hook_CombatHitDamage (void) {
+void Hook_CombatHitDamage(void)
+{
     asm("leave");
 
     /* duplicate the work originally done */
@@ -48,7 +50,7 @@ void Hook_CombatHitDamage (void) {
     asm("movl 0x8(%ebp), %eax");
     asm("movl %eax, Hook_CHD_Attacker");
 
-    /* get the target object */ 
+    /* get the target object */
     asm("sub $0xc, %esp");
     asm("mov 0xc(%ebp), %edx");
     asm("mov 0xc(%edx), %eax");

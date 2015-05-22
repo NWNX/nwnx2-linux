@@ -22,7 +22,7 @@
 CNWNXNames names;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &names;
+    return &names;
 }

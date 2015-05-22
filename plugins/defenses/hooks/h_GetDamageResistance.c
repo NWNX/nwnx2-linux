@@ -32,7 +32,8 @@ volatile CNWSCreature *Hook_DR_Target;
 
 
 __attribute__((noinline))
-int Hook_AdjustDamageResistance (int filter, CNWSCreature *attacker, CNWSCreature *target, int damtype, int damamount, int *damres) {
+int Hook_AdjustDamageResistance(int filter, CNWSCreature *attacker, CNWSCreature *target, int damtype, int damamount, int *damres)
+{
 #ifdef NWNX_DEFENSES_HG
     if (target != NULL && target->obj.obj_type == OBJECT_TYPE_CREATURE) {
         int i, adj = 0;
@@ -77,24 +78,25 @@ int Hook_AdjustDamageResistance (int filter, CNWSCreature *attacker, CNWSCreatur
 #define EXALT_FILTER_IMMUNITY           0x01
 
     if (attacker != NULL                               &&
-        attacker->obj.obj_type == OBJECT_TYPE_CREATURE &&
-        attacker->cre_is_pc                            &&
-        (attacker->cre_bodybag_id & 0x80000000)        &&
-        (NWNX_EXALT_GET_FILTER(attacker->cre_bodybag_id) & EXALT_FILTER_IMMUNITY))
+            attacker->obj.obj_type == OBJECT_TYPE_CREATURE &&
+            attacker->cre_is_pc                            &&
+            (attacker->cre_bodybag_id & 0x80000000)        &&
+            (NWNX_EXALT_GET_FILTER(attacker->cre_bodybag_id) & EXALT_FILTER_IMMUNITY))
         return 0;
 
     if (target != NULL                               &&
-        target->obj.obj_type == OBJECT_TYPE_CREATURE &&
-        target->cre_is_pc                            &&
-        (target->cre_bodybag_id & 0x80000000)        &&
-        (NWNX_EXALT_GET_FILTER(target->cre_bodybag_id) & EXALT_FILTER_IMMUNITY))
+            target->obj.obj_type == OBJECT_TYPE_CREATURE &&
+            target->cre_is_pc                            &&
+            (target->cre_bodybag_id & 0x80000000)        &&
+            (NWNX_EXALT_GET_FILTER(target->cre_bodybag_id) & EXALT_FILTER_IMMUNITY))
         return 0;
 #endif
 
     return 1;
 }
 
-void Hook_DamageResistanceMessage (void) {
+void Hook_DamageResistanceMessage(void)
+{
     asm("leave");
 
     /* read the attacker, target, and normal filter */
@@ -103,7 +105,7 @@ void Hook_DamageResistanceMessage (void) {
 
     asm("movl 0xc(%ebp), %eax");
     asm("movl %eax, Hook_DR_Attacker");
-    
+
     asm("movl 0x8(%ebp), %eax");
     asm("movl %eax, Hook_DR_Target");
 
@@ -117,12 +119,12 @@ void Hook_DamageResistanceMessage (void) {
     asm("movl %eax, Hook_DR_DamResist");
 
     Hook_DR_Filter = Hook_AdjustDamageResistance(
-        (int)Hook_DR_Filter,
-        (CNWSCreature *)Hook_DR_Attacker,
-        (CNWSCreature *)Hook_DR_Target,
-        (int)Hook_DR_DamType,
-        (int)Hook_DR_DamAmount,
-        (int *)Hook_DR_DamResist);
+                         (int)Hook_DR_Filter,
+                         (CNWSCreature *)Hook_DR_Attacker,
+                         (CNWSCreature *)Hook_DR_Target,
+                         (int)Hook_DR_DamType,
+                         (int)Hook_DR_DamAmount,
+                         (int *)Hook_DR_DamResist);
 
     /* the result of Hook_AdjustDamageResistance is in %eax */
     asm("test %eax, %eax");

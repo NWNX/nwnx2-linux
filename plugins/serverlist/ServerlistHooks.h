@@ -22,7 +22,7 @@
 
 #include <stdint.h>
 #include "nx_hook.h"
- 
-int HookFunctions();  
+
+int HookFunctions();
 
 #endif

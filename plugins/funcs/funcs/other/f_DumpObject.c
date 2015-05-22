@@ -20,10 +20,11 @@
 
 #include "NWNXFuncs.h"
 
-char *stpcpy (char *dst, const char *src);
+char *stpcpy(char *dst, const char *src);
 
 
-void Func_DumpObject (CGameObject *ob, char *value) {
+void Func_DumpObject(CGameObject *ob, char *value)
+{
     int i, j;
     char buf[2048], chbuf[16], prbuf[32], *p;
     unsigned char *dump = (unsigned char *)ob;

@@ -21,15 +21,16 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetBonusSpellSlots (CGameObject *ob, char *value) {
+void Func_GetBonusSpellSlots(CGameObject *ob, char *value)
+{
     int i, sp_class, sp_level, slots = 0;
     CNWSCreature *cre;
 
     if (ob == NULL                                        ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL     ||
-        cre->cre_stats == NULL                            ||
-        sscanf(value, "%d %d", &sp_class, &sp_level) != 2 ||
-        sp_level < 0 || sp_level > 9) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL     ||
+            cre->cre_stats == NULL                            ||
+            sscanf(value, "%d %d", &sp_class, &sp_level) != 2 ||
+            sp_level < 0 || sp_level > 9) {
 
         snprintf(value, strlen(value), "0");
         return;

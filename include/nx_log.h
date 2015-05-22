@@ -50,10 +50,10 @@
 extern "C" {
 #endif
 
-void nx__log (uint32_t, uint16_t, const char *, ...);
-void nx__log_error (uint32_t, const char *, int, const char *, const char *, ...);
+void nx__log(uint32_t, uint16_t, const char *, ...);
+void nx__log_error(uint32_t, const char *, int, const char *, const char *, ...);
 
-uint32_t nx__log_init (const char *, int, ...);
+uint32_t nx__log_init(const char *, int, ...);
 
 #ifdef __cplusplus
 }

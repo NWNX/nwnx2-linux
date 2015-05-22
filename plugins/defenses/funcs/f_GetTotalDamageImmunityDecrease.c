@@ -21,14 +21,15 @@
 #include "NWNXDefenses.h"
 
 
-void Func_GetTotalDamageImmunityDecrease (CGameObject *ob, char *value) {
+void Func_GetTotalDamageImmunityDecrease(CGameObject *ob, char *value)
+{
     int i, damtype, durtype, total = 0;
     const CGameEffect *eff;
     const CNWSObject *obj;
 
     if (ob == NULL                                  ||
-        (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
-        sscanf(value, "%d %d", &damtype, &durtype) != 2) {
+            (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
+            sscanf(value, "%d %d", &damtype, &durtype) != 2) {
 
         snprintf(value, strlen(value), "0");
         return;

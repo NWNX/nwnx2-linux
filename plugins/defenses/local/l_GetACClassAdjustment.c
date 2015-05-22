@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-int Local_GetACClassAdjustment (CNWSCreatureStats *stats, int touch, int adj) {
+int Local_GetACClassAdjustment(CNWSCreatureStats *stats, int touch, int adj)
+{
 #ifdef NWNX_DEFENSES_HG
     if (!touch) {
         if (CNWSCreatureStats__HasFeat(stats, FEAT_DRAGON_ARMOR))

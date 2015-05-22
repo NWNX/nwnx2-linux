@@ -25,19 +25,19 @@
 class CNWNXextend : public CNWNXBase
 {
 public:
-	CNWNXextend();
-	virtual ~CNWNXextend();
+    CNWNXextend();
+    virtual ~CNWNXextend();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
-	char* OnRequest (char* gameObject, char* Request, char* Parameters);
-	unsigned long OnRequestObject (char *gameObject, char* Request);
-	int GetConfInteger(const char *key);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    unsigned long OnRequestObject(char *gameObject, char* Request);
+    int GetConfInteger(const char *key);
 
-	int ScriptResult;
+    int ScriptResult;
 
 private:
-	char* pGameObject;
-	StringMap pluginConfig;
+    char* pGameObject;
+    StringMap pluginConfig;
 };
 
 #endif

@@ -21,7 +21,8 @@
 #include "NWNXWeapons.h"
 
 
-void Func_GetWeaponPowerCriticalFeat (CGameObject *ob, char *value) {
+void Func_GetWeaponPowerCriticalFeat(CGameObject *ob, char *value)
+{
     int baseitem, feat = -1;
 
     baseitem = atoi(value);

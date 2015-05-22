@@ -21,7 +21,8 @@
 #include "NWNXSystem.h"
 
 
-void Func_FileReadAll (CGameObject *ob, char *value) {
+void Func_FileReadAll(CGameObject *ob, char *value)
+{
     FILE *f;
     char *p = strchr(value, '\n');
     ssize_t len = strlen(value) - 1;

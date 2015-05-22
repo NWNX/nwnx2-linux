@@ -33,85 +33,85 @@
 class CNWNXBase
 {
 public:
-	CNWNXBase();
-	virtual ~CNWNXBase();
+    CNWNXBase();
+    virtual ~CNWNXBase();
 
-	///////////////////////////////////////////////////////////////////////////
-	// Function: OnCreate
-	// Description
-	//	This function is called just when an instance is created.
-	//	Overloading is allowed, but the base class function must be called first.
-	// Parameters
-	//  nwnxConfig  : parsed nwnx2.ini, a gline instance
-	//	LogFile		: optionally a path and filename of the log file
-	virtual bool OnCreate (gline *nwnxConfig, const char* LogFile = NULL);
+    ///////////////////////////////////////////////////////////////////////////
+    // Function: OnCreate
+    // Description
+    //	This function is called just when an instance is created.
+    //	Overloading is allowed, but the base class function must be called first.
+    // Parameters
+    //  nwnxConfig  : parsed nwnx2.ini, a gline instance
+    //	LogFile		: optionally a path and filename of the log file
+    virtual bool OnCreate(gline *nwnxConfig, const char* LogFile = NULL);
 
-	///////////////////////////////////////////////////////////////////////////
-	// Function: OnRequest (char* Request, char* Parameters)
-	// Description
-	//	Called when a request is pending from a NWScript.
-	//	This function must be overloaded by the module.
-	// Parameters
-	//	Request		: the job that must be performed
-	//  Parameters	: optional parameters
-	virtual char* OnRequest (char *gameObject, char* Request, char* Parameters) = 0;
+    ///////////////////////////////////////////////////////////////////////////
+    // Function: OnRequest (char* Request, char* Parameters)
+    // Description
+    //	Called when a request is pending from a NWScript.
+    //	This function must be overloaded by the module.
+    // Parameters
+    //	Request		: the job that must be performed
+    //  Parameters	: optional parameters
+    virtual char* OnRequest(char *gameObject, char* Request, char* Parameters) = 0;
 
-	///////////////////////////////////////////////////////////////////////////
-	// Function: OnRequestObject (char* Request)
-	// Description
-	//	Called when a request is pending from a NWScript.
-	//	This function must be overloaded by the module.
-	//	Request		: the job that must be performed
-	virtual unsigned long OnRequestObject (char *gameObject, char* Request);
+    ///////////////////////////////////////////////////////////////////////////
+    // Function: OnRequestObject (char* Request)
+    // Description
+    //	Called when a request is pending from a NWScript.
+    //	This function must be overloaded by the module.
+    //	Request		: the job that must be performed
+    virtual unsigned long OnRequestObject(char *gameObject, char* Request);
 
-	///////////////////////////////////////////////////////////////////////////
-	// Function: OnRelease
-	// Description
-	//	Called just before deletion of an instance of this class.
-	//	Overloading is allowed, but the base class function must be called.
-	// Parameters
-	//	None
-	virtual bool OnRelease ();
+    ///////////////////////////////////////////////////////////////////////////
+    // Function: OnRelease
+    // Description
+    //	Called just before deletion of an instance of this class.
+    //	Overloading is allowed, but the base class function must be called.
+    // Parameters
+    //	None
+    virtual bool OnRelease();
 
-	///////////////////////////////////////////////////////////////////////////
-	// Function: Log (int debugPri, const char* pcMsg[, argument]...);
-	// Description:
-	//	This function formats and writes a message to the log file. It works
-	//  the same way as the standard C printf function.
-	//  Example: Log ("Set array item %d with value %s.", iIndex, pcValue);
-	// Parameters:
-	//	debugPri	: message will only be sent to the log if this argument
-	//				  is >= the instance's debuglevel
-	//	Msg			: the format string
-	//  [argument]	: optional arguments
-	void Log (int debugPri, const char* Msg, ...);
-
-	// convenience, checks Msg and Param lengths
-	// returns 0 if Param not set 1 if set
-	int ParamLog (int debugPri, const char* Msg, char* Parameters);
-
-	///////////////////////////////////////////////////////////////////////////
-	// Function: SetDebugLevel (int level);
+    ///////////////////////////////////////////////////////////////////////////
+    // Function: Log (int debugPri, const char* pcMsg[, argument]...);
     // Description:
-	//  Helper function to alter the instance's debuglevel independent of
-	//  the global level.  Returns the old debuglevel.
-	// Parameters:
-	//  level	: the desired level
-	int SetDebugLevel (int level);
+    //	This function formats and writes a message to the log file. It works
+    //  the same way as the standard C printf function.
+    //  Example: Log ("Set array item %d with value %s.", iIndex, pcValue);
+    // Parameters:
+    //	debugPri	: message will only be sent to the log if this argument
+    //				  is >= the instance's debuglevel
+    //	Msg			: the format string
+    //  [argument]	: optional arguments
+    void Log(int debugPri, const char* Msg, ...);
 
-	///////////////////////////////////////////////////////////////////////////
-	// Function: BaseConf ();
+    // convenience, checks Msg and Param lengths
+    // returns 0 if Param not set 1 if set
+    int ParamLog(int debugPri, const char* Msg, char* Parameters);
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Function: SetDebugLevel (int level);
     // Description:
-	//  This function parses the generic config options: "debuglevel", etc.
-	// Parameters:
-	//  None
-	void BaseConf ();
+    //  Helper function to alter the instance's debuglevel independent of
+    //  the global level.  Returns the old debuglevel.
+    // Parameters:
+    //  level	: the desired level
+    int SetDebugLevel(int level);
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Function: BaseConf ();
+    // Description:
+    //  This function parses the generic config options: "debuglevel", etc.
+    // Parameters:
+    //  None
+    void BaseConf();
 
 protected:
-	FILE* m_fFile;
-	gline* nwnxConfig;
-	const char * confKey;
-	int debuglevel;
+    FILE* m_fFile;
+    gline* nwnxConfig;
+    const char * confKey;
+    int debuglevel;
 
 private:
 

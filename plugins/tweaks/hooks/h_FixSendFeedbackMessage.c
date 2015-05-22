@@ -24,7 +24,8 @@
 volatile uintptr_t Hook_FSFM_Return;
 
 
-void Hook_FixSendFeedbackMessage (void) {
+void Hook_FixSendFeedbackMessage(void)
+{
     asm("leave");
 
     asm("movl 0x8(%ebp), %eax");

@@ -21,19 +21,20 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetIsWalkable (CGameObject *ob, char *value) {
+void Func_GetIsWalkable(CGameObject *ob, char *value)
+{
     Vector vec;
     CNWSArea *area;
     CPathfindInformation *pfi;
 
     if ((area = ob->vtable->AsNWSArea(ob)) == NULL ||
-        sscanf(value, "%f¬%f¬%f", &(vec.x), &(vec.y), &(vec.z)) != 3) {
+            sscanf(value, "%f¬%f¬%f", &(vec.x), &(vec.y), &(vec.z)) != 3) {
         snprintf(value, strlen(value), "-1");
         return;
     }
 
     /* TODO: update CNWSArea to properly have the pathfind information in there */
-    pfi = *(CPathfindInformation **)((char*)area+0x198);
+    pfi = *(CPathfindInformation **)((char*)area + 0x198);
     if (pfi == NULL) {
         snprintf(value, strlen(value), "-2");
         return;

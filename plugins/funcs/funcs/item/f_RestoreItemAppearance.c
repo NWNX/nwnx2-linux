@@ -21,13 +21,14 @@
 #include "NWNXFuncs.h"
 
 
-void Func_RestoreItemAppearance (CGameObject *ob, char *value) {
+void Func_RestoreItemAppearance(CGameObject *ob, char *value)
+{
     int idx, val, ch;
     CNWSItem *item;
 
     if (ob == NULL                                 ||
-        (item = ob->vtable->AsNWSItem(ob)) == NULL ||
-        strspn(value, "0123456789ABCDEF") != 56) {
+            (item = ob->vtable->AsNWSItem(ob)) == NULL ||
+            strspn(value, "0123456789ABCDEF") != 56) {
 
         snprintf(value, strlen(value), "-1");
         return;

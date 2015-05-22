@@ -24,21 +24,23 @@
 static int Item_Position = -1;
 
 
-void Func_GetItemByPositionRequest (CGameObject *ob, char *value) {
+void Func_GetItemByPositionRequest(CGameObject *ob, char *value)
+{
     Item_Position = atoi(value);
 }
 
 
-nwn_objid_t Func_GetItemByPosition (CGameObject *ob) {
+nwn_objid_t Func_GetItemByPosition(CGameObject *ob)
+{
     int i;
     CNWSCreature *cre;
     CExoLinkedListNode *node;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_inventory == NULL                    ||
-        Item_Position < 0                             ||
-        Item_Position >= cre->cre_inventory->ir_list.header->len) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_inventory == NULL                    ||
+            Item_Position < 0                             ||
+            Item_Position >= cre->cre_inventory->ir_list.header->len) {
 
         return OBJECT_INVALID;
     }

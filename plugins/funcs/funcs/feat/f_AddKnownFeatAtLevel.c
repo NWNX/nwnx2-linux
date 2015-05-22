@@ -21,16 +21,17 @@
 #include "NWNXFuncs.h"
 
 
-void Func_AddKnownFeatAtLevel (CGameObject *ob, char *value) {
+void Func_AddKnownFeatAtLevel(CGameObject *ob, char *value)
+{
     int level, feat;
     CNWSCreature *cre;
     CNWSStats_Level *ls;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        sscanf(value, "%d %d", &level, &feat) != 2    ||
-        (ls = nwn_GetLevelStats(cre->cre_stats, level)) == NULL) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            sscanf(value, "%d %d", &level, &feat) != 2    ||
+            (ls = nwn_GetLevelStats(cre->cre_stats, level)) == NULL) {
 
         snprintf(value, strlen(value), "-1");
         return;

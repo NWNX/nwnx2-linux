@@ -29,28 +29,28 @@ class CNWNXNames : public CNWNXBase
 {
 
 public:
-	CNWNXNames();
-	~CNWNXNames();
-	bool OnCreate(gline *config, const char* LogDir);
-	char* OnRequest(char* gameObject, char* Request, char* Parameters);
-	bool OnRelease();
-	int supressMsg;
+    CNWNXNames();
+    ~CNWNXNames();
+    bool OnCreate(gline *config, const char* LogDir);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    bool OnRelease();
+    int supressMsg;
     char eventScript[17];
-	int logDebug;
-	CCustomNames Names;
-	char *pGameObject;
-	dword nGameObjectID;
-	FILE *PacketData;
+    int logDebug;
+    CCustomNames Names;
+    char *pGameObject;
+    dword nGameObjectID;
+    FILE *PacketData;
 
 protected:
-	void InitPlayerList(char *value);
-	void EnableDisableNames(char *value);
-	char *GetDynamicName(char *value);
-	void SetDynamicName(char *value);
-	void UpdateDynamicName(char *value);
-	void UpdatePlayerList(char *value);
-	void DeleteDynamicName(char *value);
-	void ClearPlayerList(char *value);
+    void InitPlayerList(char *value);
+    void EnableDisableNames(char *value);
+    char *GetDynamicName(char *value);
+    void SetDynamicName(char *value);
+    void UpdateDynamicName(char *value);
+    void UpdatePlayerList(char *value);
+    void DeleteDynamicName(char *value);
+    void ClearPlayerList(char *value);
 };
 
 #endif

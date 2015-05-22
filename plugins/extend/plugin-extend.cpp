@@ -19,7 +19,7 @@
 CNWNXextend extend;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &extend;
+    return &extend;
 }

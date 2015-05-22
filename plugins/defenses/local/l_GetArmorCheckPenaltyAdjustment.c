@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-int Local_GetArmorCheckPenaltyAdjustment (CNWSCreatureStats *stats, int skill, int acp_armor, int acp_shield) {
+int Local_GetArmorCheckPenaltyAdjustment(CNWSCreatureStats *stats, int skill, int acp_armor, int acp_shield)
+{
 #ifdef NWNX_DEFENSES_HG
     CNWSCreature *cre = stats->cs_original;
 

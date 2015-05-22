@@ -48,31 +48,31 @@ class CNWNXEvents : public CNWNXBase
 {
 
 public:
-	CNWNXEvents();
-	~CNWNXEvents();
-	bool OnCreate(gline *config, const char* LogDir);
-	char* OnRequest(char* gameObject, char* Request, char* Parameters);
-	unsigned long OnRequestObject (char *gameObject, char* Request);
-	bool OnRelease();
-	int FireEvent(const int pObj, int nEvID);
+    CNWNXEvents();
+    ~CNWNXEvents();
+    bool OnCreate(gline *config, const char* LogDir);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    unsigned long OnRequestObject(char *gameObject, char* Request);
+    bool OnRelease();
+    int FireEvent(const int pObj, int nEvID);
 
     char *eventScripts[NUM_EVENT_TYPES];
 
-	char *pGameObject;
-	dword nGameObjectID;
-	bool bBypass;
-	int nReturnValue;
-	int nEventID;
-	int nEventSubID;
-	dword oTarget;
-	dword oItem;
-	CNWSDialogClass *pConversation;
-	int nSelectedNodeID;
-	int nSelectedAbsoluteNodeID;
-	int nCurrentAbsoluteNodeID;
-	int nCurrentNodeID;	
-	int nNodeType;
-	CNWSVector vPosition;
+    char *pGameObject;
+    dword nGameObjectID;
+    bool bBypass;
+    int nReturnValue;
+    int nEventID;
+    int nEventSubID;
+    dword oTarget;
+    dword oItem;
+    CNWSDialogClass *pConversation;
+    int nSelectedNodeID;
+    int nSelectedAbsoluteNodeID;
+    int nCurrentAbsoluteNodeID;
+    int nCurrentNodeID;
+    int nNodeType;
+    CNWSVector vPosition;
 };
 
 #endif

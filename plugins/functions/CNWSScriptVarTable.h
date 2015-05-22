@@ -10,19 +10,17 @@
 #define VARIABLE_TYPE_OBJECT   4
 #define VARIABLE_TYPE_LOCATION 5
 
-struct CScriptLocation
-{
-	float X;
-	float Y;
-	float Z;
-	float OrientationX;
-	float OrientationY;
-	float OrientationZ;
-	dword AreaID;
+struct CScriptLocation {
+    float X;
+    float Y;
+    float Z;
+    float OrientationX;
+    float OrientationY;
+    float OrientationZ;
+    dword AreaID;
 };
 
-struct CNWSScriptVar
-{
+struct CNWSScriptVar {
     CExoString VarName;
     dword      VarType;
     dword      VarValue;
@@ -31,10 +29,10 @@ struct CNWSScriptVar
 class CNWSScriptVarTable
 {
 public:
-	CNWSScriptVar *VarList;
-	dword          VarCount;
+    CNWSScriptVar *VarList;
+    dword          VarCount;
 
-	CNWSScriptVar *GetVarByPosition(dword nPosition);
+    CNWSScriptVar *GetVarByPosition(dword nPosition);
 };
 
 #endif

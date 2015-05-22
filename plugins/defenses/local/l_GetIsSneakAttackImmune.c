@@ -21,13 +21,14 @@
 #include "NWNXDefenses.h"
 
 
-int Local_GetIsSneakAttackImmune (CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker) {
+int Local_GetIsSneakAttackImmune(CNWSCreatureStats *target, uint8_t immtype, CNWSCreature *attacker)
+{
 #ifdef NWNX_DEFENSES_HG
     int rogue = nwn_GetLevelByClass(attacker->cre_stats, CLASS_TYPE_ROGUE);
 
     if (rogue >= 40                                  &&
-        attacker->cre_stats->cs_ac_armour_base <= 3  &&
-        !CNWSCreatureStats__HasFeat(target, FEAT_DEATHLESS_MASTERY)) {
+            attacker->cre_stats->cs_ac_armour_base <= 3  &&
+            !CNWSCreatureStats__HasFeat(target, FEAT_DEATHLESS_MASTERY)) {
 
         if (rogue > 40)
             return 0;

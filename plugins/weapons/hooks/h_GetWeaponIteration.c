@@ -21,7 +21,8 @@
 #include "NWNXWeapons.h"
 
 
-int Hook_GetWeaponIteration (CNWSCreatureStats *stats, int attack, int bab) {
+int Hook_GetWeaponIteration(CNWSCreatureStats *stats, int attack, int bab)
+{
     int iter = 5;
 
     if (CNWSCreatureStats__GetUseMonkAttackTables(stats, 0)) {

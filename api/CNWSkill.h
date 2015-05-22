@@ -5,10 +5,10 @@
 class CNWSkill
 {
 public:
-	int GetDescriptionText();
-	int GetNameText();
-	~CNWSkill();
-	CNWSkill();
+    int GetDescriptionText();
+    int GetNameText();
+    ~CNWSkill();
+    CNWSkill();
 
 };
 #endif

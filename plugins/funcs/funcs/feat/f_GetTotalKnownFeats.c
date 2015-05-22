@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetTotalKnownFeats (CGameObject *ob, char *value) {
+void Func_GetTotalKnownFeats(CGameObject *ob, char *value)
+{
     const CNWSCreature *cre;
 
     if (ob == NULL || (cre = ob->vtable->AsNWSCreature(ob)) == NULL || cre->cre_stats == NULL) {

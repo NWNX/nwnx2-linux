@@ -39,51 +39,51 @@ class CNWNXODBC : public CNWNXBase
 {
 
 public:
-	CNWNXODBC();
-	~CNWNXODBC();
-	bool OnCreate(gline *config, const char* LogDir);
-	char* OnRequest(char* gameObject, char* Request, char* Parameters);
-	unsigned long OnRequestObject(char *gameObject, char *Request);
-	bool OnRelease();
+    CNWNXODBC();
+    ~CNWNXODBC();
+    bool OnCreate(gline *config, const char* LogDir);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    unsigned long OnRequestObject(char *gameObject, char *Request);
+    bool OnRelease();
 
-  int WriteSCO(const char * database, const char * key, char * player, int flags, unsigned char * pData, int size);
-  unsigned char * ReadSCO(const char * database, const char * key, char * player, int * arg4, int * size);
+    int WriteSCO(const char * database, const char * key, char * player, int flags, unsigned char * pData, int size);
+    unsigned char * ReadSCO(const char * database, const char * key, char * player, int * arg4, int * size);
 
 protected:
-	BOOL Connect();
-	BOOL Reconnect();
-	void Execute(char* request);
-	char * Fetch(char * buffer, unsigned int buffersize);
-	void SetScorcoSQL(char *request);
-	bool LoadConfiguration ();
+    BOOL Connect();
+    BOOL Reconnect();
+    void Execute(char* request);
+    char * Fetch(char * buffer, unsigned int buffersize);
+    void SetScorcoSQL(char *request);
+    bool LoadConfiguration();
 
 private:
-  CDB* db;
-	enum EDBType {dbNONE, dbODBC, dbMYSQL, dbSQLITE, dbPGSQL};
-	int dbType;
+    CDB* db;
+    enum EDBType {dbNONE, dbODBC, dbMYSQL, dbSQLITE, dbPGSQL};
+    int dbType;
 
-	struct PARAMETERS {
-		char *server;
-		char *user;
-		char *pass;
-		char *db;
-		unsigned int port;
-		char *socket;
-		char *charset;
-	} p;
+    struct PARAMETERS {
+        char *server;
+        char *user;
+        char *pass;
+        char *db;
+        unsigned int port;
+        char *socket;
+        char *charset;
+    } p;
 
-	unsigned int request_counter;
-	unsigned int sqlerror_counter;
+    unsigned int request_counter;
+    unsigned int sqlerror_counter;
 
-	bool hookScorco;
-	bool bReconnectOnError;
-	char* scorcoSQL;
-	unsigned long lastObjectID;
+    bool hookScorco;
+    bool bReconnectOnError;
+    char* scorcoSQL;
+    unsigned long lastObjectID;
 
-	HANDLE hSCOEvent;
-	HANDLE hRCOEvent;
+    HANDLE hSCOEvent;
+    HANDLE hRCOEvent;
 
-	enum ELogLevel {logNothing, logErrors, logAll};
+    enum ELogLevel {logNothing, logErrors, logAll};
 };
 
 #endif

@@ -26,8 +26,9 @@
 
 #include "NWNXBase.h"
 
-class CNWNXServerlist:public CNWNXBase {
-  public:
+class CNWNXServerlist: public CNWNXBase
+{
+public:
     CNWNXServerlist();
     virtual ~ CNWNXServerlist();
 
@@ -36,9 +37,9 @@ class CNWNXServerlist:public CNWNXBase {
 
     // bool OnRelease ();
 
-  protected:
+protected:
 
-  private:
+private:
 };
 
 #endif

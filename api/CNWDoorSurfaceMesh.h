@@ -7,14 +7,14 @@
 class CNWDoorSurfaceMesh
 {
 public:
-	int GetMeshBoundingBox(Vector, Vector, Vector &, Vector &);
-	int GetOpenLocation(unsigned char, unsigned char);
-	int IntersectLineSegments(Vector, Vector, Vector, Vector, Vector *);
-	int LoadWalkMeshString(unsigned char **, unsigned long *, unsigned char *, unsigned long);
-	int LoadWalkMesh(CResRef);
-	int NoNonWalkPolysOnSurfaceMesh(int, float, float, float, float, float, float, float);
-	~CNWDoorSurfaceMesh();
-	CNWDoorSurfaceMesh();
+    int GetMeshBoundingBox(Vector, Vector, Vector &, Vector &);
+    int GetOpenLocation(unsigned char, unsigned char);
+    int IntersectLineSegments(Vector, Vector, Vector, Vector, Vector *);
+    int LoadWalkMeshString(unsigned char **, unsigned long *, unsigned char *, unsigned long);
+    int LoadWalkMesh(CResRef);
+    int NoNonWalkPolysOnSurfaceMesh(int, float, float, float, float, float, float, float);
+    ~CNWDoorSurfaceMesh();
+    CNWDoorSurfaceMesh();
 
 };
 #endif

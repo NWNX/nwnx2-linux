@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-void Func_GetSavingThrowVersus (CGameObject *ob, char *value) {
+void Func_GetSavingThrowVersus(CGameObject *ob, char *value)
+{
     int save, savetype, val, adj;
     nwn_objid_t versus_id;
     CGameObject *versus_ob;
@@ -29,10 +30,10 @@ void Func_GetSavingThrowVersus (CGameObject *ob, char *value) {
     CNWSCreature *saver;
 
     if (sscanf(value, "%d %d %x", &save, &savetype, &versus_id) != 3 ||
-        save < 1                                                     ||
-        save > 3                                                     ||
-        (saver = ob->vtable->AsNWSCreature(ob)) == NULL              ||
-        saver->cre_stats == NULL) {
+            save < 1                                                     ||
+            save > 3                                                     ||
+            (saver = ob->vtable->AsNWSCreature(ob)) == NULL              ||
+            saver->cre_stats == NULL) {
 
         snprintf(value, strlen(value), "0");
         return;

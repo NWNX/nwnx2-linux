@@ -41,40 +41,40 @@
 
 CNWNXOptimizations::CNWNXOptimizations()
 {
-	confKey = "OPTIMIZATIONS";
+    confKey = "OPTIMIZATIONS";
 }
 
 CNWNXOptimizations::~CNWNXOptimizations()
 {
 }
 
-bool CNWNXOptimizations::OnCreate (gline *config, const char* LogDir)
+bool CNWNXOptimizations::OnCreate(gline *config, const char* LogDir)
 {
-	char log[128];
-	bool validate = true, startServer = true;
+    char log[128];
+    bool validate = true, startServer = true;
 
-	// call the base class function
-	sprintf (log, "%s/nwnx_optimizations.txt", LogDir);
-	if (!CNWNXBase::OnCreate(config,log))
-		return false;
+    // call the base class function
+    sprintf(log, "%s/nwnx_optimizations.txt", LogDir);
+    if (!CNWNXBase::OnCreate(config, log))
+        return false;
 
-	// write copy information to the log file
-	Log (0, "NWNX Optimizations version 1.0 for Linux.\n");
-	Log (0, "(c) 2010 by virusman (virusman@virusman.ru)\n");
+    // write copy information to the log file
+    Log(0, "NWNX Optimizations version 1.0 for Linux.\n");
+    Log(0, "(c) 2010 by virusman (virusman@virusman.ru)\n");
 
-	return(HookFunctions());
+    return (HookFunctions());
 }
 
-char* CNWNXOptimizations::OnRequest (char* gameObject, char* Request, char* Parameters)
+char* CNWNXOptimizations::OnRequest(char* gameObject, char* Request, char* Parameters)
 {
-	Log(2,"Request: \"%s\"\n",Request);
-	Log(2,"Params:  \"%s\"\n",Parameters);
+    Log(2, "Request: \"%s\"\n", Request);
+    Log(2, "Params:  \"%s\"\n", Parameters);
 
-	return NULL;
+    return NULL;
 }
 
-bool CNWNXOptimizations::OnRelease ()
+bool CNWNXOptimizations::OnRelease()
 {
-	Log (0, "o Shutdown.\n");
-	return true;
+    Log(0, "o Shutdown.\n");
+    return true;
 }

@@ -21,13 +21,14 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetPlaceableAppearance (CGameObject *ob, char *value) {
+void Func_SetPlaceableAppearance(CGameObject *ob, char *value)
+{
     int app;
     CNWSPlaceable *plc;
 
     if (ob == NULL                                     ||
-        (plc = ob->vtable->AsNWSPlaceable(ob)) == NULL ||
-        (app = atoi(value)) < 0) {
+            (plc = ob->vtable->AsNWSPlaceable(ob)) == NULL ||
+            (app = atoi(value)) < 0) {
 
         snprintf(value, strlen(value), "-1");
         return;

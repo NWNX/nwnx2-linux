@@ -28,11 +28,11 @@ class CNWNXOptimizations : public CNWNXBase
 {
 
 public:
-	CNWNXOptimizations();
-	~CNWNXOptimizations();
-	bool OnCreate(gline *config, const char* LogDir);
-	char* OnRequest(char* gameObject, char* Request, char* Parameters);
-	bool OnRelease();
+    CNWNXOptimizations();
+    ~CNWNXOptimizations();
+    bool OnCreate(gline *config, const char* LogDir);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    bool OnRelease();
 
 };
 

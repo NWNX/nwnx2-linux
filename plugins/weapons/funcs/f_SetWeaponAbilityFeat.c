@@ -21,14 +21,15 @@
 #include "NWNXWeapons.h"
 
 
-void Func_SetWeaponAbilityFeat (CGameObject *ob, char *value) {
+void Func_SetWeaponAbilityFeat(CGameObject *ob, char *value)
+{
     int baseitem, abil, feat;
 
     if (sscanf(value, "%d %d %d", &baseitem, &abil, &feat) != 3 ||
-        abil < 0 || abil > 5                                    ||
-        feat > UINT16_MAX                                       ||
-        baseitem < 0                                            ||
-        baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE) {
+            abil < 0 || abil > 5                                    ||
+            feat > UINT16_MAX                                       ||
+            baseitem < 0                                            ||
+            baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE) {
 
         snprintf(value, strlen(value), "-1");
         return;

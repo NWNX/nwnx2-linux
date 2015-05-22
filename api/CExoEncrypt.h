@@ -6,8 +6,8 @@
 class CExoEncrypt
 {
 public:
-	CExoString EncryptString(CExoString const &);
-	CExoString GenerateChallenge(unsigned short);
+    CExoString EncryptString(CExoString const &);
+    CExoString GenerateChallenge(unsigned short);
 
 };
 #endif

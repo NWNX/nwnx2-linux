@@ -28,16 +28,16 @@ class CNWNXAreas : public CNWNXBase
 {
 
 public:
-	CNWNXAreas();
-	~CNWNXAreas();
-	bool OnCreate(gline *config, const char* LogDir);
-	char* OnRequest(char* gameObject, char* Request, char* Parameters);
-	unsigned long OnRequestObject (char *gameObject, char* Request);
-	bool OnRelease();
-	char *pGameObject;
-	dword nGameObjectID;
+    CNWNXAreas();
+    ~CNWNXAreas();
+    bool OnCreate(gline *config, const char* LogDir);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
+    unsigned long OnRequestObject(char *gameObject, char* Request);
+    bool OnRelease();
+    char *pGameObject;
+    dword nGameObjectID;
 
-	dword nLastAreaID;
+    dword nLastAreaID;
 };
 
 #endif

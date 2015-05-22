@@ -21,7 +21,8 @@
 #include "NWNXWeapons.h"
 
 
-int Hook_GetDamageBonusAdjustment (CNWSCreatureStats *info, CNWSItem *weapon) {
+int Hook_GetDamageBonusAdjustment(CNWSCreatureStats *info, CNWSItem *weapon)
+{
     int baseitem, adj = 0;
 
     if (info == NULL)
@@ -33,15 +34,15 @@ int Hook_GetDamageBonusAdjustment (CNWSCreatureStats *info, CNWSItem *weapon) {
         adj += 4;
 
     if (Table_WeaponGreaterSpecialization[baseitem] > 0 &&
-        CNWSCreatureStats__HasFeat(info, Table_WeaponGreaterSpecialization[baseitem]))
+            CNWSCreatureStats__HasFeat(info, Table_WeaponGreaterSpecialization[baseitem]))
         adj += Table_WeaponOptions[NWNX_WEAPONS_OPT_GRTSPEC_DAM_BONUS];
 
     if (Table_WeaponLegendarySpecialization[baseitem] > 0 &&
-        CNWSCreatureStats__HasFeat(info, Table_WeaponLegendarySpecialization[baseitem]))
+            CNWSCreatureStats__HasFeat(info, Table_WeaponLegendarySpecialization[baseitem]))
         adj += Table_WeaponOptions[NWNX_WEAPONS_OPT_LEGSPEC_DAM_BONUS];
 
     if (Table_WeaponParagonSpecialization[baseitem] > 0 &&
-        CNWSCreatureStats__HasFeat(info, Table_WeaponParagonSpecialization[baseitem]))
+            CNWSCreatureStats__HasFeat(info, Table_WeaponParagonSpecialization[baseitem]))
         adj += Table_WeaponOptions[NWNX_WEAPONS_OPT_PARSPEC_DAM_BONUS];
 
     return Local_GetDamageBonusAdjustment(info, weapon, adj);

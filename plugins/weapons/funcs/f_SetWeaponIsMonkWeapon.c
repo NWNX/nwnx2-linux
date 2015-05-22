@@ -21,13 +21,14 @@
 #include "NWNXWeapons.h"
 
 
-void Func_SetWeaponIsMonkWeapon (CGameObject *ob, char *value) {
+void Func_SetWeaponIsMonkWeapon(CGameObject *ob, char *value)
+{
     int baseitem, level;
 
     if (sscanf(value, "%d %d", &baseitem, &level) != 2 ||
-        level > UINT16_MAX                             ||
-        baseitem < 0                                   ||
-        baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE) {
+            level > UINT16_MAX                             ||
+            baseitem < 0                                   ||
+            baseitem >= NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE) {
 
         snprintf(value, strlen(value), "-1");
         return;

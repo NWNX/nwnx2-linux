@@ -29,26 +29,28 @@ volatile int8_t Hook_CSL_Level;
 
 
 __attribute__((noinline))
-static int8_t Hook_GetClassSpellLevel (CNWSpell *spell, int32_t class) {
+static int8_t Hook_GetClassSpellLevel(CNWSpell *spell, int32_t class)
+{
     int id = spell - (*NWN_Rules)->ru_spells->spa_spells;
 
     switch (class) {
         case CLASS_TYPE_ASSASSIN: switch (id) {
-        }
-        break;
+            }
+            break;
 
         case CLASS_TYPE_BLACKGUARD: switch (id) {
-            case  433: return 3;
-            case  434: return 4;
-        }
-        break;
+                case  433: return 3;
+                case  434: return 4;
+            }
+            break;
     }
 
     return -2;
 }
 
 
-void Hook_GetSpellLevel (void) {
+void Hook_GetSpellLevel(void)
+{
     asm("leave");
 
     asm("movl 0x8(%ebp), %eax");
@@ -58,7 +60,7 @@ void Hook_GetSpellLevel (void) {
     asm("movl %edx, Hook_CSL_Class");
 
     Hook_CSL_Level = Hook_GetClassSpellLevel(
-        (CNWSpell *)Hook_CSL_Spell, (int32_t)Hook_CSL_Class);
+                         (CNWSpell *)Hook_CSL_Spell, (int32_t)Hook_CSL_Class);
 
     if (Hook_CSL_Level == -2) {
         /* duplicate the work originally done */

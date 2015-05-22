@@ -21,14 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-void Func_ReplaceKnownSpell (CGameObject *ob, char *value) {
+void Func_ReplaceKnownSpell(CGameObject *ob, char *value)
+{
     int i, j, k, sp_class, sp_id, sp_new;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        sscanf(value, "%d %d %d", &sp_class, &sp_id, &sp_new) != 3) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            sscanf(value, "%d %d %d", &sp_class, &sp_id, &sp_new) != 3) {
 
         snprintf(value, strlen(value), "-1");
         return;

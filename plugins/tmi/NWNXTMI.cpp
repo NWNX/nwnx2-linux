@@ -38,28 +38,29 @@
 //////////////////////////////////////////////////////////////////////
 
 /* 8D F7 1D 00 00 8B 55 08  8B 42 08 40 3D FF FF 01 */
-unsigned long FindTMILimit() {
+unsigned long FindTMILimit()
+{
     unsigned long start_addr = 0x08048000, end_addr = 0x08300000;
 
     char *ptr = (char *)start_addr;
 
     while (ptr < (char *)end_addr) {
         if (ptr[0x0] == (char)0x8d &&
-            ptr[0x1] == (char)0xf7 &&
-            ptr[0x2] == (char)0x1d &&
-            ptr[0x3] == (char)0x00 &&
-            ptr[0x4] == (char)0x00 &&
-            ptr[0x5] == (char)0x8b &&
-            ptr[0x6] == (char)0x55 &&
-            ptr[0x7] == (char)0x08 &&
-            ptr[0x8] == (char)0x8b &&
-            ptr[0x9] == (char)0x42 &&
-            ptr[0xa] == (char)0x08 &&
-            ptr[0xb] == (char)0x40 &&
-            ptr[0xc] == (char)0x3d &&
-            ptr[0xd] == (char)0xff &&
-            ptr[0xe] == (char)0xff &&
-            ptr[0xf] == (char)0x01)
+                ptr[0x1] == (char)0xf7 &&
+                ptr[0x2] == (char)0x1d &&
+                ptr[0x3] == (char)0x00 &&
+                ptr[0x4] == (char)0x00 &&
+                ptr[0x5] == (char)0x8b &&
+                ptr[0x6] == (char)0x55 &&
+                ptr[0x7] == (char)0x08 &&
+                ptr[0x8] == (char)0x8b &&
+                ptr[0x9] == (char)0x42 &&
+                ptr[0xa] == (char)0x08 &&
+                ptr[0xb] == (char)0x40 &&
+                ptr[0xc] == (char)0x3d &&
+                ptr[0xd] == (char)0xff &&
+                ptr[0xe] == (char)0xff &&
+                ptr[0xf] == (char)0x01)
             return (unsigned long)(ptr + 13);
         else
             ptr++;
@@ -68,7 +69,8 @@ unsigned long FindTMILimit() {
     return 0;
 }
 
-static void enable_write(unsigned long location) {
+static void enable_write(unsigned long location)
+{
     char *page;
 
     page = (char *)location;
@@ -83,16 +85,19 @@ static void enable_write(unsigned long location) {
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CNWNXTMI::CNWNXTMI() {
+CNWNXTMI::CNWNXTMI()
+{
     confKey = "TMI";
 
     orig_TMI = 0;
 }
 
-CNWNXTMI::~CNWNXTMI() {
+CNWNXTMI::~CNWNXTMI()
+{
 }
 
-void CNWNXTMI::GetTMILimit(char *value) {
+void CNWNXTMI::GetTMILimit(char *value)
+{
     int lim = 0;
 
     lim |= *((unsigned char *)(orig_TMI + 2)) << 16;
@@ -102,7 +107,8 @@ void CNWNXTMI::GetTMILimit(char *value) {
     snprintf(value, strlen(value), "%d", lim);
 }
 
-void CNWNXTMI::SetTMILimit(char *value) {
+void CNWNXTMI::SetTMILimit(char *value)
+{
     int lim = atoi(value);
 
     if (lim < 16383)
@@ -115,7 +121,8 @@ void CNWNXTMI::SetTMILimit(char *value) {
     *((unsigned char *)orig_TMI) = lim & 0xFF;
 }
 
-bool CNWNXTMI::OnCreate(gline *config, const char *LogDir) {
+bool CNWNXTMI::OnCreate(gline *config, const char *LogDir)
+{
     char log[128];
 
     sprintf(log, "%s/nwnx_tmi.txt", LogDir);
@@ -136,7 +143,8 @@ bool CNWNXTMI::OnCreate(gline *config, const char *LogDir) {
     return true;
 }
 
-char *CNWNXTMI::OnRequest(char *gameObject, char *Request, char *Parameters) {
+char *CNWNXTMI::OnRequest(char *gameObject, char *Request, char *Parameters)
+{
     Log(1, "Request: \"%s\"\n", Request);
     Log(1, "Params:  \"%s\"\n", Parameters);
 

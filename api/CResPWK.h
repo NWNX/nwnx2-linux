@@ -5,13 +5,13 @@
 class CResPWK
 {
 public:
-	unsigned char * GetPWKDataPtr();
-	unsigned long GetPWKSize();
-	int IsLoaded();
-	int OnResourceFreed();
-	int OnResourceServiced();
-	~CResPWK();
-	CResPWK();
+    unsigned char * GetPWKDataPtr();
+    unsigned long GetPWKSize();
+    int IsLoaded();
+    int OnResourceFreed();
+    int OnResourceServiced();
+    ~CResPWK();
+    CResPWK();
 
 };
 #endif

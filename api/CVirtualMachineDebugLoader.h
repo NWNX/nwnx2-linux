@@ -5,11 +5,11 @@
 class CVirtualMachineDebugLoader
 {
 public:
-	int DemandDebugInfo(CExoString *);
-	int GetDataPtr();
-	int GetSize();
-	int ReleaseDebugInfo();
-	~CVirtualMachineDebugLoader();
+    int DemandDebugInfo(CExoString *);
+    int GetDataPtr();
+    int GetSize();
+    int ReleaseDebugInfo();
+    ~CVirtualMachineDebugLoader();
 
 };
 #endif

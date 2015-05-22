@@ -5,12 +5,12 @@
 class CNWItem
 {
 public:
-	int GetBaseItemID();
-	int GetLayeredTextureColor(unsigned char);
-	int SetBaseItemID(unsigned long);
-	int SetLayeredTextureColor(unsigned char, unsigned char);
-	~CNWItem();
-	CNWItem();
+    int GetBaseItemID();
+    int GetLayeredTextureColor(unsigned char);
+    int SetBaseItemID(unsigned long);
+    int SetLayeredTextureColor(unsigned char, unsigned char);
+    ~CNWItem();
+    CNWItem();
 
 };
 #endif

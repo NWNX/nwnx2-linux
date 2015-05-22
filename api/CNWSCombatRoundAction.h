@@ -5,10 +5,10 @@
 class CNWSCombatRoundAction
 {
 public:
-	int LoadData(CResGFF *, CResStruct *);
-	int SaveData(CResGFF *, CResStruct *);
-	~CNWSCombatRoundAction();
-	CNWSCombatRoundAction();
+    int LoadData(CResGFF *, CResStruct *);
+    int SaveData(CResGFF *, CResStruct *);
+    ~CNWSCombatRoundAction();
+    CNWSCombatRoundAction();
 
 };
 #endif

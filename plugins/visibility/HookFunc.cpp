@@ -41,54 +41,54 @@ unsigned char d_ret_code_tov[0x20];
 
 int CNWSMessage__TestObjectVisible(void *pMessage, CNWSObject *pObject1, CNWSObject *pObject2)
 {
-	dword oObject1 = pObject1->ObjectID;
-	dword oObject2 = pObject2->ObjectID;
-	int nResult = 0;
-	if(!visibility.TestVisibility(oObject1, oObject2, nResult)){
-		nResult = CNWSMessage__TestObjectVisible_orig(pMessage, pObject1, pObject2);
-	}
-	visibility.Log(3, "Visibility check: %x - %x: %d\n", pObject1->ObjectID, pObject2->ObjectID, nResult);
-	return nResult;
+    dword oObject1 = pObject1->ObjectID;
+    dword oObject2 = pObject2->ObjectID;
+    int nResult = 0;
+    if (!visibility.TestVisibility(oObject1, oObject2, nResult)) {
+        nResult = CNWSMessage__TestObjectVisible_orig(pMessage, pObject1, pObject2);
+    }
+    visibility.Log(3, "Visibility check: %x - %x: %d\n", pObject1->ObjectID, pObject2->ObjectID, nResult);
+    return nResult;
 }
 
 void
-d_enable_write (unsigned long location)
+d_enable_write(unsigned long location)
 {
     char *page;
     page = (char *) location;
-    page = (char *) (((int) page + PAGESIZE - 1) & ~(PAGESIZE - 1));
+    page = (char *)(((int) page + PAGESIZE - 1) & ~(PAGESIZE - 1));
     page -= PAGESIZE;
 
-    if (mprotect (page, PAGESIZE, PROT_WRITE | PROT_READ | PROT_EXEC))
-	perror ("mprotect");
+    if (mprotect(page, PAGESIZE, PROT_WRITE | PROT_READ | PROT_EXEC))
+        perror("mprotect");
 }
 
 int intlen = -1;
 
 void
-d_redirect (long from, long to, unsigned char *d_ret_code, long len=0)
+d_redirect(long from, long to, unsigned char *d_ret_code, long len = 0)
 {
     // enable write to code pages
-    d_enable_write (from);
+    d_enable_write(from);
     // copy orig code stub to our "ret_code"
-    len = len ? len : sizeof(d_jmp_code)-1; // - trailing 0x00
+    len = len ? len : sizeof(d_jmp_code) - 1; // - trailing 0x00
     intlen = len;
-    memcpy ((void *) d_ret_code, (const void *) from, len);
+    memcpy((void *) d_ret_code, (const void *) from, len);
     // make ret code
     *(long *)(d_jmp_code + 1) = from + len;
-    memcpy ((char *) d_ret_code + len, (const void *) d_jmp_code, 6);
+    memcpy((char *) d_ret_code + len, (const void *) d_jmp_code, 6);
     // make hook code
     *(long *)(d_jmp_code + 1) = to;
-    memcpy ((void *) from, (const void *) d_jmp_code, 6);
+    memcpy((void *) from, (const void *) d_jmp_code, 6);
 }
 
 int HookFunctions()
 {
-	dword org_TestObjectVisible = 0x0806C6E8;
-	d_redirect (org_TestObjectVisible, (unsigned long)CNWSMessage__TestObjectVisible, d_ret_code_tov, 12);
-	*(unsigned long*)&CNWSMessage__TestObjectVisible_orig = (unsigned long)&d_ret_code_tov;
+    dword org_TestObjectVisible = 0x0806C6E8;
+    d_redirect(org_TestObjectVisible, (unsigned long)CNWSMessage__TestObjectVisible, d_ret_code_tov, 12);
+    *(unsigned long*)&CNWSMessage__TestObjectVisible_orig = (unsigned long)&d_ret_code_tov;
 
-	return 1;
+    return 1;
 }
 
 

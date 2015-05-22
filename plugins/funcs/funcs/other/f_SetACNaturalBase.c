@@ -21,14 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetACNaturalBase (CGameObject *ob, char *value) {
+void Func_SetACNaturalBase(CGameObject *ob, char *value)
+{
     int val;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        (val = atoi(value)) < 0 || val > 127) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            (val = atoi(value)) < 0 || val > 127) {
 
         snprintf(value, strlen(value), "-1");
         return;

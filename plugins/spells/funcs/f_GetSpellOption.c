@@ -21,7 +21,8 @@
 #include "NWNXSpells.h"
 
 
-void Func_GetSpellOption (CGameObject *ob, char *value) {
+void Func_GetSpellOption(CGameObject *ob, char *value)
+{
     int opt, val = -1;
 
     opt = atoi(value);

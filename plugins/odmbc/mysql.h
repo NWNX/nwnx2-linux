@@ -30,29 +30,29 @@
 class CMySQL : public CDB
 {
 public:
-	CMySQL();
-	~CMySQL();
+    CMySQL();
+    ~CMySQL();
 
-	BOOL Connect ();
-	BOOL Connect (const char *server, const char *user, const char *pass, const char *db, unsigned int port, const char *unix_socket, const char *charset);
-	void Disconnect ();
+    BOOL Connect();
+    BOOL Connect(const char *server, const char *user, const char *pass, const char *db, unsigned int port, const char *unix_socket, const char *charset);
+    void Disconnect();
 
-	BOOL Execute (const uchar* query);
-	char * Fetch(char * buffer, unsigned int buffersize);
-	BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length);
-	BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size);
-	BOOL SetCharacterSet (const char *charset);
+    BOOL Execute(const uchar* query);
+    char * Fetch(char * buffer, unsigned int buffersize);
+    BOOL WriteScorcoData(char* SQL, BYTE* pData, int Length);
+    BYTE * ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size);
+    BOOL SetCharacterSet(const char *charset);
 
-	const char* GetErrorMessage ();
+    const char* GetErrorMessage();
 
-	unsigned int GetErrorCode();
+    unsigned int GetErrorCode();
 
 private:
-	MYSQL mysql;
-	MYSQL* connection;
-	MYSQL_RES *result;
-	ulong NumCol;
-	unsigned long version;
+    MYSQL mysql;
+    MYSQL* connection;
+    MYSQL_RES *result;
+    ulong NumCol;
+    unsigned long version;
 };
 
 #endif

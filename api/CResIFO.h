@@ -5,7 +5,7 @@
 class CResIFO
 {
 public:
-	~CResIFO();
+    ~CResIFO();
 
 };
 #endif

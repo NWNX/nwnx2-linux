@@ -24,14 +24,16 @@ extern volatile CGameEffect *Hook_Struct_Last;
 static nwn_objid_t Struct_Creator = OBJECT_INVALID;
 
 
-void Func_GetCreatorRequest (CGameObject *ob, char *value) {
+void Func_GetCreatorRequest(CGameObject *ob, char *value)
+{
     CGameEffect *eff = (CGameEffect *)Hook_Struct_Last;
 
     Struct_Creator = eff->eff_creator;
 }
 
 
-nwn_objid_t Func_GetCreator (CGameObject *ob) {
+nwn_objid_t Func_GetCreator(CGameObject *ob)
+{
     return Struct_Creator;
 }
 

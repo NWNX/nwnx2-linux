@@ -21,21 +21,22 @@
 #include "NWNXWeapons.h"
 
 
-bool GetIsWeaponLight (CNWSCreatureStats *info, CNWSItem *weapon, bool finesse) {
+bool GetIsWeaponLight(CNWSCreatureStats *info, CNWSItem *weapon, bool finesse)
+{
     int rel;
 
     if (GetIsUnarmedWeapon(weapon))
         return true;
 
     if (info->cs_original == NULL                        ||
-        info->cs_original->cre_size < CREATURE_SIZE_TINY ||
-        info->cs_original->cre_size > CREATURE_SIZE_HUGE)
+            info->cs_original->cre_size < CREATURE_SIZE_TINY ||
+            info->cs_original->cre_size > CREATURE_SIZE_HUGE)
         return false;
 
     if (finesse                                                 &&
-        weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE &&
-        Table_WeaponFinesseSize[weapon->it_baseitem] > 0        &&
-        info->cs_original->cre_size >= Table_WeaponFinesseSize[weapon->it_baseitem])
+            weapon->it_baseitem < NWNX_WEAPONS_BASE_ITEM_TABLE_SIZE &&
+            Table_WeaponFinesseSize[weapon->it_baseitem] > 0        &&
+            info->cs_original->cre_size >= Table_WeaponFinesseSize[weapon->it_baseitem])
         return true;
 
     rel = CNWSCreature__GetRelativeWeaponSize(info->cs_original, weapon);

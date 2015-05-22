@@ -25,11 +25,12 @@ volatile CNWSItem *Hook_GetCriticalRange_Weapon;
 
 
 __attribute__((noinline))
-static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *attacker, CNWSItem *weapon) {
+static int Hook_GetCriticalRangeAdjustment(CNWSCreatureStats *attacker, CNWSItem *weapon)
+{
     int feat, bonus = 0, ki = CNWSCreatureStats__HasFeat(attacker, FEAT_KI_CRITICAL);
 
     if (Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_RANGE_BONUS] &&
-        (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_RANGE_STACK])) {
+            (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_POWCRIT_RANGE_STACK])) {
 
         if (weapon == NULL)
             feat = Table_WeaponPowerCritical[BASE_ITEM_GLOVES];
@@ -43,7 +44,7 @@ static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *attacker, CNWSIte
     }
 
     if (Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_RANGE_BONUS] &&
-        (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_RANGE_STACK])) {
+            (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_SUPCRIT_RANGE_STACK])) {
 
         if (weapon == NULL)
             feat = Table_WeaponSuperiorCritical[BASE_ITEM_GLOVES];
@@ -57,7 +58,7 @@ static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *attacker, CNWSIte
     }
 
     if (Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_RANGE_BONUS] &&
-        (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_RANGE_STACK])) {
+            (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_OVERCRIT_RANGE_STACK])) {
 
         if (weapon == NULL)
             feat = Table_WeaponOverwhelmingCritical[BASE_ITEM_GLOVES];
@@ -71,7 +72,7 @@ static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *attacker, CNWSIte
     }
 
     if (Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_RANGE_BONUS] &&
-        (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_RANGE_STACK])) {
+            (!ki || Table_WeaponOptions[NWNX_WEAPONS_OPT_DEVCRIT_RANGE_STACK])) {
 
         if (weapon == NULL)
             feat = Table_WeaponDevastatingCritical[BASE_ITEM_GLOVES];
@@ -88,7 +89,8 @@ static int Hook_GetCriticalRangeAdjustment (CNWSCreatureStats *attacker, CNWSIte
 }
 
 
-void Hook_GetCriticalRange (void) {
+void Hook_GetCriticalRange(void)
+{
     asm("leave");
 
     asm("pushl 0x8(%ebp)");

@@ -30,7 +30,8 @@
     } while (0)
 
 
-void Func_GetAllMemorizedSpells (CGameObject *ob, char *value) {
+void Func_GetAllMemorizedSpells(CGameObject *ob, char *value)
+{
     int i, j, k, ret, sp_save, sp_len;
     char *p = value;
     size_t len = strlen(value);
@@ -52,7 +53,7 @@ void Func_GetAllMemorizedSpells (CGameObject *ob, char *value) {
             VALUE_APPEND(p, ret, len, "*%d ", (i << 8) | (j & 0xFF));
 
             if (cre->cre_stats->cs_classes[i].cl_class == CLASS_TYPE_BARD ||
-                cre->cre_stats->cs_classes[i].cl_class == CLASS_TYPE_SORCERER) {
+                    cre->cre_stats->cs_classes[i].cl_class == CLASS_TYPE_SORCERER) {
 
                 VALUE_APPEND(p, ret, len, "#%d ", cre->cre_stats->cs_classes[i].cl_spells_left[j]);
                 continue;

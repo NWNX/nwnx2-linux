@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-int Local_GetACTouchBase (CNWSCreatureStats *stats) {
+int Local_GetACTouchBase(CNWSCreatureStats *stats)
+{
 #ifdef NWNX_DEFENSES_HG
 #define NWNX_EXALT_GET_TOUCHAC(P)       ((P >> 24) & 0x7F)
 

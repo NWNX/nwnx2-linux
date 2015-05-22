@@ -31,7 +31,7 @@ static VALUE location_get_y(VALUE self);
 static VALUE location_get_z(VALUE self);
 static VALUE location_get_area_id(VALUE self);
 static VALUE location_get_facing(VALUE self);
-	
+
 #ifdef __cplusplus
 }
 #endif

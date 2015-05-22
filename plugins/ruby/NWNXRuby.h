@@ -28,20 +28,20 @@
 class CNWNXRuby : public CNWNXBase
 {
 public:
-	CNWNXRuby();
-	virtual ~CNWNXRuby();
+    CNWNXRuby();
+    virtual ~CNWNXRuby();
 
-	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
-	char* OnRequest (char* gameObject, char* Request, char* Parameters);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
 //	unsigned long OnRequestObject (char *gameObject, char* Request);
-	void ExecuteCommand(char *value);
-	char *Eval(char *value);
-        void LogRubyError();
+    void ExecuteCommand(char *value);
+    char *Eval(char *value);
+    void LogRubyError();
 
 
-	bool bHooked;
-	VALUE cNWScript;
-	int nError;
+    bool bHooked;
+    VALUE cNWScript;
+    int nError;
 
 private:
 

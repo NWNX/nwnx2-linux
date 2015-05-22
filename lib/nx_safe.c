@@ -24,23 +24,28 @@
 #include "NWNXLib.h"
 
 
-void *nx_safe_calloc (size_t nmemb, size_t size) {
+void *nx_safe_calloc(size_t nmemb, size_t size)
+{
     return calloc(nmemb, size);
 }
 
-void *nx_safe_malloc (size_t size) {
+void *nx_safe_malloc(size_t size)
+{
     return malloc(size);
 }
 
-void *nx_safe_realloc (void *ptr, size_t size) {
+void *nx_safe_realloc(void *ptr, size_t size)
+{
     return realloc(ptr, size);
 }
 
-void nx_safe_free (void *ptr) {
+void nx_safe_free(void *ptr)
+{
     free(ptr);
 }
 
-char *nx_safe_strdup (const char *str) {
+char *nx_safe_strdup(const char *str)
+{
     return strdup(str);
 }
 

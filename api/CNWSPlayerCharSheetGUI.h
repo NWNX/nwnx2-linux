@@ -5,8 +5,8 @@
 class CNWSPlayerCharSheetGUI
 {
 public:
-	unsigned long ComputeCharacterSheetUpdateRequired(CNWSPlayer *);
-	void SetCreatureDisplayed(unsigned long);
+    unsigned long ComputeCharacterSheetUpdateRequired(CNWSPlayer *);
+    void SetCreatureDisplayed(unsigned long);
 
 };
 #endif

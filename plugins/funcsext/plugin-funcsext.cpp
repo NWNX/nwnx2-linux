@@ -21,7 +21,7 @@
 CNWNXFuncsExt funcsext;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &funcsext;
+    return &funcsext;
 }

@@ -22,7 +22,7 @@
 CNWNXOptimizations plugin;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &plugin;
+    return &plugin;
 }

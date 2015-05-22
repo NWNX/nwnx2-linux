@@ -25,7 +25,8 @@ static volatile int8_t Hook_Save_Value;
 
 
 __attribute__((noinline))
-static int8_t Hook_GetSavingThrowAdjustment (CNWSCreatureStats *stats, int save, int8_t current) {
+static int8_t Hook_GetSavingThrowAdjustment(CNWSCreatureStats *stats, int save, int8_t current)
+{
     int value = current;
     int16_t *table = NULL;
 
@@ -34,7 +35,7 @@ static int8_t Hook_GetSavingThrowAdjustment (CNWSCreatureStats *stats, int save,
 
     if (stats->cs_cha_mod > 0) {
         if (Table_DefenseOptions[NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_GE] > 0 &&
-            stats->cs_al_goodevil < Table_DefenseOptions[NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_GE]) {
+                stats->cs_al_goodevil < Table_DefenseOptions[NWNX_DEFENSES_OPT_PALADIN_SAVES_MIN_ALIGN_GE]) {
 
             if (CNWSCreatureStats__HasFeat(stats, FEAT_DIVINE_GRACE))
                 value -= stats->cs_cha_mod;
@@ -47,7 +48,7 @@ static int8_t Hook_GetSavingThrowAdjustment (CNWSCreatureStats *stats, int save,
         }
 
         if (Table_DefenseOptions[NWNX_DEFENSES_OPT_BLACKGUARD_SAVES_MAX_ALIGN_GE] > 0 &&
-            stats->cs_al_goodevil > Table_DefenseOptions[NWNX_DEFENSES_OPT_BLACKGUARD_SAVES_MAX_ALIGN_GE]) {
+                stats->cs_al_goodevil > Table_DefenseOptions[NWNX_DEFENSES_OPT_BLACKGUARD_SAVES_MAX_ALIGN_GE]) {
 
             if (CNWSCreatureStats__HasFeat(stats, FEAT_PRESTIGE_DARK_BLESSING))
                 value -= stats->cs_cha_mod;
@@ -76,15 +77,16 @@ static int8_t Hook_GetSavingThrowAdjustment (CNWSCreatureStats *stats, int save,
     }
 
     if (value < -100)
-      value = -100;
+        value = -100;
     else if (value > 100)
-      value = 100;
+        value = 100;
 
     return value;
 }
 
 
-void Hook_GetFortitudeSavingThrow (void) {
+void Hook_GetFortitudeSavingThrow(void)
+{
     asm("leave");
 
     /* duplicate the work originally done */
@@ -108,7 +110,8 @@ void Hook_GetFortitudeSavingThrow (void) {
     asm("ret");
 }
 
-void Hook_GetReflexSavingThrow (void) {
+void Hook_GetReflexSavingThrow(void)
+{
     asm("leave");
 
     /* duplicate the work originally done */
@@ -131,7 +134,8 @@ void Hook_GetReflexSavingThrow (void) {
     asm("ret");
 }
 
-void Hook_GetWillSavingThrow (void) {
+void Hook_GetWillSavingThrow(void)
+{
     asm("leave");
 
     /* duplicate the work originally done */

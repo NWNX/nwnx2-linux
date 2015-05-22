@@ -21,14 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetEffectSkillModifier (CGameObject *ob, char *value) {
+void Func_GetEffectSkillModifier(CGameObject *ob, char *value)
+{
     int i, skill, durtype, ret = 0;
     const CGameEffect *eff;
     const CNWSObject *obj;
 
     if (ob == NULL                                  ||
-        (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
-        sscanf(value, "%d %d", &skill, &durtype) != 2) {
+            (obj = ob->vtable->AsNWSObject(ob)) == NULL ||
+            sscanf(value, "%d %d", &skill, &durtype) != 2) {
 
         snprintf(value, strlen(value), "0");
         return;
@@ -39,7 +40,7 @@ void Func_GetEffectSkillModifier (CGameObject *ob, char *value) {
             continue;
 
         if (eff->eff_type != EFFECT_TRUETYPE_SKILL_INCREASE &&
-            eff->eff_type != EFFECT_TRUETYPE_SKILL_DECREASE)
+                eff->eff_type != EFFECT_TRUETYPE_SKILL_DECREASE)
             continue;
 
         if (durtype >= 0 && (eff->eff_dursubtype & DURATION_TYPE_MASK) != durtype)

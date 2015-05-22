@@ -24,7 +24,7 @@
 CNWNXProfiler profiler;
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &profiler;
+    return &profiler;
 }

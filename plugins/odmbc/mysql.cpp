@@ -25,7 +25,7 @@
 
 CMySQL::CMySQL() : CDB()
 {
-	result = NULL;
+    result = NULL;
 }
 
 CMySQL::~CMySQL()
@@ -33,186 +33,176 @@ CMySQL::~CMySQL()
 }
 
 
-BOOL CMySQL::Connect ()
+BOOL CMySQL::Connect()
 {
-	// try to establish a default connection
-	return Connect ("localhost", "nwn", "nwnpwd", "nwn", 0, NULL, NULL);
+    // try to establish a default connection
+    return Connect("localhost", "nwn", "nwnpwd", "nwn", 0, NULL, NULL);
 }
 
 
-BOOL CMySQL::Connect (const char *server, const char *user, const char *pass, const char *db, unsigned int port, const char *unix_socket, const char *charset)
+BOOL CMySQL::Connect(const char *server, const char *user, const char *pass, const char *db, unsigned int port, const char *unix_socket, const char *charset)
 {
-	// initialize the mysql structure
-	if (mysql_init (&mysql) == NULL) {
-		return false;
-	}
-	// try to connect to the mysql server
-	connection = mysql_real_connect (&mysql, server, user, pass, db, port, unix_socket, 0);
-	if (connection == NULL) {
-		mysql_close (&mysql);
-		return false;
+    // initialize the mysql structure
+    if (mysql_init(&mysql) == NULL) {
+        return false;
     }
-	version = mysql_get_server_version(&mysql);
-	if(charset) SetCharacterSet(charset);
+    // try to connect to the mysql server
+    connection = mysql_real_connect(&mysql, server, user, pass, db, port, unix_socket, 0);
+    if (connection == NULL) {
+        mysql_close(&mysql);
+        return false;
+    }
+    version = mysql_get_server_version(&mysql);
+    if (charset) SetCharacterSet(charset);
 
-	return true;
+    return true;
 }
 
-void CMySQL::Disconnect ()
+void CMySQL::Disconnect()
 {
-	// close the connection
-	mysql_close (&mysql);
+    // close the connection
+    mysql_close(&mysql);
 }
 
-BOOL CMySQL::SetCharacterSet (const char *charset)
+BOOL CMySQL::SetCharacterSet(const char *charset)
 {
-	return (mysql_set_character_set(&mysql, charset)==0);
+    return (mysql_set_character_set(&mysql, charset) == 0);
 }
 
-BOOL CMySQL::Execute (const uchar* query)
+BOOL CMySQL::Execute(const uchar* query)
 {
-	if (connection == NULL)
-		return false;
+    if (connection == NULL)
+        return false;
 
-	// release a previous result set
-	if (result != NULL) {
-		mysql_free_result (result);
-		result = NULL;
-	}
+    // release a previous result set
+    if (result != NULL) {
+        mysql_free_result(result);
+        result = NULL;
+    }
 
-	// execute the query
-	if (mysql_query (connection, (const char *) query) != 0) {
-		return false;
-	}
+    // execute the query
+    if (mysql_query(connection, (const char *) query) != 0) {
+        return false;
+    }
 
-	// store the resultset in local memory
-	result = mysql_store_result (&mysql);
-	if (result == NULL) {
-		if (mysql_field_count (&mysql) != 0) {
-			return false;
-		}
-	}
-	else {
-		// successfull retreived the results from the SELECT
-		NumCol = mysql_num_fields (result);
-	}
-	return true;
+    // store the resultset in local memory
+    result = mysql_store_result(&mysql);
+    if (result == NULL) {
+        if (mysql_field_count(&mysql) != 0) {
+            return false;
+        }
+    } else {
+        // successfull retreived the results from the SELECT
+        NumCol = mysql_num_fields(result);
+    }
+    return true;
 }
 
 char * CMySQL::Fetch(char * buffer, unsigned int buffersize)
 {
-	// Attempt to fetch a row and column lengths.
-	MYSQL_ROW row;
-	unsigned long * column_lengths;
-	if (!connection || !result || !(row = mysql_fetch_row(result)) || !(column_lengths = mysql_fetch_lengths(result)))
-		return NULL;
+    // Attempt to fetch a row and column lengths.
+    MYSQL_ROW row;
+    unsigned long * column_lengths;
+    if (!connection || !result || !(row = mysql_fetch_row(result)) || !(column_lengths = mysql_fetch_lengths(result)))
+        return NULL;
 
-	// Calculate length of the row.
-	unsigned long row_length = 0;
-	for (unsigned int i = 0; i < NumCol; ++i)
-	{
-		// We will need one more character per a column to act as a column separator and a NULL terminating character.
-		row_length += column_lengths[i] + 1;
-	}
-	if (row_length == 0)
-		return NULL;
+    // Calculate length of the row.
+    unsigned long row_length = 0;
+    for (unsigned int i = 0; i < NumCol; ++i) {
+        // We will need one more character per a column to act as a column separator and a NULL terminating character.
+        row_length += column_lengths[i] + 1;
+    }
+    if (row_length == 0)
+        return NULL;
 
-	// If the row length exceeds size of the SPACER buffer, allocate a new one.
-	// The SPACER will be deleted automatically in nwnx2lib.cpp.
-	char * result = row_length <= buffersize ? buffer : (char *)malloc(row_length);
+    // If the row length exceeds size of the SPACER buffer, allocate a new one.
+    // The SPACER will be deleted automatically in nwnx2lib.cpp.
+    char * result = row_length <= buffersize ? buffer : (char *)malloc(row_length);
 
-	// Copy content of the columns to the buffer.
-	for (unsigned int i = 0, pos = 0; i < NumCol; ++i)
-	{
-		strncpy(&result[pos], row[i], column_lengths[i]);
-		pos += column_lengths[i];
-		result[pos++] = '¬';
-	}
-	result[row_length-1] = '\0';
+    // Copy content of the columns to the buffer.
+    for (unsigned int i = 0, pos = 0; i < NumCol; ++i) {
+        strncpy(&result[pos], row[i], column_lengths[i]);
+        pos += column_lengths[i];
+        result[pos++] = '¬';
+    }
+    result[row_length - 1] = '\0';
 
-	return result;
+    return result;
 }
 
 BOOL CMySQL::WriteScorcoData(char* SQL, BYTE* pData, int Length)
 {
-	int res;
-	unsigned long len;
-	char* Data = new char[Length * 2 + 1 + 2];
-	char* pSQL = new char[MAXSQL + Length * 2 + 1];
+    int res;
+    unsigned long len;
+    char* Data = new char[Length * 2 + 1 + 2];
+    char* pSQL = new char[MAXSQL + Length * 2 + 1];
 
-	len = mysql_real_escape_string (&mysql, Data + 1, (const char*)pData, Length);
-	Data[0] = Data[len + 1] = 39; //'
-	Data[len + 2] = 0x0;
-	sprintf(pSQL, SQL, Data);
+    len = mysql_real_escape_string(&mysql, Data + 1, (const char*)pData, Length);
+    Data[0] = Data[len + 1] = 39; //'
+    Data[len + 2] = 0x0;
+    sprintf(pSQL, SQL, Data);
 
-	MYSQL_RES *result = mysql_store_result (&mysql);
-	res = mysql_query(&mysql, (const char *) pSQL);
+    MYSQL_RES *result = mysql_store_result(&mysql);
+    res = mysql_query(&mysql, (const char *) pSQL);
 
-	mysql_free_result(result);
-	delete[] pSQL;
-	delete[] Data;
+    mysql_free_result(result);
+    delete[] pSQL;
+    delete[] Data;
 
-	if (res == 0)
-		return true;
-	else
-		return false;
+    if (res == 0)
+        return true;
+    else
+        return false;
 }
 
 BYTE * CMySQL::ReadScorcoData(const char * SQL, const char * param, BOOL * pSqlError, int * size)
 {
-	MYSQL_RES *rcoresult;
-	if (strcmp(param, "FETCHMODE") != 0)
-	{
-		if (mysql_query(&mysql, (const char *) SQL) != 0)
-		{
-			*pSqlError = true;
-			return NULL;
-		}
+    MYSQL_RES *rcoresult;
+    if (strcmp(param, "FETCHMODE") != 0) {
+        if (mysql_query(&mysql, (const char *) SQL) != 0) {
+            *pSqlError = true;
+            return NULL;
+        }
 
-		/*if (result)
-		{
-      mysql_free_result(result);
-      result = NULL;
-		}*/
-		rcoresult = mysql_store_result (&mysql);
-		if (!rcoresult)
-		{
-			*pSqlError = true;
-			return NULL;
-		}
-	}
-	else rcoresult=result;
+        /*if (result)
+        {
+        mysql_free_result(result);
+        result = NULL;
+        }*/
+        rcoresult = mysql_store_result(&mysql);
+        if (!rcoresult) {
+            *pSqlError = true;
+            return NULL;
+        }
+    } else rcoresult = result;
 
-	MYSQL_ROW row;
-	*pSqlError = false;
-	row = mysql_fetch_row(rcoresult);
-	if (row)
-	{
-		unsigned long* length = mysql_fetch_lengths(rcoresult);
-		// allocate buf for result!
-		char* buf = new char[*length];
-		if (!buf) return NULL;
+    MYSQL_ROW row;
+    *pSqlError = false;
+    row = mysql_fetch_row(rcoresult);
+    if (row) {
+        unsigned long* length = mysql_fetch_lengths(rcoresult);
+        // allocate buf for result!
+        char* buf = new char[*length];
+        if (!buf) return NULL;
 
-		memcpy(buf, row[0], length[0]);
-		*size = length[0];
-		mysql_free_result(rcoresult);
-		return (BYTE*)buf;
-	}
-	else
-	{
-		mysql_free_result(rcoresult);
-		return NULL;
-	}
+        memcpy(buf, row[0], length[0]);
+        *size = length[0];
+        mysql_free_result(rcoresult);
+        return (BYTE*)buf;
+    } else {
+        mysql_free_result(rcoresult);
+        return NULL;
+    }
 }
 
-const char* CMySQL::GetErrorMessage ()
+const char* CMySQL::GetErrorMessage()
 {
-	// return the error message
-	return mysql_error (&mysql);
+    // return the error message
+    return mysql_error(&mysql);
 }
 
 unsigned int CMySQL::GetErrorCode()
 {
-	// return the error code
-	return mysql_errno(&mysql);
+    // return the error code
+    return mysql_errno(&mysql);
 }

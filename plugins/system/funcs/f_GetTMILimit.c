@@ -23,7 +23,8 @@
 extern unsigned char *Ref_TMILimit;
 
 
-void Func_GetTMILimit (CGameObject *ob, char *value) {
+void Func_GetTMILimit(CGameObject *ob, char *value)
+{
     int lim = 0;
 
     lim |= *(Ref_TMILimit + 15) << 16;

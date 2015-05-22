@@ -22,6 +22,7 @@
 
 CNWNXStructs structs;
 
-extern "C" CNWNXBase *GetClassObject() {
+extern "C" CNWNXBase *GetClassObject()
+{
     return &structs;
 }

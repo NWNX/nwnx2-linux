@@ -21,14 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetClericDomain (CGameObject *ob, char *value) {
+void Func_GetClericDomain(CGameObject *ob, char *value)
+{
     int i, dom, ret = -1;
     const CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        ((dom = atoi(value)) < 1) || dom > 2) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            ((dom = atoi(value)) < 1) || dom > 2) {
 
         snprintf(value, strlen(value), "-1");
         return;

@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetMaxHitPoints (CGameObject *ob, char *value) {
+void Func_SetMaxHitPoints(CGameObject *ob, char *value)
+{
     int hp = atoi(value);
     CNWSObject *obj;
 

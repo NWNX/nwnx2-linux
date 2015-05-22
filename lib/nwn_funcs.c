@@ -23,7 +23,8 @@
 
 #include "NWNXLib.h"
 
-CGameObject *nwn_GetObjectByID (nwn_objid_t oid) {
+CGameObject *nwn_GetObjectByID(nwn_objid_t oid)
+{
     CGameObject *ob = NULL;
 
     CGameObjectArray__GetGameObject((*NWN_AppManager)->app_server->srv_internal->srv_objects, oid, &ob);
@@ -31,22 +32,26 @@ CGameObject *nwn_GetObjectByID (nwn_objid_t oid) {
 }
 
 
-CGameObject *nwn_GetObjectByStringID (const char *oid) {
+CGameObject *nwn_GetObjectByStringID(const char *oid)
+{
     return nwn_GetObjectByID(strtoul(oid, NULL, 16));
 }
 
 
-CNWSPlayer *nwn_GetPlayerByID (nwn_objid_t oid) {
+CNWSPlayer *nwn_GetPlayerByID(nwn_objid_t oid)
+{
     return CServerExoApp__GetClientObjectByObjectId((*NWN_AppManager)->app_server, oid);
 }
 
 
-bool nwn_GetKnowsFeat (const CNWSCreatureStats *stats, int feat) {
+bool nwn_GetKnowsFeat(const CNWSCreatureStats *stats, int feat)
+{
     return CExoArrayList_uint16_contains(&(stats->cs_feats), feat);
 }
 
 
-int nwn_GetKnowsSkill (const CNWSCreatureStats *stats, int skill) {
+int nwn_GetKnowsSkill(const CNWSCreatureStats *stats, int skill)
+{
     if (skill >= 0 && skill <= SKILL_LAST)
         skill = stats->cs_skills[skill];
 
@@ -54,19 +59,21 @@ int nwn_GetKnowsSkill (const CNWSCreatureStats *stats, int skill) {
 }
 
 
-int nwn_GetLevelByClass (const CNWSCreatureStats *stats, int cl) {
+int nwn_GetLevelByClass(const CNWSCreatureStats *stats, int cl)
+{
     int i;
 
     for (i = 0; i < stats->cs_classes_len; i++) {
         if (stats->cs_classes[i].cl_class == cl)
-            return stats->cs_classes[i].cl_level;                                                                    
+            return stats->cs_classes[i].cl_level;
     }
 
     return 0;
 }
 
 
-CNWSStats_Level *nwn_GetLevelStats (const CNWSCreatureStats *stats, int level) {
+CNWSStats_Level *nwn_GetLevelStats(const CNWSCreatureStats *stats, int level)
+{
     if (level < 1 || level > stats->cs_levelstat.len)
         return NULL;
 
@@ -74,7 +81,8 @@ CNWSStats_Level *nwn_GetLevelStats (const CNWSCreatureStats *stats, int level) {
 }
 
 
-int64_t nwn_GetWorldTime (uint32_t *time_2880s, uint32_t *time_msec) {
+int64_t nwn_GetWorldTime(uint32_t *time_2880s, uint32_t *time_msec)
+{
     int64_t ret;
     uint32_t a, b;
 
@@ -91,7 +99,8 @@ int64_t nwn_GetWorldTime (uint32_t *time_2880s, uint32_t *time_msec) {
 }
 
 
-void nwn_UpdateQuickBar (CNWSCreature *cre) {
+void nwn_UpdateQuickBar(CNWSCreature *cre)
+{
     CNWSPlayer *pl;
 
     if ((pl = nwn_GetPlayerByID(cre->obj.obj_id)) == NULL)
@@ -102,7 +111,8 @@ void nwn_UpdateQuickBar (CNWSCreature *cre) {
 }
 
 
-void nwn_ExecuteScript (const char *scr, nwn_objid_t oid) {
+void nwn_ExecuteScript(const char *scr, nwn_objid_t oid)
+{
     CExoString run;
 
     run.text = (char *)scr;

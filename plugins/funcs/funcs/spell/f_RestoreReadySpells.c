@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_RestoreReadySpells (CGameObject *ob, char *value) {
+void Func_RestoreReadySpells(CGameObject *ob, char *value)
+{
     int sp_class = -1, sp_level = 0, sp_len = 0, sp_idx = 0, sp_pct = 0, ret = 0;
     long val;
     char *end, *p = value;

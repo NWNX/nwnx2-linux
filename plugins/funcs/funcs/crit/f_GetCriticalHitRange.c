@@ -21,7 +21,8 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetCriticalHitRange (CGameObject *ob, char *value) {
+void Func_GetCriticalHitRange(CGameObject *ob, char *value)
+{
     const CNWSCreature *cre;
 
     if (ob == NULL || (cre = ob->vtable->AsNWSCreature(ob)) == NULL || cre->cre_stats == NULL) {
@@ -30,7 +31,7 @@ void Func_GetCriticalHitRange (CGameObject *ob, char *value) {
     }
 
     snprintf(value, strlen(value), "%d",
-        CNWSCreatureStats__GetCriticalHitRoll(cre->cre_stats, atoi(value)));
+             CNWSCreatureStats__GetCriticalHitRoll(cre->cre_stats, atoi(value)));
 }
 
 

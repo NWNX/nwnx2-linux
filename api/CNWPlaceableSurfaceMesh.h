@@ -6,10 +6,10 @@
 class CNWPlaceableSurfaceMesh
 {
 public:
-	int LoadWalkMeshString(unsigned char **, unsigned long *, unsigned char *, unsigned long);
-	int LoadWalkMesh(CResRef);
-	~CNWPlaceableSurfaceMesh();
-	CNWPlaceableSurfaceMesh();
+    int LoadWalkMeshString(unsigned char **, unsigned long *, unsigned char *, unsigned long);
+    int LoadWalkMesh(CResRef);
+    ~CNWPlaceableSurfaceMesh();
+    CNWPlaceableSurfaceMesh();
 
 };
 #endif

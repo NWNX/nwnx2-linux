@@ -21,15 +21,16 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetAlignmentValue (CGameObject *ob, char *value) {
+void Func_SetAlignmentValue(CGameObject *ob, char *value)
+{
     int al, val;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        sscanf(value, "%d %d", &al, &val) != 2        ||
-        val < 0 || val > 100) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            sscanf(value, "%d %d", &al, &val) != 2        ||
+            val < 0 || val > 100) {
 
         snprintf(value, strlen(value), "-1");
         return;

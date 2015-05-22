@@ -21,15 +21,16 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetSavingThrowBonus (CGameObject *ob, char *value) {
+void Func_SetSavingThrowBonus(CGameObject *ob, char *value)
+{
     int save, val;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        sscanf(value, "%d %d", &save, &val) != 2      ||
-        val < -127 || val > 127) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            sscanf(value, "%d %d", &save, &val) != 2      ||
+            val < -127 || val > 127) {
 
         snprintf(value, strlen(value), "-1");
         return;

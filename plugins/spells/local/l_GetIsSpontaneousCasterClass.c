@@ -21,7 +21,8 @@
 #include "NWNXSpells.h"
 
 
-int Local_GetIsSpontaneousCasterClass (int cl) {
+int Local_GetIsSpontaneousCasterClass(int cl)
+{
     switch (cl) {
         case CLASS_TYPE_BARD:
         case CLASS_TYPE_SORCERER:

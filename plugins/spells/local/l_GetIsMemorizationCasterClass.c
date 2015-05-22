@@ -21,7 +21,8 @@
 #include "NWNXSpells.h"
 
 
-int Local_GetIsMemorizationCasterClass (int cl) {
+int Local_GetIsMemorizationCasterClass(int cl)
+{
     switch (cl) {
         case CLASS_TYPE_CLERIC:
         case CLASS_TYPE_DRUID:

@@ -21,15 +21,16 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetAbilityScore (CGameObject *ob, char *value) {
+void Func_SetAbilityScore(CGameObject *ob, char *value)
+{
     int abil, val;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        sscanf(value, "%d %d", &abil, &val) != 2      ||
-        val < 0 || val > 255) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            sscanf(value, "%d %d", &abil, &val) != 2      ||
+            val < 0 || val > 255) {
 
         snprintf(value, strlen(value), "-1");
         return;

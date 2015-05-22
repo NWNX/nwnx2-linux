@@ -23,31 +23,31 @@ CNWNXConnect plugin;
 
 PLUGINLINK *pluginLink = 0;
 
-PLUGININFO pluginInfo={
-	sizeof(PLUGININFO),
-	"NWNX Connect",
-	PLUGIN_MAKE_VERSION(1,0,0,0),
-	"",
-	"virusman",
-	"virusman@virusman.ru",
-	"© 2012 virusman",
-	"http://www.virusman.ru/",
-	0		//not transient
+PLUGININFO pluginInfo = {
+    sizeof(PLUGININFO),
+    "NWNX Connect",
+    PLUGIN_MAKE_VERSION(1, 0, 0, 0),
+    "",
+    "virusman",
+    "virusman@virusman.ru",
+    "© 2012 virusman",
+    "http://www.virusman.ru/",
+    0		//not transient
 };
 
 extern "C" PLUGININFO* GetPluginInfo(DWORD nwnxVersion)
 {
-	return &pluginInfo;
+    return &pluginInfo;
 }
 
 extern "C" int InitPlugin(PLUGINLINK *link)
 {
-	pluginLink=link;
-	return 0;
+    pluginLink = link;
+    return 0;
 }
 
 extern "C"
-CNWNXBase* GetClassObject ()
+CNWNXBase* GetClassObject()
 {
-	return &plugin;
+    return &plugin;
 }

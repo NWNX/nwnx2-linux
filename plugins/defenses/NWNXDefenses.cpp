@@ -86,15 +86,17 @@ static struct DefenseSignatureTable {
 };
 
 
-static void DefensesSearchCallback (int id, void *addr) {
+static void DefensesSearchCallback(int id, void *addr)
+{
     nx_log(NX_LOG_NOTICE, 0, "%s (%d) found at %p%s",
-        Table_DefenseSignatures[id].name, id, addr,
-        (*(void **)Table_DefenseSignatures[id].ref == NULL ? "" : " (duplicate)"));
+           Table_DefenseSignatures[id].name, id, addr,
+           (*(void **)Table_DefenseSignatures[id].ref == NULL ? "" : " (duplicate)"));
 
     *(void **)(Table_DefenseSignatures[id].ref) = addr;
 }
 
-static void DefensesSearchSignatures (void) {
+static void DefensesSearchSignatures(void)
+{
     int i;
 
     nx_sig_search_t *sig = nx_sig_search_create(DefensesSearchCallback);
@@ -116,16 +118,19 @@ static void DefensesSearchSignatures (void) {
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CNWNXDefenses::CNWNXDefenses() {
+CNWNXDefenses::CNWNXDefenses()
+{
     confKey = strdup("DEFENSES");
 }
 
 
-CNWNXDefenses::~CNWNXDefenses() {
+CNWNXDefenses::~CNWNXDefenses()
+{
 }
 
 
-char *CNWNXDefenses::OnRequest (char *gameObject, char *Request, char *Parameters) {
+char *CNWNXDefenses::OnRequest(char *gameObject, char *Request, char *Parameters)
+{
     const struct DefensesStrCommand_s *cmd;
 
     Log(1, "StrReq: \"%s\"\nParams: \"%s\"\n", Request, Parameters);
@@ -141,7 +146,8 @@ char *CNWNXDefenses::OnRequest (char *gameObject, char *Request, char *Parameter
 }
 
 
-unsigned long CNWNXDefenses::OnRequestObject (char *gameObject, char *Request) {
+unsigned long CNWNXDefenses::OnRequestObject(char *gameObject, char *Request)
+{
     unsigned long ret = OBJECT_INVALID;
     const struct DefensesObjCommand_s *cmd;
 
@@ -158,7 +164,8 @@ unsigned long CNWNXDefenses::OnRequestObject (char *gameObject, char *Request) {
 }
 
 
-bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
+bool CNWNXDefenses::OnCreate(gline *config, const char *LogDir)
+{
     char log[128];
 
     sprintf(log, "%s/nwnx_defenses.txt", LogDir);
@@ -173,9 +180,9 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
 
     /* replace 'other' and 'tumble' AC bonus functions */
     nx_hook_function((void *)CNWSCreatureStats__GetACNaturalBase,
-        (void *)Hook_GetACNaturalBase, 5, NX_HOOK_DIRECT);
+                     (void *)Hook_GetACNaturalBase, 5, NX_HOOK_DIRECT);
     nx_hook_function((void *)CNWSCreatureStats__GetTotalACSkillMod,
-        (void *)Hook_GetTumbleACBonus, 5, NX_HOOK_DIRECT);
+                     (void *)Hook_GetTumbleACBonus, 5, NX_HOOK_DIRECT);
 
 
     /* replace concealment check */
@@ -213,18 +220,18 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
     /* hook hit damage in combat */
     if (Ref_CombatHitDamage != NULL) {
         extern volatile uintptr_t Hook_CHD_Return;
-        
+
         Hook_CHD_Return = (uintptr_t)(Ref_CombatHitDamage + 6);
 
         nx_hook_function(Ref_CombatHitDamage + 1, (void *)Hook_CombatHitDamage,
-            5, NX_HOOK_DIRECT);
+                         5, NX_HOOK_DIRECT);
     }
 
-    
+
     /* fix damage immunity stacking */
     if (Ref_DamageImmunityAlloc != NULL &&
-        Ref_DamageImmunitySet1  != NULL &&
-        Ref_DamageImmunitySet2  != NULL) {
+            Ref_DamageImmunitySet1  != NULL &&
+            Ref_DamageImmunitySet2  != NULL) {
 
         int i;
         unsigned char *p;
@@ -238,11 +245,11 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         Ref_DamageImmunityAlloc[32] = 0x30;    /* CMP EDX, 0x30 */
 
         Ref_DamageImmunitySet1[-6]  = 0x89;    /* MOV EBX <- ESI */
-        Ref_DamageImmunitySet1[-5]  = 0xF3;    
+        Ref_DamageImmunitySet1[-5]  = 0xF3;
         Ref_DamageImmunitySet1[-4]  = 0x90;    /* NOP */
 
         Ref_DamageImmunitySet2[-6]  = 0x89;    /* MOV EBX <- ESI */
-        Ref_DamageImmunitySet2[-5]  = 0xF3;    
+        Ref_DamageImmunitySet2[-5]  = 0xF3;
         Ref_DamageImmunitySet2[-4]  = 0x90;    /* NOP */
 #else
         Ref_DamageImmunityAlloc[1]  = 0x1A;    /* PUSH 0x1A */
@@ -266,13 +273,13 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         p = Ref_DamageImmunitySet2;
         *(unsigned long *)(p + 21) = (unsigned long)Hook_AddDamageImmunity - (unsigned long)(p + 25);
 
-        nx_hook_function((void *)CNWSObject__GetDamageImmunity, 
-            (void *)Hook_GetDamageImmunity, 5, NX_HOOK_DIRECT);
-        nx_hook_function((void *)CNWSObject__SetDamageImmunity, 
-            (void *)Hook_SetDamageImmunity, 5, NX_HOOK_DIRECT);
+        nx_hook_function((void *)CNWSObject__GetDamageImmunity,
+                         (void *)Hook_GetDamageImmunity, 5, NX_HOOK_DIRECT);
+        nx_hook_function((void *)CNWSObject__SetDamageImmunity,
+                         (void *)Hook_SetDamageImmunity, 5, NX_HOOK_DIRECT);
     }
 
-    
+
     /* hook saving throw calculation functions */
     if (CNWSCreatureStats__GetFortSavingThrow != NULL) {
         unsigned char *p = (unsigned char *)CNWSCreatureStats__GetFortSavingThrow;
@@ -329,7 +336,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
     /* hook Pick Pocket DC */
     if (Ref_PickPocketDC != NULL) {
         extern volatile uintptr_t Hook_PPDC_Return;
-        
+
         Hook_PPDC_Return = (uintptr_t)(Ref_PickPocketDC + 12);
 
         nx_hook_function(Ref_PickPocketDC, (void *)Hook_PickPocketDC, 5, NX_HOOK_DIRECT);
@@ -338,7 +345,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
 
     /* hook Red Dragon Disciple absolute fire immunity */
     if (Ref_RDDFireImmunity != NULL) {
-        int found = 0; 
+        int found = 0;
         unsigned char *p = Ref_RDDFireImmunity;
         unsigned char *end = p + 0x200;
 
@@ -364,15 +371,15 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         nx_hook_enable_write(p, 128);
 
         *(unsigned long *)(p + 23) = (unsigned long)Hook_GetTumbleACBonus -
-            (unsigned long)(p + 27);
+                                     (unsigned long)(p + 27);
 
         p += 29;
 
         while (p++ < end) {
-             if (p[0] == 0x88 && p[1] == 0x85 && p[2] == 0xDB && p[3] == 0xFD)
-                 break;
+            if (p[0] == 0x88 && p[1] == 0x85 && p[2] == 0xDB && p[3] == 0xFD)
+                break;
 
-             *p = 0x90;  /* NOP */
+            *p = 0x90;  /* NOP */
         }
     }
 
@@ -408,7 +415,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         p[17] = 0x50;  /* PUSH EAX */
 
         *(unsigned long *)(p + 28) = (unsigned long)Hook_GetHasSlipperyMind -
-            (unsigned long)(p + 32);
+                                     (unsigned long)(p + 32);
     }
 
 
@@ -454,7 +461,7 @@ bool CNWNXDefenses::OnCreate (gline *config, const char *LogDir) {
         p[11] = 0x90;   /* NOP */
 
         *(unsigned long *)(p + 22) = (unsigned long)Hook_ConfirmCritical -
-            (unsigned long)(p + 26);
+                                     (unsigned long)(p + 26);
     }
 
 

@@ -5,9 +5,9 @@
 class CNWSSysAdmin
 {
 public:
-	CNWSSysAdmin * AsNWSSysAdmin();
-	~CNWSSysAdmin();
-	CNWSSysAdmin(unsigned long);
+    CNWSSysAdmin * AsNWSSysAdmin();
+    ~CNWSSysAdmin();
+    CNWSSysAdmin(unsigned long);
 
 };
 #endif

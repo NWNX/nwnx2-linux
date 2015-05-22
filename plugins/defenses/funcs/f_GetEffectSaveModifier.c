@@ -21,7 +21,8 @@
 #include "NWNXDefenses.h"
 
 
-void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
+void Func_GetEffectSaveModifier(CGameObject *ob, char *value)
+{
     int i, save, savetype, saveflag, durtype, val = 0;
     int total_inc_all = 0, total_inc_save = 0, total_inc_savetype = 0;
     int total_dec_all = 0, total_dec_save = 0, total_dec_savetype = 0;
@@ -30,9 +31,9 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
     const CNWSCreature *cre;
 
     if (ob == NULL                                                 ||
-        (obj = ob->vtable->AsNWSObject(ob)) == NULL                ||
-        sscanf(value, "%d %d %d", &save, &saveflag, &durtype) != 3 ||
-        save < 0 || save > 3) {
+            (obj = ob->vtable->AsNWSObject(ob)) == NULL                ||
+            sscanf(value, "%d %d %d", &save, &saveflag, &durtype) != 3 ||
+            save < 0 || save > 3) {
 
         snprintf(value, strlen(value), "0");
         return;
@@ -46,7 +47,7 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
             continue;
 
         if (eff->eff_type != EFFECT_TRUETYPE_SAVING_THROW_INCREASE &&
-            eff->eff_type != EFFECT_TRUETYPE_SAVING_THROW_DECREASE)
+                eff->eff_type != EFFECT_TRUETYPE_SAVING_THROW_DECREASE)
             continue;
 
         if (durtype >= 0 && (eff->eff_dursubtype & DURATION_TYPE_MASK) != durtype)
@@ -61,7 +62,7 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
                 /* do nothing; the trap bonus will fall through as a savetype bonus */
             } else
 #endif
-            continue;
+                continue;
         }
 
         if (eff->eff_type == EFFECT_TRUETYPE_SAVING_THROW_INCREASE) {
@@ -83,7 +84,7 @@ void Func_GetEffectSaveModifier (CGameObject *ob, char *value) {
 
     if (cre != NULL && cre->cre_stats != NULL) {
         if (savetype == SAVING_THROW_TYPE_POISON &&
-            CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_PRESTIGE_POISON_SAVE_1)) {
+                CNWSCreatureStats__HasFeat(cre->cre_stats, FEAT_PRESTIGE_POISON_SAVE_1)) {
 
             total_inc_savetype = total_inc_all + total_inc_save + total_inc_savetype +
                                  (nwn_GetLevelByClass(cre->cre_stats, CLASS_TYPE_ASSASSIN) / 2);

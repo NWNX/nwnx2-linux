@@ -44,40 +44,37 @@ void SendHakList(CNWSMessage *pMessage, int nPlayerID);
 
 int CNWSMessage__HandlePlayerToServerMessage_Hook(CNWSMessage *pMessage, int nPlayerID, char *pData, int nLen)
 {
-	int nType = pData[1];
-	int nSubtype = pData[2];
-	plugin.Log(0, "Message: PID %d, type %x, subtype %x\n", nPlayerID, nType, nSubtype);
-	if(nType == 1)
-	{
-		SendHakList(pMessage, nPlayerID);
-	}
-	return CNWSMessage__HandlePlayerToServerMessage(pMessage, nPlayerID, pData, nLen);
+    int nType = pData[1];
+    int nSubtype = pData[2];
+    plugin.Log(0, "Message: PID %d, type %x, subtype %x\n", nPlayerID, nType, nSubtype);
+    if (nType == 1) {
+        SendHakList(pMessage, nPlayerID);
+    }
+    return CNWSMessage__HandlePlayerToServerMessage(pMessage, nPlayerID, pData, nLen);
 }
 
 void SendHakList(CNWSMessage *pMessage, int nPlayerID)
 {
-	unsigned char *pData;
-	long unsigned int nSize;
+    unsigned char *pData;
+    long unsigned int nSize;
 
-	CNWSModule *pModule = (CNWSModule *) g_pAppManager->ServerExoApp->GetModule();
-	if(pModule)
-	{
-		plugin.Log(0, "Sending hak list...\n");
-		pMessage->CreateWriteMessage(80, -1, 1);
-		pMessage->WriteINT(pModule->HakList.nAllocatedSize, 32);
-		for(int i = pModule->HakList.nAllocatedSize - 1; i >= 0; --i)
-		{
-			pMessage->WriteCExoString(pModule->HakList[i], 32);
-			plugin.Log(0, "%s\n", pModule->HakList[i].Text);
-		}
-		pMessage->WriteCExoString(pModule->m_sCustomTLK, 32);
-		plugin.Log(0, "%s\n", pModule->m_sCustomTLK.Text);
-		pMessage->GetWriteMessage(&pData, &nSize);
-		pMessage->SendServerToPlayerMessage(nPlayerID, 100, 1, pData, nSize);
-	}
+    CNWSModule *pModule = (CNWSModule *) g_pAppManager->ServerExoApp->GetModule();
+    if (pModule) {
+        plugin.Log(0, "Sending hak list...\n");
+        pMessage->CreateWriteMessage(80, -1, 1);
+        pMessage->WriteINT(pModule->HakList.nAllocatedSize, 32);
+        for (int i = pModule->HakList.nAllocatedSize - 1; i >= 0; --i) {
+            pMessage->WriteCExoString(pModule->HakList[i], 32);
+            plugin.Log(0, "%s\n", pModule->HakList[i].Text);
+        }
+        pMessage->WriteCExoString(pModule->m_sCustomTLK, 32);
+        plugin.Log(0, "%s\n", pModule->m_sCustomTLK.Text);
+        pMessage->GetWriteMessage(&pData, &nSize);
+        pMessage->SendServerToPlayerMessage(nPlayerID, 100, 1, pData, nSize);
+    }
 }
 
 int HookFunctions()
 {
-	*(void**)&CNWSMessage__HandlePlayerToServerMessage = nx_hook_function((void *) 0x08196544, (void *) CNWSMessage__HandlePlayerToServerMessage_Hook, 5, NX_HOOK_DIRECT | NX_HOOK_RETCODE);
+    *(void**)&CNWSMessage__HandlePlayerToServerMessage = nx_hook_function((void *) 0x08196544, (void *) CNWSMessage__HandlePlayerToServerMessage_Hook, 5, NX_HOOK_DIRECT | NX_HOOK_RETCODE);
 }

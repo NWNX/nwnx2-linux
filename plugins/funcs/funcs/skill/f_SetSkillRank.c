@@ -21,15 +21,16 @@
 #include "NWNXFuncs.h"
 
 
-void Func_SetSkillRank (CGameObject *ob, char *value) {
+void Func_SetSkillRank(CGameObject *ob, char *value)
+{
     int skill, val;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        sscanf(value, "%d %d", &skill, &val) != 2     ||
-        skill < 0 || skill > SKILL_LAST || val < 0 || val > 127) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            sscanf(value, "%d %d", &skill, &val) != 2     ||
+            skill < 0 || skill > SKILL_LAST || val < 0 || val > 127) {
 
         snprintf(value, strlen(value), "-1");
         return;

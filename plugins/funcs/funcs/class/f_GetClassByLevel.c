@@ -21,14 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetClassByLevel (CGameObject *ob, char *value) {
+void Func_GetClassByLevel(CGameObject *ob, char *value)
+{
     CNWSStats_Level *ls;
     const CNWSCreature *cre;
 
     if (ob == NULL                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
-        cre->cre_stats == NULL                        ||
-        (ls = nwn_GetLevelStats(cre->cre_stats, atoi(value))) == NULL) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||
+            cre->cre_stats == NULL                        ||
+            (ls = nwn_GetLevelStats(cre->cre_stats, atoi(value))) == NULL) {
 
         snprintf(value, strlen(value), "-1");
         return;

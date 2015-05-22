@@ -21,16 +21,17 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetMemorizedSpell (CGameObject *ob, char *value) {
+void Func_GetMemorizedSpell(CGameObject *ob, char *value)
+{
     int i, sp_class, sp_level, sp_idx, ret = -1;
     CNWSCreature *cre;
     CNWSStats_Spell *sp;
 
     if (ob == NULL                                                    ||
-        (cre = ob->vtable->AsNWSCreature(ob)) == NULL                 ||
-        cre->cre_stats == NULL                                        ||
-        sscanf(value, "%d %d %d", &sp_class, &sp_level, &sp_idx) != 3 ||
-        sp_level < 0 || sp_level > 9) {
+            (cre = ob->vtable->AsNWSCreature(ob)) == NULL                 ||
+            cre->cre_stats == NULL                                        ||
+            sscanf(value, "%d %d %d", &sp_class, &sp_level, &sp_idx) != 3 ||
+            sp_level < 0 || sp_level > 9) {
 
         snprintf(value, strlen(value), "-1");
         return;

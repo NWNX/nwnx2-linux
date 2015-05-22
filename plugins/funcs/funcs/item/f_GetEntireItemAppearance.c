@@ -21,14 +21,15 @@
 #include "NWNXFuncs.h"
 
 
-void Func_GetEntireItemAppearance (CGameObject *ob, char *value) {
+void Func_GetEntireItemAppearance(CGameObject *ob, char *value)
+{
     int idx;
     char buf[4];
     CNWSItem *item;
 
     if (ob == NULL                                 ||
-        (item = ob->vtable->AsNWSItem(ob)) == NULL ||
-        strlen(value) < 56) {
+            (item = ob->vtable->AsNWSItem(ob)) == NULL ||
+            strlen(value) < 56) {
 
         *value = 0;
         return;
