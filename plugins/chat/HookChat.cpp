@@ -1,7 +1,7 @@
 /***************************************************************************
     Chat plugin for NWNX  - hooks implementation
     (c) 2005-2006 dumbo (dumbo@nm.ru)
-	(c) 2006-2007 virusman (virusman@virusman.ru)
+    (c) 2006-2007 virusman (virusman@virusman.ru)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 #include <sys/mman.h>
 #include <dlfcn.h>
 
-#include <limits.h>		/* for PAGESIZE */
+#include <limits.h>     /* for PAGESIZE */
 #ifndef PAGESIZE
 #define PAGESIZE 4096
 #endif
@@ -44,8 +44,10 @@ dword * (*pGetPCobj)(dword someObj, dword OID);
 int (*pChat)(char * pthis, int mode, int id, char **msg, int to, char * xz);
 
 int (*CNWSMessage__SendServerToPlayerChat_Talk)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
+int (*CNWSMessage__SendServerToPlayerChat_Tell)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
 int (*CNWSMessage__SendServerToPlayerChat_Shout)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
 int (*CNWSMessage__SendServerToPlayerChat_Whisper)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
+int (*CNWSMessage__SendServerToPlayerChat_ServerTell)(void* pCNWSMessage, int obj2, CExoString* str);
 int (*CNWSMessage__SendServerToPlayerChat_Party)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
 int (*CNWSMessage__SendServerToPlayerChat_DM_Talk)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
 int (*CNWSMessage__SendServerToPlayerChat_DM_Whisper)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
@@ -257,21 +259,21 @@ int SendMsgSingle(int mode, int conn, int speaker, char *msg)
     str.Text = strdup(msg);
     str.Length = strlen(msg);
     switch (mode) {
-            // Talk
+        // Talk
         case 1: return CNWSMessage__SendServerToPlayerChat_Talk(pMessage, conn, speaker, &str);
-            // Shout
+        // Shout
         case 2: return CNWSMessage__SendServerToPlayerChat_Shout(pMessage, conn, speaker, &str);
-            // Whisper
+        // Whisper
         case 3: return CNWSMessage__SendServerToPlayerChat_Whisper(pMessage, conn, speaker, &str);
-            // Private
-        case 4: return 0;
-            // Server_Msg
-        case 5: return 0;
-            // Party
+        // Private
+        case 4: return CNWSMessage__SendServerToPlayerChat_Tell(pMessage, conn, speaker, &str);
+        // Server_Msg
+        case 5: return CNWSMessage__SendServerToPlayerChat_ServerTell(pMessage, conn, &str);
+        // Party
         case 6: return CNWSMessage__SendServerToPlayerChat_Party(pMessage, conn, speaker, &str);
-            // Talk_DM
+        // Talk_DM
         case 17: return CNWSMessage__SendServerToPlayerChat_DM_Talk(pMessage, conn, speaker, &str);
-            // Whisper_DM
+        // Whisper_DM
         case 19: return CNWSMessage__SendServerToPlayerChat_DM_Whisper(pMessage, conn, speaker, &str);
         default:
             // Unsupported.
@@ -349,8 +351,10 @@ int HookFunctions()
     *(dword*)&pGetServerMessage = 0x080B1F54;
     *(dword*)&CServerExoApp__GetClientObjectByPlayerId = 0x080B24D0;
     *(dword*)&CNWSMessage__SendServerToPlayerChat_Talk = 0x807fe10;
+    *(dword*)&CNWSMessage__SendServerToPlayerChat_Tell = 0x080694ac;
     *(dword*)&CNWSMessage__SendServerToPlayerChat_Shout = 0x8069710;
     *(dword*)&CNWSMessage__SendServerToPlayerChat_Whisper = 0x808003c;
+    *(dword*)&CNWSMessage__SendServerToPlayerChat_ServerTell = 0x0807ff68;
     *(dword*)&CNWSMessage__SendServerToPlayerChat_Party = 0x8068fe4;
     *(dword*)&CNWSMessage__SendServerToPlayerChat_DM_Talk = 0x8069248;
     *(dword*)&CNWSMessage__SendServerToPlayerChat_DM_Whisper = 0x806a03c;
