@@ -81,8 +81,8 @@ char* CNWNXResMan::DemandRes(CExoResMan *pResMan, CResStruct *cRes, char *resRef
         return NULL;
     }
 
-    char resrefWithExt[20];
-    snprintf(resrefWithExt, 20, "%s.%s", resRef, NwnGetResTypeExtension(resType));
+    char resrefWithExt[21];
+    snprintf(resrefWithExt, 21, "%s.%s", resRef, NwnGetResTypeExtension(resType));
 
     ResManDemandResStruct demandResInfo = {
         resrefWithExt, NULL, NULL
@@ -250,7 +250,7 @@ unsigned long CNWNXResMan::LoadResource(char *resPath)
 int CNWNXResMan::ResourceExists(char *resRef, NwnResType resType)
 {
     // try to load external resource
-    char resPath[MAXPATH + 16];
+    char resPath[MAXPATH + 17];
 
     snprintf(resPath, sizeof(resPath), "%s/%s/%s.%s",
              m_sourcePath, NwnGetResTypeExtension(resType), resRef, NwnGetResTypeExtension(resType));
@@ -270,8 +270,8 @@ void CNWNXResMan::LoadConfiguration()
         strncpy(m_sourcePath, (*nwnxConfig)[confKey]["SourcePath"].c_str(), MAXPATH);
     }
     /*    if (nwnxConfig->exists(confKey, "disablehook") &&
-    		toupper((*nwnxConfig)[confKey]["disablehook"].c_str()[0])=='Y') {
-    		    disableHook = 1;
+            toupper((*nwnxConfig)[confKey]["disablehook"].c_str()[0])=='Y') {
+                disableHook = 1;
             )
         }*/
 
