@@ -46,7 +46,7 @@ enum eNodeType {StartingNode, EntryNode, ReplyNode};
 
 class CNWNXEvents : public CNWNXBase
 {
-
+    HANDLE hEvent;
 public:
     CNWNXEvents();
     ~CNWNXEvents();
@@ -61,18 +61,19 @@ public:
     char *pGameObject;
     dword nGameObjectID;
     bool bBypass;
+    bool scriptRun;
     int nReturnValue;
     int nEventID;
     int nEventSubID;
     dword oTarget;
     dword oItem;
-    CNWSDialogClass *pConversation;
+    CNWSDialog *pConversation;
     unsigned int nSelectedNodeID;
     int nSelectedAbsoluteNodeID;
     int nCurrentAbsoluteNodeID;
     int nCurrentNodeID;
     int nNodeType;
-    CNWSVector vPosition;
+    Vector vPosition;
 };
 
 #endif

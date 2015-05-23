@@ -25,6 +25,7 @@
 
 #include "NWNXEvents.h"
 #include "HookFunc.h"
+#include "pluginlink.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -47,7 +48,7 @@ CNWNXEvents::~CNWNXEvents()
 bool CNWNXEvents::OnCreate(gline *config, const char* LogDir)
 {
     char log[128];
-    bool validate = true, startServer = true, enableUnsafe = false;
+    bool enableUnsafe = false;
 
     // call the base class function
     sprintf(log, "%s/nwnx_events.txt", LogDir);
@@ -62,8 +63,6 @@ bool CNWNXEvents::OnCreate(gline *config, const char* LogDir)
         int i;
 
         for (i = 0; i < NUM_EVENT_TYPES; i++) {
-            //if (eventScripts[i] != NULL)
-            //    free(eventScripts[i]);
             if (strlen((*nwnxConfig)[confKey]["event_script"].c_str())) {
                 eventScripts[i]     = strdup((*nwnxConfig)[confKey]["event_script"].c_str());
                 eventScripts[i][16] = 0;
@@ -73,6 +72,7 @@ bool CNWNXEvents::OnCreate(gline *config, const char* LogDir)
             enableUnsafe = true;
     }
 
+    hEvent = CreateHookableEvent(NWNX_EVENTS_EVENT);
     return (HookFunctions(enableUnsafe));
 }
 
@@ -105,22 +105,22 @@ char* CNWNXEvents::OnRequest(char* gameObject, char* Request, char* Parameters)
         } else if (strncmp(Request, "GET_NODE_TEXT", 13) == 0) {
             if (!pConversation) return NULL;
             int nLocaleID = atoi(Parameters);
-            const char *pText = NULL;
+            CExoString str;
 
             if (nNodeType == StartingNode || nNodeType == EntryNode) {
                 CDialogEntry *pEntry = &pConversation->EntryList[nCurrentAbsoluteNodeID];
                 CExoLocString *pNodeText = &pEntry->Text;
-                pText = pNodeText->GetStringText(nLocaleID);
+                pNodeText->GetStringInternal(nLocaleID, &str);
             } else if (nNodeType == ReplyNode) {
                 CDialogReply *pReply = &pConversation->ReplyList[nCurrentAbsoluteNodeID];
                 CExoLocString *pNodeText = &pReply->Text;
-                pText = pNodeText->GetStringText(nLocaleID);
+                pNodeText->GetStringInternal(nLocaleID, &str);
             } else return NULL;
 
-            if (!pText) return NULL;
-            int len = strlen(pText);
+            if (!str.Text) return NULL;
+            int len = strlen(str.Text);
             char *pNewText = (char *) malloc(len + 1);
-            strncpy(pNewText, pText, len);
+            strncpy(pNewText, str.Text, len);
             pNewText[len] = 0;
             return pNewText;
 
@@ -130,41 +130,29 @@ char* CNWNXEvents::OnRequest(char* gameObject, char* Request, char* Parameters)
             int nLocaleID;
             int nParamLen = strlen(Parameters);
             //char *sNewText = (char *) malloc(nParamLen);
-            char *nLastDelimiter = strrchr(Parameters, '¬');
+            char *nLastDelimiter = strrchr(Parameters, '\xAC');
             if (!nLastDelimiter || (nLastDelimiter - Parameters) < 0) {
                 Log(0, "o nLastDelimiter error\n");
                 //free(sNewText);
                 return NULL;
             }
             int nTextLen = nParamLen - (nLastDelimiter - Parameters) + 1;
-            char *sNewText = (char *) malloc(nTextLen);
-            if (sscanf(Parameters, "%d¬", &nLocaleID) < 1) {
+            CExoString newText;
+            newText.Text = (char *) malloc(nTextLen);
+            if (sscanf(Parameters, "%d\xAC", &nLocaleID) < 1) {
                 Log(0, "o sscanf error\n");
-                free(sNewText);
                 return NULL;
             }
-            strncpy(sNewText, nLastDelimiter + 1, nTextLen - 1);
-
-            CExoLocStringElement *pLangEntry = NULL;
+            strncpy(newText.Text, nLastDelimiter + 1, nTextLen - 1);
 
             if (nNodeType == StartingNode || nNodeType == EntryNode) {
                 CDialogEntry *pEntry = &pConversation->EntryList[nCurrentAbsoluteNodeID];
-                CExoLocString *pNodeText = &pEntry->Text;
-                pLangEntry = pNodeText->GetLangEntry(nLocaleID);
+                pEntry->Text.AddString(nLocaleID, newText, 0);
 
             } else if (nNodeType == ReplyNode) {
                 CDialogReply *pReply = &pConversation->ReplyList[nCurrentAbsoluteNodeID];
-                CExoLocString *pNodeText = &pReply->Text;
-                pLangEntry = pNodeText->GetLangEntry(nLocaleID);
+                pReply->Text.AddString(nLocaleID, newText, 0);
             }
-
-            if (!pLangEntry) { free(sNewText); return NULL; } //do nothing if there is no text
-            if (pLangEntry->Text.Text) {
-                free(pLangEntry->Text.Text);
-                pLangEntry->Text.Text = sNewText;
-                pLangEntry->Text.Length = strlen(sNewText) + 1;
-            }
-            return NULL;
         }
     }
 
@@ -181,12 +169,12 @@ char* CNWNXEvents::OnRequest(char* gameObject, char* Request, char* Parameters)
             if (!pConversation) return NULL;
             int nLocaleID = atoi(Parameters);
             CDialogReply *pReply = &pConversation->ReplyList[nSelectedAbsoluteNodeID];
-            CExoLocString *pNodeText = &pReply->Text;
-            const char *pText = pNodeText->GetStringText(nLocaleID);
-            if (!pText) return NULL;
-            int len = strlen(pText);
+            CExoString str;
+            pReply->Text.GetStringInternal(nLocaleID, &str);
+            if (!str.Text) return NULL;
+            int len = strlen(str.Text);
             char *pNewText = (char *) malloc(len + 1);
-            strncpy(pNewText, pText, len);
+            strncpy(pNewText, str.Text, len);
             pNewText[len] = 0;
             return pNewText;
         }
@@ -239,7 +227,7 @@ char* CNWNXEvents::OnRequest(char* gameObject, char* Request, char* Parameters)
         return NULL;
     } else if (strncmp(Request, "GET_EVENT_POSITION", 18) == 0) {
         if (strlen(Parameters) > 24)
-            snprintf(Parameters, strlen(Parameters), "%f¬%f¬%f", vPosition.x, vPosition.y, vPosition.z);
+            snprintf(Parameters, strlen(Parameters), "%f\xAC%f\xAC%f", vPosition.X, vPosition.Y, vPosition.Z);
     } else if (strncmp(Request, "BYPASS", 6) == 0) {
         bBypass = atoi(Parameters);
     } else if (strncmp(Request, "RETURN", 6) == 0) {
@@ -276,8 +264,28 @@ int CNWNXEvents::FireEvent(const int pObj, int nEvID)
     if (nEventID < 0 || nEventID >= NUM_EVENT_TYPES || eventScripts[nEventID] == NULL)
         return 0;
 
-    Log(3, "o EVENTS: Fired event %d (%08lX). Calling '%s'\n", nEventID, pObj, eventScripts[nEventID]);
-    RunScript(eventScripts[nEventID], pObj);
+    EventsEvent event;
+    event.object = pObj;
+    event.type = nEventID;
+    event.subtype = nEventSubID;
+    event.target = oTarget;
+    event.bypass = false;
+    event.item = oItem;
+    event.result = 0;
+    event.position.x = vPosition.X;
+    event.position.y = vPosition.Y;
+    event.position.z = vPosition.Z;
+
+    scriptRun = 1;
+    if (!NotifyEventHooks(hEvent, (uintptr_t)&event)) {
+        Log(3, "o EVENTS: Fired event %d (%08lX). Calling '%s'\n", nEventID, pObj, eventScripts[nEventID]);
+        RunScript(eventScripts[nEventID], pObj);
+    } else {
+        Log(3, "o EVENTS: Fired event %d (%08lX). Event hook took over.\n", nEventID, pObj);
+        nReturnValue = event.result;
+        bBypass = event.bypass;
+    }
+    scriptRun = 0;
     //deinitialize
     oTarget = OBJECT_INVALID;
     nEventID = 0;

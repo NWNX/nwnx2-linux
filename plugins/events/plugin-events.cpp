@@ -20,7 +20,30 @@
 #include "NWNXEvents.h"
 
 CNWNXEvents events;
+PLUGINLINK *pluginLink = 0;
 
+PLUGININFO pluginInfo = {
+    sizeof(PLUGININFO),
+    "NWNX Evens",
+    PLUGIN_MAKE_VERSION(1, 3, 3, 0),
+    "",
+    "virusman",
+    "virusman@virusman.ru",
+    "(c) 2006-2011 virusman",
+    "http://www.virusman.ru/",
+    0		//not transient
+};
+
+extern "C" PLUGININFO* GetPluginInfo(DWORD nwnxVersion)
+{
+    return &pluginInfo;
+}
+
+extern "C" int InitPlugin(PLUGINLINK *link)
+{
+    pluginLink = link;
+    return 0;
+}
 extern "C"
 CNWNXBase* GetClassObject()
 {
