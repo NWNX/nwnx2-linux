@@ -27,6 +27,8 @@
 #include "org_nwnx_nwnx2_jvm_NWScript.h"
 #include "org_nwnx_nwnx2_jvm_NWScript_addon.h"
 
+#include "odmbc/pluginlink.h"
+#include "resman/pluginlink.h"
 
 class CNWNXJVM : public CNWNXBase
 {

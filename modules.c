@@ -1,25 +1,3 @@
-/*
-
-Miranda IM: the free IM client for Microsoft* Windows*
-
-Copyright 2000-2007 Miranda ICQ/IM project,
-all portions of this codebase are copyrighted to the people
-listed in contributors.txt.
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
 #include "commonheaders.h"
 #include "modules.h"
 
@@ -49,15 +27,6 @@ struct {
 }
 static hooks;
 
-typedef struct {
-    THook* hook;
-    HANDLE hDoneEvent;
-    WPARAM wParam;
-    LPARAM lParam;
-    int result;
-}
-THookToMainThreadItem;
-
 // list of services
 
 typedef struct {
@@ -76,15 +45,6 @@ struct {
     FSortFunc sortFunc;
 }
 static services;
-
-typedef struct {
-    HANDLE hDoneEvent;
-    WPARAM wParam;
-    LPARAM lParam;
-    int result;
-    const char *name;
-}
-TServiceToMainThreadItem;
 
 // other static variables
 
@@ -262,7 +222,7 @@ int SetHookDefaultForHookableEvent(HANDLE hEvent, NWNXHOOK pfnHook)
     return 0;
 }
 
-int CallHookSubscribers(HANDLE hEvent, WPARAM wParam, LPARAM lParam)
+int CallHookSubscribers(HANDLE hEvent, uintptr_t pParam, bool abortable)
 {
     int i, returnVal = 0;
     THook* p = (THook*)hEvent;
@@ -276,8 +236,8 @@ int CallHookSubscribers(HANDLE hEvent, WPARAM wParam, LPARAM lParam)
     // NOTE: We've got the critical section while all this lot are called. That's mostly safe, though.
     for (i = 0; i < p->subscriberCount; i++) {
         if (p->subscriber[i].pfnHook != NULL) {
-            returnVal = p->subscriber[i].pfnHook(wParam, lParam);
-            if (returnVal)
+            returnVal = p->subscriber[i].pfnHook(pParam);
+            if (abortable && returnVal)
                 break;
         }
         /*else if ( p->subscriber[i].hwnd != NULL ) {
@@ -289,40 +249,20 @@ int CallHookSubscribers(HANDLE hEvent, WPARAM wParam, LPARAM lParam)
 
     // check for no hooks and call the default hook if any
     if (p->subscriberCount == 0 && p->pfnHook != 0)
-        returnVal = p->pfnHook(wParam, lParam);
+        returnVal = p->pfnHook(pParam);
 
     //LeaveCriticalSection(&csHooks);
     return returnVal;
 }
 
-static void CALLBACK HookToMainAPCFunc(DWORD dwParam)
+int NotifyEventHooks(HANDLE hEvent, uintptr_t pParam)
 {
-    THookToMainThreadItem* item = (THookToMainThreadItem*)dwParam;
-
-    item->result = CallHookSubscribers(item->hook, item->wParam, item->lParam);
-    //SetEvent( item->hDoneEvent );
+    return CallHookSubscribers(hEvent, pParam, true);
 }
 
-int NotifyEventHooks(HANDLE hEvent, WPARAM wParam, LPARAM lParam)
+void NotifyEventHooksNotAbortable(HANDLE hEvent, uintptr_t pParam)
 {
-    extern HWND hAPCWindow;
-
-    /*if ( GetCurrentThreadId() != mainThreadId ) {
-    	THookToMainThreadItem item;
-
-    	item.hDoneEvent = CreateEvent(NULL,FALSE,FALSE,NULL);
-    	item.hook = hEvent;
-    	item.wParam = wParam;
-    	item.lParam = lParam;
-
-    	QueueUserAPC( HookToMainAPCFunc, hMainThread, ( DWORD )&item );
-    	PostMessage( hAPCWindow, WM_NULL, 0, 0 ); // let it process APC even if we're in a common dialog
-    	WaitForSingleObject( item.hDoneEvent, INFINITE );
-    	CloseHandle( item.hDoneEvent );
-    	return item.result;
-    }*/
-
-    return CallHookSubscribers(hEvent, wParam, lParam);
+	CallHookSubscribers(hEvent, pParam, false);
 }
 
 HANDLE HookEvent(const char* name, NWNXHOOK hookProc)
@@ -343,7 +283,8 @@ HANDLE HookEvent(const char* name, NWNXHOOK hookProc)
     }
 
     p = hooks.items[ idx ];
-    p->subscriber = (THookSubscriber*)realloc(p->subscriber, sizeof(THookSubscriber) * (p->subscriberCount + 1));
+    p->subscriber = (THookSubscriber*)realloc(p->subscriber,
+                    sizeof(THookSubscriber) * (p->subscriberCount + 1));
     p->subscriber[ p->subscriberCount ].pfnHook = hookProc;
     p->subscriber[ p->subscriberCount ].hOwner  = GetInstByAddress(hookProc);
     p->subscriber[ p->subscriberCount ].hwnd    = NULL;
@@ -370,7 +311,8 @@ HANDLE HookEventMessage(const char* name, HWND hwnd, UINT message)
     }
 
     p = hooks.items[ idx ];
-    p->subscriber = (THookSubscriber*)realloc(p->subscriber, sizeof(THookSubscriber) * (p->subscriberCount + 1));
+    p->subscriber = (THookSubscriber*)realloc(p->subscriber,
+                    sizeof(THookSubscriber) * (p->subscriberCount + 1));
     p->subscriber[ p->subscriberCount ].pfnHook = NULL;
     p->subscriber[ p->subscriberCount ].hwnd = hwnd;
     p->subscriber[ p->subscriberCount ].message = message;
@@ -409,7 +351,8 @@ int UnhookEvent(HANDLE hHook)
     p->subscriber[subscriberId].pfnHook = NULL;
     p->subscriber[subscriberId].hwnd    = NULL;
     p->subscriber[subscriberId].hOwner  = NULL;
-    while (p->subscriberCount && p->subscriber[p->subscriberCount - 1].pfnHook == NULL && p->subscriber[p->subscriberCount - 1].hwnd == NULL)
+    while (p->subscriberCount && p->subscriber[p->subscriberCount - 1].pfnHook == NULL
+            && p->subscriber[p->subscriberCount - 1].hwnd == NULL)
         p->subscriberCount--;
     if (p->subscriberCount == 0) {
         if (p->subscriber) free(p->subscriber);
@@ -519,7 +462,7 @@ int ServiceExists(const char *name)
     return ret;
 }
 
-int CallService(const char *name, WPARAM wParam, LPARAM lParam)
+int CallService(const char *name, uintptr_t pParam)
 {
     TService *pService;
     NWNXSERVICE pfnService;
@@ -558,16 +501,9 @@ int CallService(const char *name, WPARAM wParam, LPARAM lParam)
     fnParam = pService->lParam;
     //LeaveCriticalSection(&csServices);
     if (isParam)
-        return ((int (*)(WPARAM, LPARAM, LPARAM))pfnService)(wParam, lParam, fnParam);
+        return ((int (*)(uintptr_t, uintptr_t))pfnService)(pParam, fnParam);
     else
-        return ((int (*)(WPARAM, LPARAM))pfnService)(wParam, lParam);
-}
-
-static void CALLBACK CallServiceToMainAPCFunc(DWORD dwParam)
-{
-    TServiceToMainThreadItem *item = (TServiceToMainThreadItem*) dwParam;
-    item->result = CallService(item->name, item->wParam, item->lParam);
-    //SetEvent(item->hDoneEvent);
+        return ((int (*)(uintptr_t))pfnService)(pParam);
 }
 
 void KillModuleServices(HINSTANCE hInst)

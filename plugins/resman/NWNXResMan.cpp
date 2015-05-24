@@ -51,7 +51,7 @@ bool CNWNXResMan::OnCreate(gline *config, const char *LogDir)
     WriteLogHeader();
     HookFunctions();
 
-    hDemandRes = CreateHookableEvent("NWNX/ResMan/DemandResource");
+    hDemandRes = CreateHookableEvent(EVENT_RESMAN_DEMANDRES);
 
     return true;
 }
@@ -84,10 +84,10 @@ char* CNWNXResMan::DemandRes(CExoResMan *pResMan, CResStruct *cRes, char *resRef
     char resrefWithExt[21];
     snprintf(resrefWithExt, 21, "%s.%s", resRef, NwnGetResTypeExtension(resType));
 
-    ResManDemandResStruct demandResInfo = {
+    ResManDemandResEvent demandResInfo = {
         resrefWithExt, NULL, NULL
     };
-    int notifyRet = NotifyEventHooks(hDemandRes, (WPARAM)&demandResInfo, 0);
+    int notifyRet = NotifyEventHooks(hDemandRes, (uintptr_t)&demandResInfo);
     if (notifyRet && demandResInfo.pData == NULL)
         return NULL;
 

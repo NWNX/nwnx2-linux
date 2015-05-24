@@ -33,6 +33,8 @@
 #include "NwnDefines.h"
 #include "HookDemandRes.h"
 
+#include "pluginlink.h"
+
 #define MAXPATH 512
 
 namespace std
