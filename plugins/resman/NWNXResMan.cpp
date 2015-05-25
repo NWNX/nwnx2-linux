@@ -1,37 +1,12 @@
-/***************************************************************************
-    NWNXResMan.cpp - Implementation of the CNWNXResMan class.
-    Copyright (C) 2005 Ingmar Stieger (papillon@nwnx.org)
-    copyright (c) 2006 dumbo (dumbo@nm.ru) & virusman (virusman@virusman.ru)
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- ***************************************************************************/
-
 #include "NWNXResMan.h"
-#include "NwnDefines.h"
-#include "HookDemandRes.h"
+#include "pluginlink.h"
 #include <stdio.h>
-
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
 
 CNWNXResMan::CNWNXResMan()
 {
     confKey = "RESOURCEMANAGER";
-    bufferSize = 0;
-    disableHook = 0;
+    warnMissing = false;
+    debugCRes = false;
 }
 
 CNWNXResMan::~CNWNXResMan()
@@ -40,18 +15,21 @@ CNWNXResMan::~CNWNXResMan()
 
 bool CNWNXResMan::OnCreate(gline *config, const char *LogDir)
 {
-    // call the base class function
     char log[MAXPATH];
 
     sprintf(log, "%s/nwnx_resman.txt", LogDir);
     if (!CNWNXBase::OnCreate(config, log))
         return false;
 
-    LoadConfiguration();
     WriteLogHeader();
-    HookFunctions();
 
-    hDemandRes = CreateHookableEvent(EVENT_RESMAN_DEMANDRES);
+    hDemandRes = CreateHookableEvent(EVENT_RESMAN_DEMAND);
+    hResExists = CreateHookableEvent(EVENT_RESMAN_EXISTS);
+
+    // Must be called after event hooks are created and before
+    // hooks.
+    LoadConfiguration();
+    HookFunctions();
 
     return true;
 }
@@ -67,222 +45,256 @@ bool CNWNXResMan::OnRelease()
     return true;
 }
 
-char* CNWNXResMan::DemandRes(CExoResMan *pResMan, CResStruct *cRes, char *resRef, NwnResType resType)
+void* CNWNXResMan::DemandRes(CExoResMan *pResMan, CRes *cRes, const CResRef &resRef, NwnResType resType)
 {
-    unsigned long size;
-    bool overwriteRes = 0;
 
-    if (!resRef || *resRef == '*' || strcmp(resRef, "default") == 0)
+    unsigned long size;
+
+    if (strncmp(resRef.m_resRef, "*", 1) == 0 || strncmp(resRef.m_resRef, "default", 7) == 0)
         return NULL;
+
     if (cRes == NULL) {
         Log(5, "o Request for internal resource = %s (type %X)\n", resRef, resType);
-
-        // nothing for us to do
         return NULL;
     }
 
-    char resrefWithExt[21];
-    snprintf(resrefWithExt, 21, "%s.%s", resRef, NwnGetResTypeExtension(resType));
+    const char* resExt = NwnGetResTypeExtension(resType);
+    char resrefWithExt[21] = {0};
+    strncat(resrefWithExt, resRef.m_resRef, 16);
+    strcat(resrefWithExt, ".");
+    strcat(resrefWithExt, resExt);
 
-    ResManDemandResEvent demandResInfo = {
-        resrefWithExt, NULL, NULL
-    };
-    int notifyRet = NotifyEventHooks(hDemandRes, (uintptr_t)&demandResInfo);
-    if (notifyRet && demandResInfo.pData == NULL)
+    // Insert entry, or lookup old one...
+    std::pair<ResourceMap::iterator, bool> lookup = resFiles.insert(ResourceMap::value_type(resrefWithExt, CResFileInfo()));
+    CResFileInfo& fileInfo = lookup.first->second;
+
+    ResManExistsEvent event = { resrefWithExt, 0, false };
+    NotifyEventHooksNotAbortable(hResExists, (uintptr_t)&event);
+
+    if (event.exists) {
+        fileInfo.latest_mtime = event.mtime;
+    } else {
+        if (warnMissing && cRes->m_nID == 0xffffffff) {
+            Log(0, "WARNING Potential memory leak detected: '%s' wasn't found internally or in resources.\n", resrefWithExt);
+        }
+
         return NULL;
-
-    if (!cRes->pResName) {
-        Log(1, "o ResID = %x\n", cRes->ID);
     }
 
-    if (demandResInfo.pData && demandResInfo.size) {
-        printf("Got data from Hook, returning (size = %d): %s\n", demandResInfo.size, demandResInfo.pData);
-        pScriptBuffer = (char*) demandResInfo.pData;
-        size = demandResInfo.size;
 
+    if (!fileInfo.key) {
+        // Areas are assumed to exist, so existance is not checked for, so we got to force it here.
+        fileInfo.key = CreateKeyTableEntry(resRef, resType);
+    }
+
+    if (fileInfo.key->m_pRes) {
+        pResMan->RemoveFromToBeFreedList(fileInfo.key->m_pRes); // Remove res from to be freed list so that at shutdown there are no double frees.
     } else {
-        // try to load external resource
-        char resPath[MAXPATH + 16];
-
-        snprintf(resPath, sizeof(resPath), "%s/%s/%s.%s",
-                 m_sourcePath, NwnGetResTypeExtension(resType), resRef, NwnGetResTypeExtension(resType));
-
-        struct stat stFileInfo;
-        CResFileInfo pFileInfo;
-        if (stat(resPath, &stFileInfo) == 0) { //exists
-            //Log(4, "Searching for changes in resource\n");
-            if (resFiles.count(resPath)) {
-                //Log(4, "Found entry\n");
-                pFileInfo = resFiles[resPath];
-                if (pFileInfo.size == stFileInfo.st_size && pFileInfo.mtime == stFileInfo.st_mtime) {
-                    //Log(4, "The file has not been changed\n");
-                } else {
-                    Log(4, "The file has been changed\n");
-                    pFileInfo.size = stFileInfo.st_size;
-                    pFileInfo.mtime = stFileInfo.st_mtime;
-                    resFiles[resPath] = pFileInfo;
-                    overwriteRes = 1;
-                }
-            } else {
-                strncpy(pFileInfo.ResName, resRef, 16);
-                pFileInfo.resType = resType;
-                pFileInfo.size = stFileInfo.st_size;
-                pFileInfo.mtime = stFileInfo.st_mtime;
-                resFiles[resPath] = pFileInfo;
-                overwriteRes = 1;
-            }
-        } else {
-            Log(3, "o Skip - File not found: %s\n", resPath);
-            return NULL;
-        }
-
-        if (!cRes->pResData)
-            overwriteRes = 1;
-
-        if (!overwriteRes) {
-            Log(4, "Skipping...\n");
-            return NULL;
-        }
-
-        size = LoadResource(resPath);
-        if (size == 0)
-            return NULL;
+        // Track all CRes.
+        fileInfo.key->m_pRes = cRes;
     }
 
-    int namelen = strlen(resRef) + 1;
-    saveName = new char[namelen];
 
-    Log(4, "Original Structure:\n");
-    DumpResStruct(cRes);
-    Log(4, "Free memory: %d\n", pResMan->FreeMemory);
-    if (pResMan->FreeMemory < size) { //not enough memory
-        Log(4, "Freeing some memory\n");
-        while (1) {
-            if (size <= pResMan->FreeMemory)
-                break;
-            if (!CExoResMan__FreeChunk(pResMan))
-                break;
-        }
-    }
-    if (pResMan->FreeMemory < 0)
-        pResMan->FreeMemory = 0;
-
-    strcpy(saveName, resRef);
-
-    if (cRes->pResData) {
-        free(cRes->pResData);
-        pResMan->FreeMemory += cRes->resSize;
-        cRes->pResData = pScriptBuffer;
-        cRes->resSize = size;
-    } else {
-        // resource loaded
-        // set resStruct
-
-        cRes->pResData = pScriptBuffer;
-        cRes->pResName = saveName;
-        cRes->resSize = size;
-        cRes->Demands = 1;
-        //cRes->unk4 = 4;
-        cRes->unk4 = 0x4;
-        cRes->loaded = 2;
-        if (!cRes->ID || cRes->ID == 0xFFFFFFFF) { //resource is not indexed
-            cRes->ID = 0;
-        }
-    }
-    pResMan->FreeMemory -= size;
-
-    // Call server function which sets various data pointers
-    if (cRes->pClass) {
-        char *pFunc = cRes->pClass;
-
+    // If the file is a script and the latest reported time is older or equal to the
+    // last returned time return a file from the cache.
+    if (resType == NwnResType_NCS && fileInfo.key->m_pRes->m_pResource && fileInfo.latest_mtime <= fileInfo.mtime) {
+        Log(1, "o Skipping %s... Data: %p\n", resrefWithExt, fileInfo.key->m_pRes->m_pResource);
         if (resType == NwnResType_NCS) {
-            CResNCS *pNCS = (CResNCS*) cRes;
-            pNCS->m_bLoaded = 0;
+
+            // If resources services a file set ID to -1.  This keeps nwserver from getting confused
+            // and thinking that it's in an ERF/BIF/etc.
+            cRes->m_nID = -1;
+            cRes->m_nDemands = 1;
+            cRes->field_8 = 0x4;
+            cRes->m_status = 2;
+            cRes->m_nSize = fileInfo.size;
+
+            if (cRes->vtbl) {
+                CResNCS *pNCS = (CResNCS*) cRes;
+                pNCS->m_bLoaded = 0;
+            }
+            int (*pServFunc)(CRes * cRes) = (int (*)(CRes * cRes))cRes->vtbl->OnResourceServiced;
+            Log(5, "Calling CRes*::OnResourceServiced: %08lx\n", pServFunc);
+            int nRet = pServFunc(cRes);
+            Log(5, "Return value: %d\n", nRet);
+            Log(4, "Resulting Structure:\n");
+            DumpResStruct(cRes);
         }
-
-        pFunc = (char *)(*(int *)(pFunc + 0x18));  // CRes* :: OnResourceServiced
-        int (*pServFunc)(CResStruct * cRes) =
-            (int (*)(CResStruct * cRes))pFunc;
-        Log(4, "Calling CRes*::OnResourceServiced: %08lx\n", pServFunc);
-        int nRet = pServFunc(cRes);
-        Log(4, "Return value: %d\n", nRet);
-    }
-    Log(4, "Resulting Structure:\n");
-    DumpResStruct(cRes);
-
-    return cRes->pResData;
-}
-
-void CNWNXResMan::DumpResStruct(CResStruct *cRes)
-{
-    Log(4, "- m_nDemands = %d\n", cRes->Demands);
-    Log(4, "- m_nRequests = %d\n", cRes->Requests);
-    Log(4, "- m_nID = %08lX\n", cRes->ID);
-    Log(4, "- m_pResource = %08lx\n", cRes->pResData);
-    Log(4, "- m_nSize = %d\n", cRes->resSize);
-    Log(4, "- m_sName = %s\n", cRes->pResName);
-    Log(4, "- flags = %x\n", cRes->unk4);
-    Log(4, "- m_status = %d\n", cRes->loaded);
-    Log(4, "- m_pKeyEntry = %08lx\n", cRes->pListElement);
-}
-
-unsigned long CNWNXResMan::LoadResource(char *resPath)
-{
-    FILE *pTemp = fopen(resPath, "rb");
-
-    if (pTemp == NULL) {
-        Log(3, "o Skip - File not found: %s\n", resPath);
-        return 0;
-    }
-    fseek(pTemp, 0, SEEK_END);
-    unsigned long size = ftell(pTemp);
-
-    Log(1, "o Loading external resource %s (%ld bytes)\n", resPath, size);
-
-    pScriptBuffer = new char[size];
-
-    fseek(pTemp, 0, SEEK_SET);
-    fread(pScriptBuffer, 1, size, pTemp);
-    fclose(pTemp);
-    return size;
-}
-
-int CNWNXResMan::ResourceExists(char *resRef, NwnResType resType)
-{
-    // try to load external resource
-    char resPath[MAXPATH + 17];
-
-    snprintf(resPath, sizeof(resPath), "%s/%s/%s.%s",
-             m_sourcePath, NwnGetResTypeExtension(resType), resRef, NwnGetResTypeExtension(resType));
-
-    struct stat stFileInfo;
-    CResFileInfo pFileInfo;
-    if (stat(resPath, &stFileInfo) == 0) { //exists
-        return 1;
+        return cRes->m_pResource;
     } else {
-        return 0;
+        ResManDemandEvent demandResInfo = { resrefWithExt, resType, NULL, 0, fileInfo.mtime, fileInfo.latest_mtime };
+        int notifyRet = NotifyEventHooks(hDemandRes, (uintptr_t)&demandResInfo);
+        if (!notifyRet) { return NULL; }
+        if (demandResInfo.pData && demandResInfo.size) {
+            //Log(4, "Got data from Hook, returning (size = %d): %s\n", demandResInfo.size, demandResInfo.pData);
+            pScriptBuffer = (char*) demandResInfo.pData;
+            fileInfo.size = size = demandResInfo.size;
+            fileInfo.mtime = demandResInfo.mtime;
+
+            Log(1, "o Loading external resouce: %s, mtime: %d\n", resrefWithExt, fileInfo.mtime);
+            Log(4, "Original Structure:\n");
+            DumpResStruct(cRes);
+
+            if (pResMan->TotalAvailableMemory < size) { //not enough memory
+                Log(4, "Freeing some memory\n");
+                while (1) {
+                    if (size <= pResMan->TotalAvailableMemory)
+                        break;
+                    if (!pResMan->FreeChunk())
+                        break;
+                }
+            }
+
+            if (cRes->m_pResource) {
+                free(cRes->m_pResource);
+                pResMan->TotalAvailableMemory += cRes->m_nSize;
+            } else {
+                // resource loaded
+                // set resStruct
+
+                cRes->m_nDemands = 1;
+                cRes->field_8 = 0x4;
+                cRes->m_status = 2;
+            }
+
+            // If resources services a file set ID to -1.  This keeps nwserver from getting confused
+            // and thinking that it's in an ERF/BIF/etc.
+            cRes->m_nID = -1;
+            cRes->m_pResource = pScriptBuffer;
+            cRes->m_nSize = size;
+            pResMan->TotalAvailableMemory -= size;
+
+            // Call server function which sets various data pointers
+            if (cRes->vtbl) {
+                if (resType == NwnResType_NCS) {
+                    CResNCS *pNCS = (CResNCS*) cRes;
+                    pNCS->m_bLoaded = 0;
+                } else if (resType == NwnResType_2DA) {
+                    CRes2DA *t = (CRes2DA*) cRes;
+                    t->m_bLoaded = 0;
+                }
+
+                int (*pServFunc)(CRes * cRes) = (int (*)(CRes * cRes))cRes->vtbl->OnResourceServiced;
+                Log(5, "Calling CRes*::OnResourceServiced: %08lx\n", pServFunc);
+                int nRet = pServFunc(cRes);
+                Log(5, "Return value: %d\n", nRet);
+            }
+            Log(4, "Resulting Structure:\n");
+            DumpResStruct(cRes);
+
+            return cRes->m_pResource;
+        }
     }
+
+    return NULL;
 }
 
-void CNWNXResMan::LoadConfiguration()
+void CNWNXResMan::DumpResStruct(CRes *cRes)
 {
-    if (nwnxConfig->exists(confKey)) {
-        strncpy(m_sourcePath, (*nwnxConfig)[confKey]["SourcePath"].c_str(), MAXPATH);
+    Log(4, "CRes = %p\n", cRes);
+    Log(4, "  - m_nDemands = %d\n", cRes->m_nDemands);
+    Log(4, "  - m_nRequests = %d\n", cRes->m_nRequests);
+    Log(4, "  - m_nID = %08lX\n", cRes->m_nID);
+    Log(4, "  - m_pResource = %08lx\n", cRes->m_pResource);
+    Log(4, "  - m_nSize = %d\n", cRes->m_nSize);
+    if (cRes->ResName) {
+        CKeyTableEntry *key = reinterpret_cast<CKeyTableEntry*>(cRes->ResName);
+        char buf[17] = {0};
+        strncpy(buf, key->m_cResRef.m_resRef, 16);
+        Log(4, "  - m_sName = %s\n", buf);
     }
-    /*    if (nwnxConfig->exists(confKey, "disablehook") &&
-            toupper((*nwnxConfig)[confKey]["disablehook"].c_str()[0])=='Y') {
-                disableHook = 1;
-            )
-        }*/
+    Log(4, "  - flags = %x\n", cRes->field_8);
+    Log(4, "  - m_status = %d\n", cRes->m_status);
+    Log(4, "  - m_pKeyEntry = %08lx\n", cRes->ResName);
+}
 
+bool CNWNXResMan::ResourceExists(const CResRef &resRef, NwnResType resType, CKeyTableEntry **original)
+{
+    const char* resExt = NwnGetResTypeExtension(resType);
+    if (!resExt) {
+        Log(0, "Invalid resource type: %d, resref: %.*s\n", resType, 16, resRef.m_resRef);
+        return false;
+    }
+
+    char resrefWithExt[21] = {0};
+    strncat(resrefWithExt, resRef.m_resRef, 16);
+    strcat(resrefWithExt, ".");
+    strcat(resrefWithExt, resExt);
+
+    // Insert entry, or lookup old one...
+    std::pair<ResourceMap::iterator, bool> lookup = resFiles.insert(ResourceMap::value_type(resrefWithExt, CResFileInfo()));
+    CResFileInfo& fileInfo = lookup.first->second;
+
+    ResManExistsEvent event = { resrefWithExt, 0, false };
+    NotifyEventHooksNotAbortable(hResExists, (uintptr_t)&event);
+
+    if (event.exists) {
+        fileInfo.latest_mtime = event.mtime;
+
+        // To keep nwserver from ketting confused over who owns what key, always
+        // create a new CKeyTableEntry.
+        if (!fileInfo.key) {
+            fileInfo.key = CreateKeyTableEntry(resRef, resType);
+            Log(4, "Adding Key: %s, %p\n", resrefWithExt, fileInfo.key);
+        }
+        if (*original) {
+            // If the original has a CRes and we don't lets steal theirs.
+            if (!fileInfo.key->m_pRes && (*original)->m_pRes) {
+                fileInfo.key->m_pRes = (*original)->m_pRes;
+                fileInfo.key->m_pRes->m_pKeyEntry = NULL;
+                (*original)->m_pRes = NULL;
+            }
+        }
+        *original = fileInfo.key;
+    }
+    Log(4, "File: %s, Exists?: %d, mtime: %d\n", resrefWithExt, event.exists, fileInfo.latest_mtime);
+
+    return event.exists;
+}
+
+CKeyTableEntry *CNWNXResMan::CreateKeyTableEntry(const CResRef &resRef, NwnResType resType)
+{
+    CKeyTableEntry *key = new CKeyTableEntry;
+    key->m_pRes = NULL;
+    key->m_cResRef = CResRef(resRef);
+    key->m_nID = -1;
+    key->m_nRefCount = 0;
+    key->m_nType = resType;
+    return key;
+}
+
+const char *CNWNXResMan::GetSourcePath()
+{
+    return m_sourcePath.c_str();
 }
 
 void CNWNXResMan::WriteLogHeader()
 {
     // write copy information to the log file
-    Log(0, "NWNX Resource Manager 1.0.1 for Linux.\n");
+    Log(0, "NWNX Resource Manager 2.0 for Linux.\n");
     Log(0, "(c) 2005 by Ingmar Stieger (papillon@nwnx.org)\n");
     Log(0, "(c) 2006 by dumbo (dumbo@nm.ru)\n");
     Log(0, "(c) 2006-2010 by virusman (virusman@virusman.ru)\n");
-    Log(0, "* Resource source path is: %s\n", m_sourcePath);
+    Log(0, "(c) 2015 by jmd (jmd2028@gmail.com)\n");
+}
+
+void CNWNXResMan::LoadConfiguration()
+{
+    gline& conf = *nwnxConfig;
+    if (conf.exists(confKey)) {
+        warnMissing = atoi(conf[confKey]["warn_missing"].c_str());
+        Log(0, "o Logging missing resources: %d\n", warnMissing);
+
+        debugCRes = atoi(conf[confKey]["debug_cres"].c_str());
+        Log(0, "o Debugging CRes construction and destruction: %d\n", debugCRes);
+
+        m_sourcePath = conf[confKey]["SourcePath"];
+        if (m_sourcePath.length() > 0) {
+            if (!RegisterDirectoryHandlers()) {
+                Log(0, "Unable to load resman directory handlers!\n");
+            } else {
+                Log(0, "o Directory source path set: %s\n", m_sourcePath.c_str());
+            }
+        }
+    }
 }
