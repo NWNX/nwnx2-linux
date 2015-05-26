@@ -1,13 +1,6 @@
 #ifndef SYSTEM_H__
 #define SYSTEM_H__ 1
 
-//nwnx/core/pluginsloaded
-//called after all plugins have been successfully initialised
-//wParam=lParam=0
-//used to resolve double-dependencies in the plugin load order
-#define EV_CORE_PLUGINSLOADED  "NWNX/Core/PluginsLoaded"
-
-
 typedef int (*FSortFunc)(void*, void*);
 
 typedef struct {

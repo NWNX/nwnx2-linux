@@ -90,9 +90,9 @@ jnienvtok->FatalError("while executing native code " #code);\
 
 JavaVM *jvm_global;
 
-int WriteSCO(WPARAM, LPARAM);
-int ReadSCO(WPARAM, LPARAM);
-int DemandResource(WPARAM, LPARAM);
+int WriteSCO(uintptr_t);
+int ReadSCO(uintptr_t);
+int DemandResource(uintptr_t);
 
 CNWNXJVM::CNWNXJVM()
 {
@@ -100,13 +100,14 @@ CNWNXJVM::CNWNXJVM()
     bHooked = 1;
 }
 
-int systemStartup(WPARAM l, LPARAM i)
+int systemStartup(uintptr_t p)
 {
     HANDLE handleSCO = HookEvent("NWServer/RCO", ReadSCO);
     HANDLE handleRCO = HookEvent("NWServer/SCO", WriteSCO);
     HANDLE handleResMan = HookEvent("NWNX/ResMan/DemandResource", DemandResource);
     if (!handleSCO || !handleRCO || !handleResMan)
         printf("Cannot hook SCORCO or ResMan events!\n");
+
     return 0;
 }
 
@@ -134,7 +135,7 @@ bool CNWNXJVM::OnCreate(gline *config, const char *LogDir)
 
     Log(0, "NWNXJVM\n");
 
-    HookEvent("NWNX/Core/PluginsLoaded", systemStartup);
+    HookEvent(EVENT_CORE_PLUGINSLOADED, systemStartup);
 
     if (!pluginLink) {
         Log(0, "Plugin link not accessible\n");
@@ -398,9 +399,9 @@ char* CNWNXJVM::OnRequest(char *gameObject, char* request, char* parameters)
     return NULL;
 }
 
-int WriteSCO(WPARAM p, LPARAM a)
+int WriteSCO(uintptr_t p)
 {
-    SCORCOStruct* s = (SCORCOStruct*) p;
+    ODBCSCORCOEvent* s = (ODBCSCORCOEvent*) p;
 
     JNIEnv *env;
     jvm_global->AttachCurrentThread((void **)&env, NULL);
@@ -413,9 +414,9 @@ int WriteSCO(WPARAM p, LPARAM a)
     return 0;
 };
 
-int ReadSCO(WPARAM p, LPARAM a)
+int ReadSCO(uintptr_t p)
 {
-    SCORCOStruct* s = (SCORCOStruct*) p;
+    ODBCSCORCOEvent* s = (ODBCSCORCOEvent*) p;
 
     JNIEnv *env;
     jvm_global->AttachCurrentThread((void **)&env, NULL);
@@ -433,9 +434,9 @@ int ReadSCO(WPARAM p, LPARAM a)
     return 1;
 };
 
-int DemandResource(WPARAM p, LPARAM a)
+int DemandResource(uintptr_t p)
 {
-    ResManDemandResStruct* s = (ResManDemandResStruct*) p;
+    ResManDemandResEvent* s = (ResManDemandResEvent*) p;
 
     JNIEnv *env;
     jvm_global->AttachCurrentThread((void **)&env, NULL);

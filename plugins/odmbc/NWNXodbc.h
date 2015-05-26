@@ -22,6 +22,9 @@
 
 #include "NWNXBase.h"
 
+#include "pluginlink.h"
+
+
 #include "db.h"
 #ifdef MYSQL_SUPPORT
 #include "mysql.h"

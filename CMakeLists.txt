@@ -35,6 +35,7 @@ if (NOT ruby)
 endif (NOT ruby)
 
 include_directories(lib include .)
+include_directories(plugins)
 
 add_library(nwnx2 SHARED nwnx2lib NWNXBase modules lists gline
 	lib/nwn_data lib/nwn_funcs lib/nwn_hooks

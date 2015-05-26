@@ -663,7 +663,7 @@ void LoadCoreModule()
     pluginCoreLink.SetHookDefaultForHookableEvent = SetHookDefaultForHookableEvent;
     //pluginCoreLink.NotifyEventHooksDirect=CallHookSubscribers;
 
-    hPluginsLoadedEvent = CreateHookableEvent(EV_CORE_PLUGINSLOADED);
+    hPluginsLoadedEvent = CreateHookableEvent(EVENT_CORE_PLUGINSLOADED);
 }
 
 class startstop
@@ -712,7 +712,7 @@ startstop::startstop()
 
     printf("* Loading modules...\n");
     LoadLibraries();
-    NotifyEventHooks(hPluginsLoadedEvent, 0, 0);
+    NotifyEventHooksNotAbortable(hPluginsLoadedEvent, 0);
 
     // log & emit
     Log(0, "* NWNX2 activated.\n");

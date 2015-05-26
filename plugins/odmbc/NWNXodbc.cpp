@@ -85,8 +85,8 @@ bool CNWNXODBC::OnCreate(gline *config, const char* LogDir)
     } else {
         Log(0, "Plugin link: %08lX\n", pluginLink);
         Log(0, "Plugin link: %08lX\n", pluginLink);
-        hSCOEvent = CreateHookableEvent("NWServer/SCO");
-        hRCOEvent = CreateHookableEvent("NWServer/RCO");
+        hSCOEvent = CreateHookableEvent(EVENT_ODBC_SCO);
+        hRCOEvent = CreateHookableEvent(EVENT_ODBC_RCO);
     }
 
     if (hookScorco) {
@@ -367,14 +367,14 @@ int CNWNXODBC::WriteSCO(const char * database, const char * key, char * player, 
             }
         }
     } else {
-        SCORCOStruct scoInfo = {
+        ODBCSCORCOEvent scoInfo = {
             database,
             key,
             player,
             pData,
             size
         };
-        NotifyEventHooks(hSCOEvent, (WPARAM)&scoInfo, 0);
+        NotifyEventHooks(hSCOEvent, (uintptr_t) &scoInfo);
 
         return 1;
     }
@@ -418,14 +418,14 @@ unsigned char * CNWNXODBC::ReadSCO(const char * database, const char * key, char
         }
         return NULL;
     } else {
-        SCORCOStruct rcoInfo = {
+        ODBCSCORCOEvent rcoInfo = {
             database,
             key,
             player,
             NULL,
             NULL
         };
-        NotifyEventHooks(hRCOEvent, (WPARAM)&rcoInfo, 0);
+        NotifyEventHooks(hRCOEvent, (uintptr_t) &rcoInfo);
 
         if (rcoInfo.pData && rcoInfo.size) {
             *size = rcoInfo.size;

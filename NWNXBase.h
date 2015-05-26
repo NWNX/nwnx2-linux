@@ -26,7 +26,7 @@
 #include <string.h>
 #include "gline.h"
 #include "newpluginapi.h"
-#include "nwnx_modules.h"
+#include "pluginlink_core.h"
 
 #define OBJECT_INVALID 0x7F000000
 
