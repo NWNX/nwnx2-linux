@@ -28,21 +28,45 @@ string mhash_hash(string algorithm, string data);
  */
 string mhash_hmac(string algorithm, string password, string data);
 
+/**
+ * Generates a key with the given algorithm, password and salt, using mcrypt.
+ *
+ * Example: mhash_mcrypt(64, "SHA256", salt", "pass");
+ *
+ * Length is how long the key should be, a number from 1 to 4096 inclusive.
+ *
+ * Returned format is a hex string with a length of length * 2.
+ *
+ * Will return "" on any error, so it is prudent to check for that - especially when hashing
+ * sensitive data. Errors are printed to the plugin log.
+ */
+string mhash_keygen_mcrypt(int length, string algorithm, string password, string salt);
 
 string mhash_hash(string algorithm, string data)
 {
-	SetLocalString(GetModule(), "NWNX!MHASH!HASH", algorithm + "¬" + data);
-	string ret = GetLocalString(GetModule(), "NWNX!MHASH!HASH");
-	// We delete it to make sure we dont leak anything to other scripts that could read the hash.
-	DeleteLocalString(GetModule(), "NWNX!MHASH!HASH");
-	return ret;
+    SetLocalString(GetModule(), "NWNX!MHASH!HASH", algorithm + "¬" + data);
+    string ret = GetLocalString(GetModule(), "NWNX!MHASH!HASH");
+    // We delete it to make sure we dont leak anything to other scripts that could read the hash.
+    DeleteLocalString(GetModule(), "NWNX!MHASH!HASH");
+    return ret;
 }
 
 string mhash_hmac(string algorithm, string password, string data)
 {
-	SetLocalString(GetModule(), "NWNX!MHASH!HMAC", algorithm + "¬" + password + "¬" + data);
-	string ret = GetLocalString(GetModule(), "NWNX!MHASH!HMAC");
-	// We delete it to make sure we dont leak anything to other scripts that could read the hash.
-	DeleteLocalString(GetModule(), "NWNX!MHASH!HMAC");
-	return ret;
+    SetLocalString(GetModule(), "NWNX!MHASH!HMAC", algorithm + "¬" + password + "¬" + data);
+    string ret = GetLocalString(GetModule(), "NWNX!MHASH!HMAC");
+    // We delete it to make sure we dont leak anything to other scripts that could read the hash.
+    DeleteLocalString(GetModule(), "NWNX!MHASH!HMAC");
+    return ret;
+}
+
+string mhash_keygen_mcrypt(int length, string algorithm, string password, string salt)
+{
+    SetLocalString(GetModule(), "NWNX!MHASH!KEYGENMCRYPT",
+                   algorithm + "¬" + IntToString(length) + "¬" +
+                   password + "¬" + salt);
+    string ret = GetLocalString(GetModule(), "NWNX!MHASH!KEYGENMCRYPT");
+    // We delete it to make sure we dont leak anything to other scripts that could read the hash.
+    DeleteLocalString(GetModule(), "NWNX!MHASH!KEYGENMCRYPT");
+    return ret;
 }

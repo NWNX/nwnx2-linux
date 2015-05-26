@@ -69,6 +69,28 @@ char *CNWNXMHash::hmac(hashid type, const char *password, const char *input)
     return ret;
 }
 
+char *CNWNXMHash::keygen(keygenid keygenalg, hashid algorithm, size_t keylen,
+                         const char *salt,
+                         const char *password)
+{
+    KEYGEN data;
+    data.salt = (void *) salt;
+    data.salt_size = strlen(salt);
+    data.hash_algorithm[0] = algorithm;
+    data.count = 0;
+
+    void *key = malloc(keylen);
+
+    int retv = mhash_keygen_ext(keygenalg, data,
+                                key, keylen,
+                                (unsigned char *) password, strlen(password));
+
+    char *ret;
+    bin_to_strhex((unsigned char *) key, keylen, &ret);
+    free(key);
+    return ret;
+}
+
 hashid CNWNXMHash::find_hashid_by_name(const char *name)
 {
     for (size_t i = 0; i < mhash_count(); i++) {
@@ -138,7 +160,27 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
         }
 
         return hmac(hid, passwd, data);
+    }
 
+    if (strcmp("KEYGENMCRYPT", Request) == 0) {
+        char *len = strtok(NULL, "¬");
+        char *passwd = strtok(NULL, "¬");
+        char *salt   = strtok(NULL, "¬");
+
+        if (len == NULL || (passwd == NULL || strlen(passwd) == 0) || (salt == NULL || strlen(salt) == 0)) {
+            Log(0, "Error: malformed request, not enough parameters\n");
+            return EMPTYSTRING;
+        }
+
+        int ilen = atoi(len);
+
+        if (ilen < 1)
+            ilen = 1;
+
+        if (ilen > 4096)
+            ilen = 4096;
+
+        return keygen(KEYGEN_MCRYPT, hid, ilen, salt, passwd);
     }
 
     return NULL;
@@ -162,6 +204,23 @@ bool CNWNXMHash::OnCreate(gline *nwnxConfig, const char *LogDir)
                 mhash_get_hash_pblock((hashid) i) > 0,
                 mhash_get_block_size((hashid) i) * 2
                );
+    }
+
+    Log(0, "Supported keygens:\n");
+
+    for (size_t i = 0; i < mhash_keygen_count(); i++) {
+        unsigned char *n = mhash_get_keygen_name((keygenid) i);
+
+        if (n != NULL) {
+            Log(0, "  %-15s (salt: %d, saltsize: %d, count: %d, maxkeysize: %d, hash: %d)\n", n,
+                mhash_keygen_uses_salt((keygenid) i),
+                mhash_get_keygen_salt_size((keygenid) i),
+                mhash_keygen_uses_count((keygenid) i),
+                mhash_get_keygen_max_key_size((keygenid) i),
+                mhash_keygen_uses_hash_algorithm((keygenid) i)
+               );
+            free(n);
+        }
     }
 
     return true;
