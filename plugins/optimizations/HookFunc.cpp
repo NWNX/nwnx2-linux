@@ -95,13 +95,19 @@ int64_t CExoTimers__GetHighResolutionTimer_hook(void *pTimer)
     }
 }
 
-int CServerExoApp__MainLoop_hook(void *pServer)
+struct timeval start;
+
+int eventMainLoopBefore(uintptr_t p)
 {
-    struct timeval start, finish;
+    gettimeofday(&start, NULL);
+    return 0;
+}
+
+int eventMainLoopAfter(uintptr_t p)
+{
+    struct timeval finish;
     dword msec;
 
-    gettimeofday(&start, NULL);
-    int ret = CServerExoApp__MainLoop(pServer);
     gettimeofday(&finish, NULL);
 
     msec = finish.tv_sec * 1000 + finish.tv_usec / 1000;
@@ -115,8 +121,7 @@ int CServerExoApp__MainLoop_hook(void *pServer)
         nPosition = 0;
 
     SetDynamicDelay();
-
-    return ret;
+    return 0;
 }
 
 void CNWVirtualMachineCommands__RunScriptCallback_hook(void *pCommands, void *sScriptName)
@@ -158,6 +163,9 @@ d_redirect(long from, long to, unsigned char *d_ret_code, long len = 0)
 
 int HookFunctions()
 {
+    HookEvent(EVENT_CORE_MAINLOOP_BEFORE, eventMainLoopBefore);
+    HookEvent(EVENT_CORE_MAINLOOP_AFTER, eventMainLoopAfter);
+
     memset(aLoopTimes, 0, sizeof(dword)*HIST_LENGTH);
     *(dword*)&pMainLoopDelay = 0x0804BBF2;
     d_enable_write((dword)pMainLoopDelay);
@@ -165,10 +173,6 @@ int HookFunctions()
     *(dword*)&CExoTimers__GetHighResolutionTimer = 0x082CC7A8;
     d_redirect((unsigned long)CExoTimers__GetHighResolutionTimer, (unsigned long)CExoTimers__GetHighResolutionTimer_hook, d_ret_code_hrtimer, 9);
     *(dword*)&CExoTimers__GetHighResolutionTimer = (dword)&d_ret_code_hrtimer;
-
-    *(dword*)&CServerExoApp__MainLoop = 0x080B2050;
-    d_redirect((unsigned long)CServerExoApp__MainLoop, (unsigned long)CServerExoApp__MainLoop_hook, d_ret_code_loop, 9);
-    *(dword*)&CServerExoApp__MainLoop = (dword)&d_ret_code_loop;
 
     *(dword*)&CNWVirtualMachineCommands__RunScriptCallback = 0x081FB558;
     d_redirect((unsigned long)CNWVirtualMachineCommands__RunScriptCallback, (unsigned long)CNWVirtualMachineCommands__RunScriptCallback_hook, d_ret_code_scallback, 9);
