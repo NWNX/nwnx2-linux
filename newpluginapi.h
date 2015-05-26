@@ -30,7 +30,7 @@ typedef struct {
     HANDLE(*CreateHookableEvent)(const char *);
     int (*DestroyHookableEvent)(HANDLE);
     int (*NotifyEventHooks)(HANDLE, uintptr_t);
-    int (*NotifyEventHooksNotAbortable)(HANDLE, uintptr_t);
+    void (*NotifyEventHooksNotAbortable)(HANDLE, uintptr_t);
     HANDLE(*HookEvent)(const char *, NWNXHOOK);
     HANDLE(*HookEventMessage)(const char *, HWND, UINT);
     int (*UnhookEvent)(HANDLE);
