@@ -660,6 +660,7 @@ void LoadCoreModule()
     pluginCoreLink.HookEvent = HookEvent;
     pluginCoreLink.UnhookEvent = UnhookEvent;
     pluginCoreLink.NotifyEventHooks = NotifyEventHooks;
+    pluginCoreLink.NotifyEventHooksNotAbortable = NotifyEventHooksNotAbortable;
     pluginCoreLink.SetHookDefaultForHookableEvent = SetHookDefaultForHookableEvent;
     //pluginCoreLink.NotifyEventHooksDirect=CallHookSubscribers;
 
