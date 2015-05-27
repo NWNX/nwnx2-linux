@@ -42,6 +42,20 @@ void nwn_hook_init(void);
 }
 #endif
 
+/**
+ * Macro: NX_HOOK
+ *
+ * Helper macro to that wraps nx_hook_function in order to remove user specified casting.
+ *
+ * Parameters:
+ *     orig  - Function pointer for the trampoline.
+ *     addr  - Address of the function to hook.
+ *     hook  - Hook function.
+ *     bytes - Number of bytes to copy into the trampoline.
+ */
+#define NX_HOOK(orig, addr, hook, bytes) \
+    *(void**)&orig = nx_hook_function((void*)addr, (void*)hook, bytes, NX_HOOK_DIRECT | NX_HOOK_RETCODE)
+
 #endif /* _NX_HOOK_H_ */
 
 /* vim: set sw=4: */
