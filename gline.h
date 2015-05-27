@@ -26,10 +26,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-using namespace std;
 
-typedef map<string, string, less<string> > StringMap;
-typedef map<string, StringMap, less<string> > MetaStringMap;
+typedef std::map<std::string, std::string, std::less<std::string> > StringMap;
+typedef std::map<std::string, StringMap, std::less<std::string> > MetaStringMap;
 
 class gline
 {
@@ -55,7 +54,7 @@ public:
 
     // StringMap &operator[](string key);
 private:
-    void delete_spaces(string &str);
+    void delete_spaces(std::string &str);
 };
 
 #endif

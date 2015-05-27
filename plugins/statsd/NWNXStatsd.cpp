@@ -90,7 +90,7 @@ char *CNWNXStatsd::OnRequest(char *gameObject, char *Request, char *Parameters)
     }
 
     if (0 == strcmp(Request, "STOP")) {
-        unordered_map<std::string, struct timespec>::iterator iter =
+        std::unordered_map<std::string, struct timespec>::iterator iter =
             timings.find(std::string(Parameters));
 
         if (iter != timings.end()) {
