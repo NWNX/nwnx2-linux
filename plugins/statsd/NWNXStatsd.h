@@ -22,7 +22,7 @@ public:
 private:
     StatsdClient link;
 
-    unordered_map<std::string, struct timespec> timings;
+    std::unordered_map<std::string, struct timespec> timings;
 
 };
 
