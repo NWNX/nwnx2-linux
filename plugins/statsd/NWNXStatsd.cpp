@@ -61,6 +61,7 @@ char *CNWNXStatsd::OnRequest(char *gameObject, char *Request, char *Parameters)
         char *stat = strtok(pp, " ");
         size_t val = atoi(strtok(NULL, " "));
         link.gauge(stat, val);
+        free(pp);
         return NULL;
     }
 
@@ -69,6 +70,7 @@ char *CNWNXStatsd::OnRequest(char *gameObject, char *Request, char *Parameters)
         char *stat = strtok(pp, " ");
         size_t val = atoi(strtok(NULL, " "));
         link.count(stat, val);
+        free(pp);
         return NULL;
     }
 
@@ -77,6 +79,7 @@ char *CNWNXStatsd::OnRequest(char *gameObject, char *Request, char *Parameters)
         char *stat = strtok(pp, " ");
         size_t val = atoi(strtok(NULL, " "));
         link.timing(stat, val);
+        free(pp);
         return NULL;
     }
 
