@@ -40,6 +40,7 @@ include_directories(plugins)
 add_library(nwnx2 SHARED nwnx2lib NWNXBase modules lists gline
 	lib/nwn_data lib/nwn_funcs lib/nwn_hooks
 	lib/nx_hook lib/nx_log lib/nx_safe lib/nx_signature
+	lib/NwnDefines
 )
 
 # Fake target to force recreating the compiled directory.

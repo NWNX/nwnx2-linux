@@ -2,7 +2,7 @@
 //
 // @doc
 //
-// @module	NwnDefiles.cpp - General helper routines |
+// @module  NwnDefiles.cpp - General helper routines |
 //
 // This module contains the general NWN helper routines.
 //
@@ -39,6 +39,7 @@
 //-----------------------------------------------------------------------------
 
 #include "NwnDefines.h"
+#include <string.h>
 
 //-----------------------------------------------------------------------------
 //
@@ -120,6 +121,7 @@ const char *NwnGetResTypeExtension(NwnResType nType)
         case NwnResType_HAK: return "hak";
         case NwnResType_NWM: return "nwm";
         case NwnResType_BIK: return "bik";
+        case NwnResType_NDB: return "ndb";
         case NwnResType_ERF: return "erf";
         case NwnResType_BIF: return "bif";
         case NwnResType_KEY: return "key";
@@ -277,6 +279,8 @@ NwnResType NwnGetResTypeFromExtension(const char *pszExtension)
         return NwnResType_NWM;
     if (strcasecmp(pszExtension, "bik") == 0)
         return NwnResType_BIK;
+    if (strcasecmp(pszExtension, "ndb") == 0)
+        return NwnResType_NDB;
     if (strcasecmp(pszExtension, "erf") == 0)
         return NwnResType_ERF;
     if (strcasecmp(pszExtension, "bif") == 0)
