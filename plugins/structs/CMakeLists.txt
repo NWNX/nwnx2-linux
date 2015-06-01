@@ -12,6 +12,7 @@ add_module(structs NWNXStructs plugin-structs
 	funcs/f_GetDurationRemaining
 	funcs/f_GetHasEffect
 	funcs/f_GetInteger
+	funcs/f_GetNumIntegers
 	funcs/f_GetSpellId
 	funcs/f_GetTrueType
 	funcs/f_SetCreator

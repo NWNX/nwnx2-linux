@@ -38,6 +38,7 @@ GETDURATION,                            Func_GetDuration
 GETDURATIONREMAINING,                   Func_GetDurationRemaining
 GETHASEFFECT,                           Func_GetHasEffect
 GETINTEGER,                             Func_GetInteger
+GETNUMINTEGERS,                         Func_GetNumIntegers
 GETSPELLID,                             Func_GetSpellId
 GETTRUETYPE,                            Func_GetTrueType
 SETCREATOR,                             Func_SetCreator
