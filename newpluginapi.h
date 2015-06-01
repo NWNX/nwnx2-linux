@@ -56,7 +56,7 @@ extern PLUGINLINK *pluginLink;
 #define CreateServiceFunction(a,b)           pluginLink->CreateServiceFunction(a,b)
 #define CreateTransientServiceFunction(a,b)  pluginLink->CreateTransientServiceFunction(a,b)
 #define DestroyServiceFunction(a)            pluginLink->DestroyServiceFunction(a)
-#define CallService(a,b,c)                   pluginLink->CallService(a,b,c)
+#define CallService(a,b)                     pluginLink->CallService(a,b)
 #define ServiceExists(a)                     pluginLink->ServiceExists(a)
 #define SetHookDefaultForHookableEvent(a,b)  pluginLink->SetHookDefaultForHookableEvent(a,b)
 #endif
