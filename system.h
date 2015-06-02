@@ -1,6 +1,8 @@
 #ifndef SYSTEM_H__
 #define SYSTEM_H__ 1
 
+#include <stdint.h>
+
 typedef int (*FSortFunc)(void*, void*);
 
 typedef struct {
@@ -42,8 +44,7 @@ The event handler takes 0 as wParam and TMissingServiceParams* as lParam.
 
 typedef struct {
     const char* name;
-    WPARAM      wParam;
-    LPARAM      lParam;
+    uintptr_t pParam;
 }
 MISSING_SERVICE_PARAMS;
 

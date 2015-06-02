@@ -1,8 +1,6 @@
 #ifndef TYPEDEF_H
 #define TYPEDEF_H
 
-typedef unsigned int WPARAM;
-typedef long LPARAM;
 #include <stdint.h>
 typedef void * HANDLE;
 #define FALSE 0
