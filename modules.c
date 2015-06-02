@@ -34,7 +34,7 @@ typedef struct {
     HINSTANCE hOwner;
     NWNXSERVICE pfnService;
     int isParam;
-    LPARAM lParam;
+    uintptr_t pParam;
     char name[1];
 }
 TService;
@@ -467,7 +467,7 @@ int CallService(const char *name, uintptr_t pParam)
     TService *pService;
     NWNXSERVICE pfnService;
     int isParam;
-    LPARAM fnParam;
+    uintptr_t fnParam;
 
 #ifdef _DEBUG
     if (name == NULL) {
@@ -498,7 +498,7 @@ int CallService(const char *name, uintptr_t pParam)
     }
     pfnService = pService->pfnService;
     isParam = pService->isParam;
-    fnParam = pService->lParam;
+    fnParam = pService->pParam;
     //LeaveCriticalSection(&csServices);
     if (isParam)
         return ((int (*)(uintptr_t, uintptr_t))pfnService)(pParam, fnParam);
