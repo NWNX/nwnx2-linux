@@ -70,8 +70,7 @@ void CNWNXFuncsExt::SetScript(CGameObject *ob, char* value)
         snprintf(value, strlen(value), "1");
         return;
     }
-
-    snprintf(value, strlen(value), "");
+    value[0] = 0;
 }
 
 void CNWNXFuncsExt::GetScript(CGameObject *ob, char* value)
@@ -132,7 +131,7 @@ void CNWNXFuncsExt::Set_IsGenericTrigger(CGameObject *ob, char* value)
     }
 
     SetIsGenericTrigger(ob->vtable->AsNWSTrigger(ob));
-    snprintf(value, strlen(value), "");
+    value[0] = 0;
 }
 
 void CNWNXFuncsExt::Set_IsAreaTransition(CGameObject *ob, char* value)
@@ -147,7 +146,7 @@ void CNWNXFuncsExt::Set_IsAreaTransition(CGameObject *ob, char* value)
     }
 
     SetIsAreaTransition(ob->vtable->AsNWSTrigger(ob));
-    snprintf(value, strlen(value), "");
+    value[0] = 0;
 }
 
 void CNWNXFuncsExt::Get_SurfaceMaterial(CGameObject *ob, char* value)

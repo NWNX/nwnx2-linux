@@ -94,4 +94,5 @@ int HookFunctions()
     unsigned char *sendto_call = (unsigned char *) 0x082C791B;
     nx_hook_enable_write(sendto_call, 5);
     *(uint32_t *)(sendto_call + 1) = (uint32_t)sendto_hook - (uint32_t)(sendto_call + 5);
+    return 1;
 }

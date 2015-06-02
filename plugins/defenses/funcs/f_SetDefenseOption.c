@@ -38,7 +38,7 @@ void Func_SetDefenseOption(CGameObject *ob, char *value)
         val = 0;
 
     Table_DefenseOptions[opt] = val;
-    snprintf(value, sizeof(value), "%d", val);
+    snprintf(value, strlen(value), "%d", val);
 }
 
 

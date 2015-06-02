@@ -67,7 +67,7 @@ public:
     dword oTarget;
     dword oItem;
     CNWSDialogClass *pConversation;
-    int nSelectedNodeID;
+    unsigned int nSelectedNodeID;
     int nSelectedAbsoluteNodeID;
     int nCurrentAbsoluteNodeID;
     int nCurrentNodeID;

@@ -105,11 +105,11 @@ bool CompareVarLists(CNWObjectVarList *pVarList1, CNWObjectVarList *pVarList2)
     if (pVarList1->VarCount == 0 && pVarList2->VarCount == 0)
         return true;
 
-    for (int i = 0; i < pVarList1->VarCount; i++) {
+    for (size_t i = 0; i < pVarList1->VarCount; i++) {
         bool bFound = false;
         CNWObjectVarListElement *pVar1 = &pVarList1->VarList[i];
 
-        for (int j = 0; j < pVarList2->VarCount; j++) {
+        for (size_t j = 0; j < pVarList2->VarCount; j++) {
             CNWObjectVarListElement *pVar2 = &pVarList2->VarList[j];
 
             if (pVar1->nVarType == pVar2->nVarType &&
@@ -277,7 +277,7 @@ void PlayerListNoDMHook()
 int CNWSCreature__DoDamage_hook(CNWSCreature *a1, unsigned int a2)
 {
     fixes.Log(3, "DoDamage: %08lX, %d, Current: %d\n", a1->Object.ObjectID, a2, a1->Object.HitPoints);
-    if (a1->IsPC && a1->Object.HitPoints > 0 && a2 > a1->Object.HitPoints + 5) {
+    if (a1->IsPC && a1->Object.HitPoints > 0 && (int)a2 > a1->Object.HitPoints + 5) {
         a2 = a1->Object.HitPoints + 5;
         int ret = CNWSCreature__DoDamage(a1, a2);
         fixes.Log(3, "Running script...\n");

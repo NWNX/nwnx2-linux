@@ -175,9 +175,9 @@ BOOL CNWNXODBC::Reconnect()
     int error_code = reinterpret_cast<CMySQL*>(db)->GetErrorCode();
     if (bReconnectOnError &&
             dbType == dbMYSQL &&
-            error_code == CR_SERVER_GONE_ERROR ||
-            error_code == CR_CONNECTION_ERROR ||
-            error_code == CR_CONN_HOST_ERROR
+            (error_code == CR_SERVER_GONE_ERROR ||
+             error_code == CR_CONNECTION_ERROR ||
+             error_code == CR_CONN_HOST_ERROR)
        ) {
         if (db)
             db->Disconnect();
@@ -423,7 +423,7 @@ unsigned char * CNWNXODBC::ReadSCO(const char * database, const char * key, char
             key,
             player,
             NULL,
-            NULL
+            0
         };
         NotifyEventHooks(hRCOEvent, (uintptr_t) &rcoInfo);
 

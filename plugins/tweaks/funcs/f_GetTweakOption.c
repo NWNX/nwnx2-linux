@@ -29,7 +29,7 @@ void Func_GetTweakOption(CGameObject *ob, char *value)
     if (opt >= 0 && opt < NWNX_TWEAKS_OPTIONS_TABLE_SIZE)
         val = Table_TweakOptions[opt];
 
-    snprintf(value, sizeof(value), "%d", val);
+    snprintf(value, strlen(value), "%d", val);
 }
 
 
