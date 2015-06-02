@@ -291,9 +291,9 @@ void ConditionalScriptHookProc()
         try {
             bool bFound = false;
             dword nCurrentNode = pConversation->CurrentNodeID;
-            for (int nEntry = 0; nEntry < pConversation->EntryListCount; nEntry++) {
+            for (size_t nEntry = 0; nEntry < pConversation->EntryListCount; nEntry++) {
                 CDialogEntry* pEntry = &pConversation->EntryList[nEntry];
-                for (int nReply = 0; nReply < pEntry->RepliesNum; nReply++) {
+                for (size_t nReply = 0; nReply < pEntry->RepliesNum; nReply++) {
                     if (&pEntry->RepliesList[nReply] == pStartingEntry) {
                         events.nNodeType = ReplyNode;
                         events.nCurrentNodeID = nReply;
@@ -305,9 +305,9 @@ void ConditionalScriptHookProc()
                 if (bFound == true) break;
             }
             if (bFound == false) {
-                for (int nReply = 0; nReply < pConversation->ReplyListCount; nReply++) {
+                for (size_t nReply = 0; nReply < pConversation->ReplyListCount; nReply++) {
                     CDialogReply* pReply = &pConversation->ReplyList[nReply];
-                    for (int nEntry = 0; nEntry < pReply->EntriesNum; nEntry++) {
+                    for (size_t nEntry = 0; nEntry < pReply->EntriesNum; nEntry++) {
                         if (&pReply->EntriesList[nEntry] == (CDialogReplyEntry *) pStartingEntry) {
                             events.nNodeType = EntryNode;
                             events.nCurrentNodeID = nEntry;
@@ -320,7 +320,7 @@ void ConditionalScriptHookProc()
                 }
             }
             if (bFound == false) {
-                for (int nStartingEntry_t = 0; nStartingEntry_t < pConversation->StartingListCount; nStartingEntry_t++) {
+                for (size_t nStartingEntry_t = 0; nStartingEntry_t < pConversation->StartingListCount; nStartingEntry_t++) {
                     if (&pConversation->StartingList[nStartingEntry_t] == pStartingEntry) {
                         events.nNodeType = StartingNode;
                         events.nCurrentNodeID = nStartingEntry_t;

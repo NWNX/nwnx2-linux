@@ -259,7 +259,7 @@ static int Local_GetDEXMod_ipMaxDexBonusMod()
         if (pItem_1 != NULL) {
             if (CNWSItem__GetPropertyByTypeExists(pItem_1, confMaxDexterityBonus_ip, 0)) {
                 CNWItemProperty *IP;
-                for (int i = 0; i < pItem_1->field_1FC; i++) {
+                for (size_t i = 0; i < pItem_1->field_1FC; i++) {
                     IP = CNWSItem__GetPassiveProperty(pItem_1, i);
                     if (IP != NULL && IP->ip_type == confMaxDexterityBonus_ip) {
                         if (IP->ip_cost_value != 9) {

@@ -30,12 +30,10 @@ int
 gline::parse(const char *fname)
 {
 
-    int i, j, pos, len;
+    int j, pos;
     string sect, line, key, value;
-
     ifstream in(fname);
 
-    i = 0;
     while (getline(in, line)) {
 
         // strip inline comments

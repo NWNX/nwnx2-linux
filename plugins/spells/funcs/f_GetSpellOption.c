@@ -29,7 +29,7 @@ void Func_GetSpellOption(CGameObject *ob, char *value)
     if (opt >= 0 && opt < NWNX_SPELLS_OPTIONS_TABLE_SIZE)
         val = Table_SpellOptions[opt];
 
-    snprintf(value, sizeof(value), "%d", val);
+    snprintf(value, strlen(value), "%d", val);
 }
 
 
