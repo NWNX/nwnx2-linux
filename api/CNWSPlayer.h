@@ -1,14 +1,13 @@
 #ifndef _CNWSPLAYER_H_
 #define _CNWSPLAYER_H_
 #include "nwndef.h"
+#include "CNWSClient.h"
 #include "CExoString.h"
 #include "CResRef.h"
-#include "CNWSClient.h"
 #include "CExoLinkedList.h"
 #include "CLastUpdateObject.h"
-#include "CNWSPlayerInventoryGUI.h"
 
-class CNWSPlayer
+class CNWSPlayer : public CNWSClient
 {
 public:
     int AddArea(unsigned long);
@@ -93,7 +92,6 @@ public:
     ~CNWSPlayer();
     CNWSPlayer(unsigned long);
 
-    /* 0x0/0 */ CNWSClient Client;
     /* (ptr_to:CExoLinkedList<CLastUpdateObject>) */
     /* 0xC/12 */ CExoLinkedList<CLastUpdateObject> *m_pActiveObjectsLastUpdate;
     /* (ptr_to:CExoLinkedList<CLastUpdatePartyObject>) */

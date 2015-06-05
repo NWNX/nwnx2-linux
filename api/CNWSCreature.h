@@ -1,16 +1,14 @@
 #ifndef _CNWSCREATURE_H_
 #define _CNWSCREATURE_H_
 #include "nwndef.h"
+#include "CNWSObject.h"
 #include "Vector.h"
 #include "CExoString.h"
 #include "CResRef.h"
 #include "CExoArrayList.h"
-#include "CNWSObject.h"
-#include "CNWSCombatRound.h"
 #include "nwnstructs.h"
-#include "CNWSCreatureStats.h"
 
-class CNWSCreature
+class CNWSCreature : public CNWSObject
 {
 public:
     unsigned long AIActionAnimalEmpathy(CNWSObjectActionNode *);
@@ -776,7 +774,6 @@ public:
     ~CNWSCreature();
     CNWSCreature(unsigned long, int, int);
 
-    /* 0x0/0 */ CNWSObject Object;
     /* 0x1C4/452 */ unsigned long field_1C4;
     /* 0x1F8/504 */ char rsvd1[48];
     /* 0x1F8/504 */ CExoString HeartbeatScript;
@@ -816,7 +813,7 @@ public:
     /* 0x488/1160 */ char rsvd3[380];
     /* 0x488/1160 */ unsigned long LawfulChaotic;
     /* 0x48C/1164 */ unsigned long field_48C;
-    /* 0x490/1168 */ void *AreaMiniMaps;
+    /* 0x490/1168 */ char **AreaMiniMaps;
     /* (mtype:CExoArrayList<unsigned long>) */
     /* 0x494/1172 */ CExoArrayList<unsigned long> AreaList;
     /* 0x4A0/1184 */ unsigned long AreaCount;

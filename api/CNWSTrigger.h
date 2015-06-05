@@ -1,12 +1,12 @@
 #ifndef _CNWSTRIGGER_H_
 #define _CNWSTRIGGER_H_
 #include "nwndef.h"
+#include "CNWSObject.h"
 #include "Vector.h"
 #include "CExoString.h"
 #include "CResRef.h"
-#include "CNWSObject.h"
 
-class CNWSTrigger
+class CNWSTrigger : public CNWSObject
 {
 public:
     void AIUpdate();
@@ -89,7 +89,6 @@ public:
     ~CNWSTrigger();
     CNWSTrigger(unsigned long);
 
-    /* 0x0/0 */ CNWSObject Object;
     /* 0x1C4/452 */ unsigned long field_1C4;
     /* 0x1C8/456 */ unsigned long field_1C8;
     /* 0x2B0/688 */ char rsvd1[228];

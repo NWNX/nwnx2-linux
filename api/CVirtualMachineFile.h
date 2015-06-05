@@ -1,7 +1,6 @@
 #ifndef _CVIRTUALMACHINEFILE_H_
 #define _CVIRTUALMACHINEFILE_H_
 #include "nwndef.h"
-#include "CResNCS.h"
 #include "CResRef.h"
 
 class CVirtualMachineFile

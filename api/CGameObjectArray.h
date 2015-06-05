@@ -20,7 +20,7 @@ public:
     /* 0x4/4 */ unsigned long ObjectPointer;
     /* 0x8/8 */ unsigned long field_8;
     /* 0xC/12 */ unsigned long PlayerPointer;
-    /* 0x10/16 */ unsigned long field_10;
+    /* 0x10/16 */ unsigned long ExternalPointer;
     /* 0x14/20 */ unsigned long field_14;
 };
 #endif

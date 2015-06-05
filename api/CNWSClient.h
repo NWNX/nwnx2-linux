@@ -15,6 +15,6 @@ public:
 
     /* 0x0/0 */ unsigned long m_nPlayerID;
     /* 0x4/4 */ unsigned long m_nLanguage;
-    /* 0x8/8 */ void *vtable;
+    /* 0x8/8 */ CNWSClient_vtbl *vtable;
 };
 #endif

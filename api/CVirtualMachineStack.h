@@ -21,11 +21,11 @@ public:
     CVirtualMachineStack();
 
     /* 0x0/0 */ unsigned long StackPointer;
-    /* 0x4/4 */ unsigned long field_4;
+    /* 0x4/4 */ unsigned long BasePointer;
     /* 0x8/8 */ unsigned long AllocatedSize;
-    /* 0xC/12 */ void *VarTypes;
+    /* 0xC/12 */ char *VarTypes;
     /* 0x10/16 */ void *Values;
-    /* 0x14/20 */ unsigned long field_14;
+    /* 0x14/20 */ CVirtualMachine *pVM;
     /* 0x18/24 */ unsigned long CurrentInstruction;
 };
 #endif

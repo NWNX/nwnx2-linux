@@ -1,12 +1,12 @@
 #ifndef _CRESGFF_H_
 #define _CRESGFF_H_
 #include "nwndef.h"
+#include "CRes.h"
 #include "CExoLocString.h"
 #include "CExoString.h"
 #include "CResRef.h"
-#include "CRes.h"
 
-class CResGFF
+class CResGFF : public CRes
 {
 public:
     unsigned char * AddDataField(unsigned long, unsigned long, unsigned long);
@@ -96,7 +96,6 @@ public:
     CResGFF();
     CResGFF(unsigned short, char *, CResRef const &);
 
-    /* 0x0/0 */ CRes Res;
     /* 0x2C/44 */ unsigned long field_2C;
     /* 0x30/48 */ unsigned long field_30;
     /* 0x34/52 */ unsigned long field_34;

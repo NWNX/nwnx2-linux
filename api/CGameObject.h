@@ -1,7 +1,6 @@
 #ifndef _CGAMEOBJECT_H_
 #define _CGAMEOBJECT_H_
 #include "nwndef.h"
-#include "nwnstructs.h"
 
 class CGameObject
 {

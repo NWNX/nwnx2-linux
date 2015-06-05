@@ -5,9 +5,7 @@
 #include "Vector.h"
 #include "CResRef.h"
 #include "CScriptLocation.h"
-#include "nwnstructs.h"
 #include "CExoLocString.h"
-#include "CNWSDialog.h"
 #include "CExoLinkedList.h"
 #include "CNWSObjectActionNode.h"
 
@@ -289,13 +287,12 @@ public:
     /* 0xB/11 */ char field_B;
     /* 0xC/12 */ CNWSObjectMethods *Methods;
     /* 0x10/16 */ CExoLocString LocString;
-    /* 0x18/24 */ char rsvd1[4];
     /* 0x18/24 */ unsigned short field_18;
     /* 0x1A/26 */ unsigned short field_1A;
     /* 0x1C/28 */ CExoString Tag;
     /* 0x24/36 */ CExoString ResRef;
     /* 0x2C/44 */ CResRef field_2C;
-    /* 0x40/64 */ char rsvd2[4];
+    /* 0x40/64 */ char rsvd1[4];
     /* 0x40/64 */ CNWSDialog *Dialog;
     /* 0x44/68 */ unsigned long field_44;
     /* 0x48/72 */ unsigned long field_48;
@@ -309,15 +306,15 @@ public:
     /* 0x68/104 */ unsigned long field_68;
     /* 0x6C/108 */ unsigned long field_6C;
     /* 0x70/112 */ unsigned long ActionTarget;
-    /* 0x78/120 */ char rsvd3[4];
+    /* 0x78/120 */ char rsvd2[4];
     /* 0x78/120 */ unsigned long AreaID;
     /* 0x7C/124 */ Vector m_vPosition;
     /* 0x88/136 */ Vector m_vOrientation;
-    /* 0xB8/184 */ char rsvd4[36];
+    /* 0xB8/184 */ char rsvd3[36];
     /* 0xB8/184 */ unsigned long HitPoints;
     /* 0xBC/188 */ unsigned short field_BC;
     /* 0xBE/190 */ char field_BE;
-    /* 0xC0/192 */ char rsvd5;
+    /* 0xC0/192 */ char rsvd4;
     /* 0xC0/192 */ unsigned short TempHitPoints;
     /* 0xC2/194 */ unsigned short field_C2;
     /* 0xC4/196 */ unsigned long CanModifyActionQueue;
@@ -332,9 +329,9 @@ public:
     /* 0xE4/228 */ unsigned long field_E4;
     /* 0xE8/232 */ unsigned long field_E8;
     /* 0xEC/236 */ void *Effects;
-    /* 0xF8/248 */ char rsvd6[8];
+    /* 0xF8/248 */ char rsvd5[8];
     /* 0xF8/248 */ unsigned long PerceptionList;
-    /* 0x1C0/448 */ char rsvd7[196];
+    /* 0x1C0/448 */ char rsvd6[196];
     /* 0x1C0/448 */ unsigned long field_1C0;
 };
 #endif

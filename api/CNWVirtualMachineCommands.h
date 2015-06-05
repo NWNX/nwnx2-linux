@@ -2,7 +2,6 @@
 #define _CNWVIRTUALMACHINECOMMANDS_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "nwnstructs.h"
 
 class CNWVirtualMachineCommands
 {
@@ -589,7 +588,7 @@ public:
     int SaveGameDefinedStructure(int, void *, CResGFF *, CResStruct *);
     ~CNWVirtualMachineCommands();
 
-    /* 0x0/0 */ unsigned long field_0;
+    /* 0x0/0 */ unsigned long m_bValidObjectRunScript;
     /* 0x4/4 */ unsigned long ObjectID;
     /* 0x8/8 */ CNWVirtualMachineCommands_vtbl *vtbl;
     /* 0xC/12 */ void *CommandsArray;

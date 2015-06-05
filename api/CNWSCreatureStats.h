@@ -3,9 +3,9 @@
 #include "nwndef.h"
 #include "CExoArrayList.h"
 #include "CExoString.h"
-#include "CNWSCreature.h"
 #include "CExoLocString.h"
 #include "CResRef.h"
+#include "CNWSCreatureStats_ClassInfo.h"
 
 class CNWSCreatureStats
 {
@@ -225,13 +225,11 @@ public:
     /* 0x24/36 */ CNWSCreature *OriginalObject;
     /* 0x34/52 */ char rsvd3[12];
     /* 0x34/52 */ CExoLocString FirstName;
-    /* 0x3C/60 */ char rsvd4[4];
     /* 0x3C/60 */ CExoLocString LastName;
-    /* 0x44/68 */ char rsvd5[4];
     /* 0x44/68 */ CResRef Conversation;
     /* 0x54/84 */ unsigned long ConvInterruptable;
     /* 0x58/88 */ unsigned long field_58;
-    /* 0x60/96 */ char rsvd6[4];
+    /* 0x60/96 */ char rsvd4[4];
     /* 0x60/96 */ unsigned long field_60;
     /* 0x64/100 */ unsigned long field_64;
     /* 0x68/104 */ unsigned long Age;
@@ -248,8 +246,14 @@ public:
     /* 0x94/148 */ unsigned long field_94;
     /* 0x98/152 */ unsigned long field_98;
     /* 0x9C/156 */ unsigned long field_9C;
-    /* 0xA0/160 */ unsigned long field_A0;
-    /* 0x49A/1178 */ char rsvd7[1014];
+    /* 0xA0/160 */ char StartingPackage;
+    /* 0xA1/161 */ char ClassesCount;
+    /* 0xA2/162 */ char field_A2;
+    /* 0xA3/163 */ char field_A3;
+    /* 0xA4/164 */ CNWSCreatureStats_ClassInfo ClassInfo[3];
+    /* 0x3F0/1008 */ char rsvd5[4];
+    /* 0x3F0/1008 */ CExoString field_3F0;
+    /* 0x49A/1178 */ char rsvd6[162];
     /* 0x49A/1178 */ char ArmorPart_RFoot;
     /* 0x49B/1179 */ char BodyPart_LFoot;
     /* 0x49C/1180 */ char BodyPart_RShin;
@@ -268,7 +272,7 @@ public:
     /* 0x4A9/1193 */ char BodyPart_LShoul;
     /* 0x4AA/1194 */ char BodyPart_RHand;
     /* 0x4AB/1195 */ char BodyPart_LHand;
-    /* 0x4E4/1252 */ char rsvd8[56];
+    /* 0x4E4/1252 */ char rsvd7[56];
     /* 0x4E4/1252 */ unsigned long field_4E4;
 };
 #endif

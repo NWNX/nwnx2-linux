@@ -2,7 +2,6 @@
 #define _CEXOLOCSTRING_H_
 #include "nwndef.h"
 #include "CExoString.h"
-#include "CExoLinkedList.h"
 
 class CExoLocString
 {
@@ -24,7 +23,7 @@ public:
     int operator==(CExoLocString &);
     int operator!=(CExoLocString &);
 
-    /* (mtype:CExoLinkedList<ExoLocString_st>) */
-    /* 0x0/0 */ CExoLinkedList<ExoLocString_st> List;
+    /* 0x0/0 */ CExoLocStringInternal *Internal;
+    /* 0x4/4 */ unsigned long StrRef;
 };
 #endif

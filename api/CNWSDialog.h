@@ -26,11 +26,11 @@ public:
     CNWSDialog();
 
     /* 0x0/0 */ unsigned long EntryListCount;
-    /* 0x4/4 */ unsigned long EntryList;
+    /* 0x4/4 */ CDialogEntry *EntryList;
     /* 0x8/8 */ unsigned long ReplyListCount;
-    /* 0xC/12 */ unsigned long ReplyList;
+    /* 0xC/12 */ CDialogReply *ReplyList;
     /* 0x10/16 */ unsigned long StartingListCount;
-    /* 0x14/20 */ unsigned long StartingList;
+    /* 0x14/20 */ CDialogReplyEntry *StartingList;
     /* 0x18/24 */ CResRef EndScript;
     /* 0x28/40 */ CResRef EndConverAbortScript;
     /* 0x38/56 */ void *ConvoPartiesList;

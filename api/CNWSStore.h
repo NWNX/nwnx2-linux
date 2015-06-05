@@ -1,12 +1,12 @@
 #ifndef _CNWSSTORE_H_
 #define _CNWSSTORE_H_
 #include "nwndef.h"
+#include "CNWSObject.h"
 #include "CExoLocString.h"
 #include "CResRef.h"
 #include "CExoString.h"
-#include "CNWSObject.h"
 
-class CNWSStore
+class CNWSStore : public CNWSObject
 {
 public:
     void AIUpdate();
@@ -69,7 +69,6 @@ public:
     ~CNWSStore();
     CNWSStore(unsigned long);
 
-    /* 0x0/0 */ CNWSObject Object;
     /* 0x1C4/452 */ unsigned long field_1C4;
     /* 0x1C8/456 */ unsigned long field_1C8;
     /* 0x1CC/460 */ unsigned long field_1CC;

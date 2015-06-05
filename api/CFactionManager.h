@@ -2,7 +2,6 @@
 #define _CFACTIONMANAGER_H_
 #include "nwndef.h"
 #include "CExoArrayList.h"
-#include "CNWSFaction.h"
 
 class CFactionManager
 {

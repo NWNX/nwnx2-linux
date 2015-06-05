@@ -197,15 +197,15 @@ void CNWNXResMan::DumpResStruct(CRes *cRes)
     Log(4, "  - m_nID = %08lX\n", cRes->m_nID);
     Log(4, "  - m_pResource = %08lx\n", cRes->m_pResource);
     Log(4, "  - m_nSize = %d\n", cRes->m_nSize);
-    if (cRes->ResName) {
-        CKeyTableEntry *key = reinterpret_cast<CKeyTableEntry*>(cRes->ResName);
+    if (cRes->m_pKeyEntry) {
+        CKeyTableEntry *key = cRes->m_pKeyEntry;
         char buf[17] = {0};
         strncpy(buf, key->m_cResRef.m_resRef, 16);
         Log(4, "  - m_sName = %s\n", buf);
     }
     Log(4, "  - flags = %x\n", cRes->field_8);
     Log(4, "  - m_status = %d\n", cRes->m_status);
-    Log(4, "  - m_pKeyEntry = %08lx\n", cRes->ResName);
+    Log(4, "  - m_pKeyEntry = %08lx\n", cRes->m_pKeyEntry);
 }
 
 bool CNWNXResMan::ResourceExists(const CResRef &resRef, NwnResType resType, CKeyTableEntry **original)

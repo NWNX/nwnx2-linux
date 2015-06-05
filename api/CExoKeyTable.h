@@ -2,7 +2,6 @@
 #define _CEXOKEYTABLE_H_
 #include "nwndef.h"
 #include "CExoLinkedList.h"
-#include "nwnstructs.h"
 #include "CExoString.h"
 
 class CExoKeyTable
@@ -42,6 +41,6 @@ public:
     /* 0x24/36 */ CExoString Directory;
     /* 0x2C/44 */ unsigned long TableID;
     /* 0x30/48 */ unsigned long NumPackedFiles;
-    /* 0x34/52 */ unsigned long ExoPackedFile;
+    /* 0x34/52 */ CExoPackedFile **ExoPackedFile;
 };
 #endif

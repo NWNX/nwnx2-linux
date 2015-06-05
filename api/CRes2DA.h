@@ -3,7 +3,7 @@
 #include "nwndef.h"
 #include "CRes.h"
 
-class CRes2DA
+class CRes2DA : public CRes
 {
 public:
     unsigned char * Get2DADataPtr();
@@ -15,7 +15,6 @@ public:
     ~CRes2DA();
     CRes2DA();
 
-    /* 0x0/0 */ CRes Res;
     /* 0x2C/44 */ unsigned long m_bLoaded;
     /* 0x30/48 */ unsigned long m_n2DANormalSize;
     /* 0x34/52 */ unsigned long m_p2DAData;

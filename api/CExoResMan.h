@@ -2,6 +2,7 @@
 #define _CEXORESMAN_H_
 #include "nwndef.h"
 #include "CExoString.h"
+#include "CExoLinkedList.h"
 
 class CExoResMan
 {
@@ -78,7 +79,8 @@ public:
     /* 0x14/20 */ void *DirectoryKeyTables;
     /* 0x18/24 */ void *EncapsulatedKeyTables;
     /* 0x1C/28 */ void *ImageKeyTables;
-    /* 0x20/32 */ void *ToBeFreedList;
+    /* (mtype:CExoLinkedList<CRes *>) */
+    /* 0x20/32 */ CExoLinkedList<CRes *> ToBeFreedList;
     /* 0x24/36 */ unsigned long AsyncResQueue;
     /* 0x28/40 */ unsigned long CurrentAsyncRes;
     /* 0x2C/44 */ unsigned long AsyncFile;

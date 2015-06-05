@@ -1,7 +1,6 @@
 #ifndef _CSERVERAIMASTER_H_
 #define _CSERVERAIMASTER_H_
 #include "nwndef.h"
-#include "CServerExoAppInternal.h"
 #include "CServerAIList.h"
 #include "CExoLinkedList.h"
 #include "CServerAIEventNode.h"

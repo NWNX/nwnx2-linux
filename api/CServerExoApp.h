@@ -6,8 +6,6 @@
 #include "CExoArrayList.h"
 #include "CExoLocString.h"
 #include "CResRef.h"
-#include "nwnstructs.h"
-#include "CServerExoAppInternal.h"
 
 class CServerExoApp
 {

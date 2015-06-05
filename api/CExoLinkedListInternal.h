@@ -17,8 +17,8 @@ public:
     void * Remove(CExoLinkedListNode *);
     ~CExoLinkedListInternal();
 
-    /* 0x0/0 */ void *FirstElement;
-    /* 0x4/4 */ void *LastElement;
+    /* 0x0/0 */ CExoLinkedListNode *FirstElement;
+    /* 0x4/4 */ CExoLinkedListNode *LastElement;
     /* 0x8/8 */ unsigned long Count;
 };
 #endif

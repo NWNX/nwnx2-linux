@@ -1,7 +1,6 @@
 #ifndef _CNWSPELLARRAY_H_
 #define _CNWSPELLARRAY_H_
 #include "nwndef.h"
-#include "CNWSpell.h"
 
 class CNWSpellArray
 {

@@ -3,7 +3,6 @@
 #include "nwndef.h"
 #include "CExoString.h"
 #include "CExoArrayList.h"
-#include "CServerExoApp.h"
 #include "CNetLayerWindow.h"
 #include "CNetLayerPlayerInfo.h"
 #include "CExoLinkedList.h"

@@ -4,7 +4,6 @@
 #include "Vector.h"
 #include "nwnstructs.h"
 #include "CVirtualMachineStack.h"
-#include "CNWVirtualMachineCommands.h"
 #include "CVirtualMachineFile.h"
 
 class CVirtualMachine

@@ -4,9 +4,6 @@
 #include "CExoString.h"
 #include "CExoLinkedList.h"
 #include "CResRef.h"
-#include "nwnstructs.h"
-#include "CNetLayer.h"
-#include "CFactionManager.h"
 
 class CServerExoAppInternal
 {

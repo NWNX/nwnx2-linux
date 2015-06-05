@@ -1,6 +1,7 @@
 #ifndef _CEXORESOURCEIMAGEFILE_H_
 #define _CEXORESOURCEIMAGEFILE_H_
 #include "nwndef.h"
+#include "CExoPackedFile.h"
 
 class CExoResourceImageFile
 {
@@ -28,5 +29,6 @@ public:
     ~CExoResourceImageFile();
     CExoResourceImageFile();
 
+    /* 0x0/0 */ CExoPackedFile PackedFile;
 };
 #endif

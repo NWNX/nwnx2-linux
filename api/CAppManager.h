@@ -1,8 +1,6 @@
 #ifndef _CAPPMANAGER_H_
 #define _CAPPMANAGER_H_
 #include "nwndef.h"
-#include "CServerExoApp.h"
-#include "nwnstructs.h"
 
 class CAppManager
 {

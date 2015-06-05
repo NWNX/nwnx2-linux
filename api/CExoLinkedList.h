@@ -1,7 +1,6 @@
 #ifndef _CEXOLINKEDLIST_H_
 #define _CEXOLINKEDLIST_H_
 #include "nwndef.h"
-#include "CExoLinkedListInternal.h"
 
 template <class T>
 class CExoLinkedList

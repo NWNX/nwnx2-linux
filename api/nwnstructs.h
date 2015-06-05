@@ -4,12 +4,17 @@
 #include "CGameObject.h"
 #include "CExoArrayList.h"
 #include "CExoString.h"
-#include "CVirtualMachineStack.h"
-#include "CRes.h"
 #include "CResRef.h"
 #include "CExoLocString.h"
 #include "nwnstructs.h"
 #include "CGameEffect.h"
+struct CNWSClient_vtbl {
+    /* 0x0/0 */ unsigned long field_0;
+    /* 0x4/4 */ unsigned long field_4;
+    /* 0x8/8 */ unsigned long field_8;
+    /* 0xC/12 */ unsigned long AsNWSDungeonMaster;
+    /* 0x10/16 */ unsigned long AsNWSPlayer;
+};
 struct CServerExoAppConfig {
     /* 0x0/0 */ unsigned long field_0;
     /* 0x4/4 */ unsigned long field_4;
@@ -206,9 +211,9 @@ struct CNWSActionNode {
     /* 0x66/102 */ unsigned short field_66;
     /* 0x68/104 */ unsigned long field_68;
 };
-struct CExoLinkedListElement {
-    /* 0x0/0 */ void *Previous;
-    /* 0x4/4 */ void *Next;
+struct CExoLinkedListNode {
+    /* 0x0/0 */ CExoLinkedListNode *Previous;
+    /* 0x4/4 */ CExoLinkedListNode *Next;
     /* 0x8/8 */ void *Data;
 };
 struct ExoLocString_st {
@@ -218,7 +223,7 @@ struct ExoLocString_st {
 struct CGameObjectArrayElement {
     /* 0x0/0 */ unsigned long OID;
     /* 0x4/4 */ unsigned long GameObject;
-    /* 0x8/8 */ unsigned long field_8;
+    /* 0x8/8 */ CGameObjectArrayElement *pNextElement;
 };
 struct CNWVirtualMachineCommands_vtbl {
     /* 0x0/0 */ unsigned long field_0;
@@ -232,7 +237,7 @@ struct CNWVirtualMachineCommands_vtbl {
     /* 0x20/32 */ unsigned long DestroyGameDefinedStructure;
     /* 0x24/36 */ unsigned long GetEqualGameDefinedStructure;
     /* 0x28/40 */ void *CopyGameDefinedStructure;
-    /* 0x2C/44 */ unsigned long SaveGameDefinedStructure;
+    /* 0x2C/44 */ void *SaveGameDefinedStructure;
     /* 0x30/48 */ unsigned long LoadGameDefinedStructure;
     /* 0x34/52 */ unsigned long GetGameDefinedStructureName;
     /* 0x38/56 */ unsigned long GetDebuggerLabelName;
@@ -297,7 +302,30 @@ struct CRes_vtbl {
     /* 0xC/12 */ unsigned long GetFixedResourceSize;
     /* 0x10/16 */ unsigned long GetFixedResourceDataOffset;
     /* 0x14/20 */ void *OnResourceFreed;
-    /* 0x18/24 */ unsigned long OnResourceServiced;
+    /* 0x18/24 */ void *OnResourceServiced;
+};
+struct CExoPackedFile_vtbl {
+    /* 0x0/0 */ unsigned long field_0;
+    /* 0x4/4 */ unsigned long field_4;
+    /* 0x8/8 */ unsigned long field_8;
+    /* 0xC/12 */ void *AddRefCount;
+    /* 0x10/16 */ void *AddAsyncRefCount;
+    /* 0x14/20 */ unsigned long CloseFile;
+    /* 0x18/24 */ unsigned long CloseAsyncFile;
+    /* 0x1C/28 */ void *DeleteRefCount;
+    /* 0x20/32 */ void *DeleteAsyncRefCount;
+    /* 0x24/36 */ unsigned long GetFile;
+    /* 0x28/40 */ void *GetAsyncFile;
+    /* 0x2C/44 */ void *GetResourceSize;
+    /* 0x30/48 */ unsigned long Initialize;
+    /* 0x34/52 */ unsigned long OpenFile;
+    /* 0x38/56 */ unsigned long OpenFile2;
+    /* 0x3C/60 */ unsigned long OpenAsyncFile;
+    /* 0x40/64 */ void *ReadResource;
+    /* 0x44/68 */ void *ReadResourceAsync;
+    /* 0x48/72 */ unsigned long LoadHeader;
+    /* 0x4C/76 */ unsigned long UnloadHeader;
+    /* 0x50/80 */ unsigned long GetResource;
 };
 struct CActionParam {
     /* 0x0/0 */ unsigned long m_nParamType;
@@ -380,7 +408,6 @@ struct CDialogEntry {
     /* 0x8/8 */ unsigned long Animation;
     /* 0xC/12 */ unsigned long AnimLoop;
     /* 0x10/16 */ CExoLocString Text;
-    /* 0x18/24 */ char rsvd1[4];
     /* 0x18/24 */ CDialogEntryReply *RepliesList;
     /* 0x1C/28 */ unsigned long RepliesNum;
     /* 0x20/32 */ CResRef Script;
@@ -394,7 +421,6 @@ struct CDialogReply {
     /* 0x0/0 */ unsigned long Animation;
     /* 0x4/4 */ unsigned long AnimLoop;
     /* 0x8/8 */ CExoLocString Text;
-    /* 0x10/16 */ char rsvd1[4];
     /* 0x10/16 */ CDialogReplyEntry *EntriesList;
     /* 0x14/20 */ unsigned long EntriesNum;
     /* 0x18/24 */ CResRef Script;
@@ -416,14 +442,17 @@ struct CDialogReplyEntry {
 struct CActionParams {
     /* 0x0/0 */ CActionParam Params[12];
 };
+struct CNWSScriptVar {
+    /* 0x0/0 */ CExoString m_sName;
+    /* 0x8/8 */ unsigned long m_nType;
+    /* 0xC/12 */ unsigned long m_pValue;
+};
 struct CNWItemProperty {
     /* 0x0/0 */ CGameEffect Effect;
 };
 struct CNWSQuickbarButton {
 };
 struct CNWVisibilityNode {
-};
-struct CExoLinkedListNode {
 };
 struct CEncounterListEntry {
 };
@@ -474,8 +503,6 @@ struct NWPlayerCharacterList_st {
 struct CNWSTagNode {
 };
 struct CNWSPVPEntry {
-};
-struct CNWSScriptVar {
 };
 struct SJournalEntry {
 };

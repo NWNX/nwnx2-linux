@@ -165,7 +165,6 @@ public:
     CNWSPlaceable(unsigned long);
 
     /* 0x1C4/452 */ CExoLocString Name;
-    /* 0x1CC/460 */ char rsvd1[4];
     /* 0x1CC/460 */ unsigned long DisplayName;
     /* 0x1D0/464 */ unsigned long field_1D0;
     /* 0x1D4/468 */ unsigned long field_1D4;
@@ -179,7 +178,7 @@ public:
     /* 0x1F4/500 */ unsigned long field_1F4;
     /* 0x1F8/504 */ unsigned long field_1F8;
     /* 0x1FC/508 */ unsigned long field_1FC;
-    /* 0x264/612 */ char rsvd2[100];
+    /* 0x264/612 */ char rsvd1[100];
     /* 0x264/612 */ CExoString OnClosed;
     /* 0x26C/620 */ CExoString OnDamaged;
     /* 0x274/628 */ CExoString OnDeath;
@@ -196,7 +195,7 @@ public:
     /* 0x2CC/716 */ CExoString OnDialog;
     /* 0x2D4/724 */ CExoString OnTrapTriggered;
     /* 0x2DC/732 */ CExoString OnClick;
-    /* 0x36C/876 */ char rsvd3[136];
+    /* 0x36C/876 */ char rsvd2[136];
     /* 0x36C/876 */ unsigned long field_36C;
     /* 0x370/880 */ unsigned long field_370;
     /* 0x374/884 */ unsigned long field_374;

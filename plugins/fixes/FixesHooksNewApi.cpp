@@ -13,7 +13,7 @@ int Hook_CNWSMessage__SendServerToPlayerPlayModuleCharacterListResponse(CNWSMess
     oMessageManager->CreateWriteMessage(4, nPlayerId, 1);
 
     CNWSCreature* oCreature = (CNWSCreature*)(g_pAppManager->ServerExoApp->GetCreatureByGameObjectID(nObjectId));
-    if (oCreature == NULL || oCreature->Object.ObjectType != 5)
+    if (oCreature == NULL || oCreature->ObjectType != 5)
         bSendInfo = 0;
     else if (fixes.bHideDMs) {
         int nAssociateType = oCreature->GetAssociateType();
@@ -39,7 +39,7 @@ int Hook_CNWSMessage__SendServerToPlayerPlayModuleCharacterListResponse(CNWSMess
 
         //92 is "po_hu_f_99_"
         //129 is "po_hu_m_99_"
-        unsigned short nPortraitId = fixes.bHidePortraits ? (nGender == 1 ? 92 : 129)/*(const unsigned short)0xFFFF*/ : (unsigned short)(oCreature->Object.GetPortraitId());
+        unsigned short nPortraitId = fixes.bHidePortraits ? (nGender == 1 ? 92 : 129)/*(const unsigned short)0xFFFF*/ : (unsigned short)(oCreature->GetPortraitId());
 
         oMessageManager->WriteWORD(nPortraitId, 16);
         if (nPortraitId == 0xFFFE || nPortraitId == 0xFFFF) {
