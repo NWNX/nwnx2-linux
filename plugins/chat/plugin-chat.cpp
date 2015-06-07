@@ -21,6 +21,30 @@
 #include "NWNXChat.h"
 
 CNWNXChat chat;
+PLUGINLINK *pluginLink = 0;
+
+PLUGININFO pluginInfo = {
+    sizeof(PLUGININFO),
+    "NWNXChat",
+    PLUGIN_MAKE_VERSION(0, 0, 0, 1),
+    "",
+    "dumbo & virusman",
+    "dumbo@nm.ru & virusman@virusman.ru",
+    "(c) 2009-current NWNX Team",
+    "",
+    0 //not transient
+};
+
+extern "C" PLUGININFO* GetPluginInfo(DWORD nwnxVersion)
+{
+    return &pluginInfo;
+}
+
+extern "C" int InitPlugin(PLUGINLINK *link)
+{
+    pluginLink = link;
+    return 0;
+}
 
 extern "C"
 CNWNXBase* GetClassObject()

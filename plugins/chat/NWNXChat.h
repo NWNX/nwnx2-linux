@@ -22,19 +22,21 @@
 #define _NWNX_CHAT_H_
 
 #include "NWNXBase.h"
-#include "gline.h"
+#include "api/all.h"
 #include "HookChat.h"
 
 class CNWNXChat : public CNWNXBase
 {
-
+    HANDLE hChatMessage;
+    HANDLE hCCMessage;
+    char *lastMsg;
 public:
     CNWNXChat();
     ~CNWNXChat();
     bool OnCreate(gline *config, const char* LogDir);
     char* OnRequest(char* gameObject, char* Request, char* Parameters);
     bool OnRelease();
-    int supressMsg;
+    bool supressMsg;
     int maxMsgLen;
     int processNPC;
     int ignore_silent;
@@ -43,8 +45,10 @@ public:
     char chatScript[17];
     char servScript[17];
     char ccScript[17];
-    int Chat(const int mode, const int id, const char **msg, const int to);
+    int Chat(const int mode, const int id, const char *msg, const int to);
     int CCMessage(const int objID, const int type, const int subtype, CNWCCMessageData* messageData);
+    bool scriptRun;
+
 protected:
     char *SendMessage(char* Parameters);
     char *SendMessageSingle(char* Parameters);

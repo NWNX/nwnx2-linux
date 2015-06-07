@@ -25,19 +25,10 @@ typedef unsigned long dword;
 typedef unsigned short int word;
 typedef unsigned char byte;
 
-#include "NWNStructures.h"
-
 int HookFunctions();
-void InitConstants();
 
 void RunScript(char * sname, int ObjID);
-unsigned long * GetPCobj(dword OID);
-unsigned long GetID(dword OID);
 int SendMsg(const int mode, const int id, char *msg, const int to);
 int SendMsgSingle(const int mode, const int conn, const int speaker, char *msg);
-
-extern char scriptRun;
-extern char *lastMsg;
-extern char lastIDs[];
 
 #endif

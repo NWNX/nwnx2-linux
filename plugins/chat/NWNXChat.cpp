@@ -26,7 +26,7 @@
 
 #include "NWNXChat.h"
 #include "HookChat.h"
-
+#include "pluginlink.h"
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -39,6 +39,7 @@ CNWNXChat::CNWNXChat()
     processNPC = 0;
     ignore_silent = 0;
     maxMsgLen = 1024;
+    scriptRun = false;
 }
 
 CNWNXChat::~CNWNXChat()
@@ -87,6 +88,15 @@ bool CNWNXChat::OnCreate(gline *config, const char* LogDir)
     Log(1, "processnpc: %d\n", processNPC);
     Log(1, "ignore_silent: %d\n\n", ignore_silent);
 
+    // Plugin Events
+    if (!pluginLink) {
+        Log(0, "Plugin link not accessible\n");
+    } else {
+        Log(0, "Plugin link: %08lX\n", pluginLink);
+        hChatMessage = CreateHookableEvent(EVENT_CHAT_MESSAGE);
+        hCCMessage = CreateHookableEvent(EVENT_CHAT_CCMESSAGE);
+    }
+
     return (HookFunctions());
 }
 
@@ -95,20 +105,20 @@ char *CNWNXChat::SendMessage(char* Parameters)
     Log(3, "o SPEAK: %s, OID: %08lX\n", Parameters);
     int oSender, oRecipient, nChannel;
     int nParamLen = strlen(Parameters);
-    char *nLastDelimiter = strrchr(Parameters, '¬');
+    char *nLastDelimiter = strrchr(Parameters, '\xAC');
     if (!nLastDelimiter || (nLastDelimiter - Parameters) < 0) {
         Log(3, "o nLastDelimiter error\n");
         return "0";
     }
     int nMessageLen = nParamLen - (nLastDelimiter - Parameters) + 1;
     char *sMessage = new char[nMessageLen];
-    if (sscanf(Parameters, "%x¬%x¬%d¬", &oSender, &oRecipient, &nChannel) < 3) {
+    if (sscanf(Parameters, "%x\xAC%x\xAC%d\xAC", &oSender, &oRecipient, &nChannel) < 3) {
         Log(3, "o sscanf error\n");
         delete[] sMessage;
         return "0";
     }
     strncpy(sMessage, nLastDelimiter + 1, nMessageLen - 1);
-    int nRecipientID = GetID(oRecipient);
+    int nRecipientID = g_pAppManager->ServerExoApp->GetPlayerIDByGameObjectID(oRecipient);
     if ((nChannel == 4 || nChannel == 5 || nChannel == 20 || nChannel == 21) &&
             oRecipient <= 0x7F000000) {
         Log(3, "o oRecipient is not a PC\n");
@@ -135,14 +145,14 @@ char *CNWNXChat::SendMessageSingle(char* Parameters)
     int oSendTo, mode, oSender;
 
     int nParamLen = strlen(Parameters);
-    char *nLastDelimiter = strrchr(Parameters, '¬');
+    char *nLastDelimiter = strrchr(Parameters, '\xAC');
     if (!nLastDelimiter || (nLastDelimiter - Parameters) < 0) {
         Log(3, "o nLastDelimiter error\n");
         return "0";
     }
     int nMessageLen = nParamLen - (nLastDelimiter - Parameters) + 1;
     char *sMessage = new char[nMessageLen];
-    if (sscanf(Parameters, "%d¬%x¬%x¬", &mode, &oSendTo, &oSender) < 2) {
+    if (sscanf(Parameters, "%d\xAC%x\xAC%x\xAC", &mode, &oSendTo, &oSender) < 2) {
         Log(3, "o sscanf error\n");
         delete[] sMessage;
         return "0";
@@ -167,7 +177,7 @@ char* CNWNXChat::OnRequest(char* gameObject, char* Request, char* Parameters)
         if (!OID)
             strcpy(LastID, "-1");
         else
-            sprintf(LastID, "%ld", GetID(OID));
+            sprintf(LastID, "%ld", g_pAppManager->ServerExoApp->GetPlayerIDByGameObjectID(OID));
         Log(3, "o GETID: oID='%s', ID=%s\n", Parameters, LastID);
         return LastID;
     } else if (strncmp(Request, "LOGNPC", 6) == 0) {
@@ -224,28 +234,57 @@ bool CNWNXChat::OnRelease()
     return true;
 }
 
-int CNWNXChat::Chat(const int mode, const int id, const char **msg, const int to)
+int CNWNXChat::Chat(const int mode, const int id, const char *msg, const int to)
 {
     if (!msg || !*msg) return 0;   // disable processing of null-string
     int cmode = mode & 0xFF;
-    Log(3, "o CHAT: mode=%lX, from_oID=%08lX, msg='%s', to_ID=%08lX\n", cmode, id, (char *)*msg, to);
+    Log(3, "o CHAT: mode=%lX, from_oID=%08lX, msg='%s', to_ID=%08lX\n", cmode, id, msg, to);
     sprintf(lastMsg, "%02d%10d", cmode, to);
-    strncat(lastMsg, (char*)*msg, maxMsgLen);
-    supressMsg = 0;
+    strncat(lastMsg, msg, maxMsgLen);
+
+    ChatMessageEvent event;
+    event.suppress = supressMsg = 0;
+    event.msg = msg;
+    event.to = to;
+    event.from = id;
+    event.channel = mode;
+
     if (ignore_silent && (cmode == 0xD || cmode == 0xE)) return 0;
+    scriptRun = true;
     if ((processNPC && id != 0x7F000000) || (!processNPC && (unsigned long)id >> 16 == 0x7FFF)) {
-        RunScript(chatScript, id);
+        if (NotifyEventHooks(hChatMessage, (uintptr_t)&event)) {
+            supressMsg = event.suppress;
+        } else {
+            RunScript(chatScript, id);
+        }
     } else if (cmode == 5 && id == 0x7F000000) {
-        if (*servScript) RunScript(servScript, 0);
+        if (NotifyEventHooks(hChatMessage, (uintptr_t)&event)) {
+            supressMsg = event.suppress;
+        } else if (*servScript) {
+            RunScript(servScript, 0);
+        }
     }
+    scriptRun = false;
     return supressMsg;
 }
 
-int CNWNXChat::CCMessage(const int objID, const int type, const int subtype, CNWCCMessageData* messageData)
+int CNWNXChat::CCMessage(const int objID, const int type, const int subtype,
+                         CNWCCMessageData *messageData)
 {
-    supressMsg = 0;
-    messageType = type;
-    messageSubtype = subtype;
-    RunScript(ccScript, objID);
+    ChatCCMessageEvent event;
+    event.suppress = supressMsg = 0;
+    event.type = messageType = type;
+    event.subtype = messageSubtype = subtype;
+    event.to = objID;
+    event.msg_data = messageData;
+
+    scriptRun = true;
+    if (NotifyEventHooks(hCCMessage, (uintptr_t)&event)) {
+        supressMsg = event.suppress;
+    } else {
+        RunScript(ccScript, objID);
+    }
+    scriptRun = false;
+
     return supressMsg;
 }
