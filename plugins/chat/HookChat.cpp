@@ -25,15 +25,6 @@
 
 extern CNWNXChat chat;
 
-int (*CNWSMessage__SendServerToPlayerChat_Talk)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
-int (*CNWSMessage__SendServerToPlayerChat_Tell)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
-int (*CNWSMessage__SendServerToPlayerChat_Shout)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
-int (*CNWSMessage__SendServerToPlayerChat_Whisper)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
-int (*CNWSMessage__SendServerToPlayerChat_ServerTell)(void* pCNWSMessage, int obj2, CExoString* str);
-int (*CNWSMessage__SendServerToPlayerChat_Party)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
-int (*CNWSMessage__SendServerToPlayerChat_DM_Talk)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
-int (*CNWSMessage__SendServerToPlayerChat_DM_Whisper)(void* pCNWSMessage, int obj1, int obj2, CExoString* str);
-
 int (*CNWSMessage__SendServerToPlayerChatMessage)(CNWSMessage *, uint8_t, uint32_t, CExoString, uint32_t, CExoString const *);
 int (*CNWSMessage__SendServerToPlayerCCMessage)(CNWSMessage *, uint32_t, uint8_t, CNWCCMessageData *, CNWSCombatAttackData *);
 
@@ -99,21 +90,21 @@ int SendMsgSingle(int mode, int conn, int speaker, char *msg)
     str.Length = strlen(msg);
     switch (mode) {
         // Talk
-        case 1: return CNWSMessage__SendServerToPlayerChat_Talk(pMessage, conn, speaker, &str);
+        case 1: return pMessage->SendServerToPlayerChat_Talk(conn, speaker, str);
         // Shout
-        case 2: return CNWSMessage__SendServerToPlayerChat_Shout(pMessage, conn, speaker, &str);
+        case 2: return pMessage->SendServerToPlayerChat_Shout(conn, speaker, str);
         // Whisper
-        case 3: return CNWSMessage__SendServerToPlayerChat_Whisper(pMessage, conn, speaker, &str);
+        case 3: return pMessage->SendServerToPlayerChat_Whisper(conn, speaker, str);
         // Private
-        case 4: return CNWSMessage__SendServerToPlayerChat_Tell(pMessage, conn, speaker, &str);
+        case 4: return pMessage->SendServerToPlayerChat_Tell(conn, speaker, str);
         // Server_Msg
-        case 5: return CNWSMessage__SendServerToPlayerChat_ServerTell(pMessage, conn, &str);
+        case 5: return pMessage->SendServerToPlayerChat_ServerTell(conn, str);
         // Party
-        case 6: return CNWSMessage__SendServerToPlayerChat_Party(pMessage, conn, speaker, &str);
+        case 6: return pMessage->SendServerToPlayerChat_Party(conn, speaker, str);
         // Talk_DM
-        case 17: return CNWSMessage__SendServerToPlayerChat_DM_Talk(pMessage, conn, speaker, &str);
+        case 17: return pMessage->SendServerToPlayerChat_DM_Talk(conn, speaker, str);
         // Whisper_DM
-        case 19: return CNWSMessage__SendServerToPlayerChat_DM_Whisper(pMessage, conn, speaker, &str);
+        case 19: return pMessage->SendServerToPlayerChat_DM_Whisper(conn, speaker, str);
         default:
             // Unsupported.
             return 0;
@@ -123,15 +114,6 @@ int SendMsgSingle(int mode, int conn, int speaker, char *msg)
 
 int HookFunctions()
 {
-    *(dword*)&CNWSMessage__SendServerToPlayerChat_Talk = 0x807fe10;
-    *(dword*)&CNWSMessage__SendServerToPlayerChat_Tell = 0x080694ac;
-    *(dword*)&CNWSMessage__SendServerToPlayerChat_Shout = 0x8069710;
-    *(dword*)&CNWSMessage__SendServerToPlayerChat_Whisper = 0x808003c;
-    *(dword*)&CNWSMessage__SendServerToPlayerChat_ServerTell = 0x0807ff68;
-    *(dword*)&CNWSMessage__SendServerToPlayerChat_Party = 0x8068fe4;
-    *(dword*)&CNWSMessage__SendServerToPlayerChat_DM_Talk = 0x8069248;
-    *(dword*)&CNWSMessage__SendServerToPlayerChat_DM_Whisper = 0x806a03c;
-
     NX_HOOK(CNWSMessage__SendServerToPlayerChatMessage,
             0x0806839C,
             SendServerToPlayerChatMessage_hook,
