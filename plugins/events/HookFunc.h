@@ -21,123 +21,13 @@
 #define HookFunc_h_
 
 #include "typedefs.h"
-#include "CExoLocString.h"
-#include "NWNStructures.h"
-
-struct CDialogEntryReply {
-    char  ConditionalScript[16];
-    dword Index;
-    dword DisplayInactive;
-};
-
-typedef CDialogEntryReply CDialogStartingEntry;
-
-struct CDialogEntry {
-    dword             *Speaker;
-    dword              SpeakerLen;
-    dword              Animation;
-    dword              AnimLoop;
-    CExoLocString      Text;
-    CDialogEntryReply *RepliesList;
-    dword              RepliesNum;
-    char               Script[16];
-    dword              Delay;
-    char               Sound[16];
-    dword              Quest;
-    dword              QuestLen;
-    dword              QuestEntry;
-};
-
-struct CDialogReplyEntry {
-    char  ConditionalScript[16];
-    dword Index;
-};
-
-struct CDialogReply {
-    dword              Animation;
-    dword              AnimLoop;
-    CExoLocString      Text;
-    CDialogReplyEntry *EntriesList;
-    dword              EntriesNum;
-    char               Script[16];
-    dword              Delay;
-    char               Sound[16];
-    dword              Quest;
-    dword              QuestLen;
-    dword              QuestEntry;
-};
-/*
-00000000 CNWSDialogClass struc ; (sizeof=0x74)
-00000000 EntryListCount  dd ?
-00000004 EntryList       dd ?                    ; offset
-00000008 ReplyListCount  dd ?
-0000000C ReplyList       dd ?                    ; offset
-00000010 StartingListCount dd ?
-00000014 StartingList    dd ?                    ; offset
-00000018 EndScript       db 16 dup(?)            ; char
-00000028 EndConverAbortScript db 16 dup(?)       ; char
-00000038 ConvoPartiesList?? dd ?                 ; offset
-0000003C field_3C        dd ?
-00000040 field_40        dd ?
-00000044 CurrentNodeID   dd ?
-00000048 field_48        dd ?
-0000004C SpeakerLocale   db ?
-0000004D                 db ? ; undefined
-0000004E                 db ? ; undefined
-0000004F                 db ? ; undefined
-00000050 ConversationWith dd ?
-00000054 MeObjID         dd ?
-00000058 field_58        dd ?
-0000005C field_5C        dd ?
-00000060 field_60        dd ?
-00000064 field_64        dd ?
-00000068 Me_again?       dd ?                    ; Object
-0000006C field_6C        dd ?                    ; Object
-00000070 PreventZoomIn   dd ?
-00000074 CNWSDialogClass ends
-
-*/
-
-struct CNWSDialogClass {
-    dword                 EntryListCount;
-    CDialogEntry         *EntryList;
-    dword                 ReplyListCount;
-    CDialogReply         *ReplyList;
-    dword                 StartingListCount;
-    CDialogStartingEntry *StartingList;
-    char                  EndScript[16];
-    char                  EndConverAbortScript[16];
-    dword                *ConvoPartiesList;
-    dword                 field_3C;
-    dword                 field_40;
-    dword                 CurrentNodeID;
-    dword                 field_48;
-    dword                 SpeakerLocale;
-    dword                 ConversationWith;
-    dword                 MeObjID;
-    dword                 field_58;
-    dword                 field_5C;
-    dword                 field_60;
-    dword                 field_64;
-    dword                 Me_again;
-    dword                 field_6C;
-    dword                 PreventZoomIn;
-
-};
-
-struct CNWSVector {
-    float x;
-    float y;
-    float z;
-};
-
+#include "api/all.h"
 
 int HookFunctions(bool enableUnsafe);
 
 void RunScript(char * sname, int ObjID);
 int GetRunScriptReturnValue();
 
-extern char scriptRun;
 extern char ActionScriptRunning;
 extern char ConditionalScriptRunning;
 

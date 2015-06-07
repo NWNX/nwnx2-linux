@@ -34,10 +34,6 @@
 extern CNWNXEvents events;
 AssemblyHelper asmhelp;
 
-void (*pRunScript)(void *pScriptMachine, CExoString *script_name, dword ObjID, int arg_4);
-dword pServThis = 0;
-dword pScriptThis = 0;
-dword pServerExo = 0;
 dword pPlayer = 0;
 dword oPC = 0;
 dword oTarget_b = OBJECT_INVALID;
@@ -47,7 +43,6 @@ int nEventSubID_b = 0;
 dword buffer;
 
 
-char scriptRun = 0;
 char ActionScriptRunning = 0;
 char ConditionalScriptRunning = 0;
 
@@ -76,22 +71,16 @@ unsigned char d_ret_code_pf[0x20];
 unsigned char d_ret_code_vc[0x20];
 unsigned char d_ret_code_objdest[0x20];
 
-
-int (*CNWSPlayer__ValidateCharacter)(void *pPlayer, int *result);
+int (*CNWSPlayer__ValidateCharacter)(CNWSPlayer *pPlayer, int *result);
 void (*CNWSObject___CNWSObject)(CNWSObject *pObject, int n) = (void (*)(CNWSObject*, int)) 0x081C8E94;
-int (*CVirtualMachine__GetRunScriptReturnValue)(void *pVirtualMachine, int *a2, void **a3) = (int (*)(void *, int *, void **)) 0x08264324;
-
-
-void *(*GetPlayerObject)(void *pPlayer);
-
-
+int (*CVirtualMachine__GetRunScriptReturnValue)(CVirtualMachine *pVirtualMachine, int *a2, void **a3) = (int (*)(CVirtualMachine *, int *, void **)) 0x08264324;
 
 unsigned char **pEBP;
 
 void SaveCharHookProc()
 {
     asm("pusha");
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         //Get pPlayer
         asm("mov 0x8(%ebp), %eax");
         asm("mov %eax, pPlayer");
@@ -111,7 +100,7 @@ void SaveCharHookProc()
 void PickPocketHookProc()
 {
     asm("pusha");
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         //Get oPC
         asm("mov 0x8(%ebp), %eax");
         asm("mov %eax, oPC");
@@ -138,7 +127,7 @@ void PickPocketHookProc()
 void AttackHookProc()
 {
     asm("pusha");
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         //Get oPC
         asm("mov 0x8(%ebp), %eax");
         asm("mov %eax, oPC");
@@ -172,7 +161,7 @@ void AttackHookProc()
 void UseItemHookProc()
 {
     asm("pusha");
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         //Get oPC
         asm("mov 0x8(%ebp), %eax");
         asm("mov %eax, oPC");
@@ -187,9 +176,9 @@ void UseItemHookProc()
         asm("add $0x18, %eax");
         asm("mov %eax, buffer");
         CNWSVector *pvTarget = (CNWSVector *) buffer;
-        events.vPosition.x = pvTarget->x;
-        events.vPosition.y = pvTarget->y;
-        events.vPosition.z = pvTarget->z;
+        events.vPosition.X = pvTarget->X;
+        events.vPosition.Y = pvTarget->Y;
+        events.vPosition.Z = pvTarget->Z;
 
         //Get oItem
         asm("mov 0xC(%ebp), %eax");
@@ -203,8 +192,8 @@ void UseItemHookProc()
 
         events.Log(2,
                    "UseItem: oPC=%08lX, oTarget=%08lX, oItem=%08lX, vTarget=%f/%f/%f, nRadial=%d\n",
-                   *((dword *)oPC + 1), events.oTarget, events.oItem, events.vPosition.x,
-                   events.vPosition.y, events.vPosition.z, events.nEventSubID);
+                   *((dword *)oPC + 1), events.oTarget, events.oItem, events.vPosition.X,
+                   events.vPosition.Y, events.vPosition.Z, events.nEventSubID);
         if (oPC)
             bBypass_b = events.FireEvent(*((dword *)oPC + 1), EVENT_TYPE_USE_ITEM);
     }
@@ -221,10 +210,10 @@ void UseItemHookProc()
 void ConversationNodeSelectHookProc()
 {
     asm("pusha");
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         //Get oPC
         asm("mov %ebp, pEBP");
-        CNWSDialogClass *pConversation = *(CNWSDialogClass **)((char *)pEBP + 0x8);
+        CNWSDialog *pConversation = *(CNWSDialog **)((char *)pEBP + 0x8);
         events.pConversation = pConversation;
         oPC = pConversation->ConversationWith;
 
@@ -247,7 +236,8 @@ void ConversationNodeSelectHookProc()
             events.Log(0, "Caught an exception while trying to get absolute node ID\n");
         }
 
-        events.Log(2, "ConversationNodeSelect: oPC=%08lX, oTarget=%08lX, nSelectedNode=%d, nAbsSelectedNode=%d\n", oPC, events.oTarget, events.nSelectedNodeID, events.nSelectedAbsoluteNodeID);
+        events.Log(2, "ConversationNodeSelect: oPC=%08lX, oTarget=%08lX, nSelectedNode=%d, nAbsSelectedNode=%d\n",
+                   oPC, events.oTarget, events.nSelectedNodeID, events.nSelectedAbsoluteNodeID);
         //events.FireEvent(oPC, EVENT_TYPE_CONVERSATION_NODE_SELECT);
     }
     asm("popa");
@@ -275,13 +265,13 @@ void ConversationNodeSelectHookProc()
 void ConditionalScriptHookProc()
 {
     asm("pusha");
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         //Get structures
         asm("mov %ebp, pEBP");
-        CNWSDialogClass *pConversation = *(CNWSDialogClass **)((char *)pEBP + 0x8);
+        CNWSDialog *pConversation = *(CNWSDialog **)((char *)pEBP + 0x8);
         events.pConversation = pConversation;
         dword *pObject = *(dword **)((char *)pEBP + 0xC);
-        CDialogStartingEntry *pStartingEntry = *(CDialogStartingEntry **)((char *)pEBP + 0x10);
+        CDialogReplyEntry *pStartingEntry = *(CDialogReplyEntry **)((char *)pEBP + 0x10);
 
         //Absolute index. But what is it? Entry, reply or starting entry?
         dword nNodeID = pStartingEntry->Index;
@@ -290,11 +280,10 @@ void ConditionalScriptHookProc()
         //Identify node type
         try {
             bool bFound = false;
-            dword nCurrentNode = pConversation->CurrentNodeID;
             for (size_t nEntry = 0; nEntry < pConversation->EntryListCount; nEntry++) {
                 CDialogEntry* pEntry = &pConversation->EntryList[nEntry];
                 for (size_t nReply = 0; nReply < pEntry->RepliesNum; nReply++) {
-                    if (&pEntry->RepliesList[nReply] == pStartingEntry) {
+                    if (&pEntry->RepliesList[nReply] == reinterpret_cast<CDialogEntryReply*>(pStartingEntry)) {
                         events.nNodeType = ReplyNode;
                         events.nCurrentNodeID = nReply;
                         events.Log(2, "Reply: %d\n", nReply);
@@ -308,7 +297,7 @@ void ConditionalScriptHookProc()
                 for (size_t nReply = 0; nReply < pConversation->ReplyListCount; nReply++) {
                     CDialogReply* pReply = &pConversation->ReplyList[nReply];
                     for (size_t nEntry = 0; nEntry < pReply->EntriesNum; nEntry++) {
-                        if (&pReply->EntriesList[nEntry] == (CDialogReplyEntry *) pStartingEntry) {
+                        if (&pReply->EntriesList[nEntry] == pStartingEntry) {
                             events.nNodeType = EntryNode;
                             events.nCurrentNodeID = nEntry;
                             events.Log(2, "Entry: %d\n", nEntry);
@@ -353,7 +342,7 @@ void ConditionalScriptHookProc()
 void SendServerToPlayerQuickChatMessageHookProc()
 {
     asm("pusha");
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         //Get oPC
         asm("mov 0xC(%ebp), %eax");
         asm("mov %eax, oPC");
@@ -378,14 +367,14 @@ void SendServerToPlayerQuickChatMessageHookProc()
     asm("jmp *%eax");
 }
 
-void ExamineItemHookProc(void *pMessage, void *pPlayer, dword nObjID)
+void ExamineItemHookProc(void *pMessage, CNWSPlayer *pPlayer, dword nObjID)
 {
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         events.oTarget = nObjID;
 
-        events.Log(2, "ExamineItem: pPlayer=%08lX, oTarget=%08lX\n", *((dword *)pPlayer + 0xC), events.oTarget);
+        events.Log(2, "ExamineItem: pPlayer=%08lX, oTarget=%08lX\n", pPlayer->m_oidNWSObject, events.oTarget);
         if (pPlayer)
-            bBypass_b = events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_TYPE_EXAMINE);
+            bBypass_b = events.FireEvent(pPlayer->m_oidNWSObject, EVENT_TYPE_EXAMINE);
     }
     asm("leave");
     /*if(bBypass_b) //don't bypass this or the client will draw an empty dialog box
@@ -396,14 +385,14 @@ void ExamineItemHookProc(void *pMessage, void *pPlayer, dword nObjID)
     asm("jmp *%eax");
 }
 
-void ExamineCreatureHookProc(void *pMessage, void *pPlayer, dword nObjID)
+void ExamineCreatureHookProc(void *pMessage, CNWSPlayer *pPlayer, dword nObjID)
 {
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         events.oTarget = nObjID;
 
-        events.Log(2, "ExamineCreature: pPlayer=%08lX, oTarget=%08lX\n", *((dword *)pPlayer + 0xC), events.oTarget);
+        events.Log(2, "ExamineCreature: pPlayer=%08lX, oTarget=%08lX\n", pPlayer->m_oidNWSObject, events.oTarget);
         if (pPlayer)
-            bBypass_b = events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_TYPE_EXAMINE);
+            bBypass_b = events.FireEvent(pPlayer->m_oidNWSObject, EVENT_TYPE_EXAMINE);
     }
     asm("leave");
     if (bBypass_b) {
@@ -413,14 +402,14 @@ void ExamineCreatureHookProc(void *pMessage, void *pPlayer, dword nObjID)
     asm("jmp *%eax");
 }
 
-void ExaminePlaceableHookProc(void *pMessage, void *pPlayer, dword nObjID)
+void ExaminePlaceableHookProc(void *pMessage, CNWSPlayer *pPlayer, dword nObjID)
 {
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         events.oTarget = nObjID;
 
-        events.Log(2, "ExaminePlaceable: pPlayer=%08lX, oTarget=%08lX\n", *((dword *)pPlayer + 0xC), events.oTarget);
+        events.Log(2, "ExaminePlaceable: pPlayer=%08lX, oTarget=%08lX\n", pPlayer->m_oidNWSObject, events.oTarget);
         if (pPlayer)
-            bBypass_b = events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_TYPE_EXAMINE);
+            bBypass_b = events.FireEvent(pPlayer->m_oidNWSObject, EVENT_TYPE_EXAMINE);
     }
     asm("leave");
     if (bBypass_b) {
@@ -430,14 +419,14 @@ void ExaminePlaceableHookProc(void *pMessage, void *pPlayer, dword nObjID)
     asm("jmp *%eax");
 }
 
-void ExamineDoorHookProc(void *pMessage, void *pPlayer, dword nObjID)
+void ExamineDoorHookProc(void *pMessage, CNWSPlayer *pPlayer, dword nObjID)
 {
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         events.oTarget = nObjID;
 
-        events.Log(2, "ExamineDoor: pPlayer=%08lX, oTarget=%08lX\n", *((dword *)pPlayer + 0xC), events.oTarget);
+        events.Log(2, "ExamineDoor: pPlayer=%08lX, oTarget=%08lX\n", pPlayer->m_oidNWSObject, events.oTarget);
         if (pPlayer)
-            bBypass_b = events.FireEvent(*((dword *)pPlayer + 0xC), EVENT_TYPE_EXAMINE);
+            bBypass_b = events.FireEvent(pPlayer->m_oidNWSObject, EVENT_TYPE_EXAMINE);
     }
     asm("leave");
     if (bBypass_b) {
@@ -447,23 +436,20 @@ void ExamineDoorHookProc(void *pMessage, void *pPlayer, dword nObjID)
     asm("jmp *%eax");
 }
 
-void UseSkillHookProc(void *pCreature, byte nSkill, byte nSubSkill, dword nTargetObjID, CNWSVector vTarget, dword nAreaID, dword nItemObjID, int arg_24)
+void UseSkillHookProc(CNWSCreature *pCreature, byte nSkill, byte nSubSkill, dword nTargetObjID, Vector vTarget, dword nAreaID, dword nItemObjID, int arg_24)
 {
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         events.nEventSubID = nSkill;
         events.oTarget = nTargetObjID;
-        /*events.vPosition.x = vTarget.x;
-        events.vPosition.y = vTarget.y;
-        events.vPosition.z = vTarget.z;*/
         events.vPosition = vTarget;
         events.oItem = nItemObjID;
 
         events.Log(2,
                    "UseSkill: pCreature=%08lX, oTarget=%08lX, oItem=%08lX, vTarget=%f/%f/%f, nSkill=%d\n",
-                   *((dword *)pCreature + 1), events.oTarget, events.oItem, events.vPosition.x,
-                   events.vPosition.y, events.vPosition.z, events.nEventSubID);
+                   pCreature->ObjectID, events.oTarget, events.oItem, events.vPosition.X,
+                   events.vPosition.Y, events.vPosition.Z, events.nEventSubID);
         if (pCreature)
-            bBypass_b = events.FireEvent(*((dword *)pCreature + 1), EVENT_TYPE_USE_SKILL);
+            bBypass_b = events.FireEvent(pCreature->ObjectID, EVENT_TYPE_USE_SKILL);
     }
     asm("leave");
     if (bBypass_b) {
@@ -473,23 +459,23 @@ void UseSkillHookProc(void *pCreature, byte nSkill, byte nSubSkill, dword nTarge
     asm("jmp *%eax");
 }
 
-void UseFeatHookProc(void *pCreature, unsigned short nFeat, unsigned short nSubFeat, dword nTargetObjID, dword nAreaID, CNWSVector *pvTarget)
+void UseFeatHookProc(CNWSCreature *pCreature, unsigned short nFeat, unsigned short nSubFeat, dword nTargetObjID, dword nAreaID, CNWSVector *pvTarget)
 {
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         events.nEventSubID = nFeat;
         events.oTarget = nTargetObjID;
         if (pvTarget) {
-            events.vPosition.x = pvTarget->x;
-            events.vPosition.y = pvTarget->y;
-            events.vPosition.z = pvTarget->z;
+            events.vPosition.X = pvTarget->X;
+            events.vPosition.Y = pvTarget->Y;
+            events.vPosition.Z = pvTarget->Z;
         }
 
         events.Log(2,
                    "UseFeat: pCreature=%08lX, oTarget=%08lX, oItem=%08lX, vTarget=%f/%f/%f, nFeat=%d\n",
-                   *((dword *)pCreature + 1), events.oTarget, events.oItem, events.vPosition.x,
-                   events.vPosition.y, events.vPosition.z, events.nEventSubID);
+                   pCreature->ObjectID, events.oTarget, events.oItem, events.vPosition.X,
+                   events.vPosition.Y, events.vPosition.Z, events.nEventSubID);
         if (pCreature)
-            bBypass_b = events.FireEvent(*((dword *)pCreature + 1), EVENT_TYPE_USE_FEAT);
+            bBypass_b = events.FireEvent(pCreature->ObjectID, EVENT_TYPE_USE_FEAT);
     }
     asm("leave");
     if (bBypass_b) {
@@ -499,14 +485,14 @@ void UseFeatHookProc(void *pCreature, unsigned short nFeat, unsigned short nSubF
     asm("jmp *%eax");
 }
 
-void ToggleModeHookProc(void *pCreature, byte nMode)
+void ToggleModeHookProc(CNWSCreature *pCreature, byte nMode)
 {
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         events.nEventSubID = nMode;
 
-        events.Log(2, "ToggleMode: pCreature=%08lX, nMode=%d\n", *((dword *)pCreature + 1), events.nEventSubID);
+        events.Log(2, "ToggleMode: pCreature=%08lX, nMode=%d\n", pCreature->ObjectID, events.nEventSubID);
         if (pCreature)
-            bBypass_b = events.FireEvent(*((dword *)pCreature + 1), EVENT_TYPE_TOGGLE_MODE);
+            bBypass_b = events.FireEvent(pCreature->ObjectID, EVENT_TYPE_TOGGLE_MODE);
     }
     asm("leave");
     if (bBypass_b) {
@@ -516,7 +502,7 @@ void ToggleModeHookProc(void *pCreature, byte nMode)
     asm("jmp *%eax");
 }
 
-void CastSpellHookProc(void *pCreature,
+void CastSpellHookProc(CNWSCreature *pCreature,
                        int nSpell,
                        signed int nClassIndex,
                        char nDomainLevel,
@@ -534,11 +520,11 @@ void CastSpellHookProc(void *pCreature,
                        char a18)
 {
     asm("pusha");
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         events.oTarget = oTarget;
-        events.vPosition.x = vTarget.x;
-        events.vPosition.y = vTarget.y;
-        events.vPosition.z = vTarget.z;
+        events.vPosition.X = vTarget.X;
+        events.vPosition.Y = vTarget.Y;
+        events.vPosition.Z = vTarget.Z;
 
         //Get spell id, metamagic, and class index
         events.nEventSubID = nSpell;
@@ -549,10 +535,10 @@ void CastSpellHookProc(void *pCreature,
 
         events.Log(2,
                    "CastSpell: oPC=%08lX, oTarget=%08lX, vTarget=(%f/%f/%f), nSpellId=%d, nMetaMagic=%d, nClassIndex=%d, nFlags=%d\n",
-                   *((dword *)pCreature + 1), oTarget, vTarget.x, vTarget.y,
-                   vTarget.z, (events.nEventSubID & 0xFFFF), ((events.nEventSubID >> 16) & 0xFF),
+                   pCreature->ObjectID, oTarget, vTarget.X, vTarget.Y,
+                   vTarget.Z, (events.nEventSubID & 0xFFFF), ((events.nEventSubID >> 16) & 0xFF),
                    ((events.nEventSubID >> 24) & 0x07), ((events.nEventSubID >> 27) & 0x0F)),
-                   bBypass_b = events.FireEvent(*((dword *)pCreature + 1), EVENT_TYPE_CAST_SPELL);
+                   bBypass_b = events.FireEvent(pCreature->ObjectID, EVENT_TYPE_CAST_SPELL);
     }
     asm("popa");
     asm("leave");
@@ -567,7 +553,7 @@ void CastSpellHookProc(void *pCreature,
 
 void TogglePauseHookProc(void *pThis, unsigned char unknown, int state)
 {
-    if (!scriptRun) {
+    if (!events.scriptRun) {
         events.nEventSubID = state;
         bBypass_b = events.FireEvent(0, EVENT_TYPE_TOGGLE_PAUSE);
     }
@@ -580,10 +566,10 @@ void TogglePauseHookProc(void *pThis, unsigned char unknown, int state)
 }
 
 
-void PossessFamiliarHookProc(void *pCreature)
+void PossessFamiliarHookProc(CNWSCreature *pCreature)
 {
-    if (!scriptRun) {
-        bBypass_b = events.FireEvent(*((dword *)pCreature + 1) , EVENT_TYPE_POSSESS_FAMILIAR);
+    if (!events.scriptRun) {
+        bBypass_b = events.FireEvent(pCreature->ObjectID, EVENT_TYPE_POSSESS_FAMILIAR);
     }
     asm("leave");
     if (bBypass_b) {
@@ -593,12 +579,12 @@ void PossessFamiliarHookProc(void *pCreature)
     asm("jmp *%eax");
 }
 
-int CNWSPlayer__ValidateCharacter_hook(void *pPlayer, int *result)
+int CNWSPlayer__ValidateCharacter_hook(CNWSPlayer *pPlayer, int *result)
 {
-    if (!scriptRun) {
-        void *pCreature = GetPlayerObject(pPlayer);
+    if (!events.scriptRun) {
+        CNWSCreature *pCreature = reinterpret_cast<CNWSCreature*>(pPlayer->GetGameObject());
         if (pCreature)
-            bBypass_b = events.FireEvent(*((dword *)pCreature + 1) , EVENT_TYPE_VALIDATE_CHARACTER);
+            bBypass_b = events.FireEvent(pCreature->ObjectID, EVENT_TYPE_VALIDATE_CHARACTER);
     }
     if (bBypass_b) {
         if (events.nReturnValue) {
@@ -624,80 +610,21 @@ void CNWSObject___CNWSObject_hook(CNWSObject *pObject, int n)
 
 int GetRunScriptReturnValue()
 {
-    int type;
-    int value;
-    if (CVirtualMachine__GetRunScriptReturnValue(*(void **)pScriptThis, &type, (void **)&value) && type == 3)
+    int type, value;
+
+    if (CVirtualMachine__GetRunScriptReturnValue(g_pVirtualMachine, &type, (void **)&value) && type == 3)
         return value;
     else
         return 0;
 }
 
-// 0824AA5C - runScript : 55 89 e5 57 56 53 83 ec 18 ff 75 0c e8 eb
-unsigned long
-FindHookRunScript()
-{
-    unsigned long start_addr = 0x08048000, end_addr = 0x08300000;
-    char *ptr = (char *) start_addr;
-
-    while (ptr < (char *) end_addr) {
-        if ((ptr[0] == (char) 0x55) &&
-                (ptr[1] == (char) 0x89) &&
-                (ptr[2] == (char) 0xe5) &&
-                (ptr[3] == (char) 0x57) &&
-                (ptr[4] == (char) 0x56) &&
-                (ptr[5] == (char) 0x53) &&
-                (ptr[6] == (char) 0x83) &&
-                (ptr[7] == (char) 0xec) &&
-                (ptr[8] == (char) 0x18) &&
-                (ptr[9] == (char) 0xFF) &&
-                (ptr[10] == (char) 0x75) &&
-                (ptr[11] == (char) 0x0C) &&
-                (ptr[12] == (char) 0xE8) &&
-                (ptr[0x3B] == (char) 0x84) &&
-                (ptr[0x3C] == (char) 0x01) &&
-                (ptr[0x3D] == (char) 0x00)
-           )
-            return (unsigned long) ptr;
-        else
-            ptr++;
-    }
-    ptr = (char *) start_addr;
-    while (ptr < (char *) end_addr) {
-        if ((ptr[0] == (char) 0x55) &&
-                (ptr[1] == (char) 0x89) &&
-                (ptr[2] == (char) 0xe5) &&
-                (ptr[3] == (char) 0x57) &&
-                (ptr[4] == (char) 0x56) &&
-                (ptr[5] == (char) 0x53) &&
-                (ptr[6] == (char) 0x83) &&
-                (ptr[7] == (char) 0xec) &&
-                (ptr[8] == (char) 0x18) &&
-                (ptr[9] == (char) 0xFF) &&
-                (ptr[10] == (char) 0x75) &&
-                (ptr[11] == (char) 0x0C) &&
-                (ptr[12] == (char) 0x8B) &&
-                (ptr[13] == (char) 0x7D) &&
-                (ptr[14] == (char) 0x10) &&
-                (ptr[15] == (char) 0xE8) &&
-                (ptr[0x38] == (char) 0x8B) &&
-                (ptr[0x39] == (char) 0x45) &&
-                (ptr[0x3A] == (char) 0x08)
-           )
-            return (unsigned long) ptr;
-        else
-            ptr++;
-    }
-    return 0;
-}
-
-void RunScript(char * sname, int ObjID)
-{
+void RunScript(char * sname, int ObjID) {
     CExoString script_name;
-    script_name.Text = sname;
+    /* Have to dupe with new API or something that shouldn't will
+     * be deleted. */
+    script_name.Text = strdup(sname);
     script_name.Length = strlen(sname);
-    scriptRun = 1;
-    pRunScript(*(dword **)pScriptThis, &script_name, ObjID, 1);
-    scriptRun = 0;
+    g_pVirtualMachine->RunScript(&script_name, ObjID, 1);
 }
 
 void
@@ -749,8 +676,6 @@ void PrintHookInfo(dword function_addr, char *function_name)
 int HookFunctions(bool enableUnsafe)
 {
     dword org_SaveChar = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC B8 00 00 00 FF 75 08 C7 85 74");
-    dword org_Run = FindHookRunScript();
-    //dword org_PickPocket = FindHookPickPocket();
     dword org_PickPocket = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC B4 00 00 00  6A 00 8D 75 C8 56 C7 45");
     dword org_Attack = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 18 8B 7D 08 57 E8 ** ** ** ** 83 C4 10 FF 75 0C");
     dword org_UseItem = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC F4 00 00 00 FF 75 0C");
@@ -778,12 +703,8 @@ int HookFunctions(bool enableUnsafe)
     dword org_PossessFamiliar = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 20 6A 01 6A 03 FF 75 08 E8 ** ** ** ** 83 C4 10 3D 00 00 00 7F 0F 84 01 03 00 00 83 EC 08 6A 00 FF 75 08 C7 45 F0 00 00 00 00 E8 ** ** ** ** 83 C4 10 85 C0 74 19 83 EC 18 6A 01 FF 75 08 E8 ** ** ** ** 83 C4 14 50 E8 ** ** ** ** 83 C4 10 8B 45 08 81 78 58 00 00 00 7F 74 0C");
     dword org_ValidateCharacter = 0x080580BC;
     CNWSObject___CNWSObject = (void (*)(CNWSObject*, int)) 0x081C8E94;
-    CVirtualMachine__GetRunScriptReturnValue = (int (*)(void *, int *, void **)) 0x08264324;
+    CVirtualMachine__GetRunScriptReturnValue = (int (*)(CVirtualMachine *, int *, void **)) 0x08264324;
 
-    if (org_SaveChar) {
-        pServThis = *(dword*)(org_SaveChar + 0x3C);
-        pScriptThis = pServThis - 8;
-    }
     hook_function(org_SaveChar, (unsigned long)SaveCharHookProc, d_ret_code_sc, 12);
     hook_function(org_PickPocket, (unsigned long)PickPocketHookProc, d_ret_code_pp, 12);
     hook_function(org_Attack, (unsigned long)AttackHookProc, d_ret_code_at, 9);
@@ -808,11 +729,6 @@ int HookFunctions(bool enableUnsafe)
         *(dword*)&CNWSObject___CNWSObject = (dword)&d_ret_code_objdest;
     }
 
-
-    if (org_Run) {
-        *(dword*)&pRunScript = org_Run;
-    }
-
     PrintHookInfo(org_SaveChar, "SaveChar");
     PrintHookInfo(org_PickPocket, "ActPickPocket");
     PrintHookInfo(org_Attack, "ActAttack");
@@ -831,9 +747,6 @@ int HookFunctions(bool enableUnsafe)
     PrintHookInfo(org_TogglePause, "TogglePause");
     PrintHookInfo(org_PossessFamiliar, "PossessFamiliar");
     PrintHookInfo(org_ValidateCharacter, "ValidateCharacter");
-    PrintHookInfo(org_Run, "RunProc");
-
-    *(dword*)&GetPlayerObject = 0x0805E8B8;  //CNWSPlayer::GetGameObject(void)
 
     return (org_SaveChar && org_PickPocket && org_Attack && org_UseItem &&
             org_ConvSelect && org_ConditionalScript &&
@@ -841,8 +754,7 @@ int HookFunctions(bool enableUnsafe)
             org_ExamineDoor && org_UseSkill && org_UseFeat &&
             org_ToggleMode && org_CastSpell &&
             org_TogglePause && org_PossessFamiliar &&
-            org_SendServerToPlayerQuickChatMessage &&
-            org_Run && pServThis && pScriptThis);
+            org_SendServerToPlayerQuickChatMessage);
 }
 
 
