@@ -248,9 +248,15 @@ float GetEffectDuration (effect eEffect);
  * DURATION_TYPE_TEMPORARY. */
 float GetEffectDurationRemaining (effect eEffect);
 
+/* Returns the number of effect integers the given effect has.
+ * This number is entirely dependant on the given effect type.
+ * By default, new CGameEffects have 8; but you need to check anyways.
+ */
+int GetEffectNumIntegers (effect eEffect);
+
 /* Returns the internal effect integer at the index specified. The index
- * is limited to being between 0 and 15, and which index contains what
- * value depends entirely on the type of effect. */
+ * is limited to being between 0 and GetEffectNumIntegers(), and which index
+ * contains what value depends entirely on the type of effect. */
 int GetEffectInteger (effect eEffect, int nIndex);
 
 /* Sets the internal effect integer at the specified index to the
@@ -296,6 +302,11 @@ float GetEffectDuration (effect eEffect) {
 float GetEffectDurationRemaining (effect eEffect) {
     SetLocalString(GetModule(), "NWNX!STRUCTS!GETDURATIONREMAINING", "          ");
     return StringToFloat(GetLocalString(GetModule(), "NWNX!STRUCTS!GETDURATIONREMAINING"));
+}
+
+int GetEffectNumIntegers (effect eEffect) {
+    SetLocalString(GetModule(), "NWNX!STRUCTS!GETNUMINTEGERS", "          ");
+    return StringToInt(GetLocalString(GetModule(), "NWNX!STRUCTS!GETNUMINTEGERS"));
 }
 
 int GetEffectInteger (effect eEffect, int nIndex) {

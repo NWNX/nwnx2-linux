@@ -33,6 +33,7 @@ void Func_GetDuration(CGameObject *ob, char *value);
 void Func_GetDurationRemaining(CGameObject *ob, char *value);
 void Func_GetHasEffect(CGameObject *ob, char *value);
 void Func_GetInteger(CGameObject *ob, char *value);
+void Func_GetNumIntegers(CGameObject *ob, char *value);
 void Func_GetSpellId(CGameObject *ob, char *value);
 void Func_GetTrueType(CGameObject *ob, char *value);
 void Func_SetCreator(CGameObject *ob, char *value);

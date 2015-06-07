@@ -1,4 +1,3 @@
-
 /***************************************************************************
     NWNXFuncs.cpp - Implementation of the CNWNXFuncs class.
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
@@ -23,18 +22,11 @@
 extern volatile CGameEffect *Hook_Struct_Last;
 
 
-void Func_SetInteger(CGameObject *ob, char *value)
+void Func_GetNumIntegers(CGameObject *ob, char *value)
 {
-    int idx, val;
     CGameEffect *eff = (CGameEffect *)Hook_Struct_Last;
 
-    if (sscanf(value, "%d %d", &idx, &val) != 2)
-        return;
-
-    if (idx < 0 || idx >= eff->eff_num_integers)
-        return;
-
-    eff->eff_integers[idx] = val;
+    snprintf(value, strlen(value), "%d", eff->eff_num_integers);
 }
 
 
