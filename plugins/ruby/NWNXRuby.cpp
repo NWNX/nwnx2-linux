@@ -88,15 +88,7 @@ bool CNWNXRuby::OnCreate(gline *config, const char *LogDir)
     cNWScript = RubyInt_InitNWScript();
     rb_include_module(rb_cObject, cNWScript);
 
-    if (HookFunctions()) {
-        bHooked = 1;
-        Log(0, "* Module loaded successfully.\n");
-    } else {
-        bHooked = 0;
-        Log(0, "* Module loaded successfully.\n");
-        Log(0, "* Signature recognition failed. Some functions will be disabled.\n");
-        //return false;
-    }
+    Log(0, "* Module loaded successfully.\n");
 
     return true;
 }

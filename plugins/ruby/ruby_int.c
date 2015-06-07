@@ -1,5 +1,4 @@
 #include "FunctionHooks.h"
-#include "NWNStructures.h"
 #include "ruby_int.h"
 
 static VALUE NWScript_Random(VALUE self, VALUE nMaxInteger)

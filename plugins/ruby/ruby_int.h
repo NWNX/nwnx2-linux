@@ -1,5 +1,5 @@
-#include "NWNStructures.h"
 #include "FunctionHooks.h"
+#include "NWNStructures.h"
 #include <ruby.h>
 #include "nwscript.h"
 

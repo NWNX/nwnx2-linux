@@ -21,8 +21,6 @@
 #define NWNXRuby_h_
 
 #include "NWNXBase.h"
-#include "typedefs.h"
-#include "NWNStructures.h"
 #include <ruby.h>
 
 class CNWNXRuby : public CNWNXBase

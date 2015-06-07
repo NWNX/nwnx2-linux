@@ -1,54 +1,21 @@
-#include "typedefs.h"
-
 #ifndef NWNXStructures_h_
 #define NWNXStructures_h_
 
+typedef unsigned long dword;
+typedef unsigned short int word;
+typedef unsigned char byte;
+
+#ifdef __cplusplus
+
+#include "../../api/Vector.h"
+#include "../../api/CGameEffect.h"
+#include "../../api/CScriptLocation.h"
+
+#else
 typedef struct {
     char *Text;
     dword Length;
 } CExoString;
-
-struct CNWSAmbientSound {
-    dword Enabled;
-    dword MusicDelay;
-    dword MusicDay;
-    dword MusicNight;
-    dword field_10;
-    dword MusicBattle;
-    dword field_18;
-    dword AmbientSndDay;
-    dword AmbientSndNight;
-    byte  AmbientSndDayVol;
-    byte  AmbientSndNitVol;
-    byte  field_26;
-    byte  field_27;
-    void *CNWSAmbientSoundClass;
-};
-
-/*
-00000000 CGameEffect struc ; (sizeof=0x90)
-00000000 Id dd ?                                 ; size 90
-00000004 field_4 dd ?
-00000008 Type dw ?
-0000000A SubType dw ?
-0000000C field_C dd ?
-00000010 ExpireDay dd ?
-00000014 ExpireTime dd ?
-00000018 CreatorId dd ?
-0000001C SpellId dd ?
-00000020 IsExposed dd ?
-00000024 IsIconShown dd ?
-00000028 field_28 dd ?
-0000002C LinkEffectID dd ?
-00000030 Link2 dd ?
-00000034 NumIntegers dd ?
-00000038 IntList dd ?
-0000003C FloatList dd 4 dup(?)
-0000004C StringList CExoString 6 dup(?)
-0000007C ObjectList dd 4 dup(?)
-0000008C SkipOnLoad dd ?
-00000090 CGameEffect ends
-*/
 
 typedef struct {
     float X;
@@ -87,17 +54,6 @@ typedef struct {
     float OrientationZ;
     dword AreaID;
 } CScriptLocation;
-
-typedef struct {
-    CExoString sVarName;
-    dword      nVarType;
-    dword       nVarValue;
-} CNWObjectVarListElement;
-
-typedef struct {
-    CNWObjectVarListElement *VarList;
-    dword                    VarCount;
-} CNWObjectVarList;
-
+#endif
 
 #endif

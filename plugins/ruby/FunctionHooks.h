@@ -20,18 +20,13 @@
 #ifndef FunctionHooks_h_
 #define FunctionHooks_h_
 
-#include "typedefs.h"
 #include "NWNStructures.h"
-#include "CVirtualMachine.h"
 
 #define ENGINE_STRUCTURE_EFFECT 0
 #define ENGINE_STRUCTURE_EVENT 1
 #define ENGINE_STRUCTURE_LOCATION 2
 #define ENGINE_STRUCTURE_TALENT 3
 #define ENGINE_STRUCTURE_ITEMPROPERTY 4
-
-int HookFunctions();
-void InitConstants();
 
 #ifdef __cplusplus
 extern "C" {
