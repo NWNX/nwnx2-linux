@@ -1,10 +1,10 @@
 NWNXDIR  = ../..
-CPPFLAGS = $(PLUGIN_CPPFLAGS) -I$(NWNXDIR)
+CPPFLAGS = $(PLUGIN_CPPFLAGS) -std=c++0x -I$(NWNXDIR)
 LFLAGS   = $(PLUGIN_LFLAGS)
 
 all: nwnx_resman.so
 
-nwnx_resman.so: HookDemandRes.o NwnDefines.o NWNXResMan.o plugin-resman.o
+nwnx_resman.so: HookDemandRes.o NWNXResMan.o plugin-resman.o DirectoryHandler.o
 	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 clean:

@@ -26,7 +26,7 @@ PLUGINLINK *pluginLink = 0;
 PLUGININFO pluginInfo = {
     sizeof(PLUGININFO),
     "NWNXResMan",
-    PLUGIN_MAKE_VERSION(0, 0, 0, 1),
+    PLUGIN_MAKE_VERSION(2, 0, 0, 1),
     "",
     "dumbo & virusman",
     "dumbo@nm.ru & virusman@virusman.ru",

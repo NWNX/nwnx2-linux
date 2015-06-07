@@ -369,7 +369,7 @@ struct CResHelper {
 };
 struct CKeyTableEntry {
     /* 0x0/0 */ CResRef m_cResRef;
-    /* 0x10/16 */ unsigned long m_pRes;
+    /* 0x10/16 */ CRes *m_pRes;
     /* 0x14/20 */ unsigned long m_nID;
     /* 0x18/24 */ unsigned short m_nRefCount;
     /* 0x1A/26 */ unsigned short m_nType;
