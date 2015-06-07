@@ -15,10 +15,23 @@ public class ResMan {
 	}
 
 	@SuppressWarnings("unused")
-	private static byte[] demandRes(String resRef) {
+	private static int exists(String resRef) {
+		int ret = -1;
+
+		for (ResManListener h : handlers) {
+			int current = h.exists(resRef);
+			if (current > ret)
+				ret = current;
+		}
+
+		return ret;
+	}
+
+	@SuppressWarnings("unused")
+	private static byte[] demand(String resRef) {
 		byte[] ret = null;
 		for (ResManListener h : handlers)
-			if (null != (ret = h.demandRes(resRef)))
+			if (null != (ret = h.demand(resRef)))
 				return ret;
 
 		return null;

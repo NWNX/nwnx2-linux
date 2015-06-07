@@ -64,7 +64,8 @@ jmethodID jmethodSCO;
 jmethodID jmethodRCO;
 
 jclass jclassResmanListener;
-jmethodID jmethodResmanDemandRes;
+jmethodID jmethodResmanExists;
+jmethodID jmethodResmanDemand;
 
 
 jclass jclassConv;
@@ -90,9 +91,10 @@ jnienvtok->FatalError("while executing native code " #code);\
 
 JavaVM *jvm_global;
 
-int WriteSCO(uintptr_t);
-int ReadSCO(uintptr_t);
-int DemandResource(uintptr_t);
+static int WriteSCO(uintptr_t);
+static int ReadSCO(uintptr_t);
+static int ResManExists(uintptr_t p);
+static int ResManDemand(uintptr_t p);
 
 CNWNXJVM::CNWNXJVM()
 {
@@ -104,8 +106,9 @@ int systemStartup(uintptr_t p)
 {
     HANDLE handleSCO = HookEvent("NWServer/RCO", ReadSCO);
     HANDLE handleRCO = HookEvent("NWServer/SCO", WriteSCO);
-    HANDLE handleResMan = HookEvent("NWNX/ResMan/DemandResource", DemandResource);
-    if (!handleSCO || !handleRCO || !handleResMan)
+    HANDLE handleResManExists = HookEvent(EVENT_RESMAN_EXISTS, ResManExists);
+    HANDLE handleResManDemand = HookEvent(EVENT_RESMAN_DEMAND, ResManDemand);
+    if (!handleSCO || !handleRCO || !handleResManExists || !handleResManDemand)
         printf("Cannot hook SCORCO or ResMan events!\n");
 
     return 0;
@@ -244,17 +247,17 @@ bool CNWNXJVM::LaunchVM()
     jclassSCORCOListener = J(this->env, FindClass(scorcoListener));
 
     Log(0, "Looking up SCO method...\n");
-    jmethodSCO	 = J(this->env, GetStaticMethodID(jclassSCORCOListener, "sco", "(Ljava/lang/String;[B)V"));
+    jmethodSCO   = J(this->env, GetStaticMethodID(jclassSCORCOListener, "sco", "(Ljava/lang/String;[B)V"));
     Log(0, "Looking up RCO method...\n");
-    jmethodRCO	 = J(this->env, GetStaticMethodID(jclassSCORCOListener, "rco", "(Ljava/lang/String;)[B"));
+    jmethodRCO   = J(this->env, GetStaticMethodID(jclassSCORCOListener, "rco", "(Ljava/lang/String;)[B"));
 
     const char* resmanListener = (*nwnxConfig)[confKey]["resmanListener"].c_str();
     Log(0, "Looking for resmanListener: "); Log(0, resmanListener); Log(0, "...\n");
     jclassResmanListener = J(this->env, FindClass(resmanListener));
 
-    Log(0, "Looking up demandRes method...\n");
-    jmethodResmanDemandRes        = J(this->env, GetStaticMethodID(jclassResmanListener, "demandRes", "(Ljava/lang/String;)[B"));
-
+    Log(0, "Looking up resman methods...\n");
+    jmethodResmanExists = J(this->env, GetStaticMethodID(jclassResmanListener, "exists", "(Ljava/lang/String;)I"));
+    jmethodResmanDemand = J(this->env, GetStaticMethodID(jclassResmanListener, "demand", "(Ljava/lang/String;)[B"));
 
     Log(0, "Looking for class org/nwnx/nwnx2/jvm/NWObject...\n");
     jclassNWObject = J(this->env, FindClass("org/nwnx/nwnx2/jvm/NWObject"));
@@ -399,7 +402,7 @@ char* CNWNXJVM::OnRequest(char *gameObject, char* request, char* parameters)
     return NULL;
 }
 
-int WriteSCO(uintptr_t p)
+static int WriteSCO(uintptr_t p)
 {
     ODBCSCORCOEvent* s = (ODBCSCORCOEvent*) p;
 
@@ -414,7 +417,7 @@ int WriteSCO(uintptr_t p)
     return 0;
 };
 
-int ReadSCO(uintptr_t p)
+static int ReadSCO(uintptr_t p)
 {
     ODBCSCORCOEvent* s = (ODBCSCORCOEvent*) p;
 
@@ -434,22 +437,40 @@ int ReadSCO(uintptr_t p)
     return 1;
 };
 
-int DemandResource(uintptr_t p)
+static int ResManExists(uintptr_t p)
 {
-    ResManDemandResEvent* s = (ResManDemandResEvent*) p;
+    ResManExistsEvent* exists = (ResManExistsEvent*) p;
 
     JNIEnv *env;
     jvm_global->AttachCurrentThread((void **)&env, NULL);
 
-    jstring resref = J(env, NewStringUTF(s->resref));
-    jbyteArray ret = (jbyteArray) J(env, CallStaticObjectMethod(jclassResmanListener, jmethodResmanDemandRes, resref));
+    jstring resref = J(env, NewStringUTF(exists->resRefWithExt));
+    int t = (int) J(env, CallStaticObjectMethod(jclassResmanListener, jmethodResmanExists, resref));
+
+    if (t != -1) {
+        exists->mtime = std::max(exists->mtime, (time_t)t);
+        exists->exists = true;
+    }
+
+    return 0;
+}
+
+static int ResManDemand(uintptr_t p)
+{
+    ResManDemandEvent* demand = (ResManDemandEvent*) p;
+
+    JNIEnv *env;
+    jvm_global->AttachCurrentThread((void **)&env, NULL);
+
+    jstring resref = J(env, NewStringUTF(demand->resRefWithExt));
+    jbyteArray ret = (jbyteArray) J(env, CallStaticObjectMethod(jclassResmanListener, jmethodResmanDemand, resref));
     if (ret == NULL)
         return 0;
 
     unsigned char* data = (unsigned char*) J(env, GetByteArrayElements(ret, NULL));
     int sz = J(env, GetArrayLength(ret));
     jvm_global->DetachCurrentThread();
-    s->pData = data;
-    s->size = sz;
+    demand->pData = data;
+    demand->size = sz;
     return 1;
 };
