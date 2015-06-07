@@ -89,6 +89,14 @@ void NotifyEventHooksNotAbortable(HANDLE hEvent, uintptr_t pParam);
 int SetHookDefaultForHookableEvent(HANDLE hEvent, NWNXHOOK pfnHook);
 
 /**
+ * SetHookInitializer
+ *
+ * Sets a function to be called when the first (and only first) listener
+ * registers to an event.
+ */
+int SetHookInitializer(HANDLE hEvent, NWNXHOOK pfnInitialize);
+
+/**
  * HookEvent
  *
  * Adds a new hook to the chain 'name', to be called when the hook owner calls

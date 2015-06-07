@@ -41,6 +41,7 @@ typedef struct {
     int (*ServiceExists)(const char *);       //v0.1.0.1+
     int (*SetHookDefaultForHookableEvent)(HANDLE, NWNXHOOK);  // v0.3.4 (2004/09/15)
     const char* (*GetCurrentEventName)();
+    int (*SetHookInitializer)(HANDLE hEvent, NWNXHOOK pfnIntialize);
 } PLUGINLINK;
 
 #ifndef MODULES_H_
@@ -61,6 +62,7 @@ extern PLUGINLINK *pluginLink;
 #define ServiceExists(a)                     pluginLink->ServiceExists(a)
 #define SetHookDefaultForHookableEvent(a,b)  pluginLink->SetHookDefaultForHookableEvent(a,b)
 #define GetCurrentEventName()                pluginLink->GetCurrentEventName()
+#define SetHookInitializer(a,b)               pluginLink->SetHookInitializer(a,b)
 #endif
 #endif
 
