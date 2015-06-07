@@ -25,7 +25,7 @@ void Func_ModifySkillRankByLevel(CGameObject *ob, char *value)
 {
     int level, skill, val;
     CNWSCreature *cre;
-    CNWSStats_Level *ls;
+    CNWLevelStats *ls;
 
     if (ob == NULL                                              ||
             (cre = ob->vtable->AsNWSCreature(ob)) == NULL           ||

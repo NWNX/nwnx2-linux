@@ -24,7 +24,7 @@
 void Func_GetAbilityIncreaseByLevel(CGameObject *ob, char *value)
 {
     CNWSCreature *cre;
-    CNWSStats_Level *ls;
+    CNWLevelStats *ls;
 
     if (ob == NULL                                    ||
             (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||

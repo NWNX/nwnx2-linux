@@ -25,7 +25,7 @@ void Func_AddKnownFeatAtLevel(CGameObject *ob, char *value)
 {
     int level, feat;
     CNWSCreature *cre;
-    CNWSStats_Level *ls;
+    CNWLevelStats *ls;
 
     if (ob == NULL                                    ||
             (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||

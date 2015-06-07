@@ -1,6 +1,5 @@
 #include "FixesHooksNewApi.h"
-#include "../../api/all.h"
-#include "../../include/nx_hook.h"
+#include "NWNXApi.h"
 #include "NWNXFixes.h"
 
 extern CNWNXFixes fixes;

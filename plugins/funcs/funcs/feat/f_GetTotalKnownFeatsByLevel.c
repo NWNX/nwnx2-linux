@@ -24,7 +24,7 @@
 void Func_GetTotalKnownFeatsByLevel(CGameObject *ob, char *value)
 {
     const CNWSCreature *cre;
-    CNWSStats_Level *ls;
+    CNWLevelStats *ls;
 
     if (ob == NULL                                    ||
             (cre = ob->vtable->AsNWSCreature(ob)) == NULL ||

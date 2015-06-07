@@ -24,7 +24,7 @@
 #ifndef _NX_NWN_STRUCT_CNWSACTION_
 #define _NX_NWN_STRUCT_CNWSACTION_
 
-struct CNWSAction_s {
+struct CNWSActionNode_s {
     uint32_t            act_type;
     uint32_t            act_subtype;
     uint32_t            unknown_1[25];

@@ -24,7 +24,7 @@
 #ifndef _NX_NWN_STRUCT_CNWSSTATS_LEVEL_
 #define _NX_NWN_STRUCT_CNWSSTATS_LEVEL_
 
-struct CNWSStats_Level_s {
+struct CNWLevelStats_s {
     CExoArrayList_uint32        ls_spells_known[10];
 
     uint32_t                    unknown_1[30];

@@ -24,7 +24,7 @@
 void Func_SetMaxHitPointsByLevel(CGameObject *ob, char *value)
 {
     int level, hp;
-    CNWSStats_Level *ls;
+    CNWLevelStats *ls;
     CNWSCreature *cre;
 
     if (ob == NULL                                    ||

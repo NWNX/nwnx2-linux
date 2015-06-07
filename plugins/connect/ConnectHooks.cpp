@@ -28,6 +28,7 @@
 #define PAGESIZE 4096
 #endif
 
+#include "NWNXApi.h"
 #include "ConnectHooks.h"
 #include "NWNXConnect.h"
 

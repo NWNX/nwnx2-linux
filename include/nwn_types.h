@@ -24,6 +24,7 @@
 #ifndef _NX_NWN_TYPES_H_
 #define _NX_NWN_TYPES_H_
 
+#include "nx_devel.h"
 
 typedef uint32_t nwn_objid_t;
 
