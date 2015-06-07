@@ -26,17 +26,22 @@
 
 #define OBJECT_INVALID                            0x7F000000
 
+#define OBJECT_TYPE_GUI                                    1
+#define OBJECT_TYPE_TILE                                   2
 #define OBJECT_TYPE_MODULE                                 3
 #define OBJECT_TYPE_AREA                                   4
 #define OBJECT_TYPE_CREATURE                               5
 #define OBJECT_TYPE_ITEM                                   6
 #define OBJECT_TYPE_TRIGGER                                7
-#define OBJECT_TYPE_PLACEABLE                              8
+#define OBJECT_TYPE_PROJECTILE                             8
+#define OBJECT_TYPE_PLACEABLE                              9
 #define OBJECT_TYPE_DOOR                                  10
 #define OBJECT_TYPE_AREA_OF_EFFECT                        11
 #define OBJECT_TYPE_WAYPOINT                              12
 #define OBJECT_TYPE_ENCOUNTER                             13
 #define OBJECT_TYPE_STORE                                 14
+#define OBJECT_TYPE_PORTAL                                15
+#define OBJECT_TYPE_SOUND                                 16
 
 #define QUICKBAR_TYPE_INVALID                              0
 #define QUICKBAR_TYPE_ITEM                                 1
