@@ -73,7 +73,6 @@ unsigned char d_ret_code_objdest[0x20];
 
 int (*CNWSPlayer__ValidateCharacter)(CNWSPlayer *pPlayer, int *result);
 void (*CNWSObject___CNWSObject)(CNWSObject *pObject, int n) = (void (*)(CNWSObject*, int)) 0x081C8E94;
-int (*CVirtualMachine__GetRunScriptReturnValue)(CVirtualMachine *pVirtualMachine, int *a2, void **a3) = (int (*)(CVirtualMachine *, int *, void **)) 0x08264324;
 
 unsigned char **pEBP;
 
@@ -612,19 +611,10 @@ int GetRunScriptReturnValue()
 {
     int type, value;
 
-    if (CVirtualMachine__GetRunScriptReturnValue(g_pVirtualMachine, &type, (void **)&value) && type == 3)
+    if (g_pVirtualMachine->GetRunScriptReturnValue(&type, (void **)&value) && type == 3)
         return value;
     else
         return 0;
-}
-
-void RunScript(char * sname, int ObjID) {
-    CExoString script_name;
-    /* Have to dupe with new API or something that shouldn't will
-     * be deleted. */
-    script_name.Text = strdup(sname);
-    script_name.Length = strlen(sname);
-    g_pVirtualMachine->RunScript(&script_name, ObjID, 1);
 }
 
 void
@@ -703,7 +693,6 @@ int HookFunctions(bool enableUnsafe)
     dword org_PossessFamiliar = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 20 6A 01 6A 03 FF 75 08 E8 ** ** ** ** 83 C4 10 3D 00 00 00 7F 0F 84 01 03 00 00 83 EC 08 6A 00 FF 75 08 C7 45 F0 00 00 00 00 E8 ** ** ** ** 83 C4 10 85 C0 74 19 83 EC 18 6A 01 FF 75 08 E8 ** ** ** ** 83 C4 14 50 E8 ** ** ** ** 83 C4 10 8B 45 08 81 78 58 00 00 00 7F 74 0C");
     dword org_ValidateCharacter = 0x080580BC;
     CNWSObject___CNWSObject = (void (*)(CNWSObject*, int)) 0x081C8E94;
-    CVirtualMachine__GetRunScriptReturnValue = (int (*)(CVirtualMachine *, int *, void **)) 0x08264324;
 
     hook_function(org_SaveChar, (unsigned long)SaveCharHookProc, d_ret_code_sc, 12);
     hook_function(org_PickPocket, (unsigned long)PickPocketHookProc, d_ret_code_pp, 12);

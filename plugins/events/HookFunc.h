@@ -25,7 +25,6 @@
 
 int HookFunctions(bool enableUnsafe);
 
-void RunScript(char * sname, int ObjID);
 int GetRunScriptReturnValue();
 
 extern char ActionScriptRunning;

@@ -279,7 +279,8 @@ int CNWNXEvents::FireEvent(const int pObj, int nEvID)
     scriptRun = 1;
     if (!NotifyEventHooks(hEvent, (uintptr_t)&event)) {
         Log(3, "o EVENTS: Fired event %d (%08lX). Calling '%s'\n", nEventID, pObj, eventScripts[nEventID]);
-        RunScript(eventScripts[nEventID], pObj);
+        CExoString script_name(eventScripts[nEventID]);
+        g_pVirtualMachine->RunScript(&script_name, pObj, 1);
     } else {
         Log(3, "o EVENTS: Fired event %d (%08lX). Event hook took over.\n", nEventID, pObj);
         nReturnValue = event.result;
