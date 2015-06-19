@@ -255,9 +255,9 @@ struct CVirtualMachineCommand {
     /* 0x4/4 */ void *Command;
 };
 struct CNWSVector {
-    /* 0x0/0 */ unsigned long X;
-    /* 0x4/4 */ unsigned long Y;
-    /* 0x8/8 */ unsigned long Z;
+    /* 0x0/0 */ float X;
+    /* 0x4/4 */ float Y;
+    /* 0x8/8 */ float Z;
 };
 struct CServerExoApp_vt {
     /* 0x0/0 */ unsigned long field_0;
