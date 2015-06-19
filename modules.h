@@ -117,6 +117,15 @@ HANDLE HookEvent(const char *name, NWNXHOOK hookProc);
 */
 int UnhookEvent(HANDLE hHook);
 
+/**
+ * GetCurrentEventName
+ *
+ * Returns the currently running event name, or NULL if not in a event handler.
+ *
+ * In nested event handlers, only the topmost (current) one is ever returned.
+ */
+const char *GetCurrentEventName();
+
 
 /**
  * CreateServiceFunction
