@@ -63,8 +63,8 @@ void SendHakList(CNWSMessage *pMessage, int nPlayerID)
     if (pModule) {
         plugin.Log(0, "Sending hak list...\n");
         pMessage->CreateWriteMessage(80, -1, 1);
-        pMessage->WriteINT(pModule->HakList.nAllocatedSize, 32);
-        for (int i = pModule->HakList.nAllocatedSize - 1; i >= 0; --i) {
+        pMessage->WriteINT(pModule->HakList.Length, 32);
+        for (int i = pModule->HakList.Length - 1; i >= 0; --i) {
             pMessage->WriteCExoString(pModule->HakList[i], 32);
             plugin.Log(0, "%s\n", pModule->HakList[i].Text);
         }
