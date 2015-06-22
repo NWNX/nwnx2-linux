@@ -518,7 +518,7 @@ int CNWSModule::GetScriptName(int)
     asm("jmp *%eax");
 }
 
-int CNWSModule::GetScriptVarTable()
+CNWSScriptVarTable *  CNWSModule::GetScriptVarTable()
 {
     asm("leave");
     asm("mov $0x081c10e0, %eax");

@@ -56,7 +56,7 @@ public:
     int GetOverrideWeather();
     unsigned char GetPVPSetting();
     int GetScriptName(int);
-    int GetScriptVarTable();
+    CNWSScriptVarTable * GetScriptVarTable();
     int GetSoundPathInformation();
     int GetSurfaceMaterial(Vector);
     CExoString GetTag();

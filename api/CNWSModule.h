@@ -86,7 +86,7 @@ public:
     CNWSPlayerTURD * GetPlayerTURDFromList(CNWSPlayer *);
     unsigned long GetPrimaryPlayerIndex();
     int GetScriptName(int);
-    int GetScriptVarTable();
+    CNWSScriptVarTable * GetScriptVarTable();
     int GetStartMovie();
     CExoString GetTag();
     int GetTimeOfDayState();

@@ -1022,7 +1022,7 @@ CScriptLocation CNWSObject::GetScriptLocation()
     asm("jmp *%eax");
 }
 
-int CNWSObject::GetScriptVarTable()
+CNWSScriptVarTable * CNWSObject::GetScriptVarTable()
 {
     asm("leave");
     asm("mov $0x081d5af4, %eax");
