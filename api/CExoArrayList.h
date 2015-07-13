@@ -25,7 +25,13 @@ public:
     T & operator[](int);
 
     /* 0x0/0 */ T *Array;
-    /* 0x4/4 */ unsigned long nAllocatedSize;
-    /* 0x8/8 */ unsigned long nUsedSize;
+
+    /* You might have come here for compile errors regarding nAllocatedSize.
+     * The fields were labelled incorrectly, so they have been swapped.
+     * In order to not break plugins in subtle ways we've renamed them.
+     * You probably want "Length" now.
+     */
+    /* 0x4/4 */ unsigned long Length;
+    /* 0x8/8 */ unsigned long ArraySize;
 };
 #endif
