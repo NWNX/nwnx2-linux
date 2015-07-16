@@ -53,6 +53,10 @@ bool CNWNXBase::OnCreate(gline *config, const char* LogFile)
     return (m_fFile != NULL);
 }
 
+void CNWNXBase::OnPluginsLoaded()
+{
+}
+
 bool CNWNXBase::OnRelease()
 {
     // close the log file

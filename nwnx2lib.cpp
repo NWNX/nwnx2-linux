@@ -715,6 +715,10 @@ startstop::startstop()
     LoadLibraries();
     NotifyEventHooksNotAbortable(hPluginsLoadedEvent, 0);
 
+    std::map<string, CNWNXBase*>::iterator it;
+    for (it = Libraries.begin(); it != Libraries.end(); it++)
+        it->second->OnPluginsLoaded();
+
     // log & emit
     Log(0, "* NWNX2 activated.\n");
 }
