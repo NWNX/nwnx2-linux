@@ -47,6 +47,13 @@ public:
     virtual bool OnCreate(gline *nwnxConfig, const char* LogFile = NULL);
 
     ///////////////////////////////////////////////////////////////////////////
+    // Function: OnPluginsLoaded
+    // Description
+    //  OnPluginsLoaded is called at the same time when EVENT_CORE_ONPLUGINSLOADED
+    //  is sent out. You can use this instead of doing HookEvent(..) yourself.
+    virtual void OnPluginsLoaded();
+
+    ///////////////////////////////////////////////////////////////////////////
     // Function: OnRequest (char* Request, char* Parameters)
     // Description
     //	Called when a request is pending from a NWScript.
