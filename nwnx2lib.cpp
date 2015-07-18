@@ -715,6 +715,7 @@ startstop::startstop()
 
     printf("* Loading modules...\n");
     LoadLibraries();
+    Core_Init(&pluginCoreLink);
     NotifyEventHooksNotAbortable(hPluginsLoadedEvent, 0);
 
     // log & emit
