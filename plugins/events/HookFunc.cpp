@@ -69,10 +69,8 @@ unsigned char d_ret_code_cz[0x20];
 unsigned char d_ret_code_tp[0x20];
 unsigned char d_ret_code_pf[0x20];
 unsigned char d_ret_code_vc[0x20];
-unsigned char d_ret_code_objdest[0x20];
 
 int (*CNWSPlayer__ValidateCharacter)(CNWSPlayer *pPlayer, int *result);
-void (*CNWSObject___CNWSObject)(CNWSObject *pObject, int n) = (void (*)(CNWSObject*, int)) 0x081C8E94;
 
 unsigned char **pEBP;
 
@@ -597,16 +595,6 @@ int CNWSPlayer__ValidateCharacter_hook(CNWSPlayer *pPlayer, int *result)
         return CNWSPlayer__ValidateCharacter(pPlayer, result);
 }
 
-void CNWSObject___CNWSObject_hook(CNWSObject *pObject, int n)
-{
-    events.Log(2, "Object destructor: %08lx\n", pObject);
-    if (pObject)
-        events.FireEvent(pObject->ObjectID, EVENT_TYPE_DESTROY_OBJECT);
-    asm("leave");
-    asm("mov $d_ret_code_objdest, %eax");
-    asm("jmp *%eax");
-}
-
 int GetRunScriptReturnValue()
 {
     int type, value;
@@ -663,6 +651,26 @@ void PrintHookInfo(dword function_addr, char *function_name)
 
 }
 
+int CNWSObject__ctor(uintptr_t p)
+{
+    ObjectCreatedEvent *e = (ObjectCreatedEvent*) p;
+    events.FireEvent(((CNWSObject*)e->object)->ObjectID, EVENT_TYPE_CREATE_OBJECT);
+    return 0;
+}
+
+int CNWSObject__dtor(uintptr_t p)
+{
+    ObjectDestroyedEvent *e = (ObjectDestroyedEvent*) p;
+    events.FireEvent(((CNWSObject*)e->object)->ObjectID, EVENT_TYPE_DESTROY_OBJECT);
+    return 0;
+}
+
+int PluginsLoaded(uintptr_t p)
+{
+    HookEvent(EVENT_CORE_OBJECT_CREATED, CNWSObject__ctor);
+    HookEvent(EVENT_CORE_OBJECT_DESTROYED, CNWSObject__dtor);
+}
+
 int HookFunctions(bool enableUnsafe)
 {
     dword org_SaveChar = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 81 EC B8 00 00 00 FF 75 08 C7 85 74");
@@ -692,7 +700,6 @@ int HookFunctions(bool enableUnsafe)
     dword org_TogglePause = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 4C 8A 45 0C 88 45 D3 8B 75 08 8B 86 18 00 01 00 89 45 CC 8A 96 A0 00 01 00 31 C0 84 55 D3 0F 95 C0 3B 45 10 0F 84 47 03 00 00 83 7D 10 01 75 4C 0A 55 D3 83 EC 0C 88 96 A0 00 01 00 FF B6 68 00 01 00 E8 ** ** ** ** 83 C4 10 F6 86 A0 00 01 00 02 B0 02 75 09 8A 86 A0 00 01 00");
     dword org_PossessFamiliar = asmhelp.FindFunctionBySignature("55 89 E5 57 56 53 83 EC 20 6A 01 6A 03 FF 75 08 E8 ** ** ** ** 83 C4 10 3D 00 00 00 7F 0F 84 01 03 00 00 83 EC 08 6A 00 FF 75 08 C7 45 F0 00 00 00 00 E8 ** ** ** ** 83 C4 10 85 C0 74 19 83 EC 18 6A 01 FF 75 08 E8 ** ** ** ** 83 C4 14 50 E8 ** ** ** ** 83 C4 10 8B 45 08 81 78 58 00 00 00 7F 74 0C");
     dword org_ValidateCharacter = 0x080580BC;
-    CNWSObject___CNWSObject = (void (*)(CNWSObject*, int)) 0x081C8E94;
 
     hook_function(org_SaveChar, (unsigned long)SaveCharHookProc, d_ret_code_sc, 12);
     hook_function(org_PickPocket, (unsigned long)PickPocketHookProc, d_ret_code_pp, 12);
@@ -713,9 +720,9 @@ int HookFunctions(bool enableUnsafe)
     hook_function(org_PossessFamiliar, (unsigned long)PossessFamiliarHookProc, d_ret_code_pf, 9);
     hook_function(org_ValidateCharacter, (unsigned long)CNWSPlayer__ValidateCharacter_hook, d_ret_code_vc, 12);
     *(dword*)&CNWSPlayer__ValidateCharacter = (dword)&d_ret_code_vc;
+
     if (enableUnsafe) {
-        hook_function((dword)CNWSObject___CNWSObject, (unsigned long)CNWSObject___CNWSObject_hook, d_ret_code_objdest, 9);
-        *(dword*)&CNWSObject___CNWSObject = (dword)&d_ret_code_objdest;
+        HookEvent(EVENT_CORE_PLUGINSLOADED, PluginsLoaded);
     }
 
     PrintHookInfo(org_SaveChar, "SaveChar");
