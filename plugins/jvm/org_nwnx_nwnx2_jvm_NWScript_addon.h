@@ -2,8 +2,7 @@
 #define NWSCRIPT_ADDON_H
 #include <jni.h>
 
-#include "FunctionHooks.h"
-#include "NWNStructures.h"
+#include "api/all.h"
 #include "org_nwnx_nwnx2_jvm_NWScript.h"
 #include <iostream>
 

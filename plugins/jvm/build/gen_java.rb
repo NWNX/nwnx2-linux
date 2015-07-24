@@ -798,9 +798,16 @@ File.open("#{$core_classprefix}NWScript.h", "w") do |f|
 #define NWSCRIPT_H
 #include <jni.h>
 
-#include "FunctionHooks.h"
-#include "NWNStructures.h"
+#include "typedef.h"
+#include "api/all.h"
 #include <iostream>
+
+#define ENGINE_STRUCTURE_EFFECT 0
+#define ENGINE_STRUCTURE_EVENT 1
+#define ENGINE_STRUCTURE_LOCATION 2
+#define ENGINE_STRUCTURE_TALENT 3
+#define ENGINE_STRUCTURE_ITEMPROPERTY 4
+
 
 extern "C" {
 EOF
@@ -1012,13 +1019,13 @@ EOF
           f.puts "  CGameEffect* id_%1$s = (CGameEffect*) J(env, CallLongMethod(%1$s, jmethodNWItemPropertygetOid));" % name
           f.puts "  if (j_touchedIprp.find(id_%1$s) == j_touchedIprp.end()) { env->ThrowNew(jclassNWInvalidItemPropertyException, \"Do not use itemProperties from past context switches.\"); return #{ExceptionReturnValue[ret]}; }" % name
         when "object"
-          f.puts "  dword id_%1$s;" % name
+          f.puts "  nwobjid id_%1$s;" % name
           f.puts "  if (%1$s == NULL) id_%1$s = 0x7f000000; // OBJECT_INVALID" % name
           f.puts "  else id_%1$s = J(env, CallIntMethod(%1$s, jmethodNWObjectgetOid));" % name
           f.puts "  if (id_%1$s < 0 || id_%1$s > 0x7fffffff) { env->ThrowNew(jclassNWInvalidObjectException, \"Invalid oid() in passed NWObject to #{name} (0 <= oid <= 0xffffffff).\"); return #{ExceptionReturnValue[ret]}; } " % name
         when "location"
           f.puts "  jobject %1$s_area = J(env, CallObjectMethod(%1$s, jmethodNWLocationgetArea));" % name
-          f.puts "  dword id_%1$s;" % name
+          f.puts "  nwobjid id_%1$s;" % name
           f.puts "  if (%1$s_area == NULL) id_%1$s = 0x7f000000; // OBJECT_INVALID" % name
           f.puts "  else id_%1$s = J(env, CallIntMethod(%1$s_area, jmethodNWObjectgetOid));" % name
           f.puts "  if (id_%1$s < 0 || id_%1$s > 0x7fffffff) { env->ThrowNew(jclassNWInvalidObjectException, \"Invalid area.oid() in passed NWObject to #{name} (0 <= oid <= 0xffffffff).\"); return #{ExceptionReturnValue[ret]}; }" % name
@@ -1036,48 +1043,48 @@ EOF
           "jbyte* toNative2_%1$s = (jbyte*) J(env, GetByteArrayElements(toNative_%1$s, 0));\n    " +
           "char* whatever_%1$s = strndup((const char*) toNative2_%1$s, len_%1$s);\n    " +
           "J(env, ReleaseByteArrayElements(toNative_%1$s, toNative2_%1$s, JNI_ABORT));\n    " +
-          "StackPushString(whatever_%1$s);\n    " +
+          "g_pVirtualMachine->StackPushString(whatever_%1$s);\n    " +
           "free(whatever_%1$s);\n    "
 
         when "float"
-          "StackPushFloat(%s);"
+          "g_pVirtualMachine->StackPushFloat(%s);"
 
         when "object"
-          "StackPushObject(id_%1$s);"
+          "g_pVirtualMachine->StackPushObject(id_%1$s);"
 
         when "int"
-          "StackPushInteger(%s);"
+          "g_pVirtualMachine->StackPushInteger(%s);"
 
         when "bool"
-          "StackPushInteger(%s == JNI_TRUE ? 1 : 0);"
+          "g_pVirtualMachine->StackPushInteger(%s == JNI_TRUE ? 1 : 0);"
 
         when "vector"
           "Vector v%1$s;\n  " +
           "v%1$s.X = J(env, CallFloatMethod(%1$s, jmethodNWVectorgetX));\n  " +
           "v%1$s.Y = J(env, CallFloatMethod(%1$s, jmethodNWVectorgetY));\n  " +
           "v%1$s.Z = J(env, CallFloatMethod(%1$s, jmethodNWVectorgetZ));\n  " +
-          "StackPushVector(v%1$s);"
+          "g_pVirtualMachine->StackPushVector(v%1$s);"
 
         when "location"
           "float %1$s_f = J(env, CallFloatMethod(%1$s, jmethodNWLocationgetFacing));\n  " +
-          "StackPushFloat(%1$s_f);\n  " +
+          "g_pVirtualMachine->StackPushFloat(%1$s_f);\n  " +
           "Vector %1$s_vv;\n  " +
           "%1$s_vv.X = J(env, CallFloatMethod(%1$s, jmethodNWLocationgetX));\n  " +
           "%1$s_vv.Y = J(env, CallFloatMethod(%1$s, jmethodNWLocationgetY));\n  " +
           "%1$s_vv.Z = J(env, CallFloatMethod(%1$s, jmethodNWLocationgetZ));\n  " +
-          "StackPushVector(%1$s_vv);\n  " +
+          "g_pVirtualMachine->StackPushVector(%1$s_vv);\n  " +
 
-          "StackPushObject(id_%1$s);\n  " +
-          "VM_ExecuteCommand(215, 3); // This leaves us with a location on the stack.\n  "
+          "g_pVirtualMachine->StackPushObject(id_%1$s);\n  " +
+          "g_pVirtualMachine->m_pCmdImplementer->ExecuteCommand(215, 3); // This leaves us with a location on the stack.\n  "
 
         when "effect"
-          "StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, id_%1$s);"
+          "g_pVirtualMachine->StackPushEngineStructure(ENGINE_STRUCTURE_EFFECT, id_%1$s);"
         when "itemproperty"
-          "StackPushEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, id_%1$s);"
+          "g_pVirtualMachine->StackPushEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, id_%1$s);"
 
         else
           if Enums[type]
-            "StackPushInteger(enum_#{type}_2_long(env, %1$s));\n  "
+            "g_pVirtualMachine->StackPushInteger(enum_#{type}_2_long(env, %1$s));\n  "
             #(Enums[type].map {|int, str|
             #  "if (%1$s == NWN::#{str}) StackPushInteger(#{int});\n  "
             #}).join(" else ") + " else { printf(\"Invalid enum value in #{function} for parameter #{name} of type #{type} passed: %%d. Cannot continue, and it's your fault!\\n\", %1$s); exit(1); };"
@@ -1089,7 +1096,7 @@ EOF
     }
 
     f.puts ""
-    f.puts "  VM_ExecuteCommand(%d, %d);" % [fid, params.size]
+    f.puts "  g_pVirtualMachine->m_pCmdImplementer->ExecuteCommand(%d, %d);" % [fid, params.size]
     f.puts ""
 
     unlock = ""
@@ -1099,35 +1106,36 @@ EOF
         f.puts unlock
 
       when "int"
-        f.puts "  int nRetVal;\n  StackPopInteger(&nRetVal);\n  #{unlock}return nRetVal;"
+        f.puts "  int nRetVal;\n  g_pVirtualMachine->StackPopInteger(&nRetVal);\n  #{unlock}return nRetVal;"
 
       when "bool"
-        f.puts "  int nRetVal;\n  StackPopInteger(&nRetVal);\n  #{unlock}return nRetVal != 0 ? JNI_TRUE : JNI_FALSE;"
+        f.puts "  int nRetVal;\n  g_pVirtualMachine->StackPopInteger(&nRetVal);\n  #{unlock}return nRetVal != 0 ? JNI_TRUE : JNI_FALSE;"
 
       when "float"
-        f.puts "  float fRetVal;\n  StackPopFloat(&fRetVal);\n  #{unlock}return fRetVal;"
+        f.puts "  float fRetVal;\n  g_pVirtualMachine->StackPopFloat(&fRetVal);\n  #{unlock}return fRetVal;"
 
       when "string"
-        f.puts "  char* sRetVal;\n" +
-          "  StackPopString(&sRetVal);\n" +
-          "  jbyteArray myByteStuff = J(env, NewByteArray(strlen(sRetVal)));\n" +
-          "  J(env, SetByteArrayRegion(myByteStuff, 0, strlen(sRetVal), (jbyte*) sRetVal));\n" +
+        f.puts "  CExoString sRetVal;\n" +
+          "  g_pVirtualMachine->StackPopString(&sRetVal);\n" +
+          "  const char* retstr = sRetVal != NULL ? sRetVal.Text : \"\";\n" +
+          "  jbyteArray myByteStuff = J(env, NewByteArray(strlen(retstr)));\n" +
+          "  J(env, SetByteArrayRegion(myByteStuff, 0, strlen(retstr), (jbyte*) retstr));\n" +
           "  jstring retStr = (jstring) J(env, CallStaticObjectMethod(jclassConv, jmethodConvFromNative, myByteStuff));\n" +
           "  #{unlock}return retStr;"
 
       when "object"
-        f.puts "  dword lRetVal;\n  StackPopObject(&lRetVal);\n  #{unlock}" +
+        f.puts "  long unsigned int lRetVal;\n  g_pVirtualMachine->StackPopObject(&lRetVal);\n  #{unlock}" +
         "jobject ret = J(env, CallStaticObjectMethod(jclassNWObject, jmethodNWObjectCreate, lRetVal));\n" +
         "#{unlock}return ret;"
 
       when "vector"
-        f.puts "  Vector vRetVal;\n  StackPopVector(&vRetVal);\n  " +
+        f.puts "  Vector vRetVal;\n  g_pVirtualMachine->StackPopVector(&vRetVal);\n  " +
         "jobject ret = J(env, CallStaticObjectMethod(jclassNWVector, jmethodNWVectorCreate, vRetVal.X, vRetVal.Y, vRetVal.Z));\n" +
         "#{unlock}return ret;"
 
       when "location"
         f.puts "  CScriptLocation *pRetVal;\n  " +
-        "StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);\n  " +
+        "g_pVirtualMachine->StackPopEngineStructure(ENGINE_STRUCTURE_LOCATION, (void **) &pRetVal);\n  " +
         "jobject ret_area = J(env, CallStaticObjectMethod(jclassNWObject, jmethodNWObjectCreate, pRetVal->AreaID));\n" +
         "float facing = atan2(pRetVal->OrientationY, pRetVal->OrientationX) * (180 / 3.1415927);\n  " +
         "while (facing > 360.0) facing -= 360.0; while (facing < 0.0) facing += 360.0;\n  " +
@@ -1138,12 +1146,12 @@ EOF
         f.puts "  CGameEffect *pRetVal;\n  " +
         (case ret
           when "effect"
-            "StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);\n  " +
+            "g_pVirtualMachine->StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void **) &pRetVal);\n  " +
             "j_touchedEffects.insert(pRetVal);\n  " +
             "jobject e = J(env, CallStaticObjectMethod(jclassNWEffect, jmethodNWEffectCreate, (long) pRetVal));\n  " +
             ""
           when "itemproperty"
-            "StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);\n  " +
+            "g_pVirtualMachine->StackPopEngineStructure(ENGINE_STRUCTURE_ITEMPROPERTY, (void **) &pRetVal);\n  " +
             "j_touchedIprp.insert(pRetVal);\n  " +
             "jobject e = J(env, CallStaticObjectMethod(jclassNWItemProperty, jmethodNWItemPropertyCreate, (long) pRetVal));\n  " +
 
@@ -1153,7 +1161,7 @@ EOF
 
       else
         if Enums[ret]
-          f.puts "  int nRetVal;\n  StackPopInteger(&nRetVal);\n  #{unlock}" +
+          f.puts "  int nRetVal;\n  g_pVirtualMachine->StackPopInteger(&nRetVal);\n  #{unlock}" +
           "  return enum_long_2_#{ret}(env, nRetVal);\n  "
           #(Enums[ret].map {|int, str|
           #  "if (nRetVal == #{int}) return NWN::#{str};\n  "
