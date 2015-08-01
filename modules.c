@@ -222,6 +222,13 @@ int SetHookDefaultForHookableEvent(HANDLE hEvent, NWNXHOOK pfnHook)
     return 0;
 }
 
+static char* currentEventName;
+
+const char *GetCurrentEventName()
+{
+    return currentEventName;
+}
+
 int CallHookSubscribers(HANDLE hEvent, uintptr_t pParam, bool abortable)
 {
     int i, returnVal = 0;
@@ -232,6 +239,10 @@ int CallHookSubscribers(HANDLE hEvent, uintptr_t pParam, bool abortable)
         //LeaveCriticalSection( &csHooks );
         return -1;
     }
+
+    char *oldCurrentEventName = currentEventName;
+
+    currentEventName = p->name;
 
     // NOTE: We've got the critical section while all this lot are called. That's mostly safe, though.
     for (i = 0; i < p->subscriberCount; i++) {
@@ -250,6 +261,8 @@ int CallHookSubscribers(HANDLE hEvent, uintptr_t pParam, bool abortable)
     // check for no hooks and call the default hook if any
     if (p->subscriberCount == 0 && p->pfnHook != 0)
         returnVal = p->pfnHook(pParam);
+
+    currentEventName = oldCurrentEventName;
 
     //LeaveCriticalSection(&csHooks);
     return returnVal;
