@@ -30,13 +30,18 @@ public class TestRunner {
 
 		ResMan.addResManListener(new ResManListener() {
 			@Override
-			public byte[] demandRes(String resRef) {
+			public byte[] demand(String resRef) {
 				System.out.println("Demand ResRef: " + resRef);
 				if (resRef.equals("resmantest.2da")) {
 					System.out.println("Returning our own 2da table!");
 					return "2DA V2.0\r\n\r\n     A B\r\n0 a1 b1\r\n1 a2 b2\r\n".getBytes();
 				}
 				return null;
+			}
+
+			@Override
+			public int exists(String resRef) {
+				return resRef.equals("resmantest.2da") ? 1 : -1;
 			}
 		});
 
