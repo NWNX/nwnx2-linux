@@ -448,7 +448,22 @@ struct CNWSScriptVar {
     /* 0xC/12 */ unsigned long m_pValue;
 };
 struct CNWItemProperty {
-    /* 0x0/0 */ CGameEffect Effect;
+    unsigned short Type;
+    unsigned short Subtype;
+    unsigned char  CostTable;
+    unsigned char  field_5;
+    unsigned short CostValue;
+    unsigned char  Param1;
+    unsigned char  Param1Value;
+    unsigned char  ChanceAppear;
+    unsigned char  field_B;
+    unsigned char  Useable;
+    unsigned char  field_D;
+    unsigned char  field_E;
+    unsigned char  field_F;
+    unsigned char  UsesPerDay;
+    unsigned char  DurationType;
+
 };
 struct CNWSQuickbarButton {
 };
