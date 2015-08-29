@@ -5,6 +5,7 @@
 #include "NWNXBase.h"
 
 #include <mhash.h>
+#include <uuid/uuid.h>
 
 class CNWNXMHash : public CNWNXBase
 {

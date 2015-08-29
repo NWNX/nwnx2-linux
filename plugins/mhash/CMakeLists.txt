@@ -1,12 +1,14 @@
-find_package(MHASH)
+find_library(MHASH_LIBRARY mhash)
+find_library(UUID_LIBRARY uuid)
 
-if (MHASH_FOUND)
+if (UUID_LIBRARY)
+if (MHASH_LIBRARY)
+add_module(mhash
+    NWNXMHash
+    plugin-mhash
+)
 
-	add_module(mhash
-	    NWNXMHash
-	    plugin-mhash
-	)
+target_link_libraries(mhash ${MHASH_LIBRARY} ${UUID_LIBRARY})
 
-	target_link_libraries(mhash ${MHASH_LIBRARY})
-
-endif (MHASH_FOUND)
+endif (MHASH_LIBRARY)
+endif (UUID_LIBRARY)

@@ -110,7 +110,16 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
 
     /* MHASH!HASH algo¬data
      * MHASH!HMAC algo¬pass¬data
+     * MHASH!UUID
      */
+
+    if (strcmp("UUID", Request) == 0) {
+        uuid_t uuid;
+        uuid_generate(uuid);
+        char *uuid_s = (char*) malloc(37);
+        uuid_unparse_lower(uuid, uuid_s);
+        return uuid_s;
+    }
 
     char *p = strdup(Parameters);
     char *algo = strtok(p, "¬");
