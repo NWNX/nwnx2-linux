@@ -40,7 +40,8 @@
 #define EVENT_TYPE_POSSESS_FAMILIAR     12
 #define EVENT_TYPE_VALIDATE_CHARACTER   13
 #define EVENT_TYPE_DESTROY_OBJECT       14
-#define NUM_EVENT_TYPES                 15
+#define EVENT_TYPE_CREATE_OBJECT        15
+#define NUM_EVENT_TYPES                 16
 
 enum eNodeType {StartingNode, EntryNode, ReplyNode};
 

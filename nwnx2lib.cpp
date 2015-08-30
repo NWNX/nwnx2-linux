@@ -663,6 +663,7 @@ void LoadCoreModule()
     pluginCoreLink.NotifyEventHooksNotAbortable = NotifyEventHooksNotAbortable;
     pluginCoreLink.SetHookDefaultForHookableEvent = SetHookDefaultForHookableEvent;
     pluginCoreLink.GetCurrentEventName = GetCurrentEventName;
+    pluginCoreLink.SetHookInitializer = SetHookInitializer;
     //pluginCoreLink.NotifyEventHooksDirect=CallHookSubscribers;
 
     hPluginsLoadedEvent = CreateHookableEvent(EVENT_CORE_PLUGINSLOADED);
@@ -714,6 +715,7 @@ startstop::startstop()
 
     printf("* Loading modules...\n");
     LoadLibraries();
+    Core_Init(&pluginCoreLink);
     NotifyEventHooksNotAbortable(hPluginsLoadedEvent, 0);
 
     // log & emit

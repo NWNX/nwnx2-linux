@@ -42,6 +42,11 @@ add_library(nwnx2 SHARED nwnx2lib NWNXBase modules lists gline
 	lib/nx_hook lib/nx_log lib/nx_safe lib/nx_signature
 	lib/NwnDefines
 	api/nwnsyms.S api/all
+
+    core/core
+    core/events/Mainloop
+    core/events/RunScript
+    core/events/Object
 )
 
 # Fake target to force recreating the compiled directory.
