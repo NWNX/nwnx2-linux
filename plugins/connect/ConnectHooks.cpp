@@ -23,7 +23,7 @@
 #include <dlfcn.h>
 #include <stdarg.h>
 
-#include <limits.h>		/* for PAGESIZE */
+#include <limits.h>     /* for PAGESIZE */
 #ifndef PAGESIZE
 #define PAGESIZE 4096
 #endif
@@ -49,6 +49,16 @@ int CNWSMessage__HandlePlayerToServerMessage_Hook(CNWSMessage *pMessage, int nPl
     int nSubtype = pData[2];
     plugin.Log(0, "Message: PID %d, type %x, subtype %x\n", nPlayerID, nType, nSubtype);
     if (nType == 1) {
+        ConnectPlayerConnectEvent ev = {
+            (const uint32_t) nPlayerID,
+            10294 /* Your player name has been refused by the server. */
+        };
+        if (NotifyEventHooks(plugin.hPlayerConnect, (uintptr_t) &ev)) {
+            g_pAppManager->ServerExoApp->GetNetLayer()->
+            DisconnectPlayer(nPlayerID, ev.disconnect_strref, 1);
+            return 0;
+        }
+
         SendHakList(pMessage, nPlayerID);
     }
     return CNWSMessage__HandlePlayerToServerMessage(pMessage, nPlayerID, pData, nLen);
@@ -75,7 +85,32 @@ void SendHakList(CNWSMessage *pMessage, int nPlayerID)
     }
 }
 
+static int (*CNetLayerInternal__DisconnectPlayer)(void *nl,
+        const unsigned int playerId, const unsigned int strref, int sendBNDP, int a5);
+
+static int CNetLayerInternal__DisconnectPlayer_Hook(void *nl,
+        const unsigned int playerId, const unsigned int strref, int sendBNDP, int a5)
+{
+    ConnectPlayerDisconnectEvent ev = {
+        playerId, strref
+    };
+
+    NotifyEventHooksNotAbortable(plugin.hPlayerDisconnectBefore, (uintptr_t) &ev);
+
+    int ret = CNetLayerInternal__DisconnectPlayer(nl,
+              playerId, strref, sendBNDP, a5);
+
+    NotifyEventHooksNotAbortable(plugin.hPlayerDisconnectAfter, (uintptr_t) &ev);
+
+    return ret;
+}
+
+
 int HookFunctions()
 {
-    *(void**)&CNWSMessage__HandlePlayerToServerMessage = nx_hook_function((void *) 0x08196544, (void *) CNWSMessage__HandlePlayerToServerMessage_Hook, 5, NX_HOOK_DIRECT | NX_HOOK_RETCODE);
+    NX_HOOK(CNWSMessage__HandlePlayerToServerMessage, 0x08196544,
+            CNWSMessage__HandlePlayerToServerMessage_Hook, 5);
+
+    NX_HOOK(CNetLayerInternal__DisconnectPlayer, 0x082a9f68,
+            CNetLayerInternal__DisconnectPlayer_Hook, 5);
 }
