@@ -1,4 +1,18 @@
 /**
+ * Generates a UUID.
+ *
+ * The UUID will be of type v4 when a reliable source of random
+ * data is available; otherwise, it will be a v3 bound to your local
+ * MAC address.
+ *
+ * See uuid_generate(3) for details.
+ *
+ * Returned value is a 36-character UUID like so:
+ *   2f8e8c3e-61e0-4f97-b367-b9d5c8123693
+ */
+string mhash_uuid();
+
+/**
  * Hashes a string with a named algorithm.
  *
  * For a list of supported algorithms, read the mhash manpage of your distro, or have a look
