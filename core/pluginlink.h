@@ -7,11 +7,35 @@
  * Param: NULL
  * Abortable: No
  *
- * Called after all modules have been loaded.
+ * Called after all plugins have been loaded.
  *
  * Best place to hook events provided by other modules inside plugins.
  */
 #define EVENT_CORE_PLUGINSLOADED "Core/PluginsLoaded"
+
+/**
+ * Event: EVENT_CORE_MODULE_LOADING
+ * Param: CoreModuleLoadingEvent
+ * Abortable: No
+ *
+ * Called when a new module is loading, either on startup or
+ * via the interactive commands.
+ */
+#define EVENT_CORE_MODULE_LOADING "Core/ModuleLoading"
+
+struct CoreModuleLoadingEvent {
+    const char *module;
+};
+
+/**
+ * Event: EVENT_CORE_MODULE_LOADED
+ * Param: NULL
+ * Abortable: No
+ *
+ * Called after a new module was loaded successfully, just
+ * before the first scripts run.
+ */
+#define EVENT_CORE_MODULE_LOADED "Core/ModuleLoaded"
 
 /**
  * Event: EVENT_CORE_RUNSCRIPT
@@ -24,17 +48,17 @@
 #define EVENT_CORE_RUNSCRIPT "Core/RunScript"
 
 struct CoreRunScriptEvent {
-	/* The script filename, without extension */
-	const char* resref;
-	/* the object Id which would be OBJECT_SELF in NWScript. */
-	const nwobjid objectId;
-	/* 1 for top-level scripts */
-	const int recursionLevel;
-	/* Set to true to suppress any nwscript by that name from executing. */
-	bool suppress;
-	/* Set the return value for conditional scripts. -1 for none, 0 for false,
-	 * 1 for true. */
-	int returnValue;
+    /* The script filename, without extension */
+    const char* resref;
+    /* the object Id which would be OBJECT_SELF in NWScript. */
+    const nwobjid objectId;
+    /* 1 for top-level scripts */
+    const int recursionLevel;
+    /* Set to true to suppress any nwscript by that name from executing. */
+    bool suppress;
+    /* Set the return value for conditional scripts. -1 for none, 0 for false,
+     * 1 for true. */
+    int returnValue;
 };
 
 /**
@@ -56,13 +80,13 @@ struct CoreRunScriptEvent {
 #define EVENT_CORE_RUNSCRIPT_SITUATION "Core/RunScriptSituation"
 
 struct CoreRunScriptSituationEvent {
-	/* The script filename, without extension */
-	char* marker;
-	uint32_t token;
-	/* the object Id which would be OBJECT_SELF in NWScript. */
-	nwobjid objectId;
-	/* Set to true to suppress any nwscript by that name from executing. */
-	bool suppress;
+    /* The script filename, without extension */
+    char* marker;
+    uint32_t token;
+    /* the object Id which would be OBJECT_SELF in NWScript. */
+    nwobjid objectId;
+    /* Set to true to suppress any nwscript by that name from executing. */
+    bool suppress;
 };
 
 /**
@@ -114,7 +138,7 @@ struct CoreRunScriptSituationEvent {
  */
 #define EVENT_CORE_OBJECT_CREATED "Core/CNWSObject/Created"
 struct ObjectCreatedEvent {
-	const void *object;
+    const void *object;
     const nwobjid requestedId;
 };
 
@@ -133,5 +157,5 @@ struct ObjectCreatedEvent {
  */
 #define EVENT_CORE_OBJECT_DESTROYED "Core/CNWSObject/Destroyed"
 struct ObjectDestroyedEvent {
-	const void *object;
+    const void *object;
 };

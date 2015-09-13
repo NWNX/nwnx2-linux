@@ -3,14 +3,16 @@
 PLUGINLINK *pluginLink;
 
 void Core_Mainloop_Init();
+void Core_Module_Init();
 void Core_RunScript_Init();
 void Core_Object_Init();
 
 void Core_Init(PLUGINLINK *link)
 {
-	pluginLink = link;
+    pluginLink = link;
 
-	Core_Mainloop_Init();
-	Core_RunScript_Init();
-	Core_Object_Init();
+    Core_Mainloop_Init();
+    Core_Module_Init();
+    Core_RunScript_Init();
+    Core_Object_Init();
 }
