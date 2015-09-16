@@ -45,15 +45,14 @@ void SendServerToPlayerCCMessage_hook(CNWSMessage *pMessage, uint32_t nPlayerID,
 {
     bool suppress = false;
     CNWSClient *client = g_pAppManager->ServerExoApp->GetClientObjectByPlayerId(nPlayerID, 0);
-    CNWSPlayer *player = NULL;
-    if (client && (player = client->AsNWSPlayer())) {
+    if (client) {
+        CNWSPlayer *player = reinterpret_cast<CNWSPlayer *>(client);
         dword oPC = player->m_oidPCObject;
         int nSubtype = nMessageID == 11 ? pMessageData->IntList.Array[9] : 0;
         chat.Log(3, "PlayerID=%d, ObjectID=%08lX, MessageID=%d, MessageSubID=%d\n", nPlayerID, oPC, nMessageID, nMessageID == 11 ? pMessageData->IntList.Array[9] : 0);
         if (!chat.scriptRun)
             suppress = chat.CCMessage(oPC, nMessageID, nSubtype, pMessageData);
     }
-
     if (!chat.scriptRun && suppress)
         return;
 
