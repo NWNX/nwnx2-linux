@@ -290,33 +290,33 @@ public:
         async_write(socket_,
                     buffer(data_, length),
                     boost::bind(&session::handle_state, this,
-                                placeholders::error,
-                                placeholders::bytes_transferred));
+                                boost::asio::placeholders::error,
+                                boost::asio::placeholders::bytes_transferred));
         timer_.expires_from_now(boost::posix_time::seconds(10));
         timer_.async_wait(boost::bind(&session::handle_timeout, this,
-                                      placeholders::error));
+                                      boost::asio::placeholders::error));
     }
 
     void recv(int length) {
         async_read(socket_,
                    buffer(data_, length),
                    boost::bind(&session::handle_state, this,
-                               placeholders::error,
-                               placeholders::bytes_transferred));
+                               boost::asio::placeholders::error,
+                               boost::asio::placeholders::bytes_transferred));
         timer_.expires_from_now(boost::posix_time::seconds(10));
         timer_.async_wait(boost::bind(&session::handle_timeout, this,
-                                      placeholders::error));
+                                      boost::asio::placeholders::error));
     }
 
     void recvbuf(unsigned char *buf, int length) {
         async_read(socket_,
                    buffer(buf, length),
                    boost::bind(&session::handle_state, this,
-                               placeholders::error,
-                               placeholders::bytes_transferred));
+                               boost::asio::placeholders::error,
+                               boost::asio::placeholders::bytes_transferred));
         timer_.expires_from_now(boost::posix_time::seconds(10));
         timer_.async_wait(boost::bind(&session::handle_timeout, this,
-                                      placeholders::error));
+                                      boost::asio::placeholders::error));
     }
 
     bool prepvault() {
@@ -419,7 +419,7 @@ public:
         session* new_session = new session(io_service_, c);
         acceptor_.async_accept(new_session->socket(),
                                boost::bind(&server::handle_accept, this, new_session,
-                                           placeholders::error));
+                                           boost::asio::placeholders::error));
     }
 
     void handle_accept(session* new_session,
@@ -432,7 +432,7 @@ public:
             new_session = new session(io_service_, c_);
             acceptor_.async_accept(new_session->socket(),
                                    boost::bind(&server::handle_accept, this, new_session,
-                                               placeholders::error));
+                                               boost::asio::placeholders::error));
         } else {
             delete new_session;
         }
