@@ -65,6 +65,10 @@ bool CNWNXConnect::OnCreate(gline *config, const char *LogDir)
         //return false;
     }
 
+    hPlayerConnect          = CreateHookableEvent(EVENT_CONNECT_PLAYER_CONNECT);
+    hPlayerDisconnectBefore = CreateHookableEvent(EVENT_CONNECT_PLAYER_DISCONNECT_BEFORE);
+    hPlayerDisconnectAfter = CreateHookableEvent(EVENT_CONNECT_PLAYER_DISCONNECT_AFTER);
+
     return true;
 }
 

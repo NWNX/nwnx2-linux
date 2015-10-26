@@ -24,6 +24,8 @@
 #include <string>
 #include "NWNXBase.h"
 
+#include "pluginlink.h"
+
 class CNWNXConnect : public CNWNXBase
 {
 public:
@@ -38,6 +40,8 @@ public:
 
     StringMap pluginConfig;
 
+    HANDLE hPlayerConnect;
+    HANDLE hPlayerDisconnectBefore, hPlayerDisconnectAfter;
 private:
 
 };
