@@ -76,6 +76,21 @@ static int nwnxinitdisabled = 0;
 // hashtable (ok, ok, a red-black tree)
 static map<string, CNWNXBase*> Libraries;
 
+const map<string, CNWNXBase*> & GetLoadedLibraries()
+{
+    return Libraries;
+}
+
+const int GetCoreDebugLevel()
+{
+    return debuglevel;
+}
+
+void SetCoreDebugLevel(int level)
+{
+    debuglevel = level;
+}
+
 static unsigned char jmp_code[] = "\x68\x60\x70\x80\x90"	/* push dword 0x90807060 */
                                   "\xc3\x90\x90";		/* ret , nop , nop       */
 static unsigned char ret_code_ss[0x20] asm("ret_code_ss");

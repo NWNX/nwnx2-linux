@@ -116,6 +116,11 @@ int CNWNXBase::SetDebugLevel(int level)
     return temp;
 }
 
+int CNWNXBase::GetDebugLevel()
+{
+    return debuglevel;
+}
+
 void CNWNXBase::BaseConf()
 {
 

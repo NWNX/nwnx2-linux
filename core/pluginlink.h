@@ -159,3 +159,29 @@ struct ObjectCreatedEvent {
 struct ObjectDestroyedEvent {
     const void *object;
 };
+
+/**
+ * Event: EVENT_CORE_CONSOLE_INPUT
+ * Param: CoreConsoleInputEvent
+ * Abortable: No
+ * Initializer: Always
+ *
+ * Called for input on the server console.
+ * This event runs in the nwserver main loop.
+ *
+ * Set param->pass to false to stop nwserver from handling the command.
+ *
+ * Hint: If you want to output help for your command, just printf it to stdout
+ * in the following format when command matches "help":
+ *
+ *     printf("wobbit <count>");
+ *     printf("\tSpawn <count> wobbits.");
+ *
+ * Your text will be added to the bottom of the output.
+ */
+#define EVENT_CORE_CONSOLE_INPUT "Core/Console/Input"
+struct CoreConsoleInputEvent {
+    const char *command;
+    const char *arguments;
+    bool pass;
+};

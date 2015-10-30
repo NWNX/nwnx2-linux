@@ -99,6 +99,8 @@ public:
     //  level	: the desired level
     int SetDebugLevel(int level);
 
+    int GetDebugLevel();
+
     ///////////////////////////////////////////////////////////////////////////
     // Function: BaseConf ();
     // Description:
