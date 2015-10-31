@@ -44,7 +44,7 @@
 
 CNWNXServerlist::CNWNXServerlist()
 {
-    confKey = "TMI";
+    confKey = "SERVERLIST";
 }
 
 CNWNXServerlist::~CNWNXServerlist()
