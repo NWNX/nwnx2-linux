@@ -35,6 +35,7 @@ int nx_hook_enable_exec(const void *addr, size_t len);
 int nx_hook_enable_write(const void *addr, size_t len);
 
 void *nx_hook_function(void *addr, void *func, size_t len, uint32_t flags);
+void nx_hook_function_call(void *addr, void *func);
 
 void nwn_hook_init(void);
 
@@ -55,6 +56,14 @@ void nwn_hook_init(void);
  */
 #define NX_HOOK(orig, addr, hook, bytes) \
     *(void**)&orig = nx_hook_function((void*)addr, (void*)hook, bytes, NX_HOOK_DIRECT | NX_HOOK_RETCODE)
+
+/**
+ * Macro: NX_HOOK_CALL
+ *
+ * Helper macro to hook mid-function calls without having to apply user casts.
+ */
+#define NX_HOOK_CALL(addr,hook) \
+    nx_hook_function_call((void*) addr, (void*) hook)
 
 #endif /* _NX_HOOK_H_ */
 

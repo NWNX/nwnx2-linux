@@ -33,17 +33,11 @@ static short CServerExoApp__GetServerMode(CServerExoApp *s)
     return ret;
 }
 
-static inline void HookCall(DWORD src_addr, DWORD to_addr)
-{
-    nx_hook_enable_write((void*) src_addr, 5);
-    *(DWORD *)(src_addr + 1) = to_addr - (src_addr + 5);
-}
-
 void Core_Module_Init()
 {
     hModuleLoading = CreateHookableEvent(EVENT_CORE_MODULE_LOADING);
     hModuleLoaded = CreateHookableEvent(EVENT_CORE_MODULE_LOADED);
 
-    HookCall(0x0804e712, (DWORD) CServerExoApp__LoadModule);
-    HookCall(0x0804e77a, (DWORD) CServerExoApp__GetServerMode);
+    NX_HOOK_CALL(0x0804e712, CServerExoApp__LoadModule);
+    NX_HOOK_CALL(0x0804e77a, CServerExoApp__GetServerMode);
 }

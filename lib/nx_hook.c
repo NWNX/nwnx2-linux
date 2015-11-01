@@ -107,4 +107,10 @@ void *nx_hook_function(void *addr, void *func, size_t len, uint32_t flags)
     return trampoline;
 }
 
+void nx_hook_function_call(void *addr, void *func)
+{
+    nx_hook_enable_write((void*) addr, 5);
+    *(uint32_t *)(addr + 1) = func - (addr + 5);
+}
+
 /* vim: set sw=4: */
