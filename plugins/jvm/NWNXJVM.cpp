@@ -1,22 +1,3 @@
-/***************************************************************************
-    NWNXJava.cpp - Implementation of the CNWNXJVM class.
-    (c) 2009 Bernhard Stoeckner (elven@swordcoast.net)
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- ***************************************************************************/
-
 #include <string.h>
 #include <string>
 #include <stdlib.h>
@@ -25,7 +6,6 @@
 #include <signal.h>
 
 #include "NWNXJVM.h"
-#include "FunctionHooks.h"
 #include "org_nwnx_nwnx2_jvm_registerNWScript.cpp"
 #include "org_nwnx_nwnx2_jvm_registerNWScript_addon.cpp"
 
@@ -99,13 +79,12 @@ static int ResManDemand(uintptr_t p);
 CNWNXJVM::CNWNXJVM()
 {
     confKey = (char*) "JVM";
-    bHooked = 1;
 }
 
 int systemStartup(uintptr_t p)
 {
-    HANDLE handleSCO = HookEvent("NWServer/RCO", ReadSCO);
-    HANDLE handleRCO = HookEvent("NWServer/SCO", WriteSCO);
+    HANDLE handleSCO = HookEvent(EVENT_ODBC_RCO, ReadSCO);
+    HANDLE handleRCO = HookEvent(EVENT_ODBC_SCO, WriteSCO);
     HANDLE handleResManExists = HookEvent(EVENT_RESMAN_EXISTS, ResManExists);
     HANDLE handleResManDemand = HookEvent(EVENT_RESMAN_DEMAND, ResManDemand);
     if (!handleSCO || !handleRCO || !handleResManExists || !handleResManDemand)
@@ -145,16 +124,6 @@ bool CNWNXJVM::OnCreate(gline *config, const char *LogDir)
         return false;
     } else {
         Log(0, "Plugin link: %08lX\n", pluginLink);
-    }
-
-
-    if (HookFunctions(0 != strcmp("", (*nwnxConfig)[confKey]["scorcoListener"].c_str()))) {
-        bHooked = 1;
-        Log(0, "* Module loaded successfully.\n");
-    } else {
-        bHooked = 0;
-        Log(0, "* Signature recognition failed.\n");
-        return false;
     }
 
     return LaunchVM();
