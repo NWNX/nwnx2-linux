@@ -838,7 +838,10 @@ public:
     /* 0xA18/2584 */ unsigned long PrimaryRange;
     /* 0xA20/2592 */ char rsvd11[4];
     /* 0xA20/2592 */ unsigned long SecondaryRange;
-    /* 0xA84/2692 */ char rsvd12[96];
+    /* 0xA74/2692 */ char rsvd12[80];
+    /* 0xA74/2692 */ unsigned long ItemSpell;
+    /* 0xA78/2692 */ unsigned long ItemSpellLevel;
+    /* 0xA7C/2692 */ char rsvd12_2[8];
     /* 0xA84/2692 */ unsigned long field_A84;
     /* 0xA88/2696 */ unsigned long Spotted;
     /* 0xA8C/2700 */ unsigned long field_A8C[15];
