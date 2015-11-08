@@ -55,6 +55,8 @@ add_library(nwnx2 SHARED nwnx2lib NWNXBase modules lists gline
 	api/nwnsyms.S api/all
 
     core/core
+    core/events/Console
+    core/events/Console_Builtins
     core/events/Mainloop
     core/events/Module
     core/events/RunScript
