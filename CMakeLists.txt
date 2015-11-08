@@ -37,6 +37,17 @@ endif (NOT ruby)
 include_directories(lib include .)
 include_directories(plugins)
 
+include(CheckCXXCompilerFlag)
+CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
+CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
+if(COMPILER_SUPPORTS_CXX11)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+elseif(COMPILER_SUPPORTS_CXX0X)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+else()
+        message(SEND_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+endif()
+
 add_library(nwnx2 SHARED nwnx2lib NWNXBase modules lists gline
 	lib/nwn_data lib/nwn_funcs lib/nwn_hooks
 	lib/nx_hook lib/nx_log lib/nx_safe lib/nx_signature
