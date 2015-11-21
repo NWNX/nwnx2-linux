@@ -56,6 +56,15 @@ string mhash_hmac(string algorithm, string password, string data);
  */
 string mhash_keygen_mcrypt(int length, string algorithm, string password, string salt);
 
+string mhash_uuid()
+{
+    SetLocalString(GetModule(), "NWNX!MHASH!UUID", " ");
+    string ret = GetLocalString(GetModule(), "NWNX!MHASH!UUID");
+    // We delete it to make sure we dont leak anything to other scripts.
+    DeleteLocalString(GetModule(), "NWNX!MHASH!UUID");
+    return ret;
+}
+
 string mhash_hash(string algorithm, string data)
 {
     SetLocalString(GetModule(), "NWNX!MHASH!HASH", algorithm + "¬" + data);
