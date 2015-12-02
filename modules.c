@@ -1,6 +1,8 @@
 #include "commonheaders.h"
 #include "modules.h"
 
+#include <execinfo.h>
+
 // list of hooks
 
 typedef struct {
@@ -291,7 +293,7 @@ void NotifyEventHooksNotAbortable(HANDLE hEvent, uintptr_t pParam)
 	CallHookSubscribers(hEvent, pParam, false);
 }
 
-HANDLE HookEvent(const char* name, NWNXHOOK hookProc)
+HANDLE HookEventOptionally(const char* name, NWNXHOOK hookProc)
 {
     int idx;
     THook* p;
@@ -299,6 +301,7 @@ HANDLE HookEvent(const char* name, NWNXHOOK hookProc)
 
     //EnterCriticalSection( &csHooks );
     if (!List_GetIndex((SortedList*)&hooks, (void*)name, &idx)) {
+
 #ifdef _DEBUG
         //OutputDebugStringA("Attempt to hook: \t");
         //OutputDebugStringA(name);
@@ -325,6 +328,27 @@ HANDLE HookEvent(const char* name, NWNXHOOK hookProc)
 
 
     //LeaveCriticalSection( &csHooks );
+    return ret;
+}
+
+HANDLE HookEvent(const char *name, NWNXHOOK hookProc)
+{
+    HANDLE ret = HookEventOptionally(name, hookProc);
+
+    if (!ret) {
+        fprintf(stderr,
+                "[PluginLink] a plugin requires hook '%s', which noone provides.\n",
+                name);
+        fprintf(stderr, "Backtrace:\n");
+        void* callstack[32];
+        int i, frames = backtrace(callstack, 32);
+        char** bt = backtrace_symbols(callstack, frames);
+        for (i = 0; i < frames; ++i)
+            fprintf(stderr, " - %s\n", bt[i]);
+        free(bt);
+        abort();
+    }
+
     return ret;
 }
 
