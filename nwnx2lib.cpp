@@ -406,7 +406,7 @@ LoadLibraries()
         if ((handle = dlopen(fname, RTLD_NOW)) == NULL) {
 
             Log(0, "ERROR: dlopen: %s: %s\n" , fname, dlerror());
-            continue;
+            exit(1);
         }
 
         // get the Class Accessor
@@ -414,7 +414,7 @@ LoadLibraries()
                               "GetClassObject")) == NULL) {
             Log(0, "ERROR: dlsym: %s: %s\n" , fname, dlerror());
             dlclose(handle);
-            continue;
+            exit(1);
         }
 
         Plugin_Info getPluginInfo = (Plugin_Info) dlsym(handle, "GetPluginInfo");
@@ -440,7 +440,7 @@ LoadLibraries()
         if ((pBase = (*GetClassObject)()) == NULL) {
             Log(0, "ERROR: %s: GetClassObject returned NULL.\n", key);
             dlclose(handle);
-            continue;
+            exit(1);
         }
 
         // initialize the plugin
@@ -449,7 +449,7 @@ LoadLibraries()
         if (!pBase->OnCreate(&nwnxConfig, logDir)) {
             Log(0, "ERROR: %s: OnCreate() failed.\n", key);
             dlclose(handle);
-            continue;
+            exit(1);
         }
 
         // Register the plugin
