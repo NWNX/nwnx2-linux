@@ -61,7 +61,11 @@ add_library(nwnx2 SHARED nwnx2lib NWNXBase modules lists gline
     core/events/Module
     core/events/RunScript
     core/events/Object
+    core/ThreadUtil
 )
+
+# for core/ThreadUtil
+target_link_libraries(nwnx2 pthread)
 
 # Fake target to force recreating the compiled directory.
 add_custom_target(always_rebuild_compiled ALL
