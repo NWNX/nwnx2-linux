@@ -590,6 +590,9 @@ struct PEERJoinResult {
 struct MessageType {
 };
 struct STR_RES {
+    CExoString Text;
+    CResRef SoundResRef;
+    float SoundLength;
 };
 struct CTlkTableToken {
 };
