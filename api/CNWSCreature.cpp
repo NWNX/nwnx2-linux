@@ -1659,7 +1659,7 @@ int CNWSCreature::GetCanSlayAlignment(CNWSObject *, CNWItemProperty *)
     asm("jmp *%eax");
 }
 
-int CNWSCreature::GetCombatMode()
+unsigned char CNWSCreature::GetCombatMode()
 {
     asm("leave");
     asm("mov $0x0813da9c, %eax");
