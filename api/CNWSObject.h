@@ -10,6 +10,7 @@
 #include "CNWSObjectActionNode.h"
 #include "CGameEffect.h"
 #include "CGameObject.h"
+#include "CNWSScriptVarTable.h"
 
 class CNWSObject : public CGameObject
 {
@@ -319,8 +320,7 @@ public:
     /* 0xD4/212 */ unsigned long Invulnerable;
     /* (mtype:CExoLinkedList<CNWSObjectActionNode>) */
     /* 0xD8/216 */ CExoLinkedList<CNWSObjectActionNode> ActionsList;
-    /* 0xDC/220 */ CNWSScriptVarTable * ScriptVarTable;
-    /* 0xE0/224 */ unsigned long field_E0;
+    /* 0xDC/220 */ CNWSScriptVarTable ScriptVarTable;
     /* 0xE4/228 */ unsigned long field_E4;
     /* 0xE8/232 */ unsigned long field_E8;
     /* 0xEC/236 */ CGameEffect **Effects;

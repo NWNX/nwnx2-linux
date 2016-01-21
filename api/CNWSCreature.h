@@ -6,6 +6,7 @@
 #include "CExoString.h"
 #include "CResRef.h"
 #include "CExoArrayList.h"
+#include "CNWSInventory.h"
 #include "nwnstructs.h"
 
 class CNWSCreature : public CNWSObject
@@ -248,7 +249,7 @@ public:
     int GetBroadcastedAOOTo();
     int GetCalculateNPCWeight();
     int GetCanSlayAlignment(CNWSObject *, CNWItemProperty *);
-    int GetCombatMode();
+    unsigned char GetCombatMode();
     int GetCombatRound();
     int GetCombatStateTimer();
     int GetCombatState();
@@ -875,7 +876,7 @@ public:
     /* (ptr_to:CExoArrayList<int>) */
     /* 0xB60/2912 */ CExoArrayList<int> *m_pReputation;
     /* 0xB70/2928 */ char rsvd17[12];
-    /* 0xB70/2928 */ void *Inventory;
+    /* 0xB70/2928 */ CNWSInventory* Inventory;
     /* 0xB74/2932 */ void *ItemRepository;
     /* 0xB78/2936 */ unsigned short field_B78;
     /* 0xB7A/2938 */ unsigned short field_B7A;
