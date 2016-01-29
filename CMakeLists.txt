@@ -21,6 +21,11 @@ set(CMAKE_CXX_FLAGS "-mtune=i386 -m32 -mno-accumulate-outgoing-args -Wall -Wno-u
 set(CMAKE_SHARED_LIBRARY_C_FLAGS "")
 set(CMAKE_SHARED_LIBRARY_CXX_FLAGS "")
 
+# The standard NWNX plugins won't run with optimizations on, so force them to be off.
+set(CMAKE_CXX_FLAGS_DEBUG "-O0 -ggdb")
+set(CMAKE_CXX_FLAGS_RELEASE "-O0 -s")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O0")
+
 enable_language(ASM)
 
 find_package(ZLIB REQUIRED)
@@ -48,11 +53,26 @@ else()
         message(SEND_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
-add_library(nwnx2 SHARED nwnx2lib NWNXBase modules lists gline
-	lib/nwn_data lib/nwn_funcs lib/nwn_hooks
-	lib/nx_hook lib/nx_log lib/nx_safe lib/nx_signature
-	lib/NwnDefines
-	api/nwnsyms.S api/all
+add_library(nwnx2 SHARED
+    nwnx2lib
+    NWNXBase
+    modules
+    lists
+    gline
+
+    lib/nwn_data
+    lib/nwn_funcs
+    lib/nwn_hooks
+    lib/nx_hook
+    lib/nx_log
+    lib/nx_safe
+    lib/nx_signature
+    lib/NwnDefines
+
+    lib-arelith/Functions
+    lib-arelith/FunctionHook
+
+    api/nwnsyms.S api/all
 
     core/core
     core/events/Console
