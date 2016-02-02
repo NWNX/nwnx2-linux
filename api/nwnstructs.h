@@ -363,6 +363,9 @@ struct NWPlayerCharacterList_st {
 struct CNWSTagNode {
 };
 struct CNWSPVPEntry {
+    nwobjid Object;
+    unsigned long field_0004;
+    int LikeStatus;
 };
 struct SJournalEntry {
 };
