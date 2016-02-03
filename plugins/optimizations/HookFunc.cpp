@@ -163,8 +163,12 @@ d_redirect(long from, long to, unsigned char *d_ret_code, long len = 0)
 
 int HookFunctions()
 {
-    HookEvent(EVENT_CORE_MAINLOOP_BEFORE, eventMainLoopBefore);
-    HookEvent(EVENT_CORE_MAINLOOP_AFTER, eventMainLoopAfter);
+    HookEvent(EVENT_CORE_PLUGINSLOADED, [](uintptr_t) -> int
+    {
+        HookEvent(EVENT_CORE_MAINLOOP_BEFORE, eventMainLoopBefore);
+        HookEvent(EVENT_CORE_MAINLOOP_AFTER, eventMainLoopAfter);
+        return 0;
+    });
 
     memset(aLoopTimes, 0, sizeof(dword)*HIST_LENGTH);
     *(dword*)&pMainLoopDelay = 0x0804BBF2;
