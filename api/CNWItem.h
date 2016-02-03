@@ -15,8 +15,8 @@ protected:
     CNWItem();
 
 public:
-    /* 0x0/0 */ unsigned long field_0;
-    /* 0x4/4 */ unsigned long field_4;
+    /* 0x0/0 */ unsigned char LayeredTextureColor[6];
+    /* 0x6/6 */ unsigned short field_6;
     /* 0x8/8 */ unsigned long BaseItem;
     /* 0xC/12 */ Base_vtbl<CNWItem> *vptr;
 };
