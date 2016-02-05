@@ -52,9 +52,9 @@ protected:
     CNWArea();
 
 public:
-    /* 0x0/0 */ unsigned long field_0;
-    /* 0x4/4 */ unsigned long field_4;
-    /* 0x8/8 */ unsigned long field_8;
+    /* 0x0/0 */ unsigned long Flags;
+    /* 0x4/4 */ unsigned long Width;
+    /* 0x8/8 */ unsigned long Height;
     /* 0xC/12 */ unsigned long field_C;
     /* 0x10/16 */ unsigned long field_10;
     /* 0x14/20 */ unsigned long field_14;
@@ -88,11 +88,14 @@ public:
     /* 0x84/132 */ unsigned long SunShadows;
     /* 0x88/136 */ unsigned long DayNightCycle;
     /* 0x8C/140 */ unsigned long IsNight;
-    /* 0x90/144 */ unsigned long SkyBox;
-    /* 0x94/148 */ unsigned long field_94;
+    /* 0x90/144 */ unsigned char SkyBox;
+    /* 0x91/145 */ unsigned char field_91;
+    /* 0x92/146 */ unsigned char field_92;
+    /* 0x93/147 */ unsigned char field_93;
+    /* 0x94/148 */ unsigned char Wind;
     /* 0x98/152 */ unsigned long NoRest;
     /* 0x9C/156 */ unsigned long ShadowOpacity;
-    /* 0xA0/160 */ unsigned long field_A0;
+    /* 0xA0/160 */ float FogClipDistance;
     /* 0xA4/164 */ CNWArea_vtbl *vptr;
 };
 #endif

@@ -8,6 +8,7 @@
 #include "CGameObject.h"
 #include "CExoLocString.h"
 #include "CNWArea.h"
+#include "CNWSScriptVarTable.h"
 
 class CNWSArea : public CNWArea, public CResHelper<CResARE>, public CGameObject
 {
@@ -149,10 +150,8 @@ public:
     CNWSArea(CResRef, int, unsigned long);
 
     /* 0xD4/212 */ unsigned long NumPlayers;
-    /* 0xD8/216 */ unsigned long field_D8;
-    /* 0xDC/220 */ unsigned long field_DC;
-    /* 0xE0/224 */ unsigned long field_E0;
-    /* 0xE4/228 */ unsigned long field_E4;
+    /* 0xD8/216 */ CExoArrayList<nwobjid> TrapList;
+    /* 0xE4/228 */ unsigned long ObjectByNameIndex;
     /* 0xE8/232 */ unsigned long m_nLastHeartbeatScriptCalendarDay;
     /* 0xEC/236 */ unsigned long m_nLastHeartbeatScriptTimeOfDay;
     /* 0xF0/240 */ unsigned long field_F0;
@@ -160,8 +159,9 @@ public:
     /* 0xF8/248 */ unsigned long field_F8;
     /* 0xFC/252 */ CExoLocString Name;
     /* 0x104/260 */ CExoString Tag;
-    /* 0x120/288 */ char rsvd2[20];
-    /* 0x120/288 */ unsigned long field_120;
+    /* 0x10C/268 */ CResRef TileSetResRef;
+    /* 0x120/288 */ char rsvd2[4];
+    /* 0x120/288 */ CNWSTile *Tiles;
     /* 0x124/292 */ unsigned long field_124;
     /* 0x128/296 */ CExoString m_sHeartbeatScript;
     /* 0x130/304 */ unsigned long field_130;
@@ -170,24 +170,51 @@ public:
     /* (mtype:CExoArrayList<unsigned long>) */
     /* 0x154/340 */ CExoArrayList<unsigned long> ObjectList;
     /* 0x160/352 */ unsigned long CurrentObjectIndex;
-    /* 0x1D4/468 */ char rsvd4[112];
-    /* 0x1D4/468 */ unsigned long field_1D4;
-    /* 0x1D8/472 */ unsigned long field_1D8;
-    /* 0x1DC/476 */ unsigned long field_1DC;
+    /* 0x164/356 */ CExoArrayList<unsigned long> SubAreas;
+    /* 0x170/368 */ unsigned long field_170;
+    /* 0x174/372 */ unsigned long field_174;
+    /* 0x178/376 */ unsigned long field_178;
+    /* 0x17C/380 */ unsigned long field_17C;
+    /* 0x180/384 */ unsigned long field_180;
+    /* 0x184/388 */ unsigned long field_184;
+    /* 0x188/392 */ unsigned long field_188;
+    /* 0x18C/396 */ unsigned long field_18C;
+    /* 0x190/400 */ unsigned long field_190;
+    /* 0x194/404 */ unsigned long field_194;
+    /* 0x198/408 */ CPathfindInformation* PathfindInformation;
+    /* 0x19C/412 */ unsigned long SoundPathInformation;
+    /* 0x1A0/416 */ unsigned long field_1A0;
+    /* 0x1A4/420 */ unsigned long field_1A4;
+    /* 0x1A8/424 */ unsigned long field_1A8;
+    /* 0x1AC/428 */ unsigned long field_1AC;
+    /* 0x1B0/432 */ unsigned long field_1B0;
+    /* 0x1B4/436 */ unsigned long field_1B4;
+    /* 0x1B8/440 */ unsigned long field_1B8;
+    /* 0x1BC/444 */ unsigned long field_1BC;
+    /* 0x1C0/448 */ nwobjid LastEntered;
+    /* 0x1C4/452 */ nwobjid LastExited;
+    /* 0x1C8/456 */ unsigned long CustomScriptEventId;
+    /* 0x1CC/460 */ unsigned long field_1CC;
+    /* 0x1D0/464 */ unsigned long field_1D0;
+    /* 0x1D4/468 */ unsigned long InterAreaDFSVisited;
+    /* 0x1D8/472 */ CNWSScriptVarTable VarTable;
     /* 0x1E0/480 */ unsigned long field_1E0;
     /* 0x1E4/484 */ unsigned long field_1E4;
-    /* 0x1E8/488 */ unsigned long field_1E8;
-    /* 0x1EC/492 */ char CurrentWeather;
+    /* 0x1E8/488 */ unsigned long AmbientSound;
+    /* 0x1EC/492 */ char field_1EC;
     /* 0x1F0/496 */ char rsvd5[3];
     /* 0x1F0/496 */ char WeatherStarted;
     /* 0x1F4/500 */ char rsvd6[3];
     /* 0x1F4/500 */ unsigned long field_1F4;
     /* 0x1F8/504 */ unsigned long m_nLastUpdateCalendarDay;
     /* 0x1FC/508 */ unsigned long m_nLastUpdateTimeOfDay;
-    /* 0x200/512 */ unsigned long field_200;
+    /* 0x200/512 */ unsigned char OverrideWeather;
+    /* 0x201/513 */ unsigned char CurrentWeather;
+    /* 0x202/514 */ unsigned char field_202;
+    /* 0x203/515 */ unsigned char PVPSetting;
     /* 0x204/516 */ unsigned long tilecount;
     /* 0x208/520 */ unsigned long field_208;
-    /* 0x20C/524 */ unsigned long field_20C;
+    /* 0x20C/524 */ unsigned long LoadScreenID;
 };
 
 static_assert_size(CNWSArea, 0x210);
