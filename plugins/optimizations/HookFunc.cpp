@@ -23,15 +23,12 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <unistd.h>
-#include <sys/time.h>
+#include <chrono>
 
 #include <limits.h>		/* for PAGESIZE */
 #ifndef PAGESIZE
 #define PAGESIZE 4096
 #endif
-
-#define HIST_LENGTH 50
-#define OPTIMAL_TIME 30
 
 #include "HookFunc.h"
 #include "NWNXOptimizations.h"
@@ -45,40 +42,12 @@ unsigned char d_ret_code_hrtimer[0x20];
 unsigned char d_ret_code_loop[0x20];
 unsigned char d_ret_code_scallback[0x20];
 
-
-dword *pMainLoopDelay;
 dword nESP;
 int64_t nCachedTime = 0;
-dword aLoopTimes[HIST_LENGTH];
-dword nPosition = 0;
-
 
 int64_t (*CExoTimers__GetHighResolutionTimer)(void *pTimer);
 int (*CServerExoApp__MainLoop)(void *pServer);
 void (*CNWVirtualMachineCommands__RunScriptCallback)(void *pCommands, void *sScriptName);
-
-int GetAverageTime()
-{
-    dword sum = 0, count = 0;
-    for (int i = 0; i < HIST_LENGTH; i++) {
-        if (aLoopTimes[i]) {
-            sum += aLoopTimes[i];
-            count++;
-        }
-    }
-    if (count == 0)
-        return 0;
-    return sum / count;
-}
-
-void SetDynamicDelay()
-{
-    int nAverageTime = GetAverageTime();
-    int nDelay = OPTIMAL_TIME - nAverageTime;
-    if (nDelay <= 0) nDelay = 0;
-    *pMainLoopDelay = nDelay * 1000;
-    plugin.Log(5, "Adjusted delay: %d\n", *pMainLoopDelay);
-}
 
 int64_t CExoTimers__GetHighResolutionTimer_hook(void *pTimer)
 {
@@ -95,32 +64,29 @@ int64_t CExoTimers__GetHighResolutionTimer_hook(void *pTimer)
     }
 }
 
-struct timeval start;
+namespace
+{
+    std::chrono::time_point<std::chrono::high_resolution_clock> beforeTime;
+    unsigned int desiredTickRate;
+}
 
 int eventMainLoopBefore(uintptr_t p)
 {
-    gettimeofday(&start, NULL);
+    beforeTime = std::chrono::high_resolution_clock::now();
     return 0;
 }
 
 int eventMainLoopAfter(uintptr_t p)
 {
-    struct timeval finish;
-    dword msec;
+    const auto afterTime = std::chrono::high_resolution_clock::now();
+    const auto totalTime = std::chrono::duration_cast<std::chrono::microseconds>(afterTime - beforeTime).count();
+    const int timeToSleep = static_cast<int>((1000.0f / static_cast<float>(desiredTickRate)) * 1000.0f) - totalTime;
 
-    gettimeofday(&finish, NULL);
+    if (timeToSleep > 0)
+    {
+        usleep(timeToSleep);
+    }
 
-    msec = finish.tv_sec * 1000 + finish.tv_usec / 1000;
-    msec -= start.tv_sec * 1000 + start.tv_usec / 1000;
-
-    plugin.Log(4, "%d;%d\n", msec, GetAverageTime());
-
-    aLoopTimes[nPosition] = msec;
-    nPosition++;
-    if (nPosition >= HIST_LENGTH)
-        nPosition = 0;
-
-    SetDynamicDelay();
     return 0;
 }
 
@@ -170,9 +136,11 @@ int HookFunctions()
         return 0;
     });
 
-    memset(aLoopTimes, 0, sizeof(dword)*HIST_LENGTH);
-    *(dword*)&pMainLoopDelay = 0x0804BBF2;
-    d_enable_write((dword)pMainLoopDelay);
+    // No-op the delay code.
+    constexpr static uintptr_t address = 0x0804BBF1;
+    constexpr static size_t length = 13;
+    d_enable_write(address);
+    memset(reinterpret_cast<void*>(address), 0x90, length);
 
     *(dword*)&CExoTimers__GetHighResolutionTimer = 0x082CC7A8;
     d_redirect((unsigned long)CExoTimers__GetHighResolutionTimer, (unsigned long)CExoTimers__GetHighResolutionTimer_hook, d_ret_code_hrtimer, 9);
@@ -185,10 +153,7 @@ int HookFunctions()
     return 1;
 }
 
-void TestRequest()
+void SetTargetTickRate(const unsigned int rate)
 {
-
-
+    desiredTickRate = rate;
 }
-
-
