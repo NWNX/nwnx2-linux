@@ -16,8 +16,19 @@ endif()
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 
-set(CMAKE_C_FLAGS "-mtune=i386 -m32 -mno-accumulate-outgoing-args -Wall -Wno-unused -Wno-write-strings")
-set(CMAKE_CXX_FLAGS "-mtune=i386 -m32 -mno-accumulate-outgoing-args -Wall -Wno-unused -Wno-write-strings -Wno-return-type")
+# Our must-have flags for compilers
+# - i386/m32: nwnx only runs with a 32bit host nwserver, obviously.
+SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -mtune=i386 -m32")
+# - no-omit-frame-pointer: breaks assembly on -O1/-O2 for some plugins
+# - no-accumulate-outgoing-args: same
+SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -mno-accumulate-outgoing-args -fno-omit-frame-pointer")
+# - warnings: self-explanatory
+SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -Wall -Wno-unused -Wno-write-strings")
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OUR_CFLAGS_MUST_HAVES}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OUR_CFLAGS_MUST_HAVES} -Wno-return-type")
+
+# removes stuff like -fPIC, which breaks nwnx plugin loading
 set(CMAKE_SHARED_LIBRARY_C_FLAGS "")
 set(CMAKE_SHARED_LIBRARY_CXX_FLAGS "")
 
