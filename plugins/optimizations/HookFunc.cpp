@@ -137,8 +137,8 @@ int HookFunctions()
     });
 
     // No-op the delay code.
-    constexpr static uintptr_t address = 0x0804BBF1;
-    constexpr static size_t length = 13;
+    constexpr static uintptr_t address = 0x0804BBEE;
+    constexpr static size_t length = 16;
     d_enable_write(address);
     memset(reinterpret_cast<void*>(address), 0x90, length);
 
