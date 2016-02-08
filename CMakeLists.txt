@@ -16,10 +16,29 @@ endif()
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 
-set(CMAKE_C_FLAGS "-mtune=i386 -m32 -mno-accumulate-outgoing-args -Wall -Wno-unused -Wno-write-strings")
-set(CMAKE_CXX_FLAGS "-mtune=i386 -m32 -mno-accumulate-outgoing-args -Wall -Wno-unused -Wno-write-strings -Wno-return-type")
+# Our must-have flags for compilers
+# - i386/m32: nwnx only runs with a 32bit host nwserver, obviously.
+SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -m32")
+# - no-omit-frame-pointer: breaks assembly on -O1/-O2 for some plugins
+# - no-accumulate-outgoing-args: same
+SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -mno-accumulate-outgoing-args -fno-omit-frame-pointer")
+# - warnings: self-explanatory
+SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -Wall -Wextra -Wno-unused-parameter -Wno-unused -Wno-write-strings")
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OUR_CFLAGS_MUST_HAVES}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OUR_CFLAGS_MUST_HAVES} -Wno-return-type")
+
+# removes stuff like -fPIC, which breaks nwnx plugin loading
 set(CMAKE_SHARED_LIBRARY_C_FLAGS "")
 set(CMAKE_SHARED_LIBRARY_CXX_FLAGS "")
+
+# nwnx is currently still kind of broken with -O > 0. Until that's properly fixed
+# and tested, force -O0 for release and relwithdebinfo builds. Individual
+# plugins can always override this!
+SET(CMAKE_C_FLAGS_RELEASE "-O0 -DNDEBUG")
+SET(CMAKE_CXX_FLAGS_RELEASE "-O0 -DNDEBUG")
+SET(CMAKE_C_FLAGS_RELWITHDEBINFO "-O0")
+SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O0")
 
 enable_language(ASM)
 
