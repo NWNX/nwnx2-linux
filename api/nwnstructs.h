@@ -8,6 +8,7 @@
 #include "CExoLocString.h"
 #include "nwnstructs.h"
 #include "CGameEffect.h"
+#include "Vector.h"
 struct CServerExoAppConfig {
     /* 0x0/0 */ unsigned long field_0;
     /* 0x4/4 */ unsigned long field_4;
@@ -449,5 +450,9 @@ struct CNWTilePathNode {
 struct CVirtualMachineDebuggingContext {
 };
 struct Quaternion {
+};
+struct CSpawnPoint {
+    Vector Position;
+    float Orientation;
 };
 #endif
