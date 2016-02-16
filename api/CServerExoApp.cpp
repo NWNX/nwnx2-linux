@@ -406,7 +406,7 @@ CExoString CServerExoApp::GetModuleName()
     asm("jmp *%eax");
 }
 
-void * CServerExoApp::GetModule()
+CNWSModule * CServerExoApp::GetModule()
 {
     asm("leave");
     asm("mov $0x080b1adc, %eax");
@@ -434,7 +434,7 @@ int CServerExoApp::GetMultiplayerEnabled()
     asm("jmp *%eax");
 }
 
-void * CServerExoApp::GetNWSMessage()
+CNWSMessage * CServerExoApp::GetNWSMessage()
 {
     asm("leave");
     asm("mov $0x080b1f54, %eax");
@@ -518,7 +518,7 @@ CExoString CServerExoApp::GetPlayerListString()
     asm("jmp *%eax");
 }
 
-void * CServerExoApp::GetPlayerList()
+CExoLinkedList<CNWSClient> * CServerExoApp::GetPlayerList()
 {
     asm("leave");
     asm("mov $0x080b1f2c, %eax");
@@ -539,7 +539,7 @@ int CServerExoApp::GetReloadModuleWhenEmpty()
     asm("jmp *%eax");
 }
 
-void * CServerExoApp::GetServerAIMaster()
+CServerAIMaster * CServerExoApp::GetServerAIMaster()
 {
     asm("leave");
     asm("mov $0x080b1f18, %eax");
