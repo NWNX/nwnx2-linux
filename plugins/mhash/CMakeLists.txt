@@ -10,5 +10,7 @@ add_module(mhash
 
 target_link_libraries(mhash ${MHASH_LIBRARY} ${UUID_LIBRARY})
 
+set_target_properties(mhash PROPERTIES COMPILE_FLAGS "-O0")
+
 endif (MHASH_LIBRARY)
 endif (UUID_LIBRARY)

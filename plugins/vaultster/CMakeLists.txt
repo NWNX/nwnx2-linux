@@ -7,6 +7,9 @@ if (Boost_FOUND)
 	add_module(vaultster NWNXVaultster client blowfish plugin-vaultster)
 	target_link_libraries(vaultster z ${Boost_LIBRARIES})
 
+    set_target_properties(vaultster-server PROPERTIES COMPILE_FLAGS "-O0")
+    set_target_properties(vaultster PROPERTIES COMPILE_FLAGS "-O0")
+
 else (Boost_FOUND)
 	message(WARNING "Cannot find boost libraries, not building vaultster")
 endif (Boost_FOUND)

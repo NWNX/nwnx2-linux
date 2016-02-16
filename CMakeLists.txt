@@ -35,10 +35,12 @@ set(CMAKE_SHARED_LIBRARY_CXX_FLAGS "")
 # nwnx is currently still kind of broken with -O > 0. Until that's properly fixed
 # and tested, force -O0 for release and relwithdebinfo builds. Individual
 # plugins can always override this!
-SET(CMAKE_C_FLAGS_RELEASE "-O0 -DNDEBUG")
-SET(CMAKE_CXX_FLAGS_RELEASE "-O0 -DNDEBUG")
-SET(CMAKE_C_FLAGS_RELWITHDEBINFO "-O0")
-SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O0")
+SET(CMAKE_C_FLAGS_DEBUG "-g -ggdb3 -gdwarf-4 -fno-eliminate-unused-debug-types")
+SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
+SET(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
+SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
+SET(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_DEBUG} -O2 -DNDEBUG")
+SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_DEBUG} -O2 -DNDEBUG")
 
 enable_language(ASM)
 
@@ -85,6 +87,9 @@ add_library(nwnx2 SHARED nwnx2lib NWNXBase modules lists gline
 
 # for core/ThreadUtil
 target_link_libraries(nwnx2 pthread)
+
+# The core library doesnt really work yet with -O2.
+set_target_properties(nwnx2 PROPERTIES COMPILE_FLAGS "-O0")
 
 # Fake target to force recreating the compiled directory.
 add_custom_target(always_rebuild_compiled ALL

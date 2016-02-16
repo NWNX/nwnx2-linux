@@ -3,3 +3,5 @@ add_module(events
     NWNXEvents
     plugin-events
 )
+
+set_target_properties(events PROPERTIES COMPILE_FLAGS "-O0")

@@ -14,4 +14,6 @@ add_module(tweaks NWNXTweaks plugin-tweaks
 	tables/t_TweakOptions
 )
 
+set_target_properties(tweaks PROPERTIES COMPILE_FLAGS "-O0")
+
 endif (gperf)

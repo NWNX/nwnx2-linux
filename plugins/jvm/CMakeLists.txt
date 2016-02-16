@@ -25,6 +25,8 @@ if (JNI_FOUND AND JAVA_FOUND)
 		org_nwnx_nwnx2_jvm_NWScript_addon)
 	target_link_libraries(jvm ${JAVA_JVM_LIBRARY})
 
+    set_target_properties(jvm PROPERTIES COMPILE_FLAGS "-O0")
+
 	add_subdirectory(java)
 else (JNI_FOUND AND JAVA_FOUND)
 	message(WARNING "Cannot find java libraries")

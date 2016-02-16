@@ -24,4 +24,6 @@ add_module(system NWNXSystem plugin-system
 	funcs/f_TrueRandom
 )
 
+set_target_properties(system PROPERTIES COMPILE_FLAGS "-O0")
+
 endif (gperf)

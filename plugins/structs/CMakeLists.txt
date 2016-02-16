@@ -22,4 +22,6 @@ add_module(structs NWNXStructs plugin-structs
 	hooks/h_PushStruct
 )
 
+set_target_properties(structs PROPERTIES COMPILE_FLAGS "-O0")
+
 endif (gperf)
