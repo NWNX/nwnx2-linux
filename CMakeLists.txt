@@ -18,15 +18,20 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 
 # Our must-have flags for compilers
 # - i386/m32: nwnx only runs with a 32bit host nwserver, obviously.
+if (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
+	message(FATAL_ERROR "nwnx2 will only work on 32bit toolchains. Use one (CC='gcc -m32' CXX='g++ -m32' cmake .)!")
+endif()
 SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -m32")
+
 # - no-omit-frame-pointer: breaks assembly on -O1/-O2 for some plugins
 # - no-accumulate-outgoing-args: same
 SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -mno-accumulate-outgoing-args -fno-omit-frame-pointer")
 # - warnings: self-explanatory
 SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -Wall -Wextra -Wno-unused-parameter -Wno-unused -Wno-write-strings")
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OUR_CFLAGS_MUST_HAVES}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OUR_CFLAGS_MUST_HAVES} -Wno-return-type")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OUR_CFLAGS_MUST_HAVES}" CACHE STRING "" FORCE)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OUR_CFLAGS_MUST_HAVES} -Wno-return-type" CACHE STRING "" FORCE)
+set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} ${OUR_CFLAGS_MUST_HAVES}" CACHE STRING "" FORCE)
 
 # removes stuff like -fPIC, which breaks nwnx plugin loading
 set(CMAKE_SHARED_LIBRARY_C_FLAGS "")
@@ -48,7 +53,7 @@ find_program(gperf gperf)
 if (NOT gperf)
 	message(WARNING "No gperf found, cannot compile gperf-dependent plugins")
 endif (NOT gperf)
-find_program(ruby NAMES ruby1.8 ruby)
+find_program(ruby NAMES ruby1.8 ruby1.9 ruby2.0 ruby2.1 ruby)
 if (NOT ruby)
 	message(WARNING "No ruby interpreter found, cannot compile ruby-interpreter dependent plugins")
 endif (NOT ruby)

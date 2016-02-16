@@ -28,12 +28,26 @@ If you want to install all dependencies:
 
 * `git clone https://github.com/NWNX/nwnx2-linux.git`
 * `cd nwnx2-linux`
-* `find . -name apt-dep -exec cat {} \; | xargs sudo apt-get install -y`
+* `find . -name apt-dep -exec cat {} \; | xargs sudo apt-get install` (check list carefully before pressing enter!)
 * `mkdir build && cd build`
 * `cmake ..`
 * `make`
 
 When completed, all libraries and configuration files will be in the `compiled` subdirectory of your build directory.
+
+#### Building on a 64bit host system
+
+This is a bit more involved. You need to install the relevant 32bit toolchain and libraries.
+
+Please note that when compiling on a 64bit host, you **cannot use the apt-dep** as shown above. You will have to install all wnanted dependencies manually by installing the :i386 variants of packages, like so:
+
+* `sudo dpkg --add-architecture i386 && sudo apt-get update`
+* `sudo apt-get install libsqlite3-dev:i386`
+
+Then grab multilib support for gcc, and compile:
+
+* `sudo apt-get install gcc-multilib g++-multilib`
+* `CC="gcc -m32" CXX="g++ -m32" cmake .`
 
 ### Installing
 
