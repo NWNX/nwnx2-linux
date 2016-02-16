@@ -68,11 +68,11 @@ public:
     CExoLocString GetModuleDescription();
     int GetModuleLanguage();
     CExoString GetModuleName();
-    void * GetModule();
+    CNWSModule * GetModule();
     int GetMoveToModulePending();
     int GetMoveToModuleString();
     int GetMultiplayerEnabled();
-    void * GetNWSMessage();
+    CNWSMessage * GetNWSMessage();
     CNetLayer * GetNetLayer();
     unsigned long GetNextPCObject();
     CGameObjectArray * GetObjectArray();
@@ -84,10 +84,10 @@ public:
     unsigned long GetPlayerIDByGameObjectID(unsigned long);
     int GetPlayerLanguage(unsigned long);
     CExoString GetPlayerListString();
-    void * GetPlayerList();
+    CExoLinkedList<CNWSClient> * GetPlayerList();
     CExoString GetPortalListString();
     int GetReloadModuleWhenEmpty();
-    void * GetServerAIMaster();
+    CServerAIMaster * GetServerAIMaster();
     CServerInfo * GetServerInfo();
     short GetServerMode();
     CNWSSoundObject * GetSoundObjectByGameObjectID(unsigned long);
