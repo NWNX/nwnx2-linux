@@ -138,4 +138,9 @@ public:
     /* 0x2A4/676 */ char rsvd4[16];
     /* 0x2A4/676 */ unsigned long field_1FC;
 };
+
+static_assert_size(CNWSItem, 0x2a8);
+static_assert_offset(CNWSItem, BaseItem, 0x8);
+static_assert_offset(CNWSItem, ObjectID, 0x14);
+
 #endif

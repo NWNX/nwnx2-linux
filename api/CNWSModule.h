@@ -230,4 +230,7 @@ public:
     /* 0x258/600 */ unsigned long field_258;
     /* 0x25C/604 */ unsigned long field_25C;
 };
+
+static_assert_size(CNWSModule, 0x260);
+
 #endif

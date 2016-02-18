@@ -73,4 +73,7 @@ public:
     /* 0xA0/160 */ unsigned long field_A0;
     /* 0xA4/164 */ unsigned long field_A4;
 };
+
+static_assert_size(CNWSCombatAttackData, 0xa8);
+
 #endif

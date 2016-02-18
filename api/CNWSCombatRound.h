@@ -105,4 +105,7 @@ public:
     /* 0x2158/8536 */ unsigned long SchedActionList;
     /* 0x215C/8540 */ CNWSCreature *Creature;
 };
+
+static_assert_size(CNWSCombatRound, 0x2160);
+
 #endif

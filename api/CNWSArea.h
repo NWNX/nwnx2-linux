@@ -190,6 +190,8 @@ public:
     /* 0x20C/524 */ unsigned long field_20C;
 };
 
-static_assert(sizeof(CResHelper<CResARE>) == 28, "Size!");
-static_assert(sizeof(CNWSArea) == 0x210, "Size!");
+static_assert_size(CNWSArea, 0x210);
+static_assert_offset(CNWSArea, NumPlayers, 0xd4);
+static_assert_offset(CNWSArea, m_pRes, sizeof(CNWArea) + 0x4);
+
 #endif

@@ -330,4 +330,7 @@ public:
     /* 0x1C0/448 */ char rsvd6[196];
     /* 0x1C0/448 */ unsigned long field_1C0;
 };
+
+static_assert_size(CNWSObject, 0x1c4);
+
 #endif

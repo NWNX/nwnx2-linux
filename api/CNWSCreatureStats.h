@@ -275,4 +275,7 @@ public:
     /* 0x4E4/1252 */ char rsvd7[56];
     /* 0x4E4/1252 */ unsigned long field_4E4;
 };
+
+static_assert_size(CNWSCreatureStats, 0x4e8);
+
 #endif

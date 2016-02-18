@@ -17,4 +17,7 @@ public:
     /* 0x4/4 */ unsigned long m_nLanguage;
     /* 0x8/8 */ CNWSClient_vtbl *vptr;
 };
+
+static_assert_size(CNWSClient, 0xC);
+
 #endif
