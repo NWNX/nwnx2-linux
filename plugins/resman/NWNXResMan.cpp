@@ -109,11 +109,11 @@ void* CNWNXResMan::DemandRes(CExoResMan *pResMan, CRes *cRes, const CResRef &res
             cRes->m_status = 2;
             cRes->m_nSize = fileInfo.size;
 
-            if (cRes->vtbl) {
+            if (cRes->vptr) {
                 CResNCS *pNCS = (CResNCS*) cRes;
                 pNCS->m_bLoaded = 0;
             }
-            int (*pServFunc)(CRes * cRes) = (int (*)(CRes * cRes))cRes->vtbl->OnResourceServiced;
+            int (*pServFunc)(CRes * cRes) = (int (*)(CRes * cRes))cRes->vptr->OnResourceServiced;
             Log(5, "Calling CRes*::OnResourceServiced: %08lx\n", pServFunc);
             int nRet = pServFunc(cRes);
             Log(5, "Return value: %d\n", nRet);
@@ -165,7 +165,7 @@ void* CNWNXResMan::DemandRes(CExoResMan *pResMan, CRes *cRes, const CResRef &res
             pResMan->TotalAvailableMemory -= size;
 
             // Call server function which sets various data pointers
-            if (cRes->vtbl) {
+            if (cRes->vptr) {
                 if (resType == NwnResType_NCS) {
                     CResNCS *pNCS = (CResNCS*) cRes;
                     pNCS->m_bLoaded = 0;
@@ -174,7 +174,7 @@ void* CNWNXResMan::DemandRes(CExoResMan *pResMan, CRes *cRes, const CResRef &res
                     t->m_bLoaded = 0;
                 }
 
-                int (*pServFunc)(CRes * cRes) = (int (*)(CRes * cRes))cRes->vtbl->OnResourceServiced;
+                int (*pServFunc)(CRes * cRes) = (int (*)(CRes * cRes))cRes->vptr->OnResourceServiced;
                 Log(5, "Calling CRes*::OnResourceServiced: %08lx\n", pServFunc);
                 int nRet = pServFunc(cRes);
                 Log(5, "Return value: %d\n", nRet);
