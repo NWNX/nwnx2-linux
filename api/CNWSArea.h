@@ -188,7 +188,7 @@ public:
     /* 0x98/152 */ unsigned long NoRest;
     /* 0x9C/156 */ unsigned long ShadowOpacity;
     /* 0xA0/160 */ unsigned long field_A0;
-    /* 0xA4/164 */ unsigned long vtable;
+    /* 0xA4/164 */ CNWSArea_vtbl *vptr;
     /* 0xA8/168 */ unsigned long field_A8;
     /* 0xAC/172 */ unsigned long field_AC;
     /* 0xB0/176 */ unsigned long ResRef;
