@@ -228,11 +228,11 @@ struct CVirtualMachineScript {
     /* 0x18/24 */ CExoString Name;
     /* 0x20/32 */ unsigned long field_20;
 };
-struct CResHelper {
+template<typename RES> struct CResHelper {
     /* 0x0/0 */ unsigned long m_bAutoRequest;
-    /* 0x4/4 */ CRes *m_pRes;
+    /* 0x4/4 */ RES *m_pRes;
     /* 0x8/8 */ CResRef m_cResRef;
-    /* 0x18/24 */ unsigned long vtable;
+    /* 0x18/24 */ unsigned long res_vptr;
 };
 struct CKeyTableEntry {
     /* 0x0/0 */ CResRef m_cResRef;

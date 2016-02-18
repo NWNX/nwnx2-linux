@@ -1,8 +1,9 @@
 #ifndef _CRESNDB_H_
 #define _CRESNDB_H_
 #include "nwndef.h"
+#include "CRes.h"
 
-class CResNDB
+class CResNDB : public CRes
 {
 public:
     unsigned char * GetNDBDataPtr();

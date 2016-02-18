@@ -1,8 +1,9 @@
 #ifndef _CRESTGA_H_
 #define _CRESTGA_H_
 #include "nwndef.h"
+#include "CRes.h"
 
-class CResTGA
+class CResTGA : public CRes
 {
 public:
     int CopyTGAData(unsigned char *);

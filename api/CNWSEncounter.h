@@ -6,7 +6,7 @@
 #include "CResRef.h"
 #include "CExoString.h"
 
-class CNWSEncounter
+class CNWSEncounter : public CNWSObject
 {
 public:
     void AIUpdate();

@@ -4,7 +4,7 @@
 #include "CResRef.h"
 #include "CExoLocString.h"
 
-class CNWSWaypoint
+class CNWSWaypoint : public CNWSObject
 {
 public:
     void AIUpdate();

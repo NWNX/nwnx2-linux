@@ -5,7 +5,7 @@
 #include "CExoString.h"
 #include "CNWSObject.h"
 
-class CNWSPlayerTURD
+class CNWSPlayerTURD : CNWSObject
 {
 public:
     void AIUpdate();
@@ -42,7 +42,6 @@ public:
     ~CNWSPlayerTURD();
     CNWSPlayerTURD(unsigned long);
 
-    /* 0x0/0 */ CNWSObject Object;
     /* 0x1C4/452 */ CExoString CommntyName;
     /* 0x1CC/460 */ CExoString FirstName;
     /* 0x1D4/468 */ CExoString LastName;

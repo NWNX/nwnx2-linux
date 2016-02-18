@@ -4,7 +4,7 @@
 #include "Vector.h"
 #include "nwnstructs.h"
 
-class CNWSSoundObject
+class CNWSSoundObject : public CNWSObject
 {
 public:
     void AIUpdate();

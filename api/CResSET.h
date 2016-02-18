@@ -1,8 +1,9 @@
 #ifndef _CRESSET_H_
 #define _CRESSET_H_
 #include "nwndef.h"
+#include "CRes.h"
 
-class CResSET
+class CResSET : public CRes
 {
 public:
     int CopySETData(unsigned char *);

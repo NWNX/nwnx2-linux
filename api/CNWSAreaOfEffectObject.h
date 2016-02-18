@@ -4,7 +4,7 @@
 #include "Vector.h"
 #include "CExoString.h"
 
-class CNWSAreaOfEffectObject
+class CNWSAreaOfEffectObject : public CNWSObject
 {
 public:
     void AIUpdate();

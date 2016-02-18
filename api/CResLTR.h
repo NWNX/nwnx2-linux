@@ -1,8 +1,9 @@
 #ifndef _CRESLTR_H_
 #define _CRESLTR_H_
 #include "nwndef.h"
+#include "CRes.h"
 
-class CResLTR
+class CResLTR  : public CRes
 {
 public:
     int GetEndDoubleLetterProb();

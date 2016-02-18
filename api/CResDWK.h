@@ -1,8 +1,9 @@
 #ifndef _CRESDWK_H_
 #define _CRESDWK_H_
 #include "nwndef.h"
+#include "CRes.h"
 
-class CResDWK
+class CResDWK : public CRes
 {
 public:
     unsigned char * GetDWKDataPtr();

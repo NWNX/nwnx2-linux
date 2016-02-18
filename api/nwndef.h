@@ -217,7 +217,7 @@ struct CActionParam;
 struct CNWModule;
 struct CAppManager_ModuleInfo;
 struct CVirtualMachineScript;
-struct CResHelper;
+template<typename RES> struct CResHelper;
 struct CKeyTableEntry;
 struct CDialogEntry;
 struct CDialogReply;

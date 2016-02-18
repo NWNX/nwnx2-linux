@@ -6,8 +6,9 @@
 #include "CExoLocString.h"
 #include "CResRef.h"
 #include "CNWSObject.h"
+#include "CNWItem.h"
 
-class CNWSItem
+class CNWSItem : public CNWItem, public CNWSObject
 {
 public:
     void AIUpdate();
@@ -113,11 +114,6 @@ public:
     ~CNWSItem();
     CNWSItem(unsigned long);
 
-    /* 0x0/0 */ unsigned long field_0;
-    /* 0x4/4 */ unsigned long field_4;
-    /* 0x8/8 */ unsigned long BaseItem;
-    /* 0xC/12 */ void *CNWItem;
-    /* 0x10/16 */ CNWSObject Object;
     /* 0x1D4/468 */ unsigned long field_1D4;
     /* 0x1D8/472 */ unsigned long field_1D8;
     /* 0x1DC/476 */ unsigned long field_1DC;

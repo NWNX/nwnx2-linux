@@ -1,8 +1,9 @@
 #ifndef _CRESNSS_H_
 #define _CRESNSS_H_
 #include "nwndef.h"
+#include "CRes.h"
 
-class CResNSS
+class CResNSS : public CRes
 {
 public:
     unsigned char * GetNSSDataPtr();
