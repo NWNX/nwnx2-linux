@@ -26,16 +26,15 @@ static void ProcessKeyboardInput_Hook()
         const char *command = strtok(g_szCommand_dup, " ");
         const char *rest = strtok(NULL, "");
 
-        // Help is a bit of a special case: We need to call the parent handler
-        // FIRST (to print the builtin commands), then our own.
+        // help and status is a bit of a special case: We need to call the
+        // parent handler FIRST (to print the builtin stuff), then our own.
         // For all other cases, we want to check our own first and only then
-        // call parent.
-        if (!strcmp("help", command)) {
+        // call parent (so they can be stopped)
+        if (!strcmp("help", command) || !strcmp("status", command)) {
             mtx->LeaveCriticalSection();
             ProcessKeyboardInput();
             parent_was_called = true;
             mtx->EnterCriticalSection();
-            printf("\nCommands provided by NWNX:\n\n");
         }
 
         CoreConsoleInputEvent ev = { command, rest ? rest : "", true };
