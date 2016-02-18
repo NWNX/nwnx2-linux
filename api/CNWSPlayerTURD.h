@@ -52,8 +52,9 @@ public:
     /* 0x1E8/488 */ CExoArrayList<int> *ReputationList;
     /* (ptr_to:CExoArrayList<CNWSPersonalReputation>) */
     /* 0x1EC/492 */ CExoArrayList<CNWSPersonalReputation> *PersonalRep;
-    /* 0x1F0/496 */ unsigned long MapNumAreas;
-    /* 0x1F4/500 */ char **MapAreasData;
-    /* 0x1F8/504 */ char **MapData;
+    // Nearly the same as CNWSCreature.AutoMap*
+    /* 0x1F0/496 */ unsigned long AutoMapNumAreas;
+    /* 0x1F4/500 */ unsigned long *AutoMapAreaIdList;
+    /* 0x1F8/504 */ char **AutoMapData;
 };
 #endif
