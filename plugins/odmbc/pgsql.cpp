@@ -60,7 +60,7 @@ BOOL CPgSQL::Connect(const char *server, const char *user, const char *pass, con
                                       + strlen(user)
                                       + strlen(pass));
     // Build the connection string
-    sprintf(connstring, HOST"%s "PORT"%hu "DB"%s "USR"%s "PW"%s", server, PORT_NUM, db, user, pass);
+    sprintf(connstring, HOST "%s " PORT "%hu " DB "%s " USR "%s " PW "%s", server, PORT_NUM, db, user, pass);
 
     // Connect attempt
     pgsql = PQconnectdb(connstring);
