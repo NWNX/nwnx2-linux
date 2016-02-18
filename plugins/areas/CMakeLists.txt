@@ -1,4 +1,9 @@
-add_module(areas CExoLinkedList CExoLocString HookFunc NWNXAreas
-	plugin-areas)
+add_module(areas
+    NWNXAreas plugin-areas
 
-set_target_properties(areas PROPERTIES COMPILE_FLAGS "-O0")
+    Services
+
+    funcs/LoadArea
+    funcs/UnloadArea
+    funcs/UpdateCreatures
+)

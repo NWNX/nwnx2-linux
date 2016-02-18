@@ -1,43 +1,42 @@
-/***************************************************************************
-    NWNX Events - interface for the CNWNXAreas class.
-    (c) 2006 virusman (virusman@virusman.ru)
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- ***************************************************************************/
-
-#ifndef _NWNX_AREAS_H_
-#define _NWNX_AREAS_H_
+#pragma once
 
 #include "NWNXBase.h"
+#include "NWNXApi.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <memory.h>
+#include <stddef.h>
+#include <unistd.h>
+
+#include <string>
+#include <future>
+#include <cassert>
+
 #include "gline.h"
-#include "HookFunc.h"
+
+#include "pluginlink.h"
+
+#include "funcs/Funcs.h"
 
 class CNWNXAreas : public CNWNXBase
 {
 
 public:
     CNWNXAreas();
-    ~CNWNXAreas();
-    bool OnCreate(gline *config, const char* LogDir);
+    bool OnCreate(gline* config, const char* LogDir);
     char* OnRequest(char* gameObject, char* Request, char* Parameters);
-    unsigned long OnRequestObject(char *gameObject, char* Request);
-    bool OnRelease();
-    char *pGameObject;
-    dword nGameObjectID;
-
-    dword nLastAreaID;
+    unsigned long OnRequestObject(char* gameObject, char* Request);
 };
 
-#endif
+extern CNWNXAreas areas;
+
+// Older NWNX releases have broken offsets for CNWSModule that
+// resulted in memory corruption. Yay fun times!
+static_assert(offsetof(CNWSModule, AreaIdList) == 0x38,
+              "Your CNWSModule definition is outdated. "
+              "Compiling against this will corrupt memory and make your server crash.");
+
+static_assert(offsetof(CNWSModule, TURDList) == 0x4c,
+              "Your CNWSModule definition is outdated. "
+              "Compiling against this will corrupt memory and make your server crash.");
