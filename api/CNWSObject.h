@@ -286,7 +286,7 @@ public:
     /* 0x9/9 */ char field_9;
     /* 0xA/10 */ char field_A;
     /* 0xB/11 */ char field_B;
-    /* 0xC/12 */ CNWSObjectMethods *Methods;
+    /* 0xC/12 */ CNWSObject_vtbl<CNWSObject> *vptr;
     /* 0x10/16 */ CExoLocString LocString;
     /* 0x18/24 */ unsigned short field_18;
     /* 0x1A/26 */ unsigned short field_1A;

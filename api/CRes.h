@@ -37,6 +37,6 @@ public:
     /* 0x1C/28 */ unsigned long field_1C;
     /* 0x20/32 */ unsigned long field_20;
     /* 0x24/36 */ CExoLinkedListNode *m_pToBeFreedListNode;
-    /* 0x28/40 */ CRes_vtbl *vtbl;
+    /* 0x28/40 */ CRes_vtbl *vptr;
 };
 #endif
