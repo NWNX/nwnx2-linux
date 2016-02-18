@@ -8,6 +8,8 @@
 #include "CGameObject.h"
 #include "CExoLinkedList.h"
 #include "CNWSPlayerTURD.h"
+#include "CResIFO.h"
+#include "CNWSScriptVarTable.h"
 
 class CNWSModule : public CResHelper<CResIFO>, CGameObject
 {
@@ -168,14 +170,12 @@ public:
     /* 0x2C/44 */ unsigned long field_2C;
     /* 0x30/48 */ unsigned long field_30;
     /* 0x34/52 */ unsigned long field_34;
-    /* 0x38/56 */ unsigned long field_38;
-    /* 0x3C/60 */ unsigned long field_3C;
-    /* 0x40/64 */ unsigned long field_40;
+    /* 0x38/56 */ CExoArrayList<unsigned long> AreaIdList;
     /* 0x44/68 */ unsigned long field_44;
     /* 0x48/72 */ unsigned long field_48;
     /* (mtype:CExoLinkedList<CNWSPlayerTURD>) */
     /* 0x4C/76 */ CExoLinkedList<CNWSPlayerTURD> TURDList;
-    /* 0x58/88 */ char rsvd1[8];
+    /* 0x54/88 */ CExoLocString Description;
     /* 0x58/88 */ CExoString m_sCustomTLK;
     /* 0x80/128 */ char rsvd2[32];
     /* 0x80/128 */ unsigned long field_80;
@@ -232,5 +232,7 @@ public:
 };
 
 static_assert_size(CNWSModule, 0x260);
+static_assert_offset(CNWSModule, AreaIdList, 0x38);
+static_assert_offset(CNWSModule, TURDList, 0x4c);
 
 #endif
