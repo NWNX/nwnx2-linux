@@ -362,7 +362,11 @@ struct CScriptParseTreeNode {
 struct NWPlayerCharacterList_st {
 };
 struct CNWSTagNode {
+    char Tag[64];
+    unsigned long unknown;
+    nwobjid ObjectID;
 };
+static_assert_size(CNWSTagNode, 0x48);
 struct CNWSPVPEntry {
     nwobjid Object;
     unsigned long field_0004;
