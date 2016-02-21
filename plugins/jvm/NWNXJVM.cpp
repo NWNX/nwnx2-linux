@@ -83,10 +83,10 @@ CNWNXJVM::CNWNXJVM()
 
 int systemStartup(uintptr_t p)
 {
-    HANDLE handleSCO = HookEvent(EVENT_ODBC_RCO, ReadSCO);
-    HANDLE handleRCO = HookEvent(EVENT_ODBC_SCO, WriteSCO);
-    HANDLE handleResManExists = HookEvent(EVENT_RESMAN_EXISTS, ResManExists);
-    HANDLE handleResManDemand = HookEvent(EVENT_RESMAN_DEMAND, ResManDemand);
+    HANDLE handleSCO = HookEventOptionally(EVENT_ODBC_RCO, ReadSCO);
+    HANDLE handleRCO = HookEventOptionally(EVENT_ODBC_SCO, WriteSCO);
+    HANDLE handleResManExists = HookEventOptionally(EVENT_RESMAN_EXISTS, ResManExists);
+    HANDLE handleResManDemand = HookEventOptionally(EVENT_RESMAN_DEMAND, ResManDemand);
     if (!handleSCO || !handleRCO || !handleResManExists || !handleResManDemand)
         printf("Cannot hook SCORCO or ResMan events!\n");
 

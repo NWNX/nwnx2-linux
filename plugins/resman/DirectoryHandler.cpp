@@ -80,17 +80,12 @@ static int HandleDemandResourceEvent(uintptr_t p)
 bool RegisterDirectoryHandlers()
 {
     bool result = true;
-    HANDLE handleResourceExists = HookEvent(EVENT_RESMAN_EXISTS, HandleResourceExistsEvent);
-    if (!handleResourceExists) {
-        resman.Log(0, "Cannot hook EVENT_RESMAN_EXISTS!\n");
-        result = false;
-    }
 
-    HANDLE handleDemandResource = HookEvent(EVENT_RESMAN_DEMAND, HandleDemandResourceEvent);
-    if (!handleDemandResource) {
-        resman.Log(0, "Cannot hook EVENT_RESMAN_DEMAND!\n");
-        result = false;
-    }
+    HANDLE handleResourceExists = HookEvent(EVENT_RESMAN_EXISTS,
+        HandleResourceExistsEvent);
+
+    HANDLE handleDemandResource = HookEvent(EVENT_RESMAN_DEMAND,
+        HandleDemandResourceEvent);
 
     return result;
 }

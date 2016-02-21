@@ -3,6 +3,8 @@
 #include "typedef.h"
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define PLUGIN_MAKE_VERSION(a,b,c,d) (((((DWORD)(a))&0xFF)<<24)|((((DWORD)(b))&0xFF)<<16)|((((DWORD)(c))&0xFF)<<8)|(((DWORD)(d))&0xFF))
 
@@ -42,6 +44,7 @@ typedef struct {
     int (*SetHookDefaultForHookableEvent)(HANDLE, NWNXHOOK);  // v0.3.4 (2004/09/15)
     const char* (*GetCurrentEventName)();
     int (*SetHookInitializer)(HANDLE hEvent, NWNXHOOK pfnIntialize);
+    HANDLE(*HookEventOptionally)(const char *, NWNXHOOK);
 } PLUGINLINK;
 
 #ifndef MODULES_H_
@@ -54,6 +57,7 @@ extern PLUGINLINK *pluginLink;
 #define NotifyEventHooksNotAbortable(a,b)    pluginLink->NotifyEventHooksNotAbortable(a,b)
 #define HookEventMessage(a,b,c)              pluginLink->HookEventMessage(a,b,c)
 #define HookEvent(a,b)                       pluginLink->HookEvent(a,b)
+#define HookEventOptionally(a,b)             pluginLink->HookEventOptionally(a,b)
 #define UnhookEvent(a)                       pluginLink->UnhookEvent(a)
 #define CreateServiceFunction(a,b)           pluginLink->CreateServiceFunction(a,b)
 #define CreateTransientServiceFunction(a,b)  pluginLink->CreateTransientServiceFunction(a,b)
@@ -62,7 +66,8 @@ extern PLUGINLINK *pluginLink;
 #define ServiceExists(a)                     pluginLink->ServiceExists(a)
 #define SetHookDefaultForHookableEvent(a,b)  pluginLink->SetHookDefaultForHookableEvent(a,b)
 #define GetCurrentEventName()                pluginLink->GetCurrentEventName()
-#define SetHookInitializer(a,b)               pluginLink->SetHookInitializer(a,b)
+#define SetHookInitializer(a,b)              pluginLink->SetHookInitializer(a,b)
+
 #endif
 #endif
 

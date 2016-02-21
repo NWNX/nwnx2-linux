@@ -100,8 +100,8 @@ int SetHookInitializer(HANDLE hEvent, NWNXHOOK pfnInitialize);
  * HookEvent
  *
  * Adds a new hook to the chain 'name', to be called when the hook owner calls
- * NotifyEventHooks(). Returns NULL if name is not a valid event or a handle
- * referring to the hook otherwise.
+ * NotifyEventHooks(). Will abort() with a nice backtrace if the given hook
+ * name is not provided by anything.
  *
  * The type of parameter is defined by the creator of the event when
  * NotifyEventHooks() is called.
@@ -115,6 +115,14 @@ int SetHookInitializer(HANDLE hEvent, NWNXHOOK pfnInitialize);
  * NotifyEventHooksNotAbortable().
  */
 HANDLE HookEvent(const char *name, NWNXHOOK hookProc);
+
+/**
+ * HookEventOptionally
+ *
+ * The same as HookEvent, except that it will return NULL instead of abort()ing
+ * on failure.
+ */
+HANDLE HookEventOptionally(const char *name, NWNXHOOK hookProc);
 
 /**
  * UnhookEvent
