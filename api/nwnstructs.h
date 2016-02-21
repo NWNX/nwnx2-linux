@@ -171,15 +171,15 @@ struct CNWSObjectMethods {
     /* 0xF0/240 */ unsigned long UpdateAttributesOnEffect;
 };
 struct CNWSCreatureAppearanceInfo {
-    /* 0x0/0 */ unsigned long field_0;
-    /* 0x4/4 */ unsigned long field_4;
-    /* 0x8/8 */ unsigned short field_8;
+    /* 0x0/0 */ unsigned long LeftHandObjId;
+    /* 0x4/4 */ unsigned long RightHandObjId;
+    /* 0x8/8 */ unsigned char RightHandVfx;
+    /* 0x9/9 */ unsigned char LeftHandVfx;
     /* 0xA/10 */ unsigned short field_A;
-    /* 0xC/12 */ unsigned long field_C;
-    /* 0x10/16 */ unsigned long field_10;
-    /* 0x14/20 */ unsigned short field_14;
-    /* 0x16/22 */ char field_16;
-    /* 0x17/23 */ char field_17;
+    /* 0xC/12 */ unsigned long ChestObjId;
+    /* 0x10/16 */ unsigned long HeadObjId;
+    /* 0x14/20 */ unsigned short Appearance;
+    /* 0x16/22 */ unsigned short field_16;
     /* 0x18/24 */ char field_18;
     /* 0x19/25 */ char field_19;
     /* 0x1A/26 */ char field_1A;
