@@ -28,7 +28,7 @@ public:
     /* 0x14/20 */ CAppManager_ModuleInfo *some_struct;
     /* 0x18/24 */ unsigned long field_18;
     /* 0x1C/28 */ unsigned long field_1C;
-    /* 0x20/32 */ unsigned long field_20;
+    /* 0x20/32 */ unsigned long MultiplayerEnabled;
     /* 0x24/36 */ unsigned long field_24;
     /* 0x28/40 */ unsigned long field_28;
     /* 0x2C/44 */ unsigned long field_2C;
