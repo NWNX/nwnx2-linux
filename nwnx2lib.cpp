@@ -29,7 +29,7 @@
 #include <dlfcn.h>
 #include <dirent.h>
 #include <errno.h>
-
+#include "core/ipc/ipc.h"
 using namespace std;
 #include <string>
 #include <map>
@@ -694,12 +694,15 @@ public:
 
 startstop::startstop()
 {
+    g_IPCMgr.reset(new IPCManager());
+
     nwnxConfig.open("nwnx2.ini");
 
     printf("\n");
     printf("NWNX2lib: Init\n");
     InitialiseModularEngine();
     LoadCoreModule();
+
     o_SetString = FindStringHook();
     o_GetObject = FindObjectHook();
 

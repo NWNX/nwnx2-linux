@@ -86,6 +86,8 @@ add_library(nwnx2 SHARED nwnx2lib NWNXBase modules lists gline
     core/events/RunScript
     core/events/Object
     core/ThreadUtil
+
+    core/ipc/IPCManager
 )
 
 # for core/ThreadUtil
