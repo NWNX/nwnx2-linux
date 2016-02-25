@@ -45,7 +45,7 @@ static struct WeaponSignatureTable {
     void               *ref;
     const char         *sig;
 } Table_WeaponSignatures[] = {
-    { NULL,                                     NULL },
+    { NULL, NULL,                               NULL },
 
     NWNX_WEAPONS_SIG(Ref_ABAbilityModifier,     "8B 9D 3C FA FF FF 31 FF 85 DB C7 85 F8 F9 FF FF 00 00 00 00"),
     NWNX_WEAPONS_SIG(Ref_CritConfirmationRoll,  "0F B7 C0 C7 47 48 01 00 00 00 88 47 0F 03 45 A0 83 C4 10 3B"),
@@ -58,7 +58,7 @@ static struct WeaponSignatureTable {
     NWNX_WEAPONS_SIG(Ref_OffhandCritMult4,      "83 C4 10 85 C0 ** ** ** ** 00 00 83 EC 08 52 FF 75 08 ** ** ** ** ** 8B 7D D4 83 C4 10"),
     NWNX_WEAPONS_SIG(Ref_UpdateAttacks,         "8B 45 08 83 EC 08 8B 98 28 04 00 00 6A 00 50 E8 ** ** ** ** 83 C4"),
 
-    { NULL,                                     NULL },
+    { NULL, NULL,                               NULL },
 };
 
 

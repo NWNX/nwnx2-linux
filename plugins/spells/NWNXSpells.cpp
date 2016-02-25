@@ -46,7 +46,7 @@ static struct SpellSignatureTable {
     void               *ref;
     const char         *sig;
 } Table_SpellSignatures[] = {
-    { NULL,                                     NULL },
+    { NULL, NULL,                              NULL },
 
     NWNX_SPELLS_SIG(Ref_CasterAbility1,        "8A 55 E5 31 C0 3A ** ** ** ** ** 74 08 3A ** ** ** ** ** 75 13 83 EC 0C 0F B6 B7 03"),
     NWNX_SPELLS_SIG(Ref_CasterMemorize1,       "C1 E0 02 29 D0 8B 5D 08 8A 94 C3 B2 01 00 00 3A 15 ** ** ** ** 74 20 3A 15"),
@@ -58,7 +58,7 @@ static struct SpellSignatureTable {
     NWNX_SPELLS_SIG(Ref_IdentifySpell,         "8B 85 78 FF FF FF 0F B6 58 47 56 6A 14 6A 01 FF"),
     NWNX_SPELLS_SIG(Ref_SpellSlotLoop,         "C6 85 E2 FE FF FF 00 8B BB B8 04 00 00 83 C4 10"),
 
-    { NULL,                                     NULL },
+    { NULL, NULL,                              NULL },
 };
 
 

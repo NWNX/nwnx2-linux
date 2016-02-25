@@ -57,7 +57,7 @@ static struct DefenseSignatureTable {
     void               *ref;
     const char         *sig;
 } Table_DefenseSignatures[] = {
-    { NULL,                                     NULL },
+    { NULL, NULL,                                NULL },
 
     NWNX_DEFENSES_SIG(Ref_ArmorCheckPenalty,     "0F B6 45 F3 8D 14 80 8D 14 50 8B 81 E8 00 00 00 83 7C 90 24 01 75"),
     NWNX_DEFENSES_SIG(Ref_CheckConcealment,      "C7 45 BC 0A 00 00 00 8B 5D C0 85 DB 7F ** 8B 4D"),
@@ -82,7 +82,7 @@ static struct DefenseSignatureTable {
     NWNX_DEFENSES_SIG(Ref_DamageImmItemProp,     "5B 5F 6A 02 56 E8 ** ** ** ** 0F B7 45 C2 83 C4 10 83 F8 0B 0F"),
 #endif
 
-    { NULL,                                     NULL },
+    { NULL, NULL,                                 NULL },
 };
 
 

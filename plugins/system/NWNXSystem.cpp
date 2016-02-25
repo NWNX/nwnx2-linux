@@ -36,11 +36,11 @@ static struct SystemSignatureTable {
     void               *ref;
     const char         *sig;
 } Table_SystemSignatures[] = {
-    { NULL,                                     NULL },
+    { NULL, NULL,                              NULL },
 
     NWNX_SYSTEM_SIG(Ref_TMILimit,               "8D F7 1D 00 00 8B 55 08 8B 42 08 40 3D FF FF 01"),
 
-    { NULL,                                     NULL },
+    { NULL, NULL,                              NULL },
 };
 
 
