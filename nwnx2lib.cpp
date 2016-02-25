@@ -81,7 +81,7 @@ const map<string, CNWNXBase*> & GetLoadedLibraries()
     return Libraries;
 }
 
-const int GetCoreDebugLevel()
+int GetCoreDebugLevel()
 {
     return debuglevel;
 }
