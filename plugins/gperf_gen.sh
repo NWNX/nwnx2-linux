@@ -19,4 +19,6 @@ sed -i 's/defined __GNUC_STDC_INLINE__/0/' "gperf.out" || rm -f "gperf.out"
 
 sed -i 's/__attribute__ ((__gnu_inline__))//' "gperf.out" || rm -f "gperf.out"
 
+sed -i 's/{""}/{"", NULL}/g' "gperf.out" || rm -f "gperf.out"
+
 mv "gperf.out" "${V}Cmds.h"
