@@ -30,6 +30,7 @@
 #include "HookFunc.h"
 #include "NWNXEvents.h"
 #include "AssemblyHelper.cpp"
+#include "core/ipc/ipc.h"
 
 extern CNWNXEvents events;
 AssemblyHelper asmhelp;
@@ -651,24 +652,22 @@ void PrintHookInfo(dword function_addr, char *function_name)
 
 }
 
-int CNWSObject__ctor(uintptr_t p)
+bool CNWSObject__ctor(const void *object, const nwobjid requestedId)
 {
-    ObjectCreatedEvent *e = (ObjectCreatedEvent*) p;
-    events.FireEvent(((CNWSObject*)e->object)->ObjectID, EVENT_TYPE_CREATE_OBJECT);
-    return 0;
+    events.FireEvent(((CNWSObject*)object)->ObjectID, EVENT_TYPE_CREATE_OBJECT);
+    return false;
 }
 
-int CNWSObject__dtor(uintptr_t p)
+bool CNWSObject__dtor(const void *object)
 {
-    ObjectDestroyedEvent *e = (ObjectDestroyedEvent*) p;
-    events.FireEvent(((CNWSObject*)e->object)->ObjectID, EVENT_TYPE_DESTROY_OBJECT);
-    return 0;
+    events.FireEvent(((CNWSObject*)object)->ObjectID, EVENT_TYPE_DESTROY_OBJECT);
+    return false;
 }
 
-int PluginsLoaded(uintptr_t p)
+bool PluginsLoaded()
 {
-    HookEvent(EVENT_CORE_OBJECT_CREATED, CNWSObject__ctor);
-    HookEvent(EVENT_CORE_OBJECT_DESTROYED, CNWSObject__dtor);
+    SignalConnect(CoreCNWSObjectCreated, "EVENTS", CNWSObject__ctor);
+    SignalConnect(CoreCNWSObjectDestroyed, "EVENTS", CNWSObject__dtor);
 }
 
 int HookFunctions(bool enableUnsafe)
@@ -722,7 +721,7 @@ int HookFunctions(bool enableUnsafe)
     *(dword*)&CNWSPlayer__ValidateCharacter = (dword)&d_ret_code_vc;
 
     if (enableUnsafe) {
-        HookEvent(EVENT_CORE_PLUGINSLOADED, PluginsLoaded);
+        SignalConnect(CorePluginsLoaded, "EVENTS", PluginsLoaded);
     }
 
     PrintHookInfo(org_SaveChar, "SaveChar");

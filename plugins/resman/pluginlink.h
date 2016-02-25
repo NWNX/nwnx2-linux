@@ -1,28 +1,24 @@
 #pragma once
 
-/**
- * Event: EVENT_RESMAN_DEMAND
- * Param: ResManDemandEvent
- */
-#define EVENT_RESMAN_DEMAND "ResMan/Demand"
-
-typedef struct {
-    const char* resRefWithExt; // "whatever.uti"
-    unsigned int restype;
-    unsigned char *pData;
-    int size;
-    time_t mtime;
-    const time_t minimum_mtime;
-} ResManDemandEvent;
+#include "core/ipc/Signal.h"
 
 /**
- * Event: EVENT_RESMAN_EXISTS
- * Param: ResManExistsEvent
+ * Event: ResManDemandEvent
  */
-#define EVENT_RESMAN_EXISTS "ResMan/Exists"
+using ResManDemandEvent = Signal<
+    const char*,     // ResRef with extension.  E,g. "whatever.uti"
+    unsigned int,    // Resource Type
+    unsigned char**, // pData;
+    int&,            // size;
+    time_t&,         // mtime;
+    const time_t     // minimum_mtime;
+>;
 
-typedef struct {
-    const char* resRefWithExt;
-    time_t mtime;
-    bool exists;
-} ResManExistsEvent;
+/**
+ * Event: ResManExistsEvent
+ */
+using ResManExistsEvent = Signal<
+    const char*, // ResRef with extension.  E,g. "whatever.uti"
+    time_t&,     // Last Modification Time
+    bool&        // Set to true if resource exists.
+>;

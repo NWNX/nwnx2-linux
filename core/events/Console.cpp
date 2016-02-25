@@ -1,12 +1,12 @@
 #include "../core.h"
-
+#include "../core/ipc/ipc.h"
 #include "NWNXApi.h"
 #include "NWNXBase.h"
 
 #include <map>
 #include <string>
 
-static HANDLE hConsoleInput;
+static CoreConsoleInput* hConsoleInput = nullptr;
 
 static void (*ProcessKeyboardInput)();
 static void ProcessKeyboardInput_Hook()
@@ -37,9 +37,9 @@ static void ProcessKeyboardInput_Hook()
             mtx->EnterCriticalSection();
         }
 
-        CoreConsoleInputEvent ev = { command, rest ? rest : "", true };
-        NotifyEventHooksNotAbortable(hConsoleInput, (uintptr_t) &ev);
-        call_parent = ev.pass;
+        bool pass = true;
+        hConsoleInput->emit(command, rest ? rest : "", pass);
+        call_parent = pass;
 
         if (!call_parent)
             *g_ProcessCommand = 0;
@@ -55,7 +55,7 @@ static void ProcessKeyboardInput_Hook()
 
 void Core_Console_Init()
 {
-    hConsoleInput = CreateHookableEvent(EVENT_CORE_CONSOLE_INPUT);
+    hConsoleInput = SignalRegister(CoreConsoleInput, false);
 
     NX_HOOK(ProcessKeyboardInput, 0x0804D328,
             ProcessKeyboardInput_Hook, 5);

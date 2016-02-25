@@ -23,7 +23,7 @@
 #include <memory.h>
 #include <pthread.h>
 #include <stddef.h>
-
+#include "core/ipc/ipc.h"
 #include "NWNXChat.h"
 #include "HookChat.h"
 #include "pluginlink.h"
@@ -89,12 +89,11 @@ bool CNWNXChat::OnCreate(gline *config, const char* LogDir)
     Log(1, "ignore_silent: %d\n\n", ignore_silent);
 
     // Plugin Events
-    if (!pluginLink) {
+    if (!g_IPCMgr) {
         Log(0, "Plugin link not accessible\n");
     } else {
-        Log(0, "Plugin link: %08lX\n", pluginLink);
-        hChatMessage = CreateHookableEvent(EVENT_CHAT_MESSAGE);
-        hCCMessage = CreateHookableEvent(EVENT_CHAT_CCMESSAGE);
+        hChatMessage = SignalRegister(ChatMessageEvent);
+        hCCMessage = SignalRegister(ChatCCMessageEvent);
     }
 
     return (HookFunctions());
@@ -242,25 +241,15 @@ int CNWNXChat::Chat(const int mode, const int id, const char *msg, const int to)
     sprintf(lastMsg, "%02d%10d", cmode, to);
     strncat(lastMsg, msg, maxMsgLen);
 
-    ChatMessageEvent event;
-    event.suppress = supressMsg = 0;
-    event.msg = msg;
-    event.to = to;
-    event.from = id;
-    event.channel = mode;
-
+    supressMsg = false;
     if (ignore_silent && (cmode == 0xD || cmode == 0xE)) return 0;
     scriptRun = true;
     if ((processNPC && id != 0x7F000000) || (!processNPC && (unsigned long)id >> 16 == 0x7FFF)) {
-        if (NotifyEventHooks(hChatMessage, (uintptr_t)&event)) {
-            supressMsg = event.suppress;
-        } else {
+        if (!hChatMessage->emit(msg, to, id, mode, supressMsg)) {
             RunScript(chatScript, id);
         }
     } else if (cmode == 5 && id == 0x7F000000) {
-        if (NotifyEventHooks(hChatMessage, (uintptr_t)&event)) {
-            supressMsg = event.suppress;
-        } else if (*servScript) {
+        if (!hChatMessage->emit(msg, to, id, mode, supressMsg)) {
             RunScript(servScript, 0);
         }
     }
@@ -271,17 +260,9 @@ int CNWNXChat::Chat(const int mode, const int id, const char *msg, const int to)
 int CNWNXChat::CCMessage(const int objID, const int type, const int subtype,
                          CNWCCMessageData *messageData)
 {
-    ChatCCMessageEvent event;
-    event.suppress = supressMsg = 0;
-    event.type = messageType = type;
-    event.subtype = messageSubtype = subtype;
-    event.to = objID;
-    event.msg_data = messageData;
-
+    supressMsg = false;
     scriptRun = true;
-    if (NotifyEventHooks(hCCMessage, (uintptr_t)&event)) {
-        supressMsg = event.suppress;
-    } else {
+    if (!hCCMessage->emit(type, subtype, objID, messageData, supressMsg)) {
         RunScript(ccScript, objID);
     }
     scriptRun = false;

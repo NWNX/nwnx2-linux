@@ -35,6 +35,7 @@
 
 #include "HookFunc.h"
 #include "NWNXOptimizations.h"
+#include "core/ipc/ipc.h"
 
 extern CNWNXOptimizations plugin;
 
@@ -97,13 +98,13 @@ int64_t CExoTimers__GetHighResolutionTimer_hook(void *pTimer)
 
 struct timeval start;
 
-int eventMainLoopBefore(uintptr_t p)
+bool eventMainLoopBefore()
 {
     gettimeofday(&start, NULL);
-    return 0;
+    return false;
 }
 
-int eventMainLoopAfter(uintptr_t p)
+bool eventMainLoopAfter()
 {
     struct timeval finish;
     dword msec;
@@ -121,7 +122,7 @@ int eventMainLoopAfter(uintptr_t p)
         nPosition = 0;
 
     SetDynamicDelay();
-    return 0;
+    return false;
 }
 
 void CNWVirtualMachineCommands__RunScriptCallback_hook(void *pCommands, void *sScriptName)
@@ -163,11 +164,12 @@ d_redirect(long from, long to, unsigned char *d_ret_code, long len = 0)
 
 int HookFunctions()
 {
-    HookEvent(EVENT_CORE_PLUGINSLOADED, [](uintptr_t) -> int
+
+    SignalConnect(CorePluginsLoaded, "OPTIMIZATIONS", []() -> bool
     {
-        HookEvent(EVENT_CORE_MAINLOOP_BEFORE, eventMainLoopBefore);
-        HookEvent(EVENT_CORE_MAINLOOP_AFTER, eventMainLoopAfter);
-        return 0;
+        SignalConnect(CoreMainloopBefore, "OPTIMIZATIONS", eventMainLoopBefore);
+        SignalConnect(CoreMainloopAfter, "OPTIMIZATIONS", eventMainLoopAfter);
+        return false;
     });
 
     memset(aLoopTimes, 0, sizeof(dword)*HIST_LENGTH);

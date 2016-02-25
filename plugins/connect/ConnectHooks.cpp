@@ -49,13 +49,10 @@ int CNWSMessage__HandlePlayerToServerMessage_Hook(CNWSMessage *pMessage, int nPl
     int nSubtype = pData[2];
     plugin.Log(0, "Message: PID %d, type %x, subtype %x\n", nPlayerID, nType, nSubtype);
     if (nType == 1) {
-        ConnectPlayerConnectEvent ev = {
-            (const uint32_t) nPlayerID,
-            10294 /* Your player name has been refused by the server. */
-        };
-        if (NotifyEventHooks(plugin.hPlayerConnect, (uintptr_t) &ev)) {
+        uint32_t disconnect_strref = 10294;
+        if (plugin.hPlayerConnect->emit(nPlayerID, disconnect_strref)) {
             g_pAppManager->ServerExoApp->GetNetLayer()->
-            DisconnectPlayer(nPlayerID, ev.disconnect_strref, 1);
+            DisconnectPlayer(nPlayerID, disconnect_strref, 1);
             return 0;
         }
 
@@ -91,16 +88,12 @@ static int (*CNetLayerInternal__DisconnectPlayer)(void *nl,
 static int CNetLayerInternal__DisconnectPlayer_Hook(void *nl,
         const unsigned int playerId, const unsigned int strref, int sendBNDP, int a5)
 {
-    ConnectPlayerDisconnectEvent ev = {
-        playerId, strref
-    };
-
-    NotifyEventHooksNotAbortable(plugin.hPlayerDisconnectBefore, (uintptr_t) &ev);
+    plugin.hPlayerDisconnectBefore->emit(playerId, strref);
 
     int ret = CNetLayerInternal__DisconnectPlayer(nl,
               playerId, strref, sendBNDP, a5);
 
-    NotifyEventHooksNotAbortable(plugin.hPlayerDisconnectAfter, (uintptr_t) &ev);
+    plugin.hPlayerDisconnectAfter->emit(playerId, strref);
 
     return ret;
 }

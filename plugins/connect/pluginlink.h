@@ -1,4 +1,5 @@
 #pragma once
+#include "core/ipc/Signal.h"
 
 /**
  * Event: EVENT_CONNECT_PLAYER_CONNECT
@@ -10,12 +11,11 @@
  * You can disconnect them here by aborting the callchain, optionally
  * giving a strref reason.
  */
-#define EVENT_CONNECT_PLAYER_CONNECT "Connect/PlayerConnect"
 
-struct ConnectPlayerConnectEvent {
-    const uint32_t playerId;
-    uint32_t disconnect_strref;
-};
+using ConnectPlayerConnectEvent = Signal<
+    const uint32_t, // playerId;
+    uint32_t&       // disconnect_strref;
+>;
 
 /**
  * Event: EVENT_CONNECT_PLAYER_DISCONNECT
@@ -34,11 +34,13 @@ struct ConnectPlayerConnectEvent {
  *
  * _AFTER only sees the playerId, all related data has already been freed.
  */
-#define EVENT_CONNECT_PLAYER_DISCONNECT_BEFORE "Connect/PlayerDisconnectBefore"
-#define EVENT_CONNECT_PLAYER_DISCONNECT_AFTER "Connect/PlayerDisconnectAfter"
 
-struct ConnectPlayerDisconnectEvent {
-    const uint32_t playerId;
-    const uint32_t strref;
-};
+using ConnectPlayerDisconnectBeforeEvent = Signal<
+    const uint32_t, // playerId;
+    const uint32_t  // strref;
+>;
 
+using ConnectPlayerDisconnectAfterEvent = Signal<
+    const uint32_t, // playerId;
+    const uint32_t  // strref;
+>;

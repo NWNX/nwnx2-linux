@@ -1,9 +1,9 @@
 #include "../core.h"
-
+#include "../core/ipc/ipc.h"
 #include "NWNXApi.h"
 
-static HANDLE hObjectCreated;
-static HANDLE hObjectDestroyed;
+static CoreCNWSObjectCreated* hObjectCreated = nullptr;
+static CoreCNWSObjectDestroyed* hObjectDestroyed = nullptr;
 
 static int (*CNWSObject__ctor)(
 	CNWSObject *obj,
@@ -20,51 +20,32 @@ static int CNWSObject__ctor_Hook(
 {
 	int ret = CNWSObject__ctor(obj, objectType, objectId, a4, a5);
 
-	ObjectCreatedEvent p = {
-		obj,
-		objectId
-	};
+    hObjectCreated->emit(obj, objectId);
 
-	NotifyEventHooksNotAbortable(hObjectCreated, (uintptr_t) &p);
-
-	return ret;
+    return ret;
 }
 
 static void CNWSObject__dtor_Hook(CNWSObject *obj, char a2)
 {
-	ObjectDestroyedEvent p = {
-		obj
-	};
-
-	NotifyEventHooksNotAbortable(hObjectDestroyed, (uintptr_t) &p);
+    hObjectDestroyed->emit(obj);
 
 	CNWSObject__dtor(obj, a2);
 }
 
-static int HookObjectCreated(uintptr_t p)
+static void HookObjectCreated()
 {
 	nx_log(NX_LOG_INFO, 0, "core: Hooking CNWSObject__ctor.");
 	NX_HOOK(CNWSObject__ctor, 0x081C88F0, CNWSObject__ctor_Hook, 5);
-
-	return true;
 }
 
-static int HookObjectDestroyed(uintptr_t p)
+static void HookObjectDestroyed()
 {
 	nx_log(NX_LOG_INFO, 0, "core: Hooking CNWSObject__dtor.");
 	NX_HOOK(CNWSObject__dtor, 0x081C8E94, CNWSObject__dtor_Hook, 5);
-
-	return true;
 }
 
 void Core_Object_Init()
 {
-	hObjectCreated = CreateHookableEvent(EVENT_CORE_OBJECT_CREATED);
-	hObjectDestroyed = CreateHookableEvent(EVENT_CORE_OBJECT_DESTROYED);
-
-	if (hObjectCreated)
-		SetHookInitializer(hObjectCreated, HookObjectCreated);
-
-	if (hObjectDestroyed)
-		SetHookInitializer(hObjectDestroyed, HookObjectDestroyed);
+	hObjectCreated = SignalRegister(CoreCNWSObjectCreated, false, HookObjectCreated);
+	hObjectDestroyed = SignalRegister(CoreCNWSObjectDestroyed, false, HookObjectDestroyed);
 }

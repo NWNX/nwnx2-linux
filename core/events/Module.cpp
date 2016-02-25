@@ -1,8 +1,9 @@
 #include "../core.h"
-
+#include "../core/ipc/ipc.h"
 #include "NWNXApi.h"
 
-static HANDLE hModuleLoading, hModuleLoaded;
+static CoreModuleLoading* hModuleLoading = nullptr;
+static CoreModuleLoaded* hModuleLoaded = nullptr;
 
 /* Mid-function hook to load a new module. */
 static int CServerExoApp__LoadModule(
@@ -12,12 +13,7 @@ static int CServerExoApp__LoadModule(
     CNWSPlayer *p
 )
 {
-    CoreModuleLoadingEvent e = {
-        mod.CStr()
-    };
-
-    NotifyEventHooksNotAbortable(hModuleLoading, (uintptr_t) &e);
-
+    hModuleLoading->emit(mod.CStr());
     return s->LoadModule(mod, a3, p);
 }
 
@@ -28,15 +24,15 @@ static short CServerExoApp__GetServerMode(CServerExoApp *s)
     short ret = s->GetServerMode();
 
     if (ret)
-        NotifyEventHooksNotAbortable(hModuleLoaded, 0);
+        hModuleLoaded->emit();
 
     return ret;
 }
 
 void Core_Module_Init()
 {
-    hModuleLoading = CreateHookableEvent(EVENT_CORE_MODULE_LOADING);
-    hModuleLoaded = CreateHookableEvent(EVENT_CORE_MODULE_LOADED);
+    hModuleLoading = SignalRegister(CoreModuleLoading, false);
+    hModuleLoaded = SignalRegister(CoreModuleLoaded, false);
 
     NX_HOOK_CALL(0x0804e712, CServerExoApp__LoadModule);
     NX_HOOK_CALL(0x0804e77a, CServerExoApp__GetServerMode);

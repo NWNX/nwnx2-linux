@@ -83,8 +83,8 @@ private:
     char* scorcoSQL;
     unsigned long lastObjectID;
 
-    HANDLE hSCOEvent;
-    HANDLE hRCOEvent;
+    ODBCSCOEvent* hSCOEvent = nullptr;
+    ODBCRCOEvent* hRCOEvent = nullptr;
 
     enum ELogLevel {logNothing, logErrors, logAll};
 };

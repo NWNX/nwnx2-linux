@@ -23,8 +23,7 @@
 
 #include "NWNXConnect.h"
 #include "ConnectHooks.h"
-
-extern PLUGINLINK *pluginLink;
+#include "core/ipc/ipc.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -65,9 +64,9 @@ bool CNWNXConnect::OnCreate(gline *config, const char *LogDir)
         //return false;
     }
 
-    hPlayerConnect          = CreateHookableEvent(EVENT_CONNECT_PLAYER_CONNECT);
-    hPlayerDisconnectBefore = CreateHookableEvent(EVENT_CONNECT_PLAYER_DISCONNECT_BEFORE);
-    hPlayerDisconnectAfter = CreateHookableEvent(EVENT_CONNECT_PLAYER_DISCONNECT_AFTER);
+    hPlayerConnect          = SignalRegister(ConnectPlayerConnectEvent);
+    hPlayerDisconnectBefore = SignalRegister(ConnectPlayerDisconnectBeforeEvent, false);
+    hPlayerDisconnectAfter  = SignalRegister(ConnectPlayerDisconnectAfterEvent, false);
 
     return true;
 }

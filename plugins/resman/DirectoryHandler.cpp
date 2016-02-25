@@ -4,6 +4,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include "pluginlink.h"
+#include "core/ipc/ipc.h"
 
 extern CNWNXResMan resman;
 
@@ -16,47 +17,51 @@ static time_t GetLastModTime(const char *file)
     return -1;
 }
 
-static int HandleResourceExistsEvent(uintptr_t p)
+static bool HandleResourceExistsEvent(const char* resRefWithExt, time_t& mtime, bool& exists)
 {
     char resPath[MAXPATH + 17];
 
-    ResManExistsEvent *exists = reinterpret_cast<ResManExistsEvent*>(p);
-    const char *ext = strchr(exists->resRefWithExt, '.');
+    const char *ext = strchr(resRefWithExt, '.');
     if (!ext) { return 0; }
     ++ext;
-    snprintf(resPath, MAXPATH, "%s/%s/%s", resman.GetSourcePath(), ext, exists->resRefWithExt);
+    snprintf(resPath, MAXPATH, "%s/%s/%s", resman.GetSourcePath(), ext, resRefWithExt);
     time_t modtime = GetLastModTime(resPath);
 
-    if (modtime == -1) { return 0; }
+    if (modtime == -1) { return false; }
 
-    exists->exists = true;
-    exists->mtime = std::max(exists->mtime, modtime);
+    exists = true;
+    mtime = std::max(mtime, modtime);
 
-    return 0;
+    return false;
 }
 
-static int HandleDemandResourceEvent(uintptr_t p)
+static bool HandleDemandResourceEvent(const char* resRefWithExt,
+                                      unsigned int resType,
+                                      unsigned char** data,
+                                      int& size,
+                                      time_t& mtime,
+                                      const time_t minimum_mtime
+)
 {
     char resPath[MAXPATH + 17];
 
-    ResManDemandEvent *event = reinterpret_cast<ResManDemandEvent*>(p);
-    const char *ext = strchr(event->resRefWithExt, '.');
+    const char *ext = strchr(resRefWithExt, '.');
     if (!ext) { return 0; }
     ++ext;
-    snprintf(resPath, MAXPATH, "%s/%s/%s", resman.GetSourcePath(), ext, event->resRefWithExt);
+    snprintf(resPath, MAXPATH, "%s/%s/%s", resman.GetSourcePath(), ext, resRefWithExt);
     time_t modtime = GetLastModTime(resPath);
-    if (modtime == -1 || event->minimum_mtime > modtime) {
-        return 0;
+    if (modtime == -1 || minimum_mtime > modtime) {
+        return false;
     }
 
     FILE *pTemp = fopen(resPath, "rb");
     if (pTemp == NULL) {
         resman.Log(3, "o Skip - Unable to open file: %s\n", resPath);
-        return 0;
+        return false;
     }
 
     fseek(pTemp, 0, SEEK_END);
-    unsigned long size = ftell(pTemp);
+    size = ftell(pTemp);
     fseek(pTemp, 0, SEEK_SET);
 
     char *pScriptBuffer = new char[size];
@@ -64,28 +69,25 @@ static int HandleDemandResourceEvent(uintptr_t p)
         resman.Log(3, "o Skip - Error reading file: %s\n", resPath);
         delete[] pScriptBuffer;
         pScriptBuffer = NULL;
+        size = 0;
     }
 
     fclose(pTemp);
 
     if (pScriptBuffer) {
-        event->mtime = modtime;
-        event->pData = (unsigned char*)pScriptBuffer;
-        event->size = size;
-        return 1;
+        mtime = modtime;
+        *data = (unsigned char*)pScriptBuffer;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 bool RegisterDirectoryHandlers()
 {
     bool result = true;
 
-    HANDLE handleResourceExists = HookEvent(EVENT_RESMAN_EXISTS,
-        HandleResourceExistsEvent);
-
-    HANDLE handleDemandResource = HookEvent(EVENT_RESMAN_DEMAND,
-        HandleDemandResourceEvent);
+    SignalConnect(ResManExistsEvent, "RESMAN", HandleResourceExistsEvent);
+    SignalConnect(ResManDemandEvent, "RESMAN", HandleDemandResourceEvent);
 
     return result;
 }

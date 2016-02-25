@@ -53,13 +53,8 @@ using namespace std;
 static DWORD g_nwnxVersion = PLUGIN_MAKE_VERSION(2, 8, 0, 0);
 
 //Modular engine
-PLUGINLINK pluginCoreLink;
-extern "C" int InitialiseModularEngine(void);
-extern "C" void DestroyModularEngine(void);
-//Hooks
-HANDLE hPluginsLoadedEvent;
+static CorePluginsLoaded *hCorePluginsLoaded;
 //Plugins
-typedef int (* Plugin_Init)(PLUGINLINK *);
 typedef PLUGININFO * (* Plugin_Info)(DWORD nwnxVersion);
 
 
@@ -418,18 +413,12 @@ LoadLibraries()
         }
 
         Plugin_Info getPluginInfo = (Plugin_Info) dlsym(handle, "GetPluginInfo");
-        Plugin_Init initPlugin = (Plugin_Init) dlsym(handle, "InitPlugin");
-        if (getPluginInfo && initPlugin)	{
+        if (getPluginInfo)	{
             Log(1, "%s: Supports the new plugin interface\n" , key);
             PLUGININFO * pi = 0;
-            int initResult;
             pi = getPluginInfo(g_nwnxVersion);
             if (!pi) {
                 Log(0, "%s: The plugin returned NULL on GetPluginInfo: skipping\n" , key);
-                continue;
-            }
-            if ((initResult = initPlugin(&pluginCoreLink)) != 0) {
-                Log(0, "%s: The plugin returned %d on InitPlugin: skipping\n" , key, initResult);
                 continue;
             }
         } else {
@@ -663,28 +652,6 @@ static void Log(int priority, const char *pcMsg, ...)
     }
 }
 
-void LoadCoreModule()
-{
-    pluginCoreLink.CallService = CallService;
-    pluginCoreLink.ServiceExists = ServiceExists;
-    pluginCoreLink.CreateServiceFunction = CreateServiceFunction;
-    pluginCoreLink.CreateTransientServiceFunction = CreateServiceFunction;
-    pluginCoreLink.DestroyServiceFunction = DestroyServiceFunction;
-    pluginCoreLink.CreateHookableEvent = CreateHookableEvent;
-    pluginCoreLink.DestroyHookableEvent = DestroyHookableEvent;
-    pluginCoreLink.HookEvent = HookEvent;
-    pluginCoreLink.UnhookEvent = UnhookEvent;
-    pluginCoreLink.NotifyEventHooks = NotifyEventHooks;
-    pluginCoreLink.NotifyEventHooksNotAbortable = NotifyEventHooksNotAbortable;
-    pluginCoreLink.SetHookDefaultForHookableEvent = SetHookDefaultForHookableEvent;
-    pluginCoreLink.GetCurrentEventName = GetCurrentEventName;
-    pluginCoreLink.SetHookInitializer = SetHookInitializer;
-    pluginCoreLink.HookEventOptionally = HookEventOptionally;
-    //pluginCoreLink.NotifyEventHooksDirect=CallHookSubscribers;
-
-    hPluginsLoadedEvent = CreateHookableEvent(EVENT_CORE_PLUGINSLOADED);
-}
-
 class startstop
 {
 public:
@@ -700,8 +667,7 @@ startstop::startstop()
 
     printf("\n");
     printf("NWNX2lib: Init\n");
-    InitialiseModularEngine();
-    LoadCoreModule();
+    hCorePluginsLoaded = SignalRegister(CorePluginsLoaded, false);
 
     o_SetString = FindStringHook();
     o_GetObject = FindObjectHook();
@@ -734,8 +700,8 @@ startstop::startstop()
 
     printf("* Loading modules...\n");
     LoadLibraries();
-    Core_Init(&pluginCoreLink);
-    NotifyEventHooksNotAbortable(hPluginsLoadedEvent, 0);
+    Core_Init();
+    hCorePluginsLoaded->emit();
 
     // log & emit
     Log(0, "* NWNX2 activated.\n");
@@ -744,7 +710,6 @@ startstop::startstop()
 startstop::~startstop()
 {
     printf("NWNX2lib: Server exiting.\n");
-    DestroyModularEngine();
 }
 
 startstop __loadit;

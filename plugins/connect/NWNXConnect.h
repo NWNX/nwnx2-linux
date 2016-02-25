@@ -40,8 +40,9 @@ public:
 
     StringMap pluginConfig;
 
-    HANDLE hPlayerConnect;
-    HANDLE hPlayerDisconnectBefore, hPlayerDisconnectAfter;
+    ConnectPlayerConnectEvent* hPlayerConnect = nullptr;
+    ConnectPlayerDisconnectBeforeEvent* hPlayerDisconnectBefore = nullptr;
+    ConnectPlayerDisconnectAfterEvent* hPlayerDisconnectAfter = nullptr;
 private:
 
 };

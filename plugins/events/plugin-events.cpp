@@ -20,7 +20,6 @@
 #include "NWNXEvents.h"
 
 CNWNXEvents events;
-PLUGINLINK *pluginLink = 0;
 
 PLUGININFO pluginInfo = {
     sizeof(PLUGININFO),
@@ -39,11 +38,6 @@ extern "C" PLUGININFO* GetPluginInfo(DWORD nwnxVersion)
     return &pluginInfo;
 }
 
-extern "C" int InitPlugin(PLUGINLINK *link)
-{
-    pluginLink = link;
-    return 0;
-}
 extern "C"
 CNWNXBase* GetClassObject()
 {

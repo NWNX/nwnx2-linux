@@ -21,8 +21,6 @@
 
 CNWNXConnect plugin;
 
-PLUGINLINK *pluginLink = 0;
-
 PLUGININFO pluginInfo = {
     sizeof(PLUGININFO),
     "NWNX Connect",
@@ -30,7 +28,7 @@ PLUGININFO pluginInfo = {
     "",
     "virusman",
     "virusman@virusman.ru",
-    "© 2012 virusman",
+    "(c) 2012 virusman",
     "http://www.virusman.ru/",
     0		//not transient
 };
@@ -38,12 +36,6 @@ PLUGININFO pluginInfo = {
 extern "C" PLUGININFO* GetPluginInfo(DWORD nwnxVersion)
 {
     return &pluginInfo;
-}
-
-extern "C" int InitPlugin(PLUGINLINK *link)
-{
-    pluginLink = link;
-    return 0;
 }
 
 extern "C"

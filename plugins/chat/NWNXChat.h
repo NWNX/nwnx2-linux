@@ -24,11 +24,12 @@
 #include "NWNXBase.h"
 #include "api/all.h"
 #include "HookChat.h"
+#include "pluginlink.h"
 
 class CNWNXChat : public CNWNXBase
 {
-    HANDLE hChatMessage;
-    HANDLE hCCMessage;
+    ChatMessageEvent* hChatMessage = nullptr;
+    ChatCCMessageEvent* hCCMessage = nullptr;
     char *lastMsg;
 public:
     CNWNXChat();

@@ -1,6 +1,7 @@
 #include "NWNXResMan.h"
 #include "pluginlink.h"
 #include <stdio.h>
+#include "core/ipc/ipc.h"
 
 CNWNXResMan::CNWNXResMan()
 {
@@ -23,8 +24,8 @@ bool CNWNXResMan::OnCreate(gline *config, const char *LogDir)
 
     WriteLogHeader();
 
-    hDemandRes = CreateHookableEvent(EVENT_RESMAN_DEMAND);
-    hResExists = CreateHookableEvent(EVENT_RESMAN_EXISTS);
+    hDemandRes = SignalRegister(ResManDemandEvent);
+    hResExists = SignalRegister(ResManExistsEvent, false);
 
     // Must be called after event hooks are created and before
     // hooks.
@@ -68,11 +69,12 @@ void* CNWNXResMan::DemandRes(CExoResMan *pResMan, CRes *cRes, const CResRef &res
     std::pair<ResourceMap::iterator, bool> lookup = resFiles.insert(ResourceMap::value_type(resrefWithExt, CResFileInfo()));
     CResFileInfo& fileInfo = lookup.first->second;
 
-    ResManExistsEvent event = { resrefWithExt, 0, false };
-    NotifyEventHooksNotAbortable(hResExists, (uintptr_t)&event);
+    bool exists = false;
+    time_t lastMod = 0;
+    hResExists->emit(resrefWithExt, lastMod, exists);
 
-    if (event.exists) {
-        fileInfo.latest_mtime = event.mtime;
+    if (exists) {
+        fileInfo.latest_mtime = lastMod;
     } else {
         if (warnMissing && cRes->m_nID == 0xffffffff) {
             Log(0, "WARNING Potential memory leak detected: '%s' wasn't found internally or in resources.\n", resrefWithExt);
@@ -122,14 +124,13 @@ void* CNWNXResMan::DemandRes(CExoResMan *pResMan, CRes *cRes, const CResRef &res
         }
         return cRes->m_pResource;
     } else {
-        ResManDemandEvent demandResInfo = { resrefWithExt, resType, NULL, 0, fileInfo.mtime, fileInfo.latest_mtime };
-        int notifyRet = NotifyEventHooks(hDemandRes, (uintptr_t)&demandResInfo);
-        if (!notifyRet) { return NULL; }
-        if (demandResInfo.pData && demandResInfo.size) {
+        unsigned char* data = nullptr;
+        int s = 0;
+        if (!hDemandRes->emit(resrefWithExt, resType, &data, s, fileInfo.mtime, fileInfo.latest_mtime)) { return NULL; }
+        if (data && size) {
             //Log(4, "Got data from Hook, returning (size = %d): %s\n", demandResInfo.size, demandResInfo.pData);
-            pScriptBuffer = (char*) demandResInfo.pData;
-            fileInfo.size = size = demandResInfo.size;
-            fileInfo.mtime = demandResInfo.mtime;
+            pScriptBuffer = (char*) data;
+            fileInfo.size = size = s;
 
             Log(1, "o Loading external resouce: %s, mtime: %d\n", resrefWithExt, fileInfo.mtime);
             Log(4, "Original Structure:\n");
@@ -225,11 +226,12 @@ bool CNWNXResMan::ResourceExists(const CResRef &resRef, NwnResType resType, CKey
     std::pair<ResourceMap::iterator, bool> lookup = resFiles.insert(ResourceMap::value_type(resrefWithExt, CResFileInfo()));
     CResFileInfo& fileInfo = lookup.first->second;
 
-    ResManExistsEvent event = { resrefWithExt, 0, false };
-    NotifyEventHooksNotAbortable(hResExists, (uintptr_t)&event);
+    bool exists = false;
+    time_t lastMod = 0;
+    hResExists->emit(resrefWithExt, lastMod, exists);
 
-    if (event.exists) {
-        fileInfo.latest_mtime = event.mtime;
+    if (exists) {
+        fileInfo.latest_mtime = lastMod;
 
         // To keep nwserver from ketting confused over who owns what key, always
         // create a new CKeyTableEntry.
@@ -247,9 +249,9 @@ bool CNWNXResMan::ResourceExists(const CResRef &resRef, NwnResType resType, CKey
         }
         *original = fileInfo.key;
     }
-    Log(4, "File: %s, Exists?: %d, mtime: %d\n", resrefWithExt, event.exists, fileInfo.latest_mtime);
+    Log(4, "File: %s, Exists?: %d, mtime: %d\n", resrefWithExt, exists, fileInfo.latest_mtime);
 
-    return event.exists;
+    return exists;
 }
 
 CKeyTableEntry *CNWNXResMan::CreateKeyTableEntry(const CResRef &resRef, NwnResType resType)

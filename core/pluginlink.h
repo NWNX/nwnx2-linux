@@ -1,105 +1,103 @@
 #pragma once
 
 #include "typedef.h"
+#include "ipc/Signal.h"
 
 /**
- * Event: EVENT_CORE_PLUGINSLOADED
- * Param: NULL
+ * Event: CorePluginsLoaded
+ * Param: None
  * Abortable: No
  *
  * Called after all plugins have been loaded.
  *
  * Best place to hook events provided by other modules inside plugins.
  */
-#define EVENT_CORE_PLUGINSLOADED "Core/PluginsLoaded"
+using CorePluginsLoaded = Signal<
+     // No Params.
+>;
 
 /**
- * Event: EVENT_CORE_MODULE_LOADING
- * Param: CoreModuleLoadingEvent
+ * Event: CoreModuleLoading
+ * Param: Module name.
  * Abortable: No
  *
  * Called when a new module is loading, either on startup or
  * via the interactive commands.
  */
-#define EVENT_CORE_MODULE_LOADING "Core/ModuleLoading"
-
-struct CoreModuleLoadingEvent {
-    const char *module;
-};
+using CoreModuleLoading = Signal<
+    const char* // Module Name.
+>;
 
 /**
- * Event: EVENT_CORE_MODULE_LOADED
- * Param: NULL
+ * Event: CoreModuleLoaded
+ * Param: None
  * Abortable: No
  *
  * Called after a new module was loaded successfully, just
  * before the first scripts run.
  */
-#define EVENT_CORE_MODULE_LOADED "Core/ModuleLoaded"
+using CoreModuleLoaded = Signal<
+     // No Params.
+>;
 
 /**
- * Event: EVENT_CORE_RUNSCRIPT
- * Param: CoreRunScriptEvent
+ * Event: CoreRunScript
  * Abortable: No
  * Initializer: On Demand
  *
  * Called whenever anything executes a script by name.
  */
-#define EVENT_CORE_RUNSCRIPT "Core/RunScript"
-
-struct CoreRunScriptEvent {
-    /* The script filename, without extension */
-    const char* resref;
-    /* the object Id which would be OBJECT_SELF in NWScript. */
-    const nwobjid objectId;
-    /* 1 for top-level scripts */
-    const int recursionLevel;
-    /* Set to true to suppress any nwscript by that name from executing. */
-    bool suppress;
-    /* Set the return value for conditional scripts. -1 for none, 0 for false,
-     * 1 for true. */
-    int returnValue;
-};
+using CoreRunScript = Signal<
+    const char*,   // The script filename, without extension
+    const nwobjid, // the object Id which would be OBJECT_SELF in NWScript.
+    const int,     // 1 for top-level scripts
+    bool&,         // Set to true to suppress any nwscript by that name from executing.
+    int&           // Set the return value for conditional scripts. -1 for none, 0 for false,
+                   // 1 for true.
+>;
 
 /**
- * Event: EVENT_CORE_RUNSCRIPT_AFTER
- * Param: CoreRunScriptEvent
+ * Event: CoreRunScriptAfter
  * Abortable: No
  * Initializer: On Demand
  *
  * Called after a RunScript was handled, either by the VM or some plugin.
  */
-#define EVENT_CORE_RUNSCRIPT_AFTER "Core/RunScriptAfter"
+using CoreRunScriptAfter = Signal<
+    const char*,   // The script filename, without extension
+    const nwobjid, // the object Id which would be OBJECT_SELF in NWScript.
+    const int,     // 1 for top-level scripts
+    bool&,         // Set to true to suppress any nwscript by that name from executing.
+    int&           // Set the return value for conditional scripts. -1 for none, 0 for false,
+                   // 1 for true.
+>;
 
 /**
- * Event: EVENT_CORE_RUNSCRIPT_SITUATION
- * Param: CoreRunScriptSituationEvent
+ * Event: CoreRunScriptSituation
  * Abortable: No
  * Initializer: On Demand
  */
-#define EVENT_CORE_RUNSCRIPT_SITUATION "Core/RunScriptSituation"
-
-struct CoreRunScriptSituationEvent {
-    /* The script filename, without extension */
-    char* marker;
-    uint32_t token;
-    /* the object Id which would be OBJECT_SELF in NWScript. */
-    nwobjid objectId;
-    /* Set to true to suppress any nwscript by that name from executing. */
-    bool suppress;
-};
+using CoreRunScriptSituation = Signal<
+    char*,    // The script filename, without extension
+    uint32_t, // A plugin specific id.
+    nwobjid,  // the object Id which would be OBJECT_SELF in NWScript.
+    bool&     // Set to true to suppress any nwscript by that name from executing.
+>;
 
 /**
- * Event: EVENT_CORE_RUNSCRIPT_SITUATION_AFTER
- * Param: CoreRunScriptSituationEvent
+ * Event: CoreRunScriptSituationAfter
  * Abortable: No
  * Initializer: On Demand
  */
-#define EVENT_CORE_RUNSCRIPT_SITUATION_AFTER "Core/RunScriptSituationAfter"
+using CoreRunScriptSituationAfter = Signal<
+    char*,    // The script filename, without extension
+    uint32_t, // A plugin specific id.
+    nwobjid,  // the object Id which would be OBJECT_SELF in NWScript.
+    bool&     // Set to true to suppress any nwscript by that name from executing.
+>;
 
 /**
- * Event: EVENT_CORE_MAINLOOP_BEFORE
- * Param: NULL
+ * Event: CoreMainloopBefore
  * Abortable: No
  * Initializer: Always
  *
@@ -108,11 +106,12 @@ struct CoreRunScriptSituationEvent {
  *
  * Called before the main loop.
  */
-#define EVENT_CORE_MAINLOOP_BEFORE "Core/MainLoopBefore"
+using CoreMainloopBefore = Signal<
+    // No parameters.
+>;
 
 /**
- * Event: EVENT_CORE_MAINLOOP_AFTER
- * Param: NULL
+ * Event: CoreMainloopAfter
  * Abortable: No
  * Initializer: Always
  *
@@ -121,11 +120,12 @@ struct CoreRunScriptSituationEvent {
  *
  * Called after the mainloop.
  */
-#define EVENT_CORE_MAINLOOP_AFTER "Core/MainLoopAfter"
+using CoreMainloopAfter = Signal<
+    // No parameters.
+>;
 
 /**
- * Event: EVENT_CORE_OBJECT_CREATED
- * Param: ObjectCreatedEvent
+ * Event: CoreCNWSObjectCreated
  * Abortable: No
  * Initializer: On Demand
  *
@@ -136,15 +136,13 @@ struct CoreRunScriptSituationEvent {
  *
  * object is guaranteed to be a CNWSObject*.
  */
-#define EVENT_CORE_OBJECT_CREATED "Core/CNWSObject/Created"
-struct ObjectCreatedEvent {
-    const void *object;
-    const nwobjid requestedId;
-};
+using CoreCNWSObjectCreated = Signal<
+    const void *, // CNWSObject*
+    const nwobjid // Request object ID.
+>;
 
 /**
- * Event: EVENT_CORE_OBJECT_DESTROYED
- * Param: ObjectDestroyedEvent
+ * Event: CoreCNWSObjectDestroyed
  * Abortable: No
  * Initializer: On Demand
  *
@@ -155,21 +153,19 @@ struct ObjectCreatedEvent {
  *
  * object is guaranteed to be a CNWSObject*.
  */
-#define EVENT_CORE_OBJECT_DESTROYED "Core/CNWSObject/Destroyed"
-struct ObjectDestroyedEvent {
-    const void *object;
-};
+using CoreCNWSObjectDestroyed = Signal<
+    const void * // CNWSObject*
+>;
 
 /**
- * Event: EVENT_CORE_CONSOLE_INPUT
- * Param: CoreConsoleInputEvent
+ * Event: CoreConsoleInput
  * Abortable: No
  * Initializer: Always
  *
  * Called for input on the server console.
  * This event runs in the nwserver main loop.
  *
- * Set param->pass to false to stop nwserver from handling the command.
+ * Set param pass to false to stop nwserver from handling the command.
  *
  * Hint: If you want to output help for your command, just printf it to stdout
  * in the following format when command matches "help":
@@ -179,9 +175,8 @@ struct ObjectDestroyedEvent {
  *
  * Your text will be added to the bottom of the output.
  */
-#define EVENT_CORE_CONSOLE_INPUT "Core/Console/Input"
-struct CoreConsoleInputEvent {
-    const char *command;
-    const char *arguments;
-    bool pass;
-};
+using CoreConsoleInput = Signal<
+    const char *,
+    const char *,
+    bool&
+>;

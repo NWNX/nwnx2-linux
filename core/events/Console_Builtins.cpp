@@ -1,5 +1,5 @@
 #include "../core.h"
-
+#include "../core/ipc/ipc.h"
 #include "NWNXApi.h"
 #include "NWNXBase.h"
 
@@ -7,17 +7,15 @@ extern const std::map<std::string, CNWNXBase*> & GetLoadedLibraries();
 extern const int GetCoreDebugLevel();
 extern void SetCoreDebugLevel(int level);
 
-static int DebugLevel(uintptr_t p)
+static bool DebugLevel(const char *command, const char *arguments, bool& pass)
 {
-    auto ev = (CoreConsoleInputEvent*) p;
-
-    if (!strcmp("help", ev->command)) {
+    if (!strcmp("help", command)) {
         printf("debuglevel [level] [plugin]\n");
         printf("\tPrint or set NWNX debug level, either global or per plugin.\n");
     }
 
-    else if (!strcmp("debuglevel", ev->command)) {
-        char *arg = strdup(ev->arguments);
+    else if (!strcmp("debuglevel", command)) {
+        char *arg = strdup(arguments);
         char *level = strtok(arg, " ");
 
         if (!level) {
@@ -47,11 +45,12 @@ static int DebugLevel(uintptr_t p)
         }
 
         free(arg);
-        ev->pass = false;
+        pass = false;
     }
+    return false;
 }
 
 void Core_Console_Builtins_Init()
 {
-    HookEvent(EVENT_CORE_CONSOLE_INPUT, DebugLevel);
+    SignalConnect(CoreConsoleInput, "CORE", DebugLevel);
 }

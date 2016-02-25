@@ -25,7 +25,7 @@
 
 #include "NWNXEvents.h"
 #include "HookFunc.h"
-#include "pluginlink.h"
+#include "core/ipc/ipc.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -72,7 +72,7 @@ bool CNWNXEvents::OnCreate(gline *config, const char* LogDir)
             enableUnsafe = true;
     }
 
-    hEvent = CreateHookableEvent(NWNX_EVENTS_EVENT);
+    hEvent = SignalRegister(EventsEvent);
     return (HookFunctions(enableUnsafe));
 }
 
@@ -264,27 +264,21 @@ int CNWNXEvents::FireEvent(const int pObj, int nEvID)
     if (nEventID < 0 || nEventID >= NUM_EVENT_TYPES || eventScripts[nEventID] == NULL)
         return 0;
 
-    EventsEvent event;
-    event.object = pObj;
-    event.type = nEventID;
-    event.subtype = nEventSubID;
-    event.target = oTarget;
-    event.bypass = false;
-    event.item = oItem;
-    event.result = 0;
-    event.position.x = vPosition.X;
-    event.position.y = vPosition.Y;
-    event.position.z = vPosition.Z;
+    EventPosition position = {
+        vPosition.X,
+        vPosition.Y,
+        vPosition.Z
+    };
 
+    bBypass = false;
+    nReturnValue = 0;
     scriptRun = 1;
-    if (!NotifyEventHooks(hEvent, (uintptr_t)&event)) {
+    if (!hEvent->emit(nEventID, nEventSubID, pObj, oTarget, oItem, position, bBypass, nReturnValue)) {
         Log(3, "o EVENTS: Fired event %d (%08lX). Calling '%s'\n", nEventID, pObj, eventScripts[nEventID]);
         CExoString script_name(eventScripts[nEventID]);
         g_pVirtualMachine->RunScript(&script_name, pObj, 1);
     } else {
         Log(3, "o EVENTS: Fired event %d (%08lX). Event hook took over.\n", nEventID, pObj);
-        nReturnValue = event.result;
-        bBypass = event.bypass;
     }
     scriptRun = 0;
     //deinitialize

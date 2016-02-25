@@ -1,22 +1,27 @@
 #pragma once
 
+#include "core/ipc/Signal.h"
+
 /**
- * Event: EVENT_ODBC_RCO
- * Param: ODBCSCORCOEvent
+ * Event: ODBCRCOEvent
  */
-#define EVENT_ODBC_RCO "ODBC/RCO"
+using ODBCRCOEvent = Signal<
+    const char*,      // database
+    const char*,      // key
+    char*,            // player
+    unsigned char **, // pData
+    int&              // size
+>;
 
 /**
  * Event: EVENT_ODBC_SCO
  * Param: ODBCSCORCOEvent
  */
 #define EVENT_ODBC_SCO "ODBC/SCO"
-
-typedef struct {
-    const char* database;
-    const char* key;
-    char* player;
-    unsigned char *pData;
-    int size;
-}
-ODBCSCORCOEvent;
+using ODBCSCOEvent = Signal<
+    const char*,     // database
+    const char*,     // key
+    char*,           // player
+    unsigned char *, // pData
+    int              // size
+>;

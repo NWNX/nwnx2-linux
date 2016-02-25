@@ -4,4 +4,4 @@
 #include "pluginlink.h"
 #include "ThreadUtil.h"
 
-void Core_Init(PLUGINLINK *link);
+void Core_Init();

@@ -7,7 +7,7 @@
 #include "NWNXBase.h"
 #include "NwnDefines.h"
 #include "api/all.h"
-
+#include "pluginlink.h"
 #define MAXPATH 512
 
 int HookFunctions();
@@ -44,8 +44,8 @@ public:
 private:
     char *pScriptBuffer;
     bool warnMissing;
-    HANDLE hDemandRes;
-    HANDLE hResExists;
+    ResManDemandEvent* hDemandRes = nullptr;
+    ResManExistsEvent* hResExists = nullptr;
     ResourceMap resFiles;
     std::string m_sourcePath;
 };

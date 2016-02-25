@@ -22,11 +22,9 @@
 #include <memory.h>
 #include <pthread.h>
 #include <stddef.h>
-
+#include "core/ipc/ipc.h"
 #include "NWNXodbc.h"
 #include "HookSCORCO.h"
-
-extern PLUGINLINK *pluginLink;
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -80,13 +78,11 @@ bool CNWNXODBC::OnCreate(gline *config, const char* LogDir)
     if (!LoadConfiguration())
         return false;
 
-    if (!pluginLink) {
+    if (!g_IPCMgr) {
         Log(0, "Plugin link not accessible\n");
     } else {
-        Log(0, "Plugin link: %08lX\n", pluginLink);
-        Log(0, "Plugin link: %08lX\n", pluginLink);
-        hSCOEvent = CreateHookableEvent(EVENT_ODBC_SCO);
-        hRCOEvent = CreateHookableEvent(EVENT_ODBC_RCO);
+        hSCOEvent = SignalRegister(ODBCSCOEvent);
+        hRCOEvent = SignalRegister(ODBCRCOEvent);
     }
 
     if (hookScorco) {
@@ -216,7 +212,7 @@ char* CNWNXODBC::OnRequest(char* gameObject, char* Request, char* Parameters)
     } else if (strncmp(Request, "RETRIEVEOBJECT", 14) == 0) {
         dword AreaID;
         float x, y, z, fFacing;
-        if (sscanf(Parameters, "%lx¬%f¬%f¬%f¬%f", &AreaID, &x, &y, &z, &fFacing) < 5) {
+        if (sscanf(Parameters, "%lx\xAC%f\xAC%f\xAC%f\xAC%f", &AreaID, &x, &y, &z, &fFacing) < 5) {
             Log(1, "o sscanf error\n");
             return NULL;
         }
@@ -367,15 +363,7 @@ int CNWNXODBC::WriteSCO(const char * database, const char * key, char * player, 
             }
         }
     } else {
-        ODBCSCORCOEvent scoInfo = {
-            database,
-            key,
-            player,
-            pData,
-            size
-        };
-        NotifyEventHooks(hSCOEvent, (uintptr_t) &scoInfo);
-
+        hSCOEvent->emit(database, key, player, pData, size);
         return 1;
     }
     return 0;
@@ -418,20 +406,13 @@ unsigned char * CNWNXODBC::ReadSCO(const char * database, const char * key, char
         }
         return NULL;
     } else {
-        ODBCSCORCOEvent rcoInfo = {
-            database,
-            key,
-            player,
-            NULL,
-            0
-        };
-        NotifyEventHooks(hRCOEvent, (uintptr_t) &rcoInfo);
+        unsigned char *data = nullptr;
+        hRCOEvent->emit(database, key, player, &data, *size);
 
-        if (rcoInfo.pData && rcoInfo.size) {
-            *size = rcoInfo.size;
+        if (data && size) {
             Log(3, "o RCO(n1): db='%s', key='%s', player='%s', arg4=%08lX, size=%08lX\n", database, key, player, *arg4, *size);
-            Log(3, "o RCO(n2): pData=%08lX, size=%08lX, pData='%s'\n", rcoInfo.pData, rcoInfo.size, rcoInfo.pData);
-            return rcoInfo.pData;
+            Log(3, "o RCO(n2): pData=%08lX, size=%08lX, pData='%s'\n", data, size, data);
+            return data;
         }
         return NULL;
     }

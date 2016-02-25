@@ -22,6 +22,7 @@
 
 #include "NWNXBase.h"
 #include "HookFunc.h"
+#include "pluginlink.h"
 
 #define OBJECT_INVALID                  0x7F000000
 
@@ -47,7 +48,7 @@ enum eNodeType {StartingNode, EntryNode, ReplyNode};
 
 class CNWNXEvents : public CNWNXBase
 {
-    HANDLE hEvent;
+    EventsEvent* hEvent = nullptr;
 public:
     CNWNXEvents();
     ~CNWNXEvents();

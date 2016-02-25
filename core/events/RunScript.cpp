@@ -1,11 +1,13 @@
 #include "../core.h"
-
+#include "../core/ipc/ipc.h"
 #include "NWNXApi.h"
 
 #include <cstring>
 
-static HANDLE hRunScript, hRunScriptAfter;
-static HANDLE hRunScriptSituation, hRunScriptSituationAfter;
+static CoreRunScript* hRunScript = nullptr;
+static CoreRunScriptAfter* hRunScriptAfter = nullptr;
+static CoreRunScriptSituation* hRunScriptSituation = nullptr;
+static CoreRunScriptSituationAfter* hRunScriptSituationAfter = nullptr;
 
 static int (*CVirtualMachine__RunScript)(CVirtualMachine *cVM, CExoString *s,
         nwobjid objectId, int recursionLevel);
@@ -18,26 +20,23 @@ static int Hook_RunScript(
     if (s == NULL || s->IsEmpty())
         return 0;
 
-    CoreRunScriptEvent info = {
-        s->Text, objectId, validObject, false, -1
-    };
+    bool suppress = false;
+    int returnValue = -1;
+    hRunScript->emit(s->Text, objectId, validObject, suppress, returnValue);
 
-    NotifyEventHooksNotAbortable(hRunScript, (uintptr_t)&info);
+    if (!suppress)
+        returnValue = CVirtualMachine__RunScript(g_pVirtualMachine, s,
+                                                 objectId, validObject);
 
-    if (!info.suppress)
-        info.returnValue = CVirtualMachine__RunScript(
-                               g_pVirtualMachine, s,
-                               objectId, validObject);
+    hRunScriptAfter->emit(s->Text, objectId, validObject, suppress, returnValue);
 
-    NotifyEventHooksNotAbortable(hRunScriptAfter, (uintptr_t)&info);
-
-    if (!info.suppress)
-        return info.returnValue;
+    if (!suppress)
+        return returnValue;
 
     int result = 0;
-    if (info.returnValue != -1) {
+    if (returnValue != -1) {
         g_pVirtualMachine->field_0 = 3;
-        g_pVirtualMachine->m_pReturnValue = info.returnValue;
+        g_pVirtualMachine->m_pReturnValue = returnValue;
         result = 1;
     }
 
@@ -48,47 +47,33 @@ static void Hook_RunScriptSituation(
     CVirtualMachine *vm, CVirtualMachineScript *script, uint32_t obj, int a)
 {
     if (!script || !script->Name.Text) { return; }
-    CoreRunScriptSituationEvent info = {
-        script->Name.Text, // Plugin specific marker, for determing if it should run the script situation.
-        script->StackSize, // Plugin specific integer token for determining which script situation to run.
-        obj,
-        false,
-    };
-
-    NotifyEventHooksNotAbortable(hRunScriptSituation, (uintptr_t)&info);
+    bool suppress = false;
+    hRunScriptSituation->emit(script->Name.Text, script->StackSize, obj, suppress);
 
     // Best be safe and not pass on anything that's fake to nwserver.
     const char *s = script->Name.Text;
     bool invalid_script = strspn(s, "abcdefghijklmnopqrstuvwxyz0123456789_") != strlen(s);
-    if (info.suppress || invalid_script) {
+    if (suppress || invalid_script) {
         delete script;
     } else {
         CVirtualMachine__RunScriptSituation(vm, script, obj, a);
-
-        NotifyEventHooksNotAbortable(hRunScriptSituationAfter, (uintptr_t)&info);
+        hRunScriptSituationAfter->emit(script->Name.Text, script->StackSize, obj, suppress);
     }
 }
 
-static int HookFunctions(uintptr_t unused)
+static void HookFunctions()
 {
     nx_log(NX_LOG_INFO, 0, "core: Hooking CVirtualMachine__RunScriptSituation.");
     NX_HOOK(CVirtualMachine__RunScriptSituation, 0x08262534, Hook_RunScriptSituation, 5);
 
     nx_log(NX_LOG_INFO, 0, "core: Hooking CVirtualMachine__RunScript.");
     NX_HOOK(CVirtualMachine__RunScript, 0x08261f94, Hook_RunScript, 5);
-
-    return true;
 }
 
 void Core_RunScript_Init()
 {
-
-    hRunScript = CreateHookableEvent(EVENT_CORE_RUNSCRIPT);
-    hRunScriptAfter = CreateHookableEvent(EVENT_CORE_RUNSCRIPT_AFTER);
-    hRunScriptSituation = CreateHookableEvent(EVENT_CORE_RUNSCRIPT_SITUATION);
-    hRunScriptSituationAfter = CreateHookableEvent(EVENT_CORE_RUNSCRIPT_SITUATION_AFTER);
-
-    if (hRunScript && hRunScriptAfter &&
-            hRunScriptSituation && hRunScriptSituationAfter)
-        SetHookInitializer(hRunScript, HookFunctions);
+    hRunScript = SignalRegister(CoreRunScript, false, HookFunctions);
+    hRunScriptAfter = SignalRegister(CoreRunScriptAfter, false);
+    hRunScriptSituation = SignalRegister(CoreRunScriptSituation, false);
+    hRunScriptSituationAfter = SignalRegister(CoreRunScriptSituationAfter, false);
 }

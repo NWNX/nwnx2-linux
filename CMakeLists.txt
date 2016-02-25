@@ -72,7 +72,7 @@ else()
         message(SEND_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
-add_library(nwnx2 SHARED nwnx2lib NWNXBase modules lists gline
+add_library(nwnx2 SHARED nwnx2lib NWNXBase gline
 	lib/nwn_data lib/nwn_funcs lib/nwn_hooks
 	lib/nx_hook lib/nx_log lib/nx_safe lib/nx_signature
 	lib/NwnDefines
