@@ -81,8 +81,6 @@ public:
         auto temp = reinterpret_cast<T*>(it->second);
         return temp->disconnect(observer);
     }
-
-
 };
 
 // Created/Set in nwnx2lib.cpp

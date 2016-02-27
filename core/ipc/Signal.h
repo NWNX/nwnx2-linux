@@ -24,7 +24,7 @@ private:
     };
 
     std::vector<Holder> observers;
-    bool abortable_ = true;
+    bool abortable_ = false;
     std::function<void()> init_;
     bool inited_ = false;
 
@@ -42,7 +42,7 @@ public:
      */
     // If abortable the signal will stop calling observers if
     // one of them returns true.
-    explicit Signal(bool abortable=true, std::function<void()> init = std::function<void()>())
+    explicit Signal(bool abortable=false, std::function<void()> init = std::function<void()>())
         : detail::ServiceSignalBase(typeid(Signal<Args...>).hash_code())
         , abortable_{abortable}
         , init_{std::move(init)}
