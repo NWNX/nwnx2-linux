@@ -5,6 +5,7 @@
 #include "CExoLocString.h"
 #include "CExoString.h"
 #include "CResRef.h"
+#include "CRes.h"
 
 class CResGFF : public CRes
 {

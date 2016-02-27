@@ -20,6 +20,6 @@ public:
     /* 0x10C/268 */ unsigned long field_10C;
     /* 0x110/272 */ unsigned long field_110;
     /* 0x114/276 */ unsigned long field_114;
-    /* 0x118/280 */ unsigned long vtbl;
+    /* 0x118/280 */ Base_vtbl<CNWSRules> *vptr;
 };
 #endif

@@ -126,4 +126,7 @@ public:
     /* 0x90/144 */ unsigned long field_90;
     /* 0x94/148 */ unsigned long CutsceneState;
 };
+
+static_assert_size(CNWSPlayer, 0x98);
+
 #endif

@@ -9,7 +9,7 @@
 #include "CExoLinkedList.h"
 #include "CNWSPlayerTURD.h"
 
-class CNWSModule
+class CNWSModule : public CResHelper<CResIFO>, CGameObject
 {
 public:
     int AIUpdate();
@@ -165,13 +165,6 @@ public:
     ~CNWSModule();
     CNWSModule(CExoString, int, int);
 
-    /* 0x0/0 */ CGameObject GameObject;
-    /* 0x10/16 */ unsigned long ModuleExpansionList;
-    /* 0x14/20 */ unsigned long field_14;
-    /* 0x18/24 */ unsigned long AreasResrefList;
-    /* (mtype:CExoArrayList<unsigned long>) */
-    /* 0x1C/28 */ CExoArrayList<unsigned long> Areas;
-    /* 0x28/40 */ unsigned long field_28;
     /* 0x2C/44 */ unsigned long field_2C;
     /* 0x30/48 */ unsigned long field_30;
     /* 0x34/52 */ unsigned long field_34;
@@ -237,4 +230,7 @@ public:
     /* 0x258/600 */ unsigned long field_258;
     /* 0x25C/604 */ unsigned long field_25C;
 };
+
+static_assert_size(CNWSModule, 0x260);
+
 #endif

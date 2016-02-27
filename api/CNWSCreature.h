@@ -886,4 +886,7 @@ public:
     /* 0xC6C/3180 */ unsigned long field_C6C;
     /* 0xC70/3184 */ unsigned long field_C70;
 };
+
+static_assert_size(CNWSCreature, 0xc74);
+
 #endif

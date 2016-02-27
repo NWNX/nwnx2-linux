@@ -30,7 +30,7 @@ SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -mno-accumulate-outgoing-arg
 SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -Wall -Wextra -Wno-unused-parameter -Wno-unused -Wno-write-strings")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OUR_CFLAGS_MUST_HAVES}" CACHE STRING "" FORCE)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OUR_CFLAGS_MUST_HAVES} -Wno-return-type" CACHE STRING "" FORCE)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OUR_CFLAGS_MUST_HAVES} -Wno-invalid-offsetof -Wno-return-type" CACHE STRING "" FORCE)
 set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} ${OUR_CFLAGS_MUST_HAVES}" CACHE STRING "" FORCE)
 
 # removes stuff like -fPIC, which breaks nwnx plugin loading

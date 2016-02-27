@@ -3,8 +3,9 @@
 #include "nwndef.h"
 #include "Vector.h"
 #include "CExoArrayList.h"
+#include "CNWTile.h"
 
-class CNWSTile
+class CNWSTile : public CNWTile
 {
 public:
     int AddDoor(unsigned long);

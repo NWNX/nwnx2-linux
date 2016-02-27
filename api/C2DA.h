@@ -5,7 +5,7 @@
 #include "CResRef.h"
 #include "nwnstructs.h"
 
-class C2DA
+class C2DA : CResHelper<CRes2DA>
 {
 public:
     int GetCExoStringEntry(CExoString const &, CExoString const &, CExoString *);
@@ -49,7 +49,6 @@ public:
     C2DA();
     C2DA(CResRef, int);
 
-    /* 0x0/0 */ CResHelper ResHelper;
     /* 0x1C/28 */ CExoString m_sDefaultValue;
     /* 0x24/36 */ CExoString *m_pRowLabel;
     /* 0x28/40 */ CExoString *m_pColumnLabel;

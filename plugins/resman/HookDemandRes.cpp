@@ -27,7 +27,7 @@ void CRes__dtor_hook(CRes *res, char del)
 void CRes__ctor_hook(CRes *res)
 {
     CRes__ctor(res);
-    resman.Log(4, "Creating CRes %p of vtble: %p\n", res, res->vtbl);
+    resman.Log(4, "Creating CRes %p of vtble: %p\n", res, res->vptr);
 
     int nptrs;
     void *buffer[10];
@@ -47,7 +47,7 @@ void CRes__ctor_hook(CRes *res)
 void CRes__ctor2_hook(CRes *res, uint32_t something)
 {
     CRes__ctor2(res, something);
-    resman.Log(4, "Creating CRes %p\n of type: %p", res, res->vtbl);
+    resman.Log(4, "Creating CRes %p\n of type: %p", res, res->vptr);
 
     int nptrs;
     void *buffer[10];
