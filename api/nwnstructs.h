@@ -284,7 +284,13 @@ struct CActionParams {
 struct CNWSScriptVar {
     /* 0x0/0 */ CExoString m_sName;
     /* 0x8/8 */ unsigned long m_nType;
-    /* 0xC/12 */ unsigned long m_pValue;
+    /* 0xC/12 */  union {
+        nwobjid Object;
+        int Int;
+        float Float;
+        CExoString *String;
+        CScriptLocation *Location;
+    } m_pValue;
 };
 struct CNWItemProperty {
     unsigned short Type;
