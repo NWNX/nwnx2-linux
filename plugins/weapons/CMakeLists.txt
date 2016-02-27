@@ -96,4 +96,6 @@ add_module(weapons NWNXWeapons plugin-weapons
 	tables/t_WeaponSuperiorCritical
 )
 
+set_target_properties(weapons PROPERTIES COMPILE_FLAGS "-O0")
+
 endif (gperf)

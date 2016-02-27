@@ -63,4 +63,6 @@ add_module(defenses NWNXDefenses plugin-defenses
 	tables/t_DefenseSaveFeats
 )
 
+set_target_properties(defenses PROPERTIES COMPILE_FLAGS "-O0")
+
 endif (gperf)

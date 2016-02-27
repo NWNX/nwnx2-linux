@@ -132,4 +132,6 @@ add_module(funcs NWNXFuncs plugin-funcs
 	funcs/vfx/f_BroadcastProjectile
 )
 
+set_target_properties(funcs PROPERTIES COMPILE_FLAGS "-O0")
+
 endif (gperf)

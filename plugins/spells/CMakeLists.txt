@@ -26,4 +26,6 @@ add_module(spells NWNXSpells plugin-spells
 	tables/t_SpellOptions
 )
 
+set_target_properties(spells PROPERTIES COMPILE_FLAGS "-O0")
+
 endif (gperf)
