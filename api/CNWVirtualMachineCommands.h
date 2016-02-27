@@ -590,7 +590,7 @@ public:
 
     /* 0x0/0 */ unsigned long m_bValidObjectRunScript;
     /* 0x4/4 */ unsigned long ObjectID;
-    /* 0x8/8 */ CNWVirtualMachineCommands_vtbl *vtbl;
+    /* 0x8/8 */ CNWVirtualMachineCommands_vtbl *vptr;
     /* 0xC/12 */ void *CommandsArray;
 };
 #endif

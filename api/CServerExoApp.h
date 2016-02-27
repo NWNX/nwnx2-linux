@@ -160,7 +160,7 @@ public:
     ~CServerExoApp();
     CServerExoApp();
 
-    /* 0x0/0 */ CServerExoApp_vt *vt;
+    /* 0x0/0 */ CServerExoApp_vtbl *vptr;
     /* 0x4/4 */ CServerExoAppInternal *Internal;
 };
 #endif

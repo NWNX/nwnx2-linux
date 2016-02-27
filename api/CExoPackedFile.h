@@ -21,7 +21,7 @@ public:
     /* 0x20/32 */ unsigned long field_20;
     /* 0x24/36 */ unsigned long field_24;
     /* 0x28/40 */ unsigned long field_28;
-    /* 0x2C/44 */ CExoPackedFile_vtbl *vtbl;
+    /* 0x2C/44 */ CExoPackedFile_vtbl *vptr;
     /* 0x30/48 */ unsigned long field_30;
     /* 0x34/52 */ unsigned long field_34;
 };
