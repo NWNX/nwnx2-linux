@@ -22,7 +22,7 @@ typedef unsigned char	BYTE;
  * 0x7fffffff is the first player to log in
  * 0x7ffffffe the second player to log in; and so on.
  */
-typedef uint32_t nwobjid;
+typedef unsigned long nwobjid;
 
 #define MAX_PATH          260
 #define CALLBACK
