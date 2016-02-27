@@ -127,7 +127,7 @@ void* CNWNXResMan::DemandRes(CExoResMan *pResMan, CRes *cRes, const CResRef &res
         unsigned char* data = nullptr;
         int s = 0;
         if (!hDemandRes->emit(resrefWithExt, resType, &data, s, fileInfo.mtime, fileInfo.latest_mtime)) { return NULL; }
-        if (data && size) {
+        if (data && s) {
             //Log(4, "Got data from Hook, returning (size = %d): %s\n", demandResInfo.size, demandResInfo.pData);
             pScriptBuffer = (char*) data;
             fileInfo.size = size = s;
