@@ -132,24 +132,28 @@ oo_hash (register const char *str, register unsigned int len)
 
 static struct openoverride_file_s oo_list[] =
   {
-    {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } },
+    { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } },
+    { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } },
+    { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } },
+    { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } },
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 62 "openoverride.gperf"
     {"./dialog.tlk",                                      -1, -1, NULL, { .st_dev = 0 }},
-    {""}, {""}, {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 53 "openoverride.gperf"
     {"./data/xp2.bif",                                    -1, -1, NULL, { .st_dev = 0 }},
 #line 46 "openoverride.gperf"
     {"./data/xp1.bif",                                    -1, -1, NULL, { .st_dev = 0 }},
-    {""}, {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 35 "openoverride.gperf"
     {"./data/ini.bif",                                    -1, -1, NULL, { .st_dev = 0 }},
-    {""}, {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 90 "openoverride.gperf"
     {"./tlk/dialog.tlk",                                  -1, -1, NULL, { .st_dev = 0 }},
 #line 61 "openoverride.gperf"
     {"./data/xp3.bif",                                    -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 91 "openoverride.gperf"
     {"./tlk/cep2_v1.tlk",                                 -1, -1, NULL, { .st_dev = 0 }},
 #line 96 "openoverride.gperf"
@@ -180,7 +184,7 @@ static struct openoverride_file_s oo_list[] =
     {"./data/aurora_ttr.bif",                             -1, -1, NULL, { .st_dev = 0 }},
 #line 80 "openoverride.gperf"
     {"./hak/cep2_core3.hak",                              -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 22 "openoverride.gperf"
     {"./data/2da.bif",                                    -1, -1, NULL, { .st_dev = 0 }},
 #line 76 "openoverride.gperf"
@@ -209,7 +213,7 @@ static struct openoverride_file_s oo_list[] =
     {"./hak/cep2_top_v1.hak",                             -1, -1, NULL, { .st_dev = 0 }},
 #line 81 "openoverride.gperf"
     {"./hak/cep2_core4.hak",                              -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 72 "openoverride.gperf"
     {"./hak/cep2_add_skies.hak",                          -1, -1, NULL, { .st_dev = 0 }},
 #line 59 "openoverride.gperf"
@@ -226,7 +230,7 @@ static struct openoverride_file_s oo_list[] =
     {"./data/xp2_scripts.bif",                            -1, -1, NULL, { .st_dev = 0 }},
 #line 48 "openoverride.gperf"
     {"./data/xp1_scripts.bif",                            -1, -1, NULL, { .st_dev = 0 }},
-    {""}, {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 36 "openoverride.gperf"
     {"./data/misc.bif",                                   -1, -1, NULL, { .st_dev = 0 }},
 #line 27 "openoverride.gperf"
@@ -235,7 +239,7 @@ static struct openoverride_file_s oo_list[] =
     {"./hak/cep2_add_loads.hak",                          -1, -1, NULL, { .st_dev = 0 }},
 #line 68 "openoverride.gperf"
     {"./hak/cep2_add_sb_v1.hak",                          -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 25 "openoverride.gperf"
     {"./data/aurora_tdc.bif",                             -1, -1, NULL, { .st_dev = 0 }},
 #line 30 "openoverride.gperf"
@@ -244,7 +248,7 @@ static struct openoverride_file_s oo_list[] =
     {"./hak/cep2_core0.hak",                              -1, -1, NULL, { .st_dev = 0 }},
 #line 29 "openoverride.gperf"
     {"./data/aurora_tic.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 64 "openoverride.gperf"
     {"./hak/cep2_add_phenos2.hak",                        -1, -1, NULL, { .st_dev = 0 }},
 #line 63 "openoverride.gperf"
@@ -259,7 +263,7 @@ static struct openoverride_file_s oo_list[] =
     {"./hak/cep2_top_v22.hak",                            -1, -1, NULL, { .st_dev = 0 }},
 #line 86 "openoverride.gperf"
     {"./hak/cep2_top_v21.hak",                            -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 65 "openoverride.gperf"
     {"./hak/cep2_add_phenos3.hak",                        -1, -1, NULL, { .st_dev = 0 }},
 #line 60 "openoverride.gperf"
@@ -268,29 +272,29 @@ static struct openoverride_file_s oo_list[] =
     {"./hak/cep2_add_rules.hak",                          -1, -1, NULL, { .st_dev = 0 }},
 #line 23 "openoverride.gperf"
     {"./data/aurora_gui.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 88 "openoverride.gperf"
     {"./hak/cep2_top_v23.hak",                            -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 42 "openoverride.gperf"
     {"./data/templates.bif",                              -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 56 "openoverride.gperf"
     {"./data/xp2_sounds.bif",                             -1, -1, NULL, { .st_dev = 0 }},
 #line 49 "openoverride.gperf"
     {"./data/xp1_sounds.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 44 "openoverride.gperf"
     {"./data/textures_02.bif",                            -1, -1, NULL, { .st_dev = 0 }},
 #line 43 "openoverride.gperf"
     {"./data/textures_01.bif",                            -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 66 "openoverride.gperf"
     {"./hak/cep2_add_phenos4.hak",                        -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 24 "openoverride.gperf"
     {"./data/aurora_tcn.bif",                             -1, -1, NULL, { .st_dev = 0 }},
-    {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 41 "openoverride.gperf"
     {"./data/sounds.bif",                                 -1, -1, NULL, { .st_dev = 0 }},
 #line 89 "openoverride.gperf"
@@ -303,7 +307,9 @@ static struct openoverride_file_s oo_list[] =
     {"./data/xp2_templates.bif",                          -1, -1, NULL, { .st_dev = 0 }},
 #line 50 "openoverride.gperf"
     {"./data/xp1_templates.bif",                          -1, -1, NULL, { .st_dev = 0 }},
-    {""}, {""}, {""}, {""}, {""}, {""}, {""},
+    { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } },
+    { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } }, { "", -1, -1, NULL, { .st_dev = 0 } },
+    { "", -1, -1, NULL, { .st_dev = 0 } },
 #line 58 "openoverride.gperf"
     {"./data/xp2_textures.bif",                           -1, -1, NULL, { .st_dev = 0 }},
 #line 51 "openoverride.gperf"

@@ -38,9 +38,9 @@ static struct TweakSignatureTable {
     void               *ref;
     const char         *sig;
 } Table_TweakSignatures[] = {
-    { NULL,                                     NULL },
+    { NULL, NULL,                               NULL },
 
-    { NULL,                                     NULL },
+    { NULL, NULL,                               NULL },
 };
 
 

@@ -24,12 +24,12 @@ typedef struct {
 }
 THook;
 
-struct {
+static struct {
     THook** items;
     int count, limit, increment;
     FSortFunc sortFunc;
 }
-static hooks;
+hooks;
 
 // list of services
 
@@ -43,12 +43,12 @@ typedef struct {
 }
 TService;
 
-struct {
+static struct {
     TService** items;
     int count, limit, increment;
     FSortFunc sortFunc;
 }
-static services;
+services;
 
 // other static variables
 

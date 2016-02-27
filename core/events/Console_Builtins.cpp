@@ -4,7 +4,7 @@
 #include "NWNXBase.h"
 
 extern const std::map<std::string, CNWNXBase*> & GetLoadedLibraries();
-extern const int GetCoreDebugLevel();
+extern int GetCoreDebugLevel();
 extern void SetCoreDebugLevel(int level);
 
 static int DebugLevel(uintptr_t p)

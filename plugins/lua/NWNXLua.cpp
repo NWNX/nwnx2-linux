@@ -195,7 +195,7 @@ bool CNWNXLua::OnRelease()
 int CNWNXLua::WriteSCO(char* database, char* key, char* player, int flags, unsigned char * pData, int size)
 {
     Log(3, "o SCO: db='%s', key='%s', player='%s', flags=%08lX, pData=%08lX, size=%d\n", database, key, player, flags, pData, size);
-    if (sco_method == NULL) return NULL;
+    if (sco_method == NULL) return 0;
     if (player == NULL) player = (char *)"-";
     lua_getglobal(LuaInstance, sco_method);  /* function to be called */
     lua_pushstring(LuaInstance, key);

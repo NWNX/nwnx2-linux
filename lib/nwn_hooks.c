@@ -31,7 +31,7 @@ struct {
     void        *func;
     char        *sig;
 } nwn_hooks[] = {
-    { NULL,                                                             NULL },
+    { NULL, NULL,                                                       NULL },
     NX_NWN_HOOK(CFactionManager__GetFaction,                            "55 89 E5 ** ** ** 8B 55 0C 85 D2 8B 4D 08 78"),
     NX_NWN_HOOK(CGameObjectArray__GetGameObject,                        "55 89 E5 8B 45 0C 56 53 89 C2 89 C3 C1 E8 1F 0F B7 C0 C1 E0 0C"),
     NX_NWN_HOOK(CNetLayer__DisconnectPlayer,                            "55 89 E5 83 EC 14 FF 75 14 6A 01 FF 75 10 FF 75 0C 8B 45 08 FF 30 E8"),
@@ -124,7 +124,7 @@ struct {
     NX_NWN_HOOK(CVirtualMachine__RunScript,                             "55 89 E5 57 56 53 83 EC 18 FF 75 0C 8B 7D 10 E8"),
     NX_NWN_HOOK(CWorldTimer__GetWorldTime,                              "55 89 E5 57 56 53 83 EC 0C 8B 55 08 8B 42 08 8B"),
 
-    { NULL,                                              NULL },
+    { NULL, NULL,                                                       NULL },
 };
 
 static void nwn_hook_callback(int id, void *addr)

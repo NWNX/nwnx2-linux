@@ -36,11 +36,11 @@ static struct StructSignatureTable {
     void               *ref;
     const char         *sig;
 } Table_StructSignatures[] = {
-    { NULL,                                     NULL },
+    { NULL, NULL,                               NULL },
 
     NWNX_STRUCTS_SIG(Ref_PushStruct,            "8B 46 10 8B 7D 0C 8B 4A 08 FF 34 B8 0F BE 04 1F"),
 
-    { NULL,                                     NULL },
+    { NULL, NULL,                               NULL },
 };
 
 
