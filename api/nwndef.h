@@ -1,6 +1,7 @@
 #ifndef _NWNDEF_H_
 #define _NWNDEF_H_
 #include"custom/nwndef_custom.h"
+#include "../typedef.h"
 class CNWSCreature;
 class CNWSPlaceable;
 class CNWSObject;
