@@ -46,5 +46,18 @@ public:
     ~CNWSTile();
     CNWSTile();
 
+    /* 0x30/48 */ CNWTileData* TileData;
+    /* 0x34/52 */ unsigned long NumTriggers;
+    /* 0x38/56 */ unsigned long AllocatedTriggers;
+    /* 0x3C/60 */ unsigned long *Triggers;
+    /* 0x40/64 */ CExoArrayList<nwobjid> Doors;
+    /* 0x4C/76 */ unsigned long MainLightColorChange;
+    /* 0x50/80 */ unsigned long field_50;
+    /* 0x54/84 */ unsigned long FlaggedAsProblem;
+    /* 0x58/88 */ unsigned long HasPlaceableWithWalkMesh;
+
 };
+
+static_assert_size(CNWSTile, 0x5C);
+
 #endif

@@ -8,6 +8,7 @@
 #include "CExoLocString.h"
 #include "nwnstructs.h"
 #include "CGameEffect.h"
+#include "Vector.h"
 struct CServerExoAppConfig {
     /* 0x0/0 */ unsigned long field_0;
     /* 0x4/4 */ unsigned long field_4;
@@ -361,8 +362,15 @@ struct CScriptParseTreeNode {
 struct NWPlayerCharacterList_st {
 };
 struct CNWSTagNode {
+    char Tag[64];
+    unsigned long unknown;
+    nwobjid ObjectID;
 };
+static_assert_size(CNWSTagNode, 0x48);
 struct CNWSPVPEntry {
+    nwobjid Object;
+    unsigned long field_0004;
+    int LikeStatus;
 };
 struct SJournalEntry {
 };
@@ -446,5 +454,9 @@ struct CNWTilePathNode {
 struct CVirtualMachineDebuggingContext {
 };
 struct Quaternion {
+};
+struct CSpawnPoint {
+    Vector Position;
+    float Orientation;
 };
 #endif

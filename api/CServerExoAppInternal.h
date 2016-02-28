@@ -167,7 +167,7 @@ public:
     /* 0x10058/65624 */ unsigned long field_10058;
     /* 0x1005C/65628 */ unsigned long field_1005C;
     /* 0x10060/65632 */ CNetLayer *m_NetLayer;
-    /* 0x10064/65636 */ unsigned long m_ServerAIMaster;
+    /* 0x10064/65636 */ CServerAIMaster* m_ServerAIMaster;
     /* 0x10068/65640 */ unsigned long WorldTimer1;
     /* 0x1006C/65644 */ unsigned long WorldTimer2;
     /* 0x10070/65648 */ unsigned long WorldTimer3;
@@ -176,7 +176,7 @@ public:
     /* 0x1007C/65660 */ unsigned long field_1007C;
     /* 0x10080/65664 */ unsigned long m_GameObjectArray;
     /* 0x10084/65668 */ unsigned long field_10084;
-    /* 0x10088/65672 */ void *ClientsList;
+    /* 0x10088/65672 */ CExoLinkedList<CNWSClient> ClientsList;
     /* 0x1008C/65676 */ unsigned long field_1008C;
     /* 0x10090/65680 */ unsigned long field_10090;
     /* 0x10094/65684 */ unsigned long field_10094;
@@ -205,12 +205,8 @@ public:
     /* 0x100F0/65776 */ unsigned long field_100F0;
     /* 0x100F4/65780 */ unsigned long field_100F4;
     /* 0x100F8/65784 */ unsigned long field_100F8;
-    /* 0x100FC/65788 */ unsigned long field_100FC;
-    /* 0x10100/65792 */ unsigned long field_10100;
-    /* 0x10104/65796 */ unsigned long field_10104;
-    /* 0x10108/65800 */ unsigned long field_10108;
-    /* 0x1010C/65804 */ unsigned long field_1010C;
-    /* 0x10110/65808 */ unsigned long field_10110;
+    /* 0x100FC/65788 */ CExoArrayList<CExoString> BannedIPs;
+    /* 0x10108/65800 */ CExoArrayList<CExoString> BannedCDKeys;
     /* 0x10114/65812 */ unsigned long field_10114;
     /* 0x10118/65816 */ unsigned long field_10118;
     /* 0x1011C/65820 */ unsigned long field_1011C;
