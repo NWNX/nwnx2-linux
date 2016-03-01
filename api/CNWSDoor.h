@@ -6,6 +6,7 @@
 #include "CExoString.h"
 #include "CResRef.h"
 #include "CExoLocString.h"
+#include "CExoArrayList.h"
 
 class CNWSDoor : public CNWSObject
 {
@@ -142,9 +143,7 @@ public:
     /* 0x270/624 */ CExoString LockKeyName;
     /* 0x278/632 */ CExoString LockKeyMessage;
     /* 0x280/640 */ unsigned long LockKeyRequired;
-    /* 0x284/644 */ unsigned long field_284;
-    /* 0x288/648 */ unsigned long field_288;
-    /* 0x28C/652 */ unsigned long field_28C;
+    /* 0x284/644 */ CExoArrayList<unsigned long> CreatureList;
     /* 0x290/656 */ nwobjid TrapCreator;
     /* 0x294/660 */ unsigned long Trapped;
     /* 0x298/664 */ unsigned char TrapDisarmDC;
@@ -160,15 +159,15 @@ public:
     /* 0x2B4/692 */ unsigned long TrapRecoverable;
     /* 0x2B8/696 */ unsigned long TrapActive;
     /* 0x2BC/700 */ unsigned long TrapFaction;
-    /* 0x2C0/704 */ unsigned long field_2C0;
+    /* 0x2C0/704 */ unsigned long VisibleModel;
     /* 0x2C4/708 */ unsigned long field_2C4;
     /* 0x2C8/712 */ unsigned long field_2C8;
-    /* 0x2CC/716 */ unsigned long field_2CC;
-    /* 0x2D0/720 */ unsigned long field_2D0;
-    /* 0x2D4/724 */ unsigned long field_2D4;
-    /* 0x2D8/728 */ unsigned long field_2D8;
-    /* 0x2DC/732 */ unsigned long field_2DC;
-    /* 0x2E0/736 */ unsigned long field_2E0;
+    /* 0x2CC/716 */ unsigned long LastLocked;
+    /* 0x2D0/720 */ unsigned long LastUnlocked;
+    /* 0x2D4/724 */ unsigned long LastOpened;
+    /* 0x2D8/728 */ unsigned long LastClosed;
+    /* 0x2DC/732 */ unsigned long LastTriggered;
+    /* 0x2E0/736 */ unsigned long LastDisarmed;
     /* 0x2E4/740 */ CNWDoorSurfaceMesh* SurfaceMesh;
     /* 0x2E8/744 */ unsigned long field_2E8;
     /* 0x2EC/748 */ unsigned long field_2EC;
@@ -186,7 +185,7 @@ public:
     /* 0x318/792 */ CExoLocString Description;
     /* 0x320/800 */ CExoString DescriptionOverride;
     /* 0x328/808 */ CExoString NameOverride;
-    /* 0x330/816 */ unsigned long field_330;
+    /* 0x330/816 */ unsigned long UpdateDisplayName;
     /* 0x334/820 */ unsigned short LoadScreenID;
     /* 0x336/822 */ unsigned short field_336;
 };
