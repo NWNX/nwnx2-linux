@@ -3,6 +3,7 @@
 #include "nwndef.h"
 #include "CExoString.h"
 #include "CExoArrayList.h"
+#include "nwnstructs.h"
 
 class CNWSCombatAttackData
 {
@@ -31,16 +32,7 @@ public:
     /* 0x14/20 */ char rsvd1[3];
     /* 0x14/20 */ char MissedBy;
     /* 0x16/22 */ char rsvd2;
-    /* 0x16/22 */ unsigned short DamageValue1;
-    /* 0x18/24 */ unsigned short DamageValue2;
-    /* 0x1A/26 */ unsigned short DamageValue3;
-    /* 0x1C/28 */ unsigned short DamageValue4;
-    /* 0x1E/30 */ unsigned short DamageValue5;
-    /* 0x20/32 */ unsigned short field_20;
-    /* 0x22/34 */ unsigned short field_22;
-    /* 0x24/36 */ unsigned short field_24;
-    /* 0x26/38 */ unsigned short field_26;
-    /* 0x30/48 */ char rsvd3[8];
+    /* 0x16/22 */ unsigned short Damage[13];
     /* 0x30/48 */ char Weapon;
     /* 0x31/49 */ char AttackMode;
     /* 0x32/50 */ char Concealment;
@@ -57,9 +49,7 @@ public:
     /* 0x52/82 */ unsigned short AttackType;
     /* 0x54/84 */ unsigned short AttackID;
     /* 0x58/88 */ char rsvd6[2];
-    /* 0x58/88 */ unsigned long RangedTargetX;
-    /* 0x5C/92 */ unsigned long RangedTargetY;
-    /* 0x60/96 */ unsigned long RangedTargetZ;
+    /* 0x58/88 */ Vector RangedTargetLocation;
     /* 0x64/100 */ unsigned long AmmoItem;
     /* 0x68/104 */ CExoString AttackDebugText;
     /* 0x70/112 */ CExoString DamageDebugText;
@@ -69,9 +59,7 @@ public:
     /* 0x84/132 */ CExoArrayList<CNWSSpellScriptData *> m_alstOnHitSpellScripts;
     /* (mtype:CExoArrayList<CNWSSpellScriptData *>) */
     /* 0x90/144 */ CExoArrayList<CNWSSpellScriptData *> m_alstOnHitEnemySpellScripts;
-    /* 0x9C/156 */ unsigned long m_alstPendingFeedback;
-    /* 0xA0/160 */ unsigned long field_A0;
-    /* 0xA4/164 */ unsigned long field_A4;
+    /* 0x9C/156 */ CExoArrayList<CNWCCMessageData*> m_alstPendingFeedback;
 };
 
 static_assert_size(CNWSCombatAttackData, 0xa8);
