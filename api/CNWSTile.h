@@ -52,7 +52,7 @@ public:
     /* 0x3C/60 */ unsigned long *Triggers;
     /* 0x40/64 */ CExoArrayList<nwobjid> Doors;
     /* 0x4C/76 */ unsigned long MainLightColorChange;
-    /* 0x50/80 */ unsigned long field_50;
+    /* 0x50/80 */ unsigned long SourceLightColorChange;
     /* 0x54/84 */ unsigned long FlaggedAsProblem;
     /* 0x58/88 */ unsigned long HasPlaceableWithWalkMesh;
 
