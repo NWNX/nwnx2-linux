@@ -459,4 +459,16 @@ struct CSpawnPoint {
     Vector Position;
     float Orientation;
 };
+struct CNWClass_FeatTableEntry {
+    unsigned short FeatIndex;
+    unsigned char GrantedOnLevel;
+    unsigned char List;
+    unsigned long Category;
+    unsigned long MaxCR;
+    unsigned long OnMenu;
+};
+struct CNWClass_SkillTableEntry {
+    unsigned long SkillIndex;
+    unsigned long ClassSkill;
+};
 #endif
