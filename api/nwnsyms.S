@@ -1,4 +1,4 @@
-    .file"nwnsyms.S"
+    .file "nwnsyms.S"
 	.align 2
 .globl _ZN12CNWSCreatureD2Ev
 	.type _ZN12CNWSCreatureD2Ev, @function
