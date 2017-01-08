@@ -104,7 +104,7 @@ bool CNWNXmnx::ClientInit(const char *cname, const char *dest)
     cliAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     cliAddr.sin_port = htons(0);
 
-    rc = bind(conn.sd, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
+    rc = ::bind(conn.sd, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
     if (rc < 0) {
         Log(0, "[%s] cannot bind port\n", cname);
         close(conn.sd);
