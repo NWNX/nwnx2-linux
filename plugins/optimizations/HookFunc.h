@@ -24,6 +24,6 @@
 #include "NWNStructures.h"
 
 int HookFunctions();
-void TestRequest();
+void SetTargetTickRate(const unsigned int rate);
 
 #endif

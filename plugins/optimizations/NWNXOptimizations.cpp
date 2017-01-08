@@ -58,6 +58,20 @@ bool CNWNXOptimizations::OnCreate(gline *config, const char* LogDir)
     if (!CNWNXBase::OnCreate(config, log))
         return false;
 
+    unsigned int targetTickRate = 30;
+
+    if (nwnxConfig->exists(confKey))
+    {
+        std::string tickrate = (*nwnxConfig)[confKey]["target_tick_rate"];
+
+        if (!tickrate.empty())
+        {
+            targetTickRate = std::atoi(tickrate.c_str());
+        }
+    }
+
+    SetTargetTickRate(targetTickRate);
+
     // write copy information to the log file
     Log(0, "NWNX Optimizations version 1.0 for Linux.\n");
     Log(0, "(c) 2010 by virusman (virusman@virusman.ru)\n");
