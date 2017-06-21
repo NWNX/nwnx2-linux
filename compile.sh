@@ -16,7 +16,7 @@ This script compiles nwnx2 for linux.
 
 You will need the following packages installed to compile the core:
 
-  cmake, build-essential (including gcc, make, bintools ..), gzlib1-dev
+  cmake, build-essential (including gcc, make, bintools ..), zlib1g-dev
 
 A lot of plugins depend on 'gperf' to generate lookup tables, but it is not
 strictly required to compile the core.
