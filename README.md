@@ -42,7 +42,7 @@ This is a bit more involved. You need to install the relevant 32bit toolchain an
 Please note that when compiling on a 64bit host, you **cannot use the apt-dep** as shown above. You will have to install all wnanted dependencies manually by installing the :i386 variants of packages, like so:
 
 * `sudo dpkg --add-architecture i386 && sudo apt-get update`
-* `sudo apt-get install libsqlite3-dev:i386`
+* `sudo apt-get install zlib1g-dev:i386 libsqlite3-dev:i386`
 
 Then grab multilib support for gcc, and compile:
 

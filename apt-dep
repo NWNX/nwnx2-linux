@@ -1,1 +1,1 @@
-build-essential cmake gperf
+build-essential cmake gperf zlib1g-dev
