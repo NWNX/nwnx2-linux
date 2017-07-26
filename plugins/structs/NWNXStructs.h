@@ -28,6 +28,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+void Func_GetCasterLevel(CGameObject *ob, char *value);
 void Func_GetCreatorRequest(CGameObject *ob, char *value);
 void Func_GetDuration(CGameObject *ob, char *value);
 void Func_GetDurationRemaining(CGameObject *ob, char *value);

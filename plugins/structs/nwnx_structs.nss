@@ -238,6 +238,15 @@ const int EFFECT_TRUETYPE_CUTSCENEIMMOBILE                      =  94;
 const int EFFECT_TRUETYPE_DEFENSIVESTANCE                       =  95;
 
 
+//////////////////////////////////////////////////////////////////////////////
+//                               PROTOTYPES                                 //
+//////////////////////////////////////////////////////////////////////////////
+
+/* Returns the class level of the caster who created the effect, in the class
+ * used to cast the spell.  0 is returned if the effect wasn't creatcd by a
+ * creature or if it was created by a special ability rather than a spell. */
+int GetEffectCasterLevel(effect eEffect);
+
 /* Returns the duration specified at ApplyEffectToObject() time for
  * the effect. The value of this is undefined for effects which are
  * not of DURATION_TYPE_TEMPORARY. */
@@ -293,6 +302,15 @@ int GetItemPropertySpellId (itemproperty ipProp);
  * returned with GetItemPropertySpellId(). */
 void SetItemPropertySpellId (itemproperty ipProp, int nSpellId);
 
+
+//////////////////////////////////////////////////////////////////////////////
+//                             IMPLEMENTATION                               //
+//////////////////////////////////////////////////////////////////////////////
+
+int GetEffectCasterLevel(effect eEffect) {
+    SetLocalString(GetModule(), "NWNX!STRUCTS!GETLEVEL", "          ");
+    return StringToInt(GetLocalString(GetModule(), "NWNX!STRUCTS!GETLEVEL"));
+}
 
 float GetEffectDuration (effect eEffect) {
     SetLocalString(GetModule(), "NWNX!STRUCTS!GETDURATION", "          ");
@@ -406,5 +424,3 @@ effect EffectIcon (int nIcon) {
     SetEffectTrueType(eEff, EFFECT_TRUETYPE_ICON);
     return eEff;
 }
-
-

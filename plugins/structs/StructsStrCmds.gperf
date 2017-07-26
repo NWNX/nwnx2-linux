@@ -33,6 +33,7 @@ struct StructsStrCommand_s {
 };
 
 %%
+GETLEVEL,                               Func_GetCasterLevel
 GETCREATORREQUEST,                      Func_GetCreatorRequest
 GETDURATION,                            Func_GetDuration
 GETDURATIONREMAINING,                   Func_GetDurationRemaining
