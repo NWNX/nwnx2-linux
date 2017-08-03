@@ -43,7 +43,7 @@ struct CGameEffect_s {
     uint32_t            eff_is_exposed;         /* 20 */
     uint32_t            eff_is_iconshown;       /* 24 */
 
-    uint32_t            field_28;               /* 28 */
+    uint32_t            eff_c_level;            /* 28 */
 
     uint32_t            eff_link_id1;           /* 2C */
     uint32_t            eff_link_id2;           /* 30 */

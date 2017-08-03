@@ -8,6 +8,7 @@ add_module(structs NWNXStructs plugin-structs
 	StructsStrCmds StructsObjCmds
 
 	funcs/f_GetCreator
+	funcs/f_GetCasterLevel
 	funcs/f_GetDuration
 	funcs/f_GetDurationRemaining
 	funcs/f_GetHasEffect
