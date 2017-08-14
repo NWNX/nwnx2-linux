@@ -34,11 +34,6 @@ bool CNWNXResMan::OnCreate(gline *config, const char *LogDir)
     return true;
 }
 
-char* CNWNXResMan::OnRequest(char* gameObject, char* Request, char* Parameters)
-{
-    return NULL;
-}
-
 bool CNWNXResMan::OnRelease()
 {
     Log(0, "o Shutdown.\n");
