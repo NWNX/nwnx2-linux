@@ -6,7 +6,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${NWNX_OUTPUT_DIR})
 
 # You can exclude plugins from being built here.
 set(dont_build_plugins
-
+    ${NWNX_EXCLUDE_PLUGINS}
 )
 
 # Compatibility with cmake 2.8.9 and above.
@@ -14,6 +14,7 @@ if(POLICY CMP0018)
     cmake_policy(SET CMP0018 OLD)
 endif()
 
+set(CMAKE_SYSTEM_PROCESSOR "i386")
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 
 # Our must-have flags for compilers
@@ -47,6 +48,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 SET(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_DEBUG} -O2 -DNDEBUG")
 SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_DEBUG} -O2 -DNDEBUG")
 
+SET(CMAKE_ASM${ASM_DIALECT}_COMPILE_OBJECT "<CMAKE_ASM${ASM_DIALECT}_COMPILER> <FLAGS> -m32 -o <OBJECT> -c <SOURCE>")
 enable_language(ASM)
 
 find_package(ZLIB REQUIRED)
