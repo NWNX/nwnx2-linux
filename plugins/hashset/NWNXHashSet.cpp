@@ -367,14 +367,35 @@ char* CNWNXHashSet::GetCurrentKey(char* gameObject, char* Parameters)
 
 char* CNWNXHashSet::GetNthKey(char* gameObject, char* Parameters)
 {
-    string name;
-    int value;
-    if (!ParseParam(gameObject, Parameters, name, value))
-        return NULL;
+   string name;
+   int value;
+   if (!ParseParam(gameObject, Parameters, name, value))
+      return NULL;
 
-    Log(0, "Ack! GetNthKey called!\n");
+   // does hashset exist
+   if (HashSets.find(name) == HashSets.end()) {
+      iLastOperation = false;
+      return "";
+   }
 
-    return "";
+   HashSet *pSet = &(HashSets[name]);
+   if (value >= pSet->hashset.size())
+      return "";
+
+   int i = 0;
+   StringMap::iterator iSM = pSet->hashset.begin();
+
+   while (i<value && iSM!=pSet->hashset.end()) {
+      ++i;
+      ++iSM;
+   }
+
+   if (iSM != pSet->hashset.end()) {
+      pSet->p = iSM;
+      return (char*)(pSet->p->first.c_str());
+   }
+
+   return "";
 }
 
 char* CNWNXHashSet::HasNext(char* gameObject, char* Parameters)
