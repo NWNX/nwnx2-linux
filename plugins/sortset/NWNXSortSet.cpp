@@ -30,13 +30,13 @@ CNWNXSortSet::~CNWNXSortSet() {
 bool CNWNXSortSet::OnCreate(gline *config, const char *LogDir)
 {
 	char log[128];
-	sprintf (log, "%s/nwnx_sortset.txt", LogDir);
+	sprintf(log, "%s/nwnx_sortset.txt", LogDir);
 
 	// call the base class function
 	if (!CNWNXBase::OnCreate(config, log))
 		return false;
 
-	// spelunk nwnx2.ini for a connection section
+	// NOP - Configure no longer does anything
 	if (!Configure())
 		return false;
 
@@ -48,12 +48,11 @@ bool CNWNXSortSet::OnCreate(gline *config, const char *LogDir)
 	return true;
 }
 
-
 char *CNWNXSortSet::GetNextArg(char *start, char *dest, int width) {
 	char *pos;
 	int len;
 	if ((pos = strchr(start,'!')) != NULL) {
-		len = pos-start;
+		len = pos - start;
 		++pos;
 	} else {
 		len = strlen(start);
@@ -74,18 +73,12 @@ char *CNWNXSortSet::OnRequest(char *gameObject, char *SetName, char* Parameters)
 	arg2[0] = 0;
 	arg3[0] = 0;
 
-	// Request should be the name: "ARMOR"
 	// Parameters are the call "ADD!value", "GET!15", "LENGTH", etc.
 	
 	GetNextArg(SetName, name, 22);
 	results = Parameters;
 
-	// Log("SetName: %s\n",SetName);
-	// Log("Params : %s\n",Parameters);
-
-	sprintf(setkey,"%08x-%s", gameObject, name);
-
-	// Log("key=%s\n",setkey);
+	sprintf(setkey, "%08x-%s", gameObject, name);
 	
 	lastarg = Parameters;
 	if ((pos = GetNextArg(Parameters, cmd, 31)) ! =NULL) {
@@ -101,24 +94,27 @@ char *CNWNXSortSet::OnRequest(char *gameObject, char *SetName, char* Parameters)
 		}
 	}
 
-	// Log("key=%s cmd=%s arg1=%s arg2=%s arg3=%s last='%s'\n",setkey,cmd,arg1,arg2,arg3,lastarg);
-
 	if (strcmp("INIT", cmd) == 0) {
 		SetInit(setkey);
+	} else if (strcmp("EXISTS", cmd) == 0) {
+		if (sets.find(setkey) == sets.end()) {
+			// EXISTS returns bool, so need a separate test to return 0 (FALSE)
+			Log(0, "[%s] Set does not exist\n", setkey);
+			sprintf(Parameters, "0 [%s] Set does not exist.", setkey);
+			return NULL;
+		}
+		Exists(setkey, arg1);
+	} else if (sets.find(setkey) == sets.end()) {
+		Log(0, "[%s] Set does not exist\n", setkey);
+		sprintf(Parameters, "-5 [%s] Set does not exist.", setkey);
 	} else if (strcmp("ADD", cmd) == 0) {
 		Add(setkey, arg1, arg2, arg3);
-	} else if (strcmp("EXISTS", cmd) == 0) {
-		Exists(setkey, arg1);
 	} else if (strcmp("LENGTH", cmd) == 0) {
 		Length(setkey);
 	} else if (strcmp("SORT", cmd) == 0) {
 		Sort(setkey);
 	} else if (strcmp("DESTROY", cmd) == 0) {
 		Destroy(setkey);
-	} else if (sets.find(setkey) == sets.end()) {
-		// prevent a deref crasher
-		Log(0, "[%s] Set does not exist\n", setkey);
-		sprintf(Parameters, "-2 [%s] Set does not exist.", setkey);
 	} else if (strcmp("SETBYIDX", cmd) == 0) {
 		SetByIdx(setkey, arg1, arg2, arg3);
 	} else if (strcmp("SETBYTAG", cmd) == 0) {
@@ -138,18 +134,6 @@ char *CNWNXSortSet::OnRequest(char *gameObject, char *SetName, char* Parameters)
 }
 
 bool CNWNXSortSet::Configure() {
-
-	/*
-	// if(nwnxConfig->exists("MNX")) {
-		srvcname = "localhost"; // (char*)((*nwnxConfig)["MNX"]["service"].c_str());
-		hostport = "localhost:1302"; // (char*)((*nwnxConfig)["MNX"]["hostname"].c_str());
-
-		// this shouldn't cause a fatal error, so 
-		// we don't care about the return code
-		ClientInit(srvcname,hostport);
-	// }
-	*/
-
 	return true;
 }
 
@@ -198,21 +182,12 @@ bool CNWNXSortSet::Destroy(const char *setkey) {
 bool CNWNXSortSet::GetByIdx(const char *setkey, const char *index) {
 	int idx = atol(index);
 
-	// Log("Calling SortSet::Get(%d);\n",idx);
-
 	ssElement *sptr = sets[setkey].Get(idx);
-
-	// Log("Returned 0x%08x from SortSet::Get(%d);\n",sptr,idx);
 
 	if (sptr == NULL) {
 		results[0] = 0;
 		return false;
 	}
-
-	// Log("key=%s sort=%s value=%s\n",
-	//	sptr->key.c_str(),
-	//	sptr->sort.c_str(),
-	//	sptr->value.c_str());
 
 	strcpy(results, sptr->value.c_str());
 	return true;

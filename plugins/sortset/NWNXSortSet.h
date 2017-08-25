@@ -40,13 +40,11 @@ public:
 
 	bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
 	char *OnRequest(char* gameObject, char* Request, char* Parameters);
-	// bool OnRelease();
+	// bool OnRelease(); // not implemented
 
 protected:
 	bool Configure();
-
-	char *GetNextArg(char *start, char *dest, int width);
-	
+	char *GetNextArg(char *start, char *dest, int width);	
 	bool SetInit(const char *setkey);
 	bool Length(const char *setkey);
 	bool Add(const char *setkey, const char *key, const char *sort, const char *value);
