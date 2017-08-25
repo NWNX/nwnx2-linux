@@ -1,5 +1,5 @@
 /***************************************************************************
-    NWNX FOR LINUX Minimal Network eXtender plugin Class interface
+    NWNX FOR LINUX SortSet plugin Interface
     Copyright (C) 2003 John Klar (paladin at projectplasma dot com)
 
     This program is free software; you can redistribute it and/or modify

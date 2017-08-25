@@ -40,10 +40,10 @@ bool CNWNXSortSet::OnCreate(gline *config, const char *LogDir)
 	if (!Configure())
 		return false;
 
-	Log(0,"NWNX SortSet V.1.0\n");
-	Log(0,"(c) 2009 by John Klar (PlasmaJohn)\n");
-	Log(0,"visit us at http://www.avlis.org\n\n");
-	Log(0,"* Module loaded successfully.\n");
+	Log(0, "NWNX SortSet V.1.0\n");
+	Log(0, "(c) 2009 by John Klar (PlasmaJohn)\n");
+	Log(0, "visit us at http://www.avlis.org\n\n");
+	Log(0, "* Module loaded successfully.\n");
 
 	return true;
 }
@@ -52,15 +52,16 @@ bool CNWNXSortSet::OnCreate(gline *config, const char *LogDir)
 char *CNWNXSortSet::GetNextArg(char *start, char *dest, int width) {
 	char *pos;
 	int len;
-	if((pos=strchr(start,'!'))!=NULL) {
-		len= pos-start;
+	if ((pos = strchr(start,'!')) != NULL) {
+		len = pos-start;
 		++pos;
 	} else {
-		len= strlen(start);
+		len = strlen(start);
 	}
-	if(len>width) len=width;
+	if (len > width)
+		len = width;
 	strncpy(dest, start, len);
-	dest[len]=0;
+	dest[len] = 0;
 
 	return pos;
 }
@@ -69,9 +70,9 @@ char *CNWNXSortSet::OnRequest(char *gameObject, char *SetName, char* Parameters)
 	char setkey[32], name[22], cmd[32], arg1[1024], arg2[1024], arg3[1024], *lastarg, *pos;
 
 
-	arg1[0]=0;
-	arg2[0]=0;
-	arg3[0]=0;
+	arg1[0] = 0;
+	arg2[0] = 0;
+	arg3[0] = 0;
 
 	// Request should be the name: "ARMOR"
 	// Parameters are the call "ADD!value", "GET!15", "LENGTH", etc.
@@ -82,19 +83,19 @@ char *CNWNXSortSet::OnRequest(char *gameObject, char *SetName, char* Parameters)
 	// Log("SetName: %s\n",SetName);
 	// Log("Params : %s\n",Parameters);
 
-	sprintf(setkey,"%08x-%s",gameObject,name);
+	sprintf(setkey,"%08x-%s", gameObject, name);
 
 	// Log("key=%s\n",setkey);
 	
-	lastarg= Parameters;
-	if((pos=GetNextArg(Parameters, cmd, 31))!=NULL) {
-		lastarg= pos;
-		if((pos=GetNextArg(pos, arg1, 1024))!=NULL) {
-			lastarg= pos;
-			if((pos=GetNextArg(pos, arg2, 1024))!=NULL) {
-				lastarg= pos;
-				if((pos=GetNextArg(pos, arg3, 1024))!=NULL) {
-					lastarg= pos;
+	lastarg = Parameters;
+	if ((pos = GetNextArg(Parameters, cmd, 31)) ! =NULL) {
+		lastarg = pos;
+		if ((pos = GetNextArg(pos, arg1, 1024)) != NULL) {
+			lastarg = pos;
+			if ((pos = GetNextArg(pos, arg2, 1024)) != NULL) {
+				lastarg = pos;
+				if ((pos = GetNextArg(pos, arg3, 1024)) != NULL) {
+					lastarg = pos;
 				}
 			}
 		}
@@ -102,46 +103,35 @@ char *CNWNXSortSet::OnRequest(char *gameObject, char *SetName, char* Parameters)
 
 	// Log("key=%s cmd=%s arg1=%s arg2=%s arg3=%s last='%s'\n",setkey,cmd,arg1,arg2,arg3,lastarg);
 
-	if(strcmp("INIT",cmd)==0) {
+	if (strcmp("INIT", cmd) == 0) {
 		SetInit(setkey);
-	} else
-	if(strcmp("ADD",cmd)==0) {
-		Add(setkey,arg1,arg2,arg3);
-	} else
-	if(strcmp("EXISTS",cmd)==0) {
-		Exists(setkey,arg1);
-	} else
-	if(strcmp("LENGTH",cmd)==0) {
+	} else if (strcmp("ADD", cmd) == 0) {
+		Add(setkey, arg1, arg2, arg3);
+	} else if (strcmp("EXISTS", cmd) == 0) {
+		Exists(setkey, arg1);
+	} else if (strcmp("LENGTH", cmd) == 0) {
 		Length(setkey);
-	} else
-	if(strcmp("SORT",cmd)==0) {
+	} else if (strcmp("SORT", cmd) == 0) {
 		Sort(setkey);
-	} else
-	if(strcmp("DESTROY",cmd)==0) {
+	} else if (strcmp("DESTROY", cmd) == 0) {
 		Destroy(setkey);
-	} else
-	if(sets.find(setkey)==sets.end()) {
+	} else if (sets.find(setkey) == sets.end()) {
 		// prevent a deref crasher
-		Log(0,"[%s] Set does not exist\n",setkey);
-		sprintf(Parameters, "-2 [%s] Set does not exist.",setkey);
-	} else
-	if(strcmp("SETBYIDX",cmd)==0) {
-		SetByIdx(setkey,arg1,arg2,arg3);
-	} else
-	if(strcmp("SETBYTAG",cmd)==0) {
-		SetByTag(setkey,arg1,arg2,arg3);
-	} else
-	if(strcmp("REMOVE",cmd)==0) {
-		Remove(setkey,arg1);
-	} else
-	if(strcmp("GETBYIDX",cmd)==0) {
-		GetByIdx(setkey,arg1);
-	} else
-	if(strcmp("GETBYTAG",cmd)==0) {
-		GetByTag(setkey,arg1);
+		Log(0, "[%s] Set does not exist\n", setkey);
+		sprintf(Parameters, "-2 [%s] Set does not exist.", setkey);
+	} else if (strcmp("SETBYIDX", cmd) == 0) {
+		SetByIdx(setkey, arg1, arg2, arg3);
+	} else if (strcmp("SETBYTAG", cmd) == 0) {
+		SetByTag(setkey, arg1, arg2, arg3);
+	} else if (strcmp("REMOVE", cmd) == 0) {
+		Remove(setkey, arg1);
+	} else if (strcmp("GETBYIDX", cmd) == 0) {
+		GetByIdx(setkey, arg1);
+	} else if (strcmp("GETBYTAG", cmd) == 0) {
+		GetByTag(setkey, arg1);
 	} else {
 		sprintf(Parameters, "[%s] bad command", cmd);
-		Log(0,"[%s] %s\n",setkey,Parameters);
+		Log(0, "[%s] %s\n", setkey, Parameters);
 	}
 
 	return NULL;
@@ -169,34 +159,34 @@ bool CNWNXSortSet::SetInit(const char *setkey) {
 };
 
 bool CNWNXSortSet::Length(const char *setkey) {
-	sprintf(results,"%d",sets[setkey].Length());
+	sprintf(results, "%d", sets[setkey].Length());
 	return true;
 };
 
 bool CNWNXSortSet::Add(const char *setkey, const char *key, const char *sort, const char *value) {
-	sprintf(results,"%d",sets[setkey].Add(key,sort,value));
+	sprintf(results, "%d", sets[setkey].Add(key, sort, value));
 	return true;
 };
 
 bool CNWNXSortSet::SetByIdx(const char *setkey, const char *index, const char *sort, const char *value) {
 	int idx = atol(index);
-	sprintf(results,"%d",sets[setkey].Set(idx,sort,value));
+	sprintf(results, "%d", sets[setkey].Set(idx, sort, value));
 	return true;
 };
 
 bool CNWNXSortSet::SetByTag(const char *setkey, const char *resref, const char *sort, const char *value) {
 	ssElement *sptr = sets[setkey].Get(resref);
-	if(sptr!=NULL) {
+	if (sptr != NULL) {
 		sptr->sort = sort;
 		sptr->value = value;
 	}
-	sprintf(results,"%d", sptr==NULL?-1:0);
+	sprintf(results, "%d", sptr == NULL ? -1 : 0);
 	return true;
 };
 
 bool CNWNXSortSet::Remove(const char *setkey, const char *index) {
 	int idx = atol(index);
-	sprintf(results,"%d",sets[setkey].Remove(idx));
+	sprintf(results, "%d", sets[setkey].Remove(idx));
 	return true;
 };
 
@@ -214,8 +204,8 @@ bool CNWNXSortSet::GetByIdx(const char *setkey, const char *index) {
 
 	// Log("Returned 0x%08x from SortSet::Get(%d);\n",sptr,idx);
 
-	if(sptr == NULL) {
-		results[0]= 0;
+	if (sptr == NULL) {
+		results[0] = 0;
 		return false;
 	}
 
@@ -224,7 +214,7 @@ bool CNWNXSortSet::GetByIdx(const char *setkey, const char *index) {
 	//	sptr->sort.c_str(),
 	//	sptr->value.c_str());
 
-	strcpy(results,sptr->value.c_str());
+	strcpy(results, sptr->value.c_str());
 	return true;
 };
 
@@ -233,16 +223,16 @@ bool CNWNXSortSet::GetByTag(const char *setkey, const char *resref) {
 	ssElement *sptr = sets[setkey].Get(resref);
 
 	if(sptr == NULL) {
-		results[0]= 0;
+		results[0] = 0;
 		return false;
 	}
 	
-	strcpy(results,sptr->value.c_str());
+	strcpy(results, sptr->value.c_str());
 	return true;
 };
 
 bool CNWNXSortSet::Exists(const char *setkey, const char *resref) {
-	sprintf(results,"%d",sets[setkey].Exists(resref)?1:0);
+	sprintf(results, "%d", sets[setkey].Exists(resref) ? 1 : 0);
 	return true;
 };
 
