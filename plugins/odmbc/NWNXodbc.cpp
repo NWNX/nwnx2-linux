@@ -22,6 +22,7 @@
 #include <memory.h>
 #include <pthread.h>
 #include <stddef.h>
+#include <mhash.h>
 
 #include "NWNXodbc.h"
 #include "HookSCORCO.h"

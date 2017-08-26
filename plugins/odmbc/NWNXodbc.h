@@ -21,7 +21,6 @@
 #define _NWNX_odbc_H_
 
 #include "NWNXBase.h"
-#include <mhash.h>
 
 #include "pluginlink.h"
 
