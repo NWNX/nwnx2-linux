@@ -96,25 +96,19 @@ char *CNWNXSortSet::OnRequest(char *gameObject, char *SetName, char* Parameters)
 
 	if (strcmp("INIT", cmd) == 0) {
 		SetInit(setkey);
-	} else if (strcmp("EXISTS", cmd) == 0) {
-		if (sets.find(setkey) == sets.end()) {
-			// EXISTS returns bool, so need a separate test to return 0 (FALSE)
-			Log(0, "[%s] Set does not exist\n", setkey);
-			sprintf(Parameters, "0 [%s] Set does not exist.", setkey);
-			return NULL;
-		}
-		Exists(setkey, arg1);
-	} else if (sets.find(setkey) == sets.end()) {
-		Log(0, "[%s] Set does not exist\n", setkey);
-		sprintf(Parameters, "-5 [%s] Set does not exist.", setkey);
 	} else if (strcmp("ADD", cmd) == 0) {
 		Add(setkey, arg1, arg2, arg3);
+	} else if (strcmp("EXISTS", cmd) == 0) {
+		Exists(setkey, arg1);
 	} else if (strcmp("LENGTH", cmd) == 0) {
 		Length(setkey);
 	} else if (strcmp("SORT", cmd) == 0) {
 		Sort(setkey);
 	} else if (strcmp("DESTROY", cmd) == 0) {
 		Destroy(setkey);
+	} else if (sets.find(setkey) == sets.end()) {
+		Log(0, "[%s] Set does not exist\n", setkey);
+		sprintf(Parameters, "-5 [%s] Set does not exist.", setkey);
 	} else if (strcmp("SETBYIDX", cmd) == 0) {
 		SetByIdx(setkey, arg1, arg2, arg3);
 	} else if (strcmp("SETBYTAG", cmd) == 0) {
