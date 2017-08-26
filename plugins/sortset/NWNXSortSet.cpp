@@ -81,7 +81,7 @@ char *CNWNXSortSet::OnRequest(char *gameObject, char *SetName, char* Parameters)
 	sprintf(setkey, "%08x-%s", gameObject, name);
 	
 	lastarg = Parameters;
-	if ((pos = GetNextArg(Parameters, cmd, 31)) ! =NULL) {
+	if ((pos = GetNextArg(Parameters, cmd, 31)) != NULL) {
 		lastarg = pos;
 		if ((pos = GetNextArg(pos, arg1, 1024)) != NULL) {
 			lastarg = pos;
