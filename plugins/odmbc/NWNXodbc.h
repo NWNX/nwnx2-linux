@@ -21,6 +21,7 @@
 #define _NWNX_odbc_H_
 
 #include "NWNXBase.h"
+#include <mhash.h>
 
 #include "pluginlink.h"
 
@@ -82,6 +83,8 @@ private:
     bool bReconnectOnError;
     char* scorcoSQL;
     unsigned long lastObjectID;
+    // hold MD5 hash result as a string (2 x length of MD5 hash + 1 for NULL terminator)
+    unsigned char lastHash[33];
 
     HANDLE hSCOEvent;
     HANDLE hRCOEvent;
