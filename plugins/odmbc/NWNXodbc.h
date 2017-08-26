@@ -59,6 +59,7 @@ protected:
     void Execute(char* request);
     char * Fetch(char * buffer, unsigned int buffersize);
     void SetScorcoSQL(char *request);
+    void GetHash(char* request);
     bool LoadConfiguration();
 
 private:
