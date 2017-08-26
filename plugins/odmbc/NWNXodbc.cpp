@@ -401,7 +401,7 @@ int CNWNXODBC::WriteSCO(const char * database, const char * key, char * player, 
         mhash_deinit(td, hash);
 
         // convert hash to a string and store in lastHash
-        for (int j = 0; j < mhash_get_block_size(type); j += 4) {
+        for (unsigned int j = 0; j < mhash_get_block_size(type); j += 4) {
             sprintf(&lastHash[j*2], "%.2x%.2x%.2x%.2x", hash[j], hash[j+1], hash[j+2], hash[j+3]);
         }
         Log(2, "* MD5 hash (writescorcodata, length): %s, %d\n", lastHash, size);
