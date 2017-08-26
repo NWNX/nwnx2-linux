@@ -1,5 +1,7 @@
 set(all_deps HookSCORCO CExoString ObjectStorage NWNXodbc plugin-odbc)
 
+find_library(MHASH_LIBRARY mhash)
+
 find_package(PostgreSQL)
 if (PostgreSQL_FOUND)
 	message("Found PostgreSQL installation!")
@@ -8,7 +10,7 @@ if (PostgreSQL_FOUND)
 	include_directories(${PostgreSQL_INCLUDE_DIRS})
 
 	add_module(odmbc_pgsql pgsql ${all_deps})
-	target_link_libraries(odmbc_pgsql ${PostgreSQL_LIBRARIES})
+	target_link_libraries(odmbc_pgsql ${PostgreSQL_LIBRARIES} ${MHASH_LIBRARY})
 
     set_target_properties(odmbc_pgsql PROPERTIES COMPILE_FLAGS "-O0")
 
@@ -26,7 +28,7 @@ if (SQLITE3_FOUND)
 	include_directories(${SQLITE3_INCLUDE_DIRS})
 
 	add_module(odmbc_sqlite sqlite ${all_deps})
-	target_link_libraries(odmbc_sqlite ${SQLITE3_LIBRARIES})
+	target_link_libraries(odmbc_sqlite ${SQLITE3_LIBRARIES} ${MHASH_LIBRARY})
 
     set_target_properties(odmbc_sqlite PROPERTIES COMPILE_FLAGS "-O0")
 
@@ -44,7 +46,7 @@ if (MYSQL_FOUND)
 	include_directories(${MYSQL_INCLUDE_DIR})
 
 	add_module(odmbc_mysql mysql ${all_deps})
-	target_link_libraries(odmbc_mysql ${MYSQL_LIBRARY})
+	target_link_libraries(odmbc_mysql ${MYSQL_LIBRARY} ${MHASH_LIBRARY})
 
     set_target_properties(odmbc_mysql PROPERTIES COMPILE_FLAGS "-O0")
 
