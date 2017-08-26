@@ -85,7 +85,7 @@ private:
     char* scorcoSQL;
     unsigned long lastObjectID;
     // hold MD5 hash result as a string (2 x length of MD5 hash + 1 for NULL terminator)
-    unsigned char lastHash[33];
+    char lastHash[33];
 
     HANDLE hSCOEvent;
     HANDLE hRCOEvent;
