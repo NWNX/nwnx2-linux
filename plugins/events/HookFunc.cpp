@@ -69,6 +69,16 @@ unsigned char d_ret_code_cz[0x20];
 unsigned char d_ret_code_tp[0x20];
 unsigned char d_ret_code_pf[0x20];
 unsigned char d_ret_code_vc[0x20];
+unsigned char d_ret_code_si[0x20];
+
+
+int (*SplitItem)(CNWSCreature *cre, CNWSItem *a2, int a3);
+int MySplitItem(CNWSCreature *cre, CNWSItem *a2, int a3)
+{
+	if (cre == NULL)
+		return 0;
+	return SplitItem(cre, a2, a3);
+}
 
 int (*CNWSPlayer__ValidateCharacter)(CNWSPlayer *pPlayer, int *result);
 
@@ -720,7 +730,10 @@ int HookFunctions(bool enableUnsafe)
     hook_function(org_PossessFamiliar, (unsigned long)PossessFamiliarHookProc, d_ret_code_pf, 9);
     hook_function(org_ValidateCharacter, (unsigned long)CNWSPlayer__ValidateCharacter_hook, d_ret_code_vc, 12);
     *(dword*)&CNWSPlayer__ValidateCharacter = (dword)&d_ret_code_vc;
-
+    
+    hook_function(0x0811A1D0, (unsigned long)MySplitItem, d_ret_code_si, 12);
+	*(dword*)&SplitItem = (dword)&d_ret_code_si;
+    
     if (enableUnsafe) {
         HookEvent(EVENT_CORE_PLUGINSLOADED, PluginsLoaded);
     }
