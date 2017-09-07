@@ -69,10 +69,18 @@ unsigned long CNWNXBase::OnRequestObject(char *gameObject, char* Request)
 
 void CNWNXBase::Log(int priority, const char *pcMsg, ...)
 {
-    va_list argList;
-    char acBuffer[2048];
+    va_list    argList;
+    char       acBuffer[2048];
+    time_t     now = time(0);
+    struct tm  tstruct;
 
     if (m_fFile && priority <= debuglevel) {
+        // build timestamp
+
+        tstruct = *localtime(&now);
+        strftime(acBuffer, sizeof(acBuffer), "[%Y-%m-%d %X] ", &tstruct);
+        fputs(acBuffer, m_fFile);
+
         // build up the string
         va_start(argList, pcMsg);
         vsnprintf(acBuffer, 2047, pcMsg, argList);
