@@ -199,6 +199,13 @@ struct Timeval {
     int usec;
 };
 
+
+//////////////////////////////////////////////////////////////////////////////
+//                                                                          //
+//                                 PROTOTYPES                               //
+//                                                                          //
+//////////////////////////////////////////////////////////////////////////////
+
 /* Returns TRUE if the target inherently knows a feat (as opposed to
  * by any equipment they may possess) */
 int GetKnowsFeat (int nFeatId, object oCreature);
@@ -602,6 +609,28 @@ int SetCorpseDecayTime(object oCreature, int nTime);
 //  0 on failure
 int GetCorpseDecayTime(object oCreature);
 
+
+// return the creature's normal appearance id [as found in appearance.2da]
+//   regardless of its current appearance [e.g. if shifted, polymorphed, &c.]
+// if this function is called for a non-polymorphed creature, it will return
+//   the creature's usual appearance id, identical to GetAppearance().
+// returns -1 on error.
+int GetNormalAppearance(object oCreature);
+
+
+// return the creature's normal racial type id [as found in racialtypes.2da]
+//   regardless of its current race [e.g. if shifted, polymorphed, &c.]
+// if this function is called for a non-polymorphed creature, it will return
+//   the creature's usual racial type, identical to GetRactialType().
+// returns -1 on error.
+int GetNormalRace(object oCreature);
+
+
+//////////////////////////////////////////////////////////////////////////////
+//                                                                          //
+//                               IMPLEMENTATION                             //
+//                                                                          //
+//////////////////////////////////////////////////////////////////////////////
 
 int NWNXFuncsZero (object oObject, string sFunc) {
     SetLocalString(oObject, sFunc, "          ");
@@ -1480,6 +1509,22 @@ object IntToObject (int nObjectId) {
 object StringToObject (string sObjectId) {
     SetLocalString(GetModule(), "NWNX!FUNCS!STRINGTOOBJECTREQUEST", sObjectId);
     return GetLocalObject(GetModule(), "NWNX!FUNCS!INTTOOBJECT");
+}
+
+
+int GetNormalAppearance(object oCreature)
+{
+    int nRet = NWNXFuncsZero(oCreature, "NWNX!FUNCS!GETNORMALAPPEARANCE");
+    DeleteLocalString(oCreature, "NWNX!FUNCS!GETNORMALAPPEARANCE");
+    return nRet;	
+}
+
+
+int GetNormalRace(object oCreature)
+{
+    int nRet = NWNXFuncsZero(oCreature, "NWNX!FUNCS!GETNORMALRACE");
+    DeleteLocalString(oCreature, "NWNX!FUNCS!GETNORMALRACE");
+    return nRet;	
 }
 
 
