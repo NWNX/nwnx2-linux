@@ -3,11 +3,9 @@
 set -e
 
 if [ `uname -p` = "x86_64" ]; then
-	echo "nwnx2 does not build on x64."
-	echo "Try running this in a 32bit chroot."
-	exit 1
+    export CC="gcc -m32" 
+    export CXX="g++ -m32"
 fi
-
 
 echo "
 =====

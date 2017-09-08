@@ -114,6 +114,7 @@ protected:
     gline* nwnxConfig;
     const char * confKey;
     int debuglevel;
+    int logTimestamp;
 
 private:
 

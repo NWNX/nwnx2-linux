@@ -75,12 +75,13 @@ void CNWNXBase::Log(int priority, const char *pcMsg, ...)
     struct tm  tstruct;
 
     if (m_fFile && priority <= debuglevel) {
-        // build timestamp
+        if (logTimestamp == 1) {
+            // build timestamp
 
-        tstruct = *localtime(&now);
-        strftime(acBuffer, sizeof(acBuffer), "[%Y-%m-%d %X] ", &tstruct);
-        fputs(acBuffer, m_fFile);
-
+            tstruct = *localtime(&now);
+            strftime(acBuffer, sizeof(acBuffer), "[%Y-%m-%d %X] ", &tstruct);
+            fputs(acBuffer, m_fFile);
+        }
         // build up the string
         va_start(argList, pcMsg);
         vsnprintf(acBuffer, 2047, pcMsg, argList);
@@ -138,4 +139,10 @@ void CNWNXBase::BaseConf()
     if (nwnxConfig->exists(confKey, "debuglevel")) {
         SetDebugLevel(atoi((char*)((*nwnxConfig)[confKey]["debuglevel"].c_str())));
     }
+    logTimestamp = 0;
+    if (nwnxConfig->exists(confKey, "logTimestamp") && (toupper((*nwnxConfig)[confKey]["disablehook"].c_str()[0])=='Y' || (*nwnxConfig)[confKey]["disablehook"].c_str()[0] =='1')) {
+        logTimestamp = 1;
+    }
+
+   
 }
