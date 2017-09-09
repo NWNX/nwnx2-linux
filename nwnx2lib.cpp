@@ -70,6 +70,7 @@ static FILE *logFile = stdout;
 static const char *logDir = NULL;
 static const char *pluginDir = NULL;
 static int debuglevel = 0;
+static int logTimestamp = 0;
 static int xdbglevel = 1;
 static int nwnxinitdisabled = 0;
 
@@ -445,6 +446,7 @@ LoadLibraries()
 
         // initialize the plugin
         pBase->SetDebugLevel(debuglevel);
+        pBase->SetLogTimestamp(logTimestamp);
 
         if (!pBase->OnCreate(&nwnxConfig, logDir)) {
             Log(0, "ERROR: %s: OnCreate() failed.\n", key);
@@ -562,6 +564,17 @@ static void Configure()
         debuglevel = atoi(nwnxConfig["Debug"]["debuglevel"].c_str());
     }
 
+    Log(3, "* checking for timestamp logging\n");
+    // Optional timestamps during logging
+    if (nwnxConfig.exists("Debug", "logTimestamp")) {
+        Log(3, "* timestamp entry exists for Debug - %c\n", nwnxConfig["Debug"]["logTimestamp"].c_str()[0]);
+        if (toupper(nwnxConfig["Debug"]["logTimestamp"].c_str()[0])=='Y' || nwnxConfig["Debug"]["logTimestamp"].c_str()[0] =='1') {
+            Log(1, "* logging full timestamps requested\n");
+            logTimestamp = 1;
+        }
+    }
+    Log(3, "* timestamp logging set to %c\n", nwnxConfig["Debug"]["logTimestamp"].c_str()[0] );
+
     // Extender debug level
     if (nwnxConfig.exists("NWNX", "debuglevel")) {
         xdbglevel = atoi(nwnxConfig["NWNX"]["debuglevel"].c_str());
@@ -645,8 +658,17 @@ static void Log(int priority, const char *pcMsg, ...)
 {
     va_list argList;
     char acBuffer[2048];
+    time_t     now = time(0);
+    struct tm  tstruct;
 
     if (logFile && priority <= xdbglevel) {
+        if (logTimestamp == 1) {
+            // build timestamp
+            tstruct = *localtime(&now);
+            strftime(acBuffer, sizeof(acBuffer), "[%Y-%m-%d %X] ", &tstruct);
+            fputs(acBuffer, logFile);
+        }
+
         // build up the string
         va_start(argList, pcMsg);
         vsnprintf(acBuffer, 2047, pcMsg, argList);

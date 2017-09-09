@@ -31,6 +31,7 @@ CNWNXBase::CNWNXBase()
     // m_hFile = INVALID_HANDLE_VALUE;
     m_fFile = NULL;
     debuglevel = 0;
+    logTimestamp = 0;
 }
 
 CNWNXBase::~CNWNXBase()
@@ -130,6 +131,20 @@ int CNWNXBase::GetDebugLevel()
     return debuglevel;
 }
 
+int CNWNXBase::SetLogTimestamp( int val ) {
+    int temp = logTimestamp;
+    if (val != temp) {
+        logTimestamp = val;
+        Log(0, "* logging timestamps changed to %d\n", temp);
+    }
+
+    return temp;
+}
+
+int CNWNXBase::GetLogTimestamp() {
+    return logTimestamp;
+}
+
 void CNWNXBase::BaseConf()
 {
 
@@ -140,9 +155,12 @@ void CNWNXBase::BaseConf()
         SetDebugLevel(atoi((char*)((*nwnxConfig)[confKey]["debuglevel"].c_str())));
     }
     logTimestamp = 0;
-    if (nwnxConfig->exists(confKey, "logTimestamp") && (toupper((*nwnxConfig)[confKey]["disablehook"].c_str()[0])=='Y' || (*nwnxConfig)[confKey]["disablehook"].c_str()[0] =='1')) {
+    Log(3, "* logging full timestamps disabled by default\n");
+    Log(3, "* setting from INI file - %c\n", (*nwnxConfig)[confKey]["logTimestamp"].c_str()[0] );
+
+    if (nwnxConfig->exists(confKey, "logTimestamp") && (toupper((*nwnxConfig)[confKey]["logTimestamp"].c_str()[0])=='Y' || (*nwnxConfig)[confKey]["logTimestamp"].c_str()[0] =='1')) {
+        Log(0, "* logging full timestamps requested\n");
         logTimestamp = 1;
     }
 
-   
 }
