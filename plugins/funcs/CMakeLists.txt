@@ -71,6 +71,8 @@ add_module(funcs NWNXFuncs plugin-funcs
 	funcs/other/f_GetACNaturalBase
 	funcs/other/f_GetCorpseDecayTime
 	funcs/other/f_GetDamageImmunity
+	funcs/other/f_GetNormalAppearance
+	funcs/other/f_GetNormalRace
 	funcs/other/f_GetPCBodyBag
 	funcs/other/f_GetPCFileName
 	funcs/other/f_GetPortrait

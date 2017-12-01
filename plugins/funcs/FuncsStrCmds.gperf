@@ -49,7 +49,7 @@ GETBONUSSPELLSLOTS,                    Func_GetBonusSpellSlots
 GETCLASSBYLEVEL,                       Func_GetClassByLevel
 GETCLERICDOMAIN,                       Func_GetClericDomain
 GETCONVERSATION,                       Func_GetConversation
-GETCORPSEDECAYTIME,		       Func_GetCorpseDecayTime
+GETCORPSEDECAYTIME,                    Func_GetCorpseDecayTime
 GETCREATUREEVENTHANDLER,               Func_GetCreatureEventHandler
 GETCRITICALHITMULTIPLIER,              Func_GetCriticalHitMultiplier
 GETCRITICALHITRANGE,                   Func_GetCriticalHitRange
@@ -78,6 +78,8 @@ GETMAXHITPOINTSBYLEVEL,                Func_GetMaxHitPointsByLevel
 GETMAXSPELLSLOTS,                      Func_GetMaxSpellSlots
 GETMEETSFEATREQUIREMENTS,              Func_GetMeetsFeatRequirements
 GETMEMORIZEDSPELL,                     Func_GetMemorizedSpell
+GETNORMALAPPEARANCE,                   Func_GetNormalAppearance
+GETNORMALRACE,                         Func_GetNormalRace
 GETPCBODYBAG,                          Func_GetPCBodyBag
 GETPCFILENAME,                         Func_GetPCFileName
 GETPCPORT,                             Func_GetPCPort
