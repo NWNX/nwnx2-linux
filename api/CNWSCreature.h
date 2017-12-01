@@ -814,10 +814,13 @@ public:
     /* 0x488/1160 */ char rsvd3[380];
     /* 0x488/1160 */ unsigned long LawfulChaotic;
     /* 0x48C/1164 */ unsigned long field_48C;
-    /* 0x490/1168 */ char **AreaMiniMaps;
+    // array of AutoMapAreas.size * 0x80 char* Mod_MapData with exploration bitmaps
+    /* 0x490/1168 */ char **AutoMapTileData;
     /* (mtype:CExoArrayList<unsigned long>) */
-    /* 0x494/1172 */ CExoArrayList<unsigned long> AreaList;
-    /* 0x4A0/1184 */ unsigned long AreaCount;
+    // list of area ids contained in AutoMapTileData
+    /* 0x494/1172 */ CExoArrayList<unsigned long> AutoMapAreaIdList;
+    // sizeof AutoMapTileData too
+    /* 0x4A0/1184 */ unsigned long AutoMapNumAreas;
     /* 0x4A4/1188 */ unsigned long field_4A4;
     /* 0x4B0/1200 */ char rsvd4[8];
     /* 0x4B0/1200 */ unsigned long field_4B0;

@@ -1,34 +1,18 @@
-// NWNX Areas
-// Area instancing plugin
-// (c) by virusman, 2006-2010
-
-// Create new area from ResRef
-object LoadArea(string sResRef);
-// Create new area from ResRef
+// Create new area from ResRef.
+// Will return OBJECT_INVALID on failure.
 object CreateArea(string sResRef);
-// Destroy area
-void DestroyArea(object oArea);
-// Set name for oArea
-void SetAreaName(object oArea, string sName);
 
+// Destroy area. Will return FALSE on failure.
+int DestroyArea(object oArea);
 
-object LoadArea(string sResRef)
+object CreateArea(string sResRef)
 {
     SetLocalString(GetModule(), "NWNX!AREAS!CREATE_AREA", sResRef);
     return GetLocalObject(GetModule(), "NWNX!AREAS!GET_LAST_AREA_ID");
 }
 
-object CreateArea(string sResRef)
-{
-    return LoadArea(sResRef);
-}
-
 void DestroyArea(object oArea)
 {
     SetLocalString(GetModule(), "NWNX!AREAS!DESTROY_AREA", ObjectToString(oArea));
-}
-
-void SetAreaName(object oArea, string sName)
-{
-    SetLocalString(oArea, "NWNX!AREAS!SET_AREA_NAME", sName);
+    return StringToInt(GetLocalString(GetModule(), "NWNX!AREAS!DESTROY_AREA"));
 }
