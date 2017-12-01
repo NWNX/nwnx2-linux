@@ -1,6 +1,6 @@
 #include "core.h"
 
-PLUGINLINK *pluginLink;
+__attribute__((visibility("hidden"))) PLUGINLINK *pluginLink;
 
 void Core_Console_Init();
 void Core_Console_Builtins_Init();

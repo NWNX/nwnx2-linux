@@ -26,7 +26,7 @@ SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -m32")
 
 # - no-omit-frame-pointer: breaks assembly on -O1/-O2 for some plugins
 # - no-accumulate-outgoing-args: same
-SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -mno-accumulate-outgoing-args -fno-omit-frame-pointer")
+SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -mno-accumulate-outgoing-args -fno-omit-frame-pointer -fno-pic")
 # - warnings: self-explanatory
 SET(OUR_CFLAGS_MUST_HAVES "${OUR_CFLAGS_MUST_HAVES} -Wall -Wextra -Wno-unused-parameter -Wno-unused -Wno-write-strings")
 
@@ -37,6 +37,7 @@ set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} ${OUR_CFLAGS_MUST_HAVES}" CACHE STRING "
 # removes stuff like -fPIC, which breaks nwnx plugin loading
 set(CMAKE_SHARED_LIBRARY_C_FLAGS "")
 set(CMAKE_SHARED_LIBRARY_CXX_FLAGS "")
+set(CMAKE_POSITION_INDEPENDENT_CODE FALSE)
 
 # nwnx is currently still kind of broken with -O > 0. Until that's properly fixed
 # and tested, force -O0 for release and relwithdebinfo builds. Individual
