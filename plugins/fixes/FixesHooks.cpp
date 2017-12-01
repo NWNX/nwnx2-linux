@@ -48,6 +48,7 @@ int (*pGetIsMergeable)(void *pItem1, void *pItem2);
 int (*CNWSCreature__DoDamage)(CNWSCreature *a1, unsigned int a2);
 int (*CNWSModule__AIUpdate)(void *a1);
 int (*CNWSModule__AIUpdate_R)(void *a1);
+int (*CNWSCreature_SplitItem)(CNWSCreature *cre, dword *a2, int a3);
 
 //Constants:
 
@@ -69,7 +70,7 @@ unsigned char d_jmp_code[] = "\x68\x60\x70\x80\x90"       /* push dword 0x908070
 unsigned char d_ret_code_merg[0x20];
 unsigned char d_ret_code_dmg[0x20];
 unsigned char d_ret_code_mai[0x20];
-
+unsigned char d_ret_code_si[0x20];
 
 unsigned long lastRet;
 char scriptRun = 0;
@@ -300,6 +301,13 @@ int CNWSModule__AIUpdate_hook(void *a1)
     return ret;
 }
 
+int CNWSCreature_SplitItem_hook(CNWSCreature *cre, dword *a2, int a3)
+{
+	if (cre == NULL)
+		return 0;
+	return CNWSCreature_SplitItem(cre, a2, a3);
+}
+
 //#################### HOOK ####################
 
 void
@@ -364,6 +372,9 @@ int FindHookFunctions()
     fixes.Log(2, "CNWSModule__AIUpdate: %08lX\n", CNWSModule__AIUpdate);
     char *pAdjustReputation_middle = (char *) 0x081084C3;
 
+    *(dword*)&CNWSCreature_SplitItem = 0x0811A1D0;
+	fixes.Log(2, "CNWSCreature_SplitItem: %08lX\n", CNWSCreature_SplitItem);
+    
     *(dword*)&pRunScript = 0x08261F94;
 
     if (pSplitItem_Copy && fixes.GetConfInteger("copy_vars")) {
@@ -412,6 +423,12 @@ int FindHookFunctions()
         d_redirect((unsigned long)CNWSModule__AIUpdate, (unsigned long)CNWSModule__AIUpdate_hook, d_ret_code_mai, 9);
         *(dword*)&CNWSModule__AIUpdate_R = (dword)&d_ret_code_mai;
     }
+    
+    if (CNWSCreature_SplitItem)
+	{
+		d_redirect((unsigned long)CNWSCreature_SplitItem, (unsigned long)CNWSCreature_SplitItem_hook, d_ret_code_si, 9);
+        *(dword*)&CNWSCreature_SplitItem = (dword)&d_ret_code_si;
+	}
 
     if (pGetDead && fixes.GetConfInteger("hp_limit")) {
         d_enable_write((dword) pGetDead);
@@ -530,7 +547,7 @@ void InitConstants()
     *(dword*)&pServerExo4 = *(dword*)((char*)pServerExo + 0x4);
 
 
-    //Да, я знаю, я извращенец!
+    //Г„Г , Гї Г§Г­Г Гѕ, Гї ГЁГ§ГўГ°Г Г№ГҐГ­ГҐГ¶!
     *(dword*)&pObjectClass = *(dword*)(*(dword*)((char*)pServerExo + 0x4) + 0x10080);
     *(dword*)&pFactionClass = *(dword*)(*(dword*)((char*)pServerExo + 0x4) + 0x10074);
     *(dword*)&pClientClass = *(dword*)(*(dword*)((char*)pServerExo + 0x4) + 0x10060);
