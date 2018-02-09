@@ -669,7 +669,7 @@ int CNWSObject__dtor(uintptr_t p)
 int CNWSCreatureStats__GetEpicWeaponDevastatingCritical_hook(CNWSCreatureStats *pStats, CNWSItem *pItem)
 {
     int (*original)(CNWSCreatureStats*, CNWSItem*);
-    *(dword*)&original = (dword)&d_ret_code_vc;
+    *(dword*)&original = (dword)&d_ret_code_dc;
 
     if (original(pStats, pItem))
     {
