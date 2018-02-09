@@ -14,6 +14,7 @@ const int EVENT_TYPE_POSSESS_FAMILIAR   = 12;
 const int EVENT_TYPE_VALIDATE_CHARACTER = 13;
 const int EVENT_TYPE_DESTROY_OBJECT     = 14;
 const int EVENT_TYPE_CREATE_OBJECT      = 15;
+const int EVENT_TYPE_DEVASTATING_CRITICAL = 16;
 
 // DEPRECATED
 // For backwards compatibility only - use above constants instead
