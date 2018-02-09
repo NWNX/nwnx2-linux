@@ -677,6 +677,13 @@ int CNWSCreatureStats__GetEpicWeaponDevastatingCritical_hook(CNWSCreatureStats *
         events.oItem = pItem->ObjectID;
         events.oTarget = pCreature->AttackTarget;
         events.FireEvent(pCreature->ObjectID, EVENT_TYPE_DEVASTATING_CRITICAL);
+        if (events.nReturnValue == 1)
+        {
+            // Set killing blow so cleave activates
+            CNWSCombatRound *pCombatRound = pCreature->CombatRound;
+            CNWSCombatAttackData *pAttackData = pCombatRound->GetAttack(pCombatRound->CurrentAttack);
+            pAttackData->KillingBlow = 1;
+        }
     }
 
     // Always return 0 so the core game doesn't do devcrit handling
