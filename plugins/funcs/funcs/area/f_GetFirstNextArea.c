@@ -21,7 +21,7 @@
 #include "NWNXFuncs.h"
 
 
-static int Area_Current = 0;
+static unsigned int Area_Current = 0;
 static CNWSModule *Area_Module = NULL;
 
 

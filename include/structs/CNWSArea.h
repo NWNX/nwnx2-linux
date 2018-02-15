@@ -43,10 +43,7 @@ struct CNWSArea_s {
     uint32_t                    field_3C;
     uint32_t                    field_40;
     uint32_t                    field_44;
-    uint32_t                    field_48;
-    uint32_t                    field_4C;
-    uint32_t                    field_50;
-    uint32_t                    field_54;
+    char                        tileset[16];
     uint32_t                    field_58;
     uint32_t                    field_5C;
     uint32_t                    field_60;
@@ -59,8 +56,8 @@ struct CNWSArea_s {
     uint32_t                    field_7C;
     uint32_t                    field_80;
     uint32_t                    field_84;
-    uint32_t                    field_88;
-    uint32_t                    field_8C;
+    int                         mod_spot;
+    int                         mod_listen;
     uint32_t                    field_90;
     uint32_t                    field_94;
     uint32_t                    field_98;
@@ -104,7 +101,10 @@ struct CNWSArea_s {
     uint32_t                    field_130;
     uint32_t                    field_134;
     uint32_t                    field_138;
-    uint32_t                    field_13C;
+    u_char                      field_13C;
+    u_char                      field_13D;
+    u_char                      env_id;
+    u_char                      field_13F;
     uint32_t                    field_140;
     uint32_t                    field_144;
     uint32_t                    field_148;

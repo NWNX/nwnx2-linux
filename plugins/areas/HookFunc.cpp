@@ -21,9 +21,11 @@
 #include "CGameObjectArray.h"
 #include "NWNStructures.h"
 #include "NWNXAreas.h"
+#include "hexdump.h"
 
 extern CNWNXAreas areas;
 
+extern CGameObject *nwn_GetObjectByStringID (const char *oid);
 CNWSModule *(*CServerExoApp__GetModule)(void *pServerExo);
 void (*CNWSArea__CNWSArea)(void *pArea, CResRef res, int a3, dword ObjID);
 int (*CNWSArea__LoadArea)(void *pArea, int flag);
@@ -47,6 +49,20 @@ dword ppServThis = 0;
 dword pServThis = 0; //g_pAppManager
 dword pScriptThis = 0;
 dword pServInternal = 0;
+
+
+// validate the area id passed to us to work on, and
+// verify that our workarea has been set up correctly
+int area_valid(dword nAreaID)
+{
+    if (!nAreaID || nAreaID == OBJECT_INVALID)
+        return 0;
+
+    if (!pServInternal) InitConstants();
+
+	return 1;
+}
+
 
 // I'm not sure what CServerExoApp__GetModule actually returns, but I'm
 // positive that it's not CNWSModule.  So this looks up the module in
@@ -214,14 +230,43 @@ void UpdateAreasForDMs()
     }
 }
 
+void dump_area(CNWSArea *ap)
+{
+	areas.Log(0, "dump_area: area width=%d, area height=%d, no-rest = %d\n", ap->width, ap->height, ap->no_rest);
+	areas.Log(0, "dump_area: resref = %s, tileset = %s, spot = %d, listen = %d, lighting = %d\n",
+		ap->resref, ap->tileset, ap->mod_spot, ap->mod_listen, ap->lighting);
+    areas.Log(0, "dump_area: dumping %d bytes from %p...\n", sizeof(CNWSArea), ap);
+
+	// for some strange, bizarre, and wholly inexplicable reason,
+	// the nwnx logger's output buffer is limited to 2k.
+	// output the dump line by line. *sigh*
+    char *dump = hexdump((void *)ap, sizeof(CNWSArea));
+	char *tok = strtok(dump, "\n");
+	while (tok) {
+		areas.Log(0, "%s\n", tok);
+		tok = strtok(NULL, "\n");
+	}
+	areas.Log(0, "dump_area: DUMP ENDS ----------------\n");
+}
+
+void NWNXDumpArea(void *pModule, dword nAreaID)
+{
+	if (!area_valid(nAreaID)) {
+		areas.Log(1, "Invalid area ID passed to NWNXDumpArea\n");//debug
+		return;
+	}
+    areas.Log(0, "Dumping area %08lX\n", nAreaID);
+    dump_area((CNWSArea *)GetAreaByGameObjectID((void *)pServInternal, nAreaID));
+}
+
 void NWNXCreateArea(void *pModule, char *sResRef)
 {
     CResRef res;
     CResRef____as(&res, sResRef);
-    void *pArea = malloc(0x210);
-    areas.Log(0, "Creating area '%s'\n", sResRef);
+    void *pArea = malloc(sizeof(CNWSArea));
+    areas.Log(2, "Creating new area from template '%s'\n", sResRef);
     CNWSArea__CNWSArea(pArea, res, 0, OBJECT_INVALID);
-    areas.Log(0, "Loading area '%s'\n", sResRef);
+    areas.Log(2, "Loading new area\n");
     if (!CNWSArea__LoadArea(pArea, 0)) {
         areas.Log(0, "Load failed: '%s'\n", sResRef);
         CNWSArea__Destructor(pArea, 3);
@@ -229,7 +274,7 @@ void NWNXCreateArea(void *pModule, char *sResRef)
         return;
     }
     dword nAreaID = *((dword *)pArea + 0x32);
-    areas.Log(0, "AreaID=%08lX\n", nAreaID);
+    areas.Log(2, "AreaID=%08lX\n", nAreaID);
     void *pArray = ((dword *)pModule + 0x7);
     CExoArrayList__Add(pArray, nAreaID);
     areas.nLastAreaID = nAreaID;
@@ -239,10 +284,10 @@ void NWNXCreateArea(void *pModule, char *sResRef)
 
 void NWNXDestroyArea(void *pModule, dword nAreaID)
 {
-    if (!nAreaID || nAreaID == OBJECT_INVALID)
-        return;
-    if (!pServInternal)
-        InitConstants();
+	if (!area_valid(nAreaID)) {
+		areas.Log(1, "Invalid area ID passed to NWNXDumpArea\n");//debug
+		return;
+	}
     areas.Log(2, "Unregistering area %08lX\n", nAreaID);
     void *pArray = ((dword *)pModule + 0x7);
     CExoArrayList__Remove(pArray, nAreaID);
@@ -266,7 +311,7 @@ void NWNXDestroyArea(void *pModule, dword nAreaID)
         pDestructor(pObject, 3);
     } while (CNWSArea__GetNextObjectInArea(pArea, &nTmpObj));
 
-    areas.Log(0, "Destroying area %08lX\n", nAreaID);
+    areas.Log(2, "Destroying area %08lX\n", nAreaID);
     if (pArea->NumPlayers > 0) {
         areas.Log(1, "NumPlayers > 0, aborting\n");
         return;
@@ -280,7 +325,8 @@ void NWNXSetAreaName(CNWSArea *pArea, char *sNewName)
 {
     areas.Log(3, "SetAreaName: %x, '%s'\n", pArea->GameObject.ObjectID, sNewName);
     CExoLocString *lsName = (CExoLocString *)&pArea->Name;
-    if (!lsName) return;
+    if (!lsName)
+		return;
     int len = strlen(sNewName);
     char *newstr = new char[len + 1];
     strncpy(newstr, sNewName, len);
@@ -288,6 +334,89 @@ void NWNXSetAreaName(CNWSArea *pArea, char *sNewName)
     lsName->AddString(0, newstr);
     UpdateAreasForDMs();
 }
+
+int NWNXGetAreaHeight(void *pModule, dword nAreaID)
+{
+	if (!area_valid(nAreaID)) {
+		areas.Log(1, "Invalid area ID passed to NWNXGetAreaHeight\n");//debug
+		return 0;
+	}
+    CNWSArea *ap = (CNWSArea *) GetAreaByGameObjectID((void *)pServInternal, nAreaID);
+	return ap->height;
+}
+
+int NWNXGetAreaWidth(void *pModule, dword nAreaID)
+{
+	if (!area_valid(nAreaID)) {
+		areas.Log(1, "Invalid area ID passed to NWNXGetAreaWidth\n");//debug
+		return 0;
+	}
+    CNWSArea *ap = (CNWSArea *) GetAreaByGameObjectID((void *)pServInternal, nAreaID);
+	return ap->width;
+}
+
+char *NWNXGetAreaTileset(void *pModule, dword nAreaID)
+{
+	if (!area_valid(nAreaID)) {
+		areas.Log(1, "Invalid area ID passed to NWNXGetAreaTileset\n");//debug
+		return (char *)0;
+	}
+    CNWSArea *ap = (CNWSArea *) GetAreaByGameObjectID((void *)pServInternal, nAreaID);
+	return ap->tileset;
+}
+
+int NWNXGetAreaLighting(void *pModule, dword nAreaID)
+{
+	if (!area_valid(nAreaID)) {
+		areas.Log(1, "Invalid area ID passed to NWNXGetAreaLighting\n");//debug
+		return -1;
+	}
+    CNWSArea *ap = (CNWSArea *) GetAreaByGameObjectID((void *)pServInternal, nAreaID);
+	return ap->lighting;
+}
+
+int NWNXGetAreaSpot(void *pModule, dword nAreaID)
+{
+	if (!area_valid(nAreaID)) {
+		areas.Log(1, "Invalid area ID passed to NWNXGetAreaSpot\n");//debug
+		return 0;	// punt
+	}
+    CNWSArea *ap = (CNWSArea *) GetAreaByGameObjectID((void *)pServInternal, nAreaID);
+	return ap->mod_spot;
+}
+
+int NWNXGetAreaListen(void *pModule, dword nAreaID)
+{
+	if (!area_valid(nAreaID)) {
+		areas.Log(1, "Invalid area ID passed to NWNXGetAreaListen\n");//debug
+		return 0;	// punt
+	}
+    CNWSArea *ap = (CNWSArea *) GetAreaByGameObjectID((void *)pServInternal, nAreaID);
+	return ap->mod_listen;
+}
+
+void NWNXSetAreaListen(CNWSArea *ap, char *val)
+{
+	ap->mod_listen = atoi(val);
+    UpdateAreasForDMs();
+}
+
+void NWNXSetAreaSpot(CNWSArea *ap, char *val)
+{
+	ap->mod_spot = atoi(val);
+    UpdateAreasForDMs();
+}
+
+int NWNXGetNoRest(void *pModule, dword nAreaID)
+{
+	if (!area_valid(nAreaID)) {
+		areas.Log(1, "Invalid area ID passed to NWNXGetNoRest\n");//debug
+		return -1;
+	}
+    CNWSArea *ap = (CNWSArea *) GetAreaByGameObjectID((void *)pServInternal, nAreaID);
+	return ap->no_rest;
+}
+
 
 int HookFunctions()
 {

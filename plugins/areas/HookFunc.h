@@ -34,6 +34,16 @@ int LoadAreaNum(void *pModule, int nAreaNum);
 void AddAreaToAllCreatures(dword nAreaID);
 void NWNXCreateArea(void *pModule, char *sResRef);
 void NWNXDestroyArea(void *pModule, dword nAreaID);
+void NWNXDumpArea(void *pModule, dword nAreaID);
+char *NWNXGetAreaTileset(void *pModule, dword nAreaID);
+int NWNXGetAreaHeight(void *pModule, dword nAreaID);
+int NWNXGetAreaWidth(void *pModule, dword nAreaID);
+int NWNXGetAreaLighting(void *pModule, dword nAreaID);
+int NWNXGetAreaListen(void *pModule, dword nAreaID);
+int NWNXGetAreaSpot(void *pModule, dword nAreaID);
+int NWNXGetNoRest(void *pModule, dword nAreaID);
+void NWNXSetAreaListen(CNWSArea *ap, char *val);
+void NWNXSetAreaSpot(CNWSArea *ap, char *val);
 void NWNXSetAreaName(CNWSArea *pArea, char *sNewName);
 void AddAreaToCreature(CNWSModule *pModule, CNWSCreature *pObject, dword nAreaID);
 
