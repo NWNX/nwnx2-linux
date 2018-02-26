@@ -45,11 +45,17 @@ int NWNXGetAreaLighting(void *pModule, dword nAreaID);
 
 int NWNXGetAreaListen(void *pModule, dword nAreaID);
 
+int NWNXGetAreaLoadscreen(void *pModule, dword nAreaID);
+
+int NWNXGetAreaPVP(void *pModule, dword nAreaID);
+
 int NWNXGetAreaSpot(void *pModule, dword nAreaID);
 
 int NWNXGetNoRest(void *pModule, dword nAreaID);
 
 char* NWNXGetAreaTileset(void *pModule, dword nAreaID);
+
+int NWNXGetTileAtLocation(void *pModule, char *locstring);
 
 void NWNXSetAreaName(CNWSArea *pArea, char *sNewName);
 
