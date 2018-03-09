@@ -364,6 +364,8 @@ int FindHookFunctions()
     fixes.Log(2, "AIActionDialogObject_middle: %08lX\n", pAIActionDialogObject_middle);
     char *pGetDead = (char *) asmhelp.FindFunctionBySignature("55 89 E5 56 53 83 EC 0C 8B 5D 08 8B 43 0C 53 FF 50 38 83 C4 10 85 C0 74 5B 83 EC 0C 8B 43 0C 53 FF 50 38 8B 90 DC 0A 00 00 83 C4 10 31 F6 85 D2 75 10 83 EC 0C 50 E8");
     fixes.Log(2, "GetDead: %08lX\n", pGetDead);
+    char *pGetIsPCDying = (char *) 0x081d5498;
+    fixes.Log(2, "GetIsPCDying: %08lX\n", pGetIsPCDying);
     char *pAIActionJumpToPoint = (char *) 0x08100BA4;
     fixes.Log(2, "AIActionJumpToPoint: %08lX\n", pAIActionJumpToPoint);
     *(dword*)&CNWSCreature__DoDamage = 0x0812E998;
@@ -436,6 +438,7 @@ int FindHookFunctions()
         if (hpLimit > 0) hpLimit = -10;
         fixes.Log(2, "HP limit = %d\n", hpLimit);
         pGetDead[0x6D] = hpLimit;
+        pGetIsPCDying[0x79] = hpLimit;
     }
 
     //Allow to move dead PCs
