@@ -22,11 +22,15 @@
 #include <memory.h>
 #include <pthread.h>
 #include <stddef.h>
+#include <mhash.h>
 
 #include "NWNXodbc.h"
 #include "HookSCORCO.h"
 
 extern PLUGINLINK *pluginLink;
+
+// Return value when Hashing fails.
+#define EMPTYSTRING (char*)calloc(1, sizeof(char))
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -209,6 +213,8 @@ char* CNWNXODBC::OnRequest(char* gameObject, char* Request, char* Parameters)
         return Fetch(Parameters, strlen(Parameters));
     else if (strncmp(Request, "SETSCORCOSQL", 12) == 0)
         SetScorcoSQL(Parameters);
+    else if (strncmp(Request, "GETHASH", 7) == 0)
+        GetHash(Parameters);
     else if (strncmp(Request, "STOREOBJECT", 11) == 0) {
         int nSize = 0;
         char *pData = SaveObject(strtol(Parameters, NULL, 16), nSize);
@@ -344,6 +350,13 @@ bool CNWNXODBC::OnRelease()
 }
 
 //============================================================================================================================
+void CNWNXODBC::GetHash(char *request)
+{
+  Log(logAll, "* MD5 hash (gethash): %s\n", lastHash);
+  sprintf(request, "%s", lastHash);
+}
+
+//============================================================================================================================
 int CNWNXODBC::WriteSCO(const char * database, const char * key, char * player, int flags, unsigned char * pData, int size)
 {
     Log(3, "o SCO: db='%s', key='%s', player='%s', flags=%08lX, pData=%08lX, size=%08lX\n", database, key, player, flags, pData, size);
@@ -366,6 +379,35 @@ int CNWNXODBC::WriteSCO(const char * database, const char * key, char * player, 
                     return 1;
             }
         }
+
+    } else if (strcmp(key, "HASH") == 0) { // compute hash of the object
+        /* Code based on nwnx_mhash plugin - CNWNXMHash::hash() */
+        // Hard coding to MD5 as hash type (algorithm)
+        unsigned char hash[16]; // enough size for MD5
+        hashid type = MHASH_MD5;
+        // initialize hashing object
+        MHASH td = mhash_init(type);
+
+        if (td == MHASH_FAILED) {
+            Log(0, "Error: mhash_init(%d) returned MHASH_FAILED\n", type);
+            // return a string of "-1" as the hash
+            sprintf(&lastHash[0], "-1");
+            return 0;
+        }
+
+        // read data into hashing object
+        mhash(td, pData, size);
+
+        // process hash and store result in hash
+        mhash_deinit(td, hash);
+
+        // convert hash to a string and store in lastHash
+        for (unsigned int j = 0; j < mhash_get_block_size(type); j += 4) {
+            sprintf(&lastHash[j*2], "%.2x%.2x%.2x%.2x", hash[j], hash[j+1], hash[j+2], hash[j+3]);
+        }
+        Log(2, "* MD5 hash (writescorcodata, length): %s, %d\n", lastHash, size);
+        return 1;
+
     } else {
         ODBCSCORCOEvent scoInfo = {
             database,

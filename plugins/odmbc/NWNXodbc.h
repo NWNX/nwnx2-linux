@@ -58,6 +58,7 @@ protected:
     void Execute(char* request);
     char * Fetch(char * buffer, unsigned int buffersize);
     void SetScorcoSQL(char *request);
+    void GetHash(char* request);
     bool LoadConfiguration();
 
 private:
@@ -82,6 +83,8 @@ private:
     bool bReconnectOnError;
     char* scorcoSQL;
     unsigned long lastObjectID;
+    // hold MD5 hash result as a string (2 x length of MD5 hash + 1 for NULL terminator)
+    char lastHash[33];
 
     HANDLE hSCOEvent;
     HANDLE hRCOEvent;
