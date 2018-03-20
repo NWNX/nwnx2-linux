@@ -50,6 +50,14 @@ Provides hooks for the following events:
                            <any number> - StrRef (TLK string) of the error message (the character won't be able to enter)
 * DestroyObject (unsafe)
     - OBJECT_SELF        = The object being destroyed
+* DevastatingCritical (can be blocked from script)
+    - OBJECT_SELF        = The attacker that is using DevCrit feat
+    - GetEventTarget()   = Creature being hit with the devastating critical
+    - GetEventSubType()  = Total damage being dealt to target
+    - GetEventItem()     = Attacker's weapon, in which the attacker has the devcrit feat
+    * BypassEvent()      = Override default devastating critical handling
+    * SetReturnValue()   = Whether the attacker gets a cleave attack. Only valid if BypassEvent() was called.
+
 
 Provides functions for conditional and action scripts:
     int GetCurrentNodeType();

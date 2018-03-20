@@ -1,0 +1,22 @@
+CC	 = gcc
+CXX      = gcc
+INCS	 = -I. -I.. -I../.. -I ../../include -I../../talib -I../../talib/nwn -I/usr/local/include
+LIBS	 = -L/usr/local/lib -lm -lz
+DEFS	 = -D_REENTRANT -D_THREAD_SAFE
+CFLAGS   = @CFLAGS@ -Werror $(DEFS) $(INCS)
+CPPFLAGS = @CPPFLAGS@ -Werror $(DEFS) $(INCS)
+LFLAGS   = @LDFLAGS@ -w -fPIC -shared -rdynamic
+
+all: nwnx_damage.so
+
+nwnx_damage.so: Hooks.o NWNXDamage.o plugin-damage.o
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
+
+clean:
+	/bin/rm -f *.o *.so *~
+
+distclean: clean
+	/bin/rm -f Makefile
+
+install: nwnx_damage.so
+	mkdir -p @prefix@/ ; install nwnx_chult.so @prefix@/

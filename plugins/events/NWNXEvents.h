@@ -41,7 +41,8 @@
 #define EVENT_TYPE_VALIDATE_CHARACTER   13
 #define EVENT_TYPE_DESTROY_OBJECT       14
 #define EVENT_TYPE_CREATE_OBJECT        15
-#define NUM_EVENT_TYPES                 16
+#define EVENT_TYPE_DEVASTATING_CRITICAL 16
+#define NUM_EVENT_TYPES                 17
 
 enum eNodeType {StartingNode, EntryNode, ReplyNode};
 

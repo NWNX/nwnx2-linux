@@ -1,6 +1,7 @@
+
 /***************************************************************************
-    Events plugin for NWNX - hooks interface
-    (c) 2006 virusman (virusman@virusman.ru)
+    NWNXFuncs.cpp - Implementation of the CNWNXFuncs class.
+    Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,26 +18,20 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-#if !defined(HookFunc_h_)
-#define HookFunc_h_
+#include "NWNXFuncs.h"
 
-#include "typedefs.h"
-#include "NWNStructures.h"
-#include "CExoLinkedList.h"
-#include "CExoLocString.h"
-#include <stdint.h>
-#include "nx_hook.h"
 
-int HookFunctions();
+void Func_GetNormalRace(CGameObject *ob, char *value)
+{
+    const CNWSCreature *cre;
 
-void CreateAreaListItem(void *pAreaList, char* sAreaResRef);
-int LoadAreaNum(void *pModule, int nAreaNum);
-void AddAreaToAllCreatures(dword nAreaID);
-void NWNXCreateArea(void *pModule, char *sResRef);
-void NWNXDestroyArea(void *pModule, dword nAreaID);
-void NWNXSetAreaName(CNWSArea *pArea, char *sNewName);
-void AddAreaToCreature(CNWSModule *pModule, CNWSCreature *pObject, dword nAreaID);
+    if (ob == NULL || (cre = ob->vtable->AsNWSCreature(ob)) == NULL || cre->cre_stats == NULL) {
+        *value = -1;
+        return;
+    }
 
-void InitConstants();
+	int n = cre->cre_is_poly ? cre->cre_poly_pre_race : cre->cre_stats->cs_race;
+    snprintf(value, strlen(value), "%d", n);
+}
 
-#endif
+/* vim: set sw=4: */

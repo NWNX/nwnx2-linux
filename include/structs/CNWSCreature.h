@@ -479,30 +479,28 @@ struct CNWSCreature_s {
     uint32_t                    field_BD4;
     uint32_t                    field_BD8;
 
-    char                        cre_poly_portrait[16];  /* 0BDC */
+    char                        cre_poly_portrait[16];  // if polymorphed, creature's portrait while polymorphed
     uint16_t                    cre_poly_unknown_1;     /* 0BEC */
     uint16_t                    cre_poly_unknown_2;     /* 0BEE */
 
-    uint32_t                    cre_is_poly;            /* 0BF0 */
+    uint32_t                    cre_is_poly;            // is creature currently polymorphed ?
+    uint16_t                    cre_poly_pre_appear;    // if polymorphed, creature's [pre-poly] appearance
+    uint8_t                     cre_poly_pre_str;       // if polymorphed, creature's [pre-poly] strength
+    uint8_t                     cre_poly_pre_con;       // if polymorphed, creature's [pre-poly] consitution
+    uint8_t                     cre_poly_pre_dex;       // if polymorphed, creature's [pre-poly] dexterity
 
-    uint16_t                    cre_poly_unknown_3;     /* 0BF4 */
+    uint8_t                     field_BF9;				/* 0BF9 */
 
-    uint8_t                     cre_poly_pre_str;       /* 0BF6 */
-    uint8_t                     cre_poly_pre_con;       /* 0BF7 */
-    uint8_t                     cre_poly_pre_dex;       /* 0BF8 */
+    uint8_t                     cre_poly_pre_race;      // if polymorphed, creature's [pre-poly] race
 
-    uint8_t                     field_BF9;
-    uint8_t                     cre_poly_race;          /* 0BFA */
-    uint8_t                     field_BFB;
+    uint8_t                     field_BFB;				/* 0BFB */
 
-    int16_t                     cre_poly_pre_hp;        /* 0BFC */
-
-    uint32_t                    cre_poly_spellid_1;     /* 0C00 */
-    uint32_t                    cre_poly_spellid_2;     /* 0C04 */
-    uint32_t                    cre_poly_spellid_3;     /* 0C08 */
-
-    uint64_t                    cre_poly_acbonus;       /* 0C0C */
-    uint64_t                    cre_poly_hpbonus;       /* 0C14 */
+    int16_t                     cre_poly_pre_hp;        // if polymorphed, creature's [pre-poly] hit points
+    uint32_t                    cre_poly_spellid_1;     // if polymorphed, creature's 1st spell-like ability
+    uint32_t                    cre_poly_spellid_2;     // if polymorphed, creature's 2nd spell-like ability
+    uint32_t                    cre_poly_spellid_3;     // if polymorphed, creature's 3rd spell-like ability
+    uint64_t                    cre_poly_acbonus;       // if polymorphed, creature's [pre-poly] armour class
+    uint64_t                    cre_poly_hpbonus;       // if polymorphed, creature's [pre-poly] hit point bonus
 
     uint8_t                     cre_poly_hasprepolycp;  /* 0C1C */
 
