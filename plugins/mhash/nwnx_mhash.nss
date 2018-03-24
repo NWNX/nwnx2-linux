@@ -1,3 +1,15 @@
+/** 
+ * Constant string to store the MD5 hash result for mhash_objhash
+ * 32Bytes + null = 2 x length of MD5 hash + 1 for NULL terminator
+ */
+const string sHashSpace = "                                ";
+
+/**
+ * Generate the MD5 hash of a game object.
+ *
+ */
+string mhash_objhash(object oItem);
+
 /**
  * Generates a UUID.
  *
@@ -55,6 +67,17 @@ string mhash_hmac(string algorithm, string password, string data);
  * sensitive data. Errors are printed to the plugin log.
  */
 string mhash_keygen_mcrypt(int length, string algorithm, string password, string salt);
+
+
+string mhash_objhash(object oItem) {
+    object oModule = GetModule();
+    // Store object and hash it
+    StoreCampaignObject("NWNX", "OBJHASH", oItem);
+    // Copy hash value into sHashSpace and save on the module
+    SetLocalString(oModule, "NWNX!MHASH!GETOBJHASH", sHashSpace);
+    // Read hash value
+    return GetLocalString(oModule, "NWNX!MHASH!GETOBJHASH");
+}
 
 string mhash_uuid()
 {

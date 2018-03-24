@@ -2,11 +2,28 @@
 
 #include "NWNXMHash.h"
 
+extern PLUGINLINK *pluginLink;
+
 #define EMPTYSTRING (char*)calloc(1, sizeof(char))
 
 CNWNXMHash::CNWNXMHash()
 {
     confKey = strdup("MHASH");
+}
+
+int systemStartup(uintptr_t p)
+{
+    HANDLE handleRCO = HookEventOptionally(EVENT_ODBC_SCO, WriteSCO);
+    if (!handleRCO)
+        printf("Cannot hook SCORCO!\n");
+
+    return 0;
+}
+
+void CNWNXODBC::GetObjHash(char *Parameters)
+{
+    Log(2, "* MD5 hash (getobjhash): %s\n", lastHash);
+    snprintf(Parameters, 33, "%s", lastHash); // lasthash is 33 bytes
 }
 
 void CNWNXMHash::bin_to_strhex(unsigned char *bin, size_t binsz, char **result)
@@ -138,7 +155,12 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
         return EMPTYSTRING;
     }
 
-    if (strcmp("HASH", Request) == 0) {
+    if (strncmp(Request, "GETOBJHASH", 10) == 0) {
+        GetObjHash(Parameters);
+        return 1;
+    }
+
+    if (strncmp(Request, "HASH", 4) == 0) {
         char *data = strtok(NULL, "¬");
         free(p);
 
@@ -149,7 +171,7 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
         return hash(hid, data);
     }
 
-    if (strcmp("HMAC", Request) == 0) {
+    if (strncmp(Request, "HMAC", 4) == 0) {
         char *passwd = strtok(NULL, "¬");
         char *data   = strtok(NULL, "¬");
         free(p);
@@ -171,7 +193,7 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
         return hmac(hid, passwd, data);
     }
 
-    if (strcmp("KEYGENMCRYPT", Request) == 0) {
+    if (strncmp(Request, "KEYGENMCRYPT", 12) == 0) {
         char *len = strtok(NULL, "¬");
         char *passwd = strtok(NULL, "¬");
         char *salt   = strtok(NULL, "¬");
@@ -232,5 +254,50 @@ bool CNWNXMHash::OnCreate(gline *nwnxConfig, const char *LogDir)
         }
     }
 
+    HookEvent(EVENT_CORE_PLUGINSLOADED, systemStartup);
+
+    if (!pluginLink) {
+        Log(0, "Plugin link not accessible\n");
+        return false;
+    } else {
+        Log(0, "Plugin link: %08lX\n", pluginLink);
+    }
+
     return true;
+}
+
+int CNWNXMHash::WriteSCO(uintptr_t p_ODBCSCORCOEvent)
+{
+    ODBCSCORCOEvent* s = (ODBCSCORCOEvent*) p_ODBCSCORCOEvent;
+
+    Log(3, "o SCO: db='%s', key='%s', player='%s', pData=%08lX, size=%d\n", s->database, s->key, s->player, s->pData, s->size);
+    if (strcmp(s->key, "OBJHASH") == 0) { // compute hash of the object
+        /* Code based on CNWNXMHash::hash() */
+        // Hard coding to MD5 as hash type (algorithm)
+        unsigned char hash[16]; // enough size for MD5
+        hashid type = MHASH_MD5;
+        // initialize hashing object
+        MHASH td = mhash_init(type);
+
+        if (td == MHASH_FAILED) {
+            Log(0, "Error: mhash_init(%d) returned MHASH_FAILED\n", type);
+            // return a string of "-1" as the hash
+            sprintf(&lastHash[0], "-1");
+            return -1;
+        }
+
+        // read data into hashing object
+        mhash(td, s->pData, s->size);
+
+        // process hash and store result in hash
+        mhash_deinit(td, hash);
+
+        // convert hash to a string and store in lastHash
+        for (unsigned int j = 0; j < mhash_get_block_size(type); j += 4) {
+            sprintf(&lastHash[j*2], "%.2x%.2x%.2x%.2x", hash[j], hash[j+1], hash[j+2], hash[j+3]);
+        }
+        Log(2, "* MD5 hash (writescorcodata, length): %s, %d\n", lastHash, s->size);
+        return 1;
+
+    return 0;
 }

@@ -14,6 +14,10 @@ public:
 
     bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
     char *OnRequest(char *gameObject, char *Request, char *Parameters);
+    int WriteSCO(uintptr_t p_ODBCSCORCOEvent);
+
+protected:
+    void GetObjHash(char *Parameters);
 
 private:
     hashid find_hashid_by_name(const char *name);
@@ -23,6 +27,9 @@ private:
     char *keygen(keygenid keygenalg, hashid algorithm, size_t keylen,
                  const char *salt,
                  const char *password);
+    // hold MD5 hash result from objhash as a string (2 x length of MD5 hash + 1 for NULL terminator)
+    char lastHash[33];
+
 };
 
 #endif /* NWNX_MHASH_H */
