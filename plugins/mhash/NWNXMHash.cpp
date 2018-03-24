@@ -271,7 +271,7 @@ int CNWNXMHash::WriteSCO(uintptr_t p_ODBCSCORCOEvent)
     ODBCSCORCOEvent* s = (ODBCSCORCOEvent*) p_ODBCSCORCOEvent;
 
     Log(3, "o SCO: db='%s', key='%s', player='%s', pData=%08lX, size=%d\n", s->database, s->key, s->player, s->pData, s->size);
-    if (strcmp(s->key, "OBJHASH") == 0) { // compute hash of the object
+    if (strncmp("OBJHASH", s->key, 7) == 0) { // compute hash of the object
         /* Code based on CNWNXMHash::hash() */
         // Hard coding to MD5 as hash type (algorithm)
         unsigned char hash[16]; // enough size for MD5
