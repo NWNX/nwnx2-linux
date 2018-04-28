@@ -49,7 +49,7 @@ void* CNWNXResMan::DemandRes(CExoResMan *pResMan, CRes *cRes, const CResRef &res
         return NULL;
 
     if (cRes == NULL) {
-        Log(5, "o Request for internal resource = %s (type %X)\n", resRef, resType);
+        Log(5, "o Request for internal resource = %s (type %X)\n", resRef.GetResRefStr(), resType);
         return NULL;
     }
 
