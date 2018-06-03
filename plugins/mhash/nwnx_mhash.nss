@@ -7,6 +7,7 @@ const string sHashSpace = "                                ";
 /**
  * Generate the MD5 hash of a game object.
  *
+ * Returned value is a 16 character string (MD5 hash) that is null terminated.
  */
 string mhash_objhash(object oItem);
 
@@ -90,7 +91,7 @@ string mhash_uuid()
 
 string mhash_hash(string algorithm, string data)
 {
-    SetLocalString(GetModule(), "NWNX!MHASH!HASH", algorithm + "¬" + data);
+    SetLocalString(GetModule(), "NWNX!MHASH!HASH", algorithm + "ï¿½" + data);
     string ret = GetLocalString(GetModule(), "NWNX!MHASH!HASH");
     // We delete it to make sure we dont leak anything to other scripts that could read the hash.
     DeleteLocalString(GetModule(), "NWNX!MHASH!HASH");
@@ -99,7 +100,7 @@ string mhash_hash(string algorithm, string data)
 
 string mhash_hmac(string algorithm, string password, string data)
 {
-    SetLocalString(GetModule(), "NWNX!MHASH!HMAC", algorithm + "¬" + password + "¬" + data);
+    SetLocalString(GetModule(), "NWNX!MHASH!HMAC", algorithm + "ï¿½" + password + "ï¿½" + data);
     string ret = GetLocalString(GetModule(), "NWNX!MHASH!HMAC");
     // We delete it to make sure we dont leak anything to other scripts that could read the hash.
     DeleteLocalString(GetModule(), "NWNX!MHASH!HMAC");
@@ -109,8 +110,8 @@ string mhash_hmac(string algorithm, string password, string data)
 string mhash_keygen_mcrypt(int length, string algorithm, string password, string salt)
 {
     SetLocalString(GetModule(), "NWNX!MHASH!KEYGENMCRYPT",
-                   algorithm + "¬" + IntToString(length) + "¬" +
-                   password + "¬" + salt);
+                   algorithm + "ï¿½" + IntToString(length) + "ï¿½" +
+                   password + "ï¿½" + salt);
     string ret = GetLocalString(GetModule(), "NWNX!MHASH!KEYGENMCRYPT");
     // We delete it to make sure we dont leak anything to other scripts that could read the hash.
     DeleteLocalString(GetModule(), "NWNX!MHASH!KEYGENMCRYPT");

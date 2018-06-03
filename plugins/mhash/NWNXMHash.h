@@ -27,7 +27,7 @@ private:
     char *keygen(keygenid keygenalg, hashid algorithm, size_t keylen,
                  const char *salt,
                  const char *password);
-    // hold MD5 hash result from objhash as a string (2 x length of MD5 hash + 1 for NULL terminator)
+    // hold MD5 hash result from objhash as a 16 character string (2 x length of MD5 hash + 1 for NULL terminator)
     char lastHash[33];
 
 };

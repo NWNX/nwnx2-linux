@@ -125,8 +125,8 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
     Log(1, "Request: %s\n", Request);
     Log(2, "Parameters: %s\n", Parameters);
 
-    /* MHASH!HASH algo¬data
-     * MHASH!HMAC algo¬pass¬data
+    /* MHASH!HASH algoï¿½data
+     * MHASH!HMAC algoï¿½passï¿½data
      * MHASH!UUID
      */
 
@@ -139,7 +139,7 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
     }
 
     char *p = strdup(Parameters);
-    char *algo = strtok(p, "¬");
+    char *algo = strtok(p, "ï¿½");
 
     if (algo == NULL) {
         Log(0, "Error: algorithm missing in request\n");
@@ -161,7 +161,7 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
     }
 
     if (strncmp(Request, "HASH", 4) == 0) {
-        char *data = strtok(NULL, "¬");
+        char *data = strtok(NULL, "ï¿½");
         free(p);
 
         // Allow empty strings as data
@@ -172,8 +172,8 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
     }
 
     if (strncmp(Request, "HMAC", 4) == 0) {
-        char *passwd = strtok(NULL, "¬");
-        char *data   = strtok(NULL, "¬");
+        char *passwd = strtok(NULL, "ï¿½");
+        char *data   = strtok(NULL, "ï¿½");
         free(p);
 
         if ((passwd == NULL || strlen(passwd) == 0)) {
@@ -194,9 +194,9 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
     }
 
     if (strncmp(Request, "KEYGENMCRYPT", 12) == 0) {
-        char *len = strtok(NULL, "¬");
-        char *passwd = strtok(NULL, "¬");
-        char *salt   = strtok(NULL, "¬");
+        char *len = strtok(NULL, "ï¿½");
+        char *passwd = strtok(NULL, "ï¿½");
+        char *salt   = strtok(NULL, "ï¿½");
 
         if (len == NULL || (passwd == NULL || strlen(passwd) == 0) || (salt == NULL || strlen(salt) == 0)) {
             Log(0, "Error: malformed request, not enough parameters\n");
@@ -271,10 +271,9 @@ int CNWNXMHash::WriteSCO(uintptr_t p_ODBCSCORCOEvent)
     ODBCSCORCOEvent* s = (ODBCSCORCOEvent*) p_ODBCSCORCOEvent;
 
     Log(3, "o SCO: db='%s', key='%s', player='%s', pData=%08lX, size=%d\n", s->database, s->key, s->player, s->pData, s->size);
-    if (strncmp("OBJHASH", s->key, 7) == 0) { // compute hash of the object
+    if (strncmp("OBJHASH", s->key, 7) == 0) { // compute MD5 hash of the object
         /* Code based on CNWNXMHash::hash() */
         // Hard coding to MD5 as hash type (algorithm)
-        unsigned char hash[16]; // enough size for MD5
         hashid type = MHASH_MD5;
         // initialize hashing object
         MHASH td = mhash_init(type);
@@ -290,6 +289,7 @@ int CNWNXMHash::WriteSCO(uintptr_t p_ODBCSCORCOEvent)
         mhash(td, s->pData, s->size);
 
         // process hash and store result in hash
+        unsigned char hash[16]; // enough size for MD5
         mhash_deinit(td, hash);
 
         // convert hash to a string and store in lastHash
