@@ -434,6 +434,7 @@ int FindHookFunctions()
 
     if (pGetDead && fixes.GetConfInteger("hp_limit")) {
         d_enable_write((dword) pGetDead);
+        d_enable_write((dword) pGetIsPCDying);
         char hpLimit = (char)fixes.GetConfInteger("hp_limit");
         if (hpLimit > 0) hpLimit = -10;
         fixes.Log(2, "HP limit = %d\n", hpLimit);
