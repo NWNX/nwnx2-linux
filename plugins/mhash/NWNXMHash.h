@@ -17,9 +17,6 @@ public:
     bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
     char *OnRequest(char *gameObject, char *Request, char *Parameters);
 
-//protected:
-//    void GetObjHash(char *Parameters);
-
 private:
     hashid find_hashid_by_name(const char *name);
     void bin_to_strhex(unsigned char *bin, size_t binsz, char **result);
