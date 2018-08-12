@@ -5,6 +5,11 @@
 extern PLUGINLINK *pluginLink;
 
 #define EMPTYSTRING (char*)calloc(1, sizeof(char))
+#define DEBUG 0
+
+// hold MD5 hash result from objhash as a 16 character string (2 x length of MD5 hash + 1 for NULL terminator)
+char lastHash[33];
+int WriteSCO(uintptr_t p_ODBCSCORCOEvent);
 
 CNWNXMHash::CNWNXMHash()
 {
@@ -18,12 +23,6 @@ int systemStartup(uintptr_t p)
         printf("Cannot hook SCORCO!\n");
 
     return 0;
-}
-
-void CNWNXODBC::GetObjHash(char *Parameters)
-{
-    Log(2, "* MD5 hash (getobjhash): %s\n", lastHash);
-    snprintf(Parameters, 33, "%s", lastHash); // lasthash is 33 bytes
 }
 
 void CNWNXMHash::bin_to_strhex(unsigned char *bin, size_t binsz, char **result)
@@ -125,6 +124,12 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
     Log(1, "Request: %s\n", Request);
     Log(2, "Parameters: %s\n", Parameters);
 
+    if (strncmp(Request, "GETOBJHASH", 10) == 0) {
+    	Log(2, "* MD5 hash (getobjhash): %s\n", lastHash);
+	snprintf(Parameters, 33, "%s", lastHash);
+	return Parameters;;
+    }
+
     /* MHASH!HASH algo�data
      * MHASH!HMAC algo�pass�data
      * MHASH!UUID
@@ -153,11 +158,6 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
         Log(0, "Error: request for unknown algorithm %s\n", algo);
         free(p);
         return EMPTYSTRING;
-    }
-
-    if (strncmp(Request, "GETOBJHASH", 10) == 0) {
-        GetObjHash(Parameters);
-        return 1;
     }
 
     if (strncmp(Request, "HASH", 4) == 0) {
@@ -266,11 +266,13 @@ bool CNWNXMHash::OnCreate(gline *nwnxConfig, const char *LogDir)
     return true;
 }
 
-int CNWNXMHash::WriteSCO(uintptr_t p_ODBCSCORCOEvent)
+int WriteSCO(uintptr_t p_ODBCSCORCOEvent)
 {
     ODBCSCORCOEvent* s = (ODBCSCORCOEvent*) p_ODBCSCORCOEvent;
 
-    Log(3, "o SCO: db='%s', key='%s', player='%s', pData=%08lX, size=%d\n", s->database, s->key, s->player, s->pData, s->size);
+    if (DEBUG > 0) {
+        printf("DEBUG: MHASH WriteSCO: db='%s', key='%s', player='%s', pData=%08lX, size=%d\n", s->database, s->key, s->player, (unsigned char *)s->pData, s->size);
+    }
     if (strncmp("OBJHASH", s->key, 7) == 0) { // compute MD5 hash of the object
         /* Code based on CNWNXMHash::hash() */
         // Hard coding to MD5 as hash type (algorithm)
@@ -279,7 +281,7 @@ int CNWNXMHash::WriteSCO(uintptr_t p_ODBCSCORCOEvent)
         MHASH td = mhash_init(type);
 
         if (td == MHASH_FAILED) {
-            Log(0, "Error: mhash_init(%d) returned MHASH_FAILED\n", type);
+            printf("Error: mhash_init(%d) returned MHASH_FAILED\n", type);
             // return a string of "-1" as the hash
             sprintf(&lastHash[0], "-1");
             return -1;
@@ -296,8 +298,12 @@ int CNWNXMHash::WriteSCO(uintptr_t p_ODBCSCORCOEvent)
         for (unsigned int j = 0; j < mhash_get_block_size(type); j += 4) {
             sprintf(&lastHash[j*2], "%.2x%.2x%.2x%.2x", hash[j], hash[j+1], hash[j+2], hash[j+3]);
         }
-        Log(2, "* MD5 hash (writescorcodata, length): %s, %d\n", lastHash, s->size);
+        if (DEBUG > 0) {
+            printf("DEBUG: MD5 hash saved (hash, length): %s, %d\n", lastHash, s->size);
+        }
         return 1;
+    }
 
     return 0;
 }
+
