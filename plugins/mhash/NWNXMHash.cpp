@@ -130,8 +130,8 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
 	return Parameters;;
     }
 
-    /* MHASH!HASH algo�data
-     * MHASH!HMAC algo�pass�data
+    /* MHASH!HASH algo¬data
+     * MHASH!HMAC algo¬pass¬data
      * MHASH!UUID
      */
 
@@ -144,7 +144,7 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
     }
 
     char *p = strdup(Parameters);
-    char *algo = strtok(p, "�");
+    char *algo = strtok(p, "¬");
 
     if (algo == NULL) {
         Log(0, "Error: algorithm missing in request\n");
@@ -161,7 +161,7 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
     }
 
     if (strncmp(Request, "HASH", 4) == 0) {
-        char *data = strtok(NULL, "�");
+        char *data = strtok(NULL, "¬");
         free(p);
 
         // Allow empty strings as data
@@ -172,8 +172,8 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
     }
 
     if (strncmp(Request, "HMAC", 4) == 0) {
-        char *passwd = strtok(NULL, "�");
-        char *data   = strtok(NULL, "�");
+        char *passwd = strtok(NULL, "¬");
+        char *data   = strtok(NULL, "¬");
         free(p);
 
         if ((passwd == NULL || strlen(passwd) == 0)) {
@@ -194,9 +194,9 @@ char *CNWNXMHash::OnRequest(char *gameObject, char *Request, char *Parameters)
     }
 
     if (strncmp(Request, "KEYGENMCRYPT", 12) == 0) {
-        char *len = strtok(NULL, "�");
-        char *passwd = strtok(NULL, "�");
-        char *salt   = strtok(NULL, "�");
+        char *len = strtok(NULL, "¬");
+        char *passwd = strtok(NULL, "¬");
+        char *salt   = strtok(NULL, "¬");
 
         if (len == NULL || (passwd == NULL || strlen(passwd) == 0) || (salt == NULL || strlen(salt) == 0)) {
             Log(0, "Error: malformed request, not enough parameters\n");

@@ -91,7 +91,7 @@ string mhash_uuid()
 
 string mhash_hash(string algorithm, string data)
 {
-    SetLocalString(GetModule(), "NWNX!MHASH!HASH", algorithm + "�" + data);
+    SetLocalString(GetModule(), "NWNX!MHASH!HASH", algorithm + "¬" + data);
     string ret = GetLocalString(GetModule(), "NWNX!MHASH!HASH");
     // We delete it to make sure we dont leak anything to other scripts that could read the hash.
     DeleteLocalString(GetModule(), "NWNX!MHASH!HASH");
@@ -100,7 +100,7 @@ string mhash_hash(string algorithm, string data)
 
 string mhash_hmac(string algorithm, string password, string data)
 {
-    SetLocalString(GetModule(), "NWNX!MHASH!HMAC", algorithm + "�" + password + "�" + data);
+    SetLocalString(GetModule(), "NWNX!MHASH!HMAC", algorithm + "¬" + password + "¬" + data);
     string ret = GetLocalString(GetModule(), "NWNX!MHASH!HMAC");
     // We delete it to make sure we dont leak anything to other scripts that could read the hash.
     DeleteLocalString(GetModule(), "NWNX!MHASH!HMAC");
@@ -110,8 +110,8 @@ string mhash_hmac(string algorithm, string password, string data)
 string mhash_keygen_mcrypt(int length, string algorithm, string password, string salt)
 {
     SetLocalString(GetModule(), "NWNX!MHASH!KEYGENMCRYPT",
-                   algorithm + "�" + IntToString(length) + "�" +
-                   password + "�" + salt);
+                   algorithm + "¬" + IntToString(length) + "¬" +
+                   password + "¬" + salt);
     string ret = GetLocalString(GetModule(), "NWNX!MHASH!KEYGENMCRYPT");
     // We delete it to make sure we dont leak anything to other scripts that could read the hash.
     DeleteLocalString(GetModule(), "NWNX!MHASH!KEYGENMCRYPT");
