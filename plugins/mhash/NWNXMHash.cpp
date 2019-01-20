@@ -8,7 +8,7 @@ extern PLUGINLINK *pluginLink;
 #define DEBUG 0
 
 // hold MD5 hash result from objhash as a 16 character string (2 x length of MD5 hash + 1 for NULL terminator)
-char lastHash[33];
+char lastHash[33] = {0};
 int WriteSCO(uintptr_t p_ODBCSCORCOEvent);
 
 CNWNXMHash::CNWNXMHash()
@@ -291,7 +291,7 @@ int WriteSCO(uintptr_t p_ODBCSCORCOEvent)
         mhash(td, s->pData, s->size);
 
         // process hash and store result in hash
-        unsigned char hash[16]; // enough size for MD5
+        unsigned char hash[16] = {0}; // enough size for MD5
         mhash_deinit(td, hash);
 
         // convert hash to a string and store in lastHash
