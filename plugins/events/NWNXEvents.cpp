@@ -65,7 +65,6 @@ bool CNWNXEvents::OnCreate(gline *config, const char* LogDir)
         for (i = 0; i < NUM_EVENT_TYPES; i++) {
             if (strlen((*nwnxConfig)[confKey]["event_script"].c_str())) {
                 eventScripts[i]     = strdup((*nwnxConfig)[confKey]["event_script"].c_str());
-                eventScripts[i][16] = 0;
             }
         }
         if (atoi((*nwnxConfig)[confKey]["enable_unsafe_events"].c_str()))
