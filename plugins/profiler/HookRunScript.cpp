@@ -430,7 +430,7 @@ void CrossAreaHookProc(const char *pThis, int depth, int a2, void *pPathfindInfo
 
 void MyPathfind(const char *gameArea)
 {
-    char* tag = (char*) gameArea + 0xb4;
+    char* tag = (char*) gameArea + 0xb0;
     //profiler.Log(1, "MyPathfind: %s\n", tag);
 
     if (tag != NULL) {
