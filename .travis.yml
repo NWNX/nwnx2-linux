@@ -15,11 +15,10 @@ addons:
     - libmysqlclient-dev:i386
     - libpq-dev:i386
     - libssl-dev:i386
-    - libsqlite3-dev:i386
     - gperf
-    - openjdk-7-jre-headless:i386
-    - openjdk-7-jre:i386
-    - openjdk-7-jdk:i386
+    - openjdk-8-jre-headless:i386
+    - openjdk-8-jre:i386
+    - openjdk-8-jdk:i386
     - libsctp1:i386
     - ant
 script:
@@ -29,4 +28,4 @@ after_failure:
 - cat CMakeFiles/CMakeError.log
 env:
   global:
-  - JAVA_HOME="/usr/lib/jvm/java-7-openjdk-i386"
+  - JAVA_HOME="/usr/lib/jvm/java-8-openjdk-i386"
