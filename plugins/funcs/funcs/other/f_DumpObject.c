@@ -1,4 +1,3 @@
-
 /***************************************************************************
     NWNXFuncs.cpp - Implementation of the CNWNXFuncs class.
     Copyright (C) 2007 Doug Swarin (zac@intertex.net)
@@ -19,57 +18,52 @@
  ***************************************************************************/
 
 #include "NWNXFuncs.h"
-
-char *stpcpy(char *dst, const char *src);
+#include "hexdump.h"
 
 
 void Func_DumpObject(CGameObject *ob, char *value)
 {
-    int i, j;
-    char buf[2048], chbuf[16], prbuf[32], *p;
-    unsigned char *dump = (unsigned char *)ob;
+    char buf[HDBUFSIZE];
+    int osize = HDBUFSIZE;	// object size. dump this much (round to line len)
 
-    sprintf(buf, "object: %p  tag: %s  type: %d", ob, ob->tag, ob->type);
-    p = buf + strlen(buf);
+	switch(ob->type) {
+	  case OBJECT_TYPE_AREA:
+		// global CNWSArea struct doesn't have tag or resref, as nwnx_areas does
+		osize = sizeof(CNWSArea);
+		sprintf(buf, "DUMP: AREA (object type %d): %p, %d bytes",
+			ob->type, ob, osize);
+		break;
+	  case OBJECT_TYPE_CREATURE:
+		osize = sizeof(CNWSCreature);
+		sprintf(buf, "DUMP: CREATURE (object type %d): tag: %s  resref: %s  id: %u (%#x)  stats: %p - %p, %d bytes",
+			ob->type, ob->tag, ob->resref, ob->id, ob->id, ((CNWSCreature *)ob)->cre_stats, ob, osize);
+		break;
+	  case OBJECT_TYPE_ITEM:
+		osize = sizeof(CNWSItem);
+		sprintf(buf, "DUMP: ITEM (object type %d): tag: %s  resref: %s  id: %u (%#x) - %p, %d bytes",
+			ob->type, ob->tag, ob->resref, ob->id, ob->id, ob, osize);
+		break;
+	  case OBJECT_TYPE_MODULE:
+		osize = sizeof(CNWSModule);
+		sprintf(buf, "DUMP: MODULE (object type %d): tag: %s  resref: %s  id: %u (%#x) - %p, %d bytes",
+			ob->type, ob->tag, ob->resref, ob->id, ob->id, ob, osize);
+		break;
+	  case OBJECT_TYPE_PLACEABLE:
+		osize = sizeof(CNWSPlaceable);
+		sprintf(buf, "DUMP: PLACEABLE (object type %d): tag: %s  resref: %s  id: %u (%#x) - %p, %d bytes",
+			ob->type, ob->tag, ob->resref, ob->id, ob->id, ob, osize);
+		break;
+	  case OBJECT_TYPE_WAYPOINT:
+		osize = sizeof(CNWSWaypoint);
+		sprintf(buf, "DUMP: WAYPOINT (object type %d): tag: %s  resref: %s  id: %u (%#x) - %p, %d bytes",
+			ob->type, ob->tag, ob->resref, ob->id, ob->id, ob, osize);
+		break;
+	  default:
+		sprintf(buf, "unrecognized object (type %d)  tag: %s  resref: %s  id: %u (%#x) - %p, %d bytes",
+			ob->type, ob->tag, ob->resref, ob->id, ob->id, ob, osize);
+	}
 
-    if (ob->type == 5) {
-        sprintf(p, "  creature: %p", ((CNWSCreature *)ob)->cre_stats);
-        p = buf + strlen(buf);
-    }
-
-    p = stpcpy(p, "\n");
-
-    for (i = 0; i < 16; i++) {
-        prbuf[0] = 0;
-
-        for (j = (i * 256); j < ((i + 1) * 256); j++) {
-            if (j % 16 == 0) {
-                snprintf(chbuf, sizeof(chbuf), "\n0x%04X:  ", j);
-                strcat(prbuf, chbuf);
-                p = stpcpy(p, prbuf);
-
-                snprintf(prbuf, sizeof(prbuf), "|................|");
-            }
-
-            if (j % 8 == 7)
-                snprintf(chbuf, sizeof(chbuf), "%02x  ", dump[j]);
-            else
-                snprintf(chbuf, sizeof(chbuf), "%02x ", dump[j]);
-
-            p = stpcpy(p, chbuf);
-
-            if (dump[j] >= ' ' && dump[j] < 127)
-                prbuf[(j % 16) + 1] = dump[j];
-        }
-
-        p = stpcpy(p, prbuf);
-        p = stpcpy(p, "\n");
-
-        nx_log(NX_LOG_DEBUG, 0, "%s", buf);
-
-        p = buf;
-    }
+	nx_log(NX_LOG_DEBUG, 0, buf);
+	nx_log(NX_LOG_DEBUG, 0, "\n%s", hexdump((void *)ob, osize));
+	nx_log(NX_LOG_DEBUG, 0, "DUMP ENDS ----------------\n");
 }
-
-
-/* vim: set sw=4: */

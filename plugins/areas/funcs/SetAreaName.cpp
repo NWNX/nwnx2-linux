@@ -1,7 +1,7 @@
-
 /***************************************************************************
-    NWNXFuncs.cpp - Implementation of the CNWNXFuncs class.
-    Copyright (C) 2007 Doug Swarin (zac@intertex.net)
+    Areas plugin for NWNX
+    (c) 2010 virusman (virusman@virusman.ru)
+    modifications 2018 by niv, xorbaxian
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,34 +18,28 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-#include "NWNXFuncs.h"
+#include "../NWNXAreas.h"
 
-
-static unsigned int Area_Current = 0;
-static CNWSModule *Area_Module = NULL;
-
-
-nwn_objid_t Func_GetFirstArea(CGameObject *ob)
+void NWNXSetAreaName(CNWSArea *pArea, char *sNewName)
 {
-    if (Area_Module == NULL) {
-        Area_Module = CServerExoAppInternal__GetModule((*NWN_AppManager)->app_server->srv_internal);
+	areas.Log(0, "*** SetAreaName is non-functional ***\n");
 
-        if (Area_Module == NULL)
-            return OBJECT_INVALID;
-    }
+/* broken since nwnx_areas rewrite
 
-    Area_Current = 0;
-    return Func_GetNextArea(ob);
+	areas.Log(3, "SetAreaName: %x, '%s'\n", pArea->GameObject.ObjectID, sNewName);
+
+	lsName->AddString(0, (CExoString *)0, newstr);
+	CExoLocString *lsName = (CExoLocString *)&pArea->Name;
+	if (!lsName)
+		return;
+	int len = strlen(sNewName);
+	char *newstr = new char[len + 1];
+	strncpy(newstr, sNewName, len);
+	newstr[len] = 0;
+
+    UpdateCreatures();
+    UpdateDMs();
+*/
 }
 
-
-nwn_objid_t Func_GetNextArea(CGameObject *ob)
-{
-    if (Area_Current >= Area_Module->mod_areas_len)
-        return OBJECT_INVALID;
-
-    return Area_Module->mod_areas[Area_Current++];
-}
-
-
-/* vim: set sw=4: */
+/* vim: set ts=4 sw=4: */

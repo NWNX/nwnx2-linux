@@ -8,15 +8,12 @@
 #include <memory.h>
 #include <stddef.h>
 #include <unistd.h>
-
 #include <string>
 #include <future>
 #include <cassert>
-
 #include "gline.h"
-
 #include "pluginlink.h"
-
+#include "area_info.h"
 #include "funcs/Funcs.h"
 
 class CNWNXAreas : public CNWNXBase

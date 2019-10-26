@@ -1,7 +1,7 @@
-
 /***************************************************************************
-    NWNXFuncs.cpp - Implementation of the CNWNXFuncs class.
-    Copyright (C) 2007 Doug Swarin (zac@intertex.net)
+    Areas plugin for NWNX
+    (c) 2010 virusman (virusman@virusman.ru)
+    modifications 2018 by niv, xorbaxian
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,34 +18,16 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  ***************************************************************************/
 
-#include "NWNXFuncs.h"
+#include "../NWNXAreas.h"
 
-
-static unsigned int Area_Current = 0;
-static CNWSModule *Area_Module = NULL;
-
-
-nwn_objid_t Func_GetFirstArea(CGameObject *ob)
+char *NWNXGetAreaTileset(void *pModule, dword areaId)
 {
-    if (Area_Module == NULL) {
-        Area_Module = CServerExoAppInternal__GetModule((*NWN_AppManager)->app_server->srv_internal);
-
-        if (Area_Module == NULL)
-            return OBJECT_INVALID;
-    }
-
-    Area_Current = 0;
-    return Func_GetNextArea(ob);
+	if (areaId <= 0 || areaId == OBJECT_INVALID) {
+		areas.Log(1, "Invalid area ID passed to NWNXGetAreaTileset\n");//debug
+		return (char *)0;
+	}
+	area_info_s *ap = (area_info_s *)g_pAppManager->ServerExoApp->GetAreaByGameObjectID(areaId);
+	return ap->tileset;
 }
 
-
-nwn_objid_t Func_GetNextArea(CGameObject *ob)
-{
-    if (Area_Current >= Area_Module->mod_areas_len)
-        return OBJECT_INVALID;
-
-    return Area_Module->mod_areas[Area_Current++];
-}
-
-
-/* vim: set sw=4: */
+/* vim: set ts=4 sw=4: */
