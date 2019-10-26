@@ -7,6 +7,8 @@
 #include <mhash.h>
 #include <uuid/uuid.h>
 
+#include "odmbc/pluginlink.h"
+
 class CNWNXMHash : public CNWNXBase
 {
 public:
@@ -23,6 +25,7 @@ private:
     char *keygen(keygenid keygenalg, hashid algorithm, size_t keylen,
                  const char *salt,
                  const char *password);
+
 };
 
 #endif /* NWNX_MHASH_H */

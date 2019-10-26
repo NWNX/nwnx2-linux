@@ -1,3 +1,16 @@
+/** 
+ * Constant string to store the MD5 hash result for mhash_objhash
+ * 32Bytes + null = 2 x length of MD5 hash + 1 for NULL terminator
+ */
+const string sHashSpace = "                                ";
+
+/**
+ * Generate the MD5 hash of a game object.
+ *
+ * Returned value is a 16 character string (MD5 hash) that is null terminated.
+ */
+string mhash_objhash(object oItem);
+
 /**
  * Generates a UUID.
  *
@@ -56,6 +69,17 @@ string mhash_hmac(string algorithm, string password, string data);
  */
 string mhash_keygen_mcrypt(int length, string algorithm, string password, string salt);
 
+
+string mhash_objhash(object oItem) {
+    object oModule = GetModule();
+    // Store object and hash it
+    StoreCampaignObject("NWNX", "OBJHASH", oItem);
+    // Copy hash value into sHashSpace and save on the module
+    SetLocalString(oModule, "NWNX!MHASH!GETOBJHASH", sHashSpace);
+    // Read hash value
+    return GetLocalString(oModule, "NWNX!MHASH!GETOBJHASH");
+}
+
 string mhash_uuid()
 {
     SetLocalString(GetModule(), "NWNX!MHASH!UUID", " ");
@@ -67,7 +91,7 @@ string mhash_uuid()
 
 string mhash_hash(string algorithm, string data)
 {
-    SetLocalString(GetModule(), "NWNX!MHASH!HASH", algorithm + "¬" + data);
+    SetLocalString(GetModule(), "NWNX!MHASH!HASH", algorithm + "Â¬" + data);
     string ret = GetLocalString(GetModule(), "NWNX!MHASH!HASH");
     // We delete it to make sure we dont leak anything to other scripts that could read the hash.
     DeleteLocalString(GetModule(), "NWNX!MHASH!HASH");
@@ -76,7 +100,7 @@ string mhash_hash(string algorithm, string data)
 
 string mhash_hmac(string algorithm, string password, string data)
 {
-    SetLocalString(GetModule(), "NWNX!MHASH!HMAC", algorithm + "¬" + password + "¬" + data);
+    SetLocalString(GetModule(), "NWNX!MHASH!HMAC", algorithm + "Â¬" + password + "Â¬" + data);
     string ret = GetLocalString(GetModule(), "NWNX!MHASH!HMAC");
     // We delete it to make sure we dont leak anything to other scripts that could read the hash.
     DeleteLocalString(GetModule(), "NWNX!MHASH!HMAC");
@@ -86,8 +110,8 @@ string mhash_hmac(string algorithm, string password, string data)
 string mhash_keygen_mcrypt(int length, string algorithm, string password, string salt)
 {
     SetLocalString(GetModule(), "NWNX!MHASH!KEYGENMCRYPT",
-                   algorithm + "¬" + IntToString(length) + "¬" +
-                   password + "¬" + salt);
+                   algorithm + "Â¬" + IntToString(length) + "Â¬" +
+                   password + "Â¬" + salt);
     string ret = GetLocalString(GetModule(), "NWNX!MHASH!KEYGENMCRYPT");
     // We delete it to make sure we dont leak anything to other scripts that could read the hash.
     DeleteLocalString(GetModule(), "NWNX!MHASH!KEYGENMCRYPT");
