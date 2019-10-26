@@ -102,6 +102,17 @@ public:
     int GetDebugLevel();
 
     ///////////////////////////////////////////////////////////////////////////
+    // Function: SetLogTimestamp (int value);
+    // Description:
+    //  Helper function to alter the instance's timestamp logging independent of
+    //  the global level.  Returns the old debuglevel.
+    // Parameters:
+    //  value	: 0 for no timestamps, 1 for timestamps
+    int SetLogTimestamp(int level);
+
+    int GetLogTimestamp();
+
+    ///////////////////////////////////////////////////////////////////////////
     // Function: BaseConf ();
     // Description:
     //  This function parses the generic config options: "debuglevel", etc.
@@ -114,6 +125,7 @@ protected:
     gline* nwnxConfig;
     const char * confKey;
     int debuglevel;
+    int logTimestamp;
 
 private:
 

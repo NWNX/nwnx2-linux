@@ -31,6 +31,7 @@ CNWNXBase::CNWNXBase()
     // m_hFile = INVALID_HANDLE_VALUE;
     m_fFile = NULL;
     debuglevel = 0;
+    logTimestamp = 0;
 }
 
 CNWNXBase::~CNWNXBase()
@@ -69,10 +70,19 @@ unsigned long CNWNXBase::OnRequestObject(char *gameObject, char* Request)
 
 void CNWNXBase::Log(int priority, const char *pcMsg, ...)
 {
-    va_list argList;
-    char acBuffer[2048];
+    va_list    argList;
+    char       acBuffer[2048];
+    time_t     now = time(0);
+    struct tm  tstruct;
 
     if (m_fFile && priority <= debuglevel) {
+        if (logTimestamp == 1) {
+            // build timestamp
+
+            tstruct = *localtime(&now);
+            strftime(acBuffer, sizeof(acBuffer), "[%Y-%m-%d %X] ", &tstruct);
+            fputs(acBuffer, m_fFile);
+        }
         // build up the string
         va_start(argList, pcMsg);
         vsnprintf(acBuffer, 2047, pcMsg, argList);
@@ -121,6 +131,20 @@ int CNWNXBase::GetDebugLevel()
     return debuglevel;
 }
 
+int CNWNXBase::SetLogTimestamp( int val ) {
+    int temp = logTimestamp;
+    if (val != temp) {
+        logTimestamp = val;
+        Log(0, "* logging timestamps changed to %d\n", temp);
+    }
+
+    return temp;
+}
+
+int CNWNXBase::GetLogTimestamp() {
+    return logTimestamp;
+}
+
 void CNWNXBase::BaseConf()
 {
 
@@ -130,4 +154,13 @@ void CNWNXBase::BaseConf()
     if (nwnxConfig->exists(confKey, "debuglevel")) {
         SetDebugLevel(atoi((char*)((*nwnxConfig)[confKey]["debuglevel"].c_str())));
     }
+    logTimestamp = 0;
+    Log(3, "* logging full timestamps disabled by default\n");
+    Log(3, "* setting from INI file - %c\n", (*nwnxConfig)[confKey]["logTimestamp"].c_str()[0] );
+
+    if (nwnxConfig->exists(confKey, "logTimestamp") && (toupper((*nwnxConfig)[confKey]["logTimestamp"].c_str()[0])=='Y' || (*nwnxConfig)[confKey]["logTimestamp"].c_str()[0] =='1')) {
+        Log(0, "* logging full timestamps requested\n");
+        logTimestamp = 1;
+    }
+
 }
